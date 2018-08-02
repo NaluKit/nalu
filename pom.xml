@@ -34,6 +34,7 @@
   <modules>
     <module>nalu-core</module>
     <module>nalu-react</module>
+    <module>nalu-mvp</module>
   </modules>
 
   <inceptionYear>2018</inceptionYear>
@@ -80,13 +81,15 @@
     <!--</repository>-->
   <!--</distributionManagement>-->
 
-  <!--<properties>-->
+  <properties>
     <!--<github.global.server>github</github.global.server>-->
 
-    <!--<junit.version>4.12</junit.version>-->
+    <junit.version>4.12</junit.version>
 
-    <!--<maven.compiler.source>1.8</maven.compiler.source>-->
-    <!--<maven.compiler.target>1.8</maven.compiler.target>-->
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <elemental2.version>1.0.0-RC1</elemental2.version>
 
     <!--<plugin.version.github.site>0.12</plugin.version.github.site>-->
     <!--<plugin.version.gpg.maven>1.6</plugin.version.gpg.maven>-->
@@ -98,9 +101,9 @@
     <!--<plugin.version.source>3.0.1</plugin.version.source>-->
     <!--<plugin.version.surfire>2.21.0</plugin.version.surfire>-->
 
-    <!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!--<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
-  <!--</properties>-->
+  </properties>
 
 
   <!--<build>-->
