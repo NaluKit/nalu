@@ -28,9 +28,9 @@
     <version>0.0.1</version>
   </parent>
 
-  <artifactId>nalu-mvp</artifactId>
+  <artifactId>nalu</artifactId>
   <packaging>jar</packaging>
-  <description>Event Bus For GWT 2 + 3 based on APT</description>
+  <description>Model View Presenter with Event Bus For GWT 2 + 3 based on APT</description>
 
   <inceptionYear>2018</inceptionYear>
 
@@ -65,16 +65,16 @@
     <!--<url>https://github.com/mvp4g/mvp4g2/issues</url>-->
   <!--</issueManagement>-->
 
-  <!--<properties>-->
+  <properties>
     <!--<elemental2.version>1.0.0-RC1</elemental2.version>-->
-  <!--</properties>-->
+  </properties>
 
-  <!--<dependencies>-->
-    <!--<dependency>-->
-      <!--<groupId>com.google.elemental2</groupId>-->
-      <!--<artifactId>elemental2-dom</artifactId>-->
-      <!--<version>${elemental2.version}</version>-->
-    <!--</dependency>-->
+  <dependencies>
+    <dependency>
+      <groupId>com.google.elemental2</groupId>
+      <artifactId>elemental2-dom</artifactId>
+      <version>${elemental2.version}</version>
+    </dependency>
     <!--<dependency>-->
       <!--<groupId>junit</groupId>-->
       <!--<artifactId>junit</artifactId>-->
@@ -87,46 +87,46 @@
       <!--<version>4.12</version>-->
       <!--<scope>compile</scope>-->
     <!--</dependency>-->
-  <!--</dependencies>-->
+  </dependencies>
 
 
-  <!--<build>-->
-    <!--<resources>-->
-      <!--<resource>-->
-        <!--<directory>src/main/java</directory>-->
-        <!--<includes>-->
-          <!--<include>**/core/**</include>-->
-        <!--</includes>-->
-      <!--</resource>-->
-      <!--<resource>-->
-        <!--<directory>src/main/resources</directory>-->
-        <!--<includes>-->
-          <!--<include>**/core/**</include>-->
-          <!--<include>**/*.gwt.xml</include>-->
-          <!--<include>**/*.html</include>-->
-          <!--<include>**/public/**</include>-->
-        <!--</includes>-->
-      <!--</resource>-->
-    <!--</resources>-->
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/nalu/**</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/nalu/**</include>
+          <include>**/*.gwt.xml</include>
+          <include>**/*.html</include>
+          <include>**/public/**</include>
+        </includes>
+      </resource>
+    </resources>
 
-    <!--<plugins>-->
-      <!--<plugin>-->
-        <!--<groupId>org.apache.maven.plugins</groupId>-->
-        <!--<artifactId>maven-compiler-plugin</artifactId>-->
-        <!--<version>3.6.1</version>-->
-        <!--<configuration>-->
-          <!--<source>${maven.compiler.source}</source>-->
-          <!--<target>${maven.compiler.target}</target>-->
-          <!--<showWarnings>true</showWarnings>-->
-          <!--<showDeprecation>true</showDeprecation>-->
-          <!--<meminitial>128m</meminitial>-->
-          <!--<maxmem>1024m</maxmem>-->
-          <!--<encoding>${project.build.sourceEncoding}</encoding>-->
-          <!--<compilerArgs>-->
-            <!--<compilerArgument>-Xlint:all</compilerArgument>-->
-          <!--</compilerArgs>-->
-        <!--</configuration>-->
-      <!--</plugin>-->
-    <!--</plugins>-->
-  <!--</build>-->
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.6.1</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+          <showWarnings>true</showWarnings>
+          <showDeprecation>true</showDeprecation>
+          <meminitial>128m</meminitial>
+          <maxmem>1024m</maxmem>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <compilerArgs>
+            <compilerArgument>-Xlint:all</compilerArgument>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

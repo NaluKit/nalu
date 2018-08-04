@@ -15,10 +15,11 @@
  *
  */
 
-package com.github.mvp4g.nalu.application.annotation;
+package com.github.mvp4g.nalu.client.application.annotation;
 
-import com.github.mvp4g.nalu.application.IsApplicationLoader;
-import com.github.mvp4g.nalu.internal.internal.application.NoApplicationLoader;
+import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
+import com.github.mvp4g.nalu.client.internal.application.NoApplicationLoader;
+import com.github.mvp4g.nalu.client.ui.IsNaluReactShell;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -40,10 +41,10 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Application {
 
-//  Class<? extends IsEventBus> eventBus();
-
   Class<? extends IsApplicationLoader> loader() default NoApplicationLoader.class;
 
-//  Class<? extends IsShell> shell();
+  Class<? extends IsNaluReactShell> shell();
+
+  String startRoute();
 
 }

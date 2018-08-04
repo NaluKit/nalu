@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2018 - Frank Hossfeld
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License"); you may not
+  ~  use this file except in compliance with the License. You may obtain a copy of
+  ~  the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+  ~  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+  ~  License for the specific language governing permissions and limitations under
+  ~  the License.
+  ~
+  -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.github.mvp4g</groupId>
+    <artifactId>nalu-parent</artifactId>
+    <version>0.0.1</version>
+  </parent>
+
+  <artifactId>nalu-processor</artifactId>
+  <packaging>jar</packaging>
+  <description>Model View Presenter with Event Bus For GWT 2 + 3 based on APT</description>
+
+  <inceptionYear>2018</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Frank Hossfeld</name>
+      <id>frankhossfeld</id>
+      <email>hossfeld@hossfeld-solutions.de</email>
+      <organization>Hossfeld Solutions GmbH</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git@github.com:mvp4g/mvp4g2.git</connection>
+    <developerConnection>scm:git:git@github.com:mvp4g/mvp4g2.git</developerConnection>
+    <url>scm:git:https://github.com/mvp4g/mvp4g2</url>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/mvp4g/mvp4g2/issues</url>
+  </issueManagement>
+  <properties>
+    <autocommon.version>0.10</autocommon.version>
+
+    <autoservice.version>1.0-rc4</autoservice.version>
+    <gson.version>2.8.5</gson.version>
+    <javapoet.version>1.11.0</javapoet.version>
+    <truth.version>0.40</truth.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.github.mvp4g</groupId>
+      <artifactId>nalu</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.auto.service</groupId>
+      <artifactId>auto-service</artifactId>
+      <version>${autoservice.version}</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>${gson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.squareup</groupId>
+      <artifactId>javapoet</artifactId>
+      <version>${javapoet.version}</version>
+    </dependency>
+
+  <!-- only for testing -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.testing.compile</groupId>
+      <artifactId>compile-testing</artifactId>
+      <version>0.15</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.truth</groupId>
+      <artifactId>truth</artifactId>
+      <version>${truth.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.6.1</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+          <showWarnings>true</showWarnings>
+          <showDeprecation>true</showDeprecation>
+          <meminitial>128m</meminitial>
+          <maxmem>1024m</maxmem>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <compilerArgs>
+            <compilerArgument>-Xlint:all</compilerArgument>
+          </compilerArgs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>process-annotations</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <proc>only</proc>
+              <annotationProcessors>
+                <annotationProcessor>com.google.auto.service.processor.AutoServiceProcessor</annotationProcessor>
+              </annotationProcessors>
+            </configuration>
+          </execution>
+          <execution>
+            <id>default-compile</id> <!-- using an id of default-compile will override the default execution -->
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <compilerArgs>
+                <arg>-proc:none</arg>
+              </compilerArgs>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
