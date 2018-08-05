@@ -1,8 +1,10 @@
 package com.github.mvp4g.nalu.client.ui;
 
-public abstract class AbstractShell
-  extends AbstractNaluComponent
-  implements IsNaluReactShell {
+import com.github.mvp4g.nalu.client.application.IsContext;
+
+public abstract class AbstractShell<C extends IsContext>
+  extends AbstractController<C>
+  implements IsShellController {
 
   public AbstractShell() {
   }

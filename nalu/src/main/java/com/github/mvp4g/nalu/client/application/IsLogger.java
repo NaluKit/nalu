@@ -14,10 +14,22 @@
  *  the License.
  *
  */
+package com.github.mvp4g.nalu.client.application;
 
-package com.github.mvp4g.nalu.processor.model.intern;
+/**
+ * Interface that defines a logger used for events logging.
+ *
+ * @author plcoirier
+ */
+public interface IsLogger {
 
-@Deprecated
-public interface IsMetaModel {
+  /**
+   * Add a log
+   *
+   * @param message message to log
+   * @param depth   depth of the log
+   */
+  void log(String message,
+           int depth);
 
 }

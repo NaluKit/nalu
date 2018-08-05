@@ -30,7 +30,7 @@ public class RouterConfiguration {
   public List<RouteConfig> match(String hash) {
     return this.routers.stream()
                        .filter(routeConfig -> routeConfig.getRoute()
-                                                         .equals("/" + hash))
+                                                         .equals(hash))
                        .collect(Collectors.toList());
   }
 }

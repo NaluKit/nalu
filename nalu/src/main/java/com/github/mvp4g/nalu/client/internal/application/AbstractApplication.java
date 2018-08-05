@@ -17,31 +17,35 @@
 
 package com.github.mvp4g.nalu.client.internal.application;
 
+import com.github.mvp4g.nalu.client.Router;
 import com.github.mvp4g.nalu.client.application.IsApplication;
 import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
-import com.github.mvp4g.nalu.client.application.IsNaluLogger;
+import com.github.mvp4g.nalu.client.application.IsContext;
+import com.github.mvp4g.nalu.client.application.IsLogger;
 import com.github.mvp4g.nalu.client.application.annotation.Debug;
 import com.github.mvp4g.nalu.client.internal.annotation.NaluInternalUse;
+import com.github.mvp4g.nalu.client.internal.route.HashResult;
 import com.github.mvp4g.nalu.client.internal.route.RouterConfiguration;
-import com.github.mvp4g.nalu.client.route.Router;
-import com.github.mvp4g.nalu.client.ui.IsNaluReactShell;
+import com.github.mvp4g.nalu.client.ui.IsShellController;
 import elemental2.dom.DomGlobal;
 
 /**
  * generator of the eventBus
  */
 @NaluInternalUse
-public abstract class AbstractApplication
+public abstract class AbstractApplication<C extends IsContext>
   implements IsApplication {
 
   /* start route */
-  protected String startRoute;
+  protected String              startRoute;
   /* Shell */
-  protected IsNaluReactShell    shell;
+  protected IsShellController   shell;
   /* Router */
   protected RouterConfiguration routerConfiguration;
   /* Router */
   protected Router              router;
+  /* application context */
+  protected C                   context;
   //  protected E                                  eventBus;
 //  /* flag if we have to check history token at the start of the application */
 //  protected boolean                            historyOnStart;
@@ -52,9 +56,9 @@ public abstract class AbstractApplication
   /* debug enabled? */
   private   boolean             debugEnabled = false;
   /* logger */
-  private   IsNaluLogger     logger;
+  private   IsLogger            logger;
   /* log level */
-  private   Debug.LogLevel   logLevel;
+  private   Debug.LogLevel      logLevel;
 
   public AbstractApplication() {
     super();
@@ -80,15 +84,15 @@ public abstract class AbstractApplication
     getApplicationLoader().load(this::onFinishLaoding);
   }
 
-  protected abstract void loadComponents();
-
   protected abstract void loadDebugConfiguration();
-
-  protected abstract void loadRoutes();
 
   protected abstract void loadSelectors();
 
+  protected abstract void loadRoutes();
+
   protected abstract void loadStartRoute();
+
+  protected abstract void loadComponents();
 
   protected abstract IsApplicationLoader getApplicationLoader();
 
@@ -100,6 +104,13 @@ public abstract class AbstractApplication
    * Once the loader did his job, we will continue
    */
   private void onFinishLaoding() {
+    // save the current hash
+    String hashOnStart = DomGlobal.window.location.getHash();
+    if (hashOnStart.startsWith("#")) {
+      if (hashOnStart.length() > 1) {
+        hashOnStart = hashOnStart.substring(1);
+      }
+    }
     // initialize shell ...
     this.setShell();
     // start the application by calling url + '#'
@@ -107,11 +118,14 @@ public abstract class AbstractApplication
     // check if the url contains a hash.
     // in case it has a hash, use this to route otherwise
     // use the startRoute form the annoatation
-    String historyOnStart = this.hasHistoryOnStart();
-    if (historyOnStart != null) {
-      this.router.route(this.startRoute);
+    if (hashOnStart != null && hashOnStart.trim()
+                                          .length() > 0) {
+      HashResult hashResult = this.router.parse(hashOnStart);
+      this.router.route(hashResult.getRoute(),
+                        hashResult.getParameterValues()
+                                  .toArray(new String[0]));
     } else {
-      // TODO
+      this.router.route(this.startRoute);
     }
 
 //    // create place service and bind
@@ -124,13 +138,6 @@ public abstract class AbstractApplication
 //    placeService.startApplication();
   }
 
-  private String hasHistoryOnStart() {
-    if (DomGlobal.window.location.getHash() != null) {
-      return DomGlobal.window.location.getHash();
-    }
-    return null;
-  }
-
   protected abstract void setShell();
 
   /**
@@ -138,7 +145,7 @@ public abstract class AbstractApplication
    *
    * @return logger
    */
-  protected IsNaluLogger getLogger() {
+  protected IsLogger getLogger() {
     return logger;
   }
 
@@ -147,7 +154,7 @@ public abstract class AbstractApplication
    *
    * @param logger logger
    */
-  protected void setLogger(IsNaluLogger logger) {
+  protected void setLogger(IsLogger logger) {
     this.logger = logger;
   }
 

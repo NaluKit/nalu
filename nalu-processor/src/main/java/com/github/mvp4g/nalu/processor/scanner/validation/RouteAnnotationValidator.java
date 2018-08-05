@@ -16,10 +16,10 @@
  */
 package com.github.mvp4g.nalu.processor.scanner.validation;
 
+import com.github.mvp4g.nalu.client.ui.IsController;
+import com.github.mvp4g.nalu.client.ui.IsShellController;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
-import com.github.mvp4g.nalu.client.ui.IsNaluReactComponent;
-import com.github.mvp4g.nalu.client.ui.IsNaluReactShell;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -60,20 +60,20 @@ public class RouteAnnotationValidator {
     // @ProvidesSelector can only be used on a class
     if (!typeElement.getKind()
                     .isClass()) {
-      throw new ProcessorException("@Route can only be used with an class");
+      throw new ProcessorException("@Controller can only be used with an class");
     }
     // @ProvidesSelector can only be used on a interface that extends IsApplication
     if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
                                                      typeElement.asType(),
                                                      this.processingEnvironment.getElementUtils()
-                                                                               .getTypeElement(IsNaluReactComponent.class.getCanonicalName())
+                                                                               .getTypeElement(IsController.class.getCanonicalName())
                                                                                .asType()) ||
           this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
                                                       typeElement.asType(),
                                                       this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(IsNaluReactShell.class.getCanonicalName())
+                                                                                .getTypeElement(IsShellController.class.getCanonicalName())
                                                                                 .asType()))) {
-      throw new ProcessorException("@Route can only be used on a class that extends IsNaluReactComponent or IsNaluReactShell");
+      throw new ProcessorException("@Controller can only be used on a class that extends IsController or IsShellController");
     }
   }
 

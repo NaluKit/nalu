@@ -18,21 +18,20 @@
 package com.github.mvp4g.nalu.processor.model;
 
 import com.github.mvp4g.nalu.processor.model.intern.ClassNameModel;
-import com.github.mvp4g.nalu.processor.model.intern.IsMetaModel;
 import com.github.mvp4g.nalu.processor.model.intern.ProvidesSelectorModel;
-import com.github.mvp4g.nalu.processor.model.intern.RouteModel;
+import com.github.mvp4g.nalu.processor.model.intern.ControllerModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApplicationMetaModel
-  implements IsMetaModel {
+public class ApplicationMetaModel {
 
   private static final String KEY_SELECTORS = "selectors";
 
   private ClassNameModel application;
   private ClassNameModel loader;
   private ClassNameModel shell;
+  private ClassNameModel context;
   private String         startRoute;
 
 
@@ -41,7 +40,7 @@ public class ApplicationMetaModel
   private ClassNameModel debugLogger;
 
 
-  private List<RouteModel>            routes;
+  private List<ControllerModel>       routes;
   private List<ProvidesSelectorModel> selectors;
 
 
@@ -51,10 +50,12 @@ public class ApplicationMetaModel
   public ApplicationMetaModel(String application,
                               String loader,
                               String shell,
+                              String context,
                               String startRoute) {
     this.application = new ClassNameModel(application);
     this.loader = new ClassNameModel(loader);
     this.shell = new ClassNameModel(shell);
+    this.context = new ClassNameModel(context);
     this.startRoute = startRoute;
 
     this.routes = new ArrayList<>();
@@ -117,11 +118,11 @@ public class ApplicationMetaModel
     this.selectors = selectors;
   }
 
-  public List<RouteModel> getRoutes() {
+  public List<ControllerModel> getRoutes() {
     return routes;
   }
 
-  public void setRoutes(List<RouteModel> routes) {
+  public void setRoutes(List<ControllerModel> routes) {
     this.routes = routes;
   }
 
@@ -131,5 +132,13 @@ public class ApplicationMetaModel
 
   public void setStartRoute(String startRoute) {
     this.startRoute = startRoute;
+  }
+
+  public ClassNameModel getContext() {
+    return context;
+  }
+
+  public void setContext(ClassNameModel context) {
+    this.context = context;
   }
 }

@@ -17,7 +17,7 @@
 package com.github.mvp4g.nalu.processor.scanner.validation;
 
 import com.github.mvp4g.nalu.client.application.IsApplication;
-import com.github.mvp4g.nalu.client.application.IsNaluLogger;
+import com.github.mvp4g.nalu.client.application.IsLogger;
 import com.github.mvp4g.nalu.client.application.annotation.Debug;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
@@ -86,9 +86,9 @@ public class DebugAnnotationValidator {
                                                          Objects.requireNonNull(loggerElement)
                                                                 .asType(),
                                                          this.processingEnvironment.getElementUtils()
-                                                                                   .getTypeElement(IsNaluLogger.class.getCanonicalName())
+                                                                                   .getTypeElement(IsLogger.class.getCanonicalName())
                                                                                    .asType())) {
-          throw new ProcessorException("@Debug - the logger attribute needs class that extends IsNaluLogger");
+          throw new ProcessorException("@Debug - the logger attribute needs class that extends IsLogger");
         }
       } else {
         throw new ProcessorException("@Debug can only be used on a type (interface)");

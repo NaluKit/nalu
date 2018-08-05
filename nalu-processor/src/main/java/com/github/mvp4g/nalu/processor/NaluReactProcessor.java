@@ -20,11 +20,11 @@ package com.github.mvp4g.nalu.processor;
 
 import com.github.mvp4g.nalu.client.application.annotation.Application;
 import com.github.mvp4g.nalu.client.application.annotation.Debug;
+import com.github.mvp4g.nalu.client.ui.annotations.Controller;
 import com.github.mvp4g.nalu.processor.generator.ApplicationGenerator;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
 import com.github.mvp4g.nalu.processor.scanner.ApplicationAnnotationScanner;
 import com.github.mvp4g.nalu.client.ui.annotations.ProvidesSelector;
-import com.github.mvp4g.nalu.client.ui.annotations.Route;
 import com.google.auto.service.AutoService;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -61,7 +61,7 @@ public class NaluReactProcessor
     return of(Application.class.getCanonicalName(),
               Debug.class.getCanonicalName(),
               ProvidesSelector.class.getCanonicalName(),
-              Route.class.getCanonicalName()).collect(toSet());
+              Controller.class.getCanonicalName()).collect(toSet());
   }
 
   @Override

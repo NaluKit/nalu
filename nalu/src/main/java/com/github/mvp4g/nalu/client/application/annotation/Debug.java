@@ -16,8 +16,8 @@
  */
 package com.github.mvp4g.nalu.client.application.annotation;
 
-import com.github.mvp4g.nalu.client.application.IsNaluLogger;
-import com.github.mvp4g.nalu.client.internal.application.DefaultNaluReactLogger;
+import com.github.mvp4g.nalu.client.application.IsLogger;
+import com.github.mvp4g.nalu.client.internal.application.DefaultLogger;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -40,7 +40,7 @@ public @interface Debug {
 
   LogLevel logLevel() default LogLevel.SIMPLE;
 
-  Class<? extends IsNaluLogger> logger() default DefaultNaluReactLogger.class;
+  Class<? extends IsLogger> logger() default DefaultLogger.class;
 
   enum LogLevel {
     SIMPLE,

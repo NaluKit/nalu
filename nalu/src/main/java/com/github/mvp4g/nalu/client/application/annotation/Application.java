@@ -18,8 +18,9 @@
 package com.github.mvp4g.nalu.client.application.annotation;
 
 import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
+import com.github.mvp4g.nalu.client.application.IsContext;
 import com.github.mvp4g.nalu.client.internal.application.NoApplicationLoader;
-import com.github.mvp4g.nalu.client.ui.IsNaluReactShell;
+import com.github.mvp4g.nalu.client.ui.IsShellController;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -43,8 +44,10 @@ public @interface Application {
 
   Class<? extends IsApplicationLoader> loader() default NoApplicationLoader.class;
 
-  Class<? extends IsNaluReactShell> shell();
+  Class<? extends IsShellController> shell();
 
   String startRoute();
+
+  Class<? extends IsContext> context();
 
 }

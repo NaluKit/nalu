@@ -17,20 +17,21 @@
 
 package com.github.mvp4g.nalu.processor.scanner;
 
+import com.github.mvp4g.nalu.client.ui.annotations.Controller;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
 import com.github.mvp4g.nalu.processor.model.intern.ClassNameModel;
-import com.github.mvp4g.nalu.processor.model.intern.RouteModel;
+import com.github.mvp4g.nalu.processor.model.intern.ControllerModel;
 import com.github.mvp4g.nalu.processor.scanner.validation.RouteAnnotationValidator;
-import com.github.mvp4g.nalu.client.ui.annotations.Route;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.MirroredTypeException;
 
-public class RouteAnnotationScanner {
+public class ControllerAnnotationScanner {
 
   private ProcessorUtils        processorUtils;
   private ProcessingEnvironment processingEnvironment;
@@ -38,7 +39,7 @@ public class RouteAnnotationScanner {
   private ApplicationMetaModel  applicationMetaModel;
 
   @SuppressWarnings("unused")
-  private RouteAnnotationScanner(Builder builder) {
+  private ControllerAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
     this.applicationTypeElement = builder.eventBusTypeElement;
@@ -59,7 +60,7 @@ public class RouteAnnotationScanner {
   public ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
     throws ProcessorException {
     // handle ProvidesSelector-annotation
-    for (Element element : roundEnvironment.getElementsAnnotatedWith(Route.class)) {
+    for (Element element : roundEnvironment.getElementsAnnotatedWith(Controller.class)) {
       // do validation
       RouteAnnotationValidator.builder()
                               .roundEnvironment(roundEnvironment)
@@ -68,13 +69,38 @@ public class RouteAnnotationScanner {
                               .build()
                               .validate();
       // get Annotation ...
-      Route annotation = element.getAnnotation(Route.class);
+      Controller annotation = element.getAnnotation(Controller.class);
       // handle ...
-      this.applicationMetaModel.getRoutes().add(new RouteModel(annotation.route(),
-                                                               annotation.selector(),
-                                                               new ClassNameModel(element.toString())));
+      TypeElement componentTypeElement = this.getComponentTypeElement(annotation);
+      TypeElement componentInterfaceTypeElement = this.getComponentInterfaceTypeElement(annotation);
+      this.applicationMetaModel.getRoutes()
+                               .add(new ControllerModel(annotation.route(),
+                                                        annotation.selector(),
+                                                        new ClassNameModel(componentInterfaceTypeElement.toString()),
+                                                        new ClassNameModel(componentTypeElement.toString()),
+                                                        new ClassNameModel(element.toString())));
     }
     return this.applicationMetaModel;
+  }
+
+  private TypeElement getComponentTypeElement(Controller annotation) {
+    try {
+      annotation.component();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
+  }
+
+  private TypeElement getComponentInterfaceTypeElement(Controller annotation) {
+    try {
+      annotation.componentInterface();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
   }
 
   public static class Builder {
@@ -98,8 +124,8 @@ public class RouteAnnotationScanner {
       return this;
     }
 
-    public RouteAnnotationScanner build() {
-      return new RouteAnnotationScanner(this);
+    public ControllerAnnotationScanner build() {
+      return new ControllerAnnotationScanner(this);
     }
   }
 }

@@ -19,24 +19,23 @@ package com.github.mvp4g.nalu.processor.generator;
 
 import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
 import com.github.mvp4g.nalu.client.internal.application.AbstractApplication;
-import com.github.mvp4g.nalu.client.internal.application.ComponentCreator;
-import com.github.mvp4g.nalu.client.internal.application.ComponentFactory;
-import com.github.mvp4g.nalu.client.ui.AbstractComponent;
+import com.github.mvp4g.nalu.client.internal.application.ControllerCreator;
+import com.github.mvp4g.nalu.client.internal.application.ControllerFactory;
+import com.github.mvp4g.nalu.client.ui.AbstractComponentController;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
-import com.github.mvp4g.nalu.processor.model.intern.ClassNameModel;
-import com.github.mvp4g.nalu.processor.model.intern.RouteModel;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeSpec;
+import com.github.mvp4g.nalu.processor.model.HashResultModel;
+import com.github.mvp4g.nalu.processor.model.intern.ControllerModel;
+import com.squareup.javapoet.*;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ApplicationGenerator {
 
@@ -73,10 +72,9 @@ public class ApplicationGenerator {
     // generate code
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(metaModel.getApplication()
                                                                .getSimpleName() + ApplicationGenerator.IMPL_NAME)
-//                                        .superclass(ParameterizedTypeName.get(ClassName.get(AbstractApplication.class),
-//                                                                              metaModel.getEventBus()
-//                                                                                       .getTypeName()))
-                                        .superclass(ClassName.get(AbstractApplication.class))
+                                        .superclass(ParameterizedTypeName.get(ClassName.get(AbstractApplication.class),
+                                                                              metaModel.getContext()
+                                                                                       .getTypeName()))
                                         .addModifiers(Modifier.PUBLIC,
                                                       Modifier.FINAL)
                                         .addSuperinterface(metaModel.getApplication()
@@ -86,11 +84,11 @@ public class ApplicationGenerator {
     MethodSpec constructor = MethodSpec.constructorBuilder()
                                        .addModifiers(Modifier.PUBLIC)
                                        .addStatement("super()")
-//                                       .addStatement("super.eventBus = new $N.$N()",
-//                                                     metaModel.getEventBus()
-//                                                              .getPackage(),
-//                                                     metaModel.getEventBus()
-//                                                              .getSimpleName() + ApplicationGenerator.IMPL_NAME)
+                                       .addStatement("super.context = new $N.$N()",
+                                                     metaModel.getContext()
+                                                              .getPackage(),
+                                                     metaModel.getContext()
+                                                              .getSimpleName())
 //                                       .addStatement("super.historyOnStart = $L",
 //                                                     metaModel.getHistoryOnStart())
 //                                       .addStatement("super.encodeToken = $L",
@@ -144,21 +142,67 @@ public class ApplicationGenerator {
                                .addStatement("shell.setRouter(this.router)")
                                .addStatement("super.shell = shell");
     this.getAllComponents(metaModel.getRoutes())
-        .forEach(provider -> {
-          loadComponentsMethodBuilder.addComment("create ComponentCreator for: " + provider.getPackage() + "." + provider.getSimpleName())
-                                     .addStatement("$T.get().registerComponent($S, $L)",
-                                                   ClassName.get(ComponentFactory.class),
-                                                   provider.getPackage() + "." + provider.getSimpleName(),
+        .forEach(controllerModel -> {
+          MethodSpec.Builder createMethod = MethodSpec.methodBuilder("create")
+                                                      .addAnnotation(Override.class)
+                                                      .addModifiers(Modifier.PUBLIC)
+                                                      .addParameter(ParameterSpec.builder(String[].class,
+                                                                                          "parms")
+                                                                                 .build())
+                                                      .varargs(true)
+                                                      .returns(ParameterizedTypeName.get(ClassName.get(AbstractComponentController.class),
+                                                                                         metaModel.getContext()
+                                                                                                  .getTypeName(),
+                                                                                         controllerModel.getComponentInterface()
+                                                                                                        .getTypeName()))
+                                                      .addStatement("$T controller = new $T()",
+                                                                    ClassName.get(controllerModel.getProvider()
+                                                                                                 .getPackage(),
+                                                                                  controllerModel.getProvider()
+                                                                                                 .getSimpleName()),
+                                                                    ClassName.get(controllerModel.getProvider()
+                                                                                                 .getPackage(),
+                                                                                  controllerModel.getProvider()
+                                                                                                 .getSimpleName()))
+                                                      .addStatement("controller.setContext(context)")
+                                                      .addStatement("$T component = new $T()",
+                                                                    ClassName.get(controllerModel.getComponentInterface()
+                                                                                                 .getPackage(),
+                                                                                  controllerModel.getComponentInterface()
+                                                                                                 .getSimpleName()),
+                                                                    ClassName.get(controllerModel.getComponent()
+                                                                                                 .getPackage(),
+                                                                                  controllerModel.getComponent()
+                                                                                                 .getSimpleName()))
+                                                      .addStatement("component.setController(controller)")
+                                                      .addStatement("controller.setComponent(component)");
+          createMethod.beginControlFlow("if (parms != null)");
+          // TODO validate: das die setParameter(String parms) implementiert ist!!!!
+          HashResultModel hashResultModel = this.parseRoute(controllerModel.getRoute());
+          for (int i = 0; i < hashResultModel.getParameterValues()
+                                             .size(); i++) {
+            String parameter = hashResultModel.getParameterValues()
+                                              .get(i);
+            createMethod.beginControlFlow("if (parms.length >= " + Integer.toString(i + 1) + ")")
+                        .addStatement("controller.set" + this.processorUtils.setFirstCharacterToUpperCase(parameter) + "(parms[" + Integer.toString(i) + "])")
+                        .endControlFlow();
+          }
+          createMethod.endControlFlow();
+          createMethod.addStatement("return controller");
+          TypeSpec.Builder anonymousClass = TypeSpec.anonymousClassBuilder("")
+                                                    .addSuperinterface(ControllerCreator.class)
+                                                    .addMethod(createMethod.build());
+          loadComponentsMethodBuilder.addComment("create ControllerCreator for: " + controllerModel.getProvider()
+                                                                                                   .getPackage() + "." + controllerModel.getProvider()
+                                                                                                                                        .getSimpleName())
+                                     .addStatement("$T.get().registerController($S, $L)",
+                                                   ClassName.get(ControllerFactory.class),
+                                                   controllerModel.getProvider()
+                                                                  .getPackage() + "." + controllerModel.getProvider()
+                                                                                                       .getSimpleName(),
                                                    TypeSpec.anonymousClassBuilder("")
-                                                           .addSuperinterface(ComponentCreator.class)
-                                                           .addMethod(MethodSpec.methodBuilder("create")
-                                                                                .addAnnotation(Override.class)
-                                                                                .addModifiers(Modifier.PUBLIC)
-                                                                                .returns(AbstractComponent.class)
-                                                                                .addStatement("return new $T()",
-                                                                                              ClassName.get(provider.getPackage(),
-                                                                                                            provider.getSimpleName()))
-                                                                                .build())
+                                                           .addSuperinterface(ControllerCreator.class)
+                                                           .addMethod(createMethod.build())
                                                            .build());
         });
     typeSpec.addMethod(loadComponentsMethodBuilder.build());
@@ -190,14 +234,43 @@ public class ApplicationGenerator {
     }
   }
 
-  private List<ClassNameModel> getAllComponents(List<RouteModel> routes) {
-    List<ClassNameModel> models = new ArrayList<>();
+  private List<ControllerModel> getAllComponents(List<ControllerModel> routes) {
+    List<ControllerModel> models = new ArrayList<>();
     routes.forEach(route -> {
-      if (!models.contains(route.getProvider())) {
-        models.add(route.getProvider());
+      if (!contains(models,
+                    route)) {
+        models.add(route);
       }
     });
     return models;
+  }
+
+  private HashResultModel parseRoute(String route) {
+    HashResultModel hashResultModel = new HashResultModel();
+    String roueValue = route;
+    // extract route first:
+    if (route.startsWith("/")) {
+      roueValue = roueValue.substring(1);
+    }
+    if (roueValue.contains("/")) {
+      hashResultModel.setRoute(roueValue.substring(0,
+                                                   roueValue.indexOf("/")));
+      String parametersFromHash = roueValue.substring(roueValue.indexOf("/") + 2);
+      // lets get the parameters!
+      hashResultModel.setParameterValues(Stream.of(parametersFromHash.split("/:"))
+                                               .collect(Collectors.toList()));
+    } else {
+      hashResultModel.setRoute(roueValue);
+    }
+    return hashResultModel;
+
+  }
+
+  private boolean contains(List<ControllerModel> models,
+                           ControllerModel controllerModel) {
+    return models.stream()
+                 .anyMatch(model -> model.getProvider()
+                                         .equals(controllerModel.getProvider()));
   }
 
   public static class Builder {

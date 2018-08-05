@@ -18,7 +18,7 @@ package com.github.mvp4g.nalu.client.internal.application;
 
 import com.github.mvp4g.nalu.client.Nalu;
 import com.github.mvp4g.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.mvp4g.nalu.client.application.IsNaluLogger;
+import com.github.mvp4g.nalu.client.application.IsLogger;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -29,8 +29,8 @@ import java.util.stream.IntStream;
  * @author plcoirier
  */
 @NaluInternalUse
-public class DefaultNaluReactLogger
-  implements IsNaluLogger {
+public class DefaultLogger
+  implements IsLogger {
 
   static final String INDENT = "    ";
 

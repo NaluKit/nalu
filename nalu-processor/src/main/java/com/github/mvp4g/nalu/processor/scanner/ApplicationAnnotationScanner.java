@@ -90,9 +90,11 @@ public class ApplicationAnnotationScanner {
         if (!isNull(applicationAnnotation)) {
           TypeElement applicationLoaderTypeElement = this.getApplicationLoaderTypeElement(applicationAnnotation);
           TypeElement shellTypeElement = this.getShellTypeElement(applicationAnnotation);
+          TypeElement contextTypeElement = this.getContextTypeElement(applicationAnnotation);
           model = new ApplicationMetaModel(applicationAnnotationElement.toString(),
                                            isNull(applicationLoaderTypeElement) ? "" : applicationLoaderTypeElement.toString(),
                                            isNull(shellTypeElement) ? "" : shellTypeElement.toString(),
+                                           contextTypeElement.toString(),
                                            applicationAnnotation.startRoute());
           // Debug-Annotation
           model = DebugAnnotationScanner.builder()
@@ -108,13 +110,13 @@ public class ApplicationAnnotationScanner {
                                                    .applicationMetaModel(model)
                                                    .build()
                                                    .scan(roundEnvironment);
-          // Route-Annotation
-          model = RouteAnnotationScanner.builder()
-                                        .processingEnvironment(processingEnvironment)
-                                        .eventBusTypeElement((TypeElement) applicationAnnotationElement)
-                                        .applicationMetaModel(model)
-                                        .build()
-                                        .scan(roundEnvironment);
+          // Controller-Annotation
+          model = ControllerAnnotationScanner.builder()
+                                             .processingEnvironment(processingEnvironment)
+                                             .eventBusTypeElement((TypeElement) applicationAnnotationElement)
+                                             .applicationMetaModel(model)
+                                             .build()
+                                             .scan(roundEnvironment);
 
           // let's store the updated model
           this.store(model);
@@ -160,6 +162,16 @@ public class ApplicationAnnotationScanner {
   private TypeElement getShellTypeElement(Application applicationAnnotation) {
     try {
       applicationAnnotation.shell();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
+  }
+
+  private TypeElement getContextTypeElement(Application applicationAnnotation) {
+    try {
+      applicationAnnotation.context();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());

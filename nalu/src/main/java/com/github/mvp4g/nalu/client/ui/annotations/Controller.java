@@ -1,6 +1,9 @@
 package com.github.mvp4g.nalu.client.ui.annotations;
 
 
+import com.github.mvp4g.nalu.client.ui.AbstractComponent;
+import com.github.mvp4g.nalu.client.ui.IsComponent;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -9,16 +12,20 @@ import java.lang.annotation.RetentionPolicy;
  * <br><br>
  * The annotation has the following attributes:
  * <ul>
- * <li>route: name of the route which will display the view in case of calling</li>
+ * <li>route: name of the route which will display the controller in case of calling</li>
  * </ul>
  *
  * @author Frank Hossfeld
  */
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Route {
+public @interface Controller {
 
   String route();
 
   String selector();
+
+  Class<? extends IsComponent<?>> componentInterface();
+
+  Class<? extends AbstractComponent<?>> component();
 
 }

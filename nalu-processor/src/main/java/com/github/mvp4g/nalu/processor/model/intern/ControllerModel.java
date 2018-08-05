@@ -17,19 +17,27 @@
 
 package com.github.mvp4g.nalu.processor.model.intern;
 
-public class RouteModel {
+public class ControllerModel {
 
   private String route;
 
   private String selector;
 
+  private ClassNameModel componentInterface;
+
+  private ClassNameModel component;
+
   private ClassNameModel provider;
 
-  public RouteModel(String route,
-                    String selector,
-                    ClassNameModel provider) {
+  public ControllerModel(String route,
+                         String selector,
+                         ClassNameModel componentInterface,
+                         ClassNameModel component,
+                         ClassNameModel provider) {
     this.route = route;
     this.selector = selector;
+    this.componentInterface = componentInterface;
+    this.component = component;
     this.provider = provider;
   }
 
@@ -55,5 +63,21 @@ public class RouteModel {
 
   public void setProvider(ClassNameModel provider) {
     this.provider = provider;
+  }
+
+  public ClassNameModel getComponentInterface() {
+    return componentInterface;
+  }
+
+  public void setComponentInterface(ClassNameModel componentInterface) {
+    this.componentInterface = componentInterface;
+  }
+
+  public ClassNameModel getComponent() {
+    return component;
+  }
+
+  public void setComponent(ClassNameModel component) {
+    this.component = component;
   }
 }

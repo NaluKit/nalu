@@ -20,7 +20,7 @@ package com.github.mvp4g.nalu.client.ui;
 /**
  * <p>Marks an class as mvp4g2 shell.</p>
  */
-public interface IsNaluReactShell {
+public interface IsShellController {
 
   /**
    * <p>
