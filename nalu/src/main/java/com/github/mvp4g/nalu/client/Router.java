@@ -67,6 +67,9 @@ public final class Router {
     if (this.confirmRouting()) {
       // clear list of active elements
       this.activeComponents.clear();
+      // check weather we can route or not
+      // TODO HOOKS einbauen!
+
       // ok, everything is fine, route!
       // parse hash ...
       HashResult hashResult = this.parse(hash);

@@ -1,23 +1,9 @@
-* application context:
-
-Eine Klasse, die automatisch in einen Component injected wird. Singleton, dient zum transportieren
-allgemeiner Informationen.
-
-
 * eventBus
 
 Eventbus für die Kommnuikation untereinander, wenn es sich um keine Navigation handelt!
-
-
-* Parameter in der URL/Hash
-
-Parameter in der URL .... :-)
 
 
 * Hooks
 
 Hooks können an ein Routinhg gehanden werden. Werden vor dem Route ausgeführt. Können das Routing unterbinden,
 bzw. redirecten!
-
-
-* replace / in parameters!

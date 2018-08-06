@@ -1,7 +1,0 @@
-ToDos:
-
-- validiere:
-
-- mult-module faeture ... uiiiihhhh
-- multiple presenter feature
-- encrypt token feature

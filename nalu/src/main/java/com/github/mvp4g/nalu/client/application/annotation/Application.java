@@ -19,6 +19,7 @@ package com.github.mvp4g.nalu.client.application.annotation;
 
 import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
 import com.github.mvp4g.nalu.client.application.IsContext;
+import com.github.mvp4g.nalu.client.application.IsHook;
 import com.github.mvp4g.nalu.client.internal.application.NoApplicationLoader;
 import com.github.mvp4g.nalu.client.ui.IsShellController;
 
@@ -49,5 +50,7 @@ public @interface Application {
   String startRoute();
 
   Class<? extends IsContext> context();
+
+  Class<? extends IsHook>[] hooks();
 
 }

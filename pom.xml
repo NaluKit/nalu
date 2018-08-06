@@ -32,10 +32,8 @@
   <url>https://github.com/mvp4g/nalu-parent</url>
 
   <modules>
-    <!--<module>nalu-core</module>-->
     <module>nalu</module>
     <module>nalu-processor</module>
-    <!--<module>nalu-mvp</module>-->
   </modules>
 
   <inceptionYear>2018</inceptionYear>

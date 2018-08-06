@@ -66,6 +66,7 @@
   <!--</issueManagement>-->
 
   <properties>
+    <gwt-events.version>HEAD</gwt-events.version>
     <!--<elemental2.version>1.0.0-RC1</elemental2.version>-->
   </properties>
 
