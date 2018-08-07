@@ -1,5 +1,5 @@
 # Nalu
-Please use the mvp4g Gitter room for communication.
+Please use the mvp4g Gitter room.
 
 ## Installation
 To run the examples:
