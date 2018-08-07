@@ -18,15 +18,15 @@ The ```Application```-class is the entry point of the application. It's the only
 The application interface must extend ```IsApplication``` and be annotated with ````Application````
 
 ### Context
-The context is a class that will be injected in every handler and controller. This is a good place to put general needed data into.
+The context is a class that will be injected in every handler and controller. This is a good place to store general needed data.
 
 ### Component
-The component contains the visible part (similar to the view in mvp). It will be autmatically created by the framework and injected to the view.
+The component contains the visible part. It will be autmatically created by the framework and injected to the controller.
 
 ### Controller
-The controller controls a part of the application. It has to extend ``AbstractComponentController```` and must be annotated with ```@controller```. The component is created by the framework and injected into the controller. The use of the component class respects the view delegate pattern.
+The controller controls a part of the application. It has to extend ```AbstractComponentController``` and must be annotated with ```@controller```. The component is created by the framework and injected into the controller. The use of the component class respects the view delegate pattern.
 
-The controller annoation looks like this:
+A controller annotation looks like this:
 ```
 @Controller(route = "/", selector = Selectors.NAVIGATION, componentInterface = INavigationComponent.class, component = NavigationComponent.class)
 ```
@@ -35,23 +35,23 @@ The controller annoation looks like this:
 * The componentInterface is the reference to the componetn interface
 * The component is the reference of the component
 
-A route '/' inidicates , that the controller will be executed at the appilication start.
+A route '/' inidicates, that the controller will be executed at appilication start.
 
-#### parameters
+#### Parameters
 To use parameters, you have to add them to the route:
 ```
 @Controller(route = "/detail/:id", selector = Selectors.CONTENT, componentInterface = IDetailComponent.class, component = DetailComponent.class)
 ```
-To enable parameters, just add: /:parameterName to the route. This requires, that the controller implements a method called: ```setParameterNames(Strin value)```.
+To enable parameters, just add: /:parameterName to the route. This requires, that the controller implements a method called: ```setParameterName(String value)```. You can add as much parameters as you like. Every parameter has to Start with '/:'.
 
 ### Controller Lifecycle
 Every time a routing happens, a new controller will be created and the ```start```-method is called.
 Before the component will be removed from the DOM, the ```mayStop```-method is called. This enables the application to interupt the routing.
 If a routing occurs, the stop()-method is called. (I hope ... :-))
 
-
 ### Eventbus
 Every handler and controller gets a event bus inejcted. So you can easily fire events and listen to them.
+
 ### Filter
 A filter is triggered by a routing and will executed before the routing occurs. It can stop a navigation and redirect to another page. (f.e.: LogonFilter)
 
