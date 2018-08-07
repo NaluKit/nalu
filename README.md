@@ -18,7 +18,7 @@ The ```Application```-calls is the entry point of the application. It's the only
 The application interface must extend ```IsApplication``` and be annotated with ````Application````
 
 ### Context
-The context is a class that will be injected in every handler and controller. This is a good place to put
+The context is a class that will be injected in every handler and controller. This is a good place to put general needed data into.
 
 ### Component
 The component contains the visible part (similar to the view in mvp). It will be autmatically created by the framework and injected to the view.
