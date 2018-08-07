@@ -55,15 +55,16 @@
   </developers>
 
   <scm>
-    <connection>scm:git@github.com:mvp4g/mvp4g2.git</connection>
-    <developerConnection>scm:git:git@github.com:mvp4g/mvp4g2.git</developerConnection>
-    <url>scm:git:https://github.com/mvp4g/mvp4g2</url>
+    <connection>scm:git@github.com:mvp4g/nalu-parent.git</connection>
+    <developerConnection>scm:git:git@github.com:mvp4g/nalu-parent.git</developerConnection>
+    <url>scm:git:https://github.com/mvp4g/nalu-parent</url>
   </scm>
 
   <issueManagement>
     <system>GitHub</system>
-    <url>https://github.com/mvp4g/mvp4g2/issues</url>
+    <url>https://github.com/mvp4g/nalu-parent/issues</url>
   </issueManagement>
+
   <properties>
     <autocommon.version>0.10</autocommon.version>
 

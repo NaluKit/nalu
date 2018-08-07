@@ -58,30 +58,30 @@
     </developer>
   </developers>
 
-  <!--<scm>-->
-    <!--<connection>scm:git@github.com:mvp4g/mvp4g2.git</connection>-->
-    <!--<developerConnection>scm:git:git@github.com:mvp4g/mvp4g2.git</developerConnection>-->
-    <!--<url>scm:git:https://github.com/mvp4g/mvp4g2</url>-->
-  <!--</scm>-->
+  <scm>
+    <connection>scm:git@github.com:mvp4g/nalu-parent.git</connection>
+    <developerConnection>scm:git:git@github.com:mvp4g/nalu-parent.git</developerConnection>
+    <url>scm:git:https://github.com/mvp4g/nalu-parent</url>
+  </scm>
 
-  <!--<issueManagement>-->
-    <!--<system>GitHub</system>-->
-    <!--<url>https://github.com/mvp4g/mvp4g2/issues</url>-->
-  <!--</issueManagement>-->
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/mvp4g/nalu-parent/issues</url>
+  </issueManagement>
 
-  <!--<distributionManagement>-->
-    <!--<snapshotRepository>-->
-      <!--<id>ossrh</id>-->
-      <!--<url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
-    <!--</snapshotRepository>-->
-    <!--<repository>-->
-      <!--<id>ossrh</id>-->
-      <!--<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
-    <!--</repository>-->
-  <!--</distributionManagement>-->
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
 
   <properties>
-    <!--<github.global.server>github</github.global.server>-->
+    <github.global.server>github</github.global.server>
 
     <junit.version>4.12</junit.version>
 
@@ -165,8 +165,8 @@
     <profile>
       <id>release</id>
       <modules>
-        <module>nalu-react</module>
-        <module>nalu-react-processor</module>
+        <module>nalu</module>
+        <module>nalu-processor</module>
       </modules>
       <build>
         <plugins>
@@ -241,8 +241,8 @@
     <profile>
       <id>site</id>
       <modules>
-        <module>nalu-react</module>
-        <module>nalu-react-processor</module>
+        <module>nalu</module>
+        <module>nalu-processor</module>
       </modules>
       <build>
         <plugins>
@@ -289,6 +289,7 @@
                 <link>http://www.gwtproject.org/javadoc/latest/</link>
               </links>
               <!--<excludePackageNames>-->
+                <!---->
               <!--org.jboss.gwt.elemento.processor:org.jboss.gwt.elemento.processor.context-->
               <!--</excludePackageNames>-->
             </configuration>
