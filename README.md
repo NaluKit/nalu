@@ -12,7 +12,7 @@ To run the examples:
 ## Parts of the framework (short summary)
 
 ### Application
-The ```Application```-calls is the entry point of the application. It's the only reference to GWT 2.8.2.
+The ```Application```-class is the entry point of the application. It's the only reference to GWT 2.8.2.
 
 ### Application Interface
 The application interface must extend ```IsApplication``` and be annotated with ````Application````
