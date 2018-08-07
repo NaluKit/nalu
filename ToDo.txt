@@ -1,9 +1,0 @@
-* eventBus
-
-Eventbus für die Kommnuikation untereinander, wenn es sich um keine Navigation handelt!
-
-
-* Hooks
-
-Hooks können an ein Routinhg gehanden werden. Werden vor dem Route ausgeführt. Können das Routing unterbinden,
-bzw. redirecten!
