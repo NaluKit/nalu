@@ -149,7 +149,7 @@ public class HandlerTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("NaluReactProcessor: >>MockOneEventHandler<< -> EventElement: >>onDoSomethingInHandler(java.lang.String)<< must return 'void'");
+                      .hadErrorContaining("NaluProcessor: >>MockOneEventHandler<< -> EventElement: >>onDoSomethingInHandler(java.lang.String)<< must return 'void'");
   }
 
   @Test
@@ -167,7 +167,7 @@ public class HandlerTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("NaluReactProcessor: >>MockOneEventHandler<< -> EventElement: >>onDoSomethingInHandler(java.lang.String)<< must return 'void'");
+                      .hadErrorContaining("NaluProcessor: >>MockOneEventHandler<< -> EventElement: >>onDoSomethingInHandler(java.lang.String)<< must return 'void'");
   }
 
   @Test

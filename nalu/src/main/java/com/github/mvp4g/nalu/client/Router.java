@@ -1,5 +1,6 @@
 package com.github.mvp4g.nalu.client;
 
+import com.github.mvp4g.nalu.client.application.IsFilter;
 import com.github.mvp4g.nalu.client.application.IsLogger;
 import com.github.mvp4g.nalu.client.application.annotation.Debug;
 import com.github.mvp4g.nalu.client.internal.application.ControllerFactory;
@@ -63,6 +64,20 @@ public final class Router {
   }
 
   private String handleRouting(String hash) {
+    // ok, everything is fine, route!
+    // parse hash ...
+    HashResult hashResult = this.parse(hash);
+    // First we have to check if there is a filter
+    // if there are filters ==>  filter the rote
+    for (IsFilter filter : this.routerConfiguration.getFilters()) {
+      if (!filter.filter(addLeadgindSledge(hashResult.getRoute()),
+                         hashResult.getParameterValues()
+                                   .toArray(new String[0]))) {
+        this.route(filter.redirectTo(),
+                   filter.parameters());
+        return null;
+      }
+    }
     // chech weather or not the routing is possible ...
     if (this.confirmRouting()) {
       // clear list of active elements
@@ -70,9 +85,6 @@ public final class Router {
       // check weather we can route or not
       // TODO HOOKS einbauen!
 
-      // ok, everything is fine, route!
-      // parse hash ...
-      HashResult hashResult = this.parse(hash);
       // search for a matching routing
       List<RouteConfig> routeConfiguraions = this.routerConfiguration.match(hashResult.getRoute());
       for (RouteConfig routeConfiguraion : routeConfiguraions) {
@@ -103,19 +115,6 @@ public final class Router {
     return newURL.substring(newURL.indexOf("#") + 1);
   }
 
-  private boolean confirmRouting() {
-    String message = this.activeComponents.stream()
-                                          .filter(c -> c instanceof IsConfirmator)
-                                          .map(AbstractComponentController::mayStop)
-                                          .filter(Objects::nonNull)
-                                          .findFirst()
-                                          .orElse(null);
-    if (message != null) {
-      return DomGlobal.window.confirm(message);
-    }
-    return true;
-  }
-
   public HashResult parse(String hash) {
     HashResult hashResult = new HashResult();
     String hashValue = hash;
@@ -138,6 +137,19 @@ public final class Router {
       hashResult.setRoute(hashValue);
     }
     return hashResult;
+  }
+
+  private boolean confirmRouting() {
+    String message = this.activeComponents.stream()
+                                          .filter(c -> c instanceof IsConfirmator)
+                                          .map(AbstractComponentController::mayStop)
+                                          .filter(Objects::nonNull)
+                                          .findFirst()
+                                          .orElse(null);
+    if (message != null) {
+      return DomGlobal.window.confirm(message);
+    }
+    return true;
   }
 
   private void addElementToDOM(String selector,
@@ -192,5 +204,12 @@ public final class Router {
                                        null,
                                        "#" + newRouteWithParams);
     this.handleRouting(newRouteWithParams);
+  }
+
+  private String addLeadgindSledge(String value) {
+    if (value.startsWith("/")) {
+      return value;
+    }
+    return "/" + value;
   }
 }

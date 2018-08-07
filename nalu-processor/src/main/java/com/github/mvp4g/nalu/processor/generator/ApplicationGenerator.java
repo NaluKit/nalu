@@ -89,10 +89,6 @@ public class ApplicationGenerator {
                                                               .getPackage(),
                                                      metaModel.getContext()
                                                               .getSimpleName())
-//                                       .addStatement("super.historyOnStart = $L",
-//                                                     metaModel.getHistoryOnStart())
-//                                       .addStatement("super.encodeToken = $L",
-//                                                     metaModel.getEncodeToken())
                                        .build();
     DebugGenerator.builder()
                   .applicationMetaModel(metaModel)
@@ -112,6 +108,19 @@ public class ApplicationGenerator {
                   .typeSpec(typeSpec)
                   .build()
                   .generate();
+
+    FiltersGenerator.builder()
+                    .applicationMetaModel(metaModel)
+                    .typeSpec(typeSpec)
+                    .build()
+                    .generate();
+
+    HandlerGenerator.builder()
+                    .processingEnvironment(this.processingEnvironment)
+                    .applicationMetaModel(metaModel)
+                    .typeSpec(typeSpec)
+                    .build()
+                    .generate();
 
 
     // method "getApplicaitonLoader"
@@ -140,6 +149,9 @@ public class ApplicationGenerator {
                                                            metaModel.getShell()
                                                                     .getSimpleName()))
                                .addStatement("shell.setRouter(this.router)")
+                               .addStatement("shell.setEventBus(this.eventBus)")
+                               .addStatement("shell.setContext(this.context)")
+                               .addStatement("shell.bind()")
                                .addStatement("super.shell = shell");
     this.getAllComponents(metaModel.getRoutes())
         .forEach(controllerModel -> {
@@ -165,6 +177,7 @@ public class ApplicationGenerator {
                                                                                   controllerModel.getProvider()
                                                                                                  .getSimpleName()))
                                                       .addStatement("controller.setContext(context)")
+                                                      .addStatement("controller.setEventBus(eventBus)")
                                                       .addStatement("$T component = new $T()",
                                                                     ClassName.get(controllerModel.getComponentInterface()
                                                                                                  .getPackage(),
@@ -175,7 +188,8 @@ public class ApplicationGenerator {
                                                                                   controllerModel.getComponent()
                                                                                                  .getSimpleName()))
                                                       .addStatement("component.setController(controller)")
-                                                      .addStatement("controller.setComponent(component)");
+                                                      .addStatement("controller.setComponent(component)")
+                                                      .addStatement("controller.bind()");
           createMethod.beginControlFlow("if (parms != null)");
           // TODO validate: das die setParameter(String parms) implementiert ist!!!!
           HashResultModel hashResultModel = this.parseRoute(controllerModel.getRoute());

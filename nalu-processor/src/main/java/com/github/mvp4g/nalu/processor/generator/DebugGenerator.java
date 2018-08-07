@@ -17,7 +17,6 @@
 package com.github.mvp4g.nalu.processor.generator;
 
 import com.github.mvp4g.nalu.client.application.annotation.Debug;
-import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -42,8 +41,7 @@ public class DebugGenerator {
     return new Builder();
   }
 
-  public void generate()
-    throws ProcessorException {
+  void generate() {
     // method must always be created!
     MethodSpec.Builder loadDebugConfigurationMethod = MethodSpec.methodBuilder("loadDebugConfiguration")
                                                                 .addAnnotation(Override.class)
@@ -84,7 +82,7 @@ public class DebugGenerator {
      * @param typeSpec ttype spec of the crruent eventbus
      * @return the Builder
      */
-    public Builder typeSpec(TypeSpec.Builder typeSpec) {
+    Builder typeSpec(TypeSpec.Builder typeSpec) {
       this.typeSpec = typeSpec;
       return this;
     }

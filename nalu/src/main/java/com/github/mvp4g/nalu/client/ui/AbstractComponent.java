@@ -1,5 +1,7 @@
 package com.github.mvp4g.nalu.client.ui;
 
+import org.gwtproject.event.shared.SimpleEventBus;
+
 public abstract class AbstractComponent<C extends IsComponent.Controller>
   implements IsComponent<C> {
 

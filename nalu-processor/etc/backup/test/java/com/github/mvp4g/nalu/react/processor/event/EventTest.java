@@ -188,7 +188,7 @@ public class EventTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("NaluReactProcessor: EventElement: >>doSomething<< must return 'void'");
+                      .hadErrorContaining("NaluProcessor: EventElement: >>doSomething<< must return 'void'");
   }
 
   @Test
@@ -205,6 +205,6 @@ public class EventTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("NaluReactProcessor: @Event can only be used inside a event bus! >>MockShellPresenter<< does no implement IsEventBus");
+                      .hadErrorContaining("NaluProcessor: @Event can only be used inside a event bus! >>MockShellPresenter<< does no implement IsEventBus");
   }
 }

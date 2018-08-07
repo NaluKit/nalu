@@ -20,11 +20,13 @@ package com.github.mvp4g.nalu.processor;
 
 import com.github.mvp4g.nalu.client.application.annotation.Application;
 import com.github.mvp4g.nalu.client.application.annotation.Debug;
-import com.github.mvp4g.nalu.client.ui.annotations.Controller;
+import com.github.mvp4g.nalu.client.handler.annotation.Handler;
+import com.github.mvp4g.nalu.client.ui.annotation.Controller;
+import com.github.mvp4g.nalu.client.ui.annotation.ProvidesSelector;
 import com.github.mvp4g.nalu.processor.generator.ApplicationGenerator;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
 import com.github.mvp4g.nalu.processor.scanner.ApplicationAnnotationScanner;
-import com.github.mvp4g.nalu.client.ui.annotations.ProvidesSelector;
+import com.github.mvp4g.nalu.processor.scanner.HandlerAnnotationScanner;
 import com.google.auto.service.AutoService;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -41,27 +43,30 @@ import static java.util.stream.Stream.of;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @AutoService(Processor.class)
-public class NaluReactProcessor
+public class NaluProcessor
   extends AbstractProcessor {
 
   private ProcessorUtils processorUtils;
 
   private ApplicationAnnotationScanner applicationAnnotationScanner;
+  private HandlerAnnotationScanner     handlerAnnotationScanner;
 
   private ApplicationGenerator applicationGenerator;
 
   private ApplicationMetaModel applicationMetaModel;
 
-  public NaluReactProcessor() {
+  public NaluProcessor() {
     super();
   }
 
+  // TODO do we need Debug, ProvidesSelector & Controller here?
   @Override
   public Set<String> getSupportedAnnotationTypes() {
     return of(Application.class.getCanonicalName(),
               Debug.class.getCanonicalName(),
               ProvidesSelector.class.getCanonicalName(),
-              Controller.class.getCanonicalName()).collect(toSet());
+              Controller.class.getCanonicalName(),
+              Handler.class.getCanonicalName()).collect(toSet());
   }
 
   @Override
@@ -106,9 +111,16 @@ public class NaluReactProcessor
     }
   }
 
-  private void scan(RoundEnvironment roundEnvironment)
+  private void scan(RoundEnvironment roundEnv)
     throws ProcessorException {
-    this.applicationMetaModel = this.applicationAnnotationScanner.scan(roundEnvironment);
+    this.applicationMetaModel = this.applicationAnnotationScanner.scan();
+    // cause we need the meta model, we have to create the Handler scanner here!
+    this.handlerAnnotationScanner = HandlerAnnotationScanner.builder()
+                                                            .roundEnvironment(roundEnv)
+                                                            .processingEnvironment(this.processingEnv)
+                                                            .applicationMetaModel(this.applicationMetaModel)
+                                                            .build();
+    this.applicationMetaModel = this.handlerAnnotationScanner.scan();
   }
 
 //  private void validateModels(RoundEnvironment roundEnv)

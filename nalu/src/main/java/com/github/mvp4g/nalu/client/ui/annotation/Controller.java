@@ -1,4 +1,4 @@
-package com.github.mvp4g.nalu.client.ui.annotations;
+package com.github.mvp4g.nalu.client.ui.annotation;
 
 
 import com.github.mvp4g.nalu.client.ui.AbstractComponent;

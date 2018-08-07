@@ -28,6 +28,7 @@ import com.github.mvp4g.nalu.client.internal.route.HashResult;
 import com.github.mvp4g.nalu.client.internal.route.RouterConfiguration;
 import com.github.mvp4g.nalu.client.ui.IsShellController;
 import elemental2.dom.DomGlobal;
+import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
  * generator of the eventBus
@@ -46,6 +47,8 @@ public abstract class AbstractApplication<C extends IsContext>
   protected Router              router;
   /* application context */
   protected C                   context;
+  /* the event bus of the applicaiton */
+  protected SimpleEventBus      eventBus;
   //  protected E                                  eventBus;
 //  /* flag if we have to check history token at the start of the application */
 //  protected boolean                            historyOnStart;
@@ -67,15 +70,19 @@ public abstract class AbstractApplication<C extends IsContext>
   @Override
   public void run() {
     // instantiate necessary classes
+    this.eventBus = new SimpleEventBus();
     this.routerConfiguration = new RouterConfiguration();
     this.router = new Router(this.routerConfiguration);
     //load everything you need to start
     this.loadDebugConfiguration();
     this.loadSelectors();
     this.loadRoutes();
+    this.loadFilters();
     this.loadStartRoute();
-    // load the components
+    // load the components of the application
     this.loadComponents();
+    // load the handlers fo the application
+    this.loadHandlers();
     // set debug
     this.router.setDebug(this.debugEnabled,
                          this.logger,
@@ -83,6 +90,10 @@ public abstract class AbstractApplication<C extends IsContext>
     // execute the loader (if one is present)
     getApplicationLoader().load(this::onFinishLaoding);
   }
+
+  protected abstract void loadHandlers();
+
+  protected abstract void loadFilters();
 
   protected abstract void loadDebugConfiguration();
 
@@ -95,10 +106,6 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract void loadComponents();
 
   protected abstract IsApplicationLoader getApplicationLoader();
-
-//  public RouterConfiguration getRouter() {
-//    return routerConfiguration;
-//  }
 
   /**
    * Once the loader did his job, we will continue
@@ -127,15 +134,6 @@ public abstract class AbstractApplication<C extends IsContext>
     } else {
       this.router.route(this.startRoute);
     }
-
-//    // create place service and bind
-//    this.placeService = new PlaceService<E>(this.eventBus,
-//                                            new DefaultHistoryProxyImpl(),
-//                                            historyOnStart,
-//                                            encodeToken);
-//    this.eventBus.setPlaceService(this.placeService);
-//    // start the application
-//    placeService.startApplication();
   }
 
   protected abstract void setShell();

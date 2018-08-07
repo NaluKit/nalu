@@ -1,5 +1,7 @@
 package com.github.mvp4g.nalu.client.internal.route;
 
+import com.github.mvp4g.nalu.client.application.IsFilter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,11 +14,14 @@ public class RouterConfiguration {
 
   private Map<String, String> selectors;
 
+  private List<IsFilter> filters;
+
   public RouterConfiguration() {
     super();
 
     this.routers = new ArrayList<>();
     this.selectors = new HashMap<>();
+    this.filters = new ArrayList<>();
   }
 
   public List<RouteConfig> getRouters() {
@@ -25,6 +30,10 @@ public class RouterConfiguration {
 
   public Map<String, String> getSelectors() {
     return selectors;
+  }
+
+  public List<IsFilter> getFilters() {
+    return filters;
   }
 
   public List<RouteConfig> match(String hash) {

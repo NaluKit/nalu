@@ -115,7 +115,7 @@ public class EventbusTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("NaluReactProcessor: presenter >>MockShellPresenter01<< -> event >>onDoSomething()<< is not handled by presenter/handler");
+                      .hadErrorContaining("NaluProcessor: presenter >>MockShellPresenter01<< -> event >>onDoSomething()<< is not handled by presenter/handler");
   }
 
   @Test

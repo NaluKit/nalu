@@ -66,8 +66,13 @@
   <!--</issueManagement>-->
 
   <properties>
-    <gwt-events.version>HEAD</gwt-events.version>
+    <gwt-events.version>HEAD-SNAPSHOT</gwt-events.version>
     <!--<elemental2.version>1.0.0-RC1</elemental2.version>-->
+
+    <!-- CI -->
+    <vertispan.snapshot.repo.id>vertispan-snapshot-repository</vertispan.snapshot.repo.id>
+    <vertispan.snapshot.repo.name>Vertispan Snapshot Repository</vertispan.snapshot.repo.name>
+    <vertispan.snapshot.repo.url>https://repo.vertispan.com/gwt-snapshot/</vertispan.snapshot.repo.url>
   </properties>
 
   <dependencies>
@@ -76,6 +81,12 @@
       <artifactId>elemental2-dom</artifactId>
       <version>${elemental2.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.gwtproject.event</groupId>
+      <artifactId>gwt-event</artifactId>
+      <version>${gwt-events.version}</version>
+    </dependency>
+
     <!--<dependency>-->
       <!--<groupId>junit</groupId>-->
       <!--<artifactId>junit</artifactId>-->
@@ -130,4 +141,13 @@
       </plugin>
     </plugins>
   </build>
+
+
+  <repositories>
+    <repository>
+      <id>${vertispan.snapshot.repo.id}</id>
+      <name>${vertispan.snapshot.repo.name}</name>
+      <url>${vertispan.snapshot.repo.url}</url>
+    </repository>
+  </repositories>
 </project>

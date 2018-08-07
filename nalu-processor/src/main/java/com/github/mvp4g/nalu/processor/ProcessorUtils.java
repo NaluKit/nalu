@@ -78,7 +78,7 @@ public class ProcessorUtils {
 //                      "");
 //      printWriter.close();
 //    } catch (IOException ex) {
-//      throw new ProcessorException("NaluReactProcessor: Unable to write file: >>" + fileName + "<< -> exception: " + ex.getMessage());
+//      throw new ProcessorException("NaluProcessor: Unable to write file: >>" + fileName + "<< -> exception: " + ex.getMessage());
 //    }
 //  }
 

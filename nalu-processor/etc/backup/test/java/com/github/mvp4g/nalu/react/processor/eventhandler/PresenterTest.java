@@ -228,7 +228,7 @@ public class PresenterTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("NaluReactProcessor: >>MockShellPresenter01<< -> EventElement: >>onDoSomething()<< must return 'void'");
+                      .hadErrorContaining("NaluProcessor: >>MockShellPresenter01<< -> EventElement: >>onDoSomething()<< must return 'void'");
   }
 
   @Test
@@ -245,7 +245,7 @@ public class PresenterTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("NaluReactProcessor: >>MockShellPresenter01<< -> EventElement: >>onDoSomething()<< must return 'void'");
+                      .hadErrorContaining("NaluProcessor: >>MockShellPresenter01<< -> EventElement: >>onDoSomething()<< must return 'void'");
   }
 
   /**
@@ -430,7 +430,7 @@ public class PresenterTest {
   //                add(JavaFileObjects.forResource("com/github/mvp4g/mvp4g2/processor/eventhandler/presenterWithMultipleAttribute02/MockMultipleView02.java"));
   //              }
   //            })
-  //          .processedWith(new NaluReactProcessor())
+  //          .processedWith(new NaluProcessor())
   //          .compilesWithoutError();
   //  }
 }

@@ -12,6 +12,7 @@ public abstract class AbstractComponentController<C extends IsContext,
   protected V component;
 
   public AbstractComponentController() {
+    super();
   }
 
   @Override
@@ -22,6 +23,10 @@ public abstract class AbstractComponentController<C extends IsContext,
   @Override
   public HTMLElement render() {
     return component.render();
+  }
+
+  @Override
+  public void start() {
   }
 
   @Override

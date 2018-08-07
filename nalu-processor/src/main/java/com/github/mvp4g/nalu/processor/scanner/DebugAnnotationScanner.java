@@ -57,7 +57,7 @@ public class DebugAnnotationScanner {
     return new Builder();
   }
 
-  public ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
+  ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
     throws ProcessorException {
     // do validation
     DebugAnnotationValidator.builder()
@@ -104,7 +104,7 @@ public class DebugAnnotationScanner {
       return this;
     }
 
-    public Builder eventBusTypeElement(TypeElement eventBusTypeElement) {
+    public Builder applicationTypeElement(TypeElement eventBusTypeElement) {
       this.eventBusTypeElement = eventBusTypeElement;
       return this;
     }

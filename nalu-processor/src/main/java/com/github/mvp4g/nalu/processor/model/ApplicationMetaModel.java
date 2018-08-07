@@ -18,15 +18,14 @@
 package com.github.mvp4g.nalu.processor.model;
 
 import com.github.mvp4g.nalu.processor.model.intern.ClassNameModel;
-import com.github.mvp4g.nalu.processor.model.intern.ProvidesSelectorModel;
 import com.github.mvp4g.nalu.processor.model.intern.ControllerModel;
+import com.github.mvp4g.nalu.processor.model.intern.ProvidesSelectorModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicationMetaModel {
 
-  private static final String KEY_SELECTORS = "selectors";
 
   private ClassNameModel application;
   private ClassNameModel loader;
@@ -44,6 +43,12 @@ public class ApplicationMetaModel {
   private List<ProvidesSelectorModel> selectors;
 
 
+  private String               hasFiltersAnnotation;
+  private List<ClassNameModel> filters;
+
+
+  private List<ClassNameModel> handlers;
+
   public ApplicationMetaModel() {
   }
 
@@ -60,6 +65,8 @@ public class ApplicationMetaModel {
 
     this.routes = new ArrayList<>();
     this.selectors = new ArrayList<>();
+    this.filters = new ArrayList<>();
+    this.handlers = new ArrayList<>();
   }
 
   public ClassNameModel getApplication() {
@@ -140,5 +147,29 @@ public class ApplicationMetaModel {
 
   public void setContext(ClassNameModel context) {
     this.context = context;
+  }
+
+  public String getHasFiltersAnnotation() {
+    return hasFiltersAnnotation;
+  }
+
+  public void setHasFiltersAnnotation(String hasFiltersAnnotation) {
+    this.hasFiltersAnnotation = hasFiltersAnnotation;
+  }
+
+  public List<ClassNameModel> getFilters() {
+    return filters;
+  }
+
+  public void setFilters(List<ClassNameModel> filters) {
+    this.filters = filters;
+  }
+
+  public List<ClassNameModel> getHandlers() {
+    return handlers;
+  }
+
+  public void setHandlers(List<ClassNameModel> handlers) {
+    this.handlers = handlers;
   }
 }

@@ -66,6 +66,6 @@ public class ShellTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("NaluReactProcessor: there can be only one presenter implementing IsShell");
+                      .hadErrorContaining("NaluProcessor: there can be only one presenter implementing IsShell");
   }
 }

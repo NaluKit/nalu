@@ -17,21 +17,22 @@
 package com.github.mvp4g.nalu.processor.generator;
 
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
 
-public class ProvidesSelecctorGenerator {
+public class FiltersGenerator {
 
   private ApplicationMetaModel applicationMetaModel;
   private TypeSpec.Builder     typeSpec;
 
   @SuppressWarnings("unused")
-  private ProvidesSelecctorGenerator() {
+  private FiltersGenerator() {
   }
 
-  private ProvidesSelecctorGenerator(Builder builder) {
+  private FiltersGenerator(Builder builder) {
     this.applicationMetaModel = builder.applicationMetaModel;
     this.typeSpec = builder.typeSpec;
   }
@@ -42,17 +43,16 @@ public class ProvidesSelecctorGenerator {
 
   void generate() {
     // method must always be created!
-    MethodSpec.Builder loadSelectorsMethod = MethodSpec.methodBuilder("loadSelectors")
+    MethodSpec.Builder loadFiltersMethod = MethodSpec.methodBuilder("loadFilters")
                                                        .addAnnotation(Override.class)
                                                        .addModifiers(Modifier.PUBLIC);
-    this.applicationMetaModel.getSelectors()
-                             .forEach(providesSelectorModel ->
-                                        loadSelectorsMethod.addStatement("super.routerConfiguration.getSelectors().put($S, $S)",
-                                                                         providesSelectorModel.getSelector(),
-                                                                         providesSelectorModel.getProvider()
-                                                                                              .getClassName()));
 
-    typeSpec.addMethod(loadSelectorsMethod.build());
+    this.applicationMetaModel.getFilters()
+                             .forEach(classNameModel -> loadFiltersMethod.addStatement("super.routerConfiguration.getFilters().add(new $T())",
+                                                                                         ClassName.get(classNameModel.getPackage(),
+                                                                                                       classNameModel.getSimpleName())));
+
+    typeSpec.addMethod(loadFiltersMethod.build());
   }
 
   public static final class Builder {
@@ -82,8 +82,8 @@ public class ProvidesSelecctorGenerator {
       return this;
     }
 
-    public ProvidesSelecctorGenerator build() {
-      return new ProvidesSelecctorGenerator(this);
+    public FiltersGenerator build() {
+      return new FiltersGenerator(this);
     }
   }
 }

@@ -60,7 +60,7 @@ public class ProvidesSelectorAnnotationValidator {
     // @ProvidesSelector can only be used on a class
     if (!typeElement.getKind()
                     .isClass()) {
-      throw new ProcessorException("@ProvidesSelector can only be used with an class");
+      throw new ProcessorException("Nalu-Processor: @ProvidesSelector can only be used with an class");
     }
     // @ProvidesSelector can only be used on a interface that extends IsApplication
     if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
@@ -73,7 +73,7 @@ public class ProvidesSelectorAnnotationValidator {
                                                       this.processingEnvironment.getElementUtils()
                                                                                 .getTypeElement(IsShellController.class.getCanonicalName())
                                                                                 .asType()))) {
-      throw new ProcessorException("@ProvidesSelector can only be used on a class that extends IsController or IsShellController");
+      throw new ProcessorException("Nalu-Processor: @ProvidesSelector can only be used on a class that extends IsController or IsShellController");
     }
   }
 

@@ -17,10 +17,7 @@
 
 package com.github.mvp4g.nalu.client.application.annotation;
 
-import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
-import com.github.mvp4g.nalu.client.application.IsContext;
-import com.github.mvp4g.nalu.client.internal.application.NoApplicationLoader;
-import com.github.mvp4g.nalu.client.ui.IsShellController;
+import com.github.mvp4g.nalu.client.application.IsFilter;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -40,14 +37,8 @@ import java.lang.annotation.RetentionPolicy;
  * @author Frank Hossfeld
  */
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Application {
+public @interface Filters {
 
-  Class<? extends IsApplicationLoader> loader() default NoApplicationLoader.class;
-
-  Class<? extends IsShellController> shell();
-
-  String startRoute();
-
-  Class<? extends IsContext> context();
+  Class<? extends IsFilter>[] filterClasses();
 
 }

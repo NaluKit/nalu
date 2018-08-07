@@ -16,8 +16,8 @@
  */
 package com.github.mvp4g.nalu.processor.scanner.validation;
 
-import com.github.mvp4g.nalu.client.ui.IsController;
-import com.github.mvp4g.nalu.client.ui.IsShellController;
+import com.github.mvp4g.nalu.client.handler.AbstractHandler;
+import com.github.mvp4g.nalu.client.handler.IsHandler;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
 
@@ -26,21 +26,21 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
-public class RouteAnnotationValidator {
+public class HandlerAnnotationValidator {
 
   private ProcessorUtils        processorUtils;
   private ProcessingEnvironment processingEnvironment;
   private RoundEnvironment      roundEnvironment;
-  private Element               providesSecletorElement;
+  private Element               handlerElement;
 
   @SuppressWarnings("unused")
-  private RouteAnnotationValidator() {
+  private HandlerAnnotationValidator() {
   }
 
-  private RouteAnnotationValidator(Builder builder) {
+  private HandlerAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.roundEnvironment = builder.roundEnvironment;
-    this.providesSecletorElement = builder.providesSecletorElement;
+    this.handlerElement = builder.handlerElement;
     setUp();
   }
 
@@ -56,24 +56,27 @@ public class RouteAnnotationValidator {
 
   public void validate()
     throws ProcessorException {
-    TypeElement typeElement = (TypeElement) this.providesSecletorElement;
+    TypeElement typeElement = (TypeElement) this.handlerElement;
     // @ProvidesSelector can only be used on a class
     if (!typeElement.getKind()
                     .isClass()) {
-      throw new ProcessorException("Nalu-Processor: @Controller can only be used with an class");
+      throw new ProcessorException("Nalu-Processor: @Handler can only be used with an class");
     }
-    // @ProvidesSelector can only be used on a interface that extends IsApplication
+    // @Handler can only be used on a interface that extends IsHandler
     if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
                                                      typeElement.asType(),
                                                      this.processingEnvironment.getElementUtils()
-                                                                               .getTypeElement(IsController.class.getCanonicalName())
-                                                                               .asType()) ||
-          this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                      typeElement.asType(),
-                                                      this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(IsShellController.class.getCanonicalName())
-                                                                                .asType()))) {
-      throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController or IsShellController");
+                                                                               .getTypeElement(IsHandler.class.getCanonicalName())
+                                                                               .asType()))) {
+      throw new ProcessorException("Nalu-Processor: @Handler can only be used on a class that implements IsHandler");
+    }
+    // @Handler can only be used on a interface that extends IsApplication
+    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+                                                     typeElement.asType(),
+                                                     this.processingEnvironment.getElementUtils()
+                                                                               .getTypeElement(AbstractHandler.class.getCanonicalName())
+                                                                               .asType()))) {
+      throw new ProcessorException("Nalu-Processor: @Handler can only be used on a class that extends AbstractHandler");
     }
   }
 
@@ -81,7 +84,7 @@ public class RouteAnnotationValidator {
 
     ProcessingEnvironment processingEnvironment;
     RoundEnvironment      roundEnvironment;
-    Element               providesSecletorElement;
+    Element               handlerElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
@@ -93,13 +96,13 @@ public class RouteAnnotationValidator {
       return this;
     }
 
-    public Builder providesSecletorElement(Element providesSecletorElement) {
-      this.providesSecletorElement = providesSecletorElement;
+    public Builder handlerElement(Element handlerElement) {
+      this.handlerElement = handlerElement;
       return this;
     }
 
-    public RouteAnnotationValidator build() {
-      return new RouteAnnotationValidator(this);
+    public HandlerAnnotationValidator build() {
+      return new HandlerAnnotationValidator(this);
     }
   }
 }

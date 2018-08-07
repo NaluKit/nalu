@@ -17,27 +17,28 @@
 
 package com.github.mvp4g.nalu.processor.scanner;
 
-import com.github.mvp4g.nalu.client.ui.annotation.ProvidesSelector;
+import com.github.mvp4g.nalu.client.ui.annotation.Controller;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
 import com.github.mvp4g.nalu.processor.model.intern.ClassNameModel;
-import com.github.mvp4g.nalu.processor.model.intern.ProvidesSelectorModel;
-import com.github.mvp4g.nalu.processor.scanner.validation.ProvidesSelectorAnnotationValidator;
+import com.github.mvp4g.nalu.processor.model.intern.ControllerModel;
+import com.github.mvp4g.nalu.processor.scanner.validation.RouteAnnotationValidator;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
-import java.util.Arrays;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.MirroredTypeException;
 
-public class ProvidesSelectorAnnotationScanner {
+public class RouteAnnotationScanner {
 
   private ProcessorUtils        processorUtils;
   private ProcessingEnvironment processingEnvironment;
   private ApplicationMetaModel  applicationMetaModel;
 
   @SuppressWarnings("unused")
-  private ProvidesSelectorAnnotationScanner(Builder builder) {
+  private RouteAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
     this.applicationMetaModel = builder.applicationMetaModel;
@@ -57,23 +58,47 @@ public class ProvidesSelectorAnnotationScanner {
   ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
     throws ProcessorException {
     // handle ProvidesSelector-annotation
-    for (Element element : roundEnvironment.getElementsAnnotatedWith(ProvidesSelector.class)) {
+    for (Element element : roundEnvironment.getElementsAnnotatedWith(Controller.class)) {
       // do validation
-      ProvidesSelectorAnnotationValidator.builder()
-                                         .roundEnvironment(roundEnvironment)
-                                         .processingEnvironment(processingEnvironment)
-                                         .providesSecletorElement(element)
-                                         .build()
-                                         .validate();
+      RouteAnnotationValidator.builder()
+                              .roundEnvironment(roundEnvironment)
+                              .processingEnvironment(processingEnvironment)
+                              .providesSecletorElement(element)
+                              .build()
+                              .validate();
       // get Annotation ...
-      ProvidesSelector annotation = element.getAnnotation(ProvidesSelector.class);
+      Controller annotation = element.getAnnotation(Controller.class);
       // handle ...
-      Arrays.stream(annotation.selector())
-            .forEach(s -> this.applicationMetaModel.getSelectors()
-                                                   .add(new ProvidesSelectorModel(s,
-                                                                                  new ClassNameModel(element.toString()))));
+      TypeElement componentTypeElement = this.getComponentTypeElement(annotation);
+      TypeElement componentInterfaceTypeElement = this.getComponentInterfaceTypeElement(annotation);
+      this.applicationMetaModel.getRoutes()
+                               .add(new ControllerModel(annotation.route(),
+                                                        annotation.selector(),
+                                                        new ClassNameModel(componentInterfaceTypeElement.toString()),
+                                                        new ClassNameModel(componentTypeElement.toString()),
+                                                        new ClassNameModel(element.toString())));
     }
     return this.applicationMetaModel;
+  }
+
+  private TypeElement getComponentTypeElement(Controller annotation) {
+    try {
+      annotation.component();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
+  }
+
+  private TypeElement getComponentInterfaceTypeElement(Controller annotation) {
+    try {
+      annotation.componentInterface();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
   }
 
   public static class Builder {
@@ -91,8 +116,8 @@ public class ProvidesSelectorAnnotationScanner {
       return this;
     }
 
-    public ProvidesSelectorAnnotationScanner build() {
-      return new ProvidesSelectorAnnotationScanner(this);
+    public RouteAnnotationScanner build() {
+      return new RouteAnnotationScanner(this);
     }
   }
 }

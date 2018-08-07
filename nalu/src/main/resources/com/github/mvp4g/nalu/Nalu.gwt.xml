@@ -26,6 +26,8 @@
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name="elemental2.dom.Dom"/>
 
+  <inherits name="org.gwtproject.event.Event"/>
+
   <!-- sources -->
   <source path="client"/>
 

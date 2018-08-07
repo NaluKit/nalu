@@ -66,7 +66,7 @@ public class ApplicationAnnotationScanner {
     return new Builder();
   }
 
-  public ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
+  public ApplicationMetaModel scan()
     throws ProcessorException {
     // First we try to read an already created resource ...
     ApplicationMetaModel model = this.restore();
@@ -99,24 +99,29 @@ public class ApplicationAnnotationScanner {
           // Debug-Annotation
           model = DebugAnnotationScanner.builder()
                                         .processingEnvironment(processingEnvironment)
-                                        .eventBusTypeElement((TypeElement) applicationAnnotationElement)
+                                        .applicationTypeElement((TypeElement) applicationAnnotationElement)
                                         .applicationMetaModel(model)
                                         .build()
                                         .scan(roundEnvironment);
           // ProvidesSelector-Annotation
           model = ProvidesSelectorAnnotationScanner.builder()
                                                    .processingEnvironment(processingEnvironment)
-                                                   .eventBusTypeElement((TypeElement) applicationAnnotationElement)
                                                    .applicationMetaModel(model)
                                                    .build()
                                                    .scan(roundEnvironment);
           // Controller-Annotation
-          model = ControllerAnnotationScanner.builder()
-                                             .processingEnvironment(processingEnvironment)
-                                             .eventBusTypeElement((TypeElement) applicationAnnotationElement)
-                                             .applicationMetaModel(model)
-                                             .build()
-                                             .scan(roundEnvironment);
+          model = RouteAnnotationScanner.builder()
+                                        .processingEnvironment(processingEnvironment)
+                                        .applicationMetaModel(model)
+                                        .build()
+                                        .scan(roundEnvironment);
+          // Controller-Annotation
+          model = FiltersAnnotationScanner.builder()
+                                          .processingEnvironment(processingEnvironment)
+                                          .applicationTypeElement((TypeElement) applicationAnnotationElement)
+                                          .applicationMetaModel(model)
+                                          .build()
+                                          .scan(roundEnvironment);
 
           // let's store the updated model
           this.store(model);
@@ -193,7 +198,7 @@ public class ApplicationAnnotationScanner {
       printWriter.flush();
       printWriter.close();
     } catch (IOException e) {
-      throw new ProcessorException("NaluReactProcessor: Unable to write file: >>" + this.createRelativeFileName() + "<< -> exception: " + e.getMessage());
+      throw new ProcessorException("NaluProcessor: Unable to write file: >>" + this.createRelativeFileName() + "<< -> exception: " + e.getMessage());
     }
   }
 

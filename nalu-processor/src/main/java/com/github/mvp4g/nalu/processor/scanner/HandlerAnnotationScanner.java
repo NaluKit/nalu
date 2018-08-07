@@ -17,13 +17,12 @@
 
 package com.github.mvp4g.nalu.processor.scanner;
 
-import com.github.mvp4g.nalu.client.ui.annotations.Controller;
+import com.github.mvp4g.nalu.client.handler.annotation.Handler;
+import com.github.mvp4g.nalu.client.ui.annotation.Controller;
 import com.github.mvp4g.nalu.processor.ProcessorException;
-import com.github.mvp4g.nalu.processor.ProcessorUtils;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
 import com.github.mvp4g.nalu.processor.model.intern.ClassNameModel;
-import com.github.mvp4g.nalu.processor.model.intern.ControllerModel;
-import com.github.mvp4g.nalu.processor.scanner.validation.RouteAnnotationValidator;
+import com.github.mvp4g.nalu.processor.scanner.validation.HandlerAnnotationValidator;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -31,54 +30,41 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.MirroredTypeException;
 
-public class ControllerAnnotationScanner {
+public class HandlerAnnotationScanner {
 
-  private ProcessorUtils        processorUtils;
   private ProcessingEnvironment processingEnvironment;
-  private TypeElement           applicationTypeElement;
+  private RoundEnvironment roundEnvironment;
   private ApplicationMetaModel  applicationMetaModel;
 
   @SuppressWarnings("unused")
-  private ControllerAnnotationScanner(Builder builder) {
+  private HandlerAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.applicationTypeElement = builder.eventBusTypeElement;
+    this.roundEnvironment = builder.roundEnvironment;
     this.applicationMetaModel = builder.applicationMetaModel;
     setUp();
   }
 
   private void setUp() {
-    this.processorUtils = ProcessorUtils.builder()
-                                        .processingEnvironment(this.processingEnvironment)
-                                        .build();
   }
 
   public static Builder builder() {
     return new Builder();
   }
 
-  public ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
+  public ApplicationMetaModel scan()
     throws ProcessorException {
     // handle ProvidesSelector-annotation
-    for (Element element : roundEnvironment.getElementsAnnotatedWith(Controller.class)) {
+    for (Element element : roundEnvironment.getElementsAnnotatedWith(Handler.class)) {
       // do validation
-      RouteAnnotationValidator.builder()
-                              .roundEnvironment(roundEnvironment)
-                              .processingEnvironment(processingEnvironment)
-                              .providesSecletorElement(element)
-                              .build()
-                              .validate();
-      // get Annotation ...
-      Controller annotation = element.getAnnotation(Controller.class);
-      // handle ...
-      TypeElement componentTypeElement = this.getComponentTypeElement(annotation);
-      TypeElement componentInterfaceTypeElement = this.getComponentInterfaceTypeElement(annotation);
-      this.applicationMetaModel.getRoutes()
-                               .add(new ControllerModel(annotation.route(),
-                                                        annotation.selector(),
-                                                        new ClassNameModel(componentInterfaceTypeElement.toString()),
-                                                        new ClassNameModel(componentTypeElement.toString()),
-                                                        new ClassNameModel(element.toString())));
+      HandlerAnnotationValidator.builder()
+                                .roundEnvironment(roundEnvironment)
+                                .processingEnvironment(processingEnvironment)
+                                .handlerElement(element)
+                                .build()
+                                .validate();
+      // save handler class in meta model
+      this.applicationMetaModel.getHandlers().add(new ClassNameModel(element.toString()));
     }
     return this.applicationMetaModel;
   }
@@ -106,16 +92,11 @@ public class ControllerAnnotationScanner {
   public static class Builder {
 
     ProcessingEnvironment processingEnvironment;
-    TypeElement           eventBusTypeElement;
+    RoundEnvironment roundEnvironment;
     ApplicationMetaModel  applicationMetaModel;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
-      return this;
-    }
-
-    public Builder eventBusTypeElement(TypeElement eventBusTypeElement) {
-      this.eventBusTypeElement = eventBusTypeElement;
       return this;
     }
 
@@ -124,8 +105,13 @@ public class ControllerAnnotationScanner {
       return this;
     }
 
-    public ControllerAnnotationScanner build() {
-      return new ControllerAnnotationScanner(this);
+    public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
+      this.roundEnvironment = roundEnvironment;
+      return this;
+    }
+
+    public HandlerAnnotationScanner build() {
+      return new HandlerAnnotationScanner(this);
     }
   }
 }
