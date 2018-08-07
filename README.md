@@ -21,7 +21,7 @@ The application interface must extend ```IsApplication``` and be annotated with 
 The context is a class that will be injected in every handler and controller. This is a good place to store general needed data.
 
 ### Component
-The component contains the visible part. It will be autmatically created by the framework and injected to the controller.
+The component contains the visible part. It will be autmatically created by the framework and injected to the controller. It has to implement the ```render```-method, which return an element.
 
 ### Controller
 The controller controls a part of the application. It has to extend ```AbstractComponentController``` and must be annotated with ```@controller```. The component is created by the framework and injected into the controller. The use of the component class respects the view delegate pattern.
