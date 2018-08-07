@@ -1,4 +1,5 @@
 # Nalu
+Please use the mvp4g Gitter room for communication.
 
 ## Installation
 To run the examples:
