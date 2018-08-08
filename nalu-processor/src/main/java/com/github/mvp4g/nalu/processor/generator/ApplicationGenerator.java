@@ -18,6 +18,7 @@
 package com.github.mvp4g.nalu.processor.generator;
 
 import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
+import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.internal.application.AbstractApplication;
 import com.github.mvp4g.nalu.client.internal.application.ControllerCreator;
 import com.github.mvp4g.nalu.client.internal.application.ControllerFactory;
@@ -152,7 +153,9 @@ public class ApplicationGenerator {
                                .addStatement("shell.setEventBus(this.eventBus)")
                                .addStatement("shell.setContext(this.context)")
                                .addStatement("shell.bind()")
-                               .addStatement("super.shell = shell");
+                               .addStatement("super.shell = shell")
+                               .addStatement("$T.get().logDetailed(\"AbstractApplicationImpl: shell created\", 1)",
+                                             ClassName.get(ClientLogger.class));
     this.getAllComponents(metaModel.getRoutes())
         .forEach(controllerModel -> {
           MethodSpec.Builder createMethod = MethodSpec.methodBuilder("create")
@@ -189,7 +192,13 @@ public class ApplicationGenerator {
                                                                                                  .getSimpleName()))
                                                       .addStatement("component.setController(controller)")
                                                       .addStatement("controller.setComponent(component)")
-                                                      .addStatement("controller.bind()");
+                                                      .addStatement("controller.bind()")
+                                                      .addStatement("$T.get().logDetailed(\"ControllerFactory: controller >>$L<< created for route >>$L<<\", 0)",
+                                                                    ClassName.get(ClientLogger.class),
+                                                                    controllerModel.getComponent()
+                                                                                   .getClassName(),
+                                                                    controllerModel.getRoute());
+
           createMethod.beginControlFlow("if (parms != null)");
           // TODO validate: das die setParameter(String parms) implementiert ist!!!!
           HashResultModel hashResultModel = this.parseRoute(controllerModel.getRoute());

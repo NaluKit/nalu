@@ -1,8 +1,6 @@
 package com.github.mvp4g.nalu.client;
 
 import com.github.mvp4g.nalu.client.application.IsFilter;
-import com.github.mvp4g.nalu.client.application.IsLogger;
-import com.github.mvp4g.nalu.client.application.annotation.Debug;
 import com.github.mvp4g.nalu.client.internal.application.ControllerFactory;
 import com.github.mvp4g.nalu.client.internal.route.HashResult;
 import com.github.mvp4g.nalu.client.internal.route.RouteConfig;
@@ -34,14 +32,6 @@ public final class Router {
   private Map<String, AbstractComponentController<?, ?>> activeComponents;
   /* List of confirm components */
   private Map<String, AbstractComponentController<?, ?>> confirmComponents;
-
-  /* debugging enabled */
-  private boolean        debugEnabled = false;
-  /* logger */
-  private IsLogger       logger;
-  /* log level */
-  private Debug.LogLevel logLevel;
-
   //* hash of last successful routing */
   private String lastExecutedHash;
 
@@ -194,14 +184,6 @@ public final class Router {
                                    component);
       }
     }
-  }
-
-  public void setDebug(boolean debugEnabled,
-                       IsLogger logger,
-                       Debug.LogLevel logLevel) {
-    this.debugEnabled = debugEnabled;
-    this.logger = logger;
-    this.logLevel = logLevel;
   }
 
   public void route(String newRoute,

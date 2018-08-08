@@ -21,8 +21,7 @@ import com.github.mvp4g.nalu.client.Router;
 import com.github.mvp4g.nalu.client.application.IsApplication;
 import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
 import com.github.mvp4g.nalu.client.application.IsContext;
-import com.github.mvp4g.nalu.client.application.IsLogger;
-import com.github.mvp4g.nalu.client.application.annotation.Debug;
+import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.mvp4g.nalu.client.internal.route.HashResult;
 import com.github.mvp4g.nalu.client.internal.route.RouterConfiguration;
@@ -49,19 +48,6 @@ public abstract class AbstractApplication<C extends IsContext>
   protected C                   context;
   /* the event bus of the applicaiton */
   protected SimpleEventBus      eventBus;
-  //  protected E                                  eventBus;
-//  /* flag if we have to check history token at the start of the application */
-//  protected boolean                            historyOnStart;
-//  /* flag if we have to enode the history token */
-//  protected boolean                            encodeToken;
-//  /* the PlaceService */
-//  private   PlaceService<? extends IsEventBus> placeService;
-  /* debug enabled? */
-  private   boolean             debugEnabled = false;
-  /* logger */
-  private   IsLogger            logger;
-  /* log level */
-  private   Debug.LogLevel      logLevel;
 
   public AbstractApplication() {
     super();
@@ -69,31 +55,40 @@ public abstract class AbstractApplication<C extends IsContext>
 
   @Override
   public void run() {
+    // first load the debug configuration
+    this.loadDebugConfiguration();
+    // debug message
+    ClientLogger.get()
+                .logSimple("AbstractApplication: application is started!",
+                           0);
     // instantiate necessary classes
     this.eventBus = new SimpleEventBus();
     this.routerConfiguration = new RouterConfiguration();
     this.router = new Router(this.routerConfiguration);
-    //load everything you need to start
-    this.loadDebugConfiguration();
+    // load everything you need to start
+    ClientLogger.get()
+                .logDetailed("AbstractApplication: load configurations",
+                             1);
     this.loadSelectors();
     this.loadRoutes();
     this.loadFilters();
     this.loadStartRoute();
     // load the components of the application
+    ClientLogger.get()
+                .logDetailed("AbstractApplication: load components",
+                             1);
     this.loadComponents();
     // load the handlers fo the application
+    ClientLogger.get()
+                .logDetailed("AbstractApplication: load handlers",
+                             1);
     this.loadHandlers();
-    // set debug
-    this.router.setDebug(this.debugEnabled,
-                         this.logger,
-                         this.logLevel);
     // execute the loader (if one is present)
+    ClientLogger.get()
+                .logDetailed("AbstractApplication: execute loader",
+                             1);
     getApplicationLoader().load(this::onFinishLaoding);
   }
-
-  protected abstract void loadHandlers();
-
-  protected abstract void loadFilters();
 
   protected abstract void loadDebugConfiguration();
 
@@ -101,9 +96,13 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract void loadRoutes();
 
+  protected abstract void loadFilters();
+
   protected abstract void loadStartRoute();
 
   protected abstract void loadComponents();
+
+  protected abstract void loadHandlers();
 
   protected abstract IsApplicationLoader getApplicationLoader();
 
@@ -119,68 +118,37 @@ public abstract class AbstractApplication<C extends IsContext>
       }
     }
     // initialize shell ...
+    ClientLogger.get()
+                .logDetailed("AbstractApplication: set shell",
+                             1);
     this.setShell();
     // start the application by calling url + '#'
+    ClientLogger.get()
+                .logDetailed("AbstractApplication: initialize applicaiton (route to '')",
+                             1);
     this.router.route("");
     // check if the url contains a hash.
     // in case it has a hash, use this to route otherwise
     // use the startRoute form the annoatation
     if (hashOnStart != null && hashOnStart.trim()
                                           .length() > 0) {
+      ClientLogger.get()
+                  .logDetailed("AbstractApplication: handle history (hash at start: >>" + hashOnStart + "<<",
+                               1);
       HashResult hashResult = this.router.parse(hashOnStart);
       this.router.route(hashResult.getRoute(),
                         hashResult.getParameterValues()
                                   .toArray(new String[0]));
     } else {
+      ClientLogger.get()
+                  .logDetailed("AbstractApplication: no history found -> use startRoute: >>" + this.startRoute + "<<",
+                               1);
       this.router.route(this.startRoute);
     }
+    ClientLogger.get()
+                .logSimple("AbstractApplication: applicaiton started",
+                           0);
   }
 
   protected abstract void setShell();
-
-  /**
-   * Get the logger for the applicaiton
-   *
-   * @return logger
-   */
-  protected IsLogger getLogger() {
-    return logger;
-  }
-
-  /**
-   * Sets the logger
-   *
-   * @param logger logger
-   */
-  protected void setLogger(IsLogger logger) {
-    this.logger = logger;
-  }
-
-  /**
-   * gets the log level
-   *
-   * @return the selected log level
-   */
-  public Debug.LogLevel getLogLevel() {
-    return logLevel;
-  }
-
-  /**
-   * Set the log level
-   *
-   * @param logLevel the new log level
-   */
-  protected void setLogLevel(Debug.LogLevel logLevel) {
-    this.logLevel = logLevel;
-  }
-
-  /**
-   * set the debug state
-   *
-   * @param debugEnabled true - is enable
-   */
-  protected void setDebugEnabled(boolean debugEnabled) {
-    this.debugEnabled = debugEnabled;
-  }
-
 }

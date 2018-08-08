@@ -17,7 +17,10 @@
 package com.github.mvp4g.nalu.processor.generator;
 
 import com.github.mvp4g.nalu.client.application.annotation.Debug;
+import com.github.mvp4g.nalu.client.internal.ClientLogger;
+import com.github.mvp4g.nalu.client.internal.application.DefaultLogger;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
@@ -47,15 +50,21 @@ public class DebugGenerator {
                                                                 .addAnnotation(Override.class)
                                                                 .addModifiers(Modifier.PUBLIC);
     if (applicationMetaModel.isHavingDebugAnnotation()) {
-      loadDebugConfigurationMethod.addStatement("super.setDebugEnabled(true)")
-                                  .addStatement("super.setLogger(new $T())",
+      loadDebugConfigurationMethod.addStatement("$T.get().register($L, new $T(), $T.LogLevel.$L)",
+                                                ClassName.get(ClientLogger.class),
+                                                "true",
                                                 applicationMetaModel.getDebugLogger()
-                                                                    .getTypeName())
-                                  .addStatement("super.setLogLevel($T.LogLevel.$L)",
-                                                Debug.class,
+                                                                    .getTypeName(),
+                                                ClassName.get(Debug.class),
                                                 applicationMetaModel.getDebugLogLevel());
+
     } else {
-      loadDebugConfigurationMethod.addStatement("super.setDebugEnabled(false)");
+      loadDebugConfigurationMethod.addStatement("$T.get().register($L, new $T(), $T.LogLevel.$L)",
+                                                ClassName.get(ClientLogger.class),
+                                                "false",
+                                                ClassName.get(DefaultLogger.class),
+                                                ClassName.get(Debug.class),
+                                                applicationMetaModel.getDebugLogLevel());
     }
     typeSpec.addMethod(loadDebugConfigurationMethod.build());
   }
@@ -63,7 +72,7 @@ public class DebugGenerator {
   public static final class Builder {
 
     ApplicationMetaModel applicationMetaModel;
-    TypeSpec.Builder  typeSpec;
+    TypeSpec.Builder     typeSpec;
 
     /**
      * Set the EventBusMetaModel of the currently generated eventBus

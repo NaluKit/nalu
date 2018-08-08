@@ -43,7 +43,7 @@ public class DefaultLogger
   String createLog(String message,
                    int depth) {
     if (depth == 0) {
-      return message;
+      return "Nalu-Logger -> " + message;
     } else {
       String indent = IntStream.range(0,
                                       depth)
@@ -51,7 +51,7 @@ public class DefaultLogger
                                .collect(Collectors.joining("",
                                                            "",
                                                            message));
-      return indent;
+      return "Nalu-Logger -> " + indent;
     }
   }
 }
