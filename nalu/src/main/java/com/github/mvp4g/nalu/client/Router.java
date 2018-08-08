@@ -14,7 +14,10 @@ import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HashChangeEvent;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,11 +27,13 @@ public final class Router {
   private Map<String, HTMLElement> addedElements;
 
   /* List of the routes of the application */
-  private RouterConfiguration                     routerConfiguration;
+  private RouterConfiguration                            routerConfiguration;
   /* List of the Selectors of the application */
-  private Map<String, String>                     selectors;
+  private Map<String, String>                            selectors;
   /* List of active components */
-  private List<AbstractComponentController<?, ?>> activeComponents;
+  private Map<String, AbstractComponentController<?, ?>> activeComponents;
+  /* List of confirm components */
+  private Map<String, AbstractComponentController<?, ?>> confirmComponents;
 
   /* debugging enabled */
   private boolean        debugEnabled = false;
@@ -48,7 +53,8 @@ public final class Router {
     // save the router configuration reference
     this.routerConfiguration = routerConfiguration;
     // inistantiate lists, etc.
-    this.activeComponents = new ArrayList<>();
+    this.activeComponents = new HashMap<>();
+    this.confirmComponents = new HashMap<>();
     // register event handler
     this.registerEventHandler();
   }
@@ -78,15 +84,13 @@ public final class Router {
         return null;
       }
     }
+    // search for a matching routing
+    List<RouteConfig> routeConfiguraions = this.routerConfiguration.match(hashResult.getRoute());
     // chech weather or not the routing is possible ...
-    if (this.confirmRouting()) {
-      // clear list of active elements
-      this.activeComponents.clear();
-      // check weather we can route or not
-      // TODO HOOKS einbauen!
-
-      // search for a matching routing
-      List<RouteConfig> routeConfiguraions = this.routerConfiguration.match(hashResult.getRoute());
+    if (this.confirmRouting(routeConfiguraions)) {
+      // call stop for all elements
+      this.stopController(routeConfiguraions);
+      // routing
       for (RouteConfig routeConfiguraion : routeConfiguraions) {
         AbstractComponentController<?, ?> component = ControllerFactory.get()
                                                                        .controller(routeConfiguraion.getClassName(),
@@ -139,17 +143,28 @@ public final class Router {
     return hashResult;
   }
 
-  private boolean confirmRouting() {
-    String message = this.activeComponents.stream()
-                                          .filter(c -> c instanceof IsConfirmator)
-                                          .map(AbstractComponentController::mayStop)
-                                          .filter(Objects::nonNull)
-                                          .findFirst()
-                                          .orElse(null);
-    if (message != null) {
-      return DomGlobal.window.confirm(message);
-    }
-    return true;
+  private boolean confirmRouting(List<RouteConfig> routeConfiguraions) {
+    return routeConfiguraions.stream()
+                             .map(config -> this.confirmComponents.get(config.getSelector()))
+                             .filter(Objects::nonNull)
+                             .map(AbstractComponentController::mayStop)
+                             .filter(Objects::nonNull)
+                             .allMatch(message -> DomGlobal.window.confirm(message));
+  }
+
+  private void stopController(List<RouteConfig> routeConfiguraions) {
+    routeConfiguraions.stream()
+                      .map(config -> this.activeComponents.get(config.getSelector()))
+                      .filter(Objects::nonNull)
+                      .forEach(c -> c.stop());
+    routeConfiguraions.stream()
+                      .map(config -> this.activeComponents.get(config.getSelector()))
+                      .filter(Objects::nonNull)
+                      .forEach(c -> this.activeComponents.remove(c));
+    routeConfiguraions.stream()
+                      .map(config -> this.confirmComponents.get(config.getSelector()))
+                      .filter(Objects::nonNull)
+                      .forEach(c -> this.confirmComponents.remove(c));
   }
 
   private void addElementToDOM(String selector,
@@ -170,9 +185,13 @@ public final class Router {
       selectorElement.appendChild(newElement);
       this.addedElements.put(selector,
                              newElement);
+      // save to active components
+      this.activeComponents.put(selector,
+                                component);
       // save controller
       if (component instanceof IsConfirmator) {
-        this.activeComponents.add(component);
+        this.confirmComponents.put(selector,
+                                   component);
       }
     }
   }
@@ -195,6 +214,7 @@ public final class Router {
     }
     if (parms != null) {
       Stream.of(parms)
+            .filter(Objects::nonNull)
             .forEach(s -> sb.append("/")
                             .append(s.replace("/",
                                               Nalu.NALU_SLEDGE_REPLACEMENT)));
