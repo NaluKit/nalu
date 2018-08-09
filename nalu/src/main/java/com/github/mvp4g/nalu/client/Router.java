@@ -3,6 +3,7 @@ package com.github.mvp4g.nalu.client;
 import com.github.mvp4g.nalu.client.filter.IsFilter;
 import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.internal.application.ControllerFactory;
+import com.github.mvp4g.nalu.client.internal.exception.RoutingInterceptionByControllerException;
 import com.github.mvp4g.nalu.client.internal.route.HashResult;
 import com.github.mvp4g.nalu.client.internal.route.RouteConfig;
 import com.github.mvp4g.nalu.client.internal.route.RouterConfiguration;
@@ -86,8 +87,8 @@ public final class Router {
                     .logSimple(sb.toString(),
                                0);
         this.route(filter.redirectTo(),
-                          true,
-                          filter.parameters());
+                   true,
+                   filter.parameters());
         return null;
       }
     }
@@ -99,15 +100,40 @@ public final class Router {
       this.stopController(routeConfiguraions);
       // routing
       for (RouteConfig routeConfiguraion : routeConfiguraions) {
-        AbstractComponentController<?, ?> component = ControllerFactory.get()
-                                                                       .controller(routeConfiguraion.getClassName(),
-                                                                                   hashResult.getParameterValues()
-                                                                                             .toArray(new String[0]));
-        if (!Objects.isNull(component)) {
-          component.setRouter(this);
+        AbstractComponentController<?, ?> controller = null;
+        try {
+          controller = ControllerFactory.get()
+                                        .controller(routeConfiguraion.getClassName(),
+                                                    hashResult.getParameterValues()
+                                                              .toArray(new String[0]));
+        } catch (RoutingInterceptionByControllerException e) {
+          StringBuilder sb = new StringBuilder();
+          sb.append("Router: create controller >>")
+            .append(e.getControllerClassName())
+            .append("<< intercepts routing! New route: >>")
+            .append(e.getRoute())
+            .append("<<");
+          if (Arrays.asList(e.getParameter())
+                    .size() > 0) {
+            sb.append(" with parameters: ");
+            Stream.of(e.getParameter())
+                  .forEach(p -> sb.append(">>")
+                                  .append(p)
+                                  .append("<< "));
+          }
+          ClientLogger.get()
+                      .logSimple(sb.toString(),
+                                 0);
+          this.route(e.getRoute(),
+                     true,
+                     e.getParameter());
+          return null;
+        }
+        if (!Objects.isNull(controller)) {
+          controller.setRouter(this);
           this.addElementToDOM(routeConfiguraion.getSelector(),
-                               component);
-          component.start();
+                               controller);
+          controller.start();
           this.lastExecutedHash = hash;
         } else {
           DomGlobal.window.alert("Ups ... not found!");

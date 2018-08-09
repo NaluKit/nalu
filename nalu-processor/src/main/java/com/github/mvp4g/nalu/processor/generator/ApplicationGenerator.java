@@ -22,6 +22,7 @@ import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.internal.application.AbstractApplication;
 import com.github.mvp4g.nalu.client.internal.application.ControllerCreator;
 import com.github.mvp4g.nalu.client.internal.application.ControllerFactory;
+import com.github.mvp4g.nalu.client.internal.exception.RoutingInterceptionByControllerException;
 import com.github.mvp4g.nalu.client.ui.AbstractComponentController;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
@@ -171,6 +172,7 @@ public class ApplicationGenerator {
                                                                                                   .getTypeName(),
                                                                                          controllerModel.getComponentInterface()
                                                                                                         .getTypeName()))
+                                                      .addException(ClassName.get(RoutingInterceptionByControllerException.class))
                                                       .addStatement("$T controller = new $T()",
                                                                     ClassName.get(controllerModel.getProvider()
                                                                                                  .getPackage(),
@@ -182,6 +184,7 @@ public class ApplicationGenerator {
                                                                                                  .getSimpleName()))
                                                       .addStatement("controller.setContext(context)")
                                                       .addStatement("controller.setEventBus(eventBus)")
+                                                      .addStatement("controller.setRouter(router)")
                                                       .addStatement("$T component = new $T()",
                                                                     ClassName.get(controllerModel.getComponentInterface()
                                                                                                  .getPackage(),
