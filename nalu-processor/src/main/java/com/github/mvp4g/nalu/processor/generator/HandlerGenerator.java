@@ -16,6 +16,7 @@
  */
 package com.github.mvp4g.nalu.processor.generator;
 
+import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
 import com.squareup.javapoet.ClassName;
@@ -75,7 +76,10 @@ public class HandlerGenerator {
                                                  .addStatement("$L.setEventBus(super.eventBus)",
                                                                variableName)
                                                  .addStatement("$L.bind()",
-                                                               variableName);
+                                                               variableName)
+                                                 .addStatement("$T.get().logDetailed(\"AbstractController: handler >>$L<< created\", 0)",
+                                                               ClassName.get(ClientLogger.class),
+                                                               handler.getClassName());
                              });
 
     typeSpec.addMethod(loadHandlersMethod.build());

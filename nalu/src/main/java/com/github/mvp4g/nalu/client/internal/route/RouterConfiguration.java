@@ -1,6 +1,6 @@
 package com.github.mvp4g.nalu.client.internal.route;
 
-import com.github.mvp4g.nalu.client.application.IsFilter;
+import com.github.mvp4g.nalu.client.filter.IsFilter;
 
 import java.util.ArrayList;
 import java.util.HashMap;

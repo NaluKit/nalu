@@ -111,6 +111,7 @@ public class ApplicationGenerator {
                   .generate();
 
     FiltersGenerator.builder()
+                    .processingEnvironment(this.processingEnvironment)
                     .applicationMetaModel(metaModel)
                     .typeSpec(typeSpec)
                     .build()

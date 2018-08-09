@@ -1,13 +1,22 @@
 package com.github.mvp4g.nalu.client.ui;
 
-import org.gwtproject.event.shared.SimpleEventBus;
+import elemental2.dom.HTMLElement;
 
 public abstract class AbstractComponent<C extends IsComponent.Controller>
   implements IsComponent<C> {
 
   private C controller;
 
+  private HTMLElement element;
+
   public AbstractComponent() {
+    this.element = render();
+  }
+
+  @Override
+  public HTMLElement asElement() {
+    assert element != null : "not alement set!";
+    return this.element;
   }
 
   @Override
@@ -19,4 +28,6 @@ public abstract class AbstractComponent<C extends IsComponent.Controller>
   public void setController(C controller) {
     this.controller = controller;
   }
+
+  protected abstract HTMLElement render();
 }

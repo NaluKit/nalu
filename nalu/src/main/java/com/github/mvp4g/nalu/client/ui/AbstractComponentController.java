@@ -16,13 +16,13 @@ public abstract class AbstractComponentController<C extends IsContext,
   }
 
   @Override
-  public String mayStop() {
-    return null;
+  public HTMLElement asElement() {
+    return this.component.asElement();
   }
 
   @Override
-  public HTMLElement render() {
-    return component.render();
+  public String mayStop() {
+    return null;
   }
 
   @Override

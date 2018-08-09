@@ -1,6 +1,7 @@
 package com.github.mvp4g.nalu.client;
 
-import com.github.mvp4g.nalu.client.application.IsFilter;
+import com.github.mvp4g.nalu.client.filter.IsFilter;
+import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.internal.application.ControllerFactory;
 import com.github.mvp4g.nalu.client.internal.route.HashResult;
 import com.github.mvp4g.nalu.client.internal.route.RouteConfig;
@@ -12,10 +13,7 @@ import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HashChangeEvent;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,7 +31,7 @@ public final class Router {
   /* List of confirm components */
   private Map<String, AbstractComponentController<?, ?>> confirmComponents;
   //* hash of last successful routing */
-  private String lastExecutedHash;
+  private String                                         lastExecutedHash;
 
 
   public Router(RouterConfiguration routerConfiguration) {
@@ -69,8 +67,27 @@ public final class Router {
       if (!filter.filter(addLeadgindSledge(hashResult.getRoute()),
                          hashResult.getParameterValues()
                                    .toArray(new String[0]))) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Router: filter >>")
+          .append(filter.getClass()
+                        .getCanonicalName())
+          .append("<< intercepts routing! New route: >>")
+          .append(filter.redirectTo())
+          .append("<<");
+        if (Arrays.asList(filter.parameters())
+                  .size() > 0) {
+          sb.append(" with parameters: ");
+          Stream.of(filter.parameters())
+                .forEach(p -> sb.append(">>")
+                                .append(p)
+                                .append("<< "));
+        }
+        ClientLogger.get()
+                    .logSimple(sb.toString(),
+                               0);
         this.route(filter.redirectTo(),
-                   filter.parameters());
+                          true,
+                          filter.parameters());
         return null;
       }
     }
@@ -105,8 +122,8 @@ public final class Router {
     return null;
   }
 
-  private String getHash(String newURL) {
-    return newURL.substring(newURL.indexOf("#") + 1);
+  private String getHash(String url) {
+    return url.substring(url.indexOf("#") + 1);
   }
 
   public HashResult parse(String hash) {
@@ -133,6 +150,13 @@ public final class Router {
     return hashResult;
   }
 
+  private String addLeadgindSledge(String value) {
+    if (value.startsWith("/")) {
+      return value;
+    }
+    return "/" + value;
+  }
+
   private boolean confirmRouting(List<RouteConfig> routeConfiguraions) {
     return routeConfiguraions.stream()
                              .map(config -> this.confirmComponents.get(config.getSelector()))
@@ -146,7 +170,7 @@ public final class Router {
     routeConfiguraions.stream()
                       .map(config -> this.activeComponents.get(config.getSelector()))
                       .filter(Objects::nonNull)
-                      .forEach(c -> c.stop());
+                      .forEach(AbstractComponentController::stop);
     routeConfiguraions.stream()
                       .map(config -> this.activeComponents.get(config.getSelector()))
                       .filter(Objects::nonNull)
@@ -158,7 +182,7 @@ public final class Router {
   }
 
   private void addElementToDOM(String selector,
-                               AbstractComponentController<?, ?> component) {
+                               AbstractComponentController<?, ?> controller) {
     Element selectorElement = DomGlobal.document.querySelector("#" + selector);
     if (selectorElement == null) {
       // TODO better message
@@ -171,23 +195,31 @@ public final class Router {
         this.addedElements.remove(selector);
       }
       // add controller
-      HTMLElement newElement = component.render();
+      HTMLElement newElement = controller.asElement();
       selectorElement.appendChild(newElement);
       this.addedElements.put(selector,
                              newElement);
       // save to active components
       this.activeComponents.put(selector,
-                                component);
+                                controller);
       // save controller
-      if (component instanceof IsConfirmator) {
+      if (controller instanceof IsConfirmator) {
         this.confirmComponents.put(selector,
-                                   component);
+                                   controller);
       }
     }
   }
 
   public void route(String newRoute,
                     String... parms) {
+    this.route(newRoute,
+               false,
+               parms);
+  }
+
+  private void route(String newRoute,
+                     boolean replaceState,
+                     String... parms) {
     StringBuilder sb = new StringBuilder();
     if (newRoute.startsWith("/")) {
       sb.append(newRoute.substring(1));
@@ -202,16 +234,15 @@ public final class Router {
                                               Nalu.NALU_SLEDGE_REPLACEMENT)));
     }
     String newRouteWithParams = sb.toString();
-    DomGlobal.window.history.pushState(null,
-                                       null,
-                                       "#" + newRouteWithParams);
-    this.handleRouting(newRouteWithParams);
-  }
-
-  private String addLeadgindSledge(String value) {
-    if (value.startsWith("/")) {
-      return value;
+    if (replaceState) {
+      DomGlobal.window.history.replaceState(null,
+                                            null,
+                                            "#" + newRouteWithParams);
+    } else {
+      DomGlobal.window.history.pushState(null,
+                                         null,
+                                         "#" + newRouteWithParams);
     }
-    return "/" + value;
+    this.handleRouting(newRouteWithParams);
   }
 }

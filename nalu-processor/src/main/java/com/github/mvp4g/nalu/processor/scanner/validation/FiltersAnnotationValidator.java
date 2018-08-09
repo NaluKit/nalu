@@ -17,7 +17,7 @@
 package com.github.mvp4g.nalu.processor.scanner.validation;
 
 import com.github.mvp4g.nalu.client.application.IsApplication;
-import com.github.mvp4g.nalu.client.application.IsFilter;
+import com.github.mvp4g.nalu.client.filter.IsFilter;
 import com.github.mvp4g.nalu.client.application.annotation.Filters;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
@@ -48,6 +48,7 @@ public class FiltersAnnotationValidator {
     this.processingEnvironment = builder.processingEnvironment;
     this.roundEnvironment = builder.roundEnvironment;
     this.applicationTypeElement = builder.applicationTypeElement;
+
     setUp();
   }
 

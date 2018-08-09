@@ -16,25 +16,40 @@
  */
 package com.github.mvp4g.nalu.processor.generator;
 
+import com.github.mvp4g.nalu.client.internal.ClientLogger;
+import com.github.mvp4g.nalu.processor.ProcessorUtils;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 
 public class FiltersGenerator {
 
-  private ApplicationMetaModel applicationMetaModel;
-  private TypeSpec.Builder     typeSpec;
+  private ProcessingEnvironment processingEnvironment;
+  private ProcessorUtils        processorUtils;
+  private ApplicationMetaModel  applicationMetaModel;
+  private TypeSpec.Builder      typeSpec;
 
   @SuppressWarnings("unused")
   private FiltersGenerator() {
+    super();
   }
 
   private FiltersGenerator(Builder builder) {
+    this.processingEnvironment = builder.processingEnvironment;
     this.applicationMetaModel = builder.applicationMetaModel;
     this.typeSpec = builder.typeSpec;
+
+    setUp();
+  }
+
+  private void setUp() {
+    this.processorUtils = ProcessorUtils.builder()
+                                        .processingEnvironment(this.processingEnvironment)
+                                        .build();
   }
 
   public static Builder builder() {
@@ -44,21 +59,32 @@ public class FiltersGenerator {
   void generate() {
     // method must always be created!
     MethodSpec.Builder loadFiltersMethod = MethodSpec.methodBuilder("loadFilters")
-                                                       .addAnnotation(Override.class)
-                                                       .addModifiers(Modifier.PUBLIC);
+                                                     .addAnnotation(Override.class)
+                                                     .addModifiers(Modifier.PUBLIC);
 
     this.applicationMetaModel.getFilters()
-                             .forEach(classNameModel -> loadFiltersMethod.addStatement("super.routerConfiguration.getFilters().add(new $T())",
-                                                                                         ClassName.get(classNameModel.getPackage(),
-                                                                                                       classNameModel.getSimpleName())));
+                             .forEach(classNameModel -> loadFiltersMethod.addStatement("$T $L = new $T()",
+                                                                                       ClassName.get(classNameModel.getPackage(),
+                                                                                                     classNameModel.getSimpleName()),
+                                                                                       this.processorUtils.createFullClassName(classNameModel.getClassName()),
+                                                                                       ClassName.get(classNameModel.getPackage(),
+                                                                                                     classNameModel.getSimpleName()))
+                                                                         .addStatement("$L.setContext(super.context)",
+                                                                                       this.processorUtils.createFullClassName(classNameModel.getClassName()))
+                                                                         .addStatement("super.routerConfiguration.getFilters().add($L)",
+                                                                                       this.processorUtils.createFullClassName(classNameModel.getClassName()))
+                                                                         .addStatement("$T.get().logDetailed(\"AbstractApplication: filter >> $L << created\", 0)",
+                                                                                       ClassName.get(ClientLogger.class),
+                                                                                       this.processorUtils.createFullClassName(classNameModel.getClassName())));
 
     typeSpec.addMethod(loadFiltersMethod.build());
   }
 
   public static final class Builder {
 
-    ApplicationMetaModel applicationMetaModel;
-    TypeSpec.Builder     typeSpec;
+    ProcessingEnvironment processingEnvironment;
+    ApplicationMetaModel  applicationMetaModel;
+    TypeSpec.Builder      typeSpec;
 
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
@@ -79,6 +105,11 @@ public class FiltersGenerator {
      */
     Builder typeSpec(TypeSpec.Builder typeSpec) {
       this.typeSpec = typeSpec;
+      return this;
+    }
+
+    public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
+      this.processingEnvironment = processingEnvironment;
       return this;
     }
 

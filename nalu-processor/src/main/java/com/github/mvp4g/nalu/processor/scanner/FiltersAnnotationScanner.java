@@ -88,9 +88,9 @@ public class FiltersAnnotationScanner {
   }
 
   private List<String> getFiltersAsList() {
-    Element hookAnnotation = this.processingEnvironment.getElementUtils()
+    Element filterAnnotation = this.processingEnvironment.getElementUtils()
                                                        .getTypeElement(Filters.class.getName());
-    TypeMirror filterAnnotationAsTypeMirror = hookAnnotation.asType();
+    TypeMirror filterAnnotationAsTypeMirror = filterAnnotation.asType();
     return this.applicationTypeElement.getAnnotationMirrors()
                                       .stream()
                                       .filter(annotationMirror -> annotationMirror.getAnnotationType()

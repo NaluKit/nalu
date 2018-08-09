@@ -1,4 +1,4 @@
-package com.github.mvp4g.nalu.client.application;
+package com.github.mvp4g.nalu.client.filter;
 
 public interface IsFilter {
 

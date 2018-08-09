@@ -17,7 +17,7 @@
 
 package com.github.mvp4g.nalu.client.application.annotation;
 
-import com.github.mvp4g.nalu.client.application.IsFilter;
+import com.github.mvp4g.nalu.client.filter.IsFilter;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
