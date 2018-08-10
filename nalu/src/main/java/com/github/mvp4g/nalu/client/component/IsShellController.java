@@ -15,7 +15,7 @@
  *
  */
 
-package com.github.mvp4g.nalu.client.ui;
+package com.github.mvp4g.nalu.client.component;
 
 /**
  * <p>Marks an class as mvp4g2 shell.</p>

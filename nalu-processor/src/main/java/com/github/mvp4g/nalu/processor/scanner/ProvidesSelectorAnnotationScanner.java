@@ -17,7 +17,7 @@
 
 package com.github.mvp4g.nalu.processor.scanner;
 
-import com.github.mvp4g.nalu.client.ui.annotation.ProvidesSelector;
+import com.github.mvp4g.nalu.client.component.annotation.ProvidesSelector;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;

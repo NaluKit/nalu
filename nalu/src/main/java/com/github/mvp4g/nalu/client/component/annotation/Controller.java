@@ -1,8 +1,8 @@
-package com.github.mvp4g.nalu.client.ui.annotation;
+package com.github.mvp4g.nalu.client.component.annotation;
 
 
-import com.github.mvp4g.nalu.client.ui.AbstractComponent;
-import com.github.mvp4g.nalu.client.ui.IsComponent;
+import com.github.mvp4g.nalu.client.component.AbstractComponent;
+import com.github.mvp4g.nalu.client.component.IsComponent;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

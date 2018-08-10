@@ -1,4 +1,4 @@
-package com.github.mvp4g.nalu.client.ui;
+package com.github.mvp4g.nalu.client.component;
 
 import com.github.mvp4g.nalu.client.application.IsContext;
 import elemental2.dom.HTMLElement;

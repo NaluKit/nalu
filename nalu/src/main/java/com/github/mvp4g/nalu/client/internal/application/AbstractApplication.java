@@ -25,7 +25,7 @@ import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.mvp4g.nalu.client.internal.route.HashResult;
 import com.github.mvp4g.nalu.client.internal.route.RouterConfiguration;
-import com.github.mvp4g.nalu.client.ui.IsShellController;
+import com.github.mvp4g.nalu.client.component.IsShellController;
 import elemental2.dom.DomGlobal;
 import org.gwtproject.event.shared.SimpleEventBus;
 

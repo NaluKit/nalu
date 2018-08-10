@@ -1,9 +1,8 @@
 package com.github.mvp4g.nalu.processor.common;
 
 import com.github.mvp4g.nalu.client.Nalu;
-import com.github.mvp4g.nalu.client.ui.AbstractShell;
-import com.github.mvp4g.nalu.client.ui.annotation.ProvidesSelector;
-import elemental2.dom.CSSProperties;
+import com.github.mvp4g.nalu.client.component.AbstractShell;
+import com.github.mvp4g.nalu.client.component.annotation.ProvidesSelector;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 

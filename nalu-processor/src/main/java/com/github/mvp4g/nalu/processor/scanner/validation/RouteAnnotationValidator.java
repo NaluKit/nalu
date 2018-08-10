@@ -16,8 +16,8 @@
  */
 package com.github.mvp4g.nalu.processor.scanner.validation;
 
-import com.github.mvp4g.nalu.client.ui.IsController;
-import com.github.mvp4g.nalu.client.ui.IsShellController;
+import com.github.mvp4g.nalu.client.component.IsController;
+import com.github.mvp4g.nalu.client.component.IsShellController;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
 

@@ -1,4 +1,4 @@
-package com.github.mvp4g.nalu.client.ui.annotation;
+package com.github.mvp4g.nalu.client.component.annotation;
 
 
 import java.lang.annotation.Retention;

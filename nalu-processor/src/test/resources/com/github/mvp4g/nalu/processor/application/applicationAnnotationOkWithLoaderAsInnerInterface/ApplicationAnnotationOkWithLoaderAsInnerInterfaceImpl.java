@@ -5,7 +5,6 @@ import com.github.mvp4g.nalu.client.application.annotation.Debug;
 import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.internal.application.AbstractApplication;
 import com.github.mvp4g.nalu.client.internal.application.DefaultLogger;
-import com.github.mvp4g.nalu.processor.application.applicationAnnotationOkWithLoaderAsInnerInterface.ApplicationAnnotationOkWithLoaderAsInnerInterface.MyApplicationLoader;
 import com.github.mvp4g.nalu.processor.common.MockContext;
 import com.github.mvp4g.nalu.processor.common.MockShell;
 import java.lang.Override;

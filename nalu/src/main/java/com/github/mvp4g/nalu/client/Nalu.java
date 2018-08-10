@@ -6,8 +6,6 @@ public class Nalu {
 
   public static final String NALU_ID_ATTRIBUTE = "id";
 
-  public static final String NALU_ID_BODY = "NaluBody";
-
   public final static String NALU_PARAMETER = "/:";
 
   public final static String NALU_SLEDGE_REPLACEMENT = "--U972--";

@@ -7,7 +7,7 @@ import com.github.mvp4g.nalu.client.internal.exception.RoutingInterceptionExcept
 import com.github.mvp4g.nalu.client.internal.route.HashResult;
 import com.github.mvp4g.nalu.client.internal.route.RouteConfig;
 import com.github.mvp4g.nalu.client.internal.route.RouterConfiguration;
-import com.github.mvp4g.nalu.client.ui.AbstractComponentController;
+import com.github.mvp4g.nalu.client.component.AbstractComponentController;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;

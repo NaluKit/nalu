@@ -23,7 +23,7 @@ import com.github.mvp4g.nalu.client.internal.application.AbstractApplication;
 import com.github.mvp4g.nalu.client.internal.application.ControllerCreator;
 import com.github.mvp4g.nalu.client.internal.application.ControllerFactory;
 import com.github.mvp4g.nalu.client.internal.exception.RoutingInterceptionException;
-import com.github.mvp4g.nalu.client.ui.AbstractComponentController;
+import com.github.mvp4g.nalu.client.component.AbstractComponentController;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
@@ -251,7 +251,7 @@ public class ApplicationGenerator {
                                          typeSpec.build())
                                 .build();
     try {
-      System.out.println(javaFile.toString());
+//      System.out.println(javaFile.toString());
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" + metaModel.getApplication()

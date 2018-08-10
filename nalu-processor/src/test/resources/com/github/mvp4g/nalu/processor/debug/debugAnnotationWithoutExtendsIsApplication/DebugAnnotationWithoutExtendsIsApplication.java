@@ -17,7 +17,6 @@
 package com.github.mvp4g.nalu.processor.debug.debugAnnotationWithoutExtendsIsApplication;
 
 
-import com.github.mvp4g.nalu.client.application.IsApplication;
 import com.github.mvp4g.nalu.client.application.annotation.Application;
 import com.github.mvp4g.nalu.client.application.annotation.Debug;
 import com.github.mvp4g.nalu.processor.common.MockContext;
