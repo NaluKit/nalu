@@ -1,7 +1,7 @@
 # Nalu
 Nalu is a tiny framework that helps you to create GWT based applications quite easily.
 
-Nalu is using the HTML 5 history for routing and navigation. This means - by default - Nalu supports the browser's back- forward and reload-button by default and without any need to implement something special.
+Nalu is using the HTML 5 history for routing and navigation. This means Nalu supports the browser's back- forward and reload-button by default and without any need to implement something.
 
 
 Nalu offers the following features:
