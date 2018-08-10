@@ -22,7 +22,7 @@ import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.internal.application.AbstractApplication;
 import com.github.mvp4g.nalu.client.internal.application.ControllerCreator;
 import com.github.mvp4g.nalu.client.internal.application.ControllerFactory;
-import com.github.mvp4g.nalu.client.internal.exception.RoutingInterceptionByControllerException;
+import com.github.mvp4g.nalu.client.internal.exception.RoutingInterceptionException;
 import com.github.mvp4g.nalu.client.ui.AbstractComponentController;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
@@ -154,7 +154,6 @@ public class ApplicationGenerator {
                                .addStatement("shell.setRouter(this.router)")
                                .addStatement("shell.setEventBus(this.eventBus)")
                                .addStatement("shell.setContext(this.context)")
-                               .addStatement("shell.bind()")
                                .addStatement("super.shell = shell")
                                .addStatement("$T.get().logDetailed(\"AbstractApplicationImpl: shell created\", 1)",
                                              ClassName.get(ClientLogger.class));
@@ -172,7 +171,7 @@ public class ApplicationGenerator {
                                                                                                   .getTypeName(),
                                                                                          controllerModel.getComponentInterface()
                                                                                                         .getTypeName()))
-                                                      .addException(ClassName.get(RoutingInterceptionByControllerException.class))
+                                                      .addException(ClassName.get(RoutingInterceptionException.class))
                                                       .addStatement("$T controller = new $T()",
                                                                     ClassName.get(controllerModel.getProvider()
                                                                                                  .getPackage(),
@@ -196,7 +195,6 @@ public class ApplicationGenerator {
                                                                                                  .getSimpleName()))
                                                       .addStatement("component.setController(controller)")
                                                       .addStatement("controller.setComponent(component)")
-                                                      .addStatement("controller.bind()")
                                                       .addStatement("$T.get().logDetailed(\"ControllerFactory: controller >>$L<< created for route >>$L<<\", 0)",
                                                                     ClassName.get(ClientLogger.class),
                                                                     controllerModel.getComponent()
@@ -241,19 +239,19 @@ public class ApplicationGenerator {
                                                metaModel.getStartRoute())
                                  .build());
 
-    // generate method 'setShell()'
-    typeSpec.addMethod(MethodSpec.methodBuilder("setShell")
+    // generate method 'attachShell()'
+    typeSpec.addMethod(MethodSpec.methodBuilder("attachShell")
                                  .addModifiers(Modifier.PUBLIC)
                                  .addAnnotation(Override.class)
-                                 .addStatement("super.shell.setShell()")
+                                 .addStatement("super.shell.attachShell()")
                                  .build());
 
 
-    JavaFile javaFile = JavaFile.builder(metaModel.getApplication()
-                                                  .getPackage(),
+    JavaFile javaFile = JavaFile.builder(metaModel.getGenerateToPackage(),
                                          typeSpec.build())
                                 .build();
     try {
+      System.out.println(javaFile.toString());
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" + metaModel.getApplication()

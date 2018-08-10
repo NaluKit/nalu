@@ -46,7 +46,7 @@ public abstract class AbstractApplication<C extends IsContext>
   protected Router              router;
   /* application context */
   protected C                   context;
-  /* the event bus of the applicaiton */
+  /* the event bus of the application */
   protected SimpleEventBus      eventBus;
 
   public AbstractApplication() {
@@ -119,12 +119,12 @@ public abstract class AbstractApplication<C extends IsContext>
     }
     // initialize shell ...
     ClientLogger.get()
-                .logDetailed("AbstractApplication: set shell",
+                .logDetailed("AbstractApplication: attach shell",
                              1);
-    this.setShell();
+    this.attachShell();
     // start the application by calling url + '#'
     ClientLogger.get()
-                .logDetailed("AbstractApplication: initialize applicaiton (route to '')",
+                .logDetailed("AbstractApplication: initialize application (route to '/')",
                              1);
     this.router.route("");
     // check if the url contains a hash.
@@ -146,9 +146,9 @@ public abstract class AbstractApplication<C extends IsContext>
       this.router.route(this.startRoute);
     }
     ClientLogger.get()
-                .logSimple("AbstractApplication: applicaiton started",
+                .logSimple("AbstractApplication: application started",
                            0);
   }
 
-  protected abstract void setShell();
+  protected abstract void attachShell();
 }

@@ -27,6 +27,7 @@ import java.util.List;
 public class ApplicationMetaModel {
 
 
+  private String         generateToPackage;
   private ClassNameModel application;
   private ClassNameModel loader;
   private ClassNameModel shell;
@@ -52,11 +53,13 @@ public class ApplicationMetaModel {
   public ApplicationMetaModel() {
   }
 
-  public ApplicationMetaModel(String application,
+  public ApplicationMetaModel(String generateToPackage,
+                              String application,
                               String loader,
                               String shell,
                               String context,
                               String startRoute) {
+    this.generateToPackage = generateToPackage;
     this.application = new ClassNameModel(application);
     this.loader = new ClassNameModel(loader);
     this.shell = new ClassNameModel(shell);
@@ -102,7 +105,34 @@ public class ApplicationMetaModel {
   }
 
   public String getDebugLogLevel() {
+    if (debugLogLevel == null || "".equals(debugLogLevel)) {
+      return "SIMPLE";
+    }
     return debugLogLevel;
+  }
+
+  public String getGenerateToPackage() {
+    return generateToPackage;
+  }
+
+  public void setGenerateToPackage(String generateToPackage) {
+    this.generateToPackage = generateToPackage;
+  }
+
+  public ClassNameModel getContext() {
+    return context;
+  }
+
+  public void setContext(ClassNameModel context) {
+    this.context = context;
+  }
+
+  public String getStartRoute() {
+    return startRoute;
+  }
+
+  public void setStartRoute(String startRoute) {
+    this.startRoute = startRoute;
   }
 
   public void setDebugLogLevel(String debugLogLevel) {
@@ -117,14 +147,6 @@ public class ApplicationMetaModel {
     this.debugLogger = debugLogger;
   }
 
-  public List<ProvidesSelectorModel> getSelectors() {
-    return selectors;
-  }
-
-  public void setSelectors(List<ProvidesSelectorModel> selectors) {
-    this.selectors = selectors;
-  }
-
   public List<ControllerModel> getRoutes() {
     return routes;
   }
@@ -133,20 +155,12 @@ public class ApplicationMetaModel {
     this.routes = routes;
   }
 
-  public String getStartRoute() {
-    return startRoute;
+  public List<ProvidesSelectorModel> getSelectors() {
+    return selectors;
   }
 
-  public void setStartRoute(String startRoute) {
-    this.startRoute = startRoute;
-  }
-
-  public ClassNameModel getContext() {
-    return context;
-  }
-
-  public void setContext(ClassNameModel context) {
-    this.context = context;
+  public void setSelectors(List<ProvidesSelectorModel> selectors) {
+    this.selectors = selectors;
   }
 
   public String getHasFiltersAnnotation() {

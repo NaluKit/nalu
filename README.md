@@ -1,5 +1,72 @@
 # Nalu
+Nalu is a tiny framework that helps you to create GWT based applications quite easily.
+
+Nalu is using the HTML 5 history for routing and navigation. This means - by default - Nalu supports the browser's back- forward and reload-button by default and without any need to implement something special.
+
+
+Nalu offers the following features:
+
+* Fully support of the browser's back- forward- and relaod-button.
+
+* An optional loader that will be executed at application start to load data from the server.
+
+* A client side context, router and event bus which will be automatically injected in every controller. (Handler have only access to the context and the event bus)
+
+* Filters to intercept routing.
+
+* Full history support.
+
+* Seperation of views into a controller and a component with framwork sided instantiation.
+
+* a controller life-cycle using ```start```-, ```mayStop```- and ```stop```- similar to GWT Activities
+
+* Supports HTML links and programmatically routing thanks to a router.
+
+
+## Using
+To use Nalu, clone the repo and run ```maven clean install``` (ToDo: move to macven central) and add the following dependencies to your pom:
+
+```XML
+<dependency>
+    <groupId>comgithub..mvp4g</groupId>
+    <artifactId>nalu</artifactId>
+    <version>LATEST</version>
+</dependency>
+<dependency>
+    <groupId>comgithub..mvp4g</groupId>
+    <artifactId>nalu-processor</artifactId>
+    <version>LATEST</version>
+</dependency>
+```
+
+See the wiki for more informations on Nalu and how to use it.
+
+
+## J2CL / GWT3
+With the next version of GWT (GWT 3) and the new J2CL transpiller, there will be major changes in the GWT developmemt. For example: JSNI and generators, besides other things, will be gone. To be prepared for the futere things like JSNI, generators or any other dependency to GTW has to be avoided. Nalu uses only the already migrated ```gwt-events``` from ```org.gwtproject```.
+
+Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not use JSNI, generatorsThis means or anything else from GWT. Nalu is ready to use with J2CL / GWT 3.
+
+## To get in touch with the developer
 Please use the mvp4g [MVP4G Gitter room](https://gitter.im/mvp4g/mvp4g).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Installation
 To run the examples:

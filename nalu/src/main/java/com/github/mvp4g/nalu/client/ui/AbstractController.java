@@ -14,9 +14,6 @@ public abstract class AbstractController<C extends IsContext> {
     super();
   }
 
-  public void bind() {
-  }
-
   public void setRouter(Router router) {
     this.router = router;
   }

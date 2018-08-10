@@ -18,6 +18,7 @@ package com.github.mvp4g.nalu.processor.scanner.validation;
 
 import com.github.mvp4g.nalu.client.application.IsApplication;
 import com.github.mvp4g.nalu.client.application.IsLogger;
+import com.github.mvp4g.nalu.client.application.annotation.Application;
 import com.github.mvp4g.nalu.client.application.annotation.Debug;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
@@ -79,6 +80,10 @@ public class DebugAnnotationValidator {
                                                                                    .getTypeElement(IsApplication.class.getCanonicalName())
                                                                                    .asType())) {
           throw new ProcessorException("Nalu-Processor: @Debug can only be used on interfaces that extends IsApplication");
+        }
+        // @Debug can only be used on a interface that has a @Application annoatation
+        if (typeElement.getAnnotation(Application.class) == null) {
+          throw new ProcessorException("Nalu-Processor: @Debug can only be used with an interfaces annotated with IsApplication");
         }
         // the loggerinside the annotation must extends IsMvp4g2Logger!
         TypeElement loggerElement = this.getLogger(typeElement.getAnnotation(Debug.class));

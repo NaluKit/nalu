@@ -32,12 +32,12 @@ public interface IsShellController {
    * It is a good idea to use a presenter/view pair as shell:
    * </p>
    * <code>
-   * public void setShell() {
+   * public void attachShell() {
    * RootLayoutPanel.get().add(view.asWidget());
    * }
    * </code>
    * <p>This will make the framework indepent of GWT or user implemantations!</p>
    */
-  void setShell();
+  void attachShell();
 
 }

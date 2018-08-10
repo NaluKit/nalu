@@ -91,7 +91,8 @@ public class ApplicationAnnotationScanner {
           TypeElement applicationLoaderTypeElement = this.getApplicationLoaderTypeElement(applicationAnnotation);
           TypeElement shellTypeElement = this.getShellTypeElement(applicationAnnotation);
           TypeElement contextTypeElement = this.getContextTypeElement(applicationAnnotation);
-          model = new ApplicationMetaModel(applicationAnnotationElement.toString(),
+          model = new ApplicationMetaModel(this.processorUtils.getPackageAsString(applicationAnnotationElement),
+                                           applicationAnnotationElement.toString(),
                                            isNull(applicationLoaderTypeElement) ? "" : applicationLoaderTypeElement.toString(),
                                            isNull(shellTypeElement) ? "" : shellTypeElement.toString(),
                                            contextTypeElement.toString(),

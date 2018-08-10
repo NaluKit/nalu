@@ -3,12 +3,11 @@ package com.github.mvp4g.nalu.client;
 import com.github.mvp4g.nalu.client.filter.IsFilter;
 import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.internal.application.ControllerFactory;
-import com.github.mvp4g.nalu.client.internal.exception.RoutingInterceptionByControllerException;
+import com.github.mvp4g.nalu.client.internal.exception.RoutingInterceptionException;
 import com.github.mvp4g.nalu.client.internal.route.HashResult;
 import com.github.mvp4g.nalu.client.internal.route.RouteConfig;
 import com.github.mvp4g.nalu.client.internal.route.RouterConfiguration;
 import com.github.mvp4g.nalu.client.ui.AbstractComponentController;
-import com.github.mvp4g.nalu.client.ui.IsConfirmator;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
@@ -29,8 +28,6 @@ public final class Router {
   private Map<String, String>                            selectors;
   /* List of active components */
   private Map<String, AbstractComponentController<?, ?>> activeComponents;
-  /* List of confirm components */
-  private Map<String, AbstractComponentController<?, ?>> confirmComponents;
   //* hash of last successful routing */
   private String                                         lastExecutedHash;
 
@@ -43,7 +40,6 @@ public final class Router {
     this.routerConfiguration = routerConfiguration;
     // inistantiate lists, etc.
     this.activeComponents = new HashMap<>();
-    this.confirmComponents = new HashMap<>();
     // register event handler
     this.registerEventHandler();
   }
@@ -53,12 +49,26 @@ public final class Router {
     DomGlobal.window.onhashchange = e -> {
       // cast event ...
       HashChangeEvent hashChangeEvent = (HashChangeEvent) e;
+      StringBuilder sb = new StringBuilder();
+      sb.append("Router: onhashchange: new url ->>")
+        .append(hashChangeEvent.newURL)
+        .append("<<");
+      ClientLogger.get()
+                  .logSimple(sb.toString(),
+                             0);
       // look for a routing ...
       return this.handleRouting(this.getHash(hashChangeEvent.newURL));
     };
   }
 
   private String handleRouting(String hash) {
+    StringBuilder sb = new StringBuilder();
+    sb.append("Router: handleRouting for hash ->>")
+      .append(hash)
+      .append("<<");
+    ClientLogger.get()
+                .logDetailed(sb.toString(),
+                             1);
     // ok, everything is fine, route!
     // parse hash ...
     HashResult hashResult = this.parse(hash);
@@ -68,8 +78,8 @@ public final class Router {
       if (!filter.filter(addLeadgindSledge(hashResult.getRoute()),
                          hashResult.getParameterValues()
                                    .toArray(new String[0]))) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Router: filter >>")
+        StringBuilder sb01 = new StringBuilder();
+        sb01.append("Router: filter >>")
           .append(filter.getClass()
                         .getCanonicalName())
           .append("<< intercepts routing! New route: >>")
@@ -77,15 +87,15 @@ public final class Router {
           .append("<<");
         if (Arrays.asList(filter.parameters())
                   .size() > 0) {
-          sb.append(" with parameters: ");
+          sb01.append(" with parameters: ");
           Stream.of(filter.parameters())
-                .forEach(p -> sb.append(">>")
+                .forEach(p -> sb01.append(">>")
                                 .append(p)
                                 .append("<< "));
         }
         ClientLogger.get()
-                    .logSimple(sb.toString(),
-                               0);
+                    .logSimple(sb01.toString(),
+                               1);
         this.route(filter.redirectTo(),
                    true,
                    filter.parameters());
@@ -106,23 +116,23 @@ public final class Router {
                                         .controller(routeConfiguraion.getClassName(),
                                                     hashResult.getParameterValues()
                                                               .toArray(new String[0]));
-        } catch (RoutingInterceptionByControllerException e) {
-          StringBuilder sb = new StringBuilder();
-          sb.append("Router: create controller >>")
+        } catch (RoutingInterceptionException e) {
+          StringBuilder sb03 = new StringBuilder();
+          sb03.append("Router: create controller >>")
             .append(e.getControllerClassName())
             .append("<< intercepts routing! New route: >>")
             .append(e.getRoute())
             .append("<<");
           if (Arrays.asList(e.getParameter())
                     .size() > 0) {
-            sb.append(" with parameters: ");
+            sb03.append(" with parameters: ");
             Stream.of(e.getParameter())
-                  .forEach(p -> sb.append(">>")
+                  .forEach(p -> sb03.append(">>")
                                   .append(p)
                                   .append("<< "));
           }
           ClientLogger.get()
-                      .logSimple(sb.toString(),
+                      .logSimple(sb03.toString(),
                                  0);
           this.route(e.getRoute(),
                      true,
@@ -173,6 +183,24 @@ public final class Router {
     } else {
       hashResult.setRoute(hashValue);
     }
+    // log result
+    StringBuilder sb = new StringBuilder();
+    sb.append("Router: parse hash >>")
+      .append(hash)
+      .append("<< --> New route: >>")
+      .append(hashResult.getRoute())
+      .append("<<");
+    if (hashResult.getParameterValues()
+                  .size() > 0) {
+      sb.append(" with parameters: ");
+      hashResult.getParameterValues()
+                .forEach(p -> sb.append(">>")
+                                .append(p)
+                                .append("<< "));
+    }
+    ClientLogger.get()
+                .logDetailed(sb.toString(),
+                           2);
     return hashResult;
   }
 
@@ -185,7 +213,7 @@ public final class Router {
 
   private boolean confirmRouting(List<RouteConfig> routeConfiguraions) {
     return routeConfiguraions.stream()
-                             .map(config -> this.confirmComponents.get(config.getSelector()))
+                             .map(config -> this.activeComponents.get(config.getSelector()))
                              .filter(Objects::nonNull)
                              .map(AbstractComponentController::mayStop)
                              .filter(Objects::nonNull)
@@ -201,10 +229,6 @@ public final class Router {
                       .map(config -> this.activeComponents.get(config.getSelector()))
                       .filter(Objects::nonNull)
                       .forEach(c -> this.activeComponents.remove(c));
-    routeConfiguraions.stream()
-                      .map(config -> this.confirmComponents.get(config.getSelector()))
-                      .filter(Objects::nonNull)
-                      .forEach(c -> this.confirmComponents.remove(c));
   }
 
   private void addElementToDOM(String selector,
@@ -228,11 +252,6 @@ public final class Router {
       // save to active components
       this.activeComponents.put(selector,
                                 controller);
-      // save controller
-      if (controller instanceof IsConfirmator) {
-        this.confirmComponents.put(selector,
-                                   controller);
-      }
     }
   }
 
