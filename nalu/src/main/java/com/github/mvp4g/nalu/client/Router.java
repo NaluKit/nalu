@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 public final class Router {
 
   /* list of added lements */
-  private Map<String, HTMLElement> addedElements;
+//  private Map<String, HTMLElement> addedElements;
 
   /* List of the routes of the application */
   private RouterConfiguration                            routerConfiguration;
@@ -35,7 +35,7 @@ public final class Router {
   public Router(RouterConfiguration routerConfiguration) {
     super();
     // initialize lists
-    this.addedElements = new HashMap<>();
+//    this.addedElements = new HashMap<>();
     // save the router configuration reference
     this.routerConfiguration = routerConfiguration;
     // inistantiate lists, etc.
@@ -239,16 +239,14 @@ public final class Router {
       DomGlobal.window.alert("Ups ... selector not found!");
     } else {
       // first, remove all childs
-      if (this.addedElements.containsKey(selector)) {
-        this.addedElements.get(selector)
+      if (this.activeComponents.containsKey(selector)) {
+        this.activeComponents.get(selector).asElement()
                           .remove();
-        this.addedElements.remove(selector);
+        this.activeComponents.remove(selector);
       }
       // add controller
       HTMLElement newElement = controller.asElement();
       selectorElement.appendChild(newElement);
-      this.addedElements.put(selector,
-                             newElement);
       // save to active components
       this.activeComponents.put(selector,
                                 controller);
