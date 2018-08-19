@@ -18,6 +18,16 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
   }
 
   @Override
+  public void attach() {
+    // if you need to do something in case the widget is added to the DOM tree
+  }
+
+  @Override
+  public void detach() {
+    // if you need to do something in case the widget is removed from the DOM tree
+  }
+
+  @Override
   public C getController() {
     return this.controller;
   }

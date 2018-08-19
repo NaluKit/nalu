@@ -141,6 +141,7 @@ public final class Router {
           controller.setRouter(this);
           this.append(routeConfiguraion.getSelector(),
                       controller);
+          controller.attach();
           controller.start();
           this.lastExecutedHash = hash;
         } else {
@@ -223,7 +224,10 @@ public final class Router {
     routeConfiguraions.stream()
                       .map(config -> this.activeComponents.get(config.getSelector()))
                       .filter(Objects::nonNull)
-                      .forEach(AbstractComponentController::stop);
+                      .forEach(abstractComponentController -> {
+                        abstractComponentController.stop();
+                        abstractComponentController.detach();
+                      });
     routeConfiguraions.forEach(routeConfiguraion -> this.plugin.remove(routeConfiguraion.getSelector()));
     routeConfiguraions.stream()
                       .map(config -> this.activeComponents.get(config.getSelector()))

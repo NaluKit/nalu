@@ -19,6 +19,16 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
 
   @Override
+  public void attach() {
+    component.attach();
+  }
+
+  @Override
+  public void detach() {
+    component.detach();
+  }
+
+  @Override
   public String mayStop() {
     return null;
   }

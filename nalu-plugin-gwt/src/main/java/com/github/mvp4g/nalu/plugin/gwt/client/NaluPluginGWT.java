@@ -1,45 +1,49 @@
-package com.github.mvp4g.nalu.plugin.elemental2.client;
+package com.github.mvp4g.nalu.plugin.gwt.client;
+
 
 import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.plugin.IsPlugin;
-import elemental2.dom.*;
+import com.google.gwt.user.client.Window;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.HashChangeEvent;
 
-import java.util.stream.Stream;
-
-public class NaluPluginElemental2
+public abstract class NaluPluginGWT
     implements IsPlugin {
 
-  public NaluPluginElemental2() {
+
+
+  public NaluPluginGWT() {
     super();
   }
 
   @Override
   public void alert(String message) {
-    DomGlobal.window.alert(message);
+    Window.alert(message);
   }
 
   @Override
   public boolean attach(String selector,
                         Object asElement) {
-    Element selectorElement = DomGlobal.document.querySelector("#" + selector);
-    if (selectorElement == null) {
-      // TODO better message
-      DomGlobal.window.alert("Ups ... selector >>" + selector + "<< not found!");
-      return false;
-    } else {
-      selectorElement.appendChild((HTMLElement) asElement);
-      return true;
-    }
+//    Element selectorElement = DomGlobal.document.querySelector("#" + selector);
+//    if (selectorElement == null) {
+//      // TODO better message
+//      DomGlobal.window.alert("Ups ... selector >>" + selector + "<< not found!");
+//      return false;
+//    } else {
+//      selectorElement.appendChild((HTMLElement) asElement);
+//      return true;
+//    }
+    return true;
   }
 
   @Override
   public boolean confirm(String message) {
-    return DomGlobal.window.confirm(message);
+    return Window.confirm(message);
   }
 
   @Override
   public String getStartRoute() {
-    String starthash = DomGlobal.window.location.getHash();
+    String starthash = Window.Location.getHash();
     if (starthash.startsWith("#")) {
       starthash = starthash.substring(1);
     }
@@ -70,12 +74,12 @@ public class NaluPluginElemental2
 
   @Override
   public void remove(String selector) {
-    Element selectorElement = DomGlobal.document.querySelector("#" + selector);
-    if (selectorElement != null) {
-      while (selectorElement.childNodes.length > 0) {
-        selectorElement.firstElementChild.remove();
-      }
-    }
+//    Element selectorElement = DomGlobal.document.querySelector("#" + selector);
+//    if (selectorElement != null) {
+//      while (selectorElement.childNodes.length > 0) {
+//        selectorElement.firstElementChild.remove();
+//      }
+//    }
   }
 
   @Override
