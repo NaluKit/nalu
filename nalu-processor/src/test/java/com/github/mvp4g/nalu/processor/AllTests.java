@@ -27,7 +27,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ApplicationTest.class,
                      ClassNameModelTest.class,
-      //               DebugTest.class,
+                     DebugTest.class,
                      FilterTest.class
 //                     ImplementationTest.class,
 //                     PropertiesTest.class,

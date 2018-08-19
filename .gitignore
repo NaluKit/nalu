@@ -92,6 +92,8 @@ Temporary Items
 # IntelliJ project files
 .idea
 out
+*.iml
+
 gen### Eclipse template
 
 .metadata

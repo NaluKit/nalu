@@ -19,8 +19,9 @@ package com.github.mvp4g.nalu.processor.debug.debugAnnotationOnClassWithoutAppli
 
 import com.github.mvp4g.nalu.client.application.IsApplication;
 import com.github.mvp4g.nalu.client.application.annotation.Debug;
+import com.github.mvp4g.nalu.processor.common.MockLogger;
 
-@Debug()
+@Debug(logger = MockLogger.class)
 public interface DebugAnnotationOnClassWithoutApplicationAnnotation
   extends IsApplication {
 }

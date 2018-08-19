@@ -31,57 +31,57 @@ import static com.google.testing.compile.Compiler.javac;
 @SuppressWarnings("serial")
 public class DebugTest {
 
-//  @Test
-//  public void testDebugAnnotationOnAMethod() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(new ArrayList<JavaFileObject>() {
-//                                       {
-//                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/debug/debugAnnotationOnAMethod/DebugAnnotationOnAMethod.java"));
-//                                       }
-//                                     });
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("@Debug can only be used on a type (interface)");
-//  }
-//
-//  @Test
-//  public void testDebugAnnotationOnAClass() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(new ArrayList<JavaFileObject>() {
-//                                       {
-//                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/debug/debugAnnotationOnAClass/DebugAnnotationOnAClass.java"));
-//                                       }
-//                                     });
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("Nalu-Processor: @Application annotated must be used with an interface");
-//  }
-//
-//  @Test
-//  public void testDebugAnnotationWithoutExtendsIsApplication() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(new ArrayList<JavaFileObject>() {
-//                                       {
-//                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/debug/debugAnnotationWithoutExtendsIsApplication/DebugAnnotationWithoutExtendsIsApplication.java"));
-//                                       }
-//                                     });
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("@Application must implement IsApplication interface");
-//  }
-//
-//  @Test
-//  public void testDebugAnnotationOnClassWithoutApplicaitonAnnotation() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(new ArrayList<JavaFileObject>() {
-//                                       {
-//                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/debug/debugAnnotationOnClassWithoutApplicationAnnotation/DebugAnnotationOnClassWithoutApplicationAnnotation.java"));
-//                                       }
-//                                     });
-//    CompilationSubject.assertThat(compilation)
-//                      .succeeded();
-//  }
+  @Test
+  public void testDebugAnnotationOnAMethod() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/debug/debugAnnotationOnAMethod/DebugAnnotationOnAMethod.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("@Debug can only be used on a type (interface)");
+  }
+
+  @Test
+  public void testDebugAnnotationOnAClass() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/debug/debugAnnotationOnAClass/DebugAnnotationOnAClass.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("Nalu-Processor: @Application annotated must be used with an interface");
+  }
+
+  @Test
+  public void testDebugAnnotationWithoutExtendsIsApplication() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/debug/debugAnnotationWithoutExtendsIsApplication/DebugAnnotationWithoutExtendsIsApplication.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("@Application must implement IsApplication interface");
+  }
+
+  @Test
+  public void testDebugAnnotationOnClassWithoutApplicaitonAnnotation() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/debug/debugAnnotationOnClassWithoutApplicationAnnotation/DebugAnnotationOnClassWithoutApplicationAnnotation.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+  }
 }

@@ -17,43 +17,23 @@
 package com.github.mvp4g.nalu.plugin.elemental2.client;
 
 import com.github.mvp4g.nalu.client.application.IsLogger;
-import com.github.mvp4g.nalu.client.internal.annotation.NaluInternalUse;
 import elemental2.dom.DomGlobal;
-
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Default implementation of Mvp4gLogger.
  *
  * @author plcoirier
  */
-@NaluInternalUse
 public class DefaultElemental2Logger
     implements IsLogger {
 
-  static final String INDENT = "    ";
+  static final String INDENT = "... ";
 
   public void log(String message,
                   int depth) {
     if ("on".equals(System.getProperty("superdevmode",
                                        "off"))) {
       DomGlobal.window.console.log(message);
-    }
-  }
-
-  String createLog(String message,
-                   int depth) {
-    if (depth == 0) {
-      return "Nalu-Logger -> " + message;
-    } else {
-      String indent = IntStream.range(0,
-                                      depth)
-                               .mapToObj(i -> INDENT)
-                               .collect(Collectors.joining("",
-                                                           "",
-                                                           message));
-      return "Nalu-Logger -> " + indent;
     }
   }
 }
