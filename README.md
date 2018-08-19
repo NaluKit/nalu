@@ -45,7 +45,7 @@ See the wiki for more informations on Nalu and how to use it.
 ## J2CL / GWT3
 With the next version of GWT (GWT 3) and the new J2CL transpiller, there will be major changes in the GWT developmemt. For example: JSNI and generators, besides other things, will be gone. To be prepared for the futere things like JSNI, generators or any other dependency to GTW has to be avoided. Nalu uses only the already migrated ```gwt-events``` from ```org.gwtproject```.
 
-Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not use JSNI, generatorsThis means or anything else from GWT. Nalu is ready to use with J2CL / GWT 3.
+Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not use JSNI, generators or anything else from GWT. Nalu is ready to use with J2CL / GWT 3.
 
 ## To get in touch with the developer
 Please use the mvp4g [MVP4G Gitter room](https://gitter.im/mvp4g/mvp4g).
