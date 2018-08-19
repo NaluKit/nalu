@@ -2,17 +2,12 @@ package com.github.mvp4g.nalu.processor.common;
 
 import com.github.mvp4g.nalu.client.Nalu;
 import com.github.mvp4g.nalu.client.component.AbstractShell;
-import com.github.mvp4g.nalu.client.component.annotation.ProvidesSelector;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.jboss.gwt.elemento.core.Elements.*;
 
-@ProvidesSelector(selector = {"content",
-                              "footer",
-                              "header",
-                              "navigation"})
 public class MockShell
   extends AbstractShell<MockContext> {
 

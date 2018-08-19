@@ -187,9 +187,9 @@ appengine-generated/
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
-# .idea/modules.xml
-# .idea/*.iml
-# .idea/modules
+.idea/modules.xml
+.idea/*.iml
+.idea/modules
 
 # CMake
 cmake-build-*/
@@ -220,3 +220,6 @@ fabric.properties
 
 # Editor-based Rest Client
 .idea/httpRequests
+/nalu-plugin-elemental2/nalu-plugin-elemental2.iml
+/nalu-processor/nalu-processor.iml
+/nalu/nalu.iml

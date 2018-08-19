@@ -41,8 +41,11 @@ public class ProcessorUtils {
   private ProcessingEnvironment processingEnvironment;
 
   private Types    types;
+
   private Messager messager;
+
   private Filer    filer;
+
   private Elements elements;
 
   @SuppressWarnings("unused")
@@ -61,23 +64,23 @@ public class ProcessorUtils {
     return new Builder();
   }
 
-//  public void store(IsMetaModel metaModel,
-//                    String fileName)
-//    throws ProcessorException {
-//    try {
-//      FileObject fileObject = processingEnvironment.getFiler()
-//                                                   .createResource(StandardLocation.CLASS_OUTPUT,
-//                                                                   "",
-//                                                                   fileName);
-//      PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(fileObject.openOutputStream()));
-//      metaModel.createPropertes()
-//               .store(printWriter,
-//                      "");
-//      printWriter.close();
-//    } catch (IOException ex) {
-//      throw new ProcessorException("NaluProcessor: Unable to write file: >>" + fileName + "<< -> exception: " + ex.getMessage());
-//    }
-//  }
+  //  public void store(IsMetaModel metaModel,
+  //                    String fileName)
+  //    throws ProcessorException {
+  //    try {
+  //      FileObject fileObject = processingEnvironment.getFiler()
+  //                                                   .createResource(StandardLocation.CLASS_OUTPUT,
+  //                                                                   "",
+  //                                                                   fileName);
+  //      PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(fileObject.openOutputStream()));
+  //      metaModel.createPropertes()
+  //               .store(printWriter,
+  //                      "");
+  //      printWriter.close();
+  //    } catch (IOException ex) {
+  //      throw new ProcessorException("NaluProcessor: Unable to write file: >>" + fileName + "<< -> exception: " + ex.getMessage());
+  //    }
+  //  }
 
   public boolean implementsInterface(ProcessingEnvironment processingEnvironment,
                                      TypeElement typeElement,
@@ -93,19 +96,18 @@ public class ProcessorUtils {
   //                        .toString();
   //  }
 
-    public String getPackageAsString(Element type) {
-      return this.getPackage(type)
-                 .getQualifiedName()
-                 .toString();
-    }
+  public String getPackageAsString(Element type) {
+    return this.getPackage(type)
+               .getQualifiedName()
+               .toString();
+  }
 
-    public PackageElement getPackage(Element type) {
-      while (type.getKind() != ElementKind.PACKAGE) {
-        type = type.getEnclosingElement();
-      }
-      return (PackageElement) type;
+  public PackageElement getPackage(Element type) {
+    while (type.getKind() != ElementKind.PACKAGE) {
+      type = type.getEnclosingElement();
     }
-
+    return (PackageElement) type;
+  }
 
   public Elements getElements() {
     return this.elements;
@@ -339,9 +341,11 @@ public class ProcessorUtils {
   }
 
   public String createEventHandlingMethodName(String eventName) {
-    return "on" + eventName.substring(0,
-                                      1)
-                           .toUpperCase() + eventName.substring(1);
+    return "on" +
+        eventName.substring(0,
+                            1)
+                 .toUpperCase() +
+        eventName.substring(1);
   }
 
   public String createEventNameFromHandlingMethod(String event) {

@@ -1,11 +1,8 @@
 package com.github.mvp4g.nalu.client.component;
 
+public interface IsController<W> {
 
-import elemental2.dom.HTMLElement;
-
-public interface IsController {
-
-  HTMLElement asElement();
+  W asElement();
 
   String mayStop();
 

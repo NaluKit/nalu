@@ -24,7 +24,7 @@
 
   <groupId>com.github.mvp4g</groupId>
   <artifactId>nalu-parent</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <packaging>pom</packaging>
 
   <name>nalu-parent</name>
@@ -33,6 +33,7 @@
 
   <modules>
     <module>nalu</module>
+    <module>nalu-plugin-elemental2</module>
     <module>nalu-processor</module>
   </modules>
 
@@ -166,6 +167,7 @@
       <id>release</id>
       <modules>
         <module>nalu</module>
+        <module>nalu-plugin-elemental2</module>
         <module>nalu-processor</module>
       </modules>
       <build>
@@ -242,6 +244,7 @@
       <id>site</id>
       <modules>
         <module>nalu</module>
+        <module>nalu-plugin-elemental2</module>
         <module>nalu-processor</module>
       </modules>
       <build>

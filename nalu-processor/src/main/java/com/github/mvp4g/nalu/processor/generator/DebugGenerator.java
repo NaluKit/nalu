@@ -18,7 +18,6 @@ package com.github.mvp4g.nalu.processor.generator;
 
 import com.github.mvp4g.nalu.client.application.annotation.Debug;
 import com.github.mvp4g.nalu.client.internal.ClientLogger;
-import com.github.mvp4g.nalu.client.internal.application.DefaultLogger;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
@@ -58,13 +57,13 @@ public class DebugGenerator {
                                                 ClassName.get(Debug.class),
                                                 applicationMetaModel.getDebugLogLevel());
 
-    } else {
-      loadDebugConfigurationMethod.addStatement("$T.get().register($L, new $T(), $T.LogLevel.$L)",
-                                                ClassName.get(ClientLogger.class),
-                                                "false",
-                                                ClassName.get(DefaultLogger.class),
-                                                ClassName.get(Debug.class),
-                                                applicationMetaModel.getDebugLogLevel());
+//    } else {
+//      loadDebugConfigurationMethod.addStatement("$T.get().register($L, new $T(), $T.LogLevel.$L)",
+//                                                ClassName.get(ClientLogger.class),
+//                                                "false",
+//                                                ClassName.get(DefaultLogger.class),
+//                                                ClassName.get(Debug.class),
+//                                                applicationMetaModel.getDebugLogLevel());
     }
     typeSpec.addMethod(loadDebugConfigurationMethod.build());
   }

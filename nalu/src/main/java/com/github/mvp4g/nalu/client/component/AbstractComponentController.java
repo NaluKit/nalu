@@ -1,13 +1,11 @@
 package com.github.mvp4g.nalu.client.component;
 
 import com.github.mvp4g.nalu.client.application.IsContext;
-import elemental2.dom.HTMLElement;
 
-public abstract class AbstractComponentController<C extends IsContext,
-                                                   V extends IsComponent<?>>
-  extends AbstractController<C>
-  implements IsController,
-             IsComponent.Controller {
+public abstract class AbstractComponentController<C extends IsContext, V extends IsComponent<?, W>, W>
+    extends AbstractController<C>
+    implements IsController<W>,
+               IsComponent.Controller {
 
   protected V component;
 
@@ -16,7 +14,7 @@ public abstract class AbstractComponentController<C extends IsContext,
   }
 
   @Override
-  public HTMLElement asElement() {
+  public W asElement() {
     return this.component.asElement();
   }
 

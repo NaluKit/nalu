@@ -25,7 +25,7 @@
   <parent>
     <groupId>com.github.mvp4g</groupId>
     <artifactId>nalu-parent</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
   </parent>
 
   <artifactId>nalu-processor</artifactId>

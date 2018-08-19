@@ -1,6 +1,5 @@
 package com.github.mvp4g.nalu.client.handler.annotation;
 
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 

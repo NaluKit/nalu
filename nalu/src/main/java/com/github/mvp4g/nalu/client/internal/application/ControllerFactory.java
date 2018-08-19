@@ -1,7 +1,7 @@
 package com.github.mvp4g.nalu.client.internal.application;
 
-import com.github.mvp4g.nalu.client.internal.exception.RoutingInterceptionException;
 import com.github.mvp4g.nalu.client.component.AbstractComponentController;
+import com.github.mvp4g.nalu.client.exception.RoutingInterceptionException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,9 +31,9 @@ public class ControllerFactory {
                               creator);
   }
 
-  public AbstractComponentController<?, ?> controller(String controller,
-                                                String... parms)
-    throws RoutingInterceptionException {
+  public AbstractComponentController<?, ?, ?> controller(String controller,
+                                                      String... parms)
+      throws RoutingInterceptionException {
     if (this.componentFactory.containsKey(controller)) {
       return this.componentFactory.get(controller)
                                   .create(parms);

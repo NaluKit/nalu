@@ -49,5 +49,10 @@ public @interface Application {
   String startRoute();
 
   Class<? extends IsContext> context();
-
+//
+//  Plugin plugin() default Plugin.ELEMENTAL2;
+//
+//  enum Plugin {
+//    ELEMENTAL2
+//  }
 }

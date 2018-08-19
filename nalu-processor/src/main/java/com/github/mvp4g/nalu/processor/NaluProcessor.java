@@ -22,7 +22,6 @@ import com.github.mvp4g.nalu.client.application.annotation.Application;
 import com.github.mvp4g.nalu.client.application.annotation.Debug;
 import com.github.mvp4g.nalu.client.handler.annotation.Handler;
 import com.github.mvp4g.nalu.client.component.annotation.Controller;
-import com.github.mvp4g.nalu.client.component.annotation.ProvidesSelector;
 import com.github.mvp4g.nalu.processor.generator.ApplicationGenerator;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
 import com.github.mvp4g.nalu.processor.scanner.ApplicationAnnotationScanner;
@@ -64,7 +63,6 @@ public class NaluProcessor
   public Set<String> getSupportedAnnotationTypes() {
     return of(Application.class.getCanonicalName(),
               Debug.class.getCanonicalName(),
-              ProvidesSelector.class.getCanonicalName(),
               Controller.class.getCanonicalName(),
               Handler.class.getCanonicalName()).collect(toSet());
   }
@@ -122,14 +120,6 @@ public class NaluProcessor
                                                             .build();
     this.applicationMetaModel = this.handlerAnnotationScanner.scan();
   }
-
-//  private void validateModels(RoundEnvironment roundEnv)
-//    throws ProcessorException {
-//    ModelValidator.builder()
-//                  .processorUtils(this.processorUtils)
-//                  .build()
-//                  .validate();
-//  }
 
   private void generate()
     throws ProcessorException {

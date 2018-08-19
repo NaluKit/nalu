@@ -21,12 +21,12 @@ import com.github.mvp4g.nalu.client.Router;
 import com.github.mvp4g.nalu.client.application.IsApplication;
 import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
 import com.github.mvp4g.nalu.client.application.IsContext;
+import com.github.mvp4g.nalu.client.component.IsShellController;
 import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.mvp4g.nalu.client.internal.route.HashResult;
 import com.github.mvp4g.nalu.client.internal.route.RouterConfiguration;
-import com.github.mvp4g.nalu.client.component.IsShellController;
-import elemental2.dom.DomGlobal;
+import com.github.mvp4g.nalu.client.plugin.IsPlugin;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
@@ -34,27 +34,37 @@ import org.gwtproject.event.shared.SimpleEventBus;
  */
 @NaluInternalUse
 public abstract class AbstractApplication<C extends IsContext>
-  implements IsApplication {
+    implements IsApplication {
 
   /* start route */
-  protected String              startRoute;
+  protected String startRoute;
+
   /* Shell */
-  protected IsShellController   shell;
-  /* Router */
+  protected IsShellController shell;
+
+  /* Router Configuration */
   protected RouterConfiguration routerConfiguration;
+
   /* Router */
-  protected Router              router;
+  protected Router router;
+
+  /* plugin */
+  private IsPlugin plugin;
+
   /* application context */
-  protected C                   context;
+  protected C context;
+
   /* the event bus of the application */
-  protected SimpleEventBus      eventBus;
+  protected SimpleEventBus eventBus;
 
   public AbstractApplication() {
     super();
   }
 
   @Override
-  public void run() {
+  public void run(IsPlugin plugin) {
+    // save the plugin
+    this.plugin = plugin;
     // first load the debug configuration
     this.loadDebugConfiguration();
     // debug message
@@ -64,12 +74,12 @@ public abstract class AbstractApplication<C extends IsContext>
     // instantiate necessary classes
     this.eventBus = new SimpleEventBus();
     this.routerConfiguration = new RouterConfiguration();
-    this.router = new Router(this.routerConfiguration);
+    this.router = new Router(this.plugin,
+                             this.routerConfiguration);
     // load everything you need to start
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load configurations",
                              1);
-    this.loadSelectors();
     this.loadRoutes();
     this.loadFilters();
     this.loadStartRoute();
@@ -92,8 +102,6 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract void loadDebugConfiguration();
 
-  protected abstract void loadSelectors();
-
   protected abstract void loadRoutes();
 
   protected abstract void loadFilters();
@@ -111,12 +119,13 @@ public abstract class AbstractApplication<C extends IsContext>
    */
   private void onFinishLaoding() {
     // save the current hash
-    String hashOnStart = DomGlobal.window.location.getHash();
-    if (hashOnStart.startsWith("#")) {
-      if (hashOnStart.length() > 1) {
-        hashOnStart = hashOnStart.substring(1);
-      }
-    }
+    String hashOnStart = this.plugin.getStartRoute();
+    //    String hashOnStart = DomGlobal.window.location.getHash();
+    //    if (hashOnStart.startsWith("#")) {
+    //      if (hashOnStart.length() > 1) {
+    //        hashOnStart = hashOnStart.substring(1);
+    //      }
+    //    }
     // initialize shell ...
     ClientLogger.get()
                 .logDetailed("AbstractApplication: attach shell",
@@ -130,8 +139,9 @@ public abstract class AbstractApplication<C extends IsContext>
     // check if the url contains a hash.
     // in case it has a hash, use this to route otherwise
     // use the startRoute form the annoatation
-    if (hashOnStart != null && hashOnStart.trim()
-                                          .length() > 0) {
+    if (hashOnStart != null &&
+        hashOnStart.trim()
+                   .length() > 0) {
       ClientLogger.get()
                   .logDetailed("AbstractApplication: handle history (hash at start: >>" + hashOnStart + "<<",
                                1);
