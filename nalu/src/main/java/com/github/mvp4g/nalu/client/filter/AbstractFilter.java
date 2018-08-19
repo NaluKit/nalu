@@ -3,7 +3,7 @@ package com.github.mvp4g.nalu.client.filter;
 import com.github.mvp4g.nalu.client.application.IsContext;
 
 public abstract class AbstractFilter<C extends IsContext>
-  implements IsFilter {
+    implements IsFilter {
 
   protected C context;
 

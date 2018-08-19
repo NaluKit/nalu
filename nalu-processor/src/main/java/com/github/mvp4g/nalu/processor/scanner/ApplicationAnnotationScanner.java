@@ -104,12 +104,6 @@ public class ApplicationAnnotationScanner {
                                         .applicationMetaModel(model)
                                         .build()
                                         .scan(roundEnvironment);
-          // ProvidesSelector-Annotation
-          model = ProvidesSelectorAnnotationScanner.builder()
-                                                   .processingEnvironment(processingEnvironment)
-                                                   .applicationMetaModel(model)
-                                                   .build()
-                                                   .scan(roundEnvironment);
           // Controller-Annotation
           model = RouteAnnotationScanner.builder()
                                         .processingEnvironment(processingEnvironment)

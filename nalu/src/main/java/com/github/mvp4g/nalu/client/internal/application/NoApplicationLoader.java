@@ -27,7 +27,7 @@ import com.github.mvp4g.nalu.client.internal.annotation.NaluInternalUse;
  */
 @NaluInternalUse
 public final class NoApplicationLoader
-  implements IsApplicationLoader {
+    implements IsApplicationLoader {
 
   @Override
   public void load(FinishLoadCommand finishLoadCommand) {

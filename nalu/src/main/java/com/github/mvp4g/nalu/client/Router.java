@@ -1,17 +1,14 @@
 package com.github.mvp4g.nalu.client;
 
+import com.github.mvp4g.nalu.client.component.AbstractComponentController;
+import com.github.mvp4g.nalu.client.exception.RoutingInterceptionException;
 import com.github.mvp4g.nalu.client.filter.IsFilter;
 import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.internal.application.ControllerFactory;
-import com.github.mvp4g.nalu.client.internal.exception.RoutingInterceptionException;
 import com.github.mvp4g.nalu.client.internal.route.HashResult;
 import com.github.mvp4g.nalu.client.internal.route.RouteConfig;
 import com.github.mvp4g.nalu.client.internal.route.RouterConfiguration;
-import com.github.mvp4g.nalu.client.component.AbstractComponentController;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HashChangeEvent;
+import com.github.mvp4g.nalu.client.plugin.IsPlugin;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,47 +16,48 @@ import java.util.stream.Stream;
 
 public final class Router {
 
-  /* list of added lements */
-//  private Map<String, HTMLElement> addedElements;
-
   /* List of the routes of the application */
-  private RouterConfiguration                            routerConfiguration;
-  /* List of the Selectors of the application */
-  private Map<String, String>                            selectors;
+  private RouterConfiguration routerConfiguration;
+
   /* List of active components */
-  private Map<String, AbstractComponentController<?, ?>> activeComponents;
+  private Map<String, AbstractComponentController<?, ?, ?>> activeComponents;
+
   //* hash of last successful routing */
-  private String                                         lastExecutedHash;
+  private String lastExecutedHash;
 
+  /* the plugin */
+  private IsPlugin plugin;
 
-  public Router(RouterConfiguration routerConfiguration) {
+  public Router(IsPlugin plugin,
+                RouterConfiguration routerConfiguration) {
     super();
-    // initialize lists
-//    this.addedElements = new HashMap<>();
+    // save te plugin
+    this.plugin = plugin;
     // save the router configuration reference
     this.routerConfiguration = routerConfiguration;
     // inistantiate lists, etc.
     this.activeComponents = new HashMap<>();
     // register event handler
-    this.registerEventHandler();
+    this.plugin.register(e -> this.handleRouting(e));
+    //   this.registerEventHandler();
   }
 
-  private void registerEventHandler() {
-    // the OnHashChange event handling
-    DomGlobal.window.onhashchange = e -> {
-      // cast event ...
-      HashChangeEvent hashChangeEvent = (HashChangeEvent) e;
-      StringBuilder sb = new StringBuilder();
-      sb.append("Router: onhashchange: new url ->>")
-        .append(hashChangeEvent.newURL)
-        .append("<<");
-      ClientLogger.get()
-                  .logSimple(sb.toString(),
-                             0);
-      // look for a routing ...
-      return this.handleRouting(this.getHash(hashChangeEvent.newURL));
-    };
-  }
+  //  private void registerEventHandler() {
+  //    // the OnHashChange event handling
+  //    DomGlobal.window.onhashchange = e -> {
+  //      // cast event ...
+  //      HashChangeEvent hashChangeEvent = (HashChangeEvent) e;
+  //      StringBuilder sb = new StringBuilder();
+  //      sb.append("Router: onhashchange: new url ->>")
+  //        .append(hashChangeEvent.newURL)
+  //        .append("<<");
+  //      ClientLogger.get()
+  //                  .logSimple(sb.toString(),
+  //                             0);
+  //      // look for a routing ...
+  //      return this.handleRouting(this.getHash(hashChangeEvent.newURL));
+  //    };
+  //  }
 
   private String handleRouting(String hash) {
     StringBuilder sb = new StringBuilder();
@@ -80,18 +78,18 @@ public final class Router {
                                    .toArray(new String[0]))) {
         StringBuilder sb01 = new StringBuilder();
         sb01.append("Router: filter >>")
-          .append(filter.getClass()
-                        .getCanonicalName())
-          .append("<< intercepts routing! New route: >>")
-          .append(filter.redirectTo())
-          .append("<<");
+            .append(filter.getClass()
+                          .getCanonicalName())
+            .append("<< intercepts routing! New route: >>")
+            .append(filter.redirectTo())
+            .append("<<");
         if (Arrays.asList(filter.parameters())
                   .size() > 0) {
           sb01.append(" with parameters: ");
           Stream.of(filter.parameters())
                 .forEach(p -> sb01.append(">>")
-                                .append(p)
-                                .append("<< "));
+                                  .append(p)
+                                  .append("<< "));
         }
         ClientLogger.get()
                     .logSimple(sb01.toString(),
@@ -110,7 +108,7 @@ public final class Router {
       this.stopController(routeConfiguraions);
       // routing
       for (RouteConfig routeConfiguraion : routeConfiguraions) {
-        AbstractComponentController<?, ?> controller = null;
+        AbstractComponentController<?, ?, ?> controller = null;
         try {
           controller = ControllerFactory.get()
                                         .controller(routeConfiguraion.getClassName(),
@@ -119,17 +117,17 @@ public final class Router {
         } catch (RoutingInterceptionException e) {
           StringBuilder sb03 = new StringBuilder();
           sb03.append("Router: create controller >>")
-            .append(e.getControllerClassName())
-            .append("<< intercepts routing! New route: >>")
-            .append(e.getRoute())
-            .append("<<");
+              .append(e.getControllerClassName())
+              .append("<< intercepts routing! New route: >>")
+              .append(e.getRoute())
+              .append("<<");
           if (Arrays.asList(e.getParameter())
                     .size() > 0) {
             sb03.append(" with parameters: ");
             Stream.of(e.getParameter())
                   .forEach(p -> sb03.append(">>")
-                                  .append(p)
-                                  .append("<< "));
+                                    .append(p)
+                                    .append("<< "));
           }
           ClientLogger.get()
                       .logSimple(sb03.toString(),
@@ -141,25 +139,24 @@ public final class Router {
         }
         if (!Objects.isNull(controller)) {
           controller.setRouter(this);
-          this.addElementToDOM(routeConfiguraion.getSelector(),
-                               controller);
+          this.append(routeConfiguraion.getSelector(),
+                      controller);
           controller.start();
           this.lastExecutedHash = hash;
         } else {
-          DomGlobal.window.alert("Ups ... not found!");
+          this.plugin.alert("Ups ... not found!");
+          //          DomGlobal.window.alert("Ups ... not found!");
         }
       }
     } else {
+      this.plugin.route("#" + this.lastExecutedHash,
+                        false);
       // we don not want to leave!
-      DomGlobal.window.history.pushState(null,
-                                         null,
-                                         "#" + this.lastExecutedHash);
+      //      DomGlobal.window.history.pushState(null,
+      //                                         null,
+      //                                         "#" + this.lastExecutedHash);
     }
     return null;
-  }
-
-  private String getHash(String url) {
-    return url.substring(url.indexOf("#") + 1);
   }
 
   public HashResult parse(String hash) {
@@ -200,7 +197,7 @@ public final class Router {
     }
     ClientLogger.get()
                 .logDetailed(sb.toString(),
-                           2);
+                             2);
     return hashResult;
   }
 
@@ -217,7 +214,9 @@ public final class Router {
                              .filter(Objects::nonNull)
                              .map(AbstractComponentController::mayStop)
                              .filter(Objects::nonNull)
-                             .allMatch(message -> DomGlobal.window.confirm(message));
+                             .allMatch(message -> this.plugin.confirm(message)
+                                       //     DomGlobal.window.confirm(message);
+                             );
   }
 
   private void stopController(List<RouteConfig> routeConfiguraions) {
@@ -225,28 +224,17 @@ public final class Router {
                       .map(config -> this.activeComponents.get(config.getSelector()))
                       .filter(Objects::nonNull)
                       .forEach(AbstractComponentController::stop);
+    routeConfiguraions.forEach(routeConfiguraion -> this.plugin.remove(routeConfiguraion.getSelector()));
     routeConfiguraions.stream()
                       .map(config -> this.activeComponents.get(config.getSelector()))
                       .filter(Objects::nonNull)
                       .forEach(c -> this.activeComponents.remove(c));
   }
 
-  private void addElementToDOM(String selector,
-                               AbstractComponentController<?, ?> controller) {
-    Element selectorElement = DomGlobal.document.querySelector("#" + selector);
-    if (selectorElement == null) {
-      // TODO better message
-      DomGlobal.window.alert("Ups ... selector not found!");
-    } else {
-      // first, remove all childs
-      if (this.activeComponents.containsKey(selector)) {
-        this.activeComponents.get(selector).asElement()
-                          .remove();
-        this.activeComponents.remove(selector);
-      }
-      // add controller
-      HTMLElement newElement = controller.asElement();
-      selectorElement.appendChild(newElement);
+  private void append(String selector,
+                      AbstractComponentController<?, ?, ?> controller) {
+    if (this.plugin.attach(selector,
+                           controller.asElement())) {
       // save to active components
       this.activeComponents.put(selector,
                                 controller);
@@ -278,13 +266,17 @@ public final class Router {
     }
     String newRouteWithParams = sb.toString();
     if (replaceState) {
-      DomGlobal.window.history.replaceState(null,
-                                            null,
-                                            "#" + newRouteWithParams);
+      this.plugin.route(newRouteWithParams,
+                        true);
+      //      DomGlobal.window.history.replaceState(null,
+      //                                            null,
+      //                                            "#" + newRouteWithParams);
     } else {
-      DomGlobal.window.history.pushState(null,
-                                         null,
-                                         "#" + newRouteWithParams);
+      this.plugin.route(newRouteWithParams,
+                        false);
+      //      DomGlobal.window.history.pushState(null,
+      //                                         null,
+      //                                         "#" + newRouteWithParams);
     }
     this.handleRouting(newRouteWithParams);
   }

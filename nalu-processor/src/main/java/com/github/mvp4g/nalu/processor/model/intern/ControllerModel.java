@@ -29,15 +29,19 @@ public class ControllerModel {
 
   private ClassNameModel provider;
 
+  private ClassNameModel componentType;
+
   public ControllerModel(String route,
                          String selector,
                          ClassNameModel componentInterface,
                          ClassNameModel component,
+                         ClassNameModel componentType,
                          ClassNameModel provider) {
     this.route = route;
     this.selector = selector;
     this.componentInterface = componentInterface;
     this.component = component;
+    this.componentType = componentType;
     this.provider = provider;
   }
 
@@ -57,14 +61,6 @@ public class ControllerModel {
     this.selector = selector;
   }
 
-  public ClassNameModel getProvider() {
-    return provider;
-  }
-
-  public void setProvider(ClassNameModel provider) {
-    this.provider = provider;
-  }
-
   public ClassNameModel getComponentInterface() {
     return componentInterface;
   }
@@ -79,5 +75,21 @@ public class ControllerModel {
 
   public void setComponent(ClassNameModel component) {
     this.component = component;
+  }
+
+  public ClassNameModel getProvider() {
+    return provider;
+  }
+
+  public void setProvider(ClassNameModel provider) {
+    this.provider = provider;
+  }
+
+  public ClassNameModel getComponentType() {
+    return componentType;
+  }
+
+  public void setComponentType(ClassNameModel componentType) {
+    this.componentType = componentType;
   }
 }

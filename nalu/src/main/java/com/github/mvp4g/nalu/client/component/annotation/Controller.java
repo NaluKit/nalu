@@ -1,8 +1,7 @@
 package com.github.mvp4g.nalu.client.component.annotation;
 
-
-import com.github.mvp4g.nalu.client.component.AbstractComponent;
 import com.github.mvp4g.nalu.client.component.IsComponent;
+import com.github.mvp4g.nalu.client.component.AbstractComponent;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -24,8 +23,8 @@ public @interface Controller {
 
   String selector();
 
-  Class<? extends IsComponent<?>> componentInterface();
+  Class<? extends IsComponent<?, ?>> componentInterface();
 
-  Class<? extends AbstractComponent<?>> component();
+  Class<? extends AbstractComponent<?, ?>> component();
 
 }

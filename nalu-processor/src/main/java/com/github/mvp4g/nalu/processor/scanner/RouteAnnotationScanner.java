@@ -17,6 +17,8 @@
 
 package com.github.mvp4g.nalu.processor.scanner;
 
+import com.github.mvp4g.nalu.client.component.AbstractComponent;
+import com.github.mvp4g.nalu.client.component.AbstractComponentController;
 import com.github.mvp4g.nalu.client.component.annotation.Controller;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
@@ -29,13 +31,17 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.MirroredTypeException;
+import javax.lang.model.type.*;
+import javax.lang.model.util.SimpleTypeVisitor6;
+import java.util.List;
 
 public class RouteAnnotationScanner {
 
-  private ProcessorUtils        processorUtils;
+  private ProcessorUtils processorUtils;
+
   private ProcessingEnvironment processingEnvironment;
-  private ApplicationMetaModel  applicationMetaModel;
+
+  private ApplicationMetaModel applicationMetaModel;
 
   @SuppressWarnings("unused")
   private RouteAnnotationScanner(Builder builder) {
@@ -56,7 +62,7 @@ public class RouteAnnotationScanner {
   }
 
   ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
-    throws ProcessorException {
+      throws ProcessorException {
     // handle ProvidesSelector-annotation
     for (Element element : roundEnvironment.getElementsAnnotatedWith(Controller.class)) {
       // do validation
@@ -70,12 +76,27 @@ public class RouteAnnotationScanner {
       Controller annotation = element.getAnnotation(Controller.class);
       // handle ...
       TypeElement componentTypeElement = this.getComponentTypeElement(annotation);
+      if (componentTypeElement == null) {
+        throw new ProcessorException("Nalu-Processor: componentTypeElement is null");
+      }
       TypeElement componentInterfaceTypeElement = this.getComponentInterfaceTypeElement(annotation);
+      TypeMirror componentTypeTypeMirror = this.getComponentType(element.asType());
+      // check and save the component type ...
+      if (applicationMetaModel.getComponentType() == null) {
+        applicationMetaModel.setComponentType(new ClassNameModel(componentTypeTypeMirror.toString()));
+      } else {
+        ClassNameModel compareValue = new ClassNameModel(componentTypeTypeMirror.toString());
+        if (!applicationMetaModel.getComponentType().equals(compareValue)) {
+          throw new ProcessorException("Nalu-Processor: componentType >>" + compareValue + "<< is different. All controllers must implement the componentType!");
+        }
+      }
+      // update route ...
       this.applicationMetaModel.getRoutes()
                                .add(new ControllerModel(annotation.route(),
                                                         annotation.selector(),
                                                         new ClassNameModel(componentInterfaceTypeElement.toString()),
                                                         new ClassNameModel(componentTypeElement.toString()),
+                                                        new ClassNameModel(componentTypeTypeMirror.toString()),
                                                         new ClassNameModel(element.toString())));
     }
     return this.applicationMetaModel;
@@ -101,10 +122,68 @@ public class RouteAnnotationScanner {
     return null;
   }
 
+  public TypeMirror getComponentType(final TypeMirror typeMirror) {
+    final TypeMirror[] result = { null };
+    TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
+                                                                typeMirror,
+                                                                this.processorUtils.getElements()
+                                                                                   .getTypeElement(AbstractComponentController.class.getCanonicalName())
+                                                                                   .asType());
+    if (type == null) {
+      return result[0];
+    }
+    type.accept(new SimpleTypeVisitor6<Void, Void>() {
+                  @Override
+                  public Void visitDeclared(DeclaredType declaredType,
+                                            Void v) {
+                    List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
+                    if (!typeArguments.isEmpty()) {
+                      if (typeArguments.size() == 3) {
+                        result[0] = typeArguments.get(2);
+                      }
+                    }
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitPrimitive(PrimitiveType primitiveType,
+                                             Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitArray(ArrayType arrayType,
+                                         Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitTypeVariable(TypeVariable typeVariable,
+                                                Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitError(ErrorType errorType,
+                                         Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  protected Void defaultAction(TypeMirror typeMirror,
+                                               Void v) {
+                    throw new UnsupportedOperationException();
+                  }
+                },
+                null);
+    return result[0];
+  }
+
   public static class Builder {
 
     ProcessingEnvironment processingEnvironment;
-    ApplicationMetaModel  applicationMetaModel;
+
+    ApplicationMetaModel applicationMetaModel;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;

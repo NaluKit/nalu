@@ -14,11 +14,11 @@
  *  the License.
  *
  */
-package com.github.mvp4g.nalu.client.internal.application;
+package com.github.mvp4g.nalu.plugin.elemental2.client;
 
-import com.github.mvp4g.nalu.client.Nalu;
-import com.github.mvp4g.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.mvp4g.nalu.client.application.IsLogger;
+import com.github.mvp4g.nalu.client.internal.annotation.NaluInternalUse;
+import elemental2.dom.DomGlobal;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -29,15 +29,17 @@ import java.util.stream.IntStream;
  * @author plcoirier
  */
 @NaluInternalUse
-public class DefaultLogger
-  implements IsLogger {
+public class DefaultElemental2Logger
+    implements IsLogger {
 
   static final String INDENT = "    ";
 
   public void log(String message,
                   int depth) {
-    Nalu.log(createLog(message,
-                       depth));
+    if ("on".equals(System.getProperty("superdevmode",
+                                       "off"))) {
+      DomGlobal.window.console.log(message);
+    }
   }
 
   String createLog(String message,

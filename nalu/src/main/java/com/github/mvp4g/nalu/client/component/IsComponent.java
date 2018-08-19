@@ -1,11 +1,8 @@
 package com.github.mvp4g.nalu.client.component;
 
+public interface IsComponent<C extends IsComponent.Controller, W> {
 
-import elemental2.dom.HTMLElement;
-
-public interface IsComponent<C extends IsComponent.Controller> {
-
-  HTMLElement asElement();
+  W asElement();
 
   C getController();
 

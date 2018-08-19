@@ -1,17 +1,19 @@
 package com.github.mvp4g.nalu.client.internal;
 
 import com.github.mvp4g.nalu.client.application.IsLogger;
+import com.github.mvp4g.nalu.client.application.annotation.Application;
 import com.github.mvp4g.nalu.client.application.annotation.Debug;
+import com.github.mvp4g.nalu.client.plugin.IsPlugin;
 
 public class ClientLogger {
 
-  private static ClientLogger   instance     = new ClientLogger();
+  private static ClientLogger       instance     = new ClientLogger();
   /* debug enabled? */
-  private        boolean        debugEnabled = false;
+  private        boolean            debugEnabled = false;
   /* logger */
-  private        IsLogger       logger;
+  private        IsLogger           logger;
   /* log level */
-  private        Debug.LogLevel logLevel;
+  private        Debug.LogLevel     logLevel;
 
   private ClientLogger() {
   }

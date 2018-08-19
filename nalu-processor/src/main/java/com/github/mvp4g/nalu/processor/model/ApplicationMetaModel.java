@@ -19,36 +19,39 @@ package com.github.mvp4g.nalu.processor.model;
 
 import com.github.mvp4g.nalu.processor.model.intern.ClassNameModel;
 import com.github.mvp4g.nalu.processor.model.intern.ControllerModel;
-import com.github.mvp4g.nalu.processor.model.intern.ProvidesSelectorModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicationMetaModel {
 
+  private String generateToPackage;
 
-  private String         generateToPackage;
   private ClassNameModel application;
+
   private ClassNameModel loader;
+
   private ClassNameModel shell;
+
   private ClassNameModel context;
-  private String         startRoute;
 
+  private String startRoute;
 
-  private boolean        havingDebugAnnotation;
-  private String         debugLogLevel;
+  private boolean havingDebugAnnotation;
+
+  private String debugLogLevel;
+
   private ClassNameModel debugLogger;
 
+  private List<ControllerModel> routes;
 
-  private List<ControllerModel>       routes;
-  private List<ProvidesSelectorModel> selectors;
+  private String hasFiltersAnnotation;
 
-
-  private String               hasFiltersAnnotation;
   private List<ClassNameModel> filters;
 
-
   private List<ClassNameModel> handlers;
+
+  private ClassNameModel componentType;
 
   public ApplicationMetaModel() {
   }
@@ -67,7 +70,6 @@ public class ApplicationMetaModel {
     this.startRoute = startRoute;
 
     this.routes = new ArrayList<>();
-    this.selectors = new ArrayList<>();
     this.filters = new ArrayList<>();
     this.handlers = new ArrayList<>();
   }
@@ -155,14 +157,6 @@ public class ApplicationMetaModel {
     this.routes = routes;
   }
 
-  public List<ProvidesSelectorModel> getSelectors() {
-    return selectors;
-  }
-
-  public void setSelectors(List<ProvidesSelectorModel> selectors) {
-    this.selectors = selectors;
-  }
-
   public String getHasFiltersAnnotation() {
     return hasFiltersAnnotation;
   }
@@ -185,5 +179,13 @@ public class ApplicationMetaModel {
 
   public void setHandlers(List<ClassNameModel> handlers) {
     this.handlers = handlers;
+  }
+
+  public ClassNameModel getComponentType() {
+    return componentType;
+  }
+
+  public void setComponentType(ClassNameModel componentType) {
+    this.componentType = componentType;
   }
 }

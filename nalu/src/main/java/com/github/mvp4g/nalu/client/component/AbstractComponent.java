@@ -1,20 +1,18 @@
 package com.github.mvp4g.nalu.client.component;
 
-import elemental2.dom.HTMLElement;
-
-public abstract class AbstractComponent<C extends IsComponent.Controller>
-  implements IsComponent<C> {
+public abstract class AbstractComponent<C extends IsComponent.Controller, W>
+    implements IsComponent<C, W> {
 
   private C controller;
 
-  private HTMLElement element;
+  private W element;
 
   public AbstractComponent() {
     this.element = render();
   }
 
   @Override
-  public HTMLElement asElement() {
+  public W asElement() {
     assert element != null : "not alement set!";
     return this.element;
   }
@@ -29,5 +27,5 @@ public abstract class AbstractComponent<C extends IsComponent.Controller>
     this.controller = controller;
   }
 
-  protected abstract HTMLElement render();
+  protected abstract W render();
 }

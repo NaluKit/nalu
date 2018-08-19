@@ -10,10 +10,13 @@ public class RouteConfig {
 
   /* route */
   private String       route;
+
   /* parameters */
   private List<String> praameters;
+
   /* selector (where to add the element */
   private String       selector;
+
   /* class name of the class which uses this configuration */
   private String       className;
 

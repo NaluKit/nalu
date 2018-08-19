@@ -6,8 +6,10 @@ import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractController<C extends IsContext> {
 
-  protected Router         router;
+  protected Router router;
+
   protected C              context;
+
   protected SimpleEventBus eventBus;
 
   public AbstractController() {

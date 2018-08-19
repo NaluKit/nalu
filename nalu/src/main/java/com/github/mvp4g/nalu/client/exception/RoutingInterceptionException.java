@@ -1,8 +1,8 @@
-package com.github.mvp4g.nalu.client.internal.exception;
+package com.github.mvp4g.nalu.client.exception;
 
 @SuppressWarnings("serial")
 public class RoutingInterceptionException
-  extends Exception {
+    extends Exception {
 
   private String controllerClassName;
 
