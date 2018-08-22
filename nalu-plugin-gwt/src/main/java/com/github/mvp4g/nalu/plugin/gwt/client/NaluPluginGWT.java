@@ -1,16 +1,18 @@
 package com.github.mvp4g.nalu.plugin.gwt.client;
 
-
 import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.plugin.IsPlugin;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Widget;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HashChangeEvent;
 
-public abstract class NaluPluginGWT
+public class NaluPluginGWT
     implements IsPlugin {
-
-
 
   public NaluPluginGWT() {
     super();
@@ -24,16 +26,18 @@ public abstract class NaluPluginGWT
   @Override
   public boolean attach(String selector,
                         Object asElement) {
-//    Element selectorElement = DomGlobal.document.querySelector("#" + selector);
-//    if (selectorElement == null) {
-//      // TODO better message
-//      DomGlobal.window.alert("Ups ... selector >>" + selector + "<< not found!");
-//      return false;
-//    } else {
-//      selectorElement.appendChild((HTMLElement) asElement);
-//      return true;
-//    }
-    return true;
+    Element selectorElement = Document.get()
+                                      .getElementById(selector);
+    if (selectorElement == null) {
+      // TODO better message
+      Window.alert("Ups ... selector >>" + selector + "<< not found!");
+      return false;
+    } else {
+      GWT.debugger();
+      DOM.appendChild(selectorElement,
+                      ((Widget) asElement).getElement());
+      return true;
+    }
   }
 
   @Override
@@ -74,12 +78,10 @@ public abstract class NaluPluginGWT
 
   @Override
   public void remove(String selector) {
-//    Element selectorElement = DomGlobal.document.querySelector("#" + selector);
-//    if (selectorElement != null) {
-//      while (selectorElement.childNodes.length > 0) {
-//        selectorElement.firstElementChild.remove();
-//      }
-//    }
+    Element selectorElement = DOM.getElementById(selector);
+    if (selectorElement != null) {
+      selectorElement.removeAllChildren();
+    }
   }
 
   @Override

@@ -34,6 +34,7 @@
   <modules>
     <module>nalu</module>
     <module>nalu-plugin-elemental2</module>
+    <module>nalu-plugin-gwt</module>
     <module>nalu-processor</module>
   </modules>
 
@@ -168,6 +169,7 @@
       <modules>
         <module>nalu</module>
         <module>nalu-plugin-elemental2</module>
+        <module>nalu-plugin-gwt</module>
         <module>nalu-processor</module>
       </modules>
       <build>
@@ -245,6 +247,7 @@
       <modules>
         <module>nalu</module>
         <module>nalu-plugin-elemental2</module>
+        <module>nalu-plugin-gwt</module>
         <module>nalu-processor</module>
       </modules>
       <build>

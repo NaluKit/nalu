@@ -4,9 +4,9 @@ public interface IsController<W> {
 
   W asElement();
 
-  void attach();
+  void onAttach();
 
-  void detach();
+  void onDetach();
 
   String mayStop();
 

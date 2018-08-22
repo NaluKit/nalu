@@ -128,7 +128,7 @@ public abstract class AbstractApplication<C extends IsContext>
     //    }
     // initialize shell ...
     ClientLogger.get()
-                .logDetailed("AbstractApplication: attach shell",
+                .logDetailed("AbstractApplication: onAttach shell",
                              1);
     this.attachShell();
     // start the application by calling url + '#'

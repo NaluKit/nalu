@@ -19,13 +19,13 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
 
   @Override
-  public void attach() {
-    component.attach();
+  public void onAttach() {
+    component.onAttach();
   }
 
   @Override
-  public void detach() {
-    component.detach();
+  public void onDetach() {
+    component.onDetach();
   }
 
   @Override

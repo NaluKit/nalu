@@ -4,9 +4,9 @@ public interface IsComponent<C extends IsComponent.Controller, W> {
 
   W asElement();
 
-  void attach();
+  void onAttach();
 
-  void detach();
+  void onDetach();
 
   C getController();
 

@@ -9,6 +9,12 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
 
   public AbstractComponent() {
     this.element = render();
+    this.bind();
+  }
+
+  protected void bind() {
+    // if you need to bind some handlers and would like to do this in a seperate method
+    // just override this method.
   }
 
   @Override
@@ -18,12 +24,12 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
   }
 
   @Override
-  public void attach() {
+  public void onAttach() {
     // if you need to do something in case the widget is added to the DOM tree
   }
 
   @Override
-  public void detach() {
+  public void onDetach() {
     // if you need to do something in case the widget is removed from the DOM tree
   }
 
