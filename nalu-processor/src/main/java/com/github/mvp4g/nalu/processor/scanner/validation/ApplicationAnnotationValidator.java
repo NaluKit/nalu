@@ -83,7 +83,7 @@ public class ApplicationAnnotationValidator {
                                                                                  .getTypeElement(IsApplication.class.getCanonicalName())
                                                                                  .asType())) {
         throw new ProcessorException("Nalu-Processor: " + typeElement.getSimpleName()
-                                                                      .toString() + ": @Application must implement IsApplication interface");
+                                                                     .toString() + ": @Application must implement IsApplication interface");
       }
     } else {
       throw new ProcessorException("Nalu-Processor:" + "@Application can only be used on a type (interface)");

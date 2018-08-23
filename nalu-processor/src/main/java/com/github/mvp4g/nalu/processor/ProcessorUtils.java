@@ -40,11 +40,11 @@ public class ProcessorUtils {
 
   private ProcessingEnvironment processingEnvironment;
 
-  private Types    types;
+  private Types types;
 
   private Messager messager;
 
-  private Filer    filer;
+  private Filer filer;
 
   private Elements elements;
 
@@ -342,10 +342,10 @@ public class ProcessorUtils {
 
   public String createEventHandlingMethodName(String eventName) {
     return "on" +
-        eventName.substring(0,
-                            1)
-                 .toUpperCase() +
-        eventName.substring(1);
+           eventName.substring(0,
+                               1)
+                    .toUpperCase() +
+           eventName.substring(1);
   }
 
   public String createEventNameFromHandlingMethod(String event) {

@@ -17,8 +17,8 @@
 
 package com.github.mvp4g.nalu.processor.scanner;
 
-import com.github.mvp4g.nalu.client.handler.annotation.Handler;
 import com.github.mvp4g.nalu.client.component.annotation.Controller;
+import com.github.mvp4g.nalu.client.handler.annotation.Handler;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
 import com.github.mvp4g.nalu.processor.model.intern.ClassNameModel;
@@ -33,7 +33,7 @@ import javax.lang.model.type.MirroredTypeException;
 public class HandlerAnnotationScanner {
 
   private ProcessingEnvironment processingEnvironment;
-  private RoundEnvironment roundEnvironment;
+  private RoundEnvironment      roundEnvironment;
   private ApplicationMetaModel  applicationMetaModel;
 
   @SuppressWarnings("unused")
@@ -64,7 +64,8 @@ public class HandlerAnnotationScanner {
                                 .build()
                                 .validate();
       // save handler class in meta model
-      this.applicationMetaModel.getHandlers().add(new ClassNameModel(element.toString()));
+      this.applicationMetaModel.getHandlers()
+                               .add(new ClassNameModel(element.toString()));
     }
     return this.applicationMetaModel;
   }
@@ -92,7 +93,7 @@ public class HandlerAnnotationScanner {
   public static class Builder {
 
     ProcessingEnvironment processingEnvironment;
-    RoundEnvironment roundEnvironment;
+    RoundEnvironment      roundEnvironment;
     ApplicationMetaModel  applicationMetaModel;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {

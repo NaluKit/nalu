@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class DefaultGWTLogger
-    implements IsLogger {
+  implements IsLogger {
 
   static final String INDENT = "... ";
 

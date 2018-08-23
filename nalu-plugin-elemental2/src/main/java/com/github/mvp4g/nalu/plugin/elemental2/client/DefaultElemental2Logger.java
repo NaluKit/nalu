@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class DefaultElemental2Logger
-    implements IsLogger {
+  implements IsLogger {
 
   static final String INDENT = "    ";
 

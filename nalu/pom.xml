@@ -25,7 +25,7 @@
   <parent>
     <groupId>com.github.mvp4g</groupId>
     <artifactId>nalu-parent</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
   </parent>
 
   <artifactId>nalu</artifactId>
@@ -76,9 +76,9 @@
 
   <dependencies>
     <!--<dependency>-->
-      <!--<groupId>com.google.elemental2</groupId>-->
-      <!--<artifactId>elemental2-dom</artifactId>-->
-      <!--<version>${elemental2.version}</version>-->
+    <!--<groupId>com.google.elemental2</groupId>-->
+    <!--<artifactId>elemental2-dom</artifactId>-->
+    <!--<version>${elemental2.version}</version>-->
     <!--</dependency>-->
     <dependency>
       <groupId>org.gwtproject.event</groupId>
@@ -87,16 +87,16 @@
     </dependency>
 
     <!--<dependency>-->
-      <!--<groupId>junit</groupId>-->
-      <!--<artifactId>junit</artifactId>-->
-      <!--<version>${junit.version}</version>-->
-      <!--<scope>test</scope>-->
+    <!--<groupId>junit</groupId>-->
+    <!--<artifactId>junit</artifactId>-->
+    <!--<version>${junit.version}</version>-->
+    <!--<scope>test</scope>-->
     <!--</dependency>-->
     <!--<dependency>-->
-      <!--<groupId>junit</groupId>-->
-      <!--<artifactId>junit</artifactId>-->
-      <!--<version>4.12</version>-->
-      <!--<scope>compile</scope>-->
+    <!--<groupId>junit</groupId>-->
+    <!--<artifactId>junit</artifactId>-->
+    <!--<version>4.12</version>-->
+    <!--<scope>compile</scope>-->
     <!--</dependency>-->
   </dependencies>
 

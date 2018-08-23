@@ -8,7 +8,7 @@ public abstract class AbstractController<C extends IsContext> {
 
   protected Router router;
 
-  protected C              context;
+  protected C context;
 
   protected SimpleEventBus eventBus;
 

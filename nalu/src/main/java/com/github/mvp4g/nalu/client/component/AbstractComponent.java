@@ -1,7 +1,7 @@
 package com.github.mvp4g.nalu.client.component;
 
 public abstract class AbstractComponent<C extends IsComponent.Controller, W>
-    implements IsComponent<C, W> {
+  implements IsComponent<C, W> {
 
   private C controller;
 
@@ -11,6 +11,8 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
     this.element = render();
     this.bind();
   }
+
+  protected abstract W render();
 
   protected void bind() {
     // if you need to bind some handlers and would like to do this in a seperate method
@@ -42,6 +44,4 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
   public void setController(C controller) {
     this.controller = controller;
   }
-
-  protected abstract W render();
 }

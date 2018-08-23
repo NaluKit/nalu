@@ -2,17 +2,17 @@ package com.github.mvp4g.nalu.plugin.gwt.client;
 
 import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.plugin.IsPlugin;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Document;
+import com.github.mvp4g.nalu.plugin.gwt.client.selector.SelectorCommand;
+import com.github.mvp4g.nalu.plugin.gwt.client.selector.SelectorProvider;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.IsWidget;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HashChangeEvent;
 
 public class NaluPluginGWT
-    implements IsPlugin {
+  implements IsPlugin {
 
   public NaluPluginGWT() {
     super();
@@ -26,16 +26,15 @@ public class NaluPluginGWT
   @Override
   public boolean attach(String selector,
                         Object asElement) {
-    Element selectorElement = Document.get()
-                                      .getElementById(selector);
-    if (selectorElement == null) {
+    SelectorCommand selectorCommand = SelectorProvider.get()
+                                                      .getSelectorCommands()
+                                                      .get(selector);
+    if (selectorCommand == null) {
       // TODO better message
       Window.alert("Ups ... selector >>" + selector + "<< not found!");
       return false;
     } else {
-      GWT.debugger();
-      DOM.appendChild(selectorElement,
-                      ((Widget) asElement).getElement());
+      selectorCommand.append(((IsWidget) asElement).asWidget());
       return true;
     }
   }

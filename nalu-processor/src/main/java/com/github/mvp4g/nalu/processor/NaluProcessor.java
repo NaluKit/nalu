@@ -20,8 +20,8 @@ package com.github.mvp4g.nalu.processor;
 
 import com.github.mvp4g.nalu.client.application.annotation.Application;
 import com.github.mvp4g.nalu.client.application.annotation.Debug;
-import com.github.mvp4g.nalu.client.handler.annotation.Handler;
 import com.github.mvp4g.nalu.client.component.annotation.Controller;
+import com.github.mvp4g.nalu.client.handler.annotation.Handler;
 import com.github.mvp4g.nalu.processor.generator.ApplicationGenerator;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
 import com.github.mvp4g.nalu.processor.scanner.ApplicationAnnotationScanner;
@@ -76,15 +76,17 @@ public class NaluProcessor
       if (roundEnv.processingOver()) {
         this.generateLastRound();
       } else {
-        this.scan(roundEnv);
+        if (annotations.size() > 0) {
+          this.scan(roundEnv);
 //        this.validateModels(roundEnv);
-        this.generate();
+          this.generate();
+        }
       }
-      return false;
+      return true;
     } catch (ProcessorException e) {
       this.processorUtils.createErrorMessage(e.getMessage());
     }
-    return false;
+    return true;
   }
 
   private void setUp(RoundEnvironment roundEnv) {
