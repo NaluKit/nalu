@@ -163,8 +163,12 @@ public final class Router {
   public HashResult parse(String hash) {
     HashResult hashResult = new HashResult();
     String hashValue = hash;
+    // only the part after the first # is intresting:
+    if (hashValue.contains("#")) {
+      hashValue = hashValue.substring(hashValue.indexOf("#") + 1);
+    }
     // extract route first:
-    if (hash.startsWith("/")) {
+    if (hashValue.startsWith("/")) {
       hashValue = hashValue.substring(1);
     }
     if (hashValue.contains("/")) {
