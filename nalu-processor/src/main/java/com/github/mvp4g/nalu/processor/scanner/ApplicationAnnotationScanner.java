@@ -188,8 +188,7 @@ public class ApplicationAnnotationScanner {
                                                                    "",
                                                                    this.createRelativeFileName());
       PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(fileObject.openOutputStream()));
-      gson.toJson(model,
-                  printWriter);
+      printWriter.print(gson.toJson(model));
       printWriter.flush();
       printWriter.close();
     } catch (IOException e) {
