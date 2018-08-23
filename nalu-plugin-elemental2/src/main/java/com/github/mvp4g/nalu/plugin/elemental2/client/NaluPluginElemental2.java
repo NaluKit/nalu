@@ -73,8 +73,10 @@ public class NaluPluginElemental2
   public void remove(String selector) {
     Element selectorElement = DomGlobal.document.querySelector("#" + selector);
     if (selectorElement != null) {
-      while (selectorElement.childNodes.length > 0) {
-        selectorElement.firstElementChild.remove();
+      if (selectorElement.childNodes.length > 0) {
+        for (int i = selectorElement.childNodes.asList().size() - 1; i > -1; i--) {
+          selectorElement.removeChild(selectorElement.childNodes.asList().get(i));
+        }
       }
     }
   }
