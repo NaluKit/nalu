@@ -340,12 +340,11 @@ public class ProcessorUtils {
                              "_");
   }
 
-  public String createEventHandlingMethodName(String eventName) {
-    return "on" +
-           eventName.substring(0,
-                               1)
-                    .toUpperCase() +
-           eventName.substring(1);
+  public String createSetMethodName(String value) {
+    return "set" + value.substring(0,
+                                   1)
+                        .toUpperCase() +
+           value.substring(1);
   }
 
   public String createEventNameFromHandlingMethod(String event) {

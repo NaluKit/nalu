@@ -18,20 +18,27 @@ package com.github.mvp4g.nalu.processor.scanner.validation;
 
 import com.github.mvp4g.nalu.client.component.IsController;
 import com.github.mvp4g.nalu.client.component.IsShellController;
+import com.github.mvp4g.nalu.client.component.annotation.Controller;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 public class RouteAnnotationValidator {
 
   private ProcessorUtils        processorUtils;
   private ProcessingEnvironment processingEnvironment;
   private RoundEnvironment      roundEnvironment;
-  private Element               providesSecletorElement;
+  private Element               controllerElement;
 
   @SuppressWarnings("unused")
   private RouteAnnotationValidator() {
@@ -40,7 +47,7 @@ public class RouteAnnotationValidator {
   private RouteAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.roundEnvironment = builder.roundEnvironment;
-    this.providesSecletorElement = builder.providesSecletorElement;
+    this.controllerElement = builder.controllerElement;
     setUp();
   }
 
@@ -56,7 +63,7 @@ public class RouteAnnotationValidator {
 
   public void validate()
     throws ProcessorException {
-    TypeElement typeElement = (TypeElement) this.providesSecletorElement;
+    TypeElement typeElement = (TypeElement) this.controllerElement;
     // @ProvidesSelector can only be used on a class
     if (!typeElement.getKind()
                     .isClass()) {
@@ -76,13 +83,55 @@ public class RouteAnnotationValidator {
     )) {
       throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController or IsShellController");
     }
+    // check if all parameter have a setter method inside of the controller
+    Controller annotation = this.controllerElement.getAnnotation(Controller.class);
+    List<String> parameters = getParameterFromRoute(this.controllerElement.getAnnotation(Controller.class)
+                                                                          .route());
+    if (parameters.size() > 0) {
+      for (String parameter : parameters) {
+        String methodName = this.processorUtils.createSetMethodName(parameter);
+        Optional<? extends Element> optional = this.processingEnvironment.getElementUtils()
+                                                                         .getAllMembers((TypeElement) this.controllerElement)
+                                                                         .stream()
+                                                                         .filter(element -> ElementKind.METHOD.equals(((Element) element).getKind()))
+                                                                         .map(element -> (ExecutableElement) element)
+                                                                         .filter(f -> f.toString()
+                                                                                       .contains(methodName))
+                                                                         .findFirst();
+        if (optional.isPresent()) {
+          ExecutableElement executableElement = (ExecutableElement) optional.get();
+          if (executableElement.getParameters()
+                               .size() != 1) {
+            throw new ProcessorException("Nalu-Processor: @Controller >>" + this.controllerElement.toString() + "<< and method: >>" + methodName + "<< number of arguments is wrong");
+          } else {
+            if (!String.class.getCanonicalName()
+                             .equals(executableElement.getParameters()
+                                                      .get(0)
+                                                      .asType()
+                                                      .toString())) {
+              throw new ProcessorException("Nalu-Processor: @Controller >>" + this.controllerElement.toString() + "<< and method: >>" + methodName + "<< needs a String parameter");
+            }
+          }
+        } else {
+          throw new ProcessorException("Nalu-Processor: @Controller >>" + this.controllerElement.toString() + "<< does not implement the method: >>" + methodName + "<< which is required for accepting a varaible from the route");
+        }
+      }
+    }
+  }
+
+  private List<String> getParameterFromRoute(String route) {
+    if (!route.contains("/:")) {
+      return new ArrayList<>();
+    }
+    return Arrays.asList(route.substring(route.indexOf("/:") + 2)
+                              .split("/:"));
   }
 
   public static final class Builder {
 
     ProcessingEnvironment processingEnvironment;
     RoundEnvironment      roundEnvironment;
-    Element               providesSecletorElement;
+    Element               controllerElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
@@ -94,8 +143,8 @@ public class RouteAnnotationValidator {
       return this;
     }
 
-    public Builder providesSecletorElement(Element providesSecletorElement) {
-      this.providesSecletorElement = providesSecletorElement;
+    public Builder controllerElement(Element controllerElement) {
+      this.controllerElement = controllerElement;
       return this;
     }
 

@@ -68,7 +68,7 @@ public class RouteAnnotationScanner {
       RouteAnnotationValidator.builder()
                               .roundEnvironment(roundEnvironment)
                               .processingEnvironment(processingEnvironment)
-                              .providesSecletorElement(element)
+                              .controllerElement(element)
                               .build()
                               .validate();
       // get Annotation ...
