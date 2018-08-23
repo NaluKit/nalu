@@ -56,7 +56,6 @@ public class NaluPluginGwtProcessor
     super();
   }
 
-  // TODO do we need Debug, ProvidesSelector & Controller here?
   @Override
   public Set<String> getSupportedAnnotationTypes() {
     return of(Selector.class.getCanonicalName()).collect(toSet());
