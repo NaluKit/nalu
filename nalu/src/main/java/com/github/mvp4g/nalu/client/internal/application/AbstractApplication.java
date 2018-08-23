@@ -34,7 +34,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
  */
 @NaluInternalUse
 public abstract class AbstractApplication<C extends IsContext>
-    implements IsApplication {
+  implements IsApplication {
 
   /* start route */
   protected String startRoute;
@@ -47,15 +47,12 @@ public abstract class AbstractApplication<C extends IsContext>
 
   /* Router */
   protected Router router;
-
-  /* plugin */
-  private IsPlugin plugin;
-
   /* application context */
   protected C context;
-
   /* the event bus of the application */
   protected SimpleEventBus eventBus;
+  /* plugin */
+  private IsPlugin plugin;
 
   public AbstractApplication() {
     super();
@@ -128,7 +125,7 @@ public abstract class AbstractApplication<C extends IsContext>
     //    }
     // initialize shell ...
     ClientLogger.get()
-                .logDetailed("AbstractApplication: attach shell",
+                .logDetailed("AbstractApplication: onAttach shell",
                              1);
     this.attachShell();
     // start the application by calling url + '#'

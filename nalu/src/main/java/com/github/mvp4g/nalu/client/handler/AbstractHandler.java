@@ -4,9 +4,9 @@ import com.github.mvp4g.nalu.client.application.IsContext;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractHandler<C extends IsContext>
-    implements IsHandler {
+  implements IsHandler {
 
-  protected C              context;
+  protected C context;
 
   protected SimpleEventBus eventBus;
 

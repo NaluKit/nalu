@@ -64,15 +64,16 @@ public class RouteAnnotationValidator {
     }
     // @ProvidesSelector can only be used on a interface that extends IsApplication
     if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                     typeElement.asType(),
-                                                     this.processingEnvironment.getElementUtils()
-                                                                               .getTypeElement(IsController.class.getCanonicalName())
-                                                                               .asType()) ||
+                                                      typeElement.asType(),
+                                                      this.processingEnvironment.getElementUtils()
+                                                                                .getTypeElement(IsController.class.getCanonicalName())
+                                                                                .asType()) ||
           this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
                                                       typeElement.asType(),
                                                       this.processingEnvironment.getElementUtils()
                                                                                 .getTypeElement(IsShellController.class.getCanonicalName())
-                                                                                .asType()))) {
+                                                                                .asType())
+    )) {
       throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController or IsShellController");
     }
   }

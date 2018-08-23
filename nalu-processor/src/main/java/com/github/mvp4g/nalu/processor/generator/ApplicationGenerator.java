@@ -43,7 +43,7 @@ public class ApplicationGenerator {
 
   private final static String IMPL_NAME = "Impl";
 
-  private ProcessorUtils        processorUtils;
+  private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
@@ -67,7 +67,7 @@ public class ApplicationGenerator {
   }
 
   public void generate(ApplicationMetaModel metaModel)
-      throws ProcessorException {
+    throws ProcessorException {
     // check if element is existing (to avoid generating code for deleted items)
     if (!this.processorUtils.doesExist(metaModel.getApplication())) {
       return;
@@ -149,6 +149,7 @@ public class ApplicationGenerator {
                                .addStatement("shell.setEventBus(this.eventBus)")
                                .addStatement("shell.setContext(this.context)")
                                .addStatement("super.shell = shell")
+                               .addStatement("shell.bind()")
                                .addStatement("$T.get().logDetailed(\"AbstractApplicationImpl: shell created\", 1)",
                                              ClassName.get(ClientLogger.class));
     this.getAllComponents(metaModel.getRoutes())
@@ -201,8 +202,8 @@ public class ApplicationGenerator {
           // TODO validate: das die setParameter(String parms) implementiert ist!!!!
           HashResultModel hashResultModel = this.parseRoute(controllerModel.getRoute());
           for (int i = 0; i <
-              hashResultModel.getParameterValues()
-                             .size(); i++) {
+                          hashResultModel.getParameterValues()
+                                         .size(); i++) {
             String parameter = hashResultModel.getParameterValues()
                                               .get(i);
             createMethod.beginControlFlow("if (parms.length >= " + Integer.toString(i + 1) + ")")
@@ -211,22 +212,22 @@ public class ApplicationGenerator {
           }
           createMethod.endControlFlow();
           createMethod.addStatement("return controller");
-          TypeSpec.Builder anonymousClass = TypeSpec.anonymousClassBuilder("")
-                                                    .addSuperinterface(ControllerCreator.class)
-                                                    .addMethod(createMethod.build());
+//          TypeSpec.Builder anonymousClass = TypeSpec.anonymousClassBuilder("")
+//                                                    .addSuperinterface(ControllerCreator.class)
+//                                                    .addMethod(createMethod.build());
           loadComponentsMethodBuilder.addComment("create ControllerCreator for: " +
-                                                     controllerModel.getProvider()
-                                                                    .getPackage() +
-                                                     "." +
-                                                     controllerModel.getProvider()
-                                                                    .getSimpleName())
+                                                 controllerModel.getProvider()
+                                                                .getPackage() +
+                                                 "." +
+                                                 controllerModel.getProvider()
+                                                                .getSimpleName())
                                      .addStatement("$T.get().registerController($S, $L)",
                                                    ClassName.get(ControllerFactory.class),
                                                    controllerModel.getProvider()
                                                                   .getPackage() +
-                                                       "." +
-                                                       controllerModel.getProvider()
-                                                                      .getSimpleName(),
+                                                   "." +
+                                                   controllerModel.getProvider()
+                                                                  .getSimpleName(),
                                                    TypeSpec.anonymousClassBuilder("")
                                                            .addSuperinterface(ControllerCreator.class)
                                                            .addMethod(createMethod.build())
@@ -256,11 +257,11 @@ public class ApplicationGenerator {
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
-                                       metaModel.getApplication()
-                                                .getSimpleName() +
-                                       ApplicationGenerator.IMPL_NAME +
-                                       "<< -> exception: " +
-                                       e.getMessage());
+                                   metaModel.getApplication()
+                                            .getSimpleName() +
+                                   ApplicationGenerator.IMPL_NAME +
+                                   "<< -> exception: " +
+                                   e.getMessage());
     }
   }
 

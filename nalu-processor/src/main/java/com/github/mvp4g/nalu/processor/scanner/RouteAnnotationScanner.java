@@ -17,7 +17,6 @@
 
 package com.github.mvp4g.nalu.processor.scanner;
 
-import com.github.mvp4g.nalu.client.component.AbstractComponent;
 import com.github.mvp4g.nalu.client.component.AbstractComponentController;
 import com.github.mvp4g.nalu.client.component.annotation.Controller;
 import com.github.mvp4g.nalu.processor.ProcessorException;
@@ -62,7 +61,7 @@ public class RouteAnnotationScanner {
   }
 
   ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
-      throws ProcessorException {
+    throws ProcessorException {
     // handle ProvidesSelector-annotation
     for (Element element : roundEnvironment.getElementsAnnotatedWith(Controller.class)) {
       // do validation
@@ -86,7 +85,8 @@ public class RouteAnnotationScanner {
         applicationMetaModel.setComponentType(new ClassNameModel(componentTypeTypeMirror.toString()));
       } else {
         ClassNameModel compareValue = new ClassNameModel(componentTypeTypeMirror.toString());
-        if (!applicationMetaModel.getComponentType().equals(compareValue)) {
+        if (!applicationMetaModel.getComponentType()
+                                 .equals(compareValue)) {
           throw new ProcessorException("Nalu-Processor: componentType >>" + compareValue + "<< is different. All controllers must implement the componentType!");
         }
       }
@@ -123,7 +123,7 @@ public class RouteAnnotationScanner {
   }
 
   public TypeMirror getComponentType(final TypeMirror typeMirror) {
-    final TypeMirror[] result = { null };
+    final TypeMirror[] result = {null};
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
                                                                 typeMirror,
                                                                 this.processorUtils.getElements()
@@ -134,15 +134,9 @@ public class RouteAnnotationScanner {
     }
     type.accept(new SimpleTypeVisitor6<Void, Void>() {
                   @Override
-                  public Void visitDeclared(DeclaredType declaredType,
-                                            Void v) {
-                    List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
-                    if (!typeArguments.isEmpty()) {
-                      if (typeArguments.size() == 3) {
-                        result[0] = typeArguments.get(2);
-                      }
-                    }
-                    return null;
+                  protected Void defaultAction(TypeMirror typeMirror,
+                                               Void v) {
+                    throw new UnsupportedOperationException();
                   }
 
                   @Override
@@ -158,8 +152,14 @@ public class RouteAnnotationScanner {
                   }
 
                   @Override
-                  public Void visitTypeVariable(TypeVariable typeVariable,
-                                                Void v) {
+                  public Void visitDeclared(DeclaredType declaredType,
+                                            Void v) {
+                    List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
+                    if (!typeArguments.isEmpty()) {
+                      if (typeArguments.size() == 3) {
+                        result[0] = typeArguments.get(2);
+                      }
+                    }
                     return null;
                   }
 
@@ -170,9 +170,9 @@ public class RouteAnnotationScanner {
                   }
 
                   @Override
-                  protected Void defaultAction(TypeMirror typeMirror,
-                                               Void v) {
-                    throw new UnsupportedOperationException();
+                  public Void visitTypeVariable(TypeVariable typeVariable,
+                                                Void v) {
+                    return null;
                   }
                 },
                 null);

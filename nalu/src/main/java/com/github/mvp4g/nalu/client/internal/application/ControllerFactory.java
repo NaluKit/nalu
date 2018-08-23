@@ -32,8 +32,8 @@ public class ControllerFactory {
   }
 
   public AbstractComponentController<?, ?, ?> controller(String controller,
-                                                      String... parms)
-      throws RoutingInterceptionException {
+                                                         String... parms)
+    throws RoutingInterceptionException {
     if (this.componentFactory.containsKey(controller)) {
       return this.componentFactory.get(controller)
                                   .create(parms);

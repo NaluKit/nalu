@@ -2,12 +2,13 @@ package com.github.mvp4g.nalu.plugin.elemental2.client;
 
 import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.plugin.IsPlugin;
-import elemental2.dom.*;
-
-import java.util.stream.Stream;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.Element;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HashChangeEvent;
 
 public class NaluPluginElemental2
-    implements IsPlugin {
+  implements IsPlugin {
 
   public NaluPluginElemental2() {
     super();
@@ -66,7 +67,6 @@ public class NaluPluginElemental2
       handler.onHashChange(newUrl);
       return null;
     };
-
   }
 
   @Override

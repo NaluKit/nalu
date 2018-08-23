@@ -64,18 +64,20 @@ public class HandlerAnnotationValidator {
     }
     // @Handler can only be used on a interface that extends IsHandler
     if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                     typeElement.asType(),
-                                                     this.processingEnvironment.getElementUtils()
-                                                                               .getTypeElement(IsHandler.class.getCanonicalName())
-                                                                               .asType()))) {
+                                                      typeElement.asType(),
+                                                      this.processingEnvironment.getElementUtils()
+                                                                                .getTypeElement(IsHandler.class.getCanonicalName())
+                                                                                .asType())
+    )) {
       throw new ProcessorException("Nalu-Processor: @Handler can only be used on a class that implements IsHandler");
     }
     // @Handler can only be used on a interface that extends IsApplication
     if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                     typeElement.asType(),
-                                                     this.processingEnvironment.getElementUtils()
-                                                                               .getTypeElement(AbstractHandler.class.getCanonicalName())
-                                                                               .asType()))) {
+                                                      typeElement.asType(),
+                                                      this.processingEnvironment.getElementUtils()
+                                                                                .getTypeElement(AbstractHandler.class.getCanonicalName())
+                                                                                .asType())
+    )) {
       throw new ProcessorException("Nalu-Processor: @Handler can only be used on a class that extends AbstractHandler");
     }
   }

@@ -7,6 +7,6 @@ import com.github.mvp4g.nalu.client.exception.RoutingInterceptionException;
 public interface ControllerCreator {
 
   AbstractComponentController<?, ?, ?> create(String... params)
-      throws RoutingInterceptionException;
+    throws RoutingInterceptionException;
 
 }

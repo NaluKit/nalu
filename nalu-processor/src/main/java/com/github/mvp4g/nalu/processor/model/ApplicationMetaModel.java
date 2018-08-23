@@ -113,6 +113,10 @@ public class ApplicationMetaModel {
     return debugLogLevel;
   }
 
+  public void setDebugLogLevel(String debugLogLevel) {
+    this.debugLogLevel = debugLogLevel;
+  }
+
   public String getGenerateToPackage() {
     return generateToPackage;
   }
@@ -135,10 +139,6 @@ public class ApplicationMetaModel {
 
   public void setStartRoute(String startRoute) {
     this.startRoute = startRoute;
-  }
-
-  public void setDebugLogLevel(String debugLogLevel) {
-    this.debugLogLevel = debugLogLevel;
   }
 
   public ClassNameModel getDebugLogger() {

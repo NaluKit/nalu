@@ -4,6 +4,10 @@ public interface IsController<W> {
 
   W asElement();
 
+  void onAttach();
+
+  void onDetach();
+
   String mayStop();
 
   void start();

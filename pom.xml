@@ -24,7 +24,7 @@
 
   <groupId>com.github.mvp4g</groupId>
   <artifactId>nalu-parent</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
   <packaging>pom</packaging>
 
   <name>nalu-parent</name>
@@ -34,6 +34,8 @@
   <modules>
     <module>nalu</module>
     <module>nalu-plugin-elemental2</module>
+    <module>nalu-plugin-gwt</module>
+    <module>nalu-plugin-gwt-processor</module>
     <module>nalu-processor</module>
   </modules>
 
@@ -167,8 +169,10 @@
       <id>release</id>
       <modules>
         <module>nalu</module>
-        <module>nalu-plugin-elemental2</module>
         <module>nalu-processor</module>
+        <module>nalu-plugin-elemental2</module>
+        <module>nalu-plugin-gwt</module>
+        <module>nalu-plugin-gwt-processor</module>
       </modules>
       <build>
         <plugins>
@@ -244,8 +248,10 @@
       <id>site</id>
       <modules>
         <module>nalu</module>
-        <module>nalu-plugin-elemental2</module>
         <module>nalu-processor</module>
+        <module>nalu-plugin-elemental2</module>
+        <module>nalu-plugin-gwt</module>
+        <module>nalu-plugin-gwt-processor</module>
       </modules>
       <build>
         <plugins>
@@ -292,7 +298,7 @@
                 <link>http://www.gwtproject.org/javadoc/latest/</link>
               </links>
               <!--<excludePackageNames>-->
-                <!---->
+              <!---->
               <!--org.jboss.gwt.elemento.processor:org.jboss.gwt.elemento.processor.context-->
               <!--</excludePackageNames>-->
             </configuration>
