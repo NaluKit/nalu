@@ -39,25 +39,7 @@ public final class Router {
     this.activeComponents = new HashMap<>();
     // register event handler
     this.plugin.register(e -> this.handleRouting(e));
-    //   this.registerEventHandler();
   }
-
-  //  private void registerEventHandler() {
-  //    // the OnHashChange event handling
-  //    DomGlobal.window.onhashchange = e -> {
-  //      // cast event ...
-  //      HashChangeEvent hashChangeEvent = (HashChangeEvent) e;
-  //      StringBuilder sb = new StringBuilder();
-  //      sb.append("Router: onhashchange: new url ->>")
-  //        .append(hashChangeEvent.newURL)
-  //        .append("<<");
-  //      ClientLogger.get()
-  //                  .logSimple(sb.toString(),
-  //                             0);
-  //      // look for a routing ...
-  //      return this.handleRouting(this.getHash(hashChangeEvent.newURL));
-  //    };
-  //  }
 
   private String handleRouting(String hash) {
     StringBuilder sb = new StringBuilder();
@@ -146,16 +128,11 @@ public final class Router {
           this.lastExecutedHash = hash;
         } else {
           this.plugin.alert("Ups ... not found!");
-          //          DomGlobal.window.alert("Ups ... not found!");
         }
       }
     } else {
       this.plugin.route("#" + this.lastExecutedHash,
                         false);
-      // we don not want to leave!
-      //      DomGlobal.window.history.pushState(null,
-      //                                         null,
-      //                                         "#" + this.lastExecutedHash);
     }
     return null;
   }
@@ -259,11 +236,25 @@ public final class Router {
   private void route(String newRoute,
                      boolean replaceState,
                      String... parms) {
-    StringBuilder sb = new StringBuilder();
-    if (newRoute.startsWith("/")) {
-      sb.append(newRoute.substring(1));
+    String newRouteWithParams = this.generateHash(newRoute,
+                                                  parms);
+    if (replaceState) {
+      this.plugin.route(newRouteWithParams,
+                        true);
     } else {
-      sb.append(newRoute);
+      this.plugin.route(newRouteWithParams,
+                        false);
+    }
+    this.handleRouting(newRouteWithParams);
+  }
+
+  public String generateHash(String route,
+                     String... parms) {
+    StringBuilder sb = new StringBuilder();
+    if (route.startsWith("/")) {
+      sb.append(route.substring(1));
+    } else {
+      sb.append(route);
     }
     if (parms != null) {
       Stream.of(parms)
@@ -272,20 +263,6 @@ public final class Router {
                             .append(s.replace("/",
                                               Nalu.NALU_SLEDGE_REPLACEMENT)));
     }
-    String newRouteWithParams = sb.toString();
-    if (replaceState) {
-      this.plugin.route(newRouteWithParams,
-                        true);
-      //      DomGlobal.window.history.replaceState(null,
-      //                                            null,
-      //                                            "#" + newRouteWithParams);
-    } else {
-      this.plugin.route(newRouteWithParams,
-                        false);
-      //      DomGlobal.window.history.pushState(null,
-      //                                         null,
-      //                                         "#" + newRouteWithParams);
-    }
-    this.handleRouting(newRouteWithParams);
+    return sb.toString();
   }
 }
