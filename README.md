@@ -18,13 +18,42 @@ Nalu offers the following features:
 
 * Seperation of views into a controller and a component with framwork sided instantiation.
 
-* a controller life-cycle using ```start```-, ```mayStop```- and ```stop```- similar to GWT Activities
+* a controller life-cycle using ```start```-, ```mayStop```- and ```stop```- similar to GWT Activities.
 
 * Supports HTML links and programmatically routing thanks to a router.
 
+## Basic Concept
+Nalu uses the hash of an url to navigate.
+
+Example hash:
+```
+#[route]/[parameter_1]/[parameter_2]/[parameter_3]
+```
+
+
+where
+* route: is the navigation end point
+* parameter_x: are the paremeters of the route (it is possible to have a route without parameter or to use a route, that excepts paremter without parameter in inside the url.)
+
+To connect a component to a route, just create a controller class which extends ```AbstractComponentController```and add the controller annotation ```@Controller```.
+
+```JAVA
+@Controller(route = "/route/:parameter_1/:parameter_2/:parameter_3",
+            selector = "content",
+            component = MyComponent.class,
+            componentInterface = IMyComponent.class)
+public class MyController
+    extends AbstractComponentController<MyApplicationContext, IMyComponent, HTMLElement>
+    implements ISearchComponent.Controller {
+}
+```
+
+
+**TODO**
+
 
 ## Using
-To use Nalu, clone the repo and run ```maven clean install``` (ToDo: move to macven central) and add the following dependencies to your pom:
+To use Nalu, clone the repo and run ```maven clean install``` (ToDo: move to maven central) and add the following dependencies to your pom:
 
 ```XML
 <dependency>
@@ -38,6 +67,34 @@ To use Nalu, clone the repo and run ```maven clean install``` (ToDo: move to mac
     <version>LATEST</version>
 </dependency>
 ```
+
+Depening on the widget set the project is using, add one of the following plugins:
+
+If the project uses a widget set based on Elemetal2, Elememento or Domino-UI, use the **Nalu-Plugin-Elemental2** by adding the following lines to your pom:
+
+```XML
+<dependency>
+    <groupId>comgithub..mvp4g</groupId>
+    <artifactId>nalu-plugin-elemental2</artifactId>
+    <version>LATEST</version>
+</dependency>
+```
+
+If the project uses a widget set based on GWT 2.8.2 or newer, use the **Nalu-Plugin-GWT** by adding the following lines to your pom:
+
+```XML
+    <dependency>
+      <groupId>com.github.mvp4g</groupId>
+      <artifactId>nalu-plugin-gwt</artifactId>
+      <version>LATEST</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.mvp4g</groupId>
+      <artifactId>nalu-plugin-gwt-processor</artifactId>
+      <version>LATEST</version>
+    </dependency>
+```
+
 
 See the wiki for more informations on Nalu and how to use it.
 
