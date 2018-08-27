@@ -1,4 +1,4 @@
-package test.com.github.mvp4g.nalu.client;
+package com.github.mvp4g.nalu.client;
 
 import com.github.mvp4g.nalu.client.internal.route.RouteConfig;
 import com.github.mvp4g.nalu.client.internal.route.RouterConfiguration;

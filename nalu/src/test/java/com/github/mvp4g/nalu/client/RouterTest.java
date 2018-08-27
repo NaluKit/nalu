@@ -1,6 +1,5 @@
-package test.com.github.mvp4g.nalu.client;
+package com.github.mvp4g.nalu.client;
 
-import com.github.mvp4g.nalu.client.Router;
 import com.github.mvp4g.nalu.client.internal.route.HashResult;
 import org.junit.After;
 import org.junit.Assert;
@@ -20,16 +19,14 @@ public class RouterTest {
   private Router router;
 
   @Before
-  public void before()
-    throws Exception {
+  public void before() {
     this.router = new Router(Utils.createPlugin(true,
                                                 true),
                              Utils.createRouterConfiguration());
   }
 
   @After
-  public void after()
-    throws Exception {
+  public void after() {
     this.router = null;
   }
 
@@ -37,8 +34,7 @@ public class RouterTest {
    * Method: parse(String hash) without paramter ("/testRoute")
    */
   @Test
-  public void testParseHashWithoutParameter01()
-    throws Exception {
+  public void testParseHashWithoutParameter01() {
     HashResult hashResult = this.router.parse("/testRoute");
     Assert.assertEquals("Route test with leading '/' and not parameters",
                         "testRoute",
@@ -49,8 +45,7 @@ public class RouterTest {
    * Method: parse(String hash) without paramter ("testRoute")
    */
   @Test
-  public void testParseHashWithoutParameter02()
-    throws Exception {
+  public void testParseHashWithoutParameter02() {
     HashResult hashResult = this.router.parse("testRoute");
     Assert.assertEquals("Route test without leading '/' and not parameters",
                         "testRoute",
@@ -61,8 +56,7 @@ public class RouterTest {
    * Method: parse(String hash) with one paramter ("/testRoute/testParameter01")
    */
   @Test
-  public void testParseHashWithoutParameter03()
-    throws Exception {
+  public void testParseHashWithoutParameter03() {
     HashResult hashResult = this.router.parse("/testRoute/testParameter01");
     Assert.assertEquals("Route test with leading '/' and one parameters",
                         "testRoute",
@@ -77,8 +71,7 @@ public class RouterTest {
    * Method: parse(String hash) with one paramter ("/testRoute/testParameter01/testParameter02")
    */
   @Test
-  public void testParseHashWithoutParameter04()
-    throws Exception {
+  public void testParseHashWithoutParameter04() {
     HashResult hashResult = this.router.parse("/testRoute/testParameter01/testParameter02");
     Assert.assertEquals("Route test with leading '/' and two parameters",
                         "testRoute",
@@ -97,8 +90,7 @@ public class RouterTest {
    * Method: parse(String hash) with one paramter ("/testRoute//testParameter02")
    */
   @Test
-  public void testParseHashWithoutParameter05()
-    throws Exception {
+  public void testParseHashWithoutParameter05() {
     HashResult hashResult = this.router.parse("/testRoute//testParameter02");
     Assert.assertEquals("Route test with leading '/' and two parameters, first one empty",
                         "testRoute",
@@ -117,8 +109,7 @@ public class RouterTest {
    * Method: parse(String hash) with one paramter ("testRoute/testParameter01")
    */
   @Test
-  public void testParseHashWithoutParameter06()
-    throws Exception {
+  public void testParseHashWithoutParameter06() {
     HashResult hashResult = this.router.parse("testRoute/testParameter01");
     Assert.assertEquals("Route test without leading '/' and one parameters",
                         "testRoute",
@@ -133,8 +124,7 @@ public class RouterTest {
    * Method: parse(String hash) with one paramter ("testRoute/testParameter01/testParameter02")
    */
   @Test
-  public void testParseHashWithoutParameter07()
-    throws Exception {
+  public void testParseHashWithoutParameter07() {
     HashResult hashResult = this.router.parse("testRoute/testParameter01/testParameter02");
     Assert.assertEquals("Route test without leading '/' and two parameters",
                         "testRoute",
@@ -153,8 +143,7 @@ public class RouterTest {
    * Method: parse(String hash) with one paramter ("testRoute//testParameter02")
    */
   @Test
-  public void testParseHashWithoutParameter08()
-    throws Exception {
+  public void testParseHashWithoutParameter08() {
     HashResult hashResult = this.router.parse("testRoute//testParameter02");
     Assert.assertEquals("Route test without leading '/' and two parameters, first one empty",
                         "testRoute",
@@ -173,8 +162,7 @@ public class RouterTest {
    * Method: generateHash(String route, String... parms)
    */
   @Test
-  public void testGenerateHash01()
-    throws Exception {
+  public void testGenerateHash01() {
     String hash = "route";
     HashResult hashResult = this.router.parse(hash);
     String generateHash = this.router.generateHash(hashResult.getRoute(),
@@ -189,8 +177,7 @@ public class RouterTest {
    * Method: generateHash(String route, String... parms)
    */
   @Test
-  public void testGenerateHash02()
-    throws Exception {
+  public void testGenerateHash02() {
     String hash = "route/testParameter01";
     HashResult hashResult = this.router.parse(hash);
     String generateHash = this.router.generateHash(hashResult.getRoute(),
@@ -205,8 +192,7 @@ public class RouterTest {
    * Method: generateHash(String route, String... parms)
    */
   @Test
-  public void testGenerateHash03()
-    throws Exception {
+  public void testGenerateHash03() {
     String hash = "route/testParameter01/testParameter02";
     HashResult hashResult = this.router.parse(hash);
     String generateHash = this.router.generateHash(hashResult.getRoute(),
@@ -221,8 +207,7 @@ public class RouterTest {
    * Method: generateHash(String route, String... parms)
    */
   @Test
-  public void testGenerateHash04()
-    throws Exception {
+  public void testGenerateHash04() {
     String hash = "route//testParameter02";
     HashResult hashResult = this.router.parse(hash);
     String generateHash = this.router.generateHash(hashResult.getRoute(),
