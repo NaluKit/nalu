@@ -56,8 +56,6 @@ To navigate to a new route use:
 ```
 inside the controller.
 The Router is automaticly injected in the controller. To route to a new component call the route method and add at least the new route. If the route has parameters, just add them as additional parameters. (**Important:** Parameters must be Strings!)
-**TODO**
-
 
 ## Using
 To use Nalu, clone the repo and run ```maven clean install``` (ToDo: move to maven central) and add the following dependencies to your pom:
@@ -115,23 +113,7 @@ Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not us
 Please use the mvp4g [MVP4G Gitter room](https://gitter.im/mvp4g/mvp4g).
 
 ## Examples
-There are some examples that show how to set up and how to use Nalu: [https://github.com/mvp4g/nalu-examples].
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+There are some examples that show how to set up and how to use Nalu: [https://github.com/mvp4g/nalu-examples(](https://github.com/mvp4g/nalu-examples).
 
 ## Installation
 To run the examples:
@@ -202,9 +184,6 @@ router.route("newRoute", [parameters]);
 ### Shell
 iIs the root view, which will be placed into the browser window viewport. The Dom shoudl contain selectors (id) where the childs will be added.
 
-
-
-
 ## Notes
 It's a proof of concept. Please, keep in mind, validation and tests are missing and there might be bugs in the framework I did not discover yet.
 
@@ -212,8 +191,6 @@ It's a proof of concept. Please, keep in mind, validation and tests are missing 
 
 * Recompile does not work due to a bug.
 
-* The debugging feature is not implemented yet.
-
-* documentation missing
+* documentation in progress
 
 * validation!
