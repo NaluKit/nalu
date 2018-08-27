@@ -56,8 +56,6 @@ To navigate to a new route use:
 ```
 inside the controller.
 The Router is automaticly injected in the controller. To route to a new component call the route method and add at least the new route. If the route has parameters, just add them as additional parameters. (**Important:** Parameters must be Strings!)
-**TODO**
-
 
 ## Using
 To use Nalu, clone the repo and run ```maven clean install``` (ToDo: move to maven central) and add the following dependencies to your pom:
