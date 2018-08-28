@@ -26,7 +26,7 @@ public class NaluSimpleApplicationLoader
     implements IsApplicationLoader {
 
   /**
-   * The laoder of the applciation.
+   * The laoder of the application.
    * <p>
    * Will be executed at the start of the application
    * and before the first event is executed.
