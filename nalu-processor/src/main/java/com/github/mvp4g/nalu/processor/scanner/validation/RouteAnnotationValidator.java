@@ -113,7 +113,7 @@ public class RouteAnnotationValidator {
             }
           }
         } else {
-          throw new ProcessorException("Nalu-Processor: @Controller >>" + this.controllerElement.toString() + "<< does not implement the method: >>" + methodName + "<< which is required for accepting a varaible from the route");
+          throw new ProcessorException("Nalu-Processor: @Controller >>" + this.controllerElement.toString() + "<< does not implement the method: >>" + methodName + "<< which is required for accepting a variable from the route");
         }
       }
     }

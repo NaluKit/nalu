@@ -18,6 +18,7 @@
 package com.github.mvp4g.nalu.processor;
 
 import com.github.mvp4g.nalu.processor.test.ApplicationTest;
+import com.github.mvp4g.nalu.processor.test.ControllerTest;
 import com.github.mvp4g.nalu.processor.test.DebugTest;
 import com.github.mvp4g.nalu.processor.test.FilterTest;
 import com.github.mvp4g.nalu.processor.test.model.intern.ClassNameModelTest;
@@ -27,10 +28,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ApplicationTest.class,
                      ClassNameModelTest.class,
+                     ControllerTest.class,
                      DebugTest.class,
-                     FilterTest.class
-//                     ImplementationTest.class,
-//                     PropertiesTest.class,
-})
+                     FilterTest.class})
 public class AllTests {
 }

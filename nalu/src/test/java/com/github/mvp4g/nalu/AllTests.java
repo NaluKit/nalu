@@ -18,10 +18,12 @@
 package com.github.mvp4g.nalu;
 
 import com.github.mvp4g.nalu.client.RouterTest;
+import com.github.mvp4g.nalu.client.RoutingTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({RouterTest.class})
+@Suite.SuiteClasses({RouterTest.class,
+                     RoutingTest.class})
 public class AllTests {
 }
