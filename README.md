@@ -192,8 +192,6 @@ It's a proof of concept. Please, keep in mind, validation and tests are missing 
 
 ## Known issues
 
-* Recompile does not work due to a bug.
-
 * documentation in progress
 
 * validation!
