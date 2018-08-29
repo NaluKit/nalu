@@ -30,10 +30,12 @@ Example hash:
 #[route]/[parameter_1]/[parameter_2]/[parameter_3]
 ```
 
-
 where
 * route: is the navigation end point
 * parameter_x: are the paremeters of the route (it is possible to have a route without parameter or to use a route, that excepts paremter without parameter in inside the url.)
+
+The following flow shows the steps to be done, to show another component:
+![Route Flow](https://octodex.github.com/images/yaktocat.png)
 
 To connect a component to a route, just create a controller class which extends ```AbstractComponentController```and add the controller annotation ```@Controller```.
 
