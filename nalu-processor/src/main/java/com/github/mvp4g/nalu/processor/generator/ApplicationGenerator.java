@@ -24,6 +24,7 @@ import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.internal.application.AbstractApplication;
 import com.github.mvp4g.nalu.client.internal.application.ControllerCreator;
 import com.github.mvp4g.nalu.client.internal.application.ControllerFactory;
+import com.github.mvp4g.nalu.client.internal.application.NoApplicationLoader;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
@@ -121,15 +122,20 @@ public class ApplicationGenerator {
                     .generate();
 
     // method "getApplicaitonLoader"
-    MethodSpec getApplicationLoaderMethod = MethodSpec.methodBuilder("getApplicationLoader")
+    MethodSpec.Builder getApplicationLoaderMethod = MethodSpec.methodBuilder("getApplicationLoader")
                                                       .addModifiers(Modifier.PUBLIC)
                                                       .addAnnotation(Override.class)
-                                                      .returns(IsApplicationLoader.class)
-                                                      .addStatement("return new $T()",
-                                                                    metaModel.getLoader()
-                                                                             .getTypeName())
-                                                      .build();
-    typeSpec.addMethod(getApplicationLoaderMethod);
+                                                      .returns(ParameterizedTypeName.get(ClassName.get(IsApplicationLoader.class),
+                                                                                         metaModel.getContext()
+                                                                                                  .getTypeName()));
+    if (NoApplicationLoader.class.getCanonicalName().equals(metaModel.getLoader().getClassName())) {
+      getApplicationLoaderMethod.addStatement("return null");
+    } else {
+      getApplicationLoaderMethod.addStatement("return new $T()",
+                                              metaModel.getLoader()
+                                                       .getTypeName());
+    }
+    typeSpec.addMethod(getApplicationLoaderMethod.build());
 
     // generate method 'loadComponents()'
     MethodSpec.Builder loadComponentsMethodBuilder = MethodSpec.methodBuilder("loadComponents")

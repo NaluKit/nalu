@@ -71,7 +71,7 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
-  public IsApplicationLoader getApplicationLoader() {
+  public IsApplicationLoader<NaluSimpleApplicationContext> getApplicationLoader() {
     return new NaluSimpleApplicationLoader();
   }
 

@@ -1,5 +1,6 @@
 package com.github.mvp4g.nalu.processor.application.applicationAnnotationOkWithLoaderAsInnerInterface;
 
+import com.github.mvp4g.nalu.client.application.AbstractApplicationLoader;
 import com.github.mvp4g.nalu.client.application.IsApplication;
 import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
 import com.github.mvp4g.nalu.client.application.annotation.Application;
@@ -12,7 +13,7 @@ public interface ApplicationAnnotationOkWithLoaderAsInnerInterface
   extends IsApplication {
 
   public static class MyApplicationLoader
-    implements IsApplicationLoader {
+    extends AbstractApplicationLoader<MockContext> {
 
     @Override
     public void load(FinishLoadCommand finishLoadCommand) {

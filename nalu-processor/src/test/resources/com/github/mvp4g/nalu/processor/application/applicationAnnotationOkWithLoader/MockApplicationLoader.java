@@ -17,10 +17,12 @@
 
 package com.github.mvp4g.nalu.processor.application.applicationAnnotationOkWithLoader;
 
+import com.github.mvp4g.nalu.client.application.AbstractApplicationLoader;
 import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
+import com.github.mvp4g.nalu.processor.common.MockContext;
 
 public class MockApplicationLoader
-  implements IsApplicationLoader {
+  extends AbstractApplicationLoader<MockContext> {
 
   @Override
   public void load(FinishLoadCommand finishLoadCommand) {

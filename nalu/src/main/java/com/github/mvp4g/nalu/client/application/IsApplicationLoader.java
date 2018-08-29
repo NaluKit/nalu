@@ -24,7 +24,9 @@ package com.github.mvp4g.nalu.client.application;
  * The loader can be used to load meta-informations at the the start of the applilcation</p>
  * <p>Once the work is done call finishLoadCommand.finishLoad() to resume with the normal processing.</p>
  */
-public interface IsApplicationLoader {
+public interface IsApplicationLoader<C extends IsContext> {
+
+  void setContext(C context);
 
   void load(FinishLoadCommand finishLoadCommand);
 

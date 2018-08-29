@@ -17,17 +17,18 @@
 
 package com.github.mvp4g.nalu.client.internal.application;
 
-import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
+import com.github.mvp4g.nalu.client.application.AbstractApplicationLoader;
 import com.github.mvp4g.nalu.client.internal.annotation.NaluInternalUse;
 
 /**
  * Default applilcation loader
  * <p>does nothing</p>
  * <p>Used by the framework</p>
+ * <p><b>DO NOT USE!</b></p>
  */
 @NaluInternalUse
 public final class NoApplicationLoader
-  implements IsApplicationLoader {
+  extends AbstractApplicationLoader<DefaultContext> {
 
   @Override
   public void load(FinishLoadCommand finishLoadCommand) {

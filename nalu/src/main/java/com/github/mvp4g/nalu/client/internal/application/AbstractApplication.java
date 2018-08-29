@@ -46,13 +46,13 @@ public abstract class AbstractApplication<C extends IsContext>
   protected RouterConfiguration routerConfiguration;
 
   /* Router */
-  protected Router router;
+  protected Router         router;
   /* application context */
-  protected C context;
+  protected C              context;
   /* the event bus of the application */
   protected SimpleEventBus eventBus;
   /* plugin */
-  private IsPlugin plugin;
+  private   IsPlugin       plugin;
 
   public AbstractApplication() {
     super();
@@ -94,7 +94,14 @@ public abstract class AbstractApplication<C extends IsContext>
     ClientLogger.get()
                 .logDetailed("AbstractApplication: execute loader",
                              1);
-    getApplicationLoader().load(this::onFinishLaoding);
+    // handling application loading
+    IsApplicationLoader<C> applicationLoader = getApplicationLoader();
+    if (getApplicationLoader() == null) {
+      this.onFinishLaoding();
+    } else {
+      applicationLoader.setContext(this.context);
+      applicationLoader.load(this::onFinishLaoding);
+    }
   }
 
   protected abstract void loadDebugConfiguration();
@@ -109,7 +116,7 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract void loadHandlers();
 
-  protected abstract IsApplicationLoader getApplicationLoader();
+  protected abstract IsApplicationLoader<C> getApplicationLoader();
 
   /**
    * Once the loader did his job, we will continue

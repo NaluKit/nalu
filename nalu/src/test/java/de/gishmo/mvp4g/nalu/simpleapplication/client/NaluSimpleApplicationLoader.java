@@ -17,13 +17,13 @@
 
 package de.gishmo.mvp4g.nalu.simpleapplication.client;
 
-import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
+import com.github.mvp4g.nalu.client.application.AbstractApplicationLoader;
 
 /**
  * A application loader of the NaluSimpleApplication
  */
 public class NaluSimpleApplicationLoader
-    implements IsApplicationLoader {
+  extends AbstractApplicationLoader<NaluSimpleApplicationContext> {
 
   /**
    * The laoder of the application.

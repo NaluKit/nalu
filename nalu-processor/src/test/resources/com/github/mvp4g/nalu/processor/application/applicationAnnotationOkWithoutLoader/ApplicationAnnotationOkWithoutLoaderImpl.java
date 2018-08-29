@@ -54,7 +54,7 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl
   }
 
   @Override
-  public IsApplicationLoader getApplicationLoader() {
+  public IsApplicationLoader<MockContext> getApplicationLoader() {
     return new NoApplicationLoader();
   }
 
