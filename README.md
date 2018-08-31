@@ -194,4 +194,4 @@ It's a proof of concept. Please, keep in mind, validation and tests are missing 
 
 * documentation in progress
 
-* messing Nalu project generator
+* missing Nalu project generator
