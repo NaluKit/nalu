@@ -82,7 +82,7 @@ If the project uses a widget set based on Elemetal2, Elememento or Domino-UI, us
 
 ```XML
 <dependency>
-    <groupId>comgithub..mvp4g</groupId>
+    <groupId>com.github..mvp4g</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
     <version>LATEST</version>
 </dependency>
@@ -193,3 +193,5 @@ It's a proof of concept. Please, keep in mind, validation and tests are missing 
 ## Known issues
 
 * documentation in progress
+
+* messing Nalu project generator
