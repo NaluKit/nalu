@@ -193,5 +193,3 @@ It's a proof of concept. Please, keep in mind, validation and tests are missing 
 ## Known issues
 
 * documentation in progress
-
-* validation!
