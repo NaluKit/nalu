@@ -33,10 +33,10 @@
 
   <modules>
     <module>nalu</module>
+    <module>nalu-processor</module>
     <module>nalu-plugin-elemental2</module>
     <module>nalu-plugin-gwt</module>
     <module>nalu-plugin-gwt-processor</module>
-    <module>nalu-processor</module>
   </modules>
 
   <inceptionYear>2018</inceptionYear>

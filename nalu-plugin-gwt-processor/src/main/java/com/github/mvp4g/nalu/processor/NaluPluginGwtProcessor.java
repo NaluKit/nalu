@@ -25,7 +25,6 @@ import com.github.mvp4g.nalu.plugin.gwt.client.selector.SelectorProvider;
 import com.github.mvp4g.nalu.processor.model.intern.ClassNameModel;
 import com.google.auto.service.AutoService;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Panel;
 import com.squareup.javapoet.*;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -33,9 +32,7 @@ import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.Modifier;
-import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.*;
 import java.io.IOException;
 import java.util.*;
 
@@ -65,22 +62,22 @@ public class NaluPluginGwtProcessor
   public boolean process(Set<? extends TypeElement> annotations,
                          RoundEnvironment roundEnv) {
     setUp(roundEnv);
-    processorUtils.createNoteMessage("Nalu-Plugin-Gwt-Processor triggered: " + System.currentTimeMillis());
+    processorUtils.createNoteMessage("Nalu-Plugin-Gxt-4-Processor triggered: " + System.currentTimeMillis());
     try {
       if (!roundEnv.processingOver()) {
         for (TypeElement annotation : annotations) {
-          for (Element typeElement : roundEnv.getElementsAnnotatedWith(Selector.class)) {
-            validate(typeElement);
+          for (Element element : roundEnv.getElementsAnnotatedWith(Selector.class)) {
+            validate(element);
             // get enclosing element
-            Element enclosingElement = typeElement.getEnclosingElement();
+            Element enclosingElement = element.getEnclosingElement();
             // get Annotation
-            Selector selectorAnnotation = typeElement.getAnnotation(Selector.class);
+            Selector selectorAnnotation = element.getAnnotation(Selector.class);
             // add data
             this.models.computeIfAbsent(enclosingElement,
                                         s -> new ArrayList<>())
                        .add(new SelectorMetaModel(selectorAnnotation.value(),
                                                   enclosingElement.toString(),
-                                                  typeElement));
+                                                  element));
           }
         }
         // generate providers
@@ -103,16 +100,29 @@ public class NaluPluginGwtProcessor
                                         .build();
   }
 
-  private void validate(Element typeElement)
+  private void validate(Element element)
     throws ProcessorException {
-    // check, that the typeElement implements IsApplication
-    if (!this.processorUtils.extendsClassOrInterface(this.processingEnv.getTypeUtils(),
-                                                     typeElement.asType(),
-                                                     this.processingEnv.getElementUtils()
-                                                                       .getTypeElement(Panel.class.getCanonicalName())
-                                                                       .asType())) {
-      throw new ProcessorException("Nalu-Plugin-Gwt-Processor: " + typeElement.getSimpleName()
-                                                                              .toString() + ": @Selector can only be used on a widget that extends Panel");
+    // check, that the add-method is implemented in the typeelement of the annotated element
+    Optional<? extends Element> optionalType = this.processingEnv.getElementUtils()
+                                                                 .getAllMembers(this.processingEnv.getElementUtils()
+                                                                                                  .getTypeElement(element.asType()
+                                                                                                                         .toString()))
+                                                                 .stream()
+                                                                 .filter(member -> ElementKind.METHOD.equals(((Element) member).getKind()))
+                                                                 .map(member -> (ExecutableElement) member)
+                                                                 .filter(f -> f.toString()
+                                                                               .contains("add(com.google.gwt.user.client.ui.IsWidget)"))
+                                                                 .findFirst();
+    if (!optionalType.isPresent()) {
+      throw new ProcessorException("Nalu-Plugin-Gxt-4-Processor: >>" + element.getSimpleName()
+                                                                              .toString() + "<< - @Selector can only be used on a widget that implements a 'add'-method with one parameter");
+    }
+    // the annotated field must be a least package-protected!
+    if (element.getModifiers()
+               .stream()
+               .anyMatch(Modifier.PRIVATE::equals)) {
+      throw new ProcessorException("Nalu-Plugin-Gxt-4-Processor: >>" + element.getSimpleName()
+                                                                              .toString() + "<< fields annotated with @Selector must be protected, package-protected or public");
     }
   }
 

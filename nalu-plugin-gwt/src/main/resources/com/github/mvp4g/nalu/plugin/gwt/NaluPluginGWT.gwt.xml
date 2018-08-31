@@ -26,7 +26,9 @@
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name="com.google.gwt.user.User"/>
 
+  <!-- Other module inherits                                      -->
   <inherits name="com.github.mvp4g.nalu.Nalu"/>
+  <inherits name="elemental2.dom.Dom"/>
 
   <!-- sources -->
   <source path="client"/>
