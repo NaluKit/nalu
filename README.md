@@ -34,7 +34,7 @@ where
 * route: is the navigation end point
 * parameter_x: are the paremeters of the route (it is possible to have a route without parameter or to use a route, that excepts paremter without parameter in inside the url.)
 
-The following flow shows the steps to be done, once a routing is initiated. The flwo will end with appending the new component to the DOM. 
+The following flow shows the steps to be done, once a routing is initiated. The flow will end with appending the new component to the DOM. 
 
 ![Route Flow](https://github.com/mvp4g/nalu-parent/blob/master/etc/images/routeFlow.png)
 
