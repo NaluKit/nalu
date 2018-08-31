@@ -26,7 +26,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * <p>This annotation is used to annotate an interface in Nalu and mark it as Nalu application.</p>
+ * <p>This annotation is used to annotate an interface in Nalu and mark it as a Nalu application.</p>
  * <br><br>
  * The annotation has the following attributes:
  * <ul>

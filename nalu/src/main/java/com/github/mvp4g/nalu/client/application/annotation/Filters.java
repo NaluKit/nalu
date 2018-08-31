@@ -23,15 +23,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * <p>This annotation is used to annotate an interface in mvp4g and mark it as mvp4g application.</p>
- * <br><br>
+ * This annotation may be used to set route filters for the framework.<br>
+ * <br>
+ * This annotation can be used only on classes that implement <code>IsApplication</code> and that are
+ * annotated with <code>@@Application</code>.<br>
+ * <br>
  * The annotation has the following attributes:
  * <ul>
- * <li>eventBus: defines the eventbus of this application</li>
- * <li>loader: a loader that will be executed in case the application loads. If no loader
- * is defined, the NoApplicationLoader.class will be used. In this case, the loader will do nothing.</li>
- * <li>historyOnStart: if true, the current history state will be fired when the application starts.</li>
- * <li>encodeToken: if true, the token will be encoded (very simple). (Experimental, may be, it will be removed ...)</li>
+ * <li>filterClasses: classes of the filter to use.</li>
  * </ul>
  *
  * @author Frank Hossfeld

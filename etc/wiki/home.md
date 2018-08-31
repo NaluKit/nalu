@@ -13,4 +13,4 @@ To help you understand the framework, Nalu comes with tutorials and examples.
 **ToDo**: To start using Nalu just create a new project [here](http://www.mvp4g.org/gwt-boot-starter-nalu/GwtBootStarterNalu.html). Once you pressed the 'generate'-button, download the zip, unzip it and imported the project to your IDE, you can start.
 
 ### Examples
-Take a look at the [nalu-example repository](https://github.com/mvp4g/nalu-examples).
+Take a look at the [nalu-example repository](https://github.com/mvp4g/nalu-examples). The Domino-UI exapmple is online and can be found [here](http://www.mvp4g.org/NaluDominoSimpleApplication-1.0.0/index.html#search).

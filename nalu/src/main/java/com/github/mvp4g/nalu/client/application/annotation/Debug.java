@@ -32,7 +32,7 @@ import java.lang.annotation.RetentionPolicy;
  * <br>
  * This annotation should be used only on interfaces that extend <code>EventBus</code>.
  *
- * @author plcoirier
+ * @author Frank Hossfeld
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Debug {

@@ -2,10 +2,12 @@ package com.github.mvp4g.nalu.client.internal.application;
 
 import com.github.mvp4g.nalu.client.component.AbstractComponentController;
 import com.github.mvp4g.nalu.client.exception.RoutingInterceptionException;
+import com.github.mvp4g.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@NaluInternalUse
 public class ControllerFactory {
 
   /* instance of the controller factory */
