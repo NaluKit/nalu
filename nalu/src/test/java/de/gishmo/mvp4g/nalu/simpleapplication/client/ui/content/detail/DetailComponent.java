@@ -42,7 +42,7 @@ public class DetailComponent
   }
 
   @Override
-  public String render() {
+  public void render() {
 //    this.detailFirstName = TextBox.create("First name");
 //    this.detailName = TextBox.create("Name");
 //    this.detailStreet = TextBox.create("Name");
@@ -77,7 +77,7 @@ public class DetailComponent
 //                                 .style()
 //                                 .setTextAlign("right"))
 //               .asElement();
-    return "DetailForm";
+    initElement("DetailForm");
   }
 
   @Override

@@ -10,7 +10,7 @@ public class Component02
   }
 
   @Override
-  public String render() {
-    return "Component02";
+  public void render() {
+    initElement("Component02");
   }
 }

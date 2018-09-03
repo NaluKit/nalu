@@ -30,7 +30,7 @@ public class NavigationComponent
   }
 
   @Override
-  public String render() {
+  public void render() {
 //    this.searchItem = TreeItem.create("Search persons",
 //                                      Icons.ALL.search())
 //                              .addClickListener(e -> getController().doShowSearch());
@@ -42,7 +42,7 @@ public class NavigationComponent
 //               .addTreeItem(this.searchItem)
 //               .addTreeItem(this.listItem)
 //               .asElement();
-    return "navigation";
+    initElement("navigation");
   }
 
   @Override

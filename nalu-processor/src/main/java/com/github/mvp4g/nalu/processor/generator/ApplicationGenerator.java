@@ -198,6 +198,8 @@ public class ApplicationGenerator {
                                                                                                  .getSimpleName()))
                                                       .addStatement("component.setController(controller)")
                                                       .addStatement("controller.setComponent(component)")
+                                                      .addStatement("component.render()")
+                                                      .addStatement("component.bind()")
                                                       .addStatement("$T.get().logDetailed(\"ControllerFactory: controller >>$L<< created for route >>$L<<\", 0)",
                                                                     ClassName.get(ClientLogger.class),
                                                                     controllerModel.getComponent()

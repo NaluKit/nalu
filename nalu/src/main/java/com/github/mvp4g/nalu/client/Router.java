@@ -38,7 +38,7 @@ public final class Router {
     // inistantiate lists, etc.
     this.activeComponents = new HashMap<>();
     // register event handler
-    this.plugin.register(e -> this.handleRouting(e));
+    this.plugin.register(h -> this.handleRouting(h));
   }
 
   private String handleRouting(String hash) {
@@ -137,6 +137,12 @@ public final class Router {
     return null;
   }
 
+  /**
+   * Parse the hash and divides it into route and parameters
+   *
+   * @param hash ths hash to parse
+   * @return parse result
+   */
   public HashResult parse(String hash) {
     HashResult hashResult = new HashResult();
     String hashValue = hash;
@@ -226,6 +232,18 @@ public final class Router {
     }
   }
 
+  /**
+   * The method routes to another screen. In case it is called,
+   * it will:
+   * <ul>
+   * <li>create a new hash</li>
+   * <li>update the url</li>
+   * </ul>
+   * Once the url gets updated, it triggers the onahshchange event and Nalu starts to work
+   *
+   * @param newRoute routing goal
+   * @param parms    list of parameters [0 - n]
+   */
   public void route(String newRoute,
                     String... parms) {
     this.route(newRoute,
@@ -249,7 +267,7 @@ public final class Router {
   }
 
   public String generateHash(String route,
-                     String... parms) {
+                             String... parms) {
     StringBuilder sb = new StringBuilder();
     if (route.startsWith("/")) {
       sb.append(route.substring(1));

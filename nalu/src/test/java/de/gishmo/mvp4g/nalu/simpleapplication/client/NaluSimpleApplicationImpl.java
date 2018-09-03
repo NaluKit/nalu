@@ -29,10 +29,7 @@ import de.gishmo.mvp4g.nalu.simpleapplication.client.ui.navigation.NavigationCom
 import de.gishmo.mvp4g.nalu.simpleapplication.client.ui.navigation.NavigationController;
 import de.gishmo.mvp4g.nalu.simpleapplication.client.ui.shell.Shell;
 
-
-public final class NaluSimpleApplicationImpl
-  extends AbstractApplication<NaluSimpleApplicationContext> implements NaluSimpleApplication {
-
+public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSimpleApplicationContext> implements NaluSimpleApplication {
   public NaluSimpleApplicationImpl() {
     super();
     super.context = new NaluSimpleApplicationContext();
@@ -45,11 +42,12 @@ public final class NaluSimpleApplicationImpl
 
   @Override
   public void loadRoutes() {
-    super.routerConfiguration.getRouters().add(new RouteConfig("/list/:name/:city", "content", "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.list.ListController"));
     super.routerConfiguration.getRouters().add(new RouteConfig("/", "footer", "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.footer.FooterController"));
+    super.routerConfiguration.getRouters().add(new RouteConfig("/", "header", "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.header.HeaderController"));
+    super.routerConfiguration.getRouters().add(new RouteConfig("/list/:name/:city", "content", "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.list.ListController"));
     super.routerConfiguration.getRouters().add(new RouteConfig("/search/:searchName/:searchCity", "content", "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.search.SearchController"));
-    super.routerConfiguration.getRouters().add(new RouteConfig("/", "navigation", "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.navigation.NavigationController"));
     super.routerConfiguration.getRouters().add(new RouteConfig("/detail/:id", "content", "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
+    super.routerConfiguration.getRouters().add(new RouteConfig("/", "navigation", "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.navigation.NavigationController"));
   }
 
   @Override
@@ -85,11 +83,31 @@ public final class NaluSimpleApplicationImpl
     super.shell = shell;
     shell.bind();
     ClientLogger.get().logDetailed("AbstractApplicationImpl: shell created", 1);
+    // create ControllerCreator for: de.gishmo.gwt.example.nalu.simpleapplication.client.ui.footer.FooterController
+    ControllerFactory.get().registerController("de.gishmo.gwt.example.nalu.simpleapplication.client.ui.footer.FooterController", new ControllerCreator() {
+      @Override
+      public AbstractComponentController<NaluSimpleApplicationContext, IFooterComponent, String> create(
+        String... parms) throws RoutingInterceptionException {
+        FooterController controller = new FooterController();
+        controller.setContext(context);
+        controller.setEventBus(eventBus);
+        controller.setRouter(router);
+        IFooterComponent component = new FooterComponent();
+        component.setController(controller);
+        controller.setComponent(component);
+        component.render();
+        component.bind();
+        ClientLogger.get().logDetailed("ControllerFactory: controller >>de.gishmo.gwt.example.nalu.simpleapplication.client.ui.footer.FooterComponent<< created for route >>/<<", 0);
+        if (parms != null) {
+        }
+        return controller;
+      }
+    });
     // create ControllerCreator for: de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.list.ListController
     ControllerFactory.get().registerController("de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.list.ListController", new ControllerCreator() {
       @Override
       public AbstractComponentController<NaluSimpleApplicationContext, IListComponent, String> create(
-          String... parms) throws RoutingInterceptionException {
+        String... parms) throws RoutingInterceptionException {
         ListController controller = new ListController();
         controller.setContext(context);
         controller.setEventBus(eventBus);
@@ -97,6 +115,8 @@ public final class NaluSimpleApplicationImpl
         IListComponent component = new ListComponent();
         component.setController(controller);
         controller.setComponent(component);
+        component.render();
+        component.bind();
         ClientLogger.get().logDetailed("ControllerFactory: controller >>de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.list.ListComponent<< created for route >>/list/:name/:city<<", 0);
         if (parms != null) {
           if (parms.length >= 1) {
@@ -109,29 +129,11 @@ public final class NaluSimpleApplicationImpl
         return controller;
       }
     });
-    // create ControllerCreator for: de.gishmo.gwt.example.nalu.simpleapplication.client.ui.footer.FooterController
-    ControllerFactory.get().registerController("de.gishmo.gwt.example.nalu.simpleapplication.client.ui.footer.FooterController", new ControllerCreator() {
-      @Override
-      public AbstractComponentController<NaluSimpleApplicationContext, IFooterComponent, String> create(
-          String... parms) throws RoutingInterceptionException {
-        FooterController controller = new FooterController();
-        controller.setContext(context);
-        controller.setEventBus(eventBus);
-        controller.setRouter(router);
-        IFooterComponent component = new FooterComponent();
-        component.setController(controller);
-        controller.setComponent(component);
-        ClientLogger.get().logDetailed("ControllerFactory: controller >>de.gishmo.gwt.example.nalu.simpleapplication.client.ui.footer.FooterComponent<< created for route >>/<<", 0);
-        if (parms != null) {
-        }
-        return controller;
-      }
-    });
     // create ControllerCreator for: de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.search.SearchController
     ControllerFactory.get().registerController("de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.search.SearchController", new ControllerCreator() {
       @Override
       public AbstractComponentController<NaluSimpleApplicationContext, ISearchComponent, String> create(
-          String... parms) throws RoutingInterceptionException {
+        String... parms) throws RoutingInterceptionException {
         SearchController controller = new SearchController();
         controller.setContext(context);
         controller.setEventBus(eventBus);
@@ -139,6 +141,8 @@ public final class NaluSimpleApplicationImpl
         ISearchComponent component = new SearchComponent();
         component.setController(controller);
         controller.setComponent(component);
+        component.render();
+        component.bind();
         ClientLogger.get().logDetailed("ControllerFactory: controller >>de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.search.SearchComponent<< created for route >>/search/:searchName/:searchCity<<", 0);
         if (parms != null) {
           if (parms.length >= 1) {
@@ -151,29 +155,11 @@ public final class NaluSimpleApplicationImpl
         return controller;
       }
     });
-    // create ControllerCreator for: de.gishmo.gwt.example.nalu.simpleapplication.client.ui.navigation.NavigationController
-    ControllerFactory.get().registerController("de.gishmo.gwt.example.nalu.simpleapplication.client.ui.navigation.NavigationController", new ControllerCreator() {
-      @Override
-      public AbstractComponentController<NaluSimpleApplicationContext, INavigationComponent, String> create(
-          String... parms) throws RoutingInterceptionException {
-        NavigationController controller = new NavigationController();
-        controller.setContext(context);
-        controller.setEventBus(eventBus);
-        controller.setRouter(router);
-        INavigationComponent component = new NavigationComponent();
-        component.setController(controller);
-        controller.setComponent(component);
-        ClientLogger.get().logDetailed("ControllerFactory: controller >>de.gishmo.gwt.example.nalu.simpleapplication.client.ui.navigation.NavigationComponent<< created for route >>/<<", 0);
-        if (parms != null) {
-        }
-        return controller;
-      }
-    });
     // create ControllerCreator for: de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.detail.DetailController
     ControllerFactory.get().registerController("de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.detail.DetailController", new ControllerCreator() {
       @Override
       public AbstractComponentController<NaluSimpleApplicationContext, IDetailComponent, String> create(
-          String... parms) throws RoutingInterceptionException {
+        String... parms) throws RoutingInterceptionException {
         DetailController controller = new DetailController();
         controller.setContext(context);
         controller.setEventBus(eventBus);
@@ -181,11 +167,33 @@ public final class NaluSimpleApplicationImpl
         IDetailComponent component = new DetailComponent();
         component.setController(controller);
         controller.setComponent(component);
+        component.render();
+        component.bind();
         ClientLogger.get().logDetailed("ControllerFactory: controller >>de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.detail.DetailComponent<< created for route >>/detail/:id<<", 0);
         if (parms != null) {
           if (parms.length >= 1) {
             controller.setId(parms[0]);
           }
+        }
+        return controller;
+      }
+    });
+    // create ControllerCreator for: de.gishmo.gwt.example.nalu.simpleapplication.client.ui.navigation.NavigationController
+    ControllerFactory.get().registerController("de.gishmo.gwt.example.nalu.simpleapplication.client.ui.navigation.NavigationController", new ControllerCreator() {
+      @Override
+      public AbstractComponentController<NaluSimpleApplicationContext, INavigationComponent, String> create(
+        String... parms) throws RoutingInterceptionException {
+        NavigationController controller = new NavigationController();
+        controller.setContext(context);
+        controller.setEventBus(eventBus);
+        controller.setRouter(router);
+        INavigationComponent component = new NavigationComponent();
+        component.setController(controller);
+        controller.setComponent(component);
+        component.render();
+        component.bind();
+        ClientLogger.get().logDetailed("ControllerFactory: controller >>de.gishmo.gwt.example.nalu.simpleapplication.client.ui.navigation.NavigationComponent<< created for route >>/<<", 0);
+        if (parms != null) {
         }
         return controller;
       }

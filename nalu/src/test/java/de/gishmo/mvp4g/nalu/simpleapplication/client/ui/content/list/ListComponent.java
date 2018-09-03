@@ -34,7 +34,7 @@ public class ListComponent
   }
 
   @Override
-  public String render() {
+  public void render() {
 //    TableConfig<Person> tableConfig = new TableConfig<>();
 //    tableConfig.addColumn(ColumnConfig.<Person>create("name",
 //                                                      "Name")
@@ -79,7 +79,7 @@ public class ListComponent
 //                                 store);
 //
 //    return this.table.asElement();
-    return "ListView";
+    initElement("ListView");
   }
 
   @Override

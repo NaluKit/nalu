@@ -31,7 +31,7 @@ public class SearchComponent
   }
 
   @Override
-  public String render() {
+  public void render() {
 //    this.searchName = TextBox.create("Name");
 //    this.searchCity = TextBox.create("City");
 //
@@ -57,7 +57,7 @@ public class SearchComponent
 //                                 .style()
 //                                 .setTextAlign("right"))
 //               .asElement();
-    return "SearchForm";
+    initElement("SearchForm");
   }
 
   @Override

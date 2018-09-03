@@ -8,20 +8,27 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
   private W element;
 
   public AbstractComponent() {
-    this.element = render();
-    this.bind();
   }
 
-  protected abstract W render();
+  /**
+   * <b>Important:<br>
+   *  Inside the render-method, you have to call the initElement-method!</b>
+   *
+   */
+  public abstract void render();
 
-  protected void bind() {
+  protected void initElement(W element) {
+    this.element = element;
+  }
+
+  public void bind() {
     // if you need to bind some handlers and would like to do this in a seperate method
     // just override this method.
   }
 
   @Override
   public W asElement() {
-    assert element != null : "not alement set!";
+    assert element != null : "no alement set!";
     return this.element;
   }
 
