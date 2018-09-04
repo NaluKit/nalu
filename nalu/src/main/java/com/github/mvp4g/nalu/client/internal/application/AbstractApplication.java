@@ -26,6 +26,7 @@ import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.mvp4g.nalu.client.internal.route.HashResult;
 import com.github.mvp4g.nalu.client.internal.route.RouterConfiguration;
+import com.github.mvp4g.nalu.client.internal.route.RouterException;
 import com.github.mvp4g.nalu.client.plugin.IsPlugin;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -149,7 +150,12 @@ public abstract class AbstractApplication<C extends IsContext>
       ClientLogger.get()
                   .logDetailed("AbstractApplication: handle history (hash at start: >>" + hashOnStart + "<<",
                                1);
-      HashResult hashResult = this.router.parse(hashOnStart);
+      HashResult hashResult = null;
+      try {
+        hashResult = this.router.parse(hashOnStart);
+      } catch (RouterException e) {
+        return;
+      }
       this.router.route(hashResult.getRoute(),
                         hashResult.getParameterValues()
                                   .toArray(new String[0]));

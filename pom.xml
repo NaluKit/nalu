@@ -24,7 +24,7 @@
 
   <groupId>com.github.mvp4g</groupId>
   <artifactId>nalu-parent</artifactId>
-  <version>0.6.0</version>
+  <version>0.7.0</version>
   <packaging>pom</packaging>
 
   <name>nalu-parent</name>

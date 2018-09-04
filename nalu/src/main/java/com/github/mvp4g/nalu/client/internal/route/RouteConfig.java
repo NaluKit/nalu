@@ -37,10 +37,10 @@ public class RouteConfig {
 
   private void parse(String route) {
     String parseValue = route;
-    // remove leading "/"
-    if (parseValue.startsWith("/")) {
-      parseValue = parseValue.substring(1);
-    }
+//    // remove leading "/"
+//    if (parseValue.startsWith("/")) {
+//      parseValue = parseValue.substring(1);
+//    }
     // route has parameter?
     if (parseValue.contains(Nalu.NALU_PARAMETER)) {
       // seperate route:
@@ -78,5 +78,9 @@ public class RouteConfig {
 
   public void setClassName(String className) {
     this.className = className;
+  }
+
+  public List<String> getPraameters() {
+    return praameters;
   }
 }

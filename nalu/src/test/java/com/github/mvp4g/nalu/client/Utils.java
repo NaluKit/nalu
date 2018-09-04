@@ -49,23 +49,19 @@ class Utils {
   static RouterConfiguration createRouterConfiguration() {
     RouterConfiguration routerConfiguration = new RouterConfiguration();
     routerConfiguration.getRouters()
-                       .add(new RouteConfig("/list/:name/:city",
+                       .add(new RouteConfig("/testRoute01",
                                             "content",
-                                            "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.list.ListController"));
+                                            "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     routerConfiguration.getRouters()
-                       .add(new RouteConfig("/",
-                                            "footer",
-                                            "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.footer.FooterController"));
-    routerConfiguration.getRouters()
-                       .add(new RouteConfig("/search/:searchName/:searchCity",
+                       .add(new RouteConfig("/testRoute02/:testParaemter01/:testParameter02",
                                             "content",
-                                            "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.search.SearchController"));
+                                            "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     routerConfiguration.getRouters()
-                       .add(new RouteConfig("/",
-                                            "navigation",
-                                            "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.navigation.NavigationController"));
+                       .add(new RouteConfig("/testRoute03/testRoute04/testRoute05",
+                                            "content",
+                                            "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     routerConfiguration.getRouters()
-                       .add(new RouteConfig("/detail/:id",
+                       .add(new RouteConfig("/testRoute06/testRoute07/:testParameter01/:testParameter02/:testParameter03",
                                             "content",
                                             "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     return routerConfiguration;

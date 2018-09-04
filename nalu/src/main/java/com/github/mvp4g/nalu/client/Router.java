@@ -8,6 +8,7 @@ import com.github.mvp4g.nalu.client.internal.application.ControllerFactory;
 import com.github.mvp4g.nalu.client.internal.route.HashResult;
 import com.github.mvp4g.nalu.client.internal.route.RouteConfig;
 import com.github.mvp4g.nalu.client.internal.route.RouterConfiguration;
+import com.github.mvp4g.nalu.client.internal.route.RouterException;
 import com.github.mvp4g.nalu.client.plugin.IsPlugin;
 
 import java.util.*;
@@ -51,7 +52,12 @@ public final class Router {
                              1);
     // ok, everything is fine, route!
     // parse hash ...
-    HashResult hashResult = this.parse(hash);
+    HashResult hashResult = null;
+    try {
+      hashResult = this.parse(hash);
+    } catch (RouterException e) {
+      return null;
+    }
     // First we have to check if there is a filter
     // if there are filters ==>  filter the rote
     for (IsFilter filter : this.routerConfiguration.getFilters()) {
@@ -143,7 +149,8 @@ public final class Router {
    * @param hash ths hash to parse
    * @return parse result
    */
-  public HashResult parse(String hash) {
+  public HashResult parse(String hash)
+    throws RouterException {
     HashResult hashResult = new HashResult();
     String hashValue = hash;
     // only the part after the first # is intresting:
@@ -155,37 +162,128 @@ public final class Router {
       hashValue = hashValue.substring(1);
     }
     if (hashValue.contains("/")) {
-      hashResult.setRoute(hashValue.substring(0,
-                                              hashValue.indexOf("/")));
-      String parametersFromHash = hashValue.substring(hashValue.indexOf("/") + 1);
-      // lets get the parameters!
-      List<String> paramsList = Stream.of(parametersFromHash.split("/"))
-                                      .collect(Collectors.toList());
-      // reset sledge in parms ....
-      paramsList.forEach(parm -> hashResult.getParameterValues()
-                                           .add(parm.replace(Nalu.NALU_SLEDGE_REPLACEMENT,
-                                                             "/")));
+      String searchPart = hashValue;
+      do {
+        String finalSearchPart = "/" + searchPart;
+        if (this.routerConfiguration.getRouters()
+                                    .stream()
+                                    .anyMatch(f -> f.getRoute()
+                                                    .equals(finalSearchPart))) {
+          hashResult.setRoute("/" + searchPart);
+          break;
+        } else {
+          if (searchPart.contains("/")) {
+            searchPart = searchPart.substring(0,
+                                              searchPart.lastIndexOf("/"));
+          } else {
+            break;
+          }
+        }
+      } while (searchPart.length() > 1);
+      if (hashResult.getRoute() == null) {
+        StringBuilder sb01 = new StringBuilder();
+        sb01.append("no matching route for hash >>")
+            .append(hash)
+            .append("<< --> Routing aborded!");
+        ClientLogger.get()
+                    .logSimple(sb01.toString(),
+                               1);
+        throw new RouterException(sb01.toString());
+      } else {
+        if (!hashResult.getRoute()
+                       .equals("/" + hashValue)) {
+          String parametersFromHash = hashValue.substring(hashResult.getRoute()
+                                                                    .length());
+          // lets get the parameters!
+          List<String> paramsList = Stream.of(parametersFromHash.split("/"))
+                                          .collect(Collectors.toList());
+          // reset sledge in parms ....
+          paramsList.forEach(parm -> hashResult.getParameterValues()
+                                               .add(parm.replace(Nalu.NALU_SLEDGE_REPLACEMENT,
+                                                                 "/")));
+          // check the number of parameter
+          // if the hash contains more paremters then the configuration
+          // accepts, throw an exception!
+          for (RouteConfig routeConfig : this.routerConfiguration.getRouters()) {
+            if (routeConfig.getRoute()
+                           .equals(hashResult.getRoute())) {
+              if (routeConfig.getPraameters()
+                             .size() <
+                  hashResult.getParameterValues()
+                            .size()) {
+                StringBuilder sb01 = new StringBuilder();
+                sb01.append("hash >>")
+                    .append(hash)
+                    .append("<< --> found routing >>")
+                    .append(hashResult.getRoute())
+                    .append("<< -> too much parameters! Expeted >>")
+                    .append(routeConfig.getPraameters()
+                                       .size())
+                    .append("<< - found >>")
+                    .append(hashResult.getParameterValues()
+                                      .size())
+                    .append("<<");
+                ClientLogger.get()
+                            .logSimple(sb01.toString(),
+                                       1);
+                throw new RouterException(sb01.toString());
+
+              }
+            }
+          }
+        }
+      }
     } else {
-      hashResult.setRoute(hashValue);
+      String finalSearchPart = "/" + hashValue;
+      if (this.routerConfiguration.getRouters()
+                                  .stream()
+                                  .anyMatch(f -> f.getRoute()
+                                                  .equals(finalSearchPart))) {
+        hashResult.setRoute("/" + hashValue);
+      } else {
+        StringBuilder sb01 = new StringBuilder();
+        sb01.append("no matching route for hash >>")
+            .append(hash)
+            .append("<< --> Routing aborded!");
+        ClientLogger.get()
+                    .logSimple(sb01.toString(),
+                               1);
+        throw new RouterException(sb01.toString());
+      }
     }
-    // log result
-    StringBuilder sb = new StringBuilder();
-    sb.append("Router: parse hash >>")
-      .append(hash)
-      .append("<< --> New route: >>")
-      .append(hashResult.getRoute())
-      .append("<<");
-    if (hashResult.getParameterValues()
-                  .size() > 0) {
-      sb.append(" with parameters: ");
-      hashResult.getParameterValues()
-                .forEach(p -> sb.append(">>")
-                                .append(p)
-                                .append("<< "));
-    }
-    ClientLogger.get()
-                .logDetailed(sb.toString(),
-                             2);
+
+    //    if (hashValue.contains("/")) {
+    //      hashResult.setRoute(hashValue.substring(0,
+    //                                              hashValue.indexOf("/")));
+    //      String parametersFromHash = hashValue.substring(hashValue.indexOf("/") + 1);
+    //      // lets get the parameters!
+    //      List<String> paramsList = Stream.of(parametersFromHash.split("/"))
+    //                                      .collect(Collectors.toList());
+    //      // reset sledge in parms ....
+    //      paramsList.forEach(parm -> hashResult.getParameterValues()
+    //                                           .add(parm.replace(Nalu.NALU_SLEDGE_REPLACEMENT,
+    //                                                             "/")));
+    //    } else {
+    //      hashResult.setRoute(hashValue);
+    //    }
+    //    // log result
+    //    StringBuilder sb = new StringBuilder();
+    //    sb.append("Router: parse hash >>")
+    //      .append(hash)
+    //      .append("<< --> New route: >>")
+    //      .append(hashResult.getRoute())
+    //      .append("<<");
+    //    if (hashResult.getParameterValues()
+    //                  .size() > 0) {
+    //      sb.append(" with parameters: ");
+    //      hashResult.getParameterValues()
+    //                .forEach(p -> sb.append(">>")
+    //                                .append(p)
+    //                                .append("<< "));
+    //    }
+    //    ClientLogger.get()
+    //                .logDetailed(sb.toString(),
+    //                             2);
     return hashResult;
   }
 
