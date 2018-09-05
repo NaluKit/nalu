@@ -49,7 +49,7 @@ public final class Router {
       .append("<<");
     ClientLogger.get()
                 .logDetailed(sb.toString(),
-                             1);
+                             0);
     // ok, everything is fine, route!
     // parse hash ...
     HashResult hashResult = null;
@@ -148,6 +148,7 @@ public final class Router {
    *
    * @param hash ths hash to parse
    * @return parse result
+   * @throws RouterException in case no controller is found for the routing
    */
   public HashResult parse(String hash)
     throws RouterException {
@@ -267,9 +268,7 @@ public final class Router {
                              .filter(Objects::nonNull)
                              .map(AbstractComponentController::mayStop)
                              .filter(Objects::nonNull)
-                             .allMatch(message -> this.plugin.confirm(message)
-                                       //     DomGlobal.window.confirm(message);
-                             );
+                             .allMatch(message -> this.plugin.confirm(message));
   }
 
   private void stopController(List<RouteConfig> routeConfiguraions) {
@@ -277,8 +276,49 @@ public final class Router {
                       .map(config -> this.activeComponents.get(config.getSelector()))
                       .filter(Objects::nonNull)
                       .forEach(abstractComponentController -> {
+                        StringBuilder sb01 = new StringBuilder();
+                        sb01.append("controller >>")
+                            .append(abstractComponentController.getClass()
+                                                               .getCanonicalName())
+                            .append("<< --> will be stopped");
+                        ClientLogger.get()
+                                    .logSimple(sb01.toString(),
+                                                 1);
                         abstractComponentController.stop();
+                        sb01 = new StringBuilder();
+                        sb01.append("controller >>")
+                            .append(abstractComponentController.getClass()
+                                                               .getCanonicalName())
+                            .append("<< --> stopped");
+                        ClientLogger.get()
+                                    .logDetailed(sb01.toString(),
+                                                 2);
                         abstractComponentController.onDetach();
+                        sb01 = new StringBuilder();
+                        sb01.append("controller >>")
+                            .append(abstractComponentController.getClass()
+                                                               .getCanonicalName())
+                            .append("<< --> detached");
+                        ClientLogger.get()
+                                    .logDetailed(sb01.toString(),
+                                                 2);
+                        abstractComponentController.removeHandlers();
+                        sb01 = new StringBuilder();
+                        sb01.append("controller >>")
+                            .append(abstractComponentController.getClass()
+                                                               .getCanonicalName())
+                            .append("<< --> removed handlers");
+                        ClientLogger.get()
+                                    .logDetailed(sb01.toString(),
+                                                 2);
+                        sb01 = new StringBuilder();
+                        sb01.append("controller >>")
+                            .append(abstractComponentController.getClass()
+                                                               .getCanonicalName())
+                            .append("<< --> stopped");
+                        ClientLogger.get()
+                                    .logSimple(sb01.toString(),
+                                               1);
                       });
     routeConfiguraions.forEach(routeConfiguraion -> this.plugin.remove(routeConfiguraion.getSelector()));
     routeConfiguraions.stream()

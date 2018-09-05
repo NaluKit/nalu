@@ -123,12 +123,14 @@ public class ApplicationGenerator {
 
     // method "getApplicaitonLoader"
     MethodSpec.Builder getApplicationLoaderMethod = MethodSpec.methodBuilder("getApplicationLoader")
-                                                      .addModifiers(Modifier.PUBLIC)
-                                                      .addAnnotation(Override.class)
-                                                      .returns(ParameterizedTypeName.get(ClassName.get(IsApplicationLoader.class),
-                                                                                         metaModel.getContext()
-                                                                                                  .getTypeName()));
-    if (NoApplicationLoader.class.getCanonicalName().equals(metaModel.getLoader().getClassName())) {
+                                                              .addModifiers(Modifier.PUBLIC)
+                                                              .addAnnotation(Override.class)
+                                                              .returns(ParameterizedTypeName.get(ClassName.get(IsApplicationLoader.class),
+                                                                                                 metaModel.getContext()
+                                                                                                          .getTypeName()));
+    if (NoApplicationLoader.class.getCanonicalName()
+                                 .equals(metaModel.getLoader()
+                                                  .getClassName())) {
       getApplicationLoaderMethod.addStatement("return null");
     } else {
       getApplicationLoaderMethod.addStatement("return new $T()",
@@ -175,6 +177,15 @@ public class ApplicationGenerator {
                                                                                          metaModel.getComponentType()
                                                                                                   .getTypeName()))
                                                       .addException(ClassName.get(RoutingInterceptionException.class))
+                                                      .addStatement("$T sb01 = new $T();",
+                                                                    ClassName.get(StringBuilder.class),
+                                                                    ClassName.get(StringBuilder.class))
+                                                      .addStatement("sb01.append(\"controller >>$L<< --> will be created\")",
+                                                                    controllerModel.getProvider()
+                                                                                   .getPackage() + "." + controllerModel.getProvider()
+                                                                                                                        .getSimpleName())
+                                                      .addStatement("$T.get().logSimple(sb01.toString(), 1)",
+                                                                    ClassName.get(ClientLogger.class))
                                                       .addStatement("$T controller = new $T()",
                                                                     ClassName.get(controllerModel.getProvider()
                                                                                                  .getPackage(),
@@ -187,6 +198,11 @@ public class ApplicationGenerator {
                                                       .addStatement("controller.setContext(context)")
                                                       .addStatement("controller.setEventBus(eventBus)")
                                                       .addStatement("controller.setRouter(router)")
+                                                      .addStatement("sb01 = new $T();",
+                                                                    ClassName.get(StringBuilder.class))
+                                                      .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> created and data injected\")")
+                                                      .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                                                                    ClassName.get(ClientLogger.class))
                                                       .addStatement("$T component = new $T()",
                                                                     ClassName.get(controllerModel.getComponentInterface()
                                                                                                  .getPackage(),
@@ -197,10 +213,30 @@ public class ApplicationGenerator {
                                                                                   controllerModel.getComponent()
                                                                                                  .getSimpleName()))
                                                       .addStatement("component.setController(controller)")
+                                                      .addStatement("sb01 = new $T();",
+                                                                    ClassName.get(StringBuilder.class))
+                                                      .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
+                                                      .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                                                                    ClassName.get(ClientLogger.class))
                                                       .addStatement("controller.setComponent(component)")
+                                                      .addStatement("sb01 = new $T();",
+                                                                    ClassName.get(StringBuilder.class))
+                                                      .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
+                                                      .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                                                                    ClassName.get(ClientLogger.class))
                                                       .addStatement("component.render()")
+                                                      .addStatement("sb01 = new $T();",
+                                                                    ClassName.get(StringBuilder.class))
+                                                      .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> rendered\")")
+                                                      .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                                                                    ClassName.get(ClientLogger.class))
                                                       .addStatement("component.bind()")
-                                                      .addStatement("$T.get().logDetailed(\"ControllerFactory: controller >>$L<< created for route >>$L<<\", 0)",
+                                                      .addStatement("sb01 = new $T();",
+                                                                    ClassName.get(StringBuilder.class))
+                                                      .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> binded\")")
+                                                      .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                                                                    ClassName.get(ClientLogger.class))
+                                                      .addStatement("$T.get().logSimple(\"controller >>$L<< created for route >>$L<<\", 1)",
                                                                     ClassName.get(ClientLogger.class),
                                                                     controllerModel.getComponent()
                                                                                    .getClassName(),

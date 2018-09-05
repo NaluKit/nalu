@@ -10,6 +10,8 @@ public interface IsController<W> {
 
   String mayStop();
 
+  void removeHandlers();
+
   void start();
 
   void stop();
