@@ -117,7 +117,7 @@ Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not us
 Please use the mvp4g [MVP4G Gitter room](https://gitter.im/mvp4g/mvp4g).
 
 ## Examples
-There are some examples that show how to set up and how to use Nalu: [https://github.com/mvp4g/nalu-examples(](https://github.com/mvp4g/nalu-examples).
+There are some examples that show how to set up and how to use Nalu: [https://github.com/mvp4g/nalu-examples](https://github.com/mvp4g/nalu-examples).
 
 ## Installation
 To run the examples:
