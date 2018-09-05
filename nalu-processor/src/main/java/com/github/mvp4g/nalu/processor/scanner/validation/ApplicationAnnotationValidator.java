@@ -65,6 +65,15 @@ public class ApplicationAnnotationValidator {
     if (elementsWithApplicaitonAnnotation.size() > 1) {
       throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Application");
     }
+    // validate annotation
+    for (Element element : elementsWithApplicaitonAnnotation) {
+      Application annotation = element.getAnnotation(Application.class);
+      if (annotation.startRoute() == null ||
+          annotation.startRoute().equals("") ||
+          annotation.startRoute().equals("/")) {
+        throw new ProcessorException("Nalu-Processor: @Application -> startroute can not be empty and can not be '/'");
+      }
+    }
   }
 
   public void validate(Element element)

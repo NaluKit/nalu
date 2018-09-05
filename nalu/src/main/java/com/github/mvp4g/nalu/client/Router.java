@@ -96,7 +96,7 @@ public final class Router {
       this.stopController(routeConfiguraions);
       // routing
       for (RouteConfig routeConfiguraion : routeConfiguraions) {
-        AbstractComponentController<?, ?, ?> controller = null;
+        AbstractComponentController<?, ?, ?> controller;
         try {
           controller = ControllerFactory.get()
                                         .controller(routeConfiguraion.getClassName(),
@@ -251,39 +251,6 @@ public final class Router {
         throw new RouterException(sb01.toString());
       }
     }
-
-    //    if (hashValue.contains("/")) {
-    //      hashResult.setRoute(hashValue.substring(0,
-    //                                              hashValue.indexOf("/")));
-    //      String parametersFromHash = hashValue.substring(hashValue.indexOf("/") + 1);
-    //      // lets get the parameters!
-    //      List<String> paramsList = Stream.of(parametersFromHash.split("/"))
-    //                                      .collect(Collectors.toList());
-    //      // reset sledge in parms ....
-    //      paramsList.forEach(parm -> hashResult.getParameterValues()
-    //                                           .add(parm.replace(Nalu.NALU_SLEDGE_REPLACEMENT,
-    //                                                             "/")));
-    //    } else {
-    //      hashResult.setRoute(hashValue);
-    //    }
-    //    // log result
-    //    StringBuilder sb = new StringBuilder();
-    //    sb.append("Router: parse hash >>")
-    //      .append(hash)
-    //      .append("<< --> New route: >>")
-    //      .append(hashResult.getRoute())
-    //      .append("<<");
-    //    if (hashResult.getParameterValues()
-    //                  .size() > 0) {
-    //      sb.append(" with parameters: ");
-    //      hashResult.getParameterValues()
-    //                .forEach(p -> sb.append(">>")
-    //                                .append(p)
-    //                                .append("<< "));
-    //    }
-    //    ClientLogger.get()
-    //                .logDetailed(sb.toString(),
-    //                             2);
     return hashResult;
   }
 
