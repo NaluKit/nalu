@@ -23,6 +23,8 @@ public class ControllerModel {
 
   private String selector;
 
+  private ClassNameModel controller;
+
   private ClassNameModel componentInterface;
 
   private ClassNameModel component;
@@ -33,12 +35,14 @@ public class ControllerModel {
 
   public ControllerModel(String route,
                          String selector,
+                         ClassNameModel controller,
                          ClassNameModel componentInterface,
                          ClassNameModel component,
                          ClassNameModel componentType,
                          ClassNameModel provider) {
     this.route = route;
     this.selector = selector;
+    this.controller = controller;
     this.componentInterface = componentInterface;
     this.component = component;
     this.componentType = componentType;
@@ -59,6 +63,14 @@ public class ControllerModel {
 
   public void setSelector(String selector) {
     this.selector = selector;
+  }
+
+  public ClassNameModel getController() {
+    return controller;
+  }
+
+  public void setController(ClassNameModel controller) {
+    this.controller = controller;
   }
 
   public ClassNameModel getComponentInterface() {

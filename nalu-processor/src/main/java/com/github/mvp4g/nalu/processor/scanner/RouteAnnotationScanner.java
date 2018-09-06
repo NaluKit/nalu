@@ -94,6 +94,7 @@ public class RouteAnnotationScanner {
       this.applicationMetaModel.getRoutes()
                                .add(new ControllerModel(annotation.route(),
                                                         annotation.selector(),
+                                                        new ClassNameModel(element.toString()),
                                                         new ClassNameModel(componentInterfaceTypeElement.toString()),
                                                         new ClassNameModel(componentTypeElement.toString()),
                                                         new ClassNameModel(componentTypeTypeMirror.toString()),
