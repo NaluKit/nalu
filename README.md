@@ -108,6 +108,9 @@ If the project uses a widget set based on GWT 2.8.2 or newer, use the **Nalu-Plu
 
 See the wiki for more informations on Nalu and how to use it.
 
+## Wiki
+More useful information about Nalu and how to use it, can be find inside the [Wiki](https://github.com/mvp4g/nalu/wiki).
+
 ## J2CL / GWT3
 With the next version of GWT (GWT 3) and the new J2CL transpiller, there will be major changes in the GWT developmemt. For example: JSNI and generators, besides other things, will be gone. To be prepared for the futere things like JSNI, generators or any other dependency to GTW has to be avoided. Nalu uses only the already migrated ```gwt-events``` from ```org.gwtproject```.
 
@@ -151,9 +154,6 @@ Nalu is still in progress. Validation and documentation are not finished yet.In 
 
 
 ## Parts of the framework (short summary)
-
-### Application
-The ```Application```-class is the entry point of the application. It's the only reference to GWT 2.8.2.
 
 ### Application Interface
 The application interface must extend ```IsApplication``` and be annotated with ````Application````
