@@ -1,6 +1,7 @@
 package com.github.mvp4g.nalu.client;
 
 import com.github.mvp4g.nalu.client.component.AbstractComponentController;
+import com.github.mvp4g.nalu.client.component.IsShell;
 import com.github.mvp4g.nalu.client.exception.RoutingInterceptionException;
 import com.github.mvp4g.nalu.client.filter.IsFilter;
 import com.github.mvp4g.nalu.client.internal.ClientLogger;
@@ -17,6 +18,9 @@ import java.util.stream.Stream;
 
 public final class Router {
 
+  /* Shell */
+  protected IsShell shell;
+
   /* List of the routes of the application */
   private RouterConfiguration routerConfiguration;
 
@@ -32,6 +36,8 @@ public final class Router {
   public Router(IsPlugin plugin,
                 RouterConfiguration routerConfiguration) {
     super();
+    // save the shell
+    this.shell = shell;
     // save te plugin
     this.plugin = plugin;
     // save the router configuration reference
@@ -130,21 +136,29 @@ public final class Router {
           this.append(routeConfiguraion.getSelector(),
                       controller);
           controller.onAttach();
-          StringBuilder sb04 = new StringBuilder();
-          sb04.append("Router: create controller >>")
-              .append(controller.getClass().getCanonicalName())
-              .append("<< - calls method onAttached()");
-          ClientLogger.get()
-                      .logDetailed(sb04.toString(),
-                                   2);
-          controller.start();
           StringBuilder sb03 = new StringBuilder();
           sb03.append("Router: create controller >>")
               .append(controller.getClass().getCanonicalName())
-              .append("<< - calls method start()");
+              .append("<< - calls method onAttached()");
           ClientLogger.get()
                       .logDetailed(sb03.toString(),
+                                   2);
+          controller.start();
+          StringBuilder sb04 = new StringBuilder();
+          sb04.append("Router: create controller >>")
+              .append(controller.getClass().getCanonicalName())
+              .append("<< - calls method start()");
+          ClientLogger.get()
+                      .logDetailed(sb04.toString(),
                                  2);
+          this.shell.onAttachedChild();
+          StringBuilder sb05 = new StringBuilder();
+          sb05.append("Router: create controller >>")
+              .append(controller.getClass().getCanonicalName())
+              .append("<< - calls shell.onAttachedChild()");
+          ClientLogger.get()
+                      .logDetailed(sb05.toString(),
+                                   2);
           this.lastExecutedHash = hash;
         } else {
           this.plugin.alert("Ups ... not found!");
@@ -401,5 +415,9 @@ public final class Router {
                                               Nalu.NALU_SLEDGE_REPLACEMENT)));
     }
     return sb.toString();
+  }
+
+  public void setShell(IsShell shell) {
+    this.shell = shell;
   }
 }

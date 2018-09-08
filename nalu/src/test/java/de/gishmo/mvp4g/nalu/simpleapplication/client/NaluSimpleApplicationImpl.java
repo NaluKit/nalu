@@ -81,6 +81,7 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
     shell.setEventBus(this.eventBus);
     shell.setContext(this.context);
     super.shell = shell;
+    super.router.setShell(this.shell);
     shell.bind();
     ClientLogger.get().logDetailed("AbstractApplicationImpl: shell created", 1);
     // create ControllerCreator for: de.gishmo.gwt.example.nalu.simpleapplication.client.ui.footer.FooterController

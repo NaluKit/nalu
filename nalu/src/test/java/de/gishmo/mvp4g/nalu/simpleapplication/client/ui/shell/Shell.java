@@ -30,25 +30,11 @@ public class Shell
   public Shell() {
   }
 
-  /**
-   * The ShellPresenter has to implemented this method, because the framework
-   * can not do this. (It does not know, what to use).
-   * <p>
-   * We append the ShellView to the browser body.
-   */
   @Override
   public void attachShell() {
-//    Layout layout = Layout.create("Nalu - Simple Application using Domino-UI")
-//                          .show(ColorScheme.INDIGO);
-//
-//    layout.showFooter()
-//          .fixFooter()
-//          .getFooter()
-//          .asElement().style.minHeight = CSSProperties.MinHeightUnionType.of("42px");
-//
-//    layout.getFooter()
-//          .asElement().id = "footer";
-//    layout.getLeftPanel().id = "navigation";
-//    layout.getContentPanel().id = "content";
+  }
+
+  @Override
+  public void onAttachedChild() {
   }
 }

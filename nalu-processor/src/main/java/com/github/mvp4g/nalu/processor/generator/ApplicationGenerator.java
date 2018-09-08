@@ -155,6 +155,7 @@ public class ApplicationGenerator {
                                .addStatement("shell.setEventBus(this.eventBus)")
                                .addStatement("shell.setContext(this.context)")
                                .addStatement("super.shell = shell")
+                               .addStatement("super.router.setShell(this.shell)")
                                .addStatement("shell.bind()")
                                .addStatement("$T.get().logDetailed(\"AbstractApplicationImpl: shell created\", 1)",
                                              ClassName.get(ClientLogger.class));
