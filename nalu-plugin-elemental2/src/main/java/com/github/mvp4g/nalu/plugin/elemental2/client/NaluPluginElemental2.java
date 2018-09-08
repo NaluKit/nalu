@@ -49,15 +49,21 @@ public class NaluPluginElemental2
   @Override
   public void register(HashHandler handler) {
     DomGlobal.window.onhashchange = e -> {
-      // cast event ...
-      HashChangeEvent hashChangeEvent = (HashChangeEvent) e;
-      String newUrl = hashChangeEvent.newURL;
+      String newUrl = "";
+      if (detectIE11()) {
+        Location location = Js.uncheckedCast(DomGlobal.location);
+        newUrl = location.getHash();
+      } else {
+        // cast event ...
+        HashChangeEvent hashChangeEvent = (HashChangeEvent) e;
+        newUrl = hashChangeEvent.newURL;
+      }
       if (newUrl.startsWith("#")) {
         newUrl = newUrl.substring(1);
       }
       StringBuilder sb = new StringBuilder();
       sb.append("Router: onhashchange: new url ->>")
-        .append(hashChangeEvent.newURL)
+        .append(newUrl)
         .append("<<");
       ClientLogger.get()
                   .logSimple(sb.toString(),
@@ -92,5 +98,31 @@ public class NaluPluginElemental2
                                          null,
                                          "#" + newRoute);
     }
+  }
+
+  /**
+   * checks weather the current browser is IE or not.
+   * <p>
+   * IE 10
+   * ua = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)';
+   * <p>
+   * IE 11
+   * ua = 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
+   * <p>
+   * Edge 12 (Spartan)
+   * ua = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0';
+   * <p>
+   * Edge 13
+   * ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586';
+   *
+   * @param
+   * @return true -> is IE
+   */
+  private boolean detectIE11() {
+    String ua = DomGlobal.window.navigator.userAgent;
+    if (ua.indexOf("MSIE ") > 0) {
+      return true;
+    }
+    return ua.indexOf("Trident/") > 0;
   }
 }
