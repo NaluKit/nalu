@@ -141,13 +141,6 @@ Nalu is still in progress. Validation and documentation are not finished yet.In 
 
 
 
-## Installation
-To run the examples:
-
-* clone the repository
-
-* run ```mvn clean install``` to install nalu locally
-
 
 
 
