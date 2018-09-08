@@ -20,6 +20,8 @@ Nalu offers the following features:
 
 * Supports HTML links and programmatically routing thanks to a router.
 
+* Controller based handler manager, that will remove all handlers from the event bus in case the controller is stopped to prevent memeory leaks (handler registratoins must be added to the manager).
+
 ## Basic Concept
 Nalu uses the hash of an url to navigate.
 
