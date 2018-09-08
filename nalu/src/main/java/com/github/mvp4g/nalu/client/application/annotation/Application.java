@@ -19,7 +19,7 @@ package com.github.mvp4g.nalu.client.application.annotation;
 
 import com.github.mvp4g.nalu.client.application.AbstractApplicationLoader;
 import com.github.mvp4g.nalu.client.application.IsContext;
-import com.github.mvp4g.nalu.client.component.IsShellController;
+import com.github.mvp4g.nalu.client.component.IsShell;
 import com.github.mvp4g.nalu.client.internal.application.NoApplicationLoader;
 
 import java.lang.annotation.Retention;
@@ -45,7 +45,7 @@ public @interface Application {
 
   Class<? extends AbstractApplicationLoader<?>> loader() default NoApplicationLoader.class;
 
-  Class<? extends IsShellController> shell();
+  Class<? extends IsShell> shell();
 
   String startRoute();
 

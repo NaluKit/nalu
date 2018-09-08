@@ -1,10 +1,13 @@
-package com.github.mvp4g.nalu.client.component;
+package com.github.mvp4g.nalu.plugin.gwt.client.component;
 
 import com.github.mvp4g.nalu.client.Router;
 import com.github.mvp4g.nalu.client.application.IsContext;
+import com.github.mvp4g.nalu.client.component.IsShell;
+import com.google.gwt.user.client.ui.Composite;
 import org.gwtproject.event.shared.SimpleEventBus;
 
-public abstract class AbstractShell<C extends IsContext>
+public abstract class AbstractComponentShell<C extends IsContext>
+  extends Composite
   implements IsShell {
 
   protected Router router;
@@ -13,7 +16,7 @@ public abstract class AbstractShell<C extends IsContext>
 
   protected SimpleEventBus eventBus;
 
-  public AbstractShell() {
+  public AbstractComponentShell() {
   }
 
   public void setRouter(Router router) {

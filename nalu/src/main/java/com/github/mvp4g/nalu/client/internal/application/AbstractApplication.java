@@ -21,7 +21,7 @@ import com.github.mvp4g.nalu.client.Router;
 import com.github.mvp4g.nalu.client.application.IsApplication;
 import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
 import com.github.mvp4g.nalu.client.application.IsContext;
-import com.github.mvp4g.nalu.client.component.IsShellController;
+import com.github.mvp4g.nalu.client.component.IsShell;
 import com.github.mvp4g.nalu.client.internal.ClientLogger;
 import com.github.mvp4g.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.mvp4g.nalu.client.internal.route.HashResult;
@@ -41,7 +41,7 @@ public abstract class AbstractApplication<C extends IsContext>
   protected String startRoute;
 
   /* Shell */
-  protected IsShellController shell;
+  protected IsShell shell;
 
   /* Router Configuration */
   protected RouterConfiguration routerConfiguration;

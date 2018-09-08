@@ -17,7 +17,7 @@
 package com.github.mvp4g.nalu.processor.scanner.validation;
 
 import com.github.mvp4g.nalu.client.component.IsController;
-import com.github.mvp4g.nalu.client.component.IsShellController;
+import com.github.mvp4g.nalu.client.component.IsShell;
 import com.github.mvp4g.nalu.client.component.annotation.Controller;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
@@ -78,10 +78,10 @@ public class RouteAnnotationValidator {
           this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
                                                       typeElement.asType(),
                                                       this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(IsShellController.class.getCanonicalName())
+                                                                                .getTypeElement(IsShell.class.getCanonicalName())
                                                                                 .asType())
     )) {
-      throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController or IsShellController");
+      throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController or IsShell");
     }
     // check if all parameter have a setter method inside of the controller
     Controller annotation = this.controllerElement.getAnnotation(Controller.class);
