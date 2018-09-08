@@ -129,8 +129,22 @@ public final class Router {
           controller.setRouter(this);
           this.append(routeConfiguraion.getSelector(),
                       controller);
-          controller.onAttach();
           controller.start();
+          StringBuilder sb03 = new StringBuilder();
+          sb03.append("Router: create controller >>")
+              .append(controller.getClass().getCanonicalName())
+              .append("<< - calls method start()");
+          ClientLogger.get()
+                      .logDetailed(sb03.toString(),
+                                 2);
+          controller.onAttach();
+          StringBuilder sb04 = new StringBuilder();
+          sb04.append("Router: create controller >>")
+              .append(controller.getClass().getCanonicalName())
+              .append("<< - calls method onAttached()");
+          ClientLogger.get()
+                      .logDetailed(sb04.toString(),
+                                   2);
           this.lastExecutedHash = hash;
         } else {
           this.plugin.alert("Ups ... not found!");
