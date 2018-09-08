@@ -32,7 +32,7 @@ where
 * route: is the navigation end point
 * parameter_x: are the paremeters of the route (it is possible to have a route without parameter or to use a route, that excepts paremter without parameter in inside the url.)
 
-The following flow shows the steps to be done, once a routing is initiated. The flow will end with appending the new component to the DOM. 
+The following flow shows the steps to be done, once a routing is initiated. The flow will end with appending the new component to the DOM.
 
 ![Route Flow](https://github.com/mvp4g/nalu-parent/blob/master/etc/images/routeFlow.png)
 
@@ -104,7 +104,6 @@ If the project uses a widget set based on GWT 2.8.2 or newer, use the **Nalu-Plu
 
 See the wiki for more informations on Nalu and how to use it.
 
-
 ## J2CL / GWT3
 With the next version of GWT (GWT 3) and the new J2CL transpiller, there will be major changes in the GWT developmemt. For example: JSNI and generators, besides other things, will be gone. To be prepared for the futere things like JSNI, generators or any other dependency to GTW has to be avoided. Nalu uses only the already migrated ```gwt-events``` from ```org.gwtproject```.
 
@@ -116,12 +115,42 @@ Please use the mvp4g [MVP4G Gitter room](https://gitter.im/mvp4g/mvp4g).
 ## Examples
 There are some examples that show how to set up and how to use Nalu: [https://github.com/mvp4g/nalu-examples](https://github.com/mvp4g/nalu-examples).
 
+## Project Generator
+To speed up creating a Nalu project, the [Nalu Boot Starter Project Generator](http://www.mvp4g.org/gwt-boot-starter-nalu/GwtBootStarterNalu.html) (which is also based on Nalu) can be used. The project generator will generate a Maven project, which can be imported to your preferred IDE and is ready to use. Run **mvn: devmode:** to start the generated project.
+
+Here are some notes about the project generator: [Nalu Project Generator](https://github.com/mvp4g/gwt-boot-starter-nalu).
+
+
+## Notes
+Nalu is still in progress. Validation and documentation are not finished yet.In casse you find a bug, please open an issue or post it inside the [Gitter room](https://gitter.im/mvp4g/mvp4g).
+
+## Known issues
+
+* documentation (in progress)
+
+* tests need to be improved (in progress)
+
+
+
+
+
+
+
+
+
+
 ## Installation
 To run the examples:
 
 * clone the repository
 
 * run ```mvn clean install``` to install nalu locally
+
+
+
+
+
+
 
 
 ## Parts of the framework (short summary)
@@ -184,12 +213,3 @@ router.route("newRoute", [parameters]);
 
 ### Shell
 iIs the root view, which will be placed into the browser window viewport. The Dom shoudl contain selectors (id) where the childs will be added.
-
-## Notes
-It's a proof of concept. Please, keep in mind, validation and tests are missing and there might be bugs in the framework I did not discover yet.
-
-## Known issues
-
-* documentation in progress
-
-* missing Nalu project generator
