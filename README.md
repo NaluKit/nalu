@@ -22,6 +22,8 @@ Nalu offers the following features:
 
 * Controller based handler manager, that will remove all handlers from the event bus in case the controller is stopped to prevent memeory leaks (handler registratoins must be added to the manager).
 
+* Support for UiBinder (nalu-plugin-gwt)
+
 ## Basic Concept
 Nalu uses the hash of an url to navigate.
 
