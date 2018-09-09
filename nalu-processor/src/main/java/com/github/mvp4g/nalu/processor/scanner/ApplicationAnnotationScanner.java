@@ -96,7 +96,8 @@ public class ApplicationAnnotationScanner {
                                            isNull(applicationLoaderTypeElement) ? "" : applicationLoaderTypeElement.toString(),
                                            isNull(shellTypeElement) ? "" : shellTypeElement.toString(),
                                            contextTypeElement.toString(),
-                                           applicationAnnotation.startRoute());
+                                           applicationAnnotation.startRoute(),
+                                           applicationAnnotation.routeErrorRoute());
           // Debug-Annotation
           model = DebugAnnotationScanner.builder()
                                         .processingEnvironment(processingEnvironment)

@@ -281,11 +281,13 @@ public class ApplicationGenerator {
     }
     typeSpec.addMethod(loadComponentsMethodBuilder.build());
 
-    typeSpec.addMethod(MethodSpec.methodBuilder("loadStartRoute")
+    typeSpec.addMethod(MethodSpec.methodBuilder("loadDefaultRoutes")
                                  .addModifiers(Modifier.PUBLIC)
                                  .addAnnotation(Override.class)
                                  .addStatement("this.startRoute = $S",
                                                metaModel.getStartRoute())
+                                 .addStatement("this.routeErrorRoute = $S",
+                                               metaModel.getRouteErrorRoute())
                                  .build());
 
     // generate method 'attachShell()'

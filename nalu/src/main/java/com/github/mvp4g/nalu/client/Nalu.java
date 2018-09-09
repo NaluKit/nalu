@@ -6,6 +6,8 @@ public class Nalu {
 
   public final static String NALU_PARAMETER = "/:";
 
-  public final static String NALU_SLEDGE_REPLACEMENT = "--U972--";
+  final static String NALU_SLEDGE_REPLACEMENT = "--U972--";
+
+  public final static String NO_ROUTE = "WhenShallWeThreeMeetAgainInThunderLightningOrInRain";
 
 }

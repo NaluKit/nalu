@@ -17,6 +17,7 @@
 
 package com.github.mvp4g.nalu.client.application.annotation;
 
+import com.github.mvp4g.nalu.client.Nalu;
 import com.github.mvp4g.nalu.client.application.AbstractApplicationLoader;
 import com.github.mvp4g.nalu.client.application.IsContext;
 import com.github.mvp4g.nalu.client.component.IsShell;
@@ -50,5 +51,7 @@ public @interface Application {
   String startRoute();
 
   Class<? extends IsContext> context();
+
+  String routeErrorRoute() default Nalu.NO_ROUTE;
 
 }

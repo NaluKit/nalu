@@ -19,16 +19,15 @@ import java.util.stream.Stream;
 public final class Router {
 
   /* Shell */
-  protected IsShell shell;
-
+  protected IsShell                                           shell;
+  /* route in case of route error */
+  protected String                                            routeErrorRoute;
   /* List of the routes of the application */
-  private RouterConfiguration routerConfiguration;
-
+  private   RouterConfiguration                               routerConfiguration;
   /* List of active components */
-  private Map<String, AbstractComponentController<?, ?, ?>> activeComponents;
-
+  private   Map<String, AbstractComponentController<?, ?, ?>> activeComponents;
   //* hash of last successful routing */
-  private String lastExecutedHash;
+  private   String                                            lastExecutedHash;
 
   /* the plugin */
   private IsPlugin plugin;
@@ -62,6 +61,21 @@ public final class Router {
     try {
       hashResult = this.parse(hash);
     } catch (RouterException e) {
+      if (Objects.isNull(this.routeErrorRoute) || this.routeErrorRoute.isEmpty()) {
+        return null;
+      } else {
+        StringBuilder sb02 = new StringBuilder();
+        sb02.append("no matching route for hash >>")
+            .append(hash)
+            .append("<< --> use configurated route: >")
+            .append(this.routeErrorRoute)
+            .append("<<");
+        ClientLogger.get()
+                    .logSimple(sb02.toString(),
+                               1);
+        this.route(this.routeErrorRoute,
+                   true);
+      }
       return null;
     }
     // First we have to check if there is a filter
@@ -109,59 +123,81 @@ public final class Router {
                                                     hashResult.getParameterValues()
                                                               .toArray(new String[0]));
         } catch (RoutingInterceptionException e) {
-          StringBuilder sb03 = new StringBuilder();
-          sb03.append("Router: create controller >>")
-              .append(e.getControllerClassName())
-              .append("<< intercepts routing! New route: >>")
-              .append(e.getRoute())
-              .append("<<");
+          StringBuilder sb01 = new StringBuilder();
+          sb01.append("Router: create controller >>")
+            .append(e.getControllerClassName())
+            .append("<< intercepts routing! New route: >>")
+            .append(e.getRoute())
+            .append("<<");
           if (Arrays.asList(e.getParameter())
                     .size() > 0) {
-            sb03.append(" with parameters: ");
+            sb01.append(" with parameters: ");
             Stream.of(e.getParameter())
-                  .forEach(p -> sb03.append(">>")
-                                    .append(p)
-                                    .append("<< "));
+                  .forEach(p -> sb01.append(">>")
+                                  .append(p)
+                                  .append("<< "));
           }
           ClientLogger.get()
-                      .logSimple(sb03.toString(),
+                      .logSimple(sb.toString(),
                                  0);
           this.route(e.getRoute(),
                      true,
                      e.getParameter());
           return null;
         }
-        if (!Objects.isNull(controller)) {
+        if (Objects.isNull(controller)) {
+          sb = new StringBuilder();
+          sb.append("no controller found for hash >>")
+            .append(hash)
+            .append("<<");
+          ClientLogger.get()
+                      .logSimple(sb.toString(),
+                                 1);
+          if (!Objects.isNull(this.routeErrorRoute)) {
+            sb = new StringBuilder();
+            sb.append("use configurated default route >>")
+              .append(this.routeErrorRoute)
+              .append("<<");
+            ClientLogger.get()
+                        .logSimple(sb.toString(),
+                                   1);
+            this.route(this.routeErrorRoute,
+                       true);
+          } else {
+            this.plugin.alert("Ups ... not found!");
+          }
+        } else {
           controller.setRouter(this);
           this.append(routeConfiguraion.getSelector(),
                       controller);
           controller.onAttach();
-          StringBuilder sb03 = new StringBuilder();
-          sb03.append("Router: create controller >>")
-              .append(controller.getClass().getCanonicalName())
-              .append("<< - calls method onAttached()");
+          sb = new StringBuilder();
+          sb.append("Router: create controller >>")
+            .append(controller.getClass()
+                              .getCanonicalName())
+            .append("<< - calls method onAttached()");
           ClientLogger.get()
-                      .logDetailed(sb03.toString(),
+                      .logDetailed(sb.toString(),
                                    2);
           controller.start();
-          StringBuilder sb04 = new StringBuilder();
-          sb04.append("Router: create controller >>")
-              .append(controller.getClass().getCanonicalName())
-              .append("<< - calls method start()");
+          sb = new StringBuilder();
+          sb.append("Router: create controller >>")
+            .append(controller.getClass()
+                              .getCanonicalName())
+            .append("<< - calls method start()");
           ClientLogger.get()
-                      .logDetailed(sb04.toString(),
-                                 2);
+                      .logDetailed(sb.toString(),
+                                   2);
           this.shell.onAttachedChild();
-          StringBuilder sb05 = new StringBuilder();
-          sb05.append("Router: create controller >>")
-              .append(controller.getClass().getCanonicalName())
-              .append("<< - calls shell.onAttachedChild()");
+          sb = new StringBuilder();
+          sb.append("Router: create controller >>")
+            .append(controller.getClass()
+                              .getCanonicalName())
+            .append("<< - calls shell.onAttachedChild()");
           ClientLogger.get()
-                      .logDetailed(sb05.toString(),
+                      .logDetailed(sb.toString(),
                                    2);
           this.lastExecutedHash = hash;
-        } else {
-          this.plugin.alert("Ups ... not found!");
         }
       }
     } else {
@@ -311,7 +347,7 @@ public final class Router {
                             .append("<< --> will be stopped");
                         ClientLogger.get()
                                     .logSimple(sb01.toString(),
-                                                 1);
+                                               1);
                         abstractComponentController.stop();
                         sb01 = new StringBuilder();
                         sb01.append("controller >>")
@@ -419,5 +455,9 @@ public final class Router {
 
   public void setShell(IsShell shell) {
     this.shell = shell;
+  }
+
+  public void setRouteErrorRoute(String routeErrorRoute) {
+    this.routeErrorRoute = routeErrorRoute;
   }
 }

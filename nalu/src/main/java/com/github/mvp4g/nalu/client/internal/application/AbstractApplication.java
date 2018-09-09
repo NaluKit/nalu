@@ -17,6 +17,7 @@
 
 package com.github.mvp4g.nalu.client.internal.application;
 
+import com.github.mvp4g.nalu.client.Nalu;
 import com.github.mvp4g.nalu.client.Router;
 import com.github.mvp4g.nalu.client.application.IsApplication;
 import com.github.mvp4g.nalu.client.application.IsApplicationLoader;
@@ -39,6 +40,8 @@ public abstract class AbstractApplication<C extends IsContext>
 
   /* start route */
   protected String startRoute;
+  /* route in case of route error */
+  protected String routeErrorRoute;
 
   /* Shell */
   protected IsShell shell;
@@ -80,7 +83,8 @@ public abstract class AbstractApplication<C extends IsContext>
                              1);
     this.loadRoutes();
     this.loadFilters();
-    this.loadStartRoute();
+    this.loadDefaultRoutes();
+    this.router.setRouteErrorRoute(Nalu.NO_ROUTE.equals(this.routeErrorRoute) ? null : this.routeErrorRoute);
     // load the components of the application
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load components",
@@ -111,7 +115,7 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract void loadFilters();
 
-  protected abstract void loadStartRoute();
+  protected abstract void loadDefaultRoutes();
 
   protected abstract void loadComponents();
 
