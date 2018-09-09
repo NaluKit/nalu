@@ -34,4 +34,9 @@ public abstract class AbstractCompositeShell<C extends IsContext>
   public void bind() {
     // override this method if you need to bind something inside the Shell
   }
+
+  @Override
+  public void onAttachedChild() {
+    // override this method if you need to do something, after a child is attached!
+  }
 }
