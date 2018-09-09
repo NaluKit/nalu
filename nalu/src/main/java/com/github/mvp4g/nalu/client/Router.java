@@ -188,12 +188,12 @@ public final class Router {
           ClientLogger.get()
                       .logDetailed(sb.toString(),
                                    2);
-          this.shell.onAttachedChild();
+          this.shell.onAttachedComponent();
           sb = new StringBuilder();
           sb.append("Router: create controller >>")
             .append(controller.getClass()
                               .getCanonicalName())
-            .append("<< - calls shell.onAttachedChild()");
+            .append("<< - calls shell.onAttachedComponent()");
           ClientLogger.get()
                       .logDetailed(sb.toString(),
                                    2);

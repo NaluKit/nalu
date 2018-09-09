@@ -41,11 +41,11 @@ public interface IsShell {
   void attachShell();
 
   /**
-   * Method will be called after a child is attached.
+   * Method will be called after a component is attached.
    *
    * This is a good place to do a 'forceLayout()'.
    * f.e.: if you are working with GXT!
    */
-  void onAttachedChild();
+  void onAttachedComponent();
 
 }

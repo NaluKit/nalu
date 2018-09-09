@@ -33,7 +33,7 @@ public abstract class AbstractShell<C extends IsContext>
   }
 
   @Override
-  public void onAttachedChild() {
-    // override this method if you need to do something, after a child is attached!
+  public void onAttachedComponent() {
+    // override this method if you need to do something, after a component is attached!
   }
 }

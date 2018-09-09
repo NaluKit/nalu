@@ -10,12 +10,10 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
 
   protected V component;
 
-  protected HandlerRegistrations handlerRegistrations;
+  protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
 
   public AbstractComponentController() {
     super();
-    // create HandlerRegistraions
-    this.handlerRegistrations = new HandlerRegistrations();
   }
 
   @Override
