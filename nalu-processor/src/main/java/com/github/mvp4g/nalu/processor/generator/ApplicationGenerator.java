@@ -31,12 +31,11 @@ import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
 import com.github.mvp4g.nalu.processor.model.HashResultModel;
 import com.github.mvp4g.nalu.processor.model.intern.ControllerModel;
 import com.squareup.javapoet.*;
-
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.Modifier;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.Modifier;
 
 public class ApplicationGenerator {
 
@@ -175,7 +174,7 @@ public class ApplicationGenerator {
                                                                                      metaModel.getComponentType()
                                                                                               .getTypeName()))
                                                   .addException(ClassName.get(RoutingInterceptionException.class))
-                                                  .addStatement("$T sb01 = new $T();",
+                                                  .addStatement("$T sb01 = new $T()",
                                                                 ClassName.get(StringBuilder.class),
                                                                 ClassName.get(StringBuilder.class))
                                                   .addStatement("sb01.append(\"controller >>$L<< --> will be created\")",
@@ -198,7 +197,7 @@ public class ApplicationGenerator {
                                                   .addStatement("controller.setContext(context)")
                                                   .addStatement("controller.setEventBus(eventBus)")
                                                   .addStatement("controller.setRouter(router)")
-                                                  .addStatement("sb01 = new $T();",
+                                                  .addStatement("sb01 = new $T()",
                                                                 ClassName.get(StringBuilder.class))
                                                   .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> created and data injected\")")
                                                   .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
@@ -213,27 +212,27 @@ public class ApplicationGenerator {
                                                                               controllerModel.getComponent()
                                                                                              .getSimpleName()))
                                                   .addStatement("component.setController(controller)")
-                                                  .addStatement("sb01 = new $T();",
+                                                  .addStatement("sb01 = new $T()",
                                                                 ClassName.get(StringBuilder.class))
                                                   .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
                                                   .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                                 ClassName.get(ClientLogger.class))
                                                   .addStatement("controller.setComponent(component)")
-                                                  .addStatement("sb01 = new $T();",
+                                                  .addStatement("sb01 = new $T()",
                                                                 ClassName.get(StringBuilder.class))
                                                   .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
                                                   .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                                 ClassName.get(ClientLogger.class))
                                                   .addStatement("component.render()")
-                                                  .addStatement("sb01 = new $T();",
+                                                  .addStatement("sb01 = new $T()",
                                                                 ClassName.get(StringBuilder.class))
                                                   .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> rendered\")")
                                                   .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                                 ClassName.get(ClientLogger.class))
                                                   .addStatement("component.bind()")
-                                                  .addStatement("sb01 = new $T();",
+                                                  .addStatement("sb01 = new $T()",
                                                                 ClassName.get(StringBuilder.class))
-                                                  .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> binded\")")
+                                                  .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> bound\")")
                                                   .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                                 ClassName.get(ClientLogger.class))
                                                   .addStatement("$T.get().logSimple(\"controller >>$L<< created for route >>$L<<\", 1)",
