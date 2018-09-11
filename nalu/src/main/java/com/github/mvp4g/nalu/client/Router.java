@@ -11,7 +11,6 @@ import com.github.mvp4g.nalu.client.internal.route.RouteConfig;
 import com.github.mvp4g.nalu.client.internal.route.RouterConfiguration;
 import com.github.mvp4g.nalu.client.internal.route.RouterException;
 import com.github.mvp4g.nalu.client.plugin.IsPlugin;
-
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -79,9 +78,9 @@ public final class Router {
       return null;
     }
     // First we have to check if there is a filter
-    // if there are filters ==>  filter the rote
+    // if there are filters ==>  filter the route
     for (IsFilter filter : this.routerConfiguration.getFilters()) {
-      if (!filter.filter(addLeadgindSledge(hashResult.getRoute()),
+      if (!filter.filter(addLeadindgSlash(hashResult.getRoute()),
                          hashResult.getParameterValues()
                                    .toArray(new String[0]))) {
         StringBuilder sb01 = new StringBuilder();
@@ -109,13 +108,13 @@ public final class Router {
       }
     }
     // search for a matching routing
-    List<RouteConfig> routeConfiguraions = this.routerConfiguration.match(hashResult.getRoute());
-    // chech weather or not the routing is possible ...
-    if (this.confirmRouting(routeConfiguraions)) {
+    List<RouteConfig> routeConfigurations = this.routerConfiguration.match(hashResult.getRoute());
+    // check whether or not the routing is possible ...
+    if (this.confirmRouting(routeConfigurations)) {
       // call stop for all elements
-      this.stopController(routeConfiguraions);
+      this.stopController(routeConfigurations);
       // routing
-      for (RouteConfig routeConfiguraion : routeConfiguraions) {
+      for (RouteConfig routeConfiguraion : routeConfigurations) {
         AbstractComponentController<?, ?, ?> controller;
         try {
           controller = ControllerFactory.get()
@@ -249,7 +248,7 @@ public final class Router {
         StringBuilder sb01 = new StringBuilder();
         sb01.append("no matching route for hash >>")
             .append(hash)
-            .append("<< --> Routing aborded!");
+            .append("<< --> Routing aborted!");
         ClientLogger.get()
                     .logSimple(sb01.toString(),
                                1);
@@ -262,9 +261,9 @@ public final class Router {
           // lets get the parameters!
           List<String> paramsList = Stream.of(parametersFromHash.split("/"))
                                           .collect(Collectors.toList());
-          // reset sledge in parms ....
+          // reset slash in params ....
           paramsList.forEach(parm -> hashResult.getParameterValues()
-                                               .add(parm.replace(Nalu.NALU_SLEDGE_REPLACEMENT,
+                                               .add(parm.replace(Nalu.NALU_SLASH_REPLACEMENT,
                                                                  "/")));
           // check the number of parameter
           // if the hash contains more paremters then the configuration
@@ -309,7 +308,7 @@ public final class Router {
         StringBuilder sb01 = new StringBuilder();
         sb01.append("no matching route for hash >>")
             .append(hash)
-            .append("<< --> Routing aborded!");
+            .append("<< --> Routing aborted!");
         ClientLogger.get()
                     .logSimple(sb01.toString(),
                                1);
@@ -319,7 +318,7 @@ public final class Router {
     return hashResult;
   }
 
-  private String addLeadgindSledge(String value) {
+  private String addLeadindgSlash(String value) {
     if (value.startsWith("/")) {
       return value;
     }
@@ -448,7 +447,7 @@ public final class Router {
             .filter(Objects::nonNull)
             .forEach(s -> sb.append("/")
                             .append(s.replace("/",
-                                              Nalu.NALU_SLEDGE_REPLACEMENT)));
+                                              Nalu.NALU_SLASH_REPLACEMENT)));
     }
     return sb.toString();
   }

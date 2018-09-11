@@ -147,7 +147,7 @@ public abstract class AbstractApplication<C extends IsContext>
     this.router.route("");
     // check if the url contains a hash.
     // in case it has a hash, use this to route otherwise
-    // use the startRoute form the annoatation
+    // use the startRoute from the annotation
     if (hashOnStart != null &&
         hashOnStart.trim()
                    .length() > 0) {
