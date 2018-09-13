@@ -75,6 +75,8 @@ public class HandlerGenerator {
                                                                variableName)
                                                  .addStatement("$L.setEventBus(super.eventBus)",
                                                                variableName)
+                                                 .addStatement("$L.setRouter(super.router)",
+                                                               variableName)
                                                  .addStatement("$L.bind()",
                                                                variableName)
                                                  .addStatement("$T.get().logDetailed(\"AbstractController: handler >>$L<< created\", 0)",

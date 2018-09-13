@@ -1,5 +1,6 @@
 package com.github.mvp4g.nalu.client.handler;
 
+import com.github.mvp4g.nalu.client.Router;
 import com.github.mvp4g.nalu.client.application.IsContext;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -9,6 +10,8 @@ public abstract class AbstractHandler<C extends IsContext>
   protected C context;
 
   protected SimpleEventBus eventBus;
+
+  protected Router router;
 
   public AbstractHandler() {
     super();
@@ -20,5 +23,9 @@ public abstract class AbstractHandler<C extends IsContext>
 
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
+  }
+
+  public void setRouter(Router router) {
+    this.router = router;
   }
 }
