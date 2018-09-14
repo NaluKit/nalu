@@ -117,7 +117,7 @@ With the next version of GWT (GWT 3) and the new J2CL transpiller, there will be
 Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not use JSNI, generators or anything else from GWT. Nalu is ready to use with J2CL / GWT 3.
 
 ## To get in touch with the developer
-Please use the mvp4g [MVP4G Gitter room](https://gitter.im/mvp4g/mvp4g).
+Please use the [MVP4G Gitter room](https://gitter.im/mvp4g/mvp4g).
 
 ## Examples
 There are some examples that show how to set up and how to use Nalu: [https://github.com/mvp4g/nalu-examples](https://github.com/mvp4g/nalu-examples).
@@ -129,7 +129,7 @@ Here are some notes about the project generator: [Nalu Project Generator](https:
 
 
 ## Notes
-Nalu is still in progress. Validation and documentation are not finished yet.In casse you find a bug, please open an issue or post it inside the [Gitter room](https://gitter.im/mvp4g/mvp4g).
+Nalu is still in progress. Validation and documentation are not finished yet.In casse you find a bug, please open an issue or post it inside the [MVP4G Gitter room](https://gitter.im/mvp4g/mvp4g).
 
 ## Known issues
 

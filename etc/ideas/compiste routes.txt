@@ -1,0 +1,9 @@
+Idee:
+
+Route /user/admin
+
+Controller mit exakt: müssen genau matchen (default verhalten)
+
+Controller mit composed: alle die genau mathcen oder mit selben anfang
+
+erst nach Controllern mit /user suchen und einfügen, dann Controller mit /user/admin suchen und einfügen
