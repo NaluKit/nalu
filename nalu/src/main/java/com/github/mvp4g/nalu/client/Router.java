@@ -11,6 +11,7 @@ import com.github.mvp4g.nalu.client.internal.route.RouteConfig;
 import com.github.mvp4g.nalu.client.internal.route.RouterConfiguration;
 import com.github.mvp4g.nalu.client.internal.route.RouterException;
 import com.github.mvp4g.nalu.client.plugin.IsPlugin;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -51,9 +52,8 @@ public final class Router {
     sb.append("Router: handleRouting for hash ->>")
       .append(hash)
       .append("<<");
-    ClientLogger.get()
-                .logDetailed(sb.toString(),
-                             0);
+    this.logDetailed(sb.toString(),
+                     0);
     // ok, everything is fine, route!
     // parse hash ...
     HashResult hashResult = null;
@@ -63,15 +63,14 @@ public final class Router {
       if (Objects.isNull(this.routeErrorRoute) || this.routeErrorRoute.isEmpty()) {
         return null;
       } else {
-        StringBuilder sb02 = new StringBuilder();
-        sb02.append("no matching route for hash >>")
-            .append(hash)
-            .append("<< --> use configurated route: >")
-            .append(this.routeErrorRoute)
-            .append("<<");
-        ClientLogger.get()
-                    .logSimple(sb02.toString(),
-                               1);
+        sb = new StringBuilder();
+        sb.append("no matching route for hash >>")
+          .append(hash)
+          .append("<< --> use configurated route: >")
+          .append(this.routeErrorRoute)
+          .append("<<");
+        this.logSimple(sb.toString(),
+                       1);
         this.route(this.routeErrorRoute,
                    true);
       }
@@ -98,9 +97,8 @@ public final class Router {
                                   .append(p)
                                   .append("<< "));
         }
-        ClientLogger.get()
-                    .logSimple(sb01.toString(),
-                               1);
+        this.logSimple(sb01.toString(),
+                       1);
         this.route(filter.redirectTo(),
                    true,
                    filter.parameters());
@@ -122,23 +120,22 @@ public final class Router {
                                                     hashResult.getParameterValues()
                                                               .toArray(new String[0]));
         } catch (RoutingInterceptionException e) {
-          StringBuilder sb01 = new StringBuilder();
-          sb01.append("Router: create controller >>")
-            .append(e.getControllerClassName())
-            .append("<< intercepts routing! New route: >>")
-            .append(e.getRoute())
-            .append("<<");
+          StringBuilder sbException = new StringBuilder();
+          sbException.append("Router: create controller >>")
+                     .append(e.getControllerClassName())
+                     .append("<< intercepts routing! New route: >>")
+                     .append(e.getRoute())
+                     .append("<<");
           if (Arrays.asList(e.getParameter())
                     .size() > 0) {
-            sb01.append(" with parameters: ");
+            sb.append(" with parameters: ");
             Stream.of(e.getParameter())
-                  .forEach(p -> sb01.append(">>")
-                                  .append(p)
-                                  .append("<< "));
+                  .forEach(p -> sbException.append(">>")
+                                           .append(p)
+                                           .append("<< "));
           }
-          ClientLogger.get()
-                      .logSimple(sb.toString(),
-                                 0);
+          this.logSimple(sbException.toString(),
+                         0);
           this.route(e.getRoute(),
                      true,
                      e.getParameter());
@@ -157,9 +154,8 @@ public final class Router {
             sb.append("use configurated default route >>")
               .append(this.routeErrorRoute)
               .append("<<");
-            ClientLogger.get()
-                        .logSimple(sb.toString(),
-                                   1);
+            this.logSimple(sb.toString(),
+                           1);
             this.route(this.routeErrorRoute,
                        true);
           } else {
@@ -175,27 +171,24 @@ public final class Router {
             .append(controller.getClass()
                               .getCanonicalName())
             .append("<< - calls method onAttached()");
-          ClientLogger.get()
-                      .logDetailed(sb.toString(),
-                                   2);
+          this.logDetailed(sb.toString(),
+                           2);
           controller.start();
           sb = new StringBuilder();
           sb.append("Router: create controller >>")
             .append(controller.getClass()
                               .getCanonicalName())
             .append("<< - calls method start()");
-          ClientLogger.get()
-                      .logDetailed(sb.toString(),
-                                   2);
+          this.logDetailed(sb.toString(),
+                           2);
           this.shell.onAttachedComponent();
           sb = new StringBuilder();
           sb.append("Router: create controller >>")
             .append(controller.getClass()
                               .getCanonicalName())
             .append("<< - calls shell.onAttachedComponent()");
-          ClientLogger.get()
-                      .logDetailed(sb.toString(),
-                                   2);
+          this.logDetailed(sb.toString(),
+                           2);
           this.lastExecutedHash = hash;
         }
       }
@@ -245,14 +238,13 @@ public final class Router {
         }
       } while (searchPart.length() > 1);
       if (hashResult.getRoute() == null) {
-        StringBuilder sb01 = new StringBuilder();
-        sb01.append("no matching route for hash >>")
-            .append(hash)
-            .append("<< --> Routing aborted!");
-        ClientLogger.get()
-                    .logSimple(sb01.toString(),
-                               1);
-        throw new RouterException(sb01.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("no matching route for hash >>")
+          .append(hash)
+          .append("<< --> Routing aborted!");
+        this.logSimple(sb.toString(),
+                       1);
+        throw new RouterException(sb.toString());
       } else {
         if (!hashResult.getRoute()
                        .equals("/" + hashValue)) {
@@ -275,22 +267,21 @@ public final class Router {
                              .size() <
                   hashResult.getParameterValues()
                             .size()) {
-                StringBuilder sb01 = new StringBuilder();
-                sb01.append("hash >>")
-                    .append(hash)
-                    .append("<< --> found routing >>")
-                    .append(hashResult.getRoute())
-                    .append("<< -> too much parameters! Expeted >>")
-                    .append(routeConfig.getPraameters()
-                                       .size())
-                    .append("<< - found >>")
-                    .append(hashResult.getParameterValues()
-                                      .size())
-                    .append("<<");
-                ClientLogger.get()
-                            .logSimple(sb01.toString(),
-                                       1);
-                throw new RouterException(sb01.toString());
+                StringBuilder sb = new StringBuilder();
+                sb.append("hash >>")
+                  .append(hash)
+                  .append("<< --> found routing >>")
+                  .append(hashResult.getRoute())
+                  .append("<< -> too much parameters! Expeted >>")
+                  .append(routeConfig.getPraameters()
+                                     .size())
+                  .append("<< - found >>")
+                  .append(hashResult.getParameterValues()
+                                    .size())
+                  .append("<<");
+                this.logSimple(sb.toString(),
+                               1);
+                throw new RouterException(sb.toString());
 
               }
             }
@@ -305,14 +296,13 @@ public final class Router {
                                                   .equals(finalSearchPart))) {
         hashResult.setRoute("/" + hashValue);
       } else {
-        StringBuilder sb01 = new StringBuilder();
-        sb01.append("no matching route for hash >>")
-            .append(hash)
-            .append("<< --> Routing aborted!");
-        ClientLogger.get()
-                    .logSimple(sb01.toString(),
-                               1);
-        throw new RouterException(sb01.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("no matching route for hash >>")
+          .append(hash)
+          .append("<< --> Routing aborted!");
+        this.logSimple(sb.toString(),
+                       1);
+        throw new RouterException(sb.toString());
       }
     }
     return hashResult;
@@ -339,49 +329,44 @@ public final class Router {
                       .map(config -> this.activeComponents.get(config.getSelector()))
                       .filter(Objects::nonNull)
                       .forEach(abstractComponentController -> {
-                        StringBuilder sb01 = new StringBuilder();
-                        sb01.append("controller >>")
-                            .append(abstractComponentController.getClass()
-                                                               .getCanonicalName())
-                            .append("<< --> will be stopped");
-                        ClientLogger.get()
-                                    .logSimple(sb01.toString(),
-                                               1);
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("controller >>")
+                          .append(abstractComponentController.getClass()
+                                                             .getCanonicalName())
+                          .append("<< --> will be stopped");
+                        this.logSimple(sb.toString(),
+                                       1);
                         abstractComponentController.stop();
-                        sb01 = new StringBuilder();
-                        sb01.append("controller >>")
-                            .append(abstractComponentController.getClass()
-                                                               .getCanonicalName())
-                            .append("<< --> stopped");
-                        ClientLogger.get()
-                                    .logDetailed(sb01.toString(),
-                                                 2);
+                        sb = new StringBuilder();
+                        sb.append("controller >>")
+                          .append(abstractComponentController.getClass()
+                                                             .getCanonicalName())
+                          .append("<< --> stopped");
+                        this.logDetailed(sb.toString(),
+                                         2);
                         abstractComponentController.onDetach();
-                        sb01 = new StringBuilder();
-                        sb01.append("controller >>")
-                            .append(abstractComponentController.getClass()
-                                                               .getCanonicalName())
-                            .append("<< --> detached");
-                        ClientLogger.get()
-                                    .logDetailed(sb01.toString(),
-                                                 2);
+                        sb = new StringBuilder();
+                        sb.append("controller >>")
+                          .append(abstractComponentController.getClass()
+                                                             .getCanonicalName())
+                          .append("<< --> detached");
+                        this.logDetailed(sb.toString(),
+                                         2);
                         abstractComponentController.removeHandlers();
-                        sb01 = new StringBuilder();
-                        sb01.append("controller >>")
-                            .append(abstractComponentController.getClass()
-                                                               .getCanonicalName())
-                            .append("<< --> removed handlers");
-                        ClientLogger.get()
-                                    .logDetailed(sb01.toString(),
-                                                 2);
-                        sb01 = new StringBuilder();
-                        sb01.append("controller >>")
-                            .append(abstractComponentController.getClass()
-                                                               .getCanonicalName())
-                            .append("<< --> stopped");
-                        ClientLogger.get()
-                                    .logSimple(sb01.toString(),
-                                               1);
+                        sb = new StringBuilder();
+                        sb.append("controller >>")
+                          .append(abstractComponentController.getClass()
+                                                             .getCanonicalName())
+                          .append("<< --> removed handlers");
+                        this.logDetailed(sb.toString(),
+                                         2);
+                        sb = new StringBuilder();
+                        sb.append("controller >>")
+                          .append(abstractComponentController.getClass()
+                                                             .getCanonicalName())
+                          .append("<< --> stopped");
+                        this.logSimple(sb.toString(),
+                                       1);
                       });
     routeConfiguraions.forEach(routeConfiguraion -> this.plugin.remove(routeConfiguraion.getSelector()));
     routeConfiguraions.stream()
@@ -458,5 +443,19 @@ public final class Router {
 
   public void setRouteErrorRoute(String routeErrorRoute) {
     this.routeErrorRoute = routeErrorRoute;
+  }
+
+  private void logDetailed(String message,
+                           int depth) {
+    ClientLogger.get()
+                .logDetailed(message,
+                             depth);
+  }
+
+  private void logSimple(String message,
+                         int depth) {
+    ClientLogger.get()
+                .logSimple(message,
+                           depth);
   }
 }
