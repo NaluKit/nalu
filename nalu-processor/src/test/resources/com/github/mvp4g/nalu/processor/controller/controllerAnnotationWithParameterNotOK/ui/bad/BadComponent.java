@@ -10,7 +10,7 @@ public class BadComponent
   }
 
   @Override
-  public String render() {
-    return "BadComponent";
+  public void render() {
+    initElement("badComponent");
   }
 }

@@ -25,15 +25,12 @@ import com.github.mvp4g.nalu.processor.ProcessorUtils;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
-public class RouteAnnotationValidator {
+public class ControllerAnnotationValidator {
 
   private ProcessorUtils        processorUtils;
   private ProcessingEnvironment processingEnvironment;
@@ -41,10 +38,10 @@ public class RouteAnnotationValidator {
   private Element               controllerElement;
 
   @SuppressWarnings("unused")
-  private RouteAnnotationValidator() {
+  private ControllerAnnotationValidator() {
   }
 
-  private RouteAnnotationValidator(Builder builder) {
+  private ControllerAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.roundEnvironment = builder.roundEnvironment;
     this.controllerElement = builder.controllerElement;
@@ -83,37 +80,63 @@ public class RouteAnnotationValidator {
     )) {
       throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController or IsShell");
     }
-    // check if all parameter have a setter method inside of the controller
-    Controller annotation = this.controllerElement.getAnnotation(Controller.class);
-    List<String> parameters = getParameterFromRoute(this.controllerElement.getAnnotation(Controller.class)
-                                                                          .route());
-    if (parameters.size() > 0) {
-      for (String parameter : parameters) {
-        String methodName = this.processorUtils.createSetMethodName(parameter);
-        Optional<? extends Element> optional = this.processingEnvironment.getElementUtils()
-                                                                         .getAllMembers((TypeElement) this.controllerElement)
-                                                                         .stream()
-                                                                         .filter(element -> ElementKind.METHOD.equals(((Element) element).getKind()))
-                                                                         .map(element -> (ExecutableElement) element)
-                                                                         .filter(f -> f.toString()
-                                                                                       .contains(methodName))
-                                                                         .findFirst();
-        if (optional.isPresent()) {
-          ExecutableElement executableElement = (ExecutableElement) optional.get();
-          if (executableElement.getParameters()
-                               .size() != 1) {
-            throw new ProcessorException("Nalu-Processor: @Controller >>" + this.controllerElement.toString() + "<< and method: >>" + methodName + "<< number of arguments is wrong");
-          } else {
-            if (!String.class.getCanonicalName()
-                             .equals(executableElement.getParameters()
-                                                      .get(0)
-                                                      .asType()
-                                                      .toString())) {
-              throw new ProcessorException("Nalu-Processor: @Controller >>" + this.controllerElement.toString() + "<< and method: >>" + methodName + "<< needs a String parameter");
-            }
-          }
-        } else {
-          throw new ProcessorException("Nalu-Processor: @Controller >>" + this.controllerElement.toString() + "<< does not implement the method: >>" + methodName + "<< which is required for accepting a variable from the route");
+    // validate route
+    validateRoute();
+  }
+
+  private void validateRoute()
+    throws ProcessorException {
+    Controller controllerAnnotation = this.controllerElement.getAnnotation(Controller.class);
+    String route = controllerAnnotation.route();
+    // extract route first:
+    if (route.startsWith("/")) {
+      route = route.substring(1);
+    }
+    // initial routes do not need a validation!
+    if (route.length() == 0) {
+      return;
+    }
+    boolean handlingParameter = false;
+    String[] splits = route.split("/");
+    for (String s : splits) {
+      // TODO TESTEN !!!!!!
+      // handle "//" -> not allowed
+      if (s.length() == 0) {
+        throw new ProcessorException("Nalu-Processor: controller >>" +
+                                     this.controllerElement.getEnclosingElement()
+                                                           .toString() +
+                                     "<<  - illegal route >>" +
+                                     route +
+                                     "<< -> '//' not allowed!");
+      }
+      // check if it is a parameter definition (starting with ':' at first position)
+      if (s.startsWith(":")) {
+        handlingParameter = true;
+        // starts with a parameter ==> error
+        if (route.length() == 0) {
+          throw new ProcessorException("Nalu-Processor: controller >>" +
+                                       this.controllerElement.getEnclosingElement()
+                                                             .toString() +
+                                       "<<  - illegal route >>" +
+                                       route +
+                                       "<< -> route cannot start with parameter");
+        }
+        if (s.length() == 1) {
+          throw new ProcessorException("Nalu-Processor: controller >>" +
+                                       this.controllerElement.getEnclosingElement()
+                                                             .toString() +
+                                       "<<  - illegal route >>" +
+                                       route +
+                                       "<< -> illegal parameter name!");
+        }
+      } else {
+        if (handlingParameter) {
+          throw new ProcessorException("Nalu-Processor: controller >>" +
+                                       this.controllerElement.getEnclosingElement()
+                                                             .toString() +
+                                       "<<  - illegal route >>" +
+                                       route +
+                                       "<< -> illegal route!");
         }
       }
     }
@@ -148,8 +171,8 @@ public class RouteAnnotationValidator {
       return this;
     }
 
-    public RouteAnnotationValidator build() {
-      return new RouteAnnotationValidator(this);
+    public ControllerAnnotationValidator build() {
+      return new ControllerAnnotationValidator(this);
     }
   }
 }

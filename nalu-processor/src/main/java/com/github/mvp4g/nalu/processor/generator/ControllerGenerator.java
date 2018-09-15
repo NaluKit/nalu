@@ -23,17 +23,20 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
 
-public class RouteGenerator {
+public class ControllerGenerator {
 
   private ApplicationMetaModel applicationMetaModel;
   private TypeSpec.Builder     typeSpec;
 
   @SuppressWarnings("unused")
-  private RouteGenerator() {
+  private ControllerGenerator() {
   }
 
-  private RouteGenerator(Builder builder) {
+  private ControllerGenerator(Builder builder) {
     this.applicationMetaModel = builder.applicationMetaModel;
     this.typeSpec = builder.typeSpec;
   }
@@ -49,9 +52,11 @@ public class RouteGenerator {
                                                        .addModifiers(Modifier.PUBLIC);
 
     this.applicationMetaModel.getRoutes()
-                             .forEach(route -> loadSelectorsMethod.addStatement("super.routerConfiguration.getRouters().add(new $T($S, $S, $S))",
+                             .forEach(route -> loadSelectorsMethod.addStatement("super.routerConfiguration.getRouters().add(new $T($S, $T.asList(new String[]{$L}), $S, $S))",
                                                                                 ClassName.get(RouteConfig.class),
                                                                                 createRoute(route.getRoute()),
+                                                                                ClassName.get(Arrays.class),
+                                                                                createParaemter(route.getParameters()),
                                                                                 route.getSelector(),
                                                                                 route.getProvider()
                                                                                      .getClassName()));
@@ -65,6 +70,21 @@ public class RouteGenerator {
     } else {
       return "/" + route;
     }
+  }
+
+  private String createParaemter(List<String> parameters) {
+    StringBuilder sb = new StringBuilder();
+    IntStream.range(0,
+                    parameters.size())
+             .forEach(i -> {
+               sb.append("\"")
+                 .append(parameters.get(i))
+                 .append("\"");
+               if (i != parameters.size() - 1) {
+                 sb.append(", ");
+               }
+             });
+    return sb.toString();
   }
 
   public static final class Builder {
@@ -94,8 +114,8 @@ public class RouteGenerator {
       return this;
     }
 
-    public RouteGenerator build() {
-      return new RouteGenerator(this);
+    public ControllerGenerator build() {
+      return new ControllerGenerator(this);
     }
   }
 }

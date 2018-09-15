@@ -28,14 +28,14 @@ import com.github.mvp4g.nalu.client.internal.application.NoApplicationLoader;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
-import com.github.mvp4g.nalu.processor.model.HashResultModel;
 import com.github.mvp4g.nalu.processor.model.intern.ControllerModel;
 import com.squareup.javapoet.*;
+
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.Modifier;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.Modifier;
 
 public class ApplicationGenerator {
 
@@ -65,7 +65,7 @@ public class ApplicationGenerator {
   }
 
   public void generate(ApplicationMetaModel metaModel)
-      throws ProcessorException {
+    throws ProcessorException {
     // check if element is existing (to avoid generating code for deleted items)
     if (!this.processorUtils.doesExist(metaModel.getApplication())) {
       return;
@@ -98,11 +98,11 @@ public class ApplicationGenerator {
                   .generate();
     typeSpec.addMethod(constructor);
 
-    RouteGenerator.builder()
-                  .applicationMetaModel(metaModel)
-                  .typeSpec(typeSpec)
-                  .build()
-                  .generate();
+    ControllerGenerator.builder()
+                       .applicationMetaModel(metaModel)
+                       .typeSpec(typeSpec)
+                       .build()
+                       .generate();
 
     FiltersGenerator.builder()
                     .processingEnvironment(this.processingEnvironment)
@@ -180,9 +180,9 @@ public class ApplicationGenerator {
                                                   .addStatement("sb01.append(\"controller >>$L<< --> will be created\")",
                                                                 controllerModel.getProvider()
                                                                                .getPackage() +
-                                                                    "." +
-                                                                    controllerModel.getProvider()
-                                                                                   .getSimpleName())
+                                                                "." +
+                                                                controllerModel.getProvider()
+                                                                               .getSimpleName())
                                                   .addStatement("$T.get().logSimple(sb01.toString(), 1)",
                                                                 ClassName.get(ClientLogger.class))
                                                   .addStatement("$T controller = new $T()",
@@ -240,39 +240,46 @@ public class ApplicationGenerator {
                                                                 controllerModel.getComponent()
                                                                                .getClassName(),
                                                                 controllerModel.getRoute());
-
-      HashResultModel hashResultModel = parseRoute(controllerModel);
-      if (hashResultModel.getParameterValues() != null &&
-          hashResultModel.getParameterValues()
+      // route has parameters?
+      if (controllerModel.getParameters()
                          .size() > 0) {
-        createMethod.beginControlFlow("if (parms != null)");
-        for (int i = 0; i <
-            hashResultModel.getParameterValues()
-                           .size(); i++) {
-          String parameter = hashResultModel.getParameterValues()
-                                            .get(i);
-          createMethod.beginControlFlow("if (parms.length >= " + Integer.toString(i + 1) + ")")
-                      .addStatement("controller.set" + processorUtils.setFirstCharacterToUpperCase(parameter) + "(parms[" + Integer.toString(i) + "])")
-                      .endControlFlow();
+        // has the model AccpetParameter ?
+        if (controllerModel.getParameterAcceptors()
+                           .size() > 0) {
+          createMethod.beginControlFlow("if (parms != null)");
+          for (int i = 0; i < controllerModel.getParameters()
+                                             .size(); i++) {
+            String methodName = controllerModel.getParameterAcceptors(controllerModel.getParameters()
+                                                                                     .get(i));
+            if (methodName != null) {
+              createMethod.beginControlFlow("if (parms.length >= " + Integer.toString(i + 1) + ")")
+                          .addStatement("sb01 = new $T()",
+                                        ClassName.get(StringBuilder.class))
+                          .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> using method >>" + methodName + "<< to set value >>\").append(parms[" + Integer.toString(i) + "]).append(\"<<\")")
+                          .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                                        ClassName.get(ClientLogger.class))
+                          .addStatement("controller." + methodName + "(parms[" + Integer.toString(i) + "])")
+                          .endControlFlow();
+            }
+          }
+          createMethod.endControlFlow();
         }
-        createMethod.endControlFlow();
       }
-
       createMethod.addStatement("return controller");
 
       loadComponentsMethodBuilder.addComment("create ControllerCreator for: " +
-                                                 controllerModel.getProvider()
-                                                                .getPackage() +
-                                                 "." +
-                                                 controllerModel.getProvider()
-                                                                .getSimpleName())
+                                             controllerModel.getProvider()
+                                                            .getPackage() +
+                                             "." +
+                                             controllerModel.getProvider()
+                                                            .getSimpleName())
                                  .addStatement("$T.get().registerController($S, $L)",
                                                ClassName.get(ControllerFactory.class),
                                                controllerModel.getProvider()
                                                               .getPackage() +
-                                                   "." +
-                                                   controllerModel.getProvider()
-                                                                  .getSimpleName(),
+                                               "." +
+                                               controllerModel.getProvider()
+                                                              .getSimpleName(),
                                                TypeSpec.anonymousClassBuilder("")
                                                        .addSuperinterface(ControllerCreator.class)
                                                        .addMethod(createMethod.build())
@@ -304,11 +311,11 @@ public class ApplicationGenerator {
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
-                                       metaModel.getApplication()
-                                                .getSimpleName() +
-                                       ApplicationGenerator.IMPL_NAME +
-                                       "<< -> exception: " +
-                                       e.getMessage());
+                                   metaModel.getApplication()
+                                            .getSimpleName() +
+                                   ApplicationGenerator.IMPL_NAME +
+                                   "<< -> exception: " +
+                                   e.getMessage());
     }
   }
 
@@ -321,88 +328,6 @@ public class ApplicationGenerator {
       }
     });
     return models;
-  }
-
-  private HashResultModel parseRoute(ControllerModel model)
-      throws ProcessorException {
-    // handle initial route "/" seperately
-    if ("/".equals(model.getRoute())) {
-      return new HashResultModel(model.getRoute());
-    }
-    // handle route
-    String routeValue = model.getRoute();
-    StringBuilder route = new StringBuilder();
-    List<String> parameters = new ArrayList<>();
-    // extract route first:
-    if (routeValue.startsWith("/")) {
-      routeValue = routeValue.substring(1);
-    }
-    String[] splits = routeValue.split("/");
-    for (String s : splits) {
-      // TODO TESTEN !!!!!!
-      // handle "//" -> not allowed
-      if (s.length() == 0) {
-        throw new ProcessorException("Nalu-Processor: controler >>" +
-                                         model.getController()
-                                              .getClassName() +
-                                         "<<  - illegal route >>" +
-                                         route +
-                                         "<< -> '//' not allowed!");
-      }
-      // check if it is a parameter definition (starting with ':' at first position)
-      if (s.startsWith(":")) {
-        // starts with a parameter ==> error
-        if (route.length() == 0) {
-          throw new ProcessorException("Nalu-Processor: controler >>" +
-                                           model.getController()
-                                                .getClassName() +
-                                           "<<  - illegal route >>" +
-                                           route +
-                                           "<< -> route cannot start with parameter");
-        }
-        if (s.length() == 1) {
-          throw new ProcessorException("Nalu-Processor: controler >>" +
-                                           model.getController()
-                                                .getClassName() +
-                                           "<<  - illegal route >>" +
-                                           route +
-                                           "<< -> illegal parameter name!");
-        }
-        parameters.add(s.substring(1));
-      } else {
-        route.append("/")
-             .append(s);
-      }
-    }
-    // check for empty route!
-    if (route.equals("")) {
-      throw new ProcessorException("Nalu-Processor: controler >>" +
-                                       model.getController()
-                                            .getClassName() +
-                                       "<<  - no route defined  route >>" +
-                                       route +
-                                       "<< -> illegal parameter name!");
-    }
-    HashResultModel hashResultModel = new HashResultModel();
-    hashResultModel.setRoute(route.toString());
-    hashResultModel.setParameterValues(parameters);
-    //
-    //    // extract route first:
-    //    if (route.startsWith("/")) {
-    //      routeValue = routeValue.substring(1);
-    //    }
-    //    if (routeValue.contains("/")) {
-    //      hashResultModel.setRoute(routeValue.substring(0,
-    //                                                    routeValue.indexOf("/")));
-    //      String parametersFromHash = routeValue.substring(routeValue.indexOf("/") + 2);
-    //      // lets get the parameters!
-    //      hashResultModel.setParameterValues(Stream.of(parametersFromHash.split("/:"))
-    //                                               .collect(Collectors.toList()));
-    //    } else {
-    //      hashResultModel.setRoute(routeValue);
-    //    }
-
-    return hashResultModel;
   }
 
   private boolean contains(List<ControllerModel> models,

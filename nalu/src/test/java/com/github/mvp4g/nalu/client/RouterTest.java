@@ -42,7 +42,7 @@ public class RouterTest {
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("Route test with leading '/' and not parameters",
+    Assert.assertEquals("route test with leading '/' and not parameters",
                         "/testRoute01",
                         hashResult.getRoute());
   }
@@ -58,7 +58,7 @@ public class RouterTest {
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("Route test without leading '/' and not parameters",
+    Assert.assertEquals("route test without leading '/' and not parameters",
                         "/testRoute01",
                         hashResult.getRoute());
   }
@@ -74,10 +74,10 @@ public class RouterTest {
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("Route test with leading '/' and one parameters",
+    Assert.assertEquals("route test with leading '/' and one parameters",
                         "/testRoute02",
                         hashResult.getRoute());
-    Assert.assertEquals("Route test with leading '/' and one parameters",
+    Assert.assertEquals("route test with leading '/' and one parameters",
                         "testParameter01",
                         hashResult.getParameterValues()
                                   .get(0));
@@ -94,14 +94,14 @@ public class RouterTest {
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("Route test with leading '/' and two parameters",
+    Assert.assertEquals("route test with leading '/' and two parameters",
                         "/testRoute02",
                         hashResult.getRoute());
-    Assert.assertEquals("Route test with leading '/' and two parameters",
+    Assert.assertEquals("route test with leading '/' and two parameters",
                         "testParameter01",
                         hashResult.getParameterValues()
                                   .get(0));
-    Assert.assertEquals("Route test with leading '/' and two parameters",
+    Assert.assertEquals("route test with leading '/' and two parameters",
                         "testParameter02",
                         hashResult.getParameterValues()
                                   .get(1));
@@ -118,14 +118,14 @@ public class RouterTest {
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("Route test with leading '/' and two parameters, first one empty",
+    Assert.assertEquals("route test with leading '/' and two parameters, first one empty",
                         "/testRoute02",
                         hashResult.getRoute());
-    Assert.assertEquals("Route test with leading '/' and two parameters, first one empty",
+    Assert.assertEquals("route test with leading '/' and two parameters, first one empty",
                         "",
                         hashResult.getParameterValues()
                                   .get(0));
-    Assert.assertEquals("Route test with leading '/' and two parameters, first one empty",
+    Assert.assertEquals("route test with leading '/' and two parameters, first one empty",
                         "testParameter02",
                         hashResult.getParameterValues()
                                   .get(1));
@@ -142,10 +142,10 @@ public class RouterTest {
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("Route test without leading '/' and one parameters",
+    Assert.assertEquals("route test without leading '/' and one parameters",
                         "/testRoute02",
                         hashResult.getRoute());
-    Assert.assertEquals("Route test without leading '/' and one parameters",
+    Assert.assertEquals("route test without leading '/' and one parameters",
                         "testParameter01",
                         hashResult.getParameterValues()
                                   .get(0));
@@ -162,14 +162,14 @@ public class RouterTest {
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("Route test without leading '/' and two parameters",
+    Assert.assertEquals("route test without leading '/' and two parameters",
                         "/testRoute02",
                         hashResult.getRoute());
-    Assert.assertEquals("Route test without leading '/' and two parameters",
+    Assert.assertEquals("route test without leading '/' and two parameters",
                         "testParameter01",
                         hashResult.getParameterValues()
                                   .get(0));
-    Assert.assertEquals("Route test without leading '/' and two parameters",
+    Assert.assertEquals("route test without leading '/' and two parameters",
                         "testParameter02",
                         hashResult.getParameterValues()
                                   .get(1));
@@ -186,14 +186,14 @@ public class RouterTest {
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("Route test without leading '/' and two parameters, first one empty",
+    Assert.assertEquals("route test without leading '/' and two parameters, first one empty",
                         "/testRoute02",
                         hashResult.getRoute());
-    Assert.assertEquals("Route test without leading '/' and two parameters, first one empty",
+    Assert.assertEquals("route test without leading '/' and two parameters, first one empty",
                         "",
                         hashResult.getParameterValues()
                                   .get(0));
-    Assert.assertEquals("Route test without leading '/' and two parameters, first one empty",
+    Assert.assertEquals("route test without leading '/' and two parameters, first one empty",
                         "testParameter02",
                         hashResult.getParameterValues()
                                   .get(1));
@@ -210,7 +210,7 @@ public class RouterTest {
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("Route test with leading '/'",
+    Assert.assertEquals("route test with leading '/'",
                         "/testRoute03/testRoute04/testRoute05",
                         hashResult.getRoute());
   }
@@ -226,7 +226,7 @@ public class RouterTest {
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("Route test without leading '/'",
+    Assert.assertEquals("route test without leading '/'",
                         "/testRoute03/testRoute04/testRoute05",
                         hashResult.getRoute());
   }
@@ -258,14 +258,14 @@ public class RouterTest {
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("Route test without leading '/' and two parameters, first one empty",
+    Assert.assertEquals("route test without leading '/' and two parameters, first one empty",
                         "/testRoute06/testRoute07",
                         hashResult.getRoute());
-    Assert.assertEquals("Route test with leading '/', complex path and two parameters, both parametes exist",
+    Assert.assertEquals("route test with leading '/', complex path and two parameters, both parametes exist",
                         "testParameter01",
                         hashResult.getParameterValues()
                                   .get(0));
-    Assert.assertEquals("Route test without leading '/' and two parameters, first one empty",
+    Assert.assertEquals("route test without leading '/' and two parameters, first one empty",
                         "testParameter02",
                         hashResult.getParameterValues()
                                   .get(1));

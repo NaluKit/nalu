@@ -17,11 +17,17 @@
 
 package com.github.mvp4g.nalu.processor.model.intern;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 public class ControllerModel {
 
   private String route;
 
   private String selector;
+
+  private List<String> parameters;
 
   private ClassNameModel controller;
 
@@ -33,7 +39,10 @@ public class ControllerModel {
 
   private ClassNameModel componentType;
 
+  private List<ParameterAcceptor> parameterAcceptors;
+
   public ControllerModel(String route,
+                         List<String> parameters,
                          String selector,
                          ClassNameModel controller,
                          ClassNameModel componentInterface,
@@ -42,11 +51,14 @@ public class ControllerModel {
                          ClassNameModel provider) {
     this.route = route;
     this.selector = selector;
+    this.parameters = parameters;
     this.controller = controller;
     this.componentInterface = componentInterface;
     this.component = component;
     this.componentType = componentType;
     this.provider = provider;
+
+    this.parameterAcceptors = new ArrayList<>();
   }
 
   public String getRoute() {
@@ -63,6 +75,14 @@ public class ControllerModel {
 
   public void setSelector(String selector) {
     this.selector = selector;
+  }
+
+  public List<String> getParameters() {
+    return parameters;
+  }
+
+  public void setParameters(List<String> parameters) {
+    this.parameters = parameters;
   }
 
   public ClassNameModel getController() {
@@ -103,5 +123,17 @@ public class ControllerModel {
 
   public void setComponentType(ClassNameModel componentType) {
     this.componentType = componentType;
+  }
+
+  public List<ParameterAcceptor> getParameterAcceptors() {
+    return parameterAcceptors;
+  }
+
+  public String getParameterAcceptors(String parameterName) {
+    Optional<ParameterAcceptor> optional = this.parameterAcceptors.stream()
+                                                                  .filter(a -> parameterName.equals(a.getParameterName()))
+                                                                  .findFirst();
+    return optional.isPresent() ? optional.get()
+                                          .getMethodName() : null;
   }
 }

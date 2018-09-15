@@ -30,6 +30,8 @@ import de.gishmo.mvp4g.nalu.simpleapplication.client.ui.navigation.NavigationCom
 import de.gishmo.mvp4g.nalu.simpleapplication.client.ui.navigation.NavigationController;
 import de.gishmo.mvp4g.nalu.simpleapplication.client.ui.shell.Shell;
 
+import java.util.Arrays;
+
 public final class NaluSimpleApplicationImpl
   extends AbstractApplication<NaluSimpleApplicationContext>
   implements NaluSimpleApplication {
@@ -50,26 +52,34 @@ public final class NaluSimpleApplicationImpl
   public void loadRoutes() {
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/",
+                                                  Arrays.asList(new String[]{}),
                                                   "footer",
                                                   "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.footer.FooterController"));
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/",
+                                                  Arrays.asList(new String[]{}),
                                                   "header",
                                                   "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.header.HeaderController"));
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/list/:name/:city",
+                                                  Arrays.asList("name",
+                                                                "city"),
                                                   "content",
                                                   "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.list.ListController"));
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/search/:searchName/:searchCity",
+                                                  Arrays.asList("searchName",
+                                                                "searchCity"),
                                                   "content",
                                                   "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.search.SearchController"));
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/detail/:id",
+                                                  Arrays.asList("id"),
                                                   "content",
                                                   "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/",
+                                                  Arrays.asList(new String[]{}),
                                                   "navigation",
                                                   "de.gishmo.gwt.example.nalu.simpleapplication.client.ui.navigation.NavigationController"));
   }

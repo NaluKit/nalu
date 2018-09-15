@@ -67,7 +67,7 @@ public class RoutingTest {
       @Override
       public void route(String newRoute,
                         boolean replace) {
-        Assert.assertTrue("Route mismatch!",
+        Assert.assertTrue("route mismatch!",
                           routeHandler.compare(newRoute,
                                                replace));
       }

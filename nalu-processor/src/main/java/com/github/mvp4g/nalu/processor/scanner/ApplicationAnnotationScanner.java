@@ -106,11 +106,11 @@ public class ApplicationAnnotationScanner {
                                         .build()
                                         .scan(roundEnvironment);
           // Controller-Annotation
-          model = RouteAnnotationScanner.builder()
-                                        .processingEnvironment(processingEnvironment)
-                                        .applicationMetaModel(model)
-                                        .build()
-                                        .scan(roundEnvironment);
+          model = ControllerAnnotationScanner.builder()
+                                             .processingEnvironment(processingEnvironment)
+                                             .applicationMetaModel(model)
+                                             .build()
+                                             .scan(roundEnvironment);
           // Controller-Annotation
           model = FiltersAnnotationScanner.builder()
                                           .processingEnvironment(processingEnvironment)

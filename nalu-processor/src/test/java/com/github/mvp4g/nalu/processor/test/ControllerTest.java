@@ -62,9 +62,7 @@ public class ControllerTest {
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
-                      .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: @Controller >>com.github.mvp4g.nalu.processor.controller.controllerAnnotationWithParameterNotOK.ui.bad.BadController<< does not implement the method: >>setVariable01<< which is required for accepting a variable from the route");
+                      .succeeded();
   }
 
   @Test

@@ -1,0 +1,14 @@
+Ein eigenes Plugin für GXT.
+
+Hintergrund:
+Man benötigt in einigen Fällen LayoutData um widgets richtig im DOM zu adden. Das soll in diesem Plugin möglich sein.
+
+Die LayoutData an der Selector annotation packen!
+
+
+Oder im GWT-Plugin @Selector auf methoden machen!
+
+@Selector("content")
+publicm void add(Widget widget) {
+	// DO you add here!
+}
