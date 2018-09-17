@@ -25,6 +25,7 @@ import com.github.mvp4g.nalu.plugin.gwt.client.selector.SelectorProvider;
 import com.github.mvp4g.nalu.processor.model.intern.ClassNameModel;
 import com.google.auto.service.AutoService;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.Widget;
 import com.squareup.javapoet.*;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -39,6 +40,7 @@ import java.util.*;
 import static java.util.stream.Collectors.toSet;
 import static java.util.stream.Stream.of;
 
+// TODO Umbau auf Methoden-Nutzung
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @AutoService(Processor.class)
 public class NaluPluginGwtProcessor
@@ -102,27 +104,25 @@ public class NaluPluginGwtProcessor
 
   private void validate(Element element)
     throws ProcessorException {
-    // check, that the add-method is implemented in the typeelement of the annotated element
-    Optional<? extends Element> optionalType = this.processingEnv.getElementUtils()
-                                                                 .getAllMembers(this.processingEnv.getElementUtils()
-                                                                                                  .getTypeElement(element.asType()
-                                                                                                                         .toString()))
-                                                                 .stream()
-                                                                 .filter(member -> ElementKind.METHOD.equals(((Element) member).getKind()))
-                                                                 .map(member -> (ExecutableElement) member)
-                                                                 .filter(f -> f.toString()
-                                                                               .contains("add(com.google.gwt.user.client.ui.IsWidget)"))
-                                                                 .findFirst();
-    if (!optionalType.isPresent()) {
-      throw new ProcessorException("Nalu-Plugin-Gxt-4-Processor: >>" + element.getSimpleName()
-                                                                              .toString() + "<< - @Selector can only be used on a widget that implements a 'add'-method with one parameter");
+    // @AcceptParameter can only be used on a method
+    if (!ElementKind.METHOD.equals(element.getKind())) {
+      throw new ProcessorException("Nalu-Processor: @Selector can only be used with a method");
     }
-    // the annotated field must be a least package-protected!
-    if (element.getModifiers()
-               .stream()
-               .anyMatch(Modifier.PRIVATE::equals)) {
-      throw new ProcessorException("Nalu-Plugin-Gxt-4-Processor: >>" + element.getSimpleName()
-                                                                              .toString() + "<< fields annotated with @Selector must be protected, package-protected or public");
+    ExecutableElement executableElement = (ExecutableElement) element;
+    if (executableElement.getParameters()
+                         .size() != 1) {
+      throw new ProcessorException("Nalu-Processor: @Selector can only be used with a method that has one parameter");
+    }
+    String parameterClass = executableElement.getParameters()
+                                             .get(0)
+                                             .asType()
+                                             .toString();
+    if (!(IsWidget.class.getCanonicalName()
+                        .equals(parameterClass) ||
+          Widget.class.getCanonicalName()
+                      .equals(parameterClass)
+    )) {
+      throw new ProcessorException("Nalu-Processor: @Selector can only be used with a method that has one parameter and the parameter type is com.google.gwt.user.client.ui.IsWidget or com.google.gwt.user.client.ui.WIdget");
     }
   }
 
@@ -166,11 +166,9 @@ public class NaluPluginGwtProcessor
                                                                  .addParameter(ParameterSpec.builder(ClassName.get(IsWidget.class),
                                                                                                      "widget")
                                                                                             .build())
-                                                                 .addStatement("component.$L.clear()",
+                                                                 .addStatement("component.$L(widget.asWidget())",
                                                                                model.getSelectorElement()
-                                                                                    .toString())
-                                                                 .addStatement("component.$L.add(widget.asWidget())",
-                                                                               model.getSelectorElement()
+                                                                                    .getSimpleName()
                                                                                     .toString())
                                                                  .build())
                                             .build())
