@@ -20,6 +20,7 @@ package com.github.mvp4g.nalu.processor.scanner;
 import com.github.mvp4g.nalu.client.component.AbstractComponentController;
 import com.github.mvp4g.nalu.client.component.annotation.AcceptParameter;
 import com.github.mvp4g.nalu.client.component.annotation.Controller;
+import com.github.mvp4g.nalu.client.component.annotation.Route;
 import com.github.mvp4g.nalu.client.component.annotation.Routes;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
@@ -68,7 +69,7 @@ public class ControllerAnnotationScanner {
   }
 
   ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
-    throws ProcessorException {
+      throws ProcessorException {
     // handle ProvidesSelector-annotation
     for (Element element : roundEnvironment.getElementsAnnotatedWith(Controller.class)) {
       ControllerModel controllerModel = this.handleController(roundEnvironment,
@@ -96,7 +97,7 @@ public class ControllerAnnotationScanner {
 
   private ControllerModel handleController(RoundEnvironment roundEnvironment,
                                            Element element)
-    throws ProcessorException {
+      throws ProcessorException {
     // do validation
     ControllerAnnotationValidator.builder()
                                  .roundEnvironment(roundEnvironment)
@@ -124,20 +125,21 @@ public class ControllerAnnotationScanner {
       }
     }
     // update route ...
-    return new ControllerModel(getRoute(annotation.route()),
-                               getParametersFromRoute(annotation.route()),
+    return new ControllerModel(annotation.route(),
+                               getRoute(annotation.route()),
                                annotation.selector(),
+                               getParametersFromRoute(annotation.route()),
                                new ClassNameModel(element.toString()),
                                new ClassNameModel(componentInterfaceTypeElement.toString()),
                                new ClassNameModel(componentTypeElement.toString()),
                                new ClassNameModel(componentTypeTypeMirror.toString()),
                                new ClassNameModel(element.toString()));
-  }
+     }
 
   private void handleAcceptParameters(RoundEnvironment roundEnvironment,
                                       Element element,
                                       ControllerModel controllerModel)
-    throws ProcessorException {
+      throws ProcessorException {
     TypeElement typeElement = (TypeElement) element;
     List<Element> annotatedElements = this.processorUtils.getMethodFromTypeElementAnnotatedWith(this.processingEnvironment,
                                                                                                 typeElement,
@@ -165,6 +167,17 @@ public class ControllerAnnotationScanner {
                             Element element,
                             Routes routesAnnotation,
                             ControllerModel controllerModel) {
+    // get routes
+    Route[] routeAnnotations = routesAnnotation.routes();
+    if (routeAnnotations.length == 0) {
+      // clear exsiting routes in model
+      controllerModel.getChildRoutes()
+                     .clear();
+      return;
+    }
+    Stream.of(routeAnnotations)
+          .forEach(r -> controllerModel.getChildRoutes()
+                                       .add(r.value()));
     // do validation
 
     // handle
@@ -191,7 +204,7 @@ public class ControllerAnnotationScanner {
   }
 
   private TypeMirror getComponentType(final TypeMirror typeMirror) {
-    final TypeMirror[] result = {null};
+    final TypeMirror[] result = { null };
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
                                                                 typeMirror,
                                                                 this.processorUtils.getElements()

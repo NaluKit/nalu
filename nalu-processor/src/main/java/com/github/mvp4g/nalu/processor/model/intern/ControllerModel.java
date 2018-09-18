@@ -23,6 +23,8 @@ import java.util.Optional;
 
 public class ControllerModel {
 
+  private String originalRoute;
+
   private String route;
 
   private String selector;
@@ -41,24 +43,37 @@ public class ControllerModel {
 
   private List<ParameterAcceptor> parameterAcceptors;
 
-  public ControllerModel(String route,
-                         List<String> parameters,
+  private List<String> childRoutes;
+
+  public ControllerModel(String originalRoute,
+                         String route,
                          String selector,
+                         List<String> parameters,
                          ClassNameModel controller,
                          ClassNameModel componentInterface,
                          ClassNameModel component,
                          ClassNameModel componentType,
                          ClassNameModel provider) {
+    this.originalRoute = originalRoute;
     this.route = route;
     this.selector = selector;
     this.parameters = parameters;
     this.controller = controller;
     this.componentInterface = componentInterface;
     this.component = component;
-    this.componentType = componentType;
     this.provider = provider;
+    this.componentType = componentType;
 
+    this.childRoutes = new ArrayList<>();
     this.parameterAcceptors = new ArrayList<>();
+  }
+
+  public String getOriginalRoute() {
+    return originalRoute;
+  }
+
+  public void setOriginalRoute(String originalRoute) {
+    this.originalRoute = originalRoute;
   }
 
   public String getRoute() {
@@ -135,5 +150,9 @@ public class ControllerModel {
                                                                   .findFirst();
     return optional.isPresent() ? optional.get()
                                           .getMethodName() : null;
+  }
+
+  public List<String> getChildRoutes() {
+    return childRoutes;
   }
 }

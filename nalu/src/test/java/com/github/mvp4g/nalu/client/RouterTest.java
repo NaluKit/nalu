@@ -13,7 +13,6 @@ import org.junit.Test;
  *
  * @author Frank Hossfeld
  * @version 1.0
- * @since <pre>Aug 26, 2018</pre>
  */
 public class RouterTest {
 
