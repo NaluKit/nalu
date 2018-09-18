@@ -40,8 +40,6 @@ import java.util.*;
 import static java.util.stream.Collectors.toSet;
 import static java.util.stream.Stream.of;
 
-// TODO Umbau auf Methoden-Nutzung
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
 @AutoService(Processor.class)
 public class NaluPluginGwtProcessor
   extends AbstractProcessor {
