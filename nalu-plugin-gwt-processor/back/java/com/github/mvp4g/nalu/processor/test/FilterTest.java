@@ -15,9 +15,9 @@
  *
  */
 
-package com.github.mvp4g.nalu.processor.test;
+package com.github.nalukit.nalu.processor.test;
 
-import com.github.mvp4g.nalu.processor.NaluPluginGwtProcessor;
+import com.github.nalukit.nalu.processor.NaluPluginGwtProcessor;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
@@ -36,7 +36,7 @@ public class FilterTest {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/filter/filterAnnotationOnAMethod/FilterAnnotationOnAMethod.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/filter/filterAnnotationOnAMethod/FilterAnnotationOnAMethod.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)

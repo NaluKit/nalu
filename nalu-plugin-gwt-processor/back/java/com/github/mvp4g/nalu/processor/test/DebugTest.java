@@ -15,9 +15,9 @@
  *
  */
 
-package com.github.mvp4g.nalu.processor.test;
+package com.github.nalukit.nalu.processor.test;
 
-import com.github.mvp4g.nalu.processor.NaluPluginGwtProcessor;
+import com.github.nalukit.nalu.processor.NaluPluginGwtProcessor;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
@@ -36,7 +36,7 @@ public class DebugTest {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/debug/debugAnnotationOnAMethod/DebugAnnotationOnAMethod.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/debug/debugAnnotationOnAMethod/DebugAnnotationOnAMethod.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -50,7 +50,7 @@ public class DebugTest {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/debug/debugAnnotationOnAClass/DebugAnnotationOnAClass.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/debug/debugAnnotationOnAClass/DebugAnnotationOnAClass.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -64,7 +64,7 @@ public class DebugTest {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/debug/debugAnnotationWithoutExtendsIsApplication/DebugAnnotationWithoutExtendsIsApplication.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/debug/debugAnnotationWithoutExtendsIsApplication/DebugAnnotationWithoutExtendsIsApplication.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -78,7 +78,7 @@ public class DebugTest {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/debug/debugAnnotationOnClassWithoutApplicationAnnotation/DebugAnnotationOnClassWithoutApplicationAnnotation.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/debug/debugAnnotationOnClassWithoutApplicationAnnotation/DebugAnnotationOnClassWithoutApplicationAnnotation.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)

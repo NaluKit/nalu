@@ -94,12 +94,12 @@ If the project uses a widget set based on GWT 2.8.2 or newer, use the **Nalu-Plu
 
 ```XML
     <dependency>
-      <groupId>com.github.mvp4g</groupId>
+      <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
       <version>LATEST</version>
     </dependency>
     <dependency>
-      <groupId>com.github.mvp4g</groupId>
+      <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
       <version>LATEST</version>
     </dependency>

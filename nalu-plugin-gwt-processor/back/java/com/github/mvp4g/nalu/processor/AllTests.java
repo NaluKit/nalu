@@ -15,7 +15,7 @@
  *
  */
 
-package com.github.mvp4g.nalu.processor;
+package com.github.nalukit.nalu.processor;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

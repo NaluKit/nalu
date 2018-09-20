@@ -15,9 +15,9 @@
  *
  */
 
-package com.github.mvp4g.nalu.processor.test;
+package com.github.nalukit.nalu.processor.test;
 
-import com.github.mvp4g.nalu.processor.NaluPluginGwtProcessor;
+import com.github.nalukit.nalu.processor.NaluPluginGwtProcessor;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjectSubject;
@@ -37,7 +37,7 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationAnnotationOnClass/ApplicationAnnotationInterfaceOnAClass.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationAnnotationOnClass/ApplicationAnnotationInterfaceOnAClass.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -51,7 +51,7 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationInterfaceWithoutExtendsIsApplication/ApplicationInterfaceWithoutExtendsIsApplication.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationInterfaceWithoutExtendsIsApplication/ApplicationInterfaceWithoutExtendsIsApplication.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -65,7 +65,7 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationAnnotationOnAMethod/ApplicationAnnotationOnAMethod.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationAnnotationOnAMethod/ApplicationAnnotationOnAMethod.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -79,15 +79,15 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoader.java"));
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/common/MockContext.java"));
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/common/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoader.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/common/MockContext.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/common/MockShell.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
                       .succeeded();
-    JavaFileObjectSubject.assertThat(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoaderImpl.java"))
-                         .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoaderImpl.java"));
+    JavaFileObjectSubject.assertThat(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoaderImpl.java"))
+                         .hasSourceEquivalentTo(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoaderImpl.java"));
   }
 
   @Test
@@ -95,15 +95,15 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoader.java"));
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/common/MockContext.java"));
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/common/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoader.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/common/MockContext.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/common/MockShell.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
                       .succeeded();
-    JavaFileObjectSubject.assertThat(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoaderImpl.java"))
-                         .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoaderImpl.java"));
+    JavaFileObjectSubject.assertThat(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoaderImpl.java"))
+                         .hasSourceEquivalentTo(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoaderImpl.java"));
   }
 
   @Test
@@ -111,15 +111,15 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/ApplicationAnnotationOkWithoutLoaderAsInnerInterface.java"));
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/common/MockContext.java"));
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/common/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/ApplicationAnnotationOkWithoutLoaderAsInnerInterface.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/common/MockContext.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/common/MockShell.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
                       .succeeded();
-    JavaFileObjectSubject.assertThat(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/MyApplicationImpl.java"))
-                         .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/MyApplicationImpl.java"));
+    JavaFileObjectSubject.assertThat(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/MyApplicationImpl.java"))
+                         .hasSourceEquivalentTo(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/MyApplicationImpl.java"));
   }
 
   @Test
@@ -127,14 +127,14 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterface.java"));
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/common/MockContext.java"));
-                                         add(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/common/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterface.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/common/MockContext.java"));
+                                         add(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/common/MockShell.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
                       .succeeded();
-    JavaFileObjectSubject.assertThat(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl.java"))
-                         .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/mvp4g/nalu/processor/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl.java"));
+    JavaFileObjectSubject.assertThat(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl.java"))
+                         .hasSourceEquivalentTo(JavaFileObjects.forResource("com.github.nalukit/nalu/processor/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl.java"));
   }
 }
