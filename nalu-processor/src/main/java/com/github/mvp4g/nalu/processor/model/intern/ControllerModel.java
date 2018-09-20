@@ -43,8 +43,6 @@ public class ControllerModel {
 
   private List<ParameterAcceptor> parameterAcceptors;
 
-  private List<String> childRoutes;
-
   public ControllerModel(String originalRoute,
                          String route,
                          String selector,
@@ -64,7 +62,6 @@ public class ControllerModel {
     this.provider = provider;
     this.componentType = componentType;
 
-    this.childRoutes = new ArrayList<>();
     this.parameterAcceptors = new ArrayList<>();
   }
 
@@ -150,9 +147,5 @@ public class ControllerModel {
                                                                   .findFirst();
     return optional.isPresent() ? optional.get()
                                           .getMethodName() : null;
-  }
-
-  public List<String> getChildRoutes() {
-    return childRoutes;
   }
 }

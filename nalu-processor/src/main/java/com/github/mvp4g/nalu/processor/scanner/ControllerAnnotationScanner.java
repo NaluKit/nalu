@@ -20,8 +20,6 @@ package com.github.mvp4g.nalu.processor.scanner;
 import com.github.mvp4g.nalu.client.component.AbstractComponentController;
 import com.github.mvp4g.nalu.client.component.annotation.AcceptParameter;
 import com.github.mvp4g.nalu.client.component.annotation.Controller;
-import com.github.mvp4g.nalu.client.component.annotation.Route;
-import com.github.mvp4g.nalu.client.component.annotation.Routes;
 import com.github.mvp4g.nalu.processor.ProcessorException;
 import com.github.mvp4g.nalu.processor.ProcessorUtils;
 import com.github.mvp4g.nalu.processor.model.ApplicationMetaModel;
@@ -78,16 +76,6 @@ public class ControllerAnnotationScanner {
       handleAcceptParameters(roundEnvironment,
                              element,
                              controllerModel);
-
-      // handle Routes annotation
-      Routes routesAnnotation = element.getAnnotation(Routes.class);
-      if (routesAnnotation != null) {
-        // hadndle routes annotation
-        handleRoutes(roundEnvironment,
-                     element,
-                     routesAnnotation,
-                     controllerModel);
-      }
       this.applicationMetaModel.getRoutes()
                                .add(controllerModel);
     }
@@ -161,26 +149,6 @@ public class ControllerAnnotationScanner {
                                                 executableElement.getSimpleName()
                                                                  .toString()));
     }
-  }
-
-  private void handleRoutes(RoundEnvironment roundEnvironment,
-                            Element element,
-                            Routes routesAnnotation,
-                            ControllerModel controllerModel) {
-    // get routes
-    Route[] routeAnnotations = routesAnnotation.routes();
-    if (routeAnnotations.length == 0) {
-      // clear exsiting routes in model
-      controllerModel.getChildRoutes()
-                     .clear();
-      return;
-    }
-    Stream.of(routeAnnotations)
-          .forEach(r -> controllerModel.getChildRoutes()
-                                       .add(r.value()));
-    // do validation
-
-    // handle
   }
 
   private TypeElement getComponentTypeElement(Controller annotation) {
