@@ -75,7 +75,7 @@ To use Nalu, clone the repo and run ```maven clean install``` (ToDo: move to mav
     <version>LATEST</version>
 </dependency>
 <dependency>
-    <groupId>com.github..nalukit</groupId>
+    <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
     <version>LATEST</version>
 </dependency>
