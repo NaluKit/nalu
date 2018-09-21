@@ -1,1 +1,0 @@
-Ersetze com.github.nalukit durch com.github.nalukit
