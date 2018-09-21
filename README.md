@@ -32,7 +32,7 @@ Nalu uses the hash of an url to navigate.
 
 Example hash:
 ```
-#[route]/[parameter_1]/[parameter_2]/[parameter_3]
+#[route]/[parameter_1]/:[parameter_2]/:[parameter_3]
 ```
 
 where
@@ -41,7 +41,7 @@ where
 
 The following flow shows the steps to be done, once a routing is initiated. The flow will end with appending the new component to the DOM.
 
-![Route Flow](https://github.com/mvp4g/nalu-parent/blob/master/etc/images/routeFlow.png)
+![Route Flow](https://github.com/nalukit/nalu-parent/blob/master/etc/images/routeFlow.png)
 
 To connect a component to a route, just create a controller class which extends ```AbstractComponentController```and add the controller annotation ```@Controller```.
 
@@ -70,12 +70,12 @@ To use Nalu, clone the repo and run ```maven clean install``` (ToDo: move to mav
 
 ```XML
 <dependency>
-    <groupId>comgithub..mvp4g</groupId>
+    <groupId>com.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
     <version>LATEST</version>
 </dependency>
 <dependency>
-    <groupId>comgithub..mvp4g</groupId>
+    <groupId>com.github..nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
     <version>LATEST</version>
 </dependency>
@@ -87,7 +87,7 @@ If the project uses a widget set based on Elemetal2, Elememento or Domino-UI, us
 
 ```XML
 <dependency>
-    <groupId>com.github..mvp4g</groupId>
+    <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
     <version>LATEST</version>
 </dependency>
@@ -112,7 +112,7 @@ If the project uses a widget set based on GWT 2.8.2 or newer, use the **Nalu-Plu
 See the wiki for more informations on Nalu and how to use it.
 
 ## Wiki
-More useful information about Nalu and how to use it, can be find inside the [Wiki](https://github.com/mvp4g/nalu/wiki).
+More useful information about Nalu and how to use it, can be find inside the [Wiki](https://github.com/nalukit/nalu/wiki).
 
 ## J2CL / GWT3
 With the next version of GWT (GWT 3) and the new J2CL transpiller, there will be major changes in the GWT developmemt. For example: JSNI and generators, besides other things, will be gone. To be prepared for the futere things like JSNI, generators or any other dependency to GTW has to be avoided. Nalu uses only the already migrated ```gwt-events``` from ```org.gwtproject```.
@@ -120,19 +120,19 @@ With the next version of GWT (GWT 3) and the new J2CL transpiller, there will be
 Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not use JSNI, generators or anything else from GWT. Nalu is ready to use with J2CL / GWT 3.
 
 ## To get in touch with the developer
-Please use the [MVP4G Gitter room](https://gitter.im/mvp4g/mvp4g).
+Please use the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
 
 ## Examples
-There are some examples that show how to set up and how to use Nalu: [https://github.com/mvp4g/nalu-examples](https://github.com/mvp4g/nalu-examples).
+There are some examples that show how to set up and how to use Nalu: [https://github.com/nalukit/nalu-examples](https://github.com/nalukit/nalu-examples).
 
 ## Project Generator
 To speed up creating a Nalu project, the [Nalu Boot Starter Project Generator](http://www.mvp4g.org/gwt-boot-starter-nalu/GwtBootStarterNalu.html) (which is also based on Nalu) can be used. The project generator will generate a Maven project, which can be imported to your preferred IDE and is ready to use. Run **mvn: devmode:** to start the generated project.
 
-Here are some notes about the project generator: [Nalu Project Generator](https://github.com/mvp4g/gwt-boot-starter-nalu).
+Here are some notes about the project generator: [Nalu Project Generator](https://github.com/nalukit/gwt-boot-starter-nalu).
 
 
 ## Notes
-Nalu is still in progress. Validation and documentation are not finished yet.In casse you find a bug, please open an issue or post it inside the [MVP4G Gitter room](https://gitter.im/mvp4g/mvp4g).
+Nalu is still in progress. Validation and documentation are not finished yet.In casse you find a bug, please open an issue or post it inside the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
 
 ## Known issues
 
