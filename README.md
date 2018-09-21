@@ -1,4 +1,7 @@
 # Nalu
+
+[![Join the chat at https://gitter.im/Nalukit42/Lobby](https://badges.gitter.im/Nalukit42/Lobby.svg)](https://gitter.im/Nalukit42/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Nalu is a tiny framework that helps you to create GWT based applications quite easily. Nalu is using the HTML 5 history for routing and navigation. This means Nalu supports the browser's back-, forward-, and reload-button by default and without any need to implement something.
 
 
