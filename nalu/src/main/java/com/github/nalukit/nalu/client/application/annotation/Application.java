@@ -36,7 +36,7 @@ import java.lang.annotation.RetentionPolicy;
  * is defined, the NoApplicationLoader.class will be used. In this case, the loader will do nothing.</li>
  * <li>startRoute: in case the application is called without a bookmark, is this the initial route.</li>
  * <li>context: the context of the class. Nalu will create an instance of this class and inject
- * the instance into all controllers, filters, handlers and the applicaiton loader.</li>
+ * the instance into all controllers, filters, handlers and the application loader.</li>
  * </ul>
  *
  * @author Frank Hossfeld

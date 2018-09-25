@@ -43,26 +43,23 @@ public abstract class AbstractApplication<C extends IsContext>
   implements IsApplication {
 
   /* start route */
-  protected String startRoute;
+  protected String                            startRoute;
   /* route in case of route error */
-  protected String routeErrorRoute;
-
+  protected String                            errorRoute;
   /* Shell */
-  protected IsShell shell;
-
+  protected IsShell                           shell;
   /* Router Configuration */
   protected RouterConfiguration               routerConfiguration;
   /* Splitter */
   protected List<SplitterControllerReference> splitter;
-
   /* Router */
-  protected Router         router;
+  protected Router                            router;
   /* application context */
-  protected C              context;
+  protected C                                 context;
   /* the event bus of the application */
-  protected SimpleEventBus eventBus;
+  protected SimpleEventBus                    eventBus;
   /* plugin */
-  protected IsPlugin       plugin;
+  protected IsPlugin                          plugin;
 
   public AbstractApplication() {
     super();
@@ -94,7 +91,7 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadFilters();
     this.loadDefaultRoutes();
     this.loadSplitterReferences();
-    this.router.setRouteErrorRoute(Nalu.NO_ROUTE.equals(this.routeErrorRoute) ? null : this.routeErrorRoute);
+    this.router.setRouteErrorRoute(Nalu.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
     // load the splitter of the application
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load splitter",
@@ -193,5 +190,8 @@ public abstract class AbstractApplication<C extends IsContext>
                            0);
   }
 
-  protected abstract void attachShell();
+
+  public void attachShell() {
+    this.shell.attachShell();
+  }
 }

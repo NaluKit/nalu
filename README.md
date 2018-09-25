@@ -28,16 +28,6 @@ Nalu offers the following features:
 * Support for UiBinder (nalu-plugin-gwt)
 
 
-## Notes
-Nalu is still in progress. Validation and documentation are not finished yet.In casse you find a bug, please open an issue or post it inside the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
-
-### Known issues
-
-* documentation (in progress)
-
-* tests need to be improved (in progress)
-
-
 ## Basic Concept
 Nalu uses the hash of an url to navigate.
 
@@ -140,3 +130,8 @@ There are some examples that show how to set up and how to use Nalu: [https://gi
 To speed up creating a Nalu project, the [Nalu Boot Starter Project Generator](http://www.mvp4g.org/gwt-boot-starter-nalu/GwtBootStarterNalu.html) (which is also based on Nalu) can be used. The project generator will generate a Maven project, which can be imported to your preferred IDE and is ready to use. Run **mvn: devmode:** to start the generated project.
 
 Here are some notes about the project generator: [Nalu Project Generator](https://github.com/nalukit/gwt-boot-starter-nalu).
+
+
+
+## Notes
+Nalu is still in progress. Validation and documentation are not finished yet.In casse you find a bug, please open an issue or post it inside the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
