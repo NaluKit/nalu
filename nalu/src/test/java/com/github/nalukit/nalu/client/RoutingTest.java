@@ -96,7 +96,7 @@ public class RoutingTest {
   }
 
   /**
-   * Test applicaiton start with no book mark
+   * Test application start with no book mark
    */
   @Test
   public void testStartWithoutBookmark() {

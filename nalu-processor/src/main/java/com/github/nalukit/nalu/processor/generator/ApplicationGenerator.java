@@ -142,7 +142,6 @@ public class ApplicationGenerator {
 
     generateLoadDefaultsRoutes(typeSpec,
                                metaModel);
-    generateAttachShell(typeSpec);
 
     JavaFile javaFile = JavaFile.builder(metaModel.getGenerateToPackage(),
                                          typeSpec.build())
@@ -167,17 +166,8 @@ public class ApplicationGenerator {
                                  .addAnnotation(Override.class)
                                  .addStatement("this.startRoute = $S",
                                                metaModel.getStartRoute())
-                                 .addStatement("this.routeErrorRoute = $S",
+                                 .addStatement("this.errorRoute = $S",
                                                metaModel.getRouteErrorRoute())
-                                 .build());
-  }
-
-  private void generateAttachShell(TypeSpec.Builder typeSpec) {
-    // generate method 'attachShell()'
-    typeSpec.addMethod(MethodSpec.methodBuilder("attachShell")
-                                 .addModifiers(Modifier.PUBLIC)
-                                 .addAnnotation(Override.class)
-                                 .addStatement("super.shell.attachShell()")
                                  .build());
   }
 

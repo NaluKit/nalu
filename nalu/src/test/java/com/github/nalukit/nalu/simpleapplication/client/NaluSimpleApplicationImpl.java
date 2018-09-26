@@ -98,7 +98,7 @@ public final class NaluSimpleApplicationImpl
   @Override
   public void loadDefaultRoutes() {
     this.startRoute = "/search";
-    this.routeErrorRoute = Nalu.NO_ROUTE;
+    this.errorRoute = Nalu.NO_ROUTE;
   }
 
   @Override
