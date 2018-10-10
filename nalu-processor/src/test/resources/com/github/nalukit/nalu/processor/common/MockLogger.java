@@ -3,7 +3,7 @@ package com.github.nalukit.nalu.processor.common;
 import com.github.nalukit.nalu.client.application.IsLogger;
 
 /**
- * Default implementation of Mvp4gLogger.
+ * Default implementation of Nalu's logger.
  *
  * @author plcoirier
  */

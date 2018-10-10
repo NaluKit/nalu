@@ -24,12 +24,12 @@
 
   <groupId>com.github.nalukit</groupId>
   <artifactId>nalu-parent</artifactId>
-  <version>1.0.0-rc-2-SNAPSHOT</version>
+  <version>1.0.0-rc-3-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>nalu-parent</name>
   <description>The wave that hlps to build GWT application</description>
-  <url>https://github.com/mvp4g/nalu-parent</url>
+  <url>https://github.com/nalukit/nalu</url>
 
   <modules>
     <module>nalu</module>
@@ -62,14 +62,14 @@
   </developers>
 
   <scm>
-    <connection>scm:git@github.com:mvp4g/nalu-parent.git</connection>
-    <developerConnection>scm:git:git@github.com:mvp4g/nalu-parent.git</developerConnection>
-    <url>scm:git:https://github.com/mvp4g/nalu-parent</url>
+    <connection>scm:git@github.com:nalukit/nalu.git</connection>
+    <developerConnection>scm:git:git@github.com:nalukit/nalu.git</developerConnection>
+    <url>scm:git:https://github.com/nalukit/nalu</url>
   </scm>
 
   <issueManagement>
     <system>GitHub</system>
-    <url>https://github.com/mvp4g/nalu-parent/issues</url>
+    <url>https://github.com/nalukit/nalu/issues</url>
   </issueManagement>
 
   <distributionManagement>

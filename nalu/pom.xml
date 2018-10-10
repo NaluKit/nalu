@@ -25,7 +25,7 @@
   <parent>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-parent</artifactId>
-    <version>1.0.0-rc-2-SNAPSHOT</version>
+    <version>1.0.0-rc-3-SNAPSHOT</version>
   </parent>
 
   <artifactId>nalu</artifactId>
@@ -55,31 +55,35 @@
   </developers>
 
   <scm>
-    <connection>scm:git@github.com:mvp4g/nalu-parent.git</connection>
-    <developerConnection>scm:git:git@github.com:mvp4g/nalu-parent.git</developerConnection>
-    <url>scm:git:https://github.com/mvp4g/nalu-parent</url>
+    <connection>scm:git@github.com:nalukit/nalu.git</connection>
+    <developerConnection>scm:git:git@github.com:nalukit/nalu.git</developerConnection>
+    <url>scm:git:https://github.com/nalukit/nalu</url>
   </scm>
 
   <issueManagement>
     <system>GitHub</system>
-    <url>https://github.com/mvp4g/nalu-parent/issues</url>
+    <url>https://github.com/nalukit/nalu/issues</url>
   </issueManagement>
 
   <properties>
+    <!-- gwt-events: once it is on maven central, use it!
     <gwt-events.version>HEAD-SNAPSHOT</gwt-events.version>
+    -->
 
     <!-- CI -->
-    <vertispan.snapshot.repo.id>vertispan-snapshot-repository</vertispan.snapshot.repo.id>
-    <vertispan.snapshot.repo.name>Vertispan Snapshot Repository</vertispan.snapshot.repo.name>
-    <vertispan.snapshot.repo.url>https://repo.vertispan.com/gwt-snapshot/</vertispan.snapshot.repo.url>
+    <!--<vertispan.snapshot.repo.id>vertispan-snapshot-repository</vertispan.snapshot.repo.id>-->
+    <!--<vertispan.snapshot.repo.name>Vertispan Snapshot Repository</vertispan.snapshot.repo.name>-->
+    <!--<vertispan.snapshot.repo.url>https://repo.vertispan.com/gwt-snapshot/</vertispan.snapshot.repo.url>-->
   </properties>
 
   <dependencies>
+    <!-- gwt-events: once it is on maven central, use it!
     <dependency>
       <groupId>org.gwtproject.event</groupId>
       <artifactId>gwt-event</artifactId>
       <version>${gwt-events.version}</version>
     </dependency>
+    -->
 
     <dependency>
       <groupId>junit</groupId>
@@ -96,6 +100,8 @@
         <directory>src/main/java</directory>
         <includes>
           <include>**/nalu/**</include>
+          <!-- gwt-events: once it is on maven central, remove the next statement -->
+          <include>**/event/**</include>
         </includes>
       </resource>
       <resource>
@@ -131,11 +137,11 @@
   </build>
 
 
-  <repositories>
-    <repository>
-      <id>${vertispan.snapshot.repo.id}</id>
-      <name>${vertispan.snapshot.repo.name}</name>
-      <url>${vertispan.snapshot.repo.url}</url>
-    </repository>
-  </repositories>
+  <!--<repositories>-->
+  <!--<repository>-->
+  <!--<id>${vertispan.snapshot.repo.id}</id>-->
+  <!--<name>${vertispan.snapshot.repo.name}</name>-->
+  <!--<url>${vertispan.snapshot.repo.url}</url>-->
+  <!--</repository>-->
+  <!--</repositories>-->
 </project>

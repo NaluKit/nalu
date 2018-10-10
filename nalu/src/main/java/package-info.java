@@ -1,0 +1,7 @@
+/**
+ * The package 'org.gwtproject.event.shared' stays here a s long as gwt-events
+ * is not released and not on Maven Central
+ *
+ * Once it is finally released and added to Maven Central, the package 'org.gwtproject.event.shared'
+ * will be removed and the classes erplaced by the gwt-events artifact.
+ */

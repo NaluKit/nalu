@@ -1,5 +1,0 @@
-* ProvidesSelector Tests
-
-* Controller set parameters testen
-
-* Router tests: parse hash, Filter, mayStop

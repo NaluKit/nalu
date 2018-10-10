@@ -25,12 +25,12 @@
   <parent>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-parent</artifactId>
-    <version>1.0.0-rc-2-SNAPSHOT</version>
+    <version>1.0.0-rc-3-SNAPSHOT</version>
   </parent>
 
   <artifactId>nalu-plugin-gwt</artifactId>
   <packaging>jar</packaging>
-  <description>Model View Presenter with Event Bus For GWT 2 + 3 based on APT</description>
+  <description>Nalu's GWT Plugin</description>
 
   <inceptionYear>2018</inceptionYear>
 
@@ -55,24 +55,26 @@
   </developers>
 
   <scm>
-    <connection>scm:git@github.com:mvp4g/nalu-parent.git</connection>
-    <developerConnection>scm:git:git@github.com:mvp4g/nalu-parent.git</developerConnection>
-    <url>scm:git:https://github.com/mvp4g/nalu-parent</url>
+    <connection>scm:git@github.com:nalukit/nalu.git</connection>
+    <developerConnection>scm:git:git@github.com:nalukit/nalu.git</developerConnection>
+    <url>scm:git:https://github.com/nalukit/nalu</url>
   </scm>
 
   <issueManagement>
     <system>GitHub</system>
-    <url>https://github.com/mvp4g/nalu-parent/issues</url>
+    <url>https://github.com/nalukit/nalu/issues</url>
   </issueManagement>
 
   <properties>
+    <!-- gwt-events: once it is on maven central, use it!
     <gwt-events.version>HEAD-SNAPSHOT</gwt-events.version>
+    -->
     <gwt.version>2.8.2</gwt.version>
 
     <!-- CI -->
-    <vertispan.snapshot.repo.id>vertispan-snapshot-repository</vertispan.snapshot.repo.id>
-    <vertispan.snapshot.repo.name>Vertispan Snapshot Repository</vertispan.snapshot.repo.name>
-    <vertispan.snapshot.repo.url>https://repo.vertispan.com/gwt-snapshot/</vertispan.snapshot.repo.url>
+    <!--<vertispan.snapshot.repo.id>vertispan-snapshot-repository</vertispan.snapshot.repo.id>-->
+    <!--<vertispan.snapshot.repo.name>Vertispan Snapshot Repository</vertispan.snapshot.repo.name>-->
+    <!--<vertispan.snapshot.repo.url>https://repo.vertispan.com/gwt-snapshot/</vertispan.snapshot.repo.url>-->
   </properties>
 
   <dependencyManagement>
@@ -109,13 +111,15 @@
       <artifactId>elemental2-dom</artifactId>
       <version>${elemental2.version}</version>
     </dependency>
+     <!-- gwt-events: once it is on maven central, use it!
     <dependency>
       <groupId>org.gwtproject.event</groupId>
       <artifactId>gwt-event</artifactId>
       <version>${gwt-events.version}</version>
     </dependency>
+    -->
 
-    <!--<dependency>-->
+   <!--<dependency>-->
     <!--<groupId>junit</groupId>-->
     <!--<artifactId>junit</artifactId>-->
     <!--<version>${junit.version}</version>-->
@@ -171,11 +175,11 @@
   </build>
 
 
-  <repositories>
-    <repository>
-      <id>${vertispan.snapshot.repo.id}</id>
-      <name>${vertispan.snapshot.repo.name}</name>
-      <url>${vertispan.snapshot.repo.url}</url>
-    </repository>
-  </repositories>
+  <!--<repositories>-->
+    <!--<repository>-->
+      <!--<id>${vertispan.snapshot.repo.id}</id>-->
+      <!--<name>${vertispan.snapshot.repo.name}</name>-->
+      <!--<url>${vertispan.snapshot.repo.url}</url>-->
+    <!--</repository>-->
+  <!--</repositories>-->
 </project>

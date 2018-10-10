@@ -18,7 +18,7 @@
 package com.github.nalukit.nalu.client.component;
 
 /**
- * <p>Marks an class as mvp4g2 shell.</p>
+ * <p>Marks an class as a Nalu's shell.</p>
  */
 public interface IsShell {
 
