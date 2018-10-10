@@ -25,7 +25,7 @@
   <parent>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-parent</artifactId>
-    <version>1.0.0-rc-3-SNAPSHOT</version>
+    <version>1.0.0-rc-4</version>
   </parent>
 
   <artifactId>nalu-processor</artifactId>
@@ -123,10 +123,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.jboss.gwt.elemento</groupId>
-      <artifactId>elemento-core</artifactId>
-      <version>${elemento.version}</version>
+      <groupId>com.google.elemental2</groupId>
+      <artifactId>elemental2-dom</artifactId>
+      <version>${elemental2.version}</version>
+      <scope>test</scope>
     </dependency>
+
     <!-- gwt-events: once it is on maven central, use it!
     <dependency>
       <groupId>org.gwtproject.event</groupId>

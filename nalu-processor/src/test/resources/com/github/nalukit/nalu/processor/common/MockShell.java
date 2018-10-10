@@ -2,11 +2,9 @@ package com.github.nalukit.nalu.processor.common;
 
 import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.component.AbstractShell;
-import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
+import elemental2.dom.*;
 
 import static elemental2.dom.DomGlobal.document;
-import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class MockShell
   extends AbstractShell<MockContext> {
@@ -27,31 +25,69 @@ public class MockShell
 
 
   private HTMLElement render() {
-    return div().css("shell")
-                .add(createNorth())
-                .add(createSouth())
-                .add(div().css("shellNavigation")
-                          .attr(Nalu.NALU_ID_ATTRIBUTE,
-                                "navigation")
-                          .asElement())
-                .add(div().css("shellContent")
-                          .attr(Nalu.NALU_ID_ATTRIBUTE,
-                                "content")
-                          .asElement())
-                .asElement();
+    document.body.style.margin = CSSProperties.MarginUnionType.of(0);
+
+    HTMLDivElement shell = (HTMLDivElement) document.createElement("div");
+    shell.style.height = CSSProperties.HeightUnionType.of("auto");
+    shell.style.width = CSSProperties.WidthUnionType.of("100%");
+    shell.style.margin = CSSProperties.MarginUnionType.of(0);
+
+    Element header = createNorth();
+    shell.appendChild(header);
+
+    HTMLDivElement navigation = (HTMLDivElement) document.createElement("div");
+    navigation.id = "navigation";
+    navigation.style.position = "absolute";
+    navigation.style.overflow = "hidden";
+    navigation.style.top = "128px";
+    navigation.style.bottom = "42px";
+    navigation.style.left = String.valueOf(0);
+    navigation.style.width = CSSProperties.WidthUnionType.of("212px");
+    navigation.style.borderRight = "black 1px solid";
+    shell.appendChild(navigation);
+
+    HTMLDivElement content = (HTMLDivElement) document.createElement("div");
+    content.id = "content";
+    content.style.position = "absolute";
+    content.style.overflow = "hidden";
+    content.style.top = "128px";
+    content.style.bottom = "42px";
+    content.style.left = "212px";
+    content.style.right = String.valueOf(0);
+
+    shell.appendChild(content);
+
+    Element footer = createSouth();
+    shell.appendChild(footer);
+
+    return shell;
   }
 
   private Element createNorth() {
-    return header().css("shellHeader")
-                   .attr(Nalu.NALU_ID_ATTRIBUTE,
-                         "header")
-                   .asElement();
+    HTMLElement panel = (HTMLElement) document.createElement("header");
+    panel.id = "header";
+    panel.style.position = "absolute";
+    panel.style.overflow = "hidden";
+    panel.style.height = CSSProperties.HeightUnionType.of("128px");
+    panel.style.top = String.valueOf(0);
+    panel.style.right = String.valueOf(0);
+    panel.style.left = String.valueOf(0);
+    panel.style.width = CSSProperties.WidthUnionType.of("100%");
+    panel.style.borderBottom = "black 1px solid";
+    return panel;
   }
 
   private Element createSouth() {
-    return footer().css("shellFooter")
-                   .attr(Nalu.NALU_ID_ATTRIBUTE,
-                         "footer")
-                   .asElement();
+    HTMLElement panel = (HTMLElement) document.createElement("header");
+    panel.id = "footer";
+    panel.style.position = "absolute";
+    panel.style.overflow = "hidden";
+    panel.style.height = CSSProperties.HeightUnionType.of("128px");
+    panel.style.top = String.valueOf(0);
+    panel.style.right = String.valueOf(0);
+    panel.style.left = String.valueOf(0);
+    panel.style.width = CSSProperties.WidthUnionType.of("100%");
+    panel.style.borderBottom = "black 1px solid";
+    return panel;
   }
 }
