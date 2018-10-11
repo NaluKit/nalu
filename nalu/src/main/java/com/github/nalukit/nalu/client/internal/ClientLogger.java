@@ -5,13 +5,16 @@ import com.github.nalukit.nalu.client.application.annotation.Debug;
 
 public class ClientLogger {
 
-  private static ClientLogger   instance     = new ClientLogger();
+  private static ClientLogger instance = new ClientLogger();
+
   /* debug enabled? */
-  private        boolean        debugEnabled = false;
+  private boolean debugEnabled = false;
+
   /* logger */
-  private        IsLogger       logger;
+  private IsLogger logger;
+
   /* log level */
-  private        Debug.LogLevel logLevel;
+  private Debug.LogLevel logLevel;
 
   private ClientLogger() {
   }

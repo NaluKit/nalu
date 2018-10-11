@@ -41,7 +41,7 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
-  protected void loadSplitterReferences() {
+  protected void loadCompositeReferences() {
 
   }
 
@@ -257,7 +257,7 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
-  protected void loadSplitterController() {
+  protected void loadCompositeController() {
   }
 
   @Override

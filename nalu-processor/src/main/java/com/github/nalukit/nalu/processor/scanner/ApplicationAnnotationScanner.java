@@ -45,7 +45,9 @@ public class ApplicationAnnotationScanner {
   private final static String APPLICATION_PROPERTIES = "application.properties";
 
   private ProcessorUtils        processorUtils;
+
   private ProcessingEnvironment processingEnvironment;
+
   private RoundEnvironment      roundEnvironment;
 
   @SuppressWarnings("unused")
@@ -56,18 +58,18 @@ public class ApplicationAnnotationScanner {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   public ApplicationMetaModel scan()
-    throws ProcessorException {
+      throws ProcessorException {
     // First we try to read an already created resource ...
     ApplicationMetaModel model = this.restore();
     // Check if we have an element annotated with @Application
@@ -118,12 +120,12 @@ public class ApplicationAnnotationScanner {
                                           .applicationMetaModel(model)
                                           .build()
                                           .scan(roundEnvironment);
-          // SplitterController-Annotation (must be executed after then ControllerAnnotationScanner!)
-          model = SplitterControllerAnnotationScanner.builder()
-                                                     .processingEnvironment(processingEnvironment)
-                                                     .applicationMetaModel(model)
-                                                     .build()
-                                                     .scan(roundEnvironment);
+          // CompositeController-Annotation (must be executed after then ControllerAnnotationScanner!)
+          model = CompositeControllerAnnotationScanner.builder()
+                                                      .processingEnvironment(processingEnvironment)
+                                                      .applicationMetaModel(model)
+                                                      .build()
+                                                      .scan(roundEnvironment);
 
           // let's store the updated model
           this.store(model);
@@ -187,7 +189,7 @@ public class ApplicationAnnotationScanner {
   }
 
   private void store(ApplicationMetaModel model)
-    throws ProcessorException {
+      throws ProcessorException {
     Gson gson = new Gson();
     try {
       FileObject fileObject = processingEnvironment.getFiler()
@@ -210,6 +212,7 @@ public class ApplicationAnnotationScanner {
   public static class Builder {
 
     ProcessingEnvironment processingEnvironment;
+
     RoundEnvironment      roundEnvironment;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {

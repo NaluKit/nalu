@@ -33,8 +33,11 @@ import java.util.List;
 public class ControllerAnnotationValidator {
 
   private ProcessorUtils        processorUtils;
+
   private ProcessingEnvironment processingEnvironment;
+
   private RoundEnvironment      roundEnvironment;
+
   private Element               controllerElement;
 
   @SuppressWarnings("unused")
@@ -48,18 +51,18 @@ public class ControllerAnnotationValidator {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   public void validate()
-    throws ProcessorException {
+      throws ProcessorException {
     TypeElement typeElement = (TypeElement) this.controllerElement;
     // @ProvidesSelector can only be used on a class
     if (!typeElement.getKind()
@@ -72,12 +75,11 @@ public class ControllerAnnotationValidator {
                                                       this.processingEnvironment.getElementUtils()
                                                                                 .getTypeElement(IsController.class.getCanonicalName())
                                                                                 .asType()) ||
-          this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                      typeElement.asType(),
-                                                      this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(IsShell.class.getCanonicalName())
-                                                                                .asType())
-    )) {
+              this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+                                                          typeElement.asType(),
+                                                          this.processingEnvironment.getElementUtils()
+                                                                                    .getTypeElement(IsShell.class.getCanonicalName())
+                                                                                    .asType()))) {
       throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController or IsShell");
     }
     // validate route
@@ -85,7 +87,7 @@ public class ControllerAnnotationValidator {
   }
 
   private void validateRoute()
-    throws ProcessorException {
+      throws ProcessorException {
     Controller controllerAnnotation = this.controllerElement.getAnnotation(Controller.class);
     String route = controllerAnnotation.route();
     // extract route first:
@@ -103,11 +105,11 @@ public class ControllerAnnotationValidator {
       // handle "//" -> not allowed
       if (s.length() == 0) {
         throw new ProcessorException("Nalu-Processor: controller >>" +
-                                     this.controllerElement.getEnclosingElement()
-                                                           .toString() +
-                                     "<<  - illegal route >>" +
-                                     route +
-                                     "<< -> '//' not allowed!");
+                                         this.controllerElement.getEnclosingElement()
+                                                               .toString() +
+                                         "<<  - illegal route >>" +
+                                         route +
+                                         "<< -> '//' not allowed!");
       }
       // check if it is a parameter definition (starting with ':' at first position)
       if (s.startsWith(":")) {
@@ -115,28 +117,28 @@ public class ControllerAnnotationValidator {
         // starts with a parameter ==> error
         if (route.length() == 0) {
           throw new ProcessorException("Nalu-Processor: controller >>" +
-                                       this.controllerElement.getEnclosingElement()
-                                                             .toString() +
-                                       "<<  - illegal route >>" +
-                                       route +
-                                       "<< -> route cannot start with parameter");
+                                           this.controllerElement.getEnclosingElement()
+                                                                 .toString() +
+                                           "<<  - illegal route >>" +
+                                           route +
+                                           "<< -> route cannot start with parameter");
         }
         if (s.length() == 1) {
           throw new ProcessorException("Nalu-Processor: controller >>" +
-                                       this.controllerElement.getEnclosingElement()
-                                                             .toString() +
-                                       "<<  - illegal route >>" +
-                                       route +
-                                       "<< -> illegal parameter name!");
+                                           this.controllerElement.getEnclosingElement()
+                                                                 .toString() +
+                                           "<<  - illegal route >>" +
+                                           route +
+                                           "<< -> illegal parameter name!");
         }
       } else {
         if (handlingParameter) {
           throw new ProcessorException("Nalu-Processor: controller >>" +
-                                       this.controllerElement.getEnclosingElement()
-                                                             .toString() +
-                                       "<<  - illegal route >>" +
-                                       route +
-                                       "<< -> illegal route!");
+                                           this.controllerElement.getEnclosingElement()
+                                                                 .toString() +
+                                           "<<  - illegal route >>" +
+                                           route +
+                                           "<< -> illegal route!");
         }
       }
     }
@@ -153,7 +155,9 @@ public class ControllerAnnotationValidator {
   public static final class Builder {
 
     ProcessingEnvironment processingEnvironment;
+
     RoundEnvironment      roundEnvironment;
+
     Element               controllerElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {

@@ -33,7 +33,9 @@ import javax.lang.model.type.MirroredTypeException;
 public class HandlerAnnotationScanner {
 
   private ProcessingEnvironment processingEnvironment;
+
   private RoundEnvironment      roundEnvironment;
+
   private ApplicationMetaModel  applicationMetaModel;
 
   @SuppressWarnings("unused")
@@ -45,15 +47,15 @@ public class HandlerAnnotationScanner {
     setUp();
   }
 
-  private void setUp() {
-  }
-
   public static Builder builder() {
     return new Builder();
   }
 
+  private void setUp() {
+  }
+
   public ApplicationMetaModel scan()
-    throws ProcessorException {
+      throws ProcessorException {
     // handle ProvidesSelector-annotation
     for (Element element : roundEnvironment.getElementsAnnotatedWith(Handler.class)) {
       // do validation
@@ -93,7 +95,9 @@ public class HandlerAnnotationScanner {
   public static class Builder {
 
     ProcessingEnvironment processingEnvironment;
+
     RoundEnvironment      roundEnvironment;
+
     ApplicationMetaModel  applicationMetaModel;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {

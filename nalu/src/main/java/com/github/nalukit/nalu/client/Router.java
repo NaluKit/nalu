@@ -1,13 +1,13 @@
 package com.github.nalukit.nalu.client;
 
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
-import com.github.nalukit.nalu.client.component.AbstractSplitterController;
+import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.filter.IsFilter;
-import com.github.nalukit.nalu.client.internal.SplitterControllerReference;
+import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
+import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
-import com.github.nalukit.nalu.client.internal.application.SplitterFactory;
 import com.github.nalukit.nalu.client.internal.route.HashResult;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
@@ -22,24 +22,29 @@ import java.util.stream.Stream;
 public final class Router {
 
   /* Shell */
-  private IsShell                                           shell;
+  private IsShell shell;
+
   /* route in case of route error */
-  private String                                            routeErrorRoute;
-  /* splitter configuration */
-  private List<SplitterControllerReference>                 splitter;
+  private String routeErrorRoute;
+
+  /* composite configuration */
+  private List<CompositeControllerReference> compositeControllerReferences;
+
   /* List of the routes of the application */
-  private RouterConfiguration                               routerConfiguration;
+  private RouterConfiguration routerConfiguration;
+
   /* List of active components */
   private Map<String, AbstractComponentController<?, ?, ?>> activeComponents;
+
   //* hash of last successful routing */
-  private String                                            lastExecutedHash = "";
+  private String lastExecutedHash = "";
 
   /* the plugin */
   private IsPlugin plugin;
 
   public Router(IsPlugin plugin,
                 RouterConfiguration routerConfiguration,
-                List<SplitterControllerReference> splitter) {
+                List<CompositeControllerReference> compositeControllerReferences) {
     super();
     // save the shell
     this.shell = shell;
@@ -47,8 +52,8 @@ public final class Router {
     this.plugin = plugin;
     // save the router configuration reference
     this.routerConfiguration = routerConfiguration;
-    // save the splitter configuration reference
-    this.splitter = splitter;
+    // save the composite configuration reference
+    this.compositeControllerReferences = compositeControllerReferences;
     // inistantiate lists, etc.
     this.activeComponents = new HashMap<>();
     // register event handler
@@ -141,39 +146,39 @@ public final class Router {
     } else {
       // handle controller
       controller.setRouter(this);
-      // handle splitter of the controller
-      RouterLogger.logControllerLookForSplitter(controller.getClass()
-                                                          .getCanonicalName());
-      List<SplitterControllerReference> splitterForController = this.getSplitterForController(controller.getClass()
-                                                                                                        .getCanonicalName());
-      List<AbstractSplitterController<?, ?, ?>> splitterControllers = new ArrayList<>();
-      if (splitterForController.size() > 0) {
-        RouterLogger.logControllerSplitterFound(controller.getClass()
-                                                          .getCanonicalName(),
-                                                splitterForController.size());
-        splitterForController.forEach(s -> {
+      // handle composite of the controller
+      RouterLogger.logControllerLookForCompositeCotroller(controller.getClass()
+                                                                    .getCanonicalName());
+      List<CompositeControllerReference> compositeForController = this.getCompositeForController(controller.getClass()
+                                                                                                           .getCanonicalName());
+      List<AbstractCompositeController<?, ?, ?>> compositeControllers = new ArrayList<>();
+      if (compositeForController.size() > 0) {
+        RouterLogger.logControllerCompositeControllerFound(controller.getClass()
+                                                                     .getCanonicalName(),
+                                                           compositeForController.size());
+        compositeForController.forEach(s -> {
           try {
-            AbstractSplitterController<?, ?, ?> splitter = SplitterFactory.get()
-                                                                          .splitter(s.getSplitter(),
-                                                                                    hashResult.getParameterValues()
-                                                                                              .toArray(new String[0]));
-            if (splitter == null) {
-              RouterLogger.logSplitterNotFound(controller.getClass()
-                                                         .getCanonicalName(),
-                                               s.getSplitterName());
+            AbstractCompositeController<?, ?, ?> composite = CompositeFactory.get()
+                                                                             .getComposite(s.getComposite(),
+                                                                                           hashResult.getParameterValues()
+                                                                                                     .toArray(new String[0]));
+            if (composite == null) {
+              RouterLogger.logCompositeNotFound(controller.getClass()
+                                                          .getCanonicalName(),
+                                                s.getCompositeName());
 
             } else {
-              splitterControllers.add(splitter);
-              // inject router into splitter
-              splitter.setRouter(this);
-              // inject splitter into controller
-              controller.getSplitters()
-                        .put(s.getSplitterName(),
-                             splitter);
-              RouterLogger.logSplitterInjectedInController(splitter.getClass()
-                                                                   .getCanonicalName(),
-                                                           controller.getClass()
-                                                                     .getCanonicalName());
+              compositeControllers.add(composite);
+              // inject router into composite
+              composite.setRouter(this);
+              // inject composite into controller
+              controller.getComposites()
+                        .put(s.getCompositeName(),
+                             composite);
+              RouterLogger.logCompositeControllerInjectedInController(composite.getClass()
+                                                                               .getCanonicalName(),
+                                                                      controller.getClass()
+                                                                                .getCanonicalName());
             }
           } catch (RoutingInterceptionException e) {
             RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
@@ -186,38 +191,38 @@ public final class Router {
           }
         });
       } else {
-        RouterLogger.logControllerNoSplitterFound(controller.getClass()
-                                                            .getCanonicalName());
+        RouterLogger.logControllerNoCompositeControllerFound(controller.getClass()
+                                                                       .getCanonicalName());
       }
       this.append(routeConfiguraion.getSelector(),
                   controller);
-      // append splitter
-      for (AbstractSplitterController<?, ?, ?> splitter : splitterControllers) {
-        SplitterControllerReference reference = null;
-        for (SplitterControllerReference sfc : splitterForController) {
-          if (splitter.getClass()
-                      .getCanonicalName()
-                      .equals(sfc.getSplitter())) {
+      // append composite
+      for (AbstractCompositeController<?, ?, ?> compositeController : compositeControllers) {
+        CompositeControllerReference reference = null;
+        for (CompositeControllerReference sfc : compositeForController) {
+          if (compositeController.getClass()
+                                 .getCanonicalName()
+                                 .equals(sfc.getComposite())) {
             reference = sfc;
             break;
           }
         }
         if (reference != null) {
           this.append(reference.getSelector(),
-                      splitter);
-          RouterLogger.logControllerOnAttachedSplitter(controller.getClass()
-                                                                 .getCanonicalName(),
-                                                       splitter.getClass()
-                                                               .getCanonicalName());
+                      compositeController);
+          RouterLogger.logControllerOnAttachedCompositeController(controller.getClass()
+                                                                            .getCanonicalName(),
+                                                                  compositeController.getClass()
+                                                                                     .getCanonicalName());
         }
       }
       controller.onAttach();
       RouterLogger.logControllerOnAttachedMethodCalled(controller.getClass()
                                                                  .getCanonicalName());
-      splitterControllers.forEach(s -> {
+      compositeControllers.forEach(s -> {
         s.start();
-        RouterLogger.logSplitterStartMethodCalled(s.getClass()
-                                                   .getCanonicalName());
+        RouterLogger.logCompositeComntrollerStartMethodCalled(s.getClass()
+                                                               .getCanonicalName());
       });
       controller.start();
       RouterLogger.logControllerStartMethodCalled(controller.getClass()
@@ -238,7 +243,7 @@ public final class Router {
    * @throws RouterException in case no controller is found for the routing
    */
   public HashResult parse(String hash)
-    throws RouterException {
+      throws RouterException {
     HashResult hashResult = new HashResult();
     String hashValue = hash;
     // only the part after the first # is intresting:
@@ -332,29 +337,30 @@ public final class Router {
   }
 
   private boolean confirmRouting(List<RouteConfig> routeConfigurations) {
-    AtomicBoolean isDirtySplitter = new AtomicBoolean(false);
+    AtomicBoolean isDirtyComposite = new AtomicBoolean(false);
     routeConfigurations.stream()
                        .map(config -> this.activeComponents.get(config.getSelector()))
                        .filter(Objects::nonNull)
                        .forEach(c -> {
-                         Optional<String> optional = c.getSplitters()
+                         Optional<String> optional = c.getComposites()
                                                       .values()
                                                       .stream()
-                                                      .map(AbstractSplitterController::mayStop)
+                                                      .map(AbstractCompositeController::mayStop)
                                                       .filter(Objects::nonNull)
                                                       .findFirst();
                          if (optional.isPresent()) {
                            this.plugin.confirm(optional.get());
-                           isDirtySplitter.set(true);
+                           isDirtyComposite.set(true);
                          }
                        });
 
-    return !isDirtySplitter.get() && routeConfigurations.stream()
-                                                        .map(config -> this.activeComponents.get(config.getSelector()))
-                                                        .filter(Objects::nonNull)
-                                                        .map(AbstractComponentController::mayStop)
-                                                        .filter(Objects::nonNull)
-                                                        .allMatch(message -> this.plugin.confirm(message));
+    return !isDirtyComposite.get() &&
+        routeConfigurations.stream()
+                           .map(config -> this.activeComponents.get(config.getSelector()))
+                           .filter(Objects::nonNull)
+                           .map(AbstractComponentController::mayStop)
+                           .filter(Objects::nonNull)
+                           .allMatch(message -> this.plugin.confirm(message));
   }
 
   private void stopController(List<RouteConfig> routeConfiguraions) {
@@ -362,8 +368,8 @@ public final class Router {
                       .map(config -> this.activeComponents.get(config.getSelector()))
                       .filter(Objects::nonNull)
                       .forEach(controller -> {
-                        // stop splitters
-                        controller.getSplitters()
+                        // stop compositeComntrollers
+                        controller.getComposites()
                                   .values()
                                   .stream()
                                   .forEach(s -> {
@@ -372,10 +378,10 @@ public final class Router {
                                                                                  s.getClass()
                                                                                   .getCanonicalName());
                                     s.stop();
-                                    RouterLogger.loFilterStopMethodCalled(controller.getClass()
-                                                                                    .getCanonicalName(),
-                                                                          s.getClass()
-                                                                           .getCanonicalName());
+                                    RouterLogger.logFilterStopMethodCalled(controller.getClass()
+                                                                                     .getCanonicalName(),
+                                                                           s.getClass()
+                                                                            .getCanonicalName());
                                   });
 
                         // stop controller
@@ -411,16 +417,16 @@ public final class Router {
   }
 
   private void append(String selector,
-                      AbstractSplitterController<?, ?, ?> splitter) {
+                      AbstractCompositeController<?, ?, ?> compositeController) {
     if (this.plugin.attach(selector,
-                           splitter.asElement())) {
+                           compositeController.asElement())) {
     }
   }
 
-  private List<SplitterControllerReference> getSplitterForController(String controllerClassName) {
-    return this.splitter.stream()
-                        .filter(s -> controllerClassName.equals(s.getController()))
-                        .collect(Collectors.toList());
+  private List<CompositeControllerReference> getCompositeForController(String controllerClassName) {
+    return this.compositeControllerReferences.stream()
+                                             .filter(s -> controllerClassName.equals(s.getController()))
+                                             .collect(Collectors.toList());
   }
 
   /**

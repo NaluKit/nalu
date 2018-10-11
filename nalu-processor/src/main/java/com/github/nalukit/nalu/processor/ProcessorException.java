@@ -19,7 +19,7 @@ package com.github.nalukit.nalu.processor;
 
 @SuppressWarnings("serial")
 public class ProcessorException
-  extends Exception {
+    extends Exception {
 
   public ProcessorException() {
     super();

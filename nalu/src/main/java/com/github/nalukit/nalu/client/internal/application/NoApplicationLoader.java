@@ -28,7 +28,7 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
  */
 @NaluInternalUse
 public final class NoApplicationLoader
-  extends AbstractApplicationLoader<DefaultContext> {
+    extends AbstractApplicationLoader<DefaultContext> {
 
   @Override
   public void load(FinishLoadCommand finishLoadCommand) {

@@ -42,7 +42,7 @@ public interface IsShell {
 
   /**
    * Method will be called after a component is attached.
-   *
+   * <p>
    * This is a good place to do a 'forceLayout()'.
    * f.e.: if you are working with GXT!
    */

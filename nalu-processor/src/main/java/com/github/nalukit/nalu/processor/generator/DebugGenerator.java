@@ -28,6 +28,7 @@ import javax.lang.model.element.Modifier;
 public class DebugGenerator {
 
   private ApplicationMetaModel applicationMetaModel;
+
   private TypeSpec.Builder     typeSpec;
 
   @SuppressWarnings("unused")
@@ -57,13 +58,13 @@ public class DebugGenerator {
                                                 ClassName.get(Debug.class),
                                                 applicationMetaModel.getDebugLogLevel());
 
-//    } else {
-//      loadDebugConfigurationMethod.addStatement("$T.get().register($L, new $T(), $T.LogLevel.$L)",
-//                                                ClassName.get(ClientLogger.class),
-//                                                "false",
-//                                                ClassName.get(DefaultLogger.class),
-//                                                ClassName.get(Debug.class),
-//                                                applicationMetaModel.getDebugLogLevel());
+      //    } else {
+      //      loadDebugConfigurationMethod.addStatement("$T.get().register($L, new $T(), $T.LogLevel.$L)",
+      //                                                ClassName.get(ClientLogger.class),
+      //                                                "false",
+      //                                                ClassName.get(DefaultLogger.class),
+      //                                                ClassName.get(Debug.class),
+      //                                                applicationMetaModel.getDebugLogLevel());
     }
     typeSpec.addMethod(loadDebugConfigurationMethod.build());
   }
@@ -71,6 +72,7 @@ public class DebugGenerator {
   public static final class Builder {
 
     ApplicationMetaModel applicationMetaModel;
+
     TypeSpec.Builder     typeSpec;
 
     /**

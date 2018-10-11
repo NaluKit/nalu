@@ -16,7 +16,7 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
-import com.github.nalukit.nalu.client.component.IsSplitter;
+import com.github.nalukit.nalu.client.component.IsComposite;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 
@@ -28,8 +28,11 @@ import javax.lang.model.element.TypeElement;
 public class SplitterControllerAnnotationValidator {
 
   private ProcessorUtils        processorUtils;
+
   private ProcessingEnvironment processingEnvironment;
+
   private RoundEnvironment      roundEnvironment;
+
   private Element               splitterElement;
 
   @SuppressWarnings("unused")
@@ -43,18 +46,18 @@ public class SplitterControllerAnnotationValidator {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   public void validate()
-    throws ProcessorException {
+      throws ProcessorException {
     TypeElement typeElement = (TypeElement) this.splitterElement;
     // @SplitterController can only be used on a class
     if (!typeElement.getKind()
@@ -65,7 +68,7 @@ public class SplitterControllerAnnotationValidator {
     if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
                                                       typeElement.asType(),
                                                       this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(IsSplitter.class.getCanonicalName())
+                                                                                .getTypeElement(IsComposite.class.getCanonicalName())
                                                                                 .asType()))) {
       throw new ProcessorException("Nalu-Processor: @SplitterController can only be used on a class that extends IsSplitter");
     }
@@ -74,7 +77,9 @@ public class SplitterControllerAnnotationValidator {
   public static final class Builder {
 
     ProcessingEnvironment processingEnvironment;
+
     RoundEnvironment      roundEnvironment;
+
     Element               splitterElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {

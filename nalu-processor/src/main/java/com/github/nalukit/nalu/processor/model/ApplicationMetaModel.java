@@ -19,7 +19,7 @@ package com.github.nalukit.nalu.processor.model;
 
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.SplitterModel;
+import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +56,7 @@ public class ApplicationMetaModel {
 
   private ClassNameModel componentType;
 
-  private List<SplitterModel> splitters;
+  private List<CompositeModel> splitters;
 
   public ApplicationMetaModel() {
   }
@@ -205,11 +205,11 @@ public class ApplicationMetaModel {
     this.routeErrorRoute = routeErrorRoute;
   }
 
-  public List<SplitterModel> getSplitters() {
+  public List<CompositeModel> getSplitters() {
     return splitters;
   }
 
-  public void setSplitters(List<SplitterModel> splitters) {
+  public void setSplitters(List<CompositeModel> splitters) {
     this.splitters = splitters;
   }
 }

@@ -17,8 +17,8 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
-import com.github.nalukit.nalu.client.component.annotation.Splitter;
-import com.github.nalukit.nalu.client.component.annotation.Splitters;
+import com.github.nalukit.nalu.client.component.annotation.Composite;
+import com.github.nalukit.nalu.client.component.annotation.Composites;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
@@ -32,7 +32,7 @@ import javax.lang.model.type.MirroredTypeException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class SplittersAnnotationScanner {
+public class CompositesAnnotationScanner {
 
   private ProcessorUtils processorUtils;
 
@@ -43,12 +43,16 @@ public class SplittersAnnotationScanner {
   private TypeElement controllerTypeElement;
 
   @SuppressWarnings("unused")
-  private SplittersAnnotationScanner(Builder builder) {
+  private CompositesAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
     this.controllerModel = builder.controllerModel;
     this.controllerTypeElement = builder.controllerTypeElement;
     setUp();
+  }
+
+  public static Builder builder() {
+    return new Builder();
   }
 
   private void setUp() {
@@ -57,15 +61,11 @@ public class SplittersAnnotationScanner {
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   ControllerModel scan(RoundEnvironment roundEnvironment)
-    throws ProcessorException {
-    Splitters annotation = this.controllerTypeElement.getAnnotation(Splitters.class);
+      throws ProcessorException {
+    Composites annotation = this.controllerTypeElement.getAnnotation(Composites.class);
     if (annotation != null) {
-      for (Splitter splitter : annotation.value()) {
+      for (Composite splitter : annotation.value()) {
         controllerModel.getSplitters()
                        .add(new ControllerSplitterModel(splitter.name(),
                                                         new ClassNameModel(getSplitterTypeElement(splitter).toString()),
@@ -75,9 +75,9 @@ public class SplittersAnnotationScanner {
     return this.controllerModel;
   }
 
-  private TypeElement getSplitterTypeElement(Splitter annotation) {
+  private TypeElement getSplitterTypeElement(Composite annotation) {
     try {
-      annotation.splitterController();
+      annotation.compositeController();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());
@@ -115,8 +115,8 @@ public class SplittersAnnotationScanner {
       return this;
     }
 
-    public SplittersAnnotationScanner build() {
-      return new SplittersAnnotationScanner(this);
+    public CompositesAnnotationScanner build() {
+      return new CompositesAnnotationScanner(this);
     }
   }
 }

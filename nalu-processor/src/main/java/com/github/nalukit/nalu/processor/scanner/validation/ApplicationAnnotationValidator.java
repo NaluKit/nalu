@@ -30,7 +30,9 @@ import java.util.Set;
 public class ApplicationAnnotationValidator {
 
   private ProcessorUtils        processorUtils;
+
   private ProcessingEnvironment processingEnvironment;
+
   private RoundEnvironment      roundEnvironment;
 
   @SuppressWarnings("unused")
@@ -43,18 +45,18 @@ public class ApplicationAnnotationValidator {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   public void validate()
-    throws ProcessorException {
+      throws ProcessorException {
     // get elements annotated with Application annotation
     Set<? extends Element> elementsWithApplicaitonAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Application.class);
     // at least there should exatly one Application annotation!
@@ -69,15 +71,17 @@ public class ApplicationAnnotationValidator {
     for (Element element : elementsWithApplicaitonAnnotation) {
       Application annotation = element.getAnnotation(Application.class);
       if (annotation.startRoute() == null ||
-          annotation.startRoute().equals("") ||
-          annotation.startRoute().equals("/")) {
+          annotation.startRoute()
+                    .equals("") ||
+          annotation.startRoute()
+                    .equals("/")) {
         throw new ProcessorException("Nalu-Processor: @Application -> startroute can not be empty and can not be '/'");
       }
     }
   }
 
   public void validate(Element element)
-    throws ProcessorException {
+      throws ProcessorException {
     if (element instanceof TypeElement) {
       TypeElement typeElement = (TypeElement) element;
       // annotated element has to be a interface
@@ -91,8 +95,10 @@ public class ApplicationAnnotationValidator {
                                                        this.processingEnvironment.getElementUtils()
                                                                                  .getTypeElement(IsApplication.class.getCanonicalName())
                                                                                  .asType())) {
-        throw new ProcessorException("Nalu-Processor: " + typeElement.getSimpleName()
-                                                                     .toString() + ": @Application must implement IsApplication interface");
+        throw new ProcessorException("Nalu-Processor: " +
+                                         typeElement.getSimpleName()
+                                                    .toString() +
+                                         ": @Application must implement IsApplication interface");
       }
     } else {
       throw new ProcessorException("Nalu-Processor:" + "@Application can only be used on a type (interface)");
@@ -102,6 +108,7 @@ public class ApplicationAnnotationValidator {
   public static final class Builder {
 
     ProcessingEnvironment processingEnvironment;
+
     RoundEnvironment      roundEnvironment;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {

@@ -38,9 +38,13 @@ import static java.util.Objects.isNull;
 public class FiltersAnnotationScanner {
 
   private ProcessorUtils        processorUtils;
+
   private ProcessingEnvironment processingEnvironment;
+
   private RoundEnvironment      roundEnvironment;
+
   private ApplicationMetaModel  applicationMetaModel;
+
   private TypeElement           applicationTypeElement;
 
   @SuppressWarnings("unused")
@@ -53,18 +57,18 @@ public class FiltersAnnotationScanner {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
-    throws ProcessorException {
+      throws ProcessorException {
     // do validation
     FiltersAnnotationValidator.builder()
                               .roundEnvironment(roundEnvironment)
@@ -115,8 +119,11 @@ public class FiltersAnnotationScanner {
   public static class Builder {
 
     ApplicationMetaModel  applicationMetaModel;
+
     ProcessingEnvironment processingEnvironment;
+
     RoundEnvironment      roundEnvironment;
+
     TypeElement           applicationTypeElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
@@ -133,7 +140,6 @@ public class FiltersAnnotationScanner {
       this.applicationMetaModel = applicationMetaModel;
       return this;
     }
-
 
     public Builder applicationTypeElement(TypeElement applicationTypeElement) {
       this.applicationTypeElement = applicationTypeElement;

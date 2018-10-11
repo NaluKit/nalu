@@ -5,7 +5,7 @@ import com.github.nalukit.nalu.client.application.IsContext;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractHandler<C extends IsContext>
-  implements IsHandler {
+    implements IsHandler {
 
   protected C context;
 

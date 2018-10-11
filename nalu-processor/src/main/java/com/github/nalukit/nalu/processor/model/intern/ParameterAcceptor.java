@@ -3,6 +3,7 @@ package com.github.nalukit.nalu.processor.model.intern;
 public class ParameterAcceptor {
 
   private String parameterName;
+
   private String methodName;
 
   public ParameterAcceptor(String parameterName,

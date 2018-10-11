@@ -34,8 +34,11 @@ import static java.util.Objects.isNull;
 public class DebugAnnotationScanner {
 
   private ProcessorUtils        processorUtils;
+
   private ProcessingEnvironment processingEnvironment;
+
   private TypeElement           applicationTypeElement;
+
   private ApplicationMetaModel  applicationMetaModel;
 
   @SuppressWarnings("unused")
@@ -47,18 +50,18 @@ public class DebugAnnotationScanner {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
-    throws ProcessorException {
+      throws ProcessorException {
     // do validation
     DebugAnnotationValidator.builder()
                             .roundEnvironment(roundEnvironment)
@@ -96,7 +99,9 @@ public class DebugAnnotationScanner {
   public static class Builder {
 
     ProcessingEnvironment processingEnvironment;
+
     TypeElement           eventBusTypeElement;
+
     ApplicationMetaModel  applicationMetaModel;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {

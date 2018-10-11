@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.client.component;
 
-public interface IsSplitter<W> {
+public interface IsComposite<W> {
 
   W asElement();
 

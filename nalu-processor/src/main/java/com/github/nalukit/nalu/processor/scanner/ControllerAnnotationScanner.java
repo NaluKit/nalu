@@ -56,18 +56,18 @@ public class ControllerAnnotationScanner {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
-    throws ProcessorException {
+      throws ProcessorException {
     // handle ProvidesSelector-annotation
     for (Element element : roundEnvironment.getElementsAnnotatedWith(Controller.class)) {
       ControllerModel controllerModel = this.handleController(roundEnvironment,
@@ -76,13 +76,13 @@ public class ControllerAnnotationScanner {
       handleAcceptParameters(roundEnvironment,
                              element,
                              controllerModel);
-      // Splitters-Annotation
-      controllerModel = SplittersAnnotationScanner.builder()
-                                                  .processingEnvironment(processingEnvironment)
-                                                  .controllerModel(controllerModel)
-                                                  .controllerTypeElement((TypeElement) element)
-                                                  .build()
-                                                  .scan(roundEnvironment);
+      // Composites-Annotation
+      controllerModel = CompositesAnnotationScanner.builder()
+                                                   .processingEnvironment(processingEnvironment)
+                                                   .controllerModel(controllerModel)
+                                                   .controllerTypeElement((TypeElement) element)
+                                                   .build()
+                                                   .scan(roundEnvironment);
 
       // add model to routes ...
       this.applicationMetaModel.getController()
@@ -94,7 +94,7 @@ public class ControllerAnnotationScanner {
 
   private ControllerModel handleController(RoundEnvironment roundEnvironment,
                                            Element element)
-    throws ProcessorException {
+      throws ProcessorException {
     // do validation
     ControllerAnnotationValidator.builder()
                                  .roundEnvironment(roundEnvironment)
@@ -136,7 +136,7 @@ public class ControllerAnnotationScanner {
   private void handleAcceptParameters(RoundEnvironment roundEnvironment,
                                       Element element,
                                       ControllerModel controllerModel)
-    throws ProcessorException {
+      throws ProcessorException {
     TypeElement typeElement = (TypeElement) element;
     List<Element> annotatedElements = this.processorUtils.getMethodFromTypeElementAnnotatedWith(this.processingEnvironment,
                                                                                                 typeElement,
@@ -181,7 +181,7 @@ public class ControllerAnnotationScanner {
   }
 
   private TypeMirror getComponentType(final TypeMirror typeMirror) {
-    final TypeMirror[] result = {null};
+    final TypeMirror[] result = { null };
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
                                                                 typeMirror,
                                                                 this.processorUtils.getElements()

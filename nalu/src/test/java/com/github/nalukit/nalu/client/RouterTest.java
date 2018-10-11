@@ -23,7 +23,7 @@ public class RouterTest {
     this.router = new Router(Utils.createPlugin(true,
                                                 true),
                              Utils.createRouterConfiguration(),
-                             Utils.createSplitterConfiguration());
+                             Utils.createCompositeConfiguration());
   }
 
   @After

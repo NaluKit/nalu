@@ -3,7 +3,7 @@ package com.github.nalukit.nalu.client.filter;
 import com.github.nalukit.nalu.client.application.IsContext;
 
 public abstract class AbstractFilter<C extends IsContext>
-  implements IsFilter {
+    implements IsFilter {
 
   protected C context;
 

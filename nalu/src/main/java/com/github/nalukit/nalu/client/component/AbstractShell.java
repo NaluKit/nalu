@@ -5,7 +5,7 @@ import com.github.nalukit.nalu.client.application.IsContext;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractShell<C extends IsContext>
-  implements IsShell {
+    implements IsShell {
 
   protected Router router;
 

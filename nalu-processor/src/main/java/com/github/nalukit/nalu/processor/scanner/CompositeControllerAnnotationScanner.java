@@ -17,16 +17,16 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
-import com.github.nalukit.nalu.client.component.AbstractSplitterController;
+import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
-import com.github.nalukit.nalu.client.component.annotation.SplitterController;
+import com.github.nalukit.nalu.client.component.annotation.CompositeController;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterAcceptor;
-import com.github.nalukit.nalu.processor.model.intern.SplitterModel;
+import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.scanner.validation.AcceptParameterAnnotationValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.SplitterControllerAnnotationValidator;
 
@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SplitterControllerAnnotationScanner {
+public class CompositeControllerAnnotationScanner {
 
   private ProcessorUtils processorUtils;
 
@@ -50,11 +50,15 @@ public class SplitterControllerAnnotationScanner {
   private ApplicationMetaModel applicationMetaModel;
 
   @SuppressWarnings("unused")
-  private SplitterControllerAnnotationScanner(Builder builder) {
+  private CompositeControllerAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
     this.applicationMetaModel = builder.applicationMetaModel;
     setUp();
+  }
+
+  public static Builder builder() {
+    return new Builder();
   }
 
   private void setUp() {
@@ -63,31 +67,27 @@ public class SplitterControllerAnnotationScanner {
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
-    throws ProcessorException {
+      throws ProcessorException {
     // handle SplitterController-annotation
-    for (Element element : roundEnvironment.getElementsAnnotatedWith(SplitterController.class)) {
-      // handle splitter
-      SplitterModel splitterModel = handleSplitter(roundEnvironment,
-                                                   element);
+    for (Element element : roundEnvironment.getElementsAnnotatedWith(CompositeController.class)) {
+      // handle composite
+      CompositeModel compositeModel = handleSplitter(roundEnvironment,
+                                                     element);
       // handle AcceptParameter annotation
       handleAcceptParameters(roundEnvironment,
                              element,
-                             splitterModel);
+                             compositeModel);
       // add model to configuration ...
       this.applicationMetaModel.getSplitters()
-                               .add(splitterModel);
+                               .add(compositeModel);
     }
     return this.applicationMetaModel;
   }
 
-  private SplitterModel handleSplitter(RoundEnvironment roundEnvironment,
-                                       Element element)
-    throws ProcessorException {
+  private CompositeModel handleSplitter(RoundEnvironment roundEnvironment,
+                                        Element element)
+      throws ProcessorException {
     // do validation
     SplitterControllerAnnotationValidator.builder()
                                          .roundEnvironment(roundEnvironment)
@@ -96,7 +96,7 @@ public class SplitterControllerAnnotationScanner {
                                          .build()
                                          .validate();
     // get Annotation ...
-    SplitterController annotation = element.getAnnotation(SplitterController.class);
+    CompositeController annotation = element.getAnnotation(CompositeController.class);
     // handle ...
     TypeElement componentTypeElement = this.getComponentTypeElement(annotation);
     if (componentTypeElement == null) {
@@ -115,20 +115,20 @@ public class SplitterControllerAnnotationScanner {
       }
     }
     // create model ...
-    return new SplitterModel(new ClassNameModel(element.toString()),
-                             new ClassNameModel(componentInterfaceTypeElement.toString()),
-                             new ClassNameModel(componentTypeElement.toString()));
+    return new CompositeModel(new ClassNameModel(element.toString()),
+                              new ClassNameModel(componentInterfaceTypeElement.toString()),
+                              new ClassNameModel(componentTypeElement.toString()));
   }
 
   private void handleAcceptParameters(RoundEnvironment roundEnvironment,
                                       Element element,
-                                      SplitterModel splitterModel)
-    throws ProcessorException {
+                                      CompositeModel splitterModel)
+      throws ProcessorException {
     TypeElement typeElement = (TypeElement) element;
     List<Element> annotatedElements = this.processorUtils.getMethodFromTypeElementAnnotatedWith(this.processingEnvironment,
                                                                                                 typeElement,
                                                                                                 AcceptParameter.class);
-    // get all controllers, that use the splitter (for validation)
+    // get all controllers, that use the composite (for validation)
     for (ControllerModel model : this.getControllerUsingSplitter(element)) {
       // validate
       AcceptParameterAnnotationValidator.builder()
@@ -144,13 +144,13 @@ public class SplitterControllerAnnotationScanner {
       ExecutableElement executableElement = (ExecutableElement) annotatedElement;
       AcceptParameter annotation = executableElement.getAnnotation(AcceptParameter.class);
       splitterModel.getParameterAcceptors()
-                     .add(new ParameterAcceptor(annotation.value(),
-                                                executableElement.getSimpleName()
-                                                                 .toString()));
+                   .add(new ParameterAcceptor(annotation.value(),
+                                              executableElement.getSimpleName()
+                                                               .toString()));
     }
   }
 
-  private TypeElement getComponentTypeElement(SplitterController annotation) {
+  private TypeElement getComponentTypeElement(CompositeController annotation) {
     try {
       annotation.component();
     } catch (MirroredTypeException exception) {
@@ -160,7 +160,7 @@ public class SplitterControllerAnnotationScanner {
     return null;
   }
 
-  private TypeElement getComponentInterfaceTypeElement(SplitterController annotation) {
+  private TypeElement getComponentInterfaceTypeElement(CompositeController annotation) {
     try {
       annotation.componentInterface();
     } catch (MirroredTypeException exception) {
@@ -171,11 +171,11 @@ public class SplitterControllerAnnotationScanner {
   }
 
   private TypeMirror getComponentType(final TypeMirror typeMirror) {
-    final TypeMirror[] result = {null};
+    final TypeMirror[] result = { null };
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
                                                                 typeMirror,
                                                                 this.processorUtils.getElements()
-                                                                                   .getTypeElement(AbstractSplitterController.class.getCanonicalName())
+                                                                                   .getTypeElement(AbstractCompositeController.class.getCanonicalName())
                                                                                    .asType());
     if (type == null) {
       return result[0];
@@ -259,8 +259,8 @@ public class SplitterControllerAnnotationScanner {
       return this;
     }
 
-    public SplitterControllerAnnotationScanner build() {
-      return new SplitterControllerAnnotationScanner(this);
+    public CompositeControllerAnnotationScanner build() {
+      return new CompositeControllerAnnotationScanner(this);
     }
   }
 }

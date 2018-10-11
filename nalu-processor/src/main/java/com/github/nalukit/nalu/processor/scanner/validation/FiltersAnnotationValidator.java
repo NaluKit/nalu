@@ -36,8 +36,11 @@ import java.util.stream.Collectors;
 public class FiltersAnnotationValidator {
 
   private ProcessorUtils        processorUtils;
+
   private ProcessingEnvironment processingEnvironment;
+
   private RoundEnvironment      roundEnvironment;
+
   private TypeElement           applicationTypeElement;
 
   @SuppressWarnings("unused")
@@ -52,18 +55,18 @@ public class FiltersAnnotationValidator {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   public void validate()
-    throws ProcessorException {
+      throws ProcessorException {
     // get elements annotated with EventBus annotation
     Set<? extends Element> elementsWithFiltersAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Filters.class);
     // at least there should only one Application annotation!
@@ -133,8 +136,11 @@ public class FiltersAnnotationValidator {
   public static final class Builder {
 
     ProcessingEnvironment processingEnvironment;
+
     RoundEnvironment      roundEnvironment;
+
     Element               providesSecletorElement;
+
     TypeElement           applicationTypeElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {

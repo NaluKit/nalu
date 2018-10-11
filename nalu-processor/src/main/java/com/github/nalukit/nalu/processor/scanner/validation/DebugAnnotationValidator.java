@@ -34,7 +34,9 @@ import java.util.Set;
 public class DebugAnnotationValidator {
 
   private ProcessorUtils        processorUtils;
+
   private ProcessingEnvironment processingEnvironment;
+
   private RoundEnvironment      roundEnvironment;
 
   @SuppressWarnings("unused")
@@ -47,18 +49,18 @@ public class DebugAnnotationValidator {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   public void validate()
-    throws ProcessorException {
+      throws ProcessorException {
     // get elements annotated with Debug annotation
     Set<? extends Element> elementsWithDebugAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Debug.class);
     // at least there should only one Application annotation!
@@ -114,6 +116,7 @@ public class DebugAnnotationValidator {
   public static final class Builder {
 
     ProcessingEnvironment processingEnvironment;
+
     RoundEnvironment      roundEnvironment;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {

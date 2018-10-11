@@ -35,6 +35,7 @@ import java.util.stream.IntStream;
 public class ControllerGenerator {
 
   private ApplicationMetaModel applicationMetaModel;
+
   private TypeSpec.Builder     typeSpec;
 
   @SuppressWarnings("unused")
@@ -100,9 +101,9 @@ public class ControllerGenerator {
                                                   .addStatement("sb01.append(\"controller >>$L<< --> will be created\")",
                                                                 controllerModel.getProvider()
                                                                                .getPackage() +
-                                                                "." +
-                                                                controllerModel.getProvider()
-                                                                               .getSimpleName())
+                                                                    "." +
+                                                                    controllerModel.getProvider()
+                                                                                   .getSimpleName())
                                                   .addStatement("$T.get().logSimple(sb01.toString(), 1)",
                                                                 ClassName.get(ClientLogger.class))
                                                   .addStatement("$T controller = new $T()",
@@ -167,15 +168,20 @@ public class ControllerGenerator {
         if (controllerModel.getParameterAcceptors()
                            .size() > 0) {
           createMethod.beginControlFlow("if (parms != null)");
-          for (int i = 0; i < controllerModel.getParameters()
-                                             .size(); i++) {
+          for (int i = 0; i <
+              controllerModel.getParameters()
+                             .size(); i++) {
             String methodName = controllerModel.getParameterAcceptors(controllerModel.getParameters()
                                                                                      .get(i));
             if (methodName != null) {
               createMethod.beginControlFlow("if (parms.length >= " + Integer.toString(i + 1) + ")")
                           .addStatement("sb01 = new $T()",
                                         ClassName.get(StringBuilder.class))
-                          .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> using method >>" + methodName + "<< to set value >>\").append(parms[" + Integer.toString(i) + "]).append(\"<<\")")
+                          .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> using method >>" +
+                                            methodName +
+                                            "<< to set value >>\").append(parms[" +
+                                            Integer.toString(i) +
+                                            "]).append(\"<<\")")
                           .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                         ClassName.get(ClientLogger.class))
                           .addStatement("controller." + methodName + "(parms[" + Integer.toString(i) + "])")
@@ -188,18 +194,18 @@ public class ControllerGenerator {
       createMethod.addStatement("return controller");
 
       loadComponentsMethodBuilder.addComment("create ControllerCreator for: " +
-                                             controllerModel.getProvider()
-                                                            .getPackage() +
-                                             "." +
-                                             controllerModel.getProvider()
-                                                            .getSimpleName())
+                                                 controllerModel.getProvider()
+                                                                .getPackage() +
+                                                 "." +
+                                                 controllerModel.getProvider()
+                                                                .getSimpleName())
                                  .addStatement("$T.get().registerController($S, $L)",
                                                ClassName.get(ControllerFactory.class),
                                                controllerModel.getProvider()
                                                               .getPackage() +
-                                               "." +
-                                               controllerModel.getProvider()
-                                                              .getSimpleName(),
+                                                   "." +
+                                                   controllerModel.getProvider()
+                                                                  .getSimpleName(),
                                                TypeSpec.anonymousClassBuilder("")
                                                        .addSuperinterface(ControllerCreator.class)
                                                        .addMethod(createMethod.build())
@@ -269,6 +275,7 @@ public class ControllerGenerator {
   public static final class Builder {
 
     ApplicationMetaModel applicationMetaModel;
+
     TypeSpec.Builder     typeSpec;
 
     /**

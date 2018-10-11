@@ -1,7 +1,7 @@
 package com.github.nalukit.nalu.client.component;
 
 public abstract class AbstractComponent<C extends IsComponent.Controller, W>
-  implements IsComponent<C, W> {
+    implements IsComponent<C, W> {
 
   private C controller;
 
@@ -12,8 +12,7 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
 
   /**
    * <b>Important:<br>
-   *  Inside the render-method, you have to call the initElement-method!</b>
-   *
+   * Inside the render-method, you have to call the initElement-method!</b>
    */
   public abstract void render();
 

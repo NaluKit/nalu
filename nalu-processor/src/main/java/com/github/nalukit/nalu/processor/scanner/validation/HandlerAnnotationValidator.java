@@ -29,8 +29,11 @@ import javax.lang.model.element.TypeElement;
 public class HandlerAnnotationValidator {
 
   private ProcessorUtils        processorUtils;
+
   private ProcessingEnvironment processingEnvironment;
+
   private RoundEnvironment      roundEnvironment;
+
   private Element               handlerElement;
 
   @SuppressWarnings("unused")
@@ -44,18 +47,18 @@ public class HandlerAnnotationValidator {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   public void validate()
-    throws ProcessorException {
+      throws ProcessorException {
     TypeElement typeElement = (TypeElement) this.handlerElement;
     // @ProvidesSelector can only be used on a class
     if (!typeElement.getKind()
@@ -67,8 +70,7 @@ public class HandlerAnnotationValidator {
                                                       typeElement.asType(),
                                                       this.processingEnvironment.getElementUtils()
                                                                                 .getTypeElement(IsHandler.class.getCanonicalName())
-                                                                                .asType())
-    )) {
+                                                                                .asType()))) {
       throw new ProcessorException("Nalu-Processor: @Handler can only be used on a class that implements IsHandler");
     }
     // @Handler can only be used on a interface that extends IsApplication
@@ -76,8 +78,7 @@ public class HandlerAnnotationValidator {
                                                       typeElement.asType(),
                                                       this.processingEnvironment.getElementUtils()
                                                                                 .getTypeElement(AbstractHandler.class.getCanonicalName())
-                                                                                .asType())
-    )) {
+                                                                                .asType()))) {
       throw new ProcessorException("Nalu-Processor: @Handler can only be used on a class that extends AbstractHandler");
     }
   }
@@ -85,7 +86,9 @@ public class HandlerAnnotationValidator {
   public static final class Builder {
 
     ProcessingEnvironment processingEnvironment;
+
     RoundEnvironment      roundEnvironment;
+
     Element               handlerElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {

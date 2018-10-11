@@ -4,13 +4,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- *
- *
  * @author Frank Hossfeld
  */
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Splitters {
+public @interface Composites {
 
-  Splitter[] value();
+  Composite[] value();
 
 }

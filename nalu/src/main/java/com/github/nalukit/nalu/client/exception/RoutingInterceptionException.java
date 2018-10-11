@@ -2,7 +2,7 @@ package com.github.nalukit.nalu.client.exception;
 
 @SuppressWarnings("serial")
 public class RoutingInterceptionException
-  extends Exception {
+    extends Exception {
 
   private String controllerClassName;
 

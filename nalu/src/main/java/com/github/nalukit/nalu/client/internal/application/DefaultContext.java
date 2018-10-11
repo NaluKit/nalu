@@ -8,5 +8,5 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
  */
 @NaluInternalUse
 public class DefaultContext
-  implements IsContext  {
+    implements IsContext {
 }

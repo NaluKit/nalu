@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class SplitterModel {
+public class CompositeModel {
 
   private ClassNameModel provider;
 
@@ -14,12 +14,12 @@ public class SplitterModel {
 
   private List<ParameterAcceptor> parameterAcceptors;
 
-  public SplitterModel() {
+  public CompositeModel() {
   }
 
-  public SplitterModel(ClassNameModel provider,
-                       ClassNameModel componentInterface,
-                       ClassNameModel component) {
+  public CompositeModel(ClassNameModel provider,
+                        ClassNameModel componentInterface,
+                        ClassNameModel component) {
     this.provider = provider;
     this.componentInterface = componentInterface;
     this.component = component;

@@ -3,16 +3,16 @@ package com.github.nalukit.nalu.client.component;
 import com.github.nalukit.nalu.client.application.IsContext;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
 
-public abstract class AbstractSplitterController<C extends IsContext, V extends IsComponent<?, W>, W>
-  extends AbstractController<C>
-  implements IsSplitter<W>,
-             IsComponent.Controller {
+public abstract class AbstractCompositeController<C extends IsContext, V extends IsComponent<?, W>, W>
+    extends AbstractController<C>
+    implements IsComposite<W>,
+               IsComponent.Controller {
 
   protected V component;
 
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
 
-  public AbstractSplitterController() {
+  public AbstractCompositeController() {
     super();
   }
 

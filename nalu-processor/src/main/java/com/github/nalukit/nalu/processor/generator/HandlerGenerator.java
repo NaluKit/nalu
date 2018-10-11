@@ -29,8 +29,11 @@ import javax.lang.model.element.Modifier;
 public class HandlerGenerator {
 
   private ProcessorUtils        processorUtils;
+
   private ProcessingEnvironment processingEnvironment;
+
   private ApplicationMetaModel  applicationMetaModel;
+
   private TypeSpec.Builder      typeSpec;
 
   @SuppressWarnings("unused")
@@ -44,14 +47,14 @@ public class HandlerGenerator {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
-  }
-
-  public static Builder builder() {
-    return new Builder();
   }
 
   void generate() {
@@ -90,7 +93,9 @@ public class HandlerGenerator {
   public static final class Builder {
 
     ProcessingEnvironment processingEnvironment;
+
     ApplicationMetaModel  applicationMetaModel;
+
     TypeSpec.Builder      typeSpec;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {

@@ -7,19 +7,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractComponentController<C extends IsContext, V extends IsComponent<?, W>, W>
-  extends AbstractController<C>
-  implements IsController<W>,
-             IsComponent.Controller {
+    extends AbstractController<C>
+    implements IsController<W>,
+               IsComponent.Controller {
 
   protected V component;
 
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
 
-  private Map<String, AbstractSplitterController<?, ?, ?>> splitters;
+  private Map<String, AbstractCompositeController<?, ?, ?>> compositeComtrollers;
 
   public AbstractComponentController() {
     super();
-    this.splitters = new HashMap<>();
+    this.compositeComtrollers = new HashMap<>();
   }
 
   @Override
@@ -78,12 +78,13 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
     this.component = component;
   }
 
-  public Map<String, AbstractSplitterController<?, ?, ?>> getSplitters() {
-    return splitters;
+  public Map<String, AbstractCompositeController<?, ?, ?>> getComposites() {
+    return compositeComtrollers;
   }
 
   @SuppressWarnings("unchecked")
-  public <S extends AbstractSplitterController<?, ?, ?>> S getSplitter(String name) {
-    return (S) this.getSplitters().get(name);
+  public <S extends AbstractCompositeController<?, ?, ?>> S getComposite(String name) {
+    return (S) this.getComposites()
+                   .get(name);
   }
 }

@@ -16,7 +16,7 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.internal.SplitterControllerReference;
+import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerSplitterModel;
@@ -26,16 +26,17 @@ import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
 
-public class SplittersGenerator {
+public class CompositesGenerator {
 
   private ApplicationMetaModel applicationMetaModel;
-  private TypeSpec.Builder     typeSpec;
+
+  private TypeSpec.Builder typeSpec;
 
   @SuppressWarnings("unused")
-  private SplittersGenerator() {
+  private CompositesGenerator() {
   }
 
-  private SplittersGenerator(Builder builder) {
+  private CompositesGenerator(Builder builder) {
     this.applicationMetaModel = builder.applicationMetaModel;
     this.typeSpec = builder.typeSpec;
   }
@@ -45,33 +46,34 @@ public class SplittersGenerator {
   }
 
   void generate() {
-    generateLoadSplitterReferences();
+    generateLoadCompositeReferences();
   }
 
-  private void generateLoadSplitterReferences() {
-    // generate method 'generateLoadSplitterReferences()'
-    MethodSpec.Builder loadSplittersMethodBuilder = MethodSpec.methodBuilder("loadSplitterReferences")
-                                                              .addModifiers(Modifier.PUBLIC)
-                                                              .addAnnotation(Override.class);
+  private void generateLoadCompositeReferences() {
+    // generate method 'generateLoadCompositeReferences()'
+    MethodSpec.Builder loadCompositesMethodBuilder = MethodSpec.methodBuilder("loadCompositeReferences")
+                                                               .addModifiers(Modifier.PUBLIC)
+                                                               .addAnnotation(Override.class);
     for (ControllerModel controllerModel : this.applicationMetaModel.getController()) {
       for (ControllerSplitterModel controllerSplitterModel : controllerModel.getSplitters()) {
-        loadSplittersMethodBuilder.addStatement("this.splitter.add(new $T($S, $S, $S, $S))",
-                                                ClassName.get(SplitterControllerReference.class),
-                                                controllerModel.getProvider()
-                                                               .getClassName(),
-                                                controllerSplitterModel.getName(),
-                                                controllerSplitterModel.getSplitter()
-                                                                       .getClassName(),
-                                                controllerSplitterModel.getSelector());
+        loadCompositesMethodBuilder.addStatement("this.compositeControllerReferences.add(new $T($S, $S, $S, $S))",
+                                                 ClassName.get(CompositeControllerReference.class),
+                                                 controllerModel.getProvider()
+                                                                .getClassName(),
+                                                 controllerSplitterModel.getName(),
+                                                 controllerSplitterModel.getSplitter()
+                                                                        .getClassName(),
+                                                 controllerSplitterModel.getSelector());
       }
     }
-    typeSpec.addMethod(loadSplittersMethodBuilder.build());
+    typeSpec.addMethod(loadCompositesMethodBuilder.build());
   }
 
   public static final class Builder {
 
     ApplicationMetaModel applicationMetaModel;
-    TypeSpec.Builder     typeSpec;
+
+    TypeSpec.Builder typeSpec;
 
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
@@ -95,8 +97,8 @@ public class SplittersGenerator {
       return this;
     }
 
-    public SplittersGenerator build() {
-      return new SplittersGenerator(this);
+    public CompositesGenerator build() {
+      return new CompositesGenerator(this);
     }
   }
 }

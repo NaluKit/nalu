@@ -36,56 +36,56 @@ public class ClassNameModel {
 
   public TypeName getTypeName() {
     switch (className) {
-      case "void":
-        return TypeName.VOID;
-      case "boolean":
-        return TypeName.BOOLEAN;
-      case "byte":
-        return TypeName.BYTE;
-      case "short":
-        return TypeName.SHORT;
-      case "int":
-        return TypeName.INT;
-      case "long":
-        return TypeName.LONG;
-      case "char":
-        return TypeName.CHAR;
-      case "float":
-        return TypeName.FLOAT;
-      case "double":
-        return TypeName.DOUBLE;
-      case "Object":
-        return TypeName.OBJECT;
-      case "Void":
-        return ClassName.get("java.lang",
-                             "Void");
-      case "Boolean":
-        return ClassName.get("java.lang",
-                             "Boolean");
-      case "Byte":
-        return ClassName.get("java.lang",
-                             "Byte");
-      case "Short":
-        return ClassName.get("java.lang",
-                             "Short");
-      case "Integer":
-        return ClassName.get("java.lang",
-                             "Integer");
-      case "Long":
-        return ClassName.get("java.lang",
-                             "Long");
-      case "Character":
-        return ClassName.get("java.lang",
-                             "Character");
-      case "Float":
-        return ClassName.get("java.lang",
-                             "Float");
-      case "Double":
-        return ClassName.get("java.lang",
-                             "Double");
-      default:
-        return ClassName.get(this.getPackage(),
-                             this.getSimpleName());
+    case "void":
+      return TypeName.VOID;
+    case "boolean":
+      return TypeName.BOOLEAN;
+    case "byte":
+      return TypeName.BYTE;
+    case "short":
+      return TypeName.SHORT;
+    case "int":
+      return TypeName.INT;
+    case "long":
+      return TypeName.LONG;
+    case "char":
+      return TypeName.CHAR;
+    case "float":
+      return TypeName.FLOAT;
+    case "double":
+      return TypeName.DOUBLE;
+    case "Object":
+      return TypeName.OBJECT;
+    case "Void":
+      return ClassName.get("java.lang",
+                           "Void");
+    case "Boolean":
+      return ClassName.get("java.lang",
+                           "Boolean");
+    case "Byte":
+      return ClassName.get("java.lang",
+                           "Byte");
+    case "Short":
+      return ClassName.get("java.lang",
+                           "Short");
+    case "Integer":
+      return ClassName.get("java.lang",
+                           "Integer");
+    case "Long":
+      return ClassName.get("java.lang",
+                           "Long");
+    case "Character":
+      return ClassName.get("java.lang",
+                           "Character");
+    case "Float":
+      return ClassName.get("java.lang",
+                           "Float");
+    case "Double":
+      return ClassName.get("java.lang",
+                           "Double");
+    default:
+      return ClassName.get(this.getPackage(),
+                           this.getSimpleName());
     }
   }
 

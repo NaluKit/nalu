@@ -46,18 +46,18 @@ public class ApplicationGenerator {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   public void generate(ApplicationMetaModel metaModel)
-    throws ProcessorException {
+      throws ProcessorException {
     // check if element is existing (to avoid generating code for deleted items)
     if (!this.processorUtils.doesExist(metaModel.getApplication())) {
       return;
@@ -90,11 +90,11 @@ public class ApplicationGenerator {
                   .generate();
     typeSpec.addMethod(constructor);
 
-    SplitterControllerGenerator.builder()
-                               .applicationMetaModel(metaModel)
-                               .typeSpec(typeSpec)
-                               .build()
-                               .generate();
+    CompositeControllerGenerator.builder()
+                                .applicationMetaModel(metaModel)
+                                .typeSpec(typeSpec)
+                                .build()
+                                .generate();
 
     ControllerGenerator.builder()
                        .applicationMetaModel(metaModel)
@@ -116,11 +116,11 @@ public class ApplicationGenerator {
                     .build()
                     .generate();
 
-    SplittersGenerator.builder()
-                    .applicationMetaModel(metaModel)
-                    .typeSpec(typeSpec)
-                    .build()
-                    .generate();
+    CompositesGenerator.builder()
+                       .applicationMetaModel(metaModel)
+                       .typeSpec(typeSpec)
+                       .build()
+                       .generate();
 
     // method "getApplicaitonLoader"
     MethodSpec.Builder getApplicationLoaderMethod = MethodSpec.methodBuilder("getApplicationLoader")
@@ -151,11 +151,11 @@ public class ApplicationGenerator {
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
-                                   metaModel.getApplication()
-                                            .getSimpleName() +
-                                   ApplicationGenerator.IMPL_NAME +
-                                   "<< -> exception: " +
-                                   e.getMessage());
+                                       metaModel.getApplication()
+                                                .getSimpleName() +
+                                       ApplicationGenerator.IMPL_NAME +
+                                       "<< -> exception: " +
+                                       e.getMessage());
     }
   }
 

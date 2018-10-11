@@ -17,11 +17,10 @@
 
 package com.github.nalukit.nalu.processor;
 
-
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
+import com.github.nalukit.nalu.client.component.annotation.CompositeController;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
-import com.github.nalukit.nalu.client.component.annotation.SplitterController;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.processor.generator.ApplicationGenerator;
 import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
@@ -32,7 +31,6 @@ import com.google.auto.service.AutoService;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
-import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
 import java.util.Set;
@@ -43,11 +41,12 @@ import static java.util.stream.Stream.of;
 
 @AutoService(Processor.class)
 public class NaluProcessor
-  extends AbstractProcessor {
+    extends AbstractProcessor {
 
   private ProcessorUtils processorUtils;
 
   private ApplicationAnnotationScanner applicationAnnotationScanner;
+
   private HandlerAnnotationScanner     handlerAnnotationScanner;
 
   private ApplicationGenerator applicationGenerator;
@@ -69,7 +68,7 @@ public class NaluProcessor
               Debug.class.getCanonicalName(),
               Controller.class.getCanonicalName(),
               Handler.class.getCanonicalName(),
-              SplitterController.class.getCanonicalName()).collect(toSet());
+              CompositeController.class.getCanonicalName()).collect(toSet());
   }
 
   @Override
@@ -110,14 +109,14 @@ public class NaluProcessor
   }
 
   private void generateLastRound()
-    throws ProcessorException {
+      throws ProcessorException {
     if (!isNull(this.applicationMetaModel)) {
       this.applicationGenerator.generate(this.applicationMetaModel);
     }
   }
 
   private void scan(RoundEnvironment roundEnv)
-    throws ProcessorException {
+      throws ProcessorException {
     this.applicationMetaModel = this.applicationAnnotationScanner.scan();
     // cause we need the meta model, we have to create the Handler scanner here!
     this.handlerAnnotationScanner = HandlerAnnotationScanner.builder()
@@ -129,6 +128,6 @@ public class NaluProcessor
   }
 
   private void generate()
-    throws ProcessorException {
+      throws ProcessorException {
   }
 }

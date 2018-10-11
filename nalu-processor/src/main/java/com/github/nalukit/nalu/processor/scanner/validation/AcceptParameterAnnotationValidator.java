@@ -33,11 +33,14 @@ import java.util.List;
 public class AcceptParameterAnnotationValidator {
 
   List<Element> annotatedElements;
-  private ProcessorUtils        processorUtils;
-  private ProcessingEnvironment processingEnvironment;
-  private RoundEnvironment      roundEnvironment;
-  private ControllerModel       controllerModel;
 
+  private ProcessorUtils        processorUtils;
+
+  private ProcessingEnvironment processingEnvironment;
+
+  private RoundEnvironment      roundEnvironment;
+
+  private ControllerModel       controllerModel;
 
   @SuppressWarnings("unused")
   private AcceptParameterAnnotationValidator() {
@@ -51,18 +54,18 @@ public class AcceptParameterAnnotationValidator {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   public void validate()
-    throws ProcessorException {
+      throws ProcessorException {
     for (Element annotatedElement : this.annotatedElements) {
       // @AcceptParameter can only be used on a method
       if (!ElementKind.METHOD.equals(annotatedElement.getKind())) {
@@ -99,8 +102,11 @@ public class AcceptParameterAnnotationValidator {
   public static final class Builder {
 
     ProcessingEnvironment processingEnvironment;
+
     RoundEnvironment      roundEnvironment;
+
     List<Element>         annotatedElements;
+
     ControllerModel       controllerModel;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {

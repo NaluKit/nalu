@@ -16,30 +16,28 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.component.AbstractSplitterController;
+import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
-import com.github.nalukit.nalu.client.internal.application.SplitterCreator;
-import com.github.nalukit.nalu.client.internal.application.SplitterFactory;
+import com.github.nalukit.nalu.client.internal.application.CompositeCreator;
+import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
-import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.SplitterModel;
+import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.squareup.javapoet.*;
 
 import javax.lang.model.element.Modifier;
-import java.util.List;
-import java.util.stream.IntStream;
 
-public class SplitterControllerGenerator {
+public class CompositeControllerGenerator {
 
   private ApplicationMetaModel applicationMetaModel;
-  private TypeSpec.Builder     typeSpec;
+
+  private TypeSpec.Builder typeSpec;
 
   @SuppressWarnings("unused")
-  private SplitterControllerGenerator() {
+  private CompositeControllerGenerator() {
   }
 
-  private SplitterControllerGenerator(Builder builder) {
+  private CompositeControllerGenerator(Builder builder) {
     this.applicationMetaModel = builder.applicationMetaModel;
     this.typeSpec = builder.typeSpec;
   }
@@ -49,15 +47,15 @@ public class SplitterControllerGenerator {
   }
 
   void generate() {
-    generateLoadSplitters();
+    generateLoadComposites();
   }
 
-  private void generateLoadSplitters() {
-    // generate method 'loadSplitterts()'
-    MethodSpec.Builder loadSplittersMethodBuilder = MethodSpec.methodBuilder("loadSplitterController")
-                                                              .addModifiers(Modifier.PUBLIC)
-                                                              .addAnnotation(Override.class);
-    for (SplitterModel splitterModel : this.applicationMetaModel.getSplitters()) {
+  private void generateLoadComposites() {
+    // generate method 'loadCompositeController()'
+    MethodSpec.Builder loadCompositesMethodBuilder = MethodSpec.methodBuilder("loadCompositeController")
+                                                               .addModifiers(Modifier.PUBLIC)
+                                                               .addAnnotation(Override.class);
+    for (CompositeModel splitterModel : this.applicationMetaModel.getSplitters()) {
       MethodSpec.Builder createMethod = MethodSpec.methodBuilder("create")
                                                   .addAnnotation(Override.class)
                                                   .addModifiers(Modifier.PUBLIC)
@@ -65,7 +63,7 @@ public class SplitterControllerGenerator {
                                                                                       "parms")
                                                                              .build())
                                                   .varargs(true)
-                                                  .returns(ParameterizedTypeName.get(ClassName.get(AbstractSplitterController.class),
+                                                  .returns(ParameterizedTypeName.get(ClassName.get(AbstractCompositeController.class),
                                                                                      this.applicationMetaModel.getContext()
                                                                                                               .getTypeName(),
                                                                                      splitterModel.getComponentInterface()
@@ -76,15 +74,15 @@ public class SplitterControllerGenerator {
                                                   .addStatement("$T sb01 = new $T()",
                                                                 ClassName.get(StringBuilder.class),
                                                                 ClassName.get(StringBuilder.class))
-                                                  .addStatement("sb01.append(\"splitter >>$L<< --> will be created\")",
+                                                  .addStatement("sb01.append(\"composite >>$L<< --> will be created\")",
                                                                 splitterModel.getProvider()
                                                                              .getPackage() +
-                                                                "." +
-                                                                splitterModel.getProvider()
-                                                                             .getSimpleName())
+                                                                    "." +
+                                                                    splitterModel.getProvider()
+                                                                                 .getSimpleName())
                                                   .addStatement("$T.get().logSimple(sb01.toString(), 2)",
                                                                 ClassName.get(ClientLogger.class))
-                                                  .addStatement("$T splitter = new $T()",
+                                                  .addStatement("$T composite = new $T()",
                                                                 ClassName.get(splitterModel.getProvider()
                                                                                            .getPackage(),
                                                                               splitterModel.getProvider()
@@ -93,12 +91,12 @@ public class SplitterControllerGenerator {
                                                                                            .getPackage(),
                                                                               splitterModel.getProvider()
                                                                                            .getSimpleName()))
-                                                  .addStatement("splitter.setContext(context)")
-                                                  .addStatement("splitter.setEventBus(eventBus)")
-                                                  .addStatement("splitter.setRouter(router)")
+                                                  .addStatement("composite.setContext(context)")
+                                                  .addStatement("composite.setEventBus(eventBus)")
+                                                  .addStatement("composite.setRouter(router)")
                                                   .addStatement("sb01 = new $T()",
                                                                 ClassName.get(StringBuilder.class))
-                                                  .addStatement("sb01.append(\"splitter >>\").append(splitter.getClass().getCanonicalName()).append(\"<< --> created and data injected\")")
+                                                  .addStatement("sb01.append(\"composite >>\").append(composite.getClass().getCanonicalName()).append(\"<< --> created and data injected\")")
                                                   .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                                 ClassName.get(ClientLogger.class))
                                                   .addStatement("$T component = new $T()",
@@ -110,16 +108,16 @@ public class SplitterControllerGenerator {
                                                                                            .getPackage(),
                                                                               splitterModel.getComponent()
                                                                                            .getSimpleName()))
-                                                  .addStatement("component.setController(splitter)")
+                                                  .addStatement("component.setController(composite)")
                                                   .addStatement("sb01 = new $T()",
                                                                 ClassName.get(StringBuilder.class))
                                                   .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
                                                   .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                                 ClassName.get(ClientLogger.class))
-                                                  .addStatement("splitter.setComponent(component)")
+                                                  .addStatement("composite.setComponent(component)")
                                                   .addStatement("sb01 = new $T()",
                                                                 ClassName.get(StringBuilder.class))
-                                                  .addStatement("sb01.append(\"splitter >>\").append(splitter.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
+                                                  .addStatement("sb01.append(\"composite >>\").append(composite.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
                                                   .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                                 ClassName.get(ClientLogger.class))
                                                   .addStatement("component.render()")
@@ -134,84 +132,72 @@ public class SplitterControllerGenerator {
                                                   .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> bound\")")
                                                   .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                                 ClassName.get(ClientLogger.class))
-                                                  .addStatement("$T.get().logSimple(\"splitter >>$L<< created\", 2)",
+                                                  .addStatement("$T.get().logSimple(\"composite >>$L<< created\", 2)",
                                                                 ClassName.get(ClientLogger.class),
                                                                 splitterModel.getComponent()
                                                                              .getClassName());
-      // splitter has parameters?
+      // composite has parameters?
       if (splitterModel.getParameterAcceptors()
                        .size() > 0) {
         // has the model AccpetParameter ?
         if (splitterModel.getParameterAcceptors()
                          .size() > 0) {
           createMethod.beginControlFlow("if (parms != null)");
-          for (int i = 0; i < splitterModel.getParameterAcceptors()
-                                           .size(); i++) {
+          for (int i = 0; i <
+              splitterModel.getParameterAcceptors()
+                           .size(); i++) {
             createMethod.beginControlFlow("if (parms.length >= " + Integer.toString(i + 1) + ")")
                         .addStatement("sb01 = new $T()",
                                       ClassName.get(StringBuilder.class))
-                        .addStatement("sb01.append(\"splitter >>\").append(splitter.getClass().getCanonicalName()).append(\"<< --> using method >>" + splitterModel.getParameterAcceptors()
-                                                                                                                                                                   .get(i)
-                                                                                                                                                                   .getMethodName() + "<< to set value >>\").append(parms[" + Integer.toString(i) + "]).append(\"<<\")")
+                        .addStatement("sb01.append(\"composite >>\").append(composite.getClass().getCanonicalName()).append(\"<< --> using method >>" +
+                                          splitterModel.getParameterAcceptors()
+                                                       .get(i)
+                                                       .getMethodName() +
+                                          "<< to set value >>\").append(parms[" +
+                                          Integer.toString(i) +
+                                          "]).append(\"<<\")")
                         .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                       ClassName.get(ClientLogger.class))
-                        .addStatement("splitter." + splitterModel.getParameterAcceptors()
-                                                                   .get(i)
-                                                                   .getMethodName() + "(parms[" + Integer.toString(i) + "])")
+                        .addStatement("composite." +
+                                          splitterModel.getParameterAcceptors()
+                                                       .get(i)
+                                                       .getMethodName() +
+                                          "(parms[" +
+                                          Integer.toString(i) +
+                                          "])")
                         .endControlFlow();
           }
           createMethod.endControlFlow();
         }
       }
-      createMethod.addStatement("return splitter");
+      createMethod.addStatement("return composite");
 
-      loadSplittersMethodBuilder.addComment("create SplitterCreator for: " +
-                                            splitterModel.getProvider()
-                                                         .getPackage() +
-                                            "." +
-                                            splitterModel.getProvider()
-                                                         .getSimpleName())
-                                .addStatement("$T.get().registerSplitter($S, $L)",
-                                              ClassName.get(SplitterFactory.class),
-                                              splitterModel.getProvider()
-                                                           .getPackage() +
-                                              "." +
-                                              splitterModel.getProvider()
-                                                           .getSimpleName(),
-                                              TypeSpec.anonymousClassBuilder("")
-                                                      .addSuperinterface(SplitterCreator.class)
-                                                      .addMethod(createMethod.build())
-                                                      .build());
+      loadCompositesMethodBuilder.addComment("create Composite for: " +
+                                                 splitterModel.getProvider()
+                                                              .getPackage() +
+                                                 "." +
+                                                 splitterModel.getProvider()
+                                                              .getSimpleName())
+                                 .addStatement("$T.get().registerComposite($S, $L)",
+                                               ClassName.get(CompositeFactory.class),
+                                               splitterModel.getProvider()
+                                                            .getPackage() +
+                                                   "." +
+                                                   splitterModel.getProvider()
+                                                                .getSimpleName(),
+                                               TypeSpec.anonymousClassBuilder("")
+                                                       .addSuperinterface(CompositeCreator.class)
+                                                       .addMethod(createMethod.build())
+                                                       .build());
     }
-    typeSpec.addMethod(loadSplittersMethodBuilder.build());
-  }
-
-  private String createParaemter(List<String> parameters) {
-    StringBuilder sb = new StringBuilder();
-    IntStream.range(0,
-                    parameters.size())
-             .forEach(i -> {
-               sb.append("\"")
-                 .append(parameters.get(i))
-                 .append("\"");
-               if (i != parameters.size() - 1) {
-                 sb.append(", ");
-               }
-             });
-    return sb.toString();
-  }
-
-  private boolean contains(List<ControllerModel> models,
-                           ControllerModel controllerModel) {
-    return models.stream()
-                 .anyMatch(model -> model.getProvider()
-                                         .equals(controllerModel.getProvider()));
+    typeSpec.addMethod(loadCompositesMethodBuilder.build());
   }
 
   public static final class Builder {
 
     ApplicationMetaModel applicationMetaModel;
-    TypeSpec.Builder     typeSpec;
+
+    TypeSpec.Builder typeSpec;
 
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
@@ -235,8 +221,8 @@ public class SplitterControllerGenerator {
       return this;
     }
 
-    public SplitterControllerGenerator build() {
-      return new SplitterControllerGenerator(this);
+    public CompositeControllerGenerator build() {
+      return new CompositeControllerGenerator(this);
     }
   }
 }

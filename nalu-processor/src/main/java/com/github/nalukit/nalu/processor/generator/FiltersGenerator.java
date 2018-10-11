@@ -29,8 +29,11 @@ import javax.lang.model.element.Modifier;
 public class FiltersGenerator {
 
   private ProcessingEnvironment processingEnvironment;
+
   private ProcessorUtils        processorUtils;
+
   private ApplicationMetaModel  applicationMetaModel;
+
   private TypeSpec.Builder      typeSpec;
 
   @SuppressWarnings("unused")
@@ -46,14 +49,14 @@ public class FiltersGenerator {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
-  }
-
-  public static Builder builder() {
-    return new Builder();
   }
 
   void generate() {
@@ -83,7 +86,9 @@ public class FiltersGenerator {
   public static final class Builder {
 
     ProcessingEnvironment processingEnvironment;
+
     ApplicationMetaModel  applicationMetaModel;
+
     TypeSpec.Builder      typeSpec;
 
     /**

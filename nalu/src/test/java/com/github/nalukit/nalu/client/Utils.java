@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.client;
 
-import com.github.nalukit.nalu.client.internal.SplitterControllerReference;
+import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsPlugin;
@@ -79,10 +79,8 @@ class Utils {
     return routerConfiguration;
   }
 
-  static List<SplitterControllerReference> createSplitterConfiguration() {
-    List<SplitterControllerReference> splitter = new ArrayList<>();
-
-
-    return splitter;
+  static List<CompositeControllerReference> createCompositeConfiguration() {
+    List<CompositeControllerReference> compositeControllerReferences = new ArrayList<>();
+    return compositeControllerReferences;
   }
 }
