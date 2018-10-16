@@ -16,14 +16,15 @@
 
 package com.github.nalukit.nalu.processor.debug.debugAnnotationWithoutExtendsIsApplication;
 
-
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.MockLogger;
 import com.github.nalukit.nalu.processor.common.MockShell;
 
-@Application(shell = MockShell.class, startRoute = "/search", context = MockContext.class)
+@Application(shell = MockShell.class,
+             startRoute = "/search",
+             context = MockContext.class)
 @Debug(logger = MockLogger.class)
 public interface DebugAnnotationWithoutExtendsIsApplication {
 }

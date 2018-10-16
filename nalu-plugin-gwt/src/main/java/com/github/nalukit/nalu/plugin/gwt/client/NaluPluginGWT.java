@@ -14,7 +14,7 @@ import elemental2.dom.Location;
 import jsinterop.base.Js;
 
 public class NaluPluginGWT
-  implements IsPlugin {
+    implements IsPlugin {
 
   public NaluPluginGWT() {
     super();

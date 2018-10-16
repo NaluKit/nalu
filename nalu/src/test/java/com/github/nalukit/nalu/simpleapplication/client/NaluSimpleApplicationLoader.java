@@ -23,7 +23,7 @@ import com.github.nalukit.nalu.client.application.AbstractApplicationLoader;
  * A application loader of the NaluSimpleApplication
  */
 public class NaluSimpleApplicationLoader
-  extends AbstractApplicationLoader<NaluSimpleApplicationContext> {
+    extends AbstractApplicationLoader<NaluSimpleApplicationContext> {
 
   /**
    * The laoder of the application.

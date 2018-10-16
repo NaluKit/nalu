@@ -24,10 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListComponent
-  extends AbstractComponent<IListComponent.Controller, String>
-  implements IListComponent {
+    extends AbstractComponent<IListComponent.Controller, String>
+    implements IListComponent {
 
-//  private DataTable<Person>          table;
+  //  private DataTable<Person>          table;
   private List<Person> store;
 
   public ListComponent() {
@@ -35,50 +35,50 @@ public class ListComponent
 
   @Override
   public void render() {
-//    TableConfig<Person> tableConfig = new TableConfig<>();
-//    tableConfig.addColumn(ColumnConfig.<Person>create("name",
-//                                                      "Name")
-//                            .setCellRenderer(cell -> a().textContent(cell.getTableRow()
-//                                                                         .getRecord()
-//                                                                         .getName() + ", " + cell.getTableRow()
-//                                                                                                 .getRecord()
-//                                                                                                 .getFirstName())
-//                                                        .on(EventType.click,
-//                                                            e -> getController().doUpdate(cell.getTableRow()
-//                                                                                              .getRecord()))
-//                                                        .asElement()))
-//               .addColumn(ColumnConfig.<Person>create("street",
-//                                                      "Street")
-//                            .setCellRenderer(cell -> new Text(cell.getTableRow()
-//                                                                  .getRecord()
-//                                                                  .getAddress()
-//                                                                  .getStreet())))
-//               .addColumn(ColumnConfig.<Person>create("zip",
-//                                                      "ZIP")
-//                            .textAlign("right")
-//                            .setCellRenderer(cell -> new Text(cell.getTableRow()
-//                                                                  .getRecord()
-//                                                                  .getAddress()
-//                                                                  .getZip())))
-//               .addColumn(ColumnConfig.<Person>create("street",
-//                                                      "Street")
-//                            .setCellRenderer(cell -> new Text(cell.getTableRow()
-//                                                                  .getRecord()
-//                                                                  .getAddress()
-//                                                                  .getStreet())))
-//               .addColumn(ColumnConfig.<Person>create("city",
-//                                                      "City")
-//                            .setCellRenderer(cell -> new Text(cell.getTableRow()
-//                                                                  .getRecord()
-//                                                                  .getAddress()
-//                                                                  .getCity())));
-//
-//    this.store = new LocalListDataStore<>();
-//
-//    this.table = new DataTable<>(tableConfig,
-//                                 store);
-//
-//    return this.table.asElement();
+    //    TableConfig<Person> tableConfig = new TableConfig<>();
+    //    tableConfig.addColumn(ColumnConfig.<Person>create("name",
+    //                                                      "Name")
+    //                            .setCellRenderer(cell -> a().textContent(cell.getTableRow()
+    //                                                                         .getRecord()
+    //                                                                         .getName() + ", " + cell.getTableRow()
+    //                                                                                                 .getRecord()
+    //                                                                                                 .getFirstName())
+    //                                                        .on(EventType.click,
+    //                                                            e -> getController().doUpdate(cell.getTableRow()
+    //                                                                                              .getRecord()))
+    //                                                        .asElement()))
+    //               .addColumn(ColumnConfig.<Person>create("street",
+    //                                                      "Street")
+    //                            .setCellRenderer(cell -> new Text(cell.getTableRow()
+    //                                                                  .getRecord()
+    //                                                                  .getAddress()
+    //                                                                  .getStreet())))
+    //               .addColumn(ColumnConfig.<Person>create("zip",
+    //                                                      "ZIP")
+    //                            .textAlign("right")
+    //                            .setCellRenderer(cell -> new Text(cell.getTableRow()
+    //                                                                  .getRecord()
+    //                                                                  .getAddress()
+    //                                                                  .getZip())))
+    //               .addColumn(ColumnConfig.<Person>create("street",
+    //                                                      "Street")
+    //                            .setCellRenderer(cell -> new Text(cell.getTableRow()
+    //                                                                  .getRecord()
+    //                                                                  .getAddress()
+    //                                                                  .getStreet())))
+    //               .addColumn(ColumnConfig.<Person>create("city",
+    //                                                      "City")
+    //                            .setCellRenderer(cell -> new Text(cell.getTableRow()
+    //                                                                  .getRecord()
+    //                                                                  .getAddress()
+    //                                                                  .getCity())));
+    //
+    //    this.store = new LocalListDataStore<>();
+    //
+    //    this.table = new DataTable<>(tableConfig,
+    //                                 store);
+    //
+    //    return this.table.asElement();
     initElement("ListView");
   }
 
@@ -91,6 +91,6 @@ public class ListComponent
   public void setData(List<Person> result) {
     resetTable();
     this.store.addAll(result);
-//    this.table.load();
+    //    this.table.load();
   }
 }

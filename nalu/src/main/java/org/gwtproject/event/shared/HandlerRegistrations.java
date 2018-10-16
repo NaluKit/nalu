@@ -13,10 +13,40 @@
  */
 package org.gwtproject.event.shared;
 
-/** A utility class to help deal with {@link HandlerRegistration handler registrations}. */
+/**
+ * A utility class to help deal with {@link HandlerRegistration handler registrations}.
+ */
 public class HandlerRegistrations {
 
-  private static class HandlerRegistrationCollection implements HandlerRegistration {
+  /**
+   * For know this is a utility class, make it not instantiable.
+   */
+  private HandlerRegistrations() {
+  }
+
+  /**
+   * Create and return a {@link HandlerRegistration} that will call {@link
+   * HandlerRegistration#removeHandler()} on all supplied handlers if {@link
+   * HandlerRegistration#removeHandler()} is called on the returned object.
+   *
+   * <p>A simple example:
+   *
+   * <pre>
+   * HandlerRegistration hr1 = ...
+   * HandlerRegistration hr2 = ...
+   * return HandlerRegistrations.compose(hr1, hr2);
+   * </pre>
+   *
+   * @param handlers the {@link HandlerRegistration handler registrations} that should be composed
+   *                 into a single {@link HandlerRegistration}
+   * @return the composed {@link HandlerRegistration}
+   */
+  public static HandlerRegistration compose(HandlerRegistration... handlers) {
+    return new HandlerRegistrationCollection(handlers);
+  }
+
+  private static class HandlerRegistrationCollection
+      implements HandlerRegistration {
 
     private HandlerRegistration[] handlers;
 
@@ -37,28 +67,4 @@ public class HandlerRegistrations {
       handlers = null;
     }
   }
-
-  /**
-   * Create and return a {@link HandlerRegistration} that will call {@link
-   * HandlerRegistration#removeHandler()} on all supplied handlers if {@link
-   * HandlerRegistration#removeHandler()} is called on the returned object.
-   *
-   * <p>A simple example:
-   *
-   * <pre>
-   * HandlerRegistration hr1 = ...
-   * HandlerRegistration hr2 = ...
-   * return HandlerRegistrations.compose(hr1, hr2);
-   * </pre>
-   *
-   * @param handlers the {@link HandlerRegistration handler registrations} that should be composed
-   *     into a single {@link HandlerRegistration}
-   * @return the composed {@link HandlerRegistration}
-   */
-  public static HandlerRegistration compose(HandlerRegistration... handlers) {
-    return new HandlerRegistrationCollection(handlers);
-  }
-
-  /** For know this is a utility class, make it not instantiable. */
-  private HandlerRegistrations() {}
 }

@@ -5,14 +5,13 @@
  *  use this file except in compliance with the License. You may obtain a copy of
  *  the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  *  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  *  License for the specific language governing permissions and limitations under
  *  the License.
- *
  */
 
 package com.github.nalukit.nalu.processor;
@@ -41,9 +40,10 @@ import static java.util.stream.Stream.of;
 
 @AutoService(Processor.class)
 public class NaluPluginGwtProcessor
-  extends AbstractProcessor {
+    extends AbstractProcessor {
 
   private static final String         IMPL_NAME = "SelectorProviderImpl";
+
   private              ProcessorUtils processorUtils;
 
   private Map<Element, List<SelectorMetaModel>> models;
@@ -105,7 +105,7 @@ public class NaluPluginGwtProcessor
   }
 
   private void validate(Element element)
-    throws ProcessorException {
+      throws ProcessorException {
     // @AcceptParameter can only be used on a method
     if (!ElementKind.METHOD.equals(element.getKind())) {
       throw new ProcessorException("Nalu-Processor: @Selector can only be used with a method");
@@ -121,16 +121,15 @@ public class NaluPluginGwtProcessor
                                              .toString();
     if (!(IsWidget.class.getCanonicalName()
                         .equals(parameterClass) ||
-          Widget.class.getCanonicalName()
-                      .equals(parameterClass)
-    )) {
+              Widget.class.getCanonicalName()
+                          .equals(parameterClass))) {
       throw new ProcessorException("Nalu-Processor: @Selector can only be used with a method that has one parameter and the parameter type is com.google.gwt.user.client.ui.IsWidget or com.google.gwt.user.client.ui.WIdget");
     }
   }
 
   private void generate(Element enclosingElement,
                         List<SelectorMetaModel> models)
-    throws ProcessorException {
+      throws ProcessorException {
     ClassNameModel enclosingClassNameModel = new ClassNameModel(enclosingElement.toString());
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(enclosingElement.getSimpleName() + NaluPluginGwtProcessor.IMPL_NAME)
                                         .superclass(ClassName.get(AbstractSelectorProvider.class))
@@ -145,7 +144,6 @@ public class NaluPluginGwtProcessor
                                        .addStatement("super()")
                                        .build();
     typeSpec.addMethod(constructor);
-
 
     // method "initialize"
     MethodSpec.Builder initializeMethod = MethodSpec.methodBuilder("initialize")
@@ -195,13 +193,10 @@ public class NaluPluginGwtProcessor
                                          typeSpec.build())
                                 .build();
     try {
-//      System.out.println(javaFile.toString());
+      //      System.out.println(javaFile.toString());
       javaFile.writeTo(this.processingEnv.getFiler());
     } catch (IOException e) {
-      throw new ProcessorException("Unable to write generated file: >>" +
-                                   enclosingElement.getSimpleName() + NaluPluginGwtProcessor.IMPL_NAME +
-                                   "<< -> exception: " +
-                                   e.getMessage());
+      throw new ProcessorException("Unable to write generated file: >>" + enclosingElement.getSimpleName() + NaluPluginGwtProcessor.IMPL_NAME + "<< -> exception: " + e.getMessage());
     }
   }
 

@@ -19,53 +19,71 @@ import org.gwtproject.event.shared.Event.Type;
 
 import java.util.*;
 
-/** Basic implementation of {@link EventBus}. */
-public class SimpleEventBus extends EventBus {
-  private interface Command {
-    void execute();
-  }
+/**
+ * Basic implementation of {@link EventBus}.
+ */
+public class SimpleEventBus
+    extends EventBus {
+  /**
+   * Map of event type to map of event source to list of their handlers.
+   */
+  private final Map<Type<?>, Map<Object, List<?>>> map = new HashMap<>();
 
   private int firingDepth = 0;
 
-  /** Add and remove operations received during dispatch. */
+  /**
+   * Add and remove operations received during dispatch.
+   */
   private List<Command> deferredDeltas;
 
-  /** Map of event type to map of event source to list of their handlers. */
-  private final Map<Type<?>, Map<Object, List<?>>> map = new HashMap<>();
-
   @Override
-  public <H> HandlerRegistration addHandler(Type<H> type, H handler) {
-    return doAdd(type, null, handler);
+  public <H> HandlerRegistration addHandler(Type<H> type,
+                                            H handler) {
+    return doAdd(type,
+                 null,
+                 handler);
   }
 
   @Override
-  public <H> HandlerRegistration addHandlerToSource(
-    final Event.Type<H> type, final Object source, final H handler) {
+  public <H> HandlerRegistration addHandlerToSource(final Event.Type<H> type,
+                                                    final Object source,
+                                                    final H handler) {
     if (source == null) {
       throw new NullPointerException("Cannot add a handler with a null source");
     }
 
-    return doAdd(type, source, handler);
+    return doAdd(type,
+                 source,
+                 handler);
   }
 
   @Override
   public void fireEvent(Event<?> event) {
-    doFire(event, null);
+    doFire(event,
+           null);
   }
 
   @Override
-  public void fireEventFromSource(Event<?> event, Object source) {
+  public void fireEventFromSource(Event<?> event,
+                                  Object source) {
     if (source == null) {
       throw new NullPointerException("Cannot fire from a null source");
     }
-    doFire(event, source);
+    doFire(event,
+           source);
   }
 
-  private <H> void doRemove(Event.Type<H> type, Object source, H handler) {
+  private <H> void doRemove(Event.Type<H> type,
+                            Object source,
+                            H handler) {
     if (firingDepth > 0) {
-      enqueueRemove(type, source, handler);
+      enqueueRemove(type,
+                    source,
+                    handler);
     } else {
-      doRemoveNow(type, source, handler);
+      doRemoveNow(type,
+                  source,
+                  handler);
     }
   }
 
@@ -76,8 +94,9 @@ public class SimpleEventBus extends EventBus {
     deferredDeltas.add(command);
   }
 
-  private <H> HandlerRegistration doAdd(
-    final Event.Type<H> type, final Object source, final H handler) {
+  private <H> HandlerRegistration doAdd(final Event.Type<H> type,
+                                        final Object source,
+                                        final H handler) {
     if (type == null) {
       throw new NullPointerException("Cannot add a handler with a null type");
     }
@@ -86,20 +105,30 @@ public class SimpleEventBus extends EventBus {
     }
 
     if (firingDepth > 0) {
-      enqueueAdd(type, source, handler);
+      enqueueAdd(type,
+                 source,
+                 handler);
     } else {
-      doAddNow(type, source, handler);
+      doAddNow(type,
+               source,
+               handler);
     }
 
-    return () -> doRemove(type, source, handler);
+    return () -> doRemove(type,
+                          source,
+                          handler);
   }
 
-  private <H> void doAddNow(Event.Type<H> type, Object source, H handler) {
-    List<H> l = ensureHandlerList(type, source);
+  private <H> void doAddNow(Event.Type<H> type,
+                            Object source,
+                            H handler) {
+    List<H> l = ensureHandlerList(type,
+                                  source);
     l.add(handler);
   }
 
-  private <H> void doFire(Event<H> event, Object source) {
+  private <H> void doFire(Event<H> event,
+                          Object source) {
     if (event == null) {
       throw new NullPointerException("Cannot fire null event");
     }
@@ -107,15 +136,18 @@ public class SimpleEventBus extends EventBus {
       firingDepth++;
 
       if (source != null) {
-        setSourceOfEvent(event, source);
+        setSourceOfEvent(event,
+                         source);
       }
 
-      List<H> handlers = getDispatchList(event.getAssociatedType(), source);
+      List<H> handlers = getDispatchList(event.getAssociatedType(),
+                                         source);
       Set<Throwable> causes = null;
 
       for (H handler : handlers) {
         try {
-          dispatchEvent(event, handler);
+          dispatchEvent(event,
+                        handler);
         } catch (Throwable e) {
           if (causes == null) {
             causes = new HashSet<>();
@@ -135,60 +167,77 @@ public class SimpleEventBus extends EventBus {
     }
   }
 
-  private <H> void doRemoveNow(Event.Type<H> type, Object source, H handler) {
-    List<H> l = getHandlerList(type, source);
+  private <H> void doRemoveNow(Event.Type<H> type,
+                               Object source,
+                               H handler) {
+    List<H> l = getHandlerList(type,
+                               source);
 
     boolean removed = l.remove(handler);
 
     if (removed && l.isEmpty()) {
-      prune(type, source);
+      prune(type,
+            source);
     }
   }
 
-  private <H> void enqueueAdd(final Event.Type<H> type, final Object source, final H handler) {
-    defer(() -> doAddNow(type, source, handler));
+  private <H> void enqueueAdd(final Event.Type<H> type,
+                              final Object source,
+                              final H handler) {
+    defer(() -> doAddNow(type,
+                         source,
+                         handler));
   }
 
-  private <H> void enqueueRemove(final Event.Type<H> type, final Object source, final H handler) {
-    defer(() -> doRemoveNow(type, source, handler));
+  private <H> void enqueueRemove(final Event.Type<H> type,
+                                 final Object source,
+                                 final H handler) {
+    defer(() -> doRemoveNow(type,
+                            source,
+                            handler));
   }
 
-  private <H> List<H> ensureHandlerList(Event.Type<H> type, Object source) {
-    Map<Object, List<?>> sourceMap = map.computeIfAbsent(type, k -> new HashMap<>());
+  private <H> List<H> ensureHandlerList(Event.Type<H> type,
+                                        Object source) {
+    Map<Object, List<?>> sourceMap = map.computeIfAbsent(type,
+                                                         k -> new HashMap<>());
 
     // safe, we control the puts.
-    @SuppressWarnings("unchecked")
-    List<H> handlers = (List<H>) sourceMap.get(source);
+    @SuppressWarnings("unchecked") List<H> handlers = (List<H>) sourceMap.get(source);
     if (handlers == null) {
       handlers = new ArrayList<>();
-      sourceMap.put(source, handlers);
+      sourceMap.put(source,
+                    handlers);
     }
 
     return handlers;
   }
 
-  private <H> List<H> getDispatchList(Event.Type<H> type, Object source) {
-    List<H> directHandlers = getHandlerList(type, source);
+  private <H> List<H> getDispatchList(Event.Type<H> type,
+                                      Object source) {
+    List<H> directHandlers = getHandlerList(type,
+                                            source);
     if (source == null) {
       return directHandlers;
     }
 
-    List<H> globalHandlers = getHandlerList(type, null);
+    List<H> globalHandlers = getHandlerList(type,
+                                            null);
 
     List<H> rtn = new ArrayList<>(directHandlers);
     rtn.addAll(globalHandlers);
     return rtn;
   }
 
-  private <H> List<H> getHandlerList(Event.Type<H> type, Object source) {
+  private <H> List<H> getHandlerList(Event.Type<H> type,
+                                     Object source) {
     Map<Object, List<?>> sourceMap = map.get(type);
     if (sourceMap == null) {
       return Collections.emptyList();
     }
 
     // safe, we control the puts.
-    @SuppressWarnings("unchecked")
-    List<H> handlers = (List<H>) sourceMap.get(source);
+    @SuppressWarnings("unchecked") List<H> handlers = (List<H>) sourceMap.get(source);
     if (handlers == null) {
       return Collections.emptyList();
     }
@@ -208,7 +257,8 @@ public class SimpleEventBus extends EventBus {
     }
   }
 
-  private void prune(Event.Type<?> type, Object source) {
+  private void prune(Event.Type<?> type,
+                     Object source) {
     Map<Object, List<?>> sourceMap = map.get(type);
 
     List<?> pruned = sourceMap.remove(source);
@@ -219,5 +269,9 @@ public class SimpleEventBus extends EventBus {
     if (sourceMap.isEmpty()) {
       map.remove(type);
     }
+  }
+
+  private interface Command {
+    void execute();
   }
 }

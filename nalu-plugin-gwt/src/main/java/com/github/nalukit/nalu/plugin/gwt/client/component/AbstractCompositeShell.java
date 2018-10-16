@@ -7,8 +7,8 @@ import com.google.gwt.user.client.ui.Composite;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractCompositeShell<C extends IsContext>
-  extends Composite
-  implements IsShell {
+    extends Composite
+    implements IsShell {
 
   protected Router router;
 

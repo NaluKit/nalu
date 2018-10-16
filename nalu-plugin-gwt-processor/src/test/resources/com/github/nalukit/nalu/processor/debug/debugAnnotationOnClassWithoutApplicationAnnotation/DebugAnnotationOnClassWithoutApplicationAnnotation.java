@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.nalukit.nalu.processor.debug.debugAnnotationOnClassWithoutApplicationAnnotation;
-
 
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
@@ -23,5 +21,5 @@ import com.github.nalukit.nalu.processor.common.MockLogger;
 
 @Debug(logger = MockLogger.class)
 public interface DebugAnnotationOnClassWithoutApplicationAnnotation
-  extends IsApplication {
+    extends IsApplication {
 }

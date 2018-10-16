@@ -27,7 +27,7 @@ import org.gwtproject.event.shared.HandlerRegistration;
  * severeal areas.
  */
 public class FooterController
-  extends AbstractComponentController<NaluSimpleApplicationContext, IFooterComponent, String>
+    extends AbstractComponentController<NaluSimpleApplicationContext, IFooterComponent, String>
     implements IFooterComponent.Controller {
 
   private HandlerRegistration registration;

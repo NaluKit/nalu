@@ -24,8 +24,8 @@ import com.github.nalukit.nalu.client.component.AbstractComponent;
  * severeal areas.
  */
 public class FooterComponent
-  extends AbstractComponent<IFooterComponent.Controller, String>
-  implements IFooterComponent {
+    extends AbstractComponent<IFooterComponent.Controller, String>
+    implements IFooterComponent {
 
   private String messageInfo;
 

@@ -29,15 +29,17 @@ public class SelectEvent
     handler.onSelect(this);
   }
 
-  public interface StatusChangeHandler {
-
-    void onSelect(SelectEvent event);
-
-  }
-
   public enum Select {
     SEARCH,
     LIST,
     DETAIL
+  }
+
+
+
+  public interface StatusChangeHandler {
+
+    void onSelect(SelectEvent event);
+
   }
 }

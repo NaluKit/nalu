@@ -24,7 +24,8 @@ import java.util.Set;
  * that the loop finishes executing.
  */
 @SuppressWarnings("serial")
-public class UmbrellaException extends RuntimeException {
+public class UmbrellaException
+    extends RuntimeException {
 
   // Visible for testing
   static final String MULTIPLE = " exceptions caught: ";
@@ -32,8 +33,37 @@ public class UmbrellaException extends RuntimeException {
   // Visible for testing
   static final String ONE = "Exception caught: ";
 
+  /**
+   * The causes of the exception.
+   */
+  private Set<Throwable> causes;
+
+  public UmbrellaException(Set<Throwable> causes) {
+    super(makeMessage(causes),
+          makeCause(causes));
+    this.causes = causes;
+    int i = 0;
+    for (Throwable cause : causes) {
+      if (i++ == 0) {
+        // First one already added as cause.
+        continue;
+      }
+      addSuppressed(cause);
+    }
+  }
+
+  /**
+   * Required for GWT RPC serialization.
+   */
+  protected UmbrellaException() {
+    // Can't delegate to the other constructor or GWT RPC gets cranky
+    super(MULTIPLE);
+    this.causes = Collections.emptySet();
+  }
+
   protected static Throwable makeCause(Set<Throwable> causes) {
-    return causes.isEmpty() ? null : causes.iterator().next();
+    return causes.isEmpty() ? null : causes.iterator()
+                                           .next();
   }
 
   protected static String makeMessage(Set<Throwable> causes) {
@@ -54,29 +84,6 @@ public class UmbrellaException extends RuntimeException {
     }
 
     return b.toString();
-  }
-
-  /** The causes of the exception. */
-  private Set<Throwable> causes;
-
-  public UmbrellaException(Set<Throwable> causes) {
-    super(makeMessage(causes), makeCause(causes));
-    this.causes = causes;
-    int i = 0;
-    for (Throwable cause : causes) {
-      if (i++ == 0) {
-        // First one already added as cause.
-        continue;
-      }
-      addSuppressed(cause);
-    }
-  }
-
-  /** Required for GWT RPC serialization. */
-  protected UmbrellaException() {
-    // Can't delegate to the other constructor or GWT RPC gets cranky
-    super(MULTIPLE);
-    this.causes = Collections.emptySet();
   }
 
   /**

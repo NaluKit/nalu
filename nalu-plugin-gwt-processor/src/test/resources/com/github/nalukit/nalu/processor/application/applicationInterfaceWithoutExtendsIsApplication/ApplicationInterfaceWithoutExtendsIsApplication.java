@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.github.nalukit.nalu.processor.application.applicationInterfaceWithoutExtendsIsApplication;
-
 
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.MockShell;
 
-@Application(shell = MockShell.class, startRoute = "/search", context = MockContext.class)
+@Application(shell = MockShell.class,
+             startRoute = "/search",
+             context = MockContext.class)
 public interface ApplicationInterfaceWithoutExtendsIsApplication {
 }

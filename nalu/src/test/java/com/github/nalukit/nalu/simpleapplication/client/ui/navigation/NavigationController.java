@@ -31,7 +31,8 @@ public class NavigationController
   @Override
   public void start() {
     this.eventBus.addHandler(SelectEvent.TYPE,
-                             e -> component.select(e.getSelect().toString()));
+                             e -> component.select(e.getSelect()
+                                                    .toString()));
   }
 
   @Override

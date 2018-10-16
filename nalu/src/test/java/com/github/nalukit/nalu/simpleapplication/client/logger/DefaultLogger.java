@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class DefaultLogger
-  implements IsLogger {
+    implements IsLogger {
 
   private static final String INDENT = "    ";
 

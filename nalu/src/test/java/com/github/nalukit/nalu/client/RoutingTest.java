@@ -16,6 +16,7 @@ import org.junit.Test;
 public class RoutingTest {
 
   private Application   application;
+
   private IsPluginJUnit plugin;
 
   @Before
@@ -24,9 +25,13 @@ public class RoutingTest {
     this.plugin = new IsPluginJUnit() {
 
       private boolean attached = true;
+
       private boolean confirm = true;
+
       private CompareHandler compareHandler;
+
       private HashHandler hashHandler;
+
       private RouteHandler routeHandler;
 
       @Override
@@ -103,14 +108,14 @@ public class RoutingTest {
     this.plugin.addCompareHandler(this::compare);
     this.plugin.addRouteHandler((newRoute, replace) -> {
       switch (newRoute) {
-        case "":
-          return !replace;
-        case "footer":
-          return !replace;
-        case "search":
-          return !replace;
-        default:
-          return false;
+      case "":
+        return !replace;
+      case "footer":
+        return !replace;
+      case "search":
+        return !replace;
+      default:
+        return false;
       }
     });
     this.application = new Application();
@@ -120,19 +125,19 @@ public class RoutingTest {
   private boolean compare(String selector,
                           String object) {
     switch (selector) {
-      case "content":
-        return "DetailForm".equals(object) || "ListView".equals(object) || "SearchForm".equals(object);
-      case "navigation":
-        return "navigation".equals(object);
-      case "footer":
-        return "footer".equals(object);
-      default:
-        return false;
+    case "content":
+      return "DetailForm".equals(object) || "ListView".equals(object) || "SearchForm".equals(object);
+    case "navigation":
+      return "navigation".equals(object);
+    case "footer":
+      return "footer".equals(object);
+    default:
+      return false;
     }
   }
 
   interface IsPluginJUnit
-    extends IsPlugin {
+      extends IsPlugin {
 
     void addCompareHandler(CompareHandler compareHandler);
 
@@ -144,12 +149,16 @@ public class RoutingTest {
 
   }
 
+
+
   interface CompareHandler {
 
     boolean compare(String selector,
                     String object);
 
   }
+
+
 
   interface RouteHandler {
 

@@ -20,46 +20,46 @@ package com.github.nalukit.nalu.simpleapplication.client.ui.navigation;
 import com.github.nalukit.nalu.client.component.AbstractComponent;
 
 public class NavigationComponent
-  extends AbstractComponent<INavigationComponent.Controller, String>
-  implements INavigationComponent {
+    extends AbstractComponent<INavigationComponent.Controller, String>
+    implements INavigationComponent {
 
-//  private TreeItem searchItem;
-//  private TreeItem listItem;
+  //  private TreeItem searchItem;
+  //  private TreeItem listItem;
 
   public NavigationComponent() {
   }
 
   @Override
   public void render() {
-//    this.searchItem = TreeItem.create("Search persons",
-//                                      Icons.ALL.search())
-//                              .addClickListener(e -> getController().doShowSearch());
-//
-//    this.listItem = TreeItem.create("List persons",
-//                                    Icons.ALL.list())
-//                            .addClickListener(e -> getController().doShowList());
-//    return Tree.create("Navigation")
-//               .addTreeItem(this.searchItem)
-//               .addTreeItem(this.listItem)
-//               .asElement();
+    //    this.searchItem = TreeItem.create("Search persons",
+    //                                      Icons.ALL.search())
+    //                              .addClickListener(e -> getController().doShowSearch());
+    //
+    //    this.listItem = TreeItem.create("List persons",
+    //                                    Icons.ALL.list())
+    //                            .addClickListener(e -> getController().doShowList());
+    //    return Tree.create("Navigation")
+    //               .addTreeItem(this.searchItem)
+    //               .addTreeItem(this.listItem)
+    //               .asElement();
     initElement("navigation");
   }
 
   @Override
   public void select(String toString) {
     switch (toString) {
-      case "SEARCH":
-//        this.searchItem.activate();
-//        this.listItem.deactivate();
-        break;
-      case "LIST":
-//        this.listItem.activate();
-//        this.searchItem.deactivate();
-        break;
-      default:
-//        this.listItem.deactivate();
-//        this.searchItem.deactivate();
-        break;
+    case "SEARCH":
+      //        this.searchItem.activate();
+      //        this.listItem.deactivate();
+      break;
+    case "LIST":
+      //        this.listItem.activate();
+      //        this.searchItem.deactivate();
+      break;
+    default:
+      //        this.listItem.deactivate();
+      //        this.searchItem.deactivate();
+      break;
     }
   }
 }

@@ -25,8 +25,10 @@ import java.util.Set;
  * Wraps an EventBus to hold on to any HandlerRegistrations, so that they can easily all be cleared
  * at once.
  */
-public class ResettableEventBus extends EventBus {
-  private final EventBus                 wrapped;
+public class ResettableEventBus
+    extends EventBus {
+  private final EventBus wrapped;
+
   private final Set<HandlerRegistration> registrations = new HashSet<>();
 
   public ResettableEventBus(EventBus wrappedBus) {
@@ -34,14 +36,20 @@ public class ResettableEventBus extends EventBus {
   }
 
   @Override
-  public <H> HandlerRegistration addHandler(Type<H> type, H handler) {
-    HandlerRegistration rtn = wrapped.addHandler(type, handler);
+  public <H> HandlerRegistration addHandler(Type<H> type,
+                                            H handler) {
+    HandlerRegistration rtn = wrapped.addHandler(type,
+                                                 handler);
     return doRegisterHandler(rtn);
   }
 
   @Override
-  public <H> HandlerRegistration addHandlerToSource(Event.Type<H> type, Object source, H handler) {
-    HandlerRegistration rtn = wrapped.addHandlerToSource(type, source, handler);
+  public <H> HandlerRegistration addHandlerToSource(Event.Type<H> type,
+                                                    Object source,
+                                                    H handler) {
+    HandlerRegistration rtn = wrapped.addHandlerToSource(type,
+                                                         source,
+                                                         handler);
     return doRegisterHandler(rtn);
   }
 
@@ -51,11 +59,15 @@ public class ResettableEventBus extends EventBus {
   }
 
   @Override
-  public void fireEventFromSource(Event<?> event, Object source) {
-    wrapped.fireEventFromSource(event, source);
+  public void fireEventFromSource(Event<?> event,
+                                  Object source) {
+    wrapped.fireEventFromSource(event,
+                                source);
   }
 
-  /** Remove all handlers that have been added through this wrapper. */
+  /**
+   * Remove all handlers that have been added through this wrapper.
+   */
   public void removeHandlers() {
     Iterator<HandlerRegistration> it = registrations.iterator();
     while (it.hasNext()) {
@@ -71,7 +83,9 @@ public class ResettableEventBus extends EventBus {
     }
   }
 
-  /** Visible for testing. */
+  /**
+   * Visible for testing.
+   */
   int getRegistrationSize() {
     return registrations.size();
   }

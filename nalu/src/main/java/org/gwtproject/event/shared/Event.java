@@ -21,35 +21,13 @@ package org.gwtproject.event.shared;
  * @param <H> interface implemented by handlers of this kind of event
  */
 public abstract class Event<H> {
-  /**
-   * Type class used to register events with an {@link EventBus}.
-   *
-   * @param <H> handler type
-   */
-  public static class Type<H> {
-    private static int nextHashCode;
-    private final int index;
-
-    /** Constructor. */
-    public Type() {
-      index = ++nextHashCode;
-    }
-
-    @Override
-    public final int hashCode() {
-      return index;
-    }
-
-    @Override
-    public String toString() {
-      return "Event type";
-    }
-  }
-
   private Object source;
 
-  /** Constructor. */
-  protected Event() {}
+  /**
+   * Constructor.
+   */
+  protected Event() {
+  }
 
   /**
    * Returns the {@link Type} used to register this event, allowing an {@link EventBus} to find
@@ -75,6 +53,18 @@ public abstract class Event<H> {
   }
 
   /**
+   * Set the source that triggered this event. Intended to be called by the {@link EventBus} during
+   * dispatch.
+   *
+   * @param source the source of this event.
+   * @see EventBus#fireEventFromSource(Event, Object)
+   * @see EventBus#setSourceOfEvent(Event, Object)
+   */
+  protected void setSource(Object source) {
+    this.source = source;
+  }
+
+  /**
    * This is a method used primarily for debugging. It gives a string representation of the event
    * details. This does not override the toString method because the compiler cannot always optimize
    * toString out correctly. Event types should override as desired.
@@ -82,7 +72,8 @@ public abstract class Event<H> {
    * @return a string representing the event's specifics.
    */
   public String toDebugString() {
-    String name = this.getClass().getName();
+    String name = this.getClass()
+                      .getName();
     name = name.substring(name.lastIndexOf(".") + 1);
     return "event: " + name + ":";
   }
@@ -107,14 +98,30 @@ public abstract class Event<H> {
   protected abstract void dispatch(H handler);
 
   /**
-   * Set the source that triggered this event. Intended to be called by the {@link EventBus} during
-   * dispatch.
+   * Type class used to register events with an {@link EventBus}.
    *
-   * @param source the source of this event.
-   * @see EventBus#fireEventFromSource(Event, Object)
-   * @see EventBus#setSourceOfEvent(Event, Object)
+   * @param <H> handler type
    */
-  protected void setSource(Object source) {
-    this.source = source;
+  public static class Type<H> {
+    private static int nextHashCode;
+
+    private final int index;
+
+    /**
+     * Constructor.
+     */
+    public Type() {
+      index = ++nextHashCode;
+    }
+
+    @Override
+    public final int hashCode() {
+      return index;
+    }
+
+    @Override
+    public String toString() {
+      return "Event type";
+    }
   }
 }

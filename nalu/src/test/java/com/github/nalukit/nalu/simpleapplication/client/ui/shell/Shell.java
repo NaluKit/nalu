@@ -25,7 +25,7 @@ import com.github.nalukit.nalu.simpleapplication.client.NaluSimpleApplicationCon
  * severeal areas.
  */
 public class Shell
-  extends AbstractShell<NaluSimpleApplicationContext> {
+    extends AbstractShell<NaluSimpleApplicationContext> {
 
   public Shell() {
   }

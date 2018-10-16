@@ -55,7 +55,7 @@ class Utils {
     RouterConfiguration routerConfiguration = new RouterConfiguration();
     routerConfiguration.getRouters()
                        .add(new RouteConfig("/testRoute01",
-                                            Arrays.asList(new String[]{}),
+                                            Arrays.asList(new String[] {}),
                                             "content",
                                             "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     routerConfiguration.getRouters()
@@ -66,7 +66,7 @@ class Utils {
                                             "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     routerConfiguration.getRouters()
                        .add(new RouteConfig("/testRoute03/testRoute04/testRoute05",
-                                            Arrays.asList(new String[]{}),
+                                            Arrays.asList(new String[] {}),
                                             "content",
                                             "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     routerConfiguration.getRouters()

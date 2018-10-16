@@ -26,7 +26,8 @@ import org.gwtproject.event.shared.Event.Type;
  * @see SimpleEventBus
  * @see ResettableEventBus
  */
-public abstract class EventBus implements HasHandlers {
+public abstract class EventBus
+    implements HasHandlers {
 
   /**
    * Invokes {@code event.dispatch} with {@code handler}.
@@ -34,10 +35,11 @@ public abstract class EventBus implements HasHandlers {
    * <p>Protected to allow EventBus implementations in different packages to dispatch events even
    * though the {@code event.dispatch} method is protected.
    *
-   * @param event the event
+   * @param event   the event
    * @param handler the handler
    */
-  protected static <H> void dispatchEvent(Event<H> event, H handler) {
+  protected static <H> void dispatchEvent(Event<H> event,
+                                          H handler) {
     event.dispatch(handler);
   }
 
@@ -47,10 +49,11 @@ public abstract class EventBus implements HasHandlers {
    * <p>Protected to allow EventBus implementations in different packages to set an event source
    * even though the {@code event.setSource} method is protected.
    *
-   * @param event the event
+   * @param event  the event
    * @param source the source
    */
-  protected static void setSourceOfEvent(Event<?> event, Object source) {
+  protected static void setSourceOfEvent(Event<?> event,
+                                         Object source) {
     event.setSource(source);
   }
 
@@ -60,12 +63,13 @@ public abstract class EventBus implements HasHandlers {
    * <p>It is rare to call this method directly. More typically an {@link Event} subclass will
    * provide a static <code>register</code> method, or a widget will accept handlers directly.
    *
-   * @param <H> The type of handler
-   * @param type the event type associated with this handler
+   * @param <H>     The type of handler
+   * @param type    the event type associated with this handler
    * @param handler the handler
    * @return the handler registration, can be stored in order to remove the handler later
    */
-  public abstract <H> HandlerRegistration addHandler(Type<H> type, H handler);
+  public abstract <H> HandlerRegistration addHandler(Type<H> type,
+                                                     H handler);
 
   /**
    * Adds a handler to receive events of this type from the given source.
@@ -73,14 +77,15 @@ public abstract class EventBus implements HasHandlers {
    * <p>It is rare to call this method directly. More typically a {@link Event} subclass will
    * provide a static <code>register</code> method, or a widget will accept handlers directly.
    *
-   * @param <H> The type of handler
-   * @param type the event type associated with this handler
-   * @param source the source associated with this handler
+   * @param <H>     The type of handler
+   * @param type    the event type associated with this handler
+   * @param source  the source associated with this handler
    * @param handler the handler
    * @return the handler registration, can be stored in order to remove the handler later
    */
-  public abstract <H> HandlerRegistration addHandlerToSource(
-    Type<H> type, Object source, H handler);
+  public abstract <H> HandlerRegistration addHandlerToSource(Type<H> type,
+                                                             Object source,
+                                                             H handler);
 
   /**
    * Fires the event from no source. Only unfiltered handlers will receive it.
@@ -89,8 +94,8 @@ public abstract class EventBus implements HasHandlers {
    * re-thrown after all handlers have completed. An exception thrown by a handler will not prevent
    * other handlers from executing.
    *
-   * @throws UmbrellaException wrapping exceptions thrown by handlers
    * @param event the event to fire
+   * @throws UmbrellaException wrapping exceptions thrown by handlers
    */
   @Override
   public abstract void fireEvent(Event<?> event);
@@ -102,9 +107,10 @@ public abstract class EventBus implements HasHandlers {
    * re-thrown after all handlers have completed. An exception thrown by a handler will not prevent
    * other handlers from executing.
    *
-   * @throws UmbrellaException wrapping exceptions thrown by handlers
-   * @param event the event to fire
+   * @param event  the event to fire
    * @param source the source of the event
+   * @throws UmbrellaException wrapping exceptions thrown by handlers
    */
-  public abstract void fireEventFromSource(Event<?> event, Object source);
+  public abstract void fireEventFromSource(Event<?> event,
+                                           Object source);
 }

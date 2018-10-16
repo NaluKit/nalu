@@ -22,9 +22,8 @@ import com.github.nalukit.nalu.simpleapplication.client.NaluSimpleApplicationCon
 import com.github.nalukit.nalu.simpleapplication.client.event.SelectEvent;
 import com.github.nalukit.nalu.simpleapplication.client.event.StatusChangeEvent;
 
-
 public class SearchController
-  extends AbstractComponentController<NaluSimpleApplicationContext, ISearchComponent, String>
+    extends AbstractComponentController<NaluSimpleApplicationContext, ISearchComponent, String>
     implements ISearchComponent.Controller {
 
   public SearchController() {

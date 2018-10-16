@@ -28,5 +28,5 @@ import com.github.nalukit.nalu.client.application.IsApplication;
  * framework). You can use any technique to call the server!</p>
  */
 interface NaluSimpleApplication
-  extends IsApplication {
+    extends IsApplication {
 }

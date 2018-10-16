@@ -14,13 +14,12 @@
  * limitations under the License.
  *
  */
-
 package com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithLoader;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 
 public class MockApplicationLoader
-  implements IsApplicationLoader {
+    implements IsApplicationLoader {
 
   @Override
   public void load(FinishLoadCommand finishLoadCommand) {

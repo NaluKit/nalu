@@ -33,8 +33,8 @@ import com.github.nalukit.nalu.simpleapplication.client.ui.shell.Shell;
 import java.util.Arrays;
 
 public final class NaluSimpleApplicationImpl
-  extends AbstractApplication<NaluSimpleApplicationContext>
-  implements NaluSimpleApplication {
+    extends AbstractApplication<NaluSimpleApplicationContext>
+    implements NaluSimpleApplication {
   public NaluSimpleApplicationImpl() {
     super();
     super.context = new NaluSimpleApplicationContext();
@@ -57,7 +57,7 @@ public final class NaluSimpleApplicationImpl
   public void loadRoutes() {
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/",
-                                                  Arrays.asList(new String[]{}),
+                                                  Arrays.asList(new String[] {}),
                                                   "footer",
                                                   "com.github.nalukit.example.nalu.simpleapplication.client.ui.footer.FooterController"));
     super.routerConfiguration.getRouters()
@@ -79,7 +79,7 @@ public final class NaluSimpleApplicationImpl
                                                   "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/",
-                                                  Arrays.asList(new String[]{}),
+                                                  Arrays.asList(new String[] {}),
                                                   "navigation",
                                                   "com.github.nalukit.example.nalu.simpleapplication.client.ui.navigation.NavigationController"));
   }
@@ -119,9 +119,8 @@ public final class NaluSimpleApplicationImpl
                      .registerController("com.github.nalukit.example.nalu.simpleapplication.client.ui.footer.FooterController",
                                          new ControllerCreator() {
                                            @Override
-                                           public AbstractComponentController<NaluSimpleApplicationContext, IFooterComponent, String> create(
-                                             String... parms)
-                                             throws RoutingInterceptionException {
+                                           public AbstractComponentController<NaluSimpleApplicationContext, IFooterComponent, String> create(String... parms)
+                                               throws RoutingInterceptionException {
                                              FooterController controller = new FooterController();
                                              controller.setContext(context);
                                              controller.setEventBus(eventBus);
@@ -144,9 +143,8 @@ public final class NaluSimpleApplicationImpl
                      .registerController("com.github.nalukit.example.nalu.simpleapplication.client.ui.content.list.ListController",
                                          new ControllerCreator() {
                                            @Override
-                                           public AbstractComponentController<NaluSimpleApplicationContext, IListComponent, String> create(
-                                             String... parms)
-                                             throws RoutingInterceptionException {
+                                           public AbstractComponentController<NaluSimpleApplicationContext, IListComponent, String> create(String... parms)
+                                               throws RoutingInterceptionException {
                                              ListController controller = new ListController();
                                              controller.setContext(context);
                                              controller.setEventBus(eventBus);
@@ -175,9 +173,8 @@ public final class NaluSimpleApplicationImpl
                      .registerController("com.github.nalukit.example.nalu.simpleapplication.client.ui.content.search.SearchController",
                                          new ControllerCreator() {
                                            @Override
-                                           public AbstractComponentController<NaluSimpleApplicationContext, ISearchComponent, String> create(
-                                             String... parms)
-                                             throws RoutingInterceptionException {
+                                           public AbstractComponentController<NaluSimpleApplicationContext, ISearchComponent, String> create(String... parms)
+                                               throws RoutingInterceptionException {
                                              SearchController controller = new SearchController();
                                              controller.setContext(context);
                                              controller.setEventBus(eventBus);
@@ -206,9 +203,8 @@ public final class NaluSimpleApplicationImpl
                      .registerController("com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController",
                                          new ControllerCreator() {
                                            @Override
-                                           public AbstractComponentController<NaluSimpleApplicationContext, IDetailComponent, String> create(
-                                             String... parms)
-                                             throws RoutingInterceptionException {
+                                           public AbstractComponentController<NaluSimpleApplicationContext, IDetailComponent, String> create(String... parms)
+                                               throws RoutingInterceptionException {
                                              DetailController controller = new DetailController();
                                              controller.setContext(context);
                                              controller.setEventBus(eventBus);
@@ -234,9 +230,8 @@ public final class NaluSimpleApplicationImpl
                      .registerController("com.github.nalukit.example.nalu.simpleapplication.client.ui.navigation.NavigationController",
                                          new ControllerCreator() {
                                            @Override
-                                           public AbstractComponentController<NaluSimpleApplicationContext, INavigationComponent, String> create(
-                                             String... parms)
-                                             throws RoutingInterceptionException {
+                                           public AbstractComponentController<NaluSimpleApplicationContext, INavigationComponent, String> create(String... parms)
+                                               throws RoutingInterceptionException {
                                              NavigationController controller = new NavigationController();
                                              controller.setContext(context);
                                              controller.setEventBus(eventBus);

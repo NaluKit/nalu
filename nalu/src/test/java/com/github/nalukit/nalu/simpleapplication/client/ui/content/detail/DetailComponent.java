@@ -34,49 +34,49 @@ public class DetailComponent
 
   private String detailCity;
 
-//  private HTMLButtonElement saveButton;
-//
-//  private HTMLButtonElement revertButton;
+  //  private HTMLButtonElement saveButton;
+  //
+  //  private HTMLButtonElement revertButton;
 
   public DetailComponent() {
   }
 
   @Override
   public void render() {
-//    this.detailFirstName = TextBox.create("First name");
-//    this.detailName = TextBox.create("Name");
-//    this.detailStreet = TextBox.create("Name");
-//    this.detailZip = TextBox.create("Name");
-//    this.detailCity = TextBox.create("Name");
-//
-//
-//    return Card.create("Details")
-//               .appendContent(Row.create()
-//                                 .addColumn(Column.create(12)
-//                                                  .addElement(this.detailFirstName)))
-//               .appendContent(Row.create()
-//                                 .addColumn(Column.create(12)
-//                                                  .addElement(this.detailName)))
-//               .appendContent(Row.create()
-//                                 .addColumn(Column.create(12)
-//                                                  .addElement(this.detailStreet)))
-//               .appendContent(Row.create()
-//                                 .addColumn(Column.create(12)
-//                                                  .addElement(this.detailZip)))
-//               .appendContent(Row.create()
-//                                 .addColumn(Column.create(12)
-//                                                  .addElement(this.detailCity)))
-//               .appendContent(Row.create()
-//                                 .addColumn(Column.create(12)
-//                                                  .addElement(Button.createPrimary("Save")
-//                                                                    .setStyleProperty("margin-right",
-//                                                                                      "20px")
-//                                                                    .addClickListener(e -> getController().doUpdate()))
-//                                                  .addElement(Button.create("Reset")
-//                                                                    .addClickListener(e -> getController().doRevert())))
-//                                 .style()
-//                                 .setTextAlign("right"))
-//               .asElement();
+    //    this.detailFirstName = TextBox.create("First name");
+    //    this.detailName = TextBox.create("Name");
+    //    this.detailStreet = TextBox.create("Name");
+    //    this.detailZip = TextBox.create("Name");
+    //    this.detailCity = TextBox.create("Name");
+    //
+    //
+    //    return Card.create("Details")
+    //               .appendContent(Row.create()
+    //                                 .addColumn(Column.create(12)
+    //                                                  .addElement(this.detailFirstName)))
+    //               .appendContent(Row.create()
+    //                                 .addColumn(Column.create(12)
+    //                                                  .addElement(this.detailName)))
+    //               .appendContent(Row.create()
+    //                                 .addColumn(Column.create(12)
+    //                                                  .addElement(this.detailStreet)))
+    //               .appendContent(Row.create()
+    //                                 .addColumn(Column.create(12)
+    //                                                  .addElement(this.detailZip)))
+    //               .appendContent(Row.create()
+    //                                 .addColumn(Column.create(12)
+    //                                                  .addElement(this.detailCity)))
+    //               .appendContent(Row.create()
+    //                                 .addColumn(Column.create(12)
+    //                                                  .addElement(Button.createPrimary("Save")
+    //                                                                    .setStyleProperty("margin-right",
+    //                                                                                      "20px")
+    //                                                                    .addClickListener(e -> getController().doUpdate()))
+    //                                                  .addElement(Button.create("Reset")
+    //                                                                    .addClickListener(e -> getController().doRevert())))
+    //                                 .style()
+    //                                 .setTextAlign("right"))
+    //               .asElement();
     initElement("DetailForm");
   }
 
@@ -86,34 +86,34 @@ public class DetailComponent
       detailFirstName = result.getFirstName();
       detailName = result.getName();
       detailStreet = result.getAddress()
-                                 .getStreet();
+                           .getStreet();
       detailZip = result.getAddress()
-                              .getZip();
+                        .getZip();
       detailCity = result.getAddress()
-                               .getCity();
+                         .getCity();
     }
   }
 
   @Override
   public boolean isDirty() {
-//    boolean notDirty = (getController().getPerson()
-//                                       .getFirstName()
-//                                       .equals(detailFirstName.getValue())) &&
-//        (getController().getPerson()
-//                        .getName()
-//                        .equals(detailName.getValue())) &&
-//        (getController().getPerson()
-//                        .getAddress()
-//                        .getStreet()
-//                        .equals(detailStreet.getValue())) &&
-//        (getController().getPerson()
-//                        .getAddress()
-//                        .getZip()
-//                        .equals(detailZip.getValue())) &&
-//        (getController().getPerson()
-//                        .getAddress()
-//                        .getCity()
-//                        .equals(detailCity.getValue()));
+    //    boolean notDirty = (getController().getPerson()
+    //                                       .getFirstName()
+    //                                       .equals(detailFirstName.getValue())) &&
+    //        (getController().getPerson()
+    //                        .getName()
+    //                        .equals(detailName.getValue())) &&
+    //        (getController().getPerson()
+    //                        .getAddress()
+    //                        .getStreet()
+    //                        .equals(detailStreet.getValue())) &&
+    //        (getController().getPerson()
+    //                        .getAddress()
+    //                        .getZip()
+    //                        .equals(detailZip.getValue())) &&
+    //        (getController().getPerson()
+    //                        .getAddress()
+    //                        .getCity()
+    //                        .equals(detailCity.getValue()));
     return false;
   }
 
