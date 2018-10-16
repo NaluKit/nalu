@@ -8,7 +8,7 @@ Nalu is a tiny framework that helps you to create GWT based applications quite e
 
 Nalu offers the following features:
 
-* Fully support of the browser's back- forward- and relaod-button.
+* Fully support of the browser's back- forward- and reload-button.
 
 * An optional loader that will be executed at application start to load data from the server.
 
@@ -18,13 +18,13 @@ Nalu offers the following features:
 
 * Full history support.
 
-* Seperation of views into a controller and a component with framwork sided instantiation.
+* Seperation of views into a controller and a component with framework sided instantiation.
 
 * a controller life-cycle using ```start```-, ```mayStop```- and ```stop```- similar to GWT Activities.
 
 * Supports HTML links and programmatically routing thanks to a router.
 
-* Controller based handler manager, that will remove all handlers from the event bus in case the controller is stopped to prevent memeory leaks (handler registratoins must be added to the manager).
+* Controller based handler manager, that will remove all handlers from the event bus in case the controller is stopped to prevent memory leaks (handler registrations must be added to the manager).
 
 * Support for UiBinder (nalu-plugin-gwt)
 
@@ -39,7 +39,7 @@ Example hash:
 
 where
 * route: is the navigation end point
-* parameter_x: are the parameters of the route (it is possible to have a route without parameter or to use a route, that excepts paramter without parameter in inside the url.)
+* parameter_x: are the parameters of the route (it is possible to have a route without parameter or to use a route, that excepts parameter without parameter in inside the url.)
 
 The following flow shows the steps to be done, once a routing is initiated. The flow will end with appending the new component to the DOM.
 
@@ -65,7 +65,7 @@ To navigate to a new route use:
                       parameter_2);
 ```
 inside the controller.
-The Router is automaticly injected in the controller. To route to a new component call the route method and add at least the new route. If the route has parameters, just add them as additional parameters. (**Important:** Parameters must be Strings!)
+The Router is automatically injected in the controller. To route to a new component call the route method and add at least the new route. If the route has parameters, just add them as additional parameters. (**Important:** Parameters must be Strings!)
 
 ## Using
 To use Nalu, clone the repo and run ```maven clean install``` (ToDo: move to maven central) and add the following dependencies to your pom:
@@ -117,7 +117,7 @@ See the wiki for more informations on Nalu and how to use it.
 More useful information about Nalu and how to use it, can be find inside the [Wiki](https://github.com/nalukit/nalu/wiki).
 
 ## J2CL / GWT3
-With the next version of GWT (GWT 3) and the new J2CL transpiler, there will be major changes in the GWT developmemt. For example: JSNI and generators, besides other things, will be gone. To be prepared for the futere things like JSNI, generators or any other dependency to GWT has to be avoided. Nalu uses only the already migrated ```gwt-events``` from ```org.gwtproject```.
+With the next version of GWT (GWT 3) and the new J2CL transpiler, there will be major changes in the GWT developmemt. For example: JSNI and generators, besides other things, will be gone. To be prepared for the future things like JSNI, generators or any other dependency to GWT has to be avoided. Nalu uses only the already migrated ```gwt-events``` from ```org.gwtproject```.
 
 Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not use JSNI, generators or anything else from GWT. Nalu is ready to use with J2CL / GWT 3.
 
