@@ -24,6 +24,7 @@ import com.github.nalukit.nalu.client.filter.IsFilter;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
+import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
 import com.github.nalukit.nalu.client.internal.route.HashResult;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
@@ -62,8 +63,6 @@ public final class Router {
                 RouterConfiguration routerConfiguration,
                 List<CompositeControllerReference> compositeControllerReferences) {
     super();
-    // save the shell
-    this.shell = shell;
     // save te plugin
     this.plugin = plugin;
     // save the router configuration reference
@@ -73,26 +72,26 @@ public final class Router {
     // inistantiate lists, etc.
     this.activeComponents = new HashMap<>();
     // register event handler
-    this.plugin.register(h -> this.handleRouting(h));
+    this.plugin.register(this::handleRouting);
   }
 
-  private String handleRouting(String hash) {
+  private void handleRouting(String hash) {
     RouterLogger.logHandleHash(hash);
     // ok, everything is fine, route!
     // parse hash ...
-    HashResult hashResult = null;
+    HashResult hashResult;
     try {
       hashResult = this.parse(hash);
     } catch (RouterException e) {
       if (Objects.isNull(this.routeErrorRoute) || this.routeErrorRoute.isEmpty()) {
-        return null;
+        return;
       } else {
         RouterLogger.logNoMatchingRoute(hash,
                                         this.routeErrorRoute);
         this.route(this.routeErrorRoute,
                    true);
       }
-      return null;
+      return;
     }
     // First we have to check if there is a filter
     // if there are filters ==>  filter the route
@@ -107,7 +106,7 @@ public final class Router {
         this.route(filter.redirectTo(),
                    true,
                    filter.parameters());
-        return null;
+        return;
       }
     }
     // search for a matching routing
@@ -118,7 +117,7 @@ public final class Router {
       this.stopController(routeConfigurations);
       // routing
       for (RouteConfig routeConfiguraion : routeConfigurations) {
-        AbstractComponentController<?, ?, ?> controller;
+        ControllerInstance controller;
         try {
           controller = ControllerFactory.get()
                                         .controller(routeConfiguraion.getClassName(),
@@ -131,7 +130,7 @@ public final class Router {
           this.route(e.getRoute(),
                      true,
                      e.getParameter());
-          return null;
+          return;
         }
         // do the routing ...
         doRouting(hash,
@@ -143,14 +142,13 @@ public final class Router {
       this.plugin.route("#" + this.lastExecutedHash,
                         false);
     }
-    return null;
   }
 
   private void doRouting(String hash,
                          HashResult hashResult,
                          RouteConfig routeConfiguraion,
-                         AbstractComponentController<?, ?, ?> controller) {
-    if (Objects.isNull(controller)) {
+                         ControllerInstance controllerInstance) {
+    if (Objects.isNull(controllerInstance.getController())) {
       RouterLogger.logNoControllerFoundForHash(hash);
       if (!Objects.isNull(this.routeErrorRoute)) {
         RouterLogger.logUseErrorRoute(this.routeErrorRoute);
@@ -161,16 +159,20 @@ public final class Router {
       }
     } else {
       // handle controller
-      controller.setRouter(this);
+      controllerInstance.getController()
+                        .setRouter(this);
       // handle composite of the controller
-      RouterLogger.logControllerLookForCompositeCotroller(controller.getClass()
-                                                                    .getCanonicalName());
-      List<CompositeControllerReference> compositeForController = this.getCompositeForController(controller.getClass()
-                                                                                                           .getCanonicalName());
+      RouterLogger.logControllerLookForCompositeCotroller(controllerInstance.getController()
+                                                                            .getClass()
+                                                                            .getCanonicalName());
+      List<CompositeControllerReference> compositeForController = this.getCompositeForController(controllerInstance.getController()
+                                                                                                                   .getClass()
+                                                                                                                   .getCanonicalName());
       List<AbstractCompositeController<?, ?, ?>> compositeControllers = new ArrayList<>();
       if (compositeForController.size() > 0) {
-        RouterLogger.logControllerCompositeControllerFound(controller.getClass()
-                                                                     .getCanonicalName(),
+        RouterLogger.logControllerCompositeControllerFound(controllerInstance.getController()
+                                                                             .getClass()
+                                                                             .getCanonicalName(),
                                                            compositeForController.size());
         compositeForController.forEach(s -> {
           try {
@@ -179,8 +181,9 @@ public final class Router {
                                                                                            hashResult.getParameterValues()
                                                                                                      .toArray(new String[0]));
             if (composite == null) {
-              RouterLogger.logCompositeNotFound(controller.getClass()
-                                                          .getCanonicalName(),
+              RouterLogger.logCompositeNotFound(controllerInstance.getController()
+                                                                  .getClass()
+                                                                  .getCanonicalName(),
                                                 s.getCompositeName());
 
             } else {
@@ -188,13 +191,15 @@ public final class Router {
               // inject router into composite
               composite.setRouter(this);
               // inject composite into controller
-              controller.getComposites()
-                        .put(s.getCompositeName(),
-                             composite);
+              controllerInstance.getController()
+                                .getComposites()
+                                .put(s.getCompositeName(),
+                                    composite);
               RouterLogger.logCompositeControllerInjectedInController(composite.getClass()
                                                                                .getCanonicalName(),
-                                                                      controller.getClass()
-                                                                                .getCanonicalName());
+                                                                      controllerInstance.getController()
+                                                                                        .getClass()
+                                                                                        .getCanonicalName());
             }
           } catch (RoutingInterceptionException e) {
             RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
@@ -203,15 +208,15 @@ public final class Router {
             this.route(e.getRoute(),
                        true,
                        e.getParameter());
-            return;
           }
         });
       } else {
-        RouterLogger.logControllerNoCompositeControllerFound(controller.getClass()
-                                                                       .getCanonicalName());
+        RouterLogger.logControllerNoCompositeControllerFound(controllerInstance.getController()
+                                                                               .getClass()
+                                                                               .getCanonicalName());
       }
       this.append(routeConfiguraion.getSelector(),
-                  controller);
+                  controllerInstance.getController());
       // append composite
       for (AbstractCompositeController<?, ?, ?> compositeController : compositeControllers) {
         CompositeControllerReference reference = null;
@@ -224,28 +229,38 @@ public final class Router {
           }
         }
         if (reference != null) {
+          // TODO Was soll das? kann das raus????
           this.append(reference.getSelector(),
                       compositeController);
-          RouterLogger.logControllerOnAttachedCompositeController(controller.getClass()
-                                                                            .getCanonicalName(),
+          RouterLogger.logControllerOnAttachedCompositeController(controllerInstance.getController()
+                                                                                    .getClass()
+                                                                                    .getCanonicalName(),
                                                                   compositeController.getClass()
                                                                                      .getCanonicalName());
         }
       }
-      controller.onAttach();
-      RouterLogger.logControllerOnAttachedMethodCalled(controller.getClass()
+      controllerInstance.getController()
+                        .onAttach();
+      RouterLogger.logControllerOnAttachedMethodCalled(controllerInstance.getController()
+                                                                         .getClass()
+                                                                         .getCanonicalName());
+      // call start method only in case the controller was not stored!
+      if (!controllerInstance.isChached()) {
+        compositeControllers.forEach(s -> {
+          s.start();
+          RouterLogger.logCompositeComntrollerStartMethodCalled(s.getClass()
                                                                  .getCanonicalName());
-      compositeControllers.forEach(s -> {
-        s.start();
-        RouterLogger.logCompositeComntrollerStartMethodCalled(s.getClass()
-                                                               .getCanonicalName());
-      });
-      controller.start();
-      RouterLogger.logControllerStartMethodCalled(controller.getClass()
-                                                            .getCanonicalName());
+        });
+        controllerInstance.getController()
+                          .start();
+        RouterLogger.logControllerStartMethodCalled(controllerInstance.getController()
+                                                                      .getClass()
+                                                                      .getCanonicalName());
+      }
       this.shell.onAttachedComponent();
-      RouterLogger.logShellOnAttachedComponentMethodCalled(controller.getClass()
-                                                                     .getCanonicalName());
+      RouterLogger.logShellOnAttachedComponentMethodCalled(controllerInstance.getController()
+                                                                             .getClass()
+                                                                             .getCanonicalName());
       this.lastExecutedHash = hash;
     }
 
@@ -384,10 +399,14 @@ public final class Router {
                       .map(config -> this.activeComponents.get(config.getSelector()))
                       .filter(Objects::nonNull)
                       .forEach(controller -> {
+                        // stop controller
+                        RouterLogger.logControllerHandlingStop(controller.getClass()
+                                                                         .getCanonicalName());
+                        RouterLogger.logControllerHandlingStopComposites(controller.getClass()
+                                                                                   .getCanonicalName());
                         // stop compositeComntrollers
                         controller.getComposites()
                                   .values()
-                                  .stream()
                                   .forEach(s -> {
                                     RouterLogger.logCompositeControllerStopMethodWillBeCalled(s.getClass()
                                                                                                .getCanonicalName());
@@ -415,6 +434,9 @@ public final class Router {
                                     RouterLogger.logCompositeControllerStopped(controller.getClass()
                                                                                          .getCanonicalName());
                                   });
+
+                        RouterLogger.logControllerCompositesStoppped(controller.getClass()
+                                                                                   .getCanonicalName());
 
                         // stop controller
                         RouterLogger.logControllerStopMethodWillBeCalled(controller.getClass()
@@ -460,8 +482,9 @@ public final class Router {
 
   private void append(String selector,
                       AbstractCompositeController<?, ?, ?> compositeController) {
-    if (this.plugin.attach(selector,
-                           compositeController.asElement())) {
+    if (!this.plugin.attach(selector,
+                            compositeController.asElement())) {
+      // TODO ... write log, das der append fehl geschalgen st!
     }
   }
 
@@ -530,4 +553,34 @@ public final class Router {
   public void setRouteErrorRoute(String routeErrorRoute) {
     this.routeErrorRoute = routeErrorRoute;
   }
+
+  /**
+   * Stores the instance of the controller in the cache, so that it can be reused the next time
+   * the route is called.
+   *
+   * @param controller controller to store
+   */
+  public <C extends AbstractComponentController<?, ?, ?>> void storeInCache(C controller) {
+    ControllerFactory.get()
+                     .storeInCache(controller);
+  }
+
+  /**
+   * Removes a controller from the chache
+   *
+   * @param controller controller to be removed
+   */
+  public <C extends AbstractComponentController<?, ?, ?>> void removeFromCache(C controller) {
+    ControllerFactory.get()
+                     .removeFromCache(controller);
+  }
+
+  /**
+   * clears the controller chache
+   */
+  public void clearControllerCache() {
+    ControllerFactory.get()
+                     .clearControllerCache();
+  }
+
 }

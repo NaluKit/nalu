@@ -203,6 +203,24 @@ class RouterLogger {
               1);
   }
 
+  static void logControllerHandlingStop(String canonicalName) {
+    String sb = "controller >>" + canonicalName + "<< --> handlling stop request";
+    logSimple(sb,
+              1);
+  }
+
+  static void logControllerHandlingStopComposites(String canonicalName) {
+    String sb = "controller >>" + canonicalName + "<< --> stopping composites";
+    logSimple(sb,
+              2);
+  }
+
+  static void logControllerCompositesStoppped(String canonicalName) {
+    String sb = "controller >>" + canonicalName + "<< --> composites stopped";
+    logSimple(sb,
+              2);
+  }
+
   static void logCompositeControllerStopped(String canonicalName) {
     String sb = "composite controller >>" + canonicalName + "<< --> stopped";
     logSimple(sb,

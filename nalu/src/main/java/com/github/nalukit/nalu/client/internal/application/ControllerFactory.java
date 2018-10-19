@@ -30,10 +30,14 @@ public class ControllerFactory {
   private static ControllerFactory instance;
 
   /* map of components (key: name of class, Value: ControllerCreator */
-  private Map<String, ControllerCreator> coontrollerFactory;
+  private Map<String, ControllerCreator> controllerFactory;
+
+  /* map of stored components (key: name of class, Value: instance of controller */
+  private Map<String, AbstractComponentController<?, ?, ?>> controllerStore;
 
   private ControllerFactory() {
-    this.coontrollerFactory = new HashMap<>();
+    this.controllerFactory = new HashMap<>();
+    this.controllerStore = new HashMap<>();
   }
 
   public static ControllerFactory get() {
@@ -45,17 +49,44 @@ public class ControllerFactory {
 
   public void registerController(String controller,
                                  ControllerCreator creator) {
-    this.coontrollerFactory.put(controller,
-                                creator);
+    this.controllerFactory.put(controller,
+                               creator);
   }
 
-  public AbstractComponentController<?, ?, ?> controller(String controller,
-                                                         String... parms)
+  public ControllerInstance controller(String controller,
+                                       String... parms)
       throws RoutingInterceptionException {
-    if (this.coontrollerFactory.containsKey(controller)) {
-      return this.coontrollerFactory.get(controller)
-                                    .create(parms);
+    if (this.controllerFactory.containsKey(controller)) {
+      return this.controllerFactory.get(controller)
+                                   .create(parms);
     }
     return null;
   }
+
+  public AbstractComponentController<?, ?, ?> getControllerFormStore(String controllerClassName) {
+    return this.controllerStore.get(this.classFormatter(controllerClassName));
+  }
+
+  public <C extends AbstractComponentController<?, ?, ?>> void storeInCache(C controller) {
+    String key = this.classFormatter(controller.getClass()
+                                               .getCanonicalName());
+    this.controllerStore.put(key,
+                             controller);
+  }
+
+  public <C extends AbstractComponentController<?, ?, ?>> void removeFromCache(C controller) {
+    String key = this.classFormatter(controller.getClass()
+                                               .getCanonicalName());
+    this.controllerStore.remove(key);
+  }
+
+  public void clearControllerCache() {
+    this.controllerStore.clear();
+  }
+
+  private String classFormatter(String route) {
+    return route.replace(".",
+                         "_");
+  }
+
 }

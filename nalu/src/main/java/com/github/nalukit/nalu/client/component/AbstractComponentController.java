@@ -27,32 +27,60 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
     implements IsController<W>,
                IsComponent.Controller {
 
+  /* component of the controller */
   protected V component;
 
+  /* list of registered handlers */
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
 
+  /* list fo compsite controllers */
   private Map<String, AbstractCompositeController<?, ?, ?>> compositeComtrollers;
+
+  /* the route the controller is related to */
+  private String relatedRoute;
+
+  /* flag, if the controller is restored or not */
+  private boolean restored;
 
   public AbstractComponentController() {
     super();
     this.compositeComtrollers = new HashMap<>();
   }
 
+  /**
+   * Returns the elment of the component. Will be used by Nalu
+   * to add it to the DOM.
+   *
+   * @return the element of the component
+   */
   @Override
   public W asElement() {
     return this.component.asElement();
   }
 
+  /**
+   * Method will be called in case the element is attached to the DOM
+   */
   @Override
   public final void onAttach() {
     component.onAttach();
   }
 
+  /**
+   * Method will be called in case the element is removed from the DOM
+   */
   @Override
   public final void onDetach() {
     component.onDetach();
   }
 
+  /**
+   * This method will be called in case a routing occurs and this instance is
+   * a currently attached controller
+   *
+   * @return null -> routing is ok, String -> routing will be interrupted and
+   * the String will be displayed in a message window
+   */
   @Override
   public String mayStop() {
     return null;
@@ -67,7 +95,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   @Override
   public void removeHandlers() {
     this.handlerRegistrations.removeHandler();
-    this.handlerRegistrations = null;
+    this.handlerRegistrations = new HandlerRegistrations();
   }
 
   /**
@@ -90,18 +118,73 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   public void stop() {
   }
 
+  /**
+   * Sets the component inside the controller
+   *
+   * @param component instance fo the component
+   */
   public void setComponent(V component) {
     this.component = component;
   }
 
+  /**
+   * The map of the depending composites of the controller
+   *
+   * @return Map of depending composites
+   */
   public Map<String, AbstractCompositeController<?, ?, ?>> getComposites() {
     return compositeComtrollers;
   }
 
+  /**
+   * Returns the composite stored under the composite name.
+   *
+   * @param name the name of the composite
+   * @param <S>  type of the composite
+   * @return instance of the composite
+   */
   @SuppressWarnings("unchecked")
   public <S extends AbstractCompositeController<?, ?, ?>> S getComposite(String name) {
     return (S) this.getComposites()
                    .get(name);
+  }
+
+  /**
+   * The route the controller is related to.
+   *
+   * @return related route
+   */
+  public String getRelatedRoute() {
+    return relatedRoute;
+  }
+
+  /**
+   * Sets the related route of the controller. (Will be used by the framework!)
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @param relatedRoute related route of the controller
+   */
+  public void setRelatedRoute(String relatedRoute) {
+    this.relatedRoute = relatedRoute;
+  }
+
+  /**
+   * Indicates, if the controller is newly created or not
+   *
+   * @return true: the controller is reused, false: the controller is newly created
+   */
+  public boolean isRestored() {
+    return restored;
+  }
+
+  /**
+   * Sets the value, if the controller is newly created or restored!
+   * <b>This field is used by Nalu! Setting the value can lead to unexpected behavior!</b>
+   *
+   * @param restored true: the controller is reused, false: the controller is newly created
+   */
+  public void setRestored(boolean restored) {
+    this.restored = restored;
   }
 
   /**
