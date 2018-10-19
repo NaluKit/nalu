@@ -24,7 +24,7 @@
 
   <groupId>com.github.nalukit</groupId>
   <artifactId>nalu-parent</artifactId>
-  <version>1.0.0-rc-5</version>
+  <version>1.0.0-rc-6-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>nalu-parent</name>
@@ -95,7 +95,7 @@
 
     <plugin.version.github.site>0.12</plugin.version.github.site>
     <plugin.version.gpg.maven>1.6</plugin.version.gpg.maven>
-    <plugin.version.gwt.maven>1.0-rc-9</plugin.version.gwt.maven>
+    <plugin.version.gwt.maven>1.0-rc-10</plugin.version.gwt.maven>
     <plugin.version.javadoc>3.0.0</plugin.version.javadoc>
     <plugin.version.project.info.report>2.8</plugin.version.project.info.report>
     <plugin.version.nexus.staging>1.6.8</plugin.version.nexus.staging>
