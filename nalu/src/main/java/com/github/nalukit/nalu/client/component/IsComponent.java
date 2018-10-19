@@ -24,11 +24,13 @@ public interface IsComponent<C extends IsComponent.Controller, W> {
 
   void bind();
 
+  C getController();
+
   void onAttach();
 
   void onDetach();
 
-  C getController();
+  void removeHandlers();
 
   void setController(C controller);
 

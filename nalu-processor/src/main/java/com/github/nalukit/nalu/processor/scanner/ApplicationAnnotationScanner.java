@@ -149,10 +149,8 @@ public class ApplicationAnnotationScanner {
                            ApplicationMetaModel.class);
     } catch (FileNotFoundException e) {
       // every thing is ok -> no operation
-      System.out.print(e);
     } catch (IOException e) {
       // every thing is ok -> no operation
-      System.out.print(e);
     }
     return null;
   }

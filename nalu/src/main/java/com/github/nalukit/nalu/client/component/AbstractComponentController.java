@@ -103,4 +103,13 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
     return (S) this.getComposites()
                    .get(name);
   }
+
+  /**
+   * Get the component
+   *
+   * @return the compoment of the controller
+   */
+  public V getComponent() {
+    return this.component;
+  }
 }

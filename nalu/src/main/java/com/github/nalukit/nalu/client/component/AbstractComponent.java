@@ -16,12 +16,16 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
+
 public abstract class AbstractComponent<C extends IsComponent.Controller, W>
     implements IsComponent<C, W> {
 
   private C controller;
 
   private W element;
+
+  protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
 
   public AbstractComponent() {
   }
@@ -55,6 +59,18 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
   @Override
   public void onDetach() {
     // if you need to do something in case the widget is removed from the DOM tree
+  }
+
+  /**
+   * internal framework method! Will be called by the framdework after the
+   * stop-method f the controller is called
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   */
+  @Override
+  public void removeHandlers() {
+    this.handlerRegistrations.removeHandler();
+    this.handlerRegistrations = new HandlerRegistrations();
   }
 
   @Override

@@ -389,15 +389,31 @@ public final class Router {
                                   .values()
                                   .stream()
                                   .forEach(s -> {
-                                    RouterLogger.logFilterStopMethodWillBeCalled(controller.getClass()
-                                                                                           .getCanonicalName(),
-                                                                                 s.getClass()
-                                                                                  .getCanonicalName());
+                                    RouterLogger.logCompositeControllerStopMethodWillBeCalled(s.getClass()
+                                                                                               .getCanonicalName());
+                                    s.getClass()
+                                     .getCanonicalName();
                                     s.stop();
-                                    RouterLogger.logFilterStopMethodCalled(controller.getClass()
-                                                                                     .getCanonicalName(),
-                                                                           s.getClass()
-                                                                            .getCanonicalName());
+                                    RouterLogger.logCompositeControllerStopMethodCalled(s.getClass()
+                                                                                         .getCanonicalName());
+                                    s.onDetach();
+                                    RouterLogger.logCompositeControllerDetached(s.getClass()
+                                                                                 .getCanonicalName());
+                                    s.removeHandlers();
+                                    RouterLogger.logCompositeControllerRemoveHandlersMethodCalled(s.getClass()
+                                                                                                   .getCanonicalName());
+                                    s.getComponent()
+                                     .onDetach();
+                                    RouterLogger.logCompositeComponentDetached(s.getComponent()
+                                                                                .getClass()
+                                                                                .getCanonicalName());
+                                    s.getComponent()
+                                     .removeHandlers();
+                                    RouterLogger.logCompositeComponentRemoveHandlersMethodCalled(s.getComponent()
+                                                                                                  .getClass()
+                                                                                                  .getCanonicalName());
+                                    RouterLogger.logCompositeControllerStopped(controller.getClass()
+                                                                                         .getCanonicalName());
                                   });
 
                         // stop controller
@@ -412,6 +428,16 @@ public final class Router {
                         controller.removeHandlers();
                         RouterLogger.logControllerRemoveHandlersMethodCalled(controller.getClass()
                                                                                        .getCanonicalName());
+                        controller.getComponent()
+                                  .onDetach();
+                        RouterLogger.logComponentDetached(controller.getComponent()
+                                                                    .getClass()
+                                                                    .getCanonicalName());
+                        controller.getComponent()
+                                  .removeHandlers();
+                        RouterLogger.logComponentRemoveHandlersMethodCalled(controller.getComponent()
+                                                                                      .getClass()
+                                                                                      .getCanonicalName());
                         RouterLogger.logControllerStopped(controller.getClass()
                                                                     .getCanonicalName());
                       });
