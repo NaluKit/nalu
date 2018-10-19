@@ -186,4 +186,13 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   public void setRestored(boolean restored) {
     this.restored = restored;
   }
+
+  /**
+   * Get the component
+   *
+   * @return the compoment of the controller
+   */
+  public V getComponent() {
+    return this.component;
+  }
 }

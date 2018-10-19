@@ -56,7 +56,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   @Override
   public void removeHandlers() {
     this.handlerRegistrations.removeHandler();
-    this.handlerRegistrations = null;
+    this.handlerRegistrations = new HandlerRegistrations();
   }
 
   public void setComponent(V component) {
@@ -86,5 +86,14 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
    */
   @Override
   public void stop() {
+  }
+
+  /**
+   * Get the component
+   *
+   * @return the compoment of the controller
+   */
+  public V getComponent() {
+    return this.component;
   }
 }
