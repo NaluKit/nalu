@@ -78,7 +78,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * This method will be called in case a routing occurs and this instance is
    * a currently attached controller
    *
-   * @return null -> routing is ok, String -> routing will be interrupted and
+   * @return null: routing is ok, String value: routing will be interrupted and
    * the String will be displayed in a message window
    */
   @Override

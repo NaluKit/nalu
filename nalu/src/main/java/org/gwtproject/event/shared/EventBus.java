@@ -35,6 +35,7 @@ public abstract class EventBus
    * <p>Protected to allow EventBus implementations in different packages to dispatch events even
    * though the {@code event.dispatch} method is protected.
    *
+   * @param <H>     the event handler type
    * @param event   the event
    * @param handler the handler
    */
