@@ -578,9 +578,9 @@ public final class Router {
   }
 
   /**
-   * clears the controller chache
+   * clears the chache
    */
-  public void clearControllerCache() {
+  public void clearCache() {
     ControllerFactory.get()
                      .clearControllerCache();
   }
