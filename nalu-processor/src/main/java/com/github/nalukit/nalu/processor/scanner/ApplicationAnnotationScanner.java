@@ -31,10 +31,10 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.MirroredTypeException;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
@@ -43,11 +43,11 @@ public class ApplicationAnnotationScanner {
 
   private final static String APPLICATION_PROPERTIES = "application.properties";
 
-  private ProcessorUtils        processorUtils;
+  private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment      roundEnvironment;
+  private RoundEnvironment roundEnvironment;
 
   @SuppressWarnings("unused")
   private ApplicationAnnotationScanner(Builder builder) {
@@ -96,7 +96,8 @@ public class ApplicationAnnotationScanner {
                                            applicationAnnotationElement.toString(),
                                            isNull(applicationLoaderTypeElement) ? "" : applicationLoaderTypeElement.toString(),
                                            isNull(shellTypeElement) ? "" : shellTypeElement.toString(),
-                                           contextTypeElement.toString(),
+                                           Objects.requireNonNull(contextTypeElement)
+                                                  .toString(),
                                            applicationAnnotation.startRoute(),
                                            applicationAnnotation.routeErrorRoute());
           // Debug-Annotation
@@ -142,13 +143,9 @@ public class ApplicationAnnotationScanner {
                                                       .getResource(StandardLocation.CLASS_OUTPUT,
                                                                    "",
                                                                    this.createRelativeFileName());
-      String t = resource.getCharContent(true)
-                         .toString();
       return gson.fromJson(resource.getCharContent(true)
                                    .toString(),
                            ApplicationMetaModel.class);
-    } catch (FileNotFoundException e) {
-      // every thing is ok -> no operation
     } catch (IOException e) {
       // every thing is ok -> no operation
     }
@@ -210,7 +207,7 @@ public class ApplicationAnnotationScanner {
 
     ProcessingEnvironment processingEnvironment;
 
-    RoundEnvironment      roundEnvironment;
+    RoundEnvironment roundEnvironment;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;

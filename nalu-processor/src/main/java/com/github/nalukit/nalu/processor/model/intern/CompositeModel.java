@@ -30,15 +30,19 @@ public class CompositeModel {
 
   private List<ParameterAcceptor> parameterAcceptors;
 
+  private boolean componentCreator;
+
   public CompositeModel() {
   }
 
   public CompositeModel(ClassNameModel provider,
                         ClassNameModel componentInterface,
-                        ClassNameModel component) {
+                        ClassNameModel component,
+                        boolean componentCreator) {
     this.provider = provider;
     this.componentInterface = componentInterface;
     this.component = component;
+    this.componentCreator = componentCreator;
 
     this.parameterAcceptors = new ArrayList<>();
   }
@@ -77,5 +81,13 @@ public class CompositeModel {
                                                                   .findFirst();
     return optional.map(ParameterAcceptor::getMethodName)
                    .orElse(null);
+  }
+
+  public boolean isComponentCreator() {
+    return componentCreator;
+  }
+
+  public void setComponentCreator(boolean componentCreator) {
+    this.componentCreator = componentCreator;
   }
 }

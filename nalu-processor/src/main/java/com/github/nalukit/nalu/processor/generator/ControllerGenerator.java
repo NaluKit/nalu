@@ -167,7 +167,14 @@ public class ControllerGenerator {
                                 ClassName.get(controllerModel.getComponentInterface()
                                                              .getPackage(),
                                               controllerModel.getComponentInterface()
-                                                             .getSimpleName()));
+                                                             .getSimpleName()))
+                  .addStatement("sb01 = new $T()",
+                                ClassName.get(StringBuilder.class))
+                  .addStatement("sb01.append(\"component >>$L<< --> created using createComponent-Method of controller\")",
+                                controllerModel.getComponent()
+                                               .getClassName())
+                  .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                                ClassName.get(ClientLogger.class));
     } else {
       createMethod.addStatement("$T component = new $T()",
                                 ClassName.get(controllerModel.getComponentInterface()
@@ -177,7 +184,14 @@ public class ControllerGenerator {
                                 ClassName.get(controllerModel.getComponent()
                                                              .getPackage(),
                                               controllerModel.getComponent()
-                                                             .getSimpleName()));
+                                                             .getSimpleName()))
+                  .addStatement("sb01 = new $T()",
+                                ClassName.get(StringBuilder.class))
+                  .addStatement("sb01.append(\"component >>$L<< --> created using new\")",
+                                controllerModel.getComponent()
+                                               .getClassName())
+                  .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                                ClassName.get(ClientLogger.class));
     }
     createMethod.addStatement("component.setController(controller)")
                 .addStatement("sb01 = new $T()",

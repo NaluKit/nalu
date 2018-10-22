@@ -200,7 +200,7 @@ public class ControllerAnnotationScanner {
                                       .equals(result[0].toString())) {
       throw new ProcessorException("Nalu-Processor: controller >>" +
                                        element.toString() +
-                                       "<< is declared as IsComponentCreator, but the used reference of the component interafce daoes not match with the one inside the controller.");
+                                       "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
     }
     return true;
   }
