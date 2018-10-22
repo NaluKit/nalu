@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.client.application.AbstractApplicationLoader;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 /**
- * Default applilcation loader
+ * Default application loader
  * <p>does nothing</p>
  * <p>Used by the framework</p>
  * <p><b>DO NOT USE!</b></p>
