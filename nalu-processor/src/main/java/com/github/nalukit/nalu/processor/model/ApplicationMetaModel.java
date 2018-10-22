@@ -55,7 +55,7 @@ public class ApplicationMetaModel {
 
   private ClassNameModel componentType;
 
-  private List<CompositeModel> splitters;
+  private List<CompositeModel> compositeModels;
 
   public ApplicationMetaModel() {
   }
@@ -78,7 +78,7 @@ public class ApplicationMetaModel {
     this.routes = new ArrayList<>();
     this.filters = new ArrayList<>();
     this.handlers = new ArrayList<>();
-    this.splitters = new ArrayList<>();
+    this.compositeModels = new ArrayList<>();
   }
 
   public ClassNameModel getApplication() {
@@ -204,11 +204,11 @@ public class ApplicationMetaModel {
     this.routeErrorRoute = routeErrorRoute;
   }
 
-  public List<CompositeModel> getSplitters() {
-    return splitters;
+  public List<CompositeModel> getCompositeModels() {
+    return compositeModels;
   }
 
-  public void setSplitters(List<CompositeModel> splitters) {
-    this.splitters = splitters;
+  public void setCompositeModels(List<CompositeModel> compositeModels) {
+    this.compositeModels = compositeModels;
   }
 }

@@ -85,8 +85,9 @@ public class ApplicationTest {
                                      });
     CompilationSubject.assertThat(compilation)
                       .succeeded();
-    JavaFileObjectSubject.assertThat(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoaderImpl.java"))
-                         .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoaderImpl.java"));
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoaderImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoaderImpl.java"));
   }
 
   @Test
@@ -101,8 +102,9 @@ public class ApplicationTest {
                                      });
     CompilationSubject.assertThat(compilation)
                       .succeeded();
-    JavaFileObjectSubject.assertThat(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoaderImpl.java"))
-                         .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoaderImpl.java"));
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoaderImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoaderImpl.java"));
   }
 
   @Test
@@ -117,8 +119,9 @@ public class ApplicationTest {
                                      });
     CompilationSubject.assertThat(compilation)
                       .succeeded();
-    JavaFileObjectSubject.assertThat(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/MyApplicationImpl.java"))
-                         .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/MyApplicationImpl.java"));
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/MyApplicationImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/MyApplicationImpl.java"));
   }
 
   @Test
@@ -133,7 +136,8 @@ public class ApplicationTest {
                                      });
     CompilationSubject.assertThat(compilation)
                       .succeeded();
-    JavaFileObjectSubject.assertThat(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl.java"))
-                         .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl.java"));
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl.java"));
   }
 }

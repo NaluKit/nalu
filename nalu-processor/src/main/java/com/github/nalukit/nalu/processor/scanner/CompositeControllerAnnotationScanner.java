@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.component.AbstractCompositeController;
+import com.github.nalukit.nalu.client.component.IsComponentCreator;
 import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import com.github.nalukit.nalu.client.component.annotation.CompositeController;
 import com.github.nalukit.nalu.processor.ProcessorException;
@@ -78,7 +79,7 @@ public class CompositeControllerAnnotationScanner {
                              element,
                              compositeModel);
       // add model to configuration ...
-      this.applicationMetaModel.getSplitters()
+      this.applicationMetaModel.getCompositeModels()
                                .add(compositeModel);
     }
     return this.applicationMetaModel;
@@ -113,10 +114,82 @@ public class CompositeControllerAnnotationScanner {
         throw new ProcessorException("Nalu-Processor: componentType >>" + compareValue + "<< is different. All controllers must implement the componentType!");
       }
     }
+    // check, if the controller implements IsComponentController
+    boolean componentController = this.checkIsComponentCreator(element,
+                                                               componentInterfaceTypeElement);
     // create model ...
     return new CompositeModel(new ClassNameModel(element.toString()),
                               new ClassNameModel(componentInterfaceTypeElement.toString()),
-                              new ClassNameModel(componentTypeElement.toString()));
+                              new ClassNameModel(componentTypeElement.toString()),
+                              componentController);
+  }
+
+  private boolean checkIsComponentCreator(Element element,
+                                          TypeElement componentInterfaceTypeElement)
+      throws ProcessorException {
+    final TypeMirror[] result = { null };
+    TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
+                                                                element.asType(),
+                                                                this.processorUtils.getElements()
+                                                                                   .getTypeElement(IsComponentCreator.class.getCanonicalName())
+                                                                                   .asType());
+    // on case type is null, no IsComponentCreator interface found!
+    if (type == null) {
+      return false;
+    }
+    // check the generic!
+    type.accept(new SimpleTypeVisitor6<Void, Void>() {
+                  @Override
+                  protected Void defaultAction(TypeMirror typeMirror,
+                                               Void v) {
+                    throw new UnsupportedOperationException();
+                  }
+
+                  @Override
+                  public Void visitPrimitive(PrimitiveType primitiveType,
+                                             Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitArray(ArrayType arrayType,
+                                         Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitDeclared(DeclaredType declaredType,
+                                            Void v) {
+                    List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
+                    if (!typeArguments.isEmpty()) {
+                      if (typeArguments.size() == 1) {
+                        result[0] = typeArguments.get(0);
+                      }
+                    }
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitError(ErrorType errorType,
+                                         Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitTypeVariable(TypeVariable typeVariable,
+                                                Void v) {
+                    return null;
+                  }
+                },
+                null);
+    // check generic!
+    if (!componentInterfaceTypeElement.toString()
+                                      .equals(result[0].toString())) {
+      throw new ProcessorException("Nalu-Processor: composite controller >>" +
+                                       element.toString() +
+                                       "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
+    }
+    return true;
   }
 
   private void handleAcceptParameters(RoundEnvironment roundEnvironment,
@@ -128,7 +201,7 @@ public class CompositeControllerAnnotationScanner {
                                                                                                 typeElement,
                                                                                                 AcceptParameter.class);
     // get all controllers, that use the composite (for validation)
-    for (ControllerModel model : this.getControllerUsingSplitter(element)) {
+    for (ControllerModel model : this.getControllerUsingComposite(element)) {
       // validate
       AcceptParameterAnnotationValidator.builder()
                                         .roundEnvironment(roundEnvironment)
@@ -226,16 +299,16 @@ public class CompositeControllerAnnotationScanner {
     return result[0];
   }
 
-  private List<ControllerModel> getControllerUsingSplitter(Element element) {
+  private List<ControllerModel> getControllerUsingComposite(Element element) {
     List<ControllerModel> models = new ArrayList<>();
     this.applicationMetaModel.getController()
                              .forEach(controllerModel -> {
-                               controllerModel.getSplitters()
+                               controllerModel.getComposites()
                                               .stream()
-                                              .filter(controllerSplitterModel -> element.toString()
-                                                                                        .equals(controllerSplitterModel.getSplitter()
+                                              .filter(controllerCompositeModel -> element.toString()
+                                                                                        .equals(controllerCompositeModel.getComposite()
                                                                                                                        .getClassName()))
-                                              .map(controllerSplitterModel -> controllerModel)
+                                              .map(controllerCompositeModel -> controllerModel)
                                               .collect(Collectors.toList())
                                               .forEach(models::add);
                              });

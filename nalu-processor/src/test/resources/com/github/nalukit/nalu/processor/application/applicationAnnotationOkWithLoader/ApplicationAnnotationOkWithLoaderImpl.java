@@ -1,59 +1,37 @@
-/*
- * Copyright (c) 2018 - Frank Hossfeld
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
- *  use this file except in compliance with the License. You may obtain a copy of
- *  the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- *  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- *  License for the specific language governing permissions and limitations under
- *  the License.
- */
-
 package com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithLoader;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
-import com.github.nalukit.nalu.client.application.annotation.Debug;
-import com.github.nalukit.nalu.core.client.internal.ClientLogger;
-import com.github.nalukit.nalu.core.client.internal.application.AbstractApplication;
-import com.github.nalukit.nalu.core.client.internal.application.DefaultLogger;
+import com.github.nalukit.nalu.client.internal.ClientLogger;
+import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.MockShell;
+import java.lang.Override;
 
-public final class ApplicationAnnotationOkWithLoaderImpl
-  extends AbstractApplication<MockContext>
-  implements ApplicationAnnotationOkWithLoader {
+public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithLoader {
   public ApplicationAnnotationOkWithLoaderImpl() {
     super();
-    super.context = new MockContext();
+    super.context = new com.github.nalukit.nalu.processor.common.MockContext();
   }
 
   @Override
   public void loadDebugConfiguration() {
-    ClientLogger.get()
-                .register(false,
-                          new DefaultLogger(),
-                          Debug.LogLevel.SIMPLE);
   }
 
   @Override
-  public void loadSelectors() {
-    super.routerConfiguration.getSelectors()
-                             .put("content",
-                                  "MockShell");
-    super.routerConfiguration.getSelectors()
-                             .put("footer",
-                                  "MockShell");
-    super.routerConfiguration.getSelectors()
-                             .put("header",
-                                  "MockShell");
-    super.routerConfiguration.getSelectors()
-                             .put("navigation",
-                                  "MockShell");
+  public void loadCompositeController() {
+  }
+
+  @Override
+  public void loadComponents() {
+    // shell ...
+    MockShell shell = new MockShell();
+    shell.setRouter(this.router);
+    shell.setEventBus(this.eventBus);
+    shell.setContext(this.context);
+    super.shell = shell;
+    super.router.setShell(this.shell);
+    shell.bind();
+    ClientLogger.get().logDetailed("AbstractApplicationImpl: shell created", 1);
   }
 
   @Override
@@ -69,30 +47,17 @@ public final class ApplicationAnnotationOkWithLoaderImpl
   }
 
   @Override
-  public IsApplicationLoader getApplicationLoader() {
+  public void loadCompositeReferences() {
+  }
+
+  @Override
+  public IsApplicationLoader<MockContext> getApplicationLoader() {
     return new MockApplicationLoader();
   }
 
   @Override
-  public void loadComponents() {
-    // shell ...
-    MockShell shell = new MockShell();
-    shell.setRouter(this.router);
-    shell.setEventBus(this.eventBus);
-    shell.setContext(this.context);
-    super.shell = shell;
-    ClientLogger.get()
-                .logDetailed("AbstractApplicationImpl: shell created",
-                             1);
-  }
-
-  @Override
-  public void loadStartRoute() {
+  public void loadDefaultRoutes() {
     this.startRoute = "/search";
-  }
-
-  @Override
-  public void attachShell() {
-    super.shell.attachShell();
+    this.errorRoute = "WhenShallWeThreeMeetAgainInThunderLightningOrInRain";
   }
 }

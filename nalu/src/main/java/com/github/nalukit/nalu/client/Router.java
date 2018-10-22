@@ -559,6 +559,7 @@ public final class Router {
    * the route is called.
    *
    * @param controller controller to store
+   * @param <C> controller type
    */
   public <C extends AbstractComponentController<?, ?, ?>> void storeInCache(C controller) {
     ControllerFactory.get()
@@ -569,6 +570,7 @@ public final class Router {
    * Removes a controller from the chache
    *
    * @param controller controller to be removed
+   * @param <C> controller type
    */
   public <C extends AbstractComponentController<?, ?, ?>> void removeFromCache(C controller) {
     ControllerFactory.get()
@@ -576,9 +578,9 @@ public final class Router {
   }
 
   /**
-   * clears the controller chache
+   * clears the chache
    */
-  public void clearControllerCache() {
+  public void clearCache() {
     ControllerFactory.get()
                      .clearControllerCache();
   }
