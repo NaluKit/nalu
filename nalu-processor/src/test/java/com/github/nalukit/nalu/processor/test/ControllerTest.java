@@ -118,4 +118,6 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.controllerWithIsComponentControllerNotOK.ui.content01.Content01Controller<< is declared as IsComponentCreator, but the used reference of the component interafce daoes not match with the one inside the controller");
   }
+
+  // TODO zwei neue Tests!
 }

@@ -24,7 +24,10 @@ import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
-import com.squareup.javapoet.*;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
 import java.util.ArrayList;
@@ -157,45 +160,54 @@ public class ControllerGenerator {
                                                               ClassName.get(StringBuilder.class))
                                                 .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> created and data injected\")")
                                                 .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
-                                                              ClassName.get(ClientLogger.class))
-                                                .addStatement("$T component = new $T()",
-                                                              ClassName.get(controllerModel.getComponentInterface()
-                                                                                           .getPackage(),
-                                                                            controllerModel.getComponentInterface()
-                                                                                           .getSimpleName()),
-                                                              ClassName.get(controllerModel.getComponent()
-                                                                                           .getPackage(),
-                                                                            controllerModel.getComponent()
-                                                                                           .getSimpleName()))
-                                                .addStatement("component.setController(controller)")
-                                                .addStatement("sb01 = new $T()",
-                                                              ClassName.get(StringBuilder.class))
-                                                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
-                                                .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
-                                                              ClassName.get(ClientLogger.class))
-                                                .addStatement("controller.setComponent(component)")
-                                                .addStatement("sb01 = new $T()",
-                                                              ClassName.get(StringBuilder.class))
-                                                .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
-                                                .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
-                                                              ClassName.get(ClientLogger.class))
-                                                .addStatement("component.render()")
-                                                .addStatement("sb01 = new $T()",
-                                                              ClassName.get(StringBuilder.class))
-                                                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> rendered\")")
-                                                .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
-                                                              ClassName.get(ClientLogger.class))
-                                                .addStatement("component.bind()")
-                                                .addStatement("sb01 = new $T()",
-                                                              ClassName.get(StringBuilder.class))
-                                                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> bound\")")
-                                                .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
-                                                              ClassName.get(ClientLogger.class))
-                                                .addStatement("$T.get().logSimple(\"controller >>$L<< created for route >>$L<<\", 1)",
-                                                              ClassName.get(ClientLogger.class),
-                                                              controllerModel.getComponent()
-                                                                             .getClassName(),
-                                                              controllerModel.getRoute());
+                                                              ClassName.get(ClientLogger.class));
+    // TODO create tests! (normal - without createComponent) <-> with createComponent!
+    if (controllerModel.isComponentCreator()) {
+      createMethod.addStatement("$T component = controller.createComponent()",
+                                ClassName.get(controllerModel.getComponentInterface()
+                                                             .getPackage(),
+                                              controllerModel.getComponentInterface()
+                                                             .getSimpleName()));
+    } else {
+      createMethod.addStatement("$T component = new $T()",
+                                ClassName.get(controllerModel.getComponentInterface()
+                                                             .getPackage(),
+                                              controllerModel.getComponentInterface()
+                                                             .getSimpleName()),
+                                ClassName.get(controllerModel.getComponent()
+                                                             .getPackage(),
+                                              controllerModel.getComponent()
+                                                             .getSimpleName()));
+    }
+    createMethod.addStatement("component.setController(controller)")
+                .addStatement("sb01 = new $T()",
+                              ClassName.get(StringBuilder.class))
+                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
+                .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                              ClassName.get(ClientLogger.class))
+                .addStatement("controller.setComponent(component)")
+                .addStatement("sb01 = new $T()",
+                              ClassName.get(StringBuilder.class))
+                .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
+                .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                              ClassName.get(ClientLogger.class))
+                .addStatement("component.render()")
+                .addStatement("sb01 = new $T()",
+                              ClassName.get(StringBuilder.class))
+                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> rendered\")")
+                .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                              ClassName.get(ClientLogger.class))
+                .addStatement("component.bind()")
+                .addStatement("sb01 = new $T()",
+                              ClassName.get(StringBuilder.class))
+                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> bound\")")
+                .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                              ClassName.get(ClientLogger.class))
+                .addStatement("$T.get().logSimple(\"controller >>$L<< created for route >>$L<<\", 1)",
+                              ClassName.get(ClientLogger.class),
+                              controllerModel.getComponent()
+                                             .getClassName(),
+                              controllerModel.getRoute());
     if (controllerModel.getParameters()
                        .size() > 0) {
       // has the model AccpetParameter ?
