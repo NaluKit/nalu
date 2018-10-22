@@ -158,6 +158,4 @@ public class ControllerTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/controller/generateWithIsComponentCreator/GenerateWithIsComponentCreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/generateWithIsComponentCreator/GenerateWithIsComponentCreatorImpl.java"));
   }
-
-  // TODO zwei neue Tests!
 }
