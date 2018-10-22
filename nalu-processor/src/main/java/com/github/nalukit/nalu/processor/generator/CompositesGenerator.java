@@ -18,7 +18,7 @@ package com.github.nalukit.nalu.processor.generator;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.ControllerSplitterModel;
+import com.github.nalukit.nalu.processor.model.intern.ControllerCompositeModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -54,15 +54,15 @@ public class CompositesGenerator {
                                                                .addModifiers(Modifier.PUBLIC)
                                                                .addAnnotation(Override.class);
     for (ControllerModel controllerModel : this.applicationMetaModel.getController()) {
-      for (ControllerSplitterModel controllerSplitterModel : controllerModel.getSplitters()) {
+      for (ControllerCompositeModel controllerCompositeModel : controllerModel.getComposites()) {
         loadCompositesMethodBuilder.addStatement("this.compositeControllerReferences.add(new $T($S, $S, $S, $S))",
                                                  ClassName.get(CompositeControllerReference.class),
                                                  controllerModel.getProvider()
                                                                 .getClassName(),
-                                                 controllerSplitterModel.getName(),
-                                                 controllerSplitterModel.getSplitter()
-                                                                        .getClassName(),
-                                                 controllerSplitterModel.getSelector());
+                                                 controllerCompositeModel.getName(),
+                                                 controllerCompositeModel.getComposite()
+                                                                         .getClassName(),
+                                                 controllerCompositeModel.getSelector());
       }
     }
     typeSpec.addMethod(loadCompositesMethodBuilder.build());

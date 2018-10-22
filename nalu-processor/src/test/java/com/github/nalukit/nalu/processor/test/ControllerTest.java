@@ -80,4 +80,42 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
+
+  @Test
+  public void testControllerWithIsComponentCreatorOK() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/controllerWithIsComponentControllerOK/ControllerWithIsComponentControllerOK.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/controllerWithIsComponentControllerOK/ui/content01/Content01Controller.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/controllerWithIsComponentControllerOK/ui/content01/IContent01Component.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/controllerWithIsComponentControllerOK/ui/content01/Content01Component.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+  }
+
+  @Test
+  public void testControllerWithIsComponentCreatorNotOK() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/controllerWithIsComponentControllerNotOK/ControllerWithIsComponentControllerNotOK.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/controllerWithIsComponentControllerNotOK/ui/content01/Content01Controller.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/controllerWithIsComponentControllerNotOK/ui/content01/IContent01Component.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/controllerWithIsComponentControllerNotOK/ui/content01/IContent02Component.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/controllerWithIsComponentControllerNotOK/ui/content01/Content01Component.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/controllerWithIsComponentControllerNotOK/ui/content01/Content02Component.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.controllerWithIsComponentControllerNotOK.ui.content01.Content01Controller<< is declared as IsComponentCreator, but the used reference of the component interafce daoes not match with the one inside the controller");
+  }
 }

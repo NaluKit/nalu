@@ -42,7 +42,9 @@ public class ControllerModel {
 
   private List<ParameterAcceptor> parameterAcceptors;
 
-  private List<ControllerSplitterModel> splitters;
+  private List<ControllerCompositeModel> composites;
+
+  private boolean componentCreator;
 
   public ControllerModel(String originalRoute,
                          String route,
@@ -52,7 +54,8 @@ public class ControllerModel {
                          ClassNameModel componentInterface,
                          ClassNameModel component,
                          ClassNameModel componentType,
-                         ClassNameModel provider) {
+                         ClassNameModel provider,
+                         boolean componentCreator) {
     this.originalRoute = originalRoute;
     this.route = route;
     this.selector = selector;
@@ -62,9 +65,10 @@ public class ControllerModel {
     this.component = component;
     this.provider = provider;
     this.componentType = componentType;
+    this.componentCreator = componentCreator;
 
     this.parameterAcceptors = new ArrayList<>();
-    this.splitters = new ArrayList<>();
+    this.composites = new ArrayList<>();
   }
 
   public String getOriginalRoute() {
@@ -151,11 +155,19 @@ public class ControllerModel {
                    .orElse(null);
   }
 
-  public List<ControllerSplitterModel> getSplitters() {
-    return splitters;
+  public List<ControllerCompositeModel> getComposites() {
+    return composites;
   }
 
-  public void setSplitters(List<ControllerSplitterModel> splitters) {
-    this.splitters = splitters;
+  public void setComposites(List<ControllerCompositeModel> composites) {
+    this.composites = composites;
+  }
+
+  public boolean isComponentCreator() {
+    return componentCreator;
+  }
+
+  public void setComponentCreator(boolean componentCreator) {
+    this.componentCreator = componentCreator;
   }
 }

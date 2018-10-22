@@ -16,22 +16,22 @@
 
 package com.github.nalukit.nalu.processor.model.intern;
 
-public class ControllerSplitterModel {
+public class ControllerCompositeModel {
 
   private String name;
 
-  private ClassNameModel splitter;
+  private ClassNameModel composite;
 
   private String selector;
 
-  public ControllerSplitterModel() {
+  public ControllerCompositeModel() {
   }
 
-  public ControllerSplitterModel(String name,
-                                 ClassNameModel splitter,
-                                 String selector) {
+  public ControllerCompositeModel(String name,
+                                  ClassNameModel composite,
+                                  String selector) {
     this.name = name;
-    this.splitter = splitter;
+    this.composite = composite;
     this.selector = selector;
   }
 
@@ -43,12 +43,12 @@ public class ControllerSplitterModel {
     this.name = name;
   }
 
-  public ClassNameModel getSplitter() {
-    return splitter;
+  public ClassNameModel getComposite() {
+    return composite;
   }
 
-  public void setSplitter(ClassNameModel splitter) {
-    this.splitter = splitter;
+  public void setComposite(ClassNameModel composite) {
+    this.composite = composite;
   }
 
   public String getSelector() {

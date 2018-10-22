@@ -22,7 +22,7 @@ import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.ControllerSplitterModel;
+import com.github.nalukit.nalu.processor.model.intern.ControllerCompositeModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -64,11 +64,11 @@ public class CompositesAnnotationScanner {
       throws ProcessorException {
     Composites annotation = this.controllerTypeElement.getAnnotation(Composites.class);
     if (annotation != null) {
-      for (Composite splitter : annotation.value()) {
-        controllerModel.getSplitters()
-                       .add(new ControllerSplitterModel(splitter.name(),
-                                                        new ClassNameModel(getSplitterTypeElement(splitter).toString()),
-                                                        splitter.selector()));
+      for (Composite composite : annotation.value()) {
+        controllerModel.getComposites()
+                       .add(new ControllerCompositeModel(composite.name(),
+                                                         new ClassNameModel(getSplitterTypeElement(composite).toString()),
+                                                         composite.selector()));
       }
     }
     return this.controllerModel;

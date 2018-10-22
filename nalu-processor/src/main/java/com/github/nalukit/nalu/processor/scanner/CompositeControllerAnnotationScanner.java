@@ -128,7 +128,7 @@ public class CompositeControllerAnnotationScanner {
                                                                                                 typeElement,
                                                                                                 AcceptParameter.class);
     // get all controllers, that use the composite (for validation)
-    for (ControllerModel model : this.getControllerUsingSplitter(element)) {
+    for (ControllerModel model : this.getControllerUsingComposite(element)) {
       // validate
       AcceptParameterAnnotationValidator.builder()
                                         .roundEnvironment(roundEnvironment)
@@ -226,16 +226,16 @@ public class CompositeControllerAnnotationScanner {
     return result[0];
   }
 
-  private List<ControllerModel> getControllerUsingSplitter(Element element) {
+  private List<ControllerModel> getControllerUsingComposite(Element element) {
     List<ControllerModel> models = new ArrayList<>();
     this.applicationMetaModel.getController()
                              .forEach(controllerModel -> {
-                               controllerModel.getSplitters()
+                               controllerModel.getComposites()
                                               .stream()
-                                              .filter(controllerSplitterModel -> element.toString()
-                                                                                        .equals(controllerSplitterModel.getSplitter()
+                                              .filter(controllerCompositeModel -> element.toString()
+                                                                                        .equals(controllerCompositeModel.getComposite()
                                                                                                                        .getClassName()))
-                                              .map(controllerSplitterModel -> controllerModel)
+                                              .map(controllerCompositeModel -> controllerModel)
                                               .collect(Collectors.toList())
                                               .forEach(models::add);
                              });
