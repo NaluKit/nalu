@@ -20,7 +20,7 @@ Nalu offers the following features:
 
 * Seperation of views into a controller and a component with framework sided instantiation.
 
-* a controller life-cycle using ```start```-, ```mayStop```- and ```stop```- similar to GWT Activities.
+* A controller life-cycle using ```start```-, ```mayStop```- and ```stop```- similar to GWT Activities.
 
 * Supports HTML links and programmatically routing thanks to a router.
 
@@ -28,11 +28,11 @@ Nalu offers the following features:
 
 * Support for UiBinder (nalu-plugin-gwt)
 
-* Nalu comppsites to support smaller classes
+* Nalu composites to support smaller classes
 
-* controller & component caching
+* Controller & component caching
 
-* component creation inside a controller to support GWT replacement rules and staic factory methods
+* Component creation inside a controller to support GWT replacement rules and staic factory methods
 
 
 ## Basic Concept
