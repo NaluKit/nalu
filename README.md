@@ -28,6 +28,12 @@ Nalu offers the following features:
 
 * Support for UiBinder (nalu-plugin-gwt)
 
+* Nalu comppsites to support smaller classes
+
+* controller & component caching
+
+* component creation inside a controller to support GWT replacement rules and staic factory methods
+
 
 ## Basic Concept
 Nalu uses the hash of an url to navigate.
