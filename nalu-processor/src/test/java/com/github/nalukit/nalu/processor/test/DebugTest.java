@@ -73,7 +73,7 @@ public class DebugTest {
   }
 
   @Test
-  public void testDebugAnnotationOnClassWithoutApplicaitonAnnotation() {
+  public void testDebugAnnotationOnClassWithoutApplicationAnnotation() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {

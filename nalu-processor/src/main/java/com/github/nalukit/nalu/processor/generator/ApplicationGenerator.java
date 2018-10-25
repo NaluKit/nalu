@@ -121,7 +121,7 @@ public class ApplicationGenerator {
                        .build()
                        .generate();
 
-    // method "getApplicaitonLoader"
+    // method "getApplicationLoader"
     MethodSpec.Builder getApplicationLoaderMethod = MethodSpec.methodBuilder("getApplicationLoader")
                                                               .addModifiers(Modifier.PUBLIC)
                                                               .addAnnotation(Override.class)

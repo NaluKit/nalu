@@ -32,7 +32,7 @@ Nalu offers the following features:
 
 * Controller & component caching
 
-* Component creation inside a controller to support GWT replacement rules and staic factory methods
+* Component creation inside a controller to support GWT replacement rules and static factory methods
 
 
 ## Basic Concept
