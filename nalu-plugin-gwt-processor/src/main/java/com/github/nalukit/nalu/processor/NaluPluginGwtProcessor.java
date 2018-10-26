@@ -66,7 +66,7 @@ public class NaluPluginGwtProcessor
   public boolean process(Set<? extends TypeElement> annotations,
                          RoundEnvironment roundEnv) {
     setUp(roundEnv);
-    processorUtils.createNoteMessage("Nalu-Plugin-Gxt-4-Processor triggered: " + System.currentTimeMillis());
+    processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor triggered: " + System.currentTimeMillis());
     try {
       if (!roundEnv.processingOver()) {
         for (TypeElement annotation : annotations) {
