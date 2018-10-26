@@ -123,6 +123,7 @@ public abstract class AbstractApplication<C extends IsContext>
       this.onFinishLaoding();
     } else {
       applicationLoader.setContext(this.context);
+      applicationLoader.setEventBus(this.eventBus);
       applicationLoader.load(this::onFinishLaoding);
     }
   }
@@ -151,12 +152,6 @@ public abstract class AbstractApplication<C extends IsContext>
   private void onFinishLaoding() {
     // save the current hash
     String hashOnStart = this.plugin.getStartRoute();
-    //    String hashOnStart = DomGlobal.window.location.getHash();
-    //    if (hashOnStart.startsWith("#")) {
-    //      if (hashOnStart.length() > 1) {
-    //        hashOnStart = hashOnStart.substring(1);
-    //      }
-    //    }
     // initialize shell ...
     ClientLogger.get()
                 .logDetailed("AbstractApplication: onAttach shell",

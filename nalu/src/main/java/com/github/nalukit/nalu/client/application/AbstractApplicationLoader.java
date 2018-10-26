@@ -16,13 +16,21 @@
 
 package com.github.nalukit.nalu.client.application;
 
+import org.gwtproject.event.shared.SimpleEventBus;
+
 public abstract class AbstractApplicationLoader<C extends IsContext>
     implements IsApplicationLoader<C> {
 
   protected C context;
 
+  protected SimpleEventBus eventBus;
+
   public void setContext(C context) {
     this.context = context;
   }
 
+  @Override
+  public void setEventBus(SimpleEventBus eventBus) {
+    this.eventBus = eventBus;
+  }
 }

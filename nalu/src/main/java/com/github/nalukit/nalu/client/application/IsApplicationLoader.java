@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.client.application;
 
+import org.gwtproject.event.shared.SimpleEventBus;
+
 /**
  * Nalu application loader
  * <br>
@@ -26,6 +28,8 @@ package com.github.nalukit.nalu.client.application;
 public interface IsApplicationLoader<C extends IsContext> {
 
   void setContext(C context);
+
+  void setEventBus(SimpleEventBus eventBus);
 
   void load(FinishLoadCommand finishLoadCommand);
 
