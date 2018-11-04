@@ -19,7 +19,7 @@ package com.github.nalukit.nalu.processor.common;
 import com.github.nalukit.nalu.client.plugin.IsPlugin;
 
 public class MockPlugin
-  implements IsPlugin {
+    implements IsPlugin {
 
   @Override
   public void alert(String message) {

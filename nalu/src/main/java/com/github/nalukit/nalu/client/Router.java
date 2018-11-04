@@ -20,15 +20,12 @@ import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
+import com.github.nalukit.nalu.client.filter.FilterRegistration;
 import com.github.nalukit.nalu.client.filter.IsFilter;
+import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
-import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
-import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
-import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
-import com.github.nalukit.nalu.client.internal.route.HashResult;
-import com.github.nalukit.nalu.client.internal.route.RouteConfig;
-import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
-import com.github.nalukit.nalu.client.internal.route.RouterException;
+import com.github.nalukit.nalu.client.internal.application.*;
+import com.github.nalukit.nalu.client.internal.route.*;
 import com.github.nalukit.nalu.client.plugin.IsPlugin;
 
 import java.util.*;
@@ -38,14 +35,14 @@ import java.util.stream.Stream;
 
 public final class Router {
 
-  /* Shell */
-  private IsShell shell;
-
   /* route in case of route error */
   private String routeErrorRoute;
 
   /* composite configuration */
   private List<CompositeControllerReference> compositeControllerReferences;
+
+  /* List of the viewports of the application */
+  private ShellConfiguration shellConfiguration;
 
   /* List of the routes of the application */
   private RouterConfiguration routerConfiguration;
@@ -56,15 +53,24 @@ public final class Router {
   //* hash of last successful routing */
   private String lastExecutedHash = "";
 
+  /* last added shell */
+  private String lastAddedShell;
+
+  /* instnce of the shell */
+  private IsShell shell;
+
   /* the plugin */
   private IsPlugin plugin;
 
   public Router(IsPlugin plugin,
+                ShellConfiguration shellConfiguration,
                 RouterConfiguration routerConfiguration,
                 List<CompositeControllerReference> compositeControllerReferences) {
     super();
     // save te plugin
     this.plugin = plugin;
+    // save the viewport configuration reference
+    this.shellConfiguration = shellConfiguration;
     // save the router configuration reference
     this.routerConfiguration = routerConfiguration;
     // save the composite configuration reference
@@ -83,13 +89,15 @@ public final class Router {
     try {
       hashResult = this.parse(hash);
     } catch (RouterException e) {
+      // TODO Router exception ->  routing auf Nalu Fehler-Seite implementieren!
       if (Objects.isNull(this.routeErrorRoute) || this.routeErrorRoute.isEmpty()) {
         return;
       } else {
         RouterLogger.logNoMatchingRoute(hash,
                                         this.routeErrorRoute);
-        this.route(this.routeErrorRoute,
-                   true);
+        // TODO
+        //        this.route(this.routeErrorRoute,
+        //                   true);
       }
       return;
     }
@@ -115,33 +123,96 @@ public final class Router {
     if (this.confirmRouting(routeConfigurations)) {
       // call stop for all elements
       this.stopController(routeConfigurations);
+      // handle shell
+      //
+      // in case shell changed or is not set, use the actual shell!
+      if (this.lastAddedShell == null ||
+          !hashResult.getShell()
+                     .equals(this.lastAddedShell)) {
+        // add shell to the viewport
+        ShellConfig shellConfig = this.shellConfiguration.match(hashResult.getShell());
+        if (!Objects.isNull(shellConfig)) {
+          ShellInstance shellInstance = ShellFactory.get()
+                                                    .shell(shellConfig.getClassName());
+          if (!Objects.isNull(shellInstance)) {
+            // in case there is an instance of an shell existing, call the onDetach mehtod inside the shell
+            if (!Objects.isNull(this.shell)) {
+              ClientLogger.get()
+                          .logDetailed("Router: detach shell >>" +
+                                       this.shell.getClass()
+                                                 .getCanonicalName() +
+                                       "<<",
+                                       1);
+              this.shell.detachShell();
+              ClientLogger.get()
+                          .logDetailed("Router: shell >>" +
+                                       this.shell.getClass()
+                                                 .getCanonicalName() +
+                                       "<< attached",
+                                       1);
+            }
+            // set newe shell value
+            this.shell = shellInstance.getShell();
+            // save the last added shell ....
+            this.lastAddedShell = hashResult.getShell();
+            // initialize shell ...
+            ClientLogger.get()
+                        .logDetailed("Router: attach shell >>" + hashResult.getShell() + "<<",
+                                     1);
+            shellInstance.getShell()
+                         .attachShell();
+            ClientLogger.get()
+                        .logDetailed("Router: shell >>" + hashResult.getShell() + "<< attached",
+                                     1);
+            // start the application by calling url + '#'
+            ClientLogger.get()
+                        .logDetailed("Router: initialize shell >>" + hashResult.getShell() + "<< (route to '/')",
+                                     1);
+            // get shell matching root configs ...
+            List<RouteConfig> shellMatchingRouteConfigurations = this.routerConfiguration.match(hashResult.getShell());
+            for (RouteConfig routeConfiguraion : shellMatchingRouteConfigurations) {
+              this.handleRouteConfig(routeConfiguraion,
+                                     hashResult,
+                                     hash);
+            }
+          }
+        }
+      }
       // routing
       for (RouteConfig routeConfiguraion : routeConfigurations) {
-        ControllerInstance controller;
-        try {
-          controller = ControllerFactory.get()
-                                        .controller(routeConfiguraion.getClassName(),
-                                                    hashResult.getParameterValues()
-                                                              .toArray(new String[0]));
-        } catch (RoutingInterceptionException e) {
-          RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
-                                                      e.getRoute(),
-                                                      e.getParameter());
-          this.route(e.getRoute(),
-                     true,
-                     e.getParameter());
-          return;
-        }
-        // do the routing ...
-        doRouting(hash,
-                  hashResult,
-                  routeConfiguraion,
-                  controller);
+        this.handleRouteConfig(routeConfiguraion,
+                               hashResult,
+                               hash);
       }
     } else {
       this.plugin.route("#" + this.lastExecutedHash,
                         false);
     }
+  }
+
+  private void handleRouteConfig(RouteConfig routeConfiguraion,
+                                 HashResult hashResult,
+                                 String hash) {
+    ControllerInstance controller;
+    try {
+      controller = ControllerFactory.get()
+                                    .controller(routeConfiguraion.getClassName(),
+                                                hashResult.getParameterValues()
+                                                          .toArray(new String[0]));
+    } catch (RoutingInterceptionException e) {
+      RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
+                                                  e.getRoute(),
+                                                  e.getParameter());
+      this.route(e.getRoute(),
+                 true,
+                 e.getParameter());
+      return;
+    }
+    // do the routing ...
+    doRouting(hash,
+              hashResult,
+              routeConfiguraion,
+              controller);
   }
 
   private void doRouting(String hash,
@@ -194,7 +265,7 @@ public final class Router {
               controllerInstance.getController()
                                 .getComposites()
                                 .put(s.getCompositeName(),
-                                    composite);
+                                     composite);
               RouterLogger.logCompositeControllerInjectedInController(composite.getClass()
                                                                                .getCanonicalName(),
                                                                       controllerInstance.getController()
@@ -257,7 +328,8 @@ public final class Router {
                                                                       .getClass()
                                                                       .getCanonicalName());
       }
-      this.shell.onAttachedComponent();
+      // TODO
+      //   this.shell.onAttachedComponent();
       RouterLogger.logShellOnAttachedComponentMethodCalled(controllerInstance.getController()
                                                                              .getClass()
                                                                              .getCanonicalName());
@@ -267,7 +339,7 @@ public final class Router {
   }
 
   /**
-   * Parse the hash and divides it into route and parameters
+   * Parse the hash and divides it into shell, route and parameters
    *
    * @param hash ths hash to parse
    * @return parse result
@@ -281,7 +353,35 @@ public final class Router {
     if (hashValue.contains("#")) {
       hashValue = hashValue.substring(hashValue.indexOf("#") + 1);
     }
+    // extract shell first:
+    if (hashValue.startsWith("/")) {
+      hashValue = hashValue.substring(1);
+    }
+    // check, if there are more "/"
+    if (hashValue.contains("/")) {
+      hashResult.setShell("/" +
+                          hashValue.substring(0,
+                                              hashValue.indexOf("/")));
+    } else {
+      hashResult.setShell("/" + hashValue);
+    }
+    // check, if the shell exists ....
+    Optional<String> optional = this.shellConfiguration.getShells()
+                                                       .stream()
+                                                       .map(ShellConfig::getRoute)
+                                                       .filter(f -> f.equals(hashResult.getShell()))
+                                                       .findAny();
+    if (!optional.isPresent()) {
+      StringBuilder sb = new StringBuilder();
+      sb.append("no matching shell found for hash >>")
+        .append(hash)
+        .append("<< --> Routing aborted!");
+      RouterLogger.logSimple(sb.toString(),
+                             1);
+      throw new RouterException(sb.toString());
+    }
     // extract route first:
+    hashValue = hash;
     if (hashValue.startsWith("/")) {
       hashValue = hashValue.substring(1);
     }
@@ -306,7 +406,7 @@ public final class Router {
       } while (searchPart.length() > 1);
       if (hashResult.getRoute() == null) {
         StringBuilder sb = new StringBuilder();
-        sb.append("no matching route for hash >>")
+        sb.append("no matching route found for hash >>")
           .append(hash)
           .append("<< --> Routing aborted!");
         RouterLogger.logSimple(sb.toString(),
@@ -350,8 +450,7 @@ public final class Router {
       String finalSearchPart = "/" + hashValue;
       if (this.routerConfiguration.getRouters()
                                   .stream()
-                                  .anyMatch(f -> f.getRoute()
-                                                  .equals(finalSearchPart))) {
+                                  .anyMatch(f -> f.match(finalSearchPart))) {
         hashResult.setRoute("/" + hashValue);
       } else {
         throw new RouterException(RouterLogger.logNoMatchingRoute(hash));
@@ -386,12 +485,12 @@ public final class Router {
                        });
 
     return !isDirtyComposite.get() &&
-        routeConfigurations.stream()
-                           .map(config -> this.activeComponents.get(config.getSelector()))
-                           .filter(Objects::nonNull)
-                           .map(AbstractComponentController::mayStop)
-                           .filter(Objects::nonNull)
-                           .allMatch(message -> this.plugin.confirm(message));
+           routeConfigurations.stream()
+                              .map(config -> this.activeComponents.get(config.getSelector()))
+                              .filter(Objects::nonNull)
+                              .map(AbstractComponentController::mayStop)
+                              .filter(Objects::nonNull)
+                              .allMatch(message -> this.plugin.confirm(message));
   }
 
   private void stopController(List<RouteConfig> routeConfiguraions) {
@@ -436,7 +535,7 @@ public final class Router {
                                   });
 
                         RouterLogger.logControllerCompositesStoppped(controller.getClass()
-                                                                                   .getCanonicalName());
+                                                                               .getCanonicalName());
 
                         // stop controller
                         RouterLogger.logControllerStopMethodWillBeCalled(controller.getClass()
@@ -532,10 +631,9 @@ public final class Router {
                              String... parms) {
     StringBuilder sb = new StringBuilder();
     if (route.startsWith("/")) {
-      sb.append(route.substring(1));
-    } else {
-      sb.append(route);
+      route = route.substring(1);
     }
+    sb.append(route);
     if (parms != null) {
       Stream.of(parms)
             .filter(Objects::nonNull)
@@ -546,8 +644,10 @@ public final class Router {
     return sb.toString();
   }
 
+  // TODO
+  @Deprecated
   public void setShell(IsShell shell) {
-    this.shell = shell;
+    //this.shell = shell;
   }
 
   public void setRouteErrorRoute(String routeErrorRoute) {
@@ -559,7 +659,7 @@ public final class Router {
    * the route is called.
    *
    * @param controller controller to store
-   * @param <C> controller type
+   * @param <C>        controller type
    */
   public <C extends AbstractComponentController<?, ?, ?>> void storeInCache(C controller) {
     ControllerFactory.get()
@@ -570,7 +670,7 @@ public final class Router {
    * Removes a controller from the chache
    *
    * @param controller controller to be removed
-   * @param <C> controller type
+   * @param <C>        controller type
    */
   public <C extends AbstractComponentController<?, ?, ?>> void removeFromCache(C controller) {
     ControllerFactory.get()
@@ -584,5 +684,4 @@ public final class Router {
     ControllerFactory.get()
                      .clearControllerCache();
   }
-
 }

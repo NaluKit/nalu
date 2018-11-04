@@ -43,7 +43,7 @@ class RouterLogger {
                                  String routeErrorRoute) {
     String sb = "no matching route for hash >>" + hash + "<< --> use configurated route: >" + routeErrorRoute + "<<";
     logSimple(sb,
-              1);
+              3);
   }
 
   static void logSimple(String message,
@@ -71,7 +71,7 @@ class RouterLogger {
                             .append("<< "));
     }
     logSimple(sb.toString(),
-              1);
+              3);
   }
 
   static void logControllerInterceptsRouting(String controllerClassName,
@@ -98,133 +98,133 @@ class RouterLogger {
   static void logNoControllerFoundForHash(String hash) {
     String sb = "no controller found for hash >>" + hash + "<<";
     logSimple(sb,
-              1);
+              3);
   }
 
   static void logUseErrorRoute(String routeErrorRoute) {
     String sb = "use configurated default route >>" + routeErrorRoute + "<<";
     logSimple(sb,
-              1);
+              3);
   }
 
   static void logControllerOnAttachedMethodCalled(String canonicalName) {
     String sb = "Router: create controller >>" + canonicalName + "<< - calls method onAttached()";
     logDetailed(sb,
-                2);
+                4);
   }
 
   static void logControllerStartMethodCalled(String canonicalName) {
     String sb = "Router: create controller >>" + canonicalName + "<< - calls method start()";
     logDetailed(sb,
-                2);
+                4);
   }
 
   static void logShellOnAttachedComponentMethodCalled(String canonicalName) {
     String sb = "Router: create controller >>" + canonicalName + "<< - calls shell.onAttachedComponent()";
     logDetailed(sb,
-                2);
+                4);
   }
 
   static void logControllerStopMethodWillBeCalled(String canonicalName) {
     String sb = "controller >>" + canonicalName + "<< --> will be stopped";
     logSimple(sb,
-              1);
+              3);
   }
 
   static void logCompositeControllerStopMethodWillBeCalled(String canonicalName) {
     String sb = "composite controller >>" + canonicalName + "<< --> will be stopped";
     logSimple(sb,
-              3);
+              5);
   }
 
   static void logControllerStopMethodCalled(String canonicalName) {
     String sb = "controller >>" + canonicalName + "<< --> stopped";
     logDetailed(sb,
-                2);
+                4);
   }
 
   static void logCompositeControllerStopMethodCalled(String canonicalName) {
     String sb = "composite controller >>" + canonicalName + "<< --> stopped";
     logDetailed(sb,
-                4);
+                6);
   }
 
   static void logComponentDetached(String canonicalName) {
     String sb = "composite component >>" + canonicalName + "<< --> detached";
     logDetailed(sb,
-                2);
+                4);
   }
 
   static void logCompositeComponentDetached(String canonicalName) {
     String sb = "component >>" + canonicalName + "<< --> detached";
     logDetailed(sb,
-                4);
+                6);
   }
 
   static void logControllerDetached(String canonicalName) {
     String sb = "controller >>" + canonicalName + "<< --> detached";
     logDetailed(sb,
-                2);
+                4);
   }
 
   static void logCompositeControllerDetached(String canonicalName) {
     String sb = "composite controller >>" + canonicalName + "<< --> detached";
     logDetailed(sb,
-                4);
+                6);
   }
 
   static void logComponentRemoveHandlersMethodCalled(String canonicalName) {
     String sb = "component >>" + canonicalName + "<< --> removed handlers";
     logDetailed(sb,
-                2);
+                4);
   }
 
   static void logCompositeComponentRemoveHandlersMethodCalled(String canonicalName) {
     String sb = "composite component >>" + canonicalName + "<< --> removed handlers";
     logDetailed(sb,
-                4);
+                6);
   }
 
   static void logControllerRemoveHandlersMethodCalled(String canonicalName) {
     String sb = "controller >>" + canonicalName + "<< --> removed handlers";
     logDetailed(sb,
-                2);
+                4);
   }
 
   static void logCompositeControllerRemoveHandlersMethodCalled(String canonicalName) {
     String sb = "composite controller >>" + canonicalName + "<< --> removed handlers";
     logDetailed(sb,
-                4);
+                6);
   }
 
   static void logControllerStopped(String canonicalName) {
     String sb = "controller >>" + canonicalName + "<< --> stopped";
     logSimple(sb,
-              1);
+              3);
   }
 
   static void logControllerHandlingStop(String canonicalName) {
     String sb = "controller >>" + canonicalName + "<< --> handlling stop request";
     logSimple(sb,
-              1);
+              3);
   }
 
   static void logControllerHandlingStopComposites(String canonicalName) {
     String sb = "controller >>" + canonicalName + "<< --> stopping composites";
     logSimple(sb,
-              2);
+              4);
   }
 
   static void logControllerCompositesStoppped(String canonicalName) {
     String sb = "controller >>" + canonicalName + "<< --> composites stopped";
     logSimple(sb,
-              2);
+              4);
   }
 
   static void logCompositeControllerStopped(String canonicalName) {
     String sb = "composite controller >>" + canonicalName + "<< --> stopped";
     logSimple(sb,
-              3);
+              5);
   }
 
   static String logWrongNumbersOfPrameters(String hash,
@@ -242,7 +242,7 @@ class RouterLogger {
       .append(sizeParameterRoute)
       .append("<<");
     logSimple(sb.toString(),
-              1);
+              3);
     return sb.toString();
   }
 
@@ -252,67 +252,67 @@ class RouterLogger {
       .append(hash)
       .append("<< --> Routing aborted!");
     logSimple(sb.toString(),
-              1);
+              3);
     return sb.toString();
   }
 
   static void logControllerLookForCompositeCotroller(String controller) {
     String sb = "controller >>" + controller + "<< --> looking for composite";
     logDetailed(sb,
-                2);
+                4);
   }
 
   static void logControllerNoCompositeControllerFound(String controller) {
     String sb = "controller >>" + controller + "<< --> no composite found";
     logDetailed(sb,
-                3);
+                5);
   }
 
   static void logControllerCompositeControllerFound(String controller,
                                                     int numberofCompositeControllerFound) {
     String sb = "controller >>" + controller + "<< --> composites found >>" + Integer.toString(numberofCompositeControllerFound) + "<<";
     logDetailed(sb,
-                3);
+                5);
   }
 
   static void logCompositeControllerInjectedInController(String controller,
                                                          String compositeController) {
     String sb = "controller >>" + controller + "<< --> compositeController >>" + compositeController + "<< injected";
     logDetailed(sb,
-                3);
+                5);
   }
 
   static void logControllerOnAttachedCompositeController(String controller,
                                                          String compositeController) {
     String sb = "controller >>" + controller + "<< --> compositeController >>" + compositeController + "<< attached";
     logDetailed(sb,
-                3);
+                5);
   }
 
   static void logCompositeComntrollerStartMethodCalled(String compositeController) {
     String sb = "Router: create compositeController >>" + compositeController + "<< - calls method start()";
     logDetailed(sb,
-                3);
+                5);
   }
 
   static void logCompositeNotFound(String controller,
                                    String compositeController) {
     String sb = "controller >>" + controller + "<< --> compositeController >>" + compositeController + "<< not found";
     logDetailed(sb,
-                3);
+                5);
   }
 
   static void logFilterStopMethodWillBeCalled(String controller,
                                               String compositeController) {
     String sb = "controller >>" + controller + "<< --> compositeController >>" + compositeController + "<< stop method will be called";
     logDetailed(sb,
-                3);
+                5);
   }
 
   static void logFilterStopMethodCalled(String controller,
                                         String compositeController) {
     String sb = "controller >>" + controller + "<< --> compositeController >>" + compositeController + "<< stop called";
     logDetailed(sb,
-                3);
+                5);
   }
 }

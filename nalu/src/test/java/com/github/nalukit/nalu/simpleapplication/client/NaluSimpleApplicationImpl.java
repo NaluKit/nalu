@@ -41,8 +41,18 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
   }
 
   @Override
+  protected void loadShellFactory() {
+
+  }
+
+  @Override
   public void loadDebugConfiguration() {
     ClientLogger.get().register(true, new DefaultLogger(), Debug.LogLevel.DETAILED);
+  }
+
+  @Override
+  protected void loadShells() {
+
   }
 
   @Override

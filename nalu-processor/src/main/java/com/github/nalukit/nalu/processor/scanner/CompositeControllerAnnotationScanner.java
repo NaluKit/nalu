@@ -28,7 +28,7 @@ import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterAcceptor;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.scanner.validation.AcceptParameterAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.SplitterControllerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.CompositeControllerAnnotationValidator;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -69,10 +69,10 @@ public class CompositeControllerAnnotationScanner {
 
   ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
-    // handle SplitterController-annotation
+    // handle CompositeController-annotation
     for (Element element : roundEnvironment.getElementsAnnotatedWith(CompositeController.class)) {
       // handle composite
-      CompositeModel compositeModel = handleSplitter(roundEnvironment,
+      CompositeModel compositeModel = handleComposite(roundEnvironment,
                                                      element);
       // handle AcceptParameter annotation
       handleAcceptParameters(roundEnvironment,
@@ -85,16 +85,16 @@ public class CompositeControllerAnnotationScanner {
     return this.applicationMetaModel;
   }
 
-  private CompositeModel handleSplitter(RoundEnvironment roundEnvironment,
+  private CompositeModel handleComposite(RoundEnvironment roundEnvironment,
                                         Element element)
       throws ProcessorException {
     // do validation
-    SplitterControllerAnnotationValidator.builder()
-                                         .roundEnvironment(roundEnvironment)
-                                         .processingEnvironment(processingEnvironment)
-                                         .splitterElement(element)
-                                         .build()
-                                         .validate();
+    CompositeControllerAnnotationValidator.builder()
+                                          .roundEnvironment(roundEnvironment)
+                                          .processingEnvironment(processingEnvironment)
+                                          .compsoteElement(element)
+                                          .build()
+                                          .validate();
     // get Annotation ...
     CompositeController annotation = element.getAnnotation(CompositeController.class);
     // handle ...

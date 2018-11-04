@@ -79,7 +79,7 @@ public class CompositeControllerGenerator {
                                                                     "." +
                                                                     compositeModel.getProvider()
                                                                                   .getSimpleName())
-                                                  .addStatement("$T.get().logSimple(sb01.toString(), 2)",
+                                                  .addStatement("$T.get().logSimple(sb01.toString(), 4)",
                                                                 ClassName.get(ClientLogger.class))
                                                   .addStatement("$T composite = new $T()",
                                                                 ClassName.get(compositeModel.getProvider()
@@ -96,7 +96,7 @@ public class CompositeControllerGenerator {
                                                   .addStatement("sb01 = new $T()",
                                                                 ClassName.get(StringBuilder.class))
                                                   .addStatement("sb01.append(\"composite >>\").append(composite.getClass().getCanonicalName()).append(\"<< --> created and data injected\")")
-                                                  .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
+                                                  .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
                                                                 ClassName.get(ClientLogger.class));
       if (compositeModel.isComponentCreator()) {
         createMethod.addStatement("$T component = composite.createComponent()",
@@ -109,7 +109,7 @@ public class CompositeControllerGenerator {
                     .addStatement("sb01.append(\"component >>$L<< --> created using createComponent-Method of composite controller\")",
                                   compositeModel.getComponent()
                                                 .getClassName())
-                    .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                    .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                                   ClassName.get(ClientLogger.class));
       } else {
         createMethod.addStatement("$T component = new $T()",
@@ -126,34 +126,34 @@ public class CompositeControllerGenerator {
                     .addStatement("sb01.append(\"component >>$L<< --> created using new\")",
                                   compositeModel.getComponent()
                                                 .getClassName())
-                    .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                    .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                                   ClassName.get(ClientLogger.class));
       }
       createMethod.addStatement("component.setController(composite)")
                   .addStatement("sb01 = new $T()",
                                 ClassName.get(StringBuilder.class))
                   .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
-                  .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
+                  .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
                                 ClassName.get(ClientLogger.class))
                   .addStatement("composite.setComponent(component)")
                   .addStatement("sb01 = new $T()",
                                 ClassName.get(StringBuilder.class))
                   .addStatement("sb01.append(\"composite >>\").append(composite.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
-                  .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
+                  .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
                                 ClassName.get(ClientLogger.class))
                   .addStatement("component.render()")
                   .addStatement("sb01 = new $T()",
                                 ClassName.get(StringBuilder.class))
                   .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> rendered\")")
-                  .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
+                  .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
                                 ClassName.get(ClientLogger.class))
                   .addStatement("component.bind()")
                   .addStatement("sb01 = new $T()",
                                 ClassName.get(StringBuilder.class))
                   .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> bound\")")
-                  .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
+                  .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
                                 ClassName.get(ClientLogger.class))
-                  .addStatement("$T.get().logSimple(\"composite >>$L<< created\", 2)",
+                  .addStatement("$T.get().logSimple(\"composite >>$L<< created\", 4)",
                                 ClassName.get(ClientLogger.class),
                                 compositeModel.getComponent()
                                               .getClassName());
@@ -177,7 +177,7 @@ public class CompositeControllerGenerator {
                                           "<< to set value >>\").append(parms[" +
                                           Integer.toString(i) +
                                           "]).append(\"<<\")")
-                        .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                        .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                                       ClassName.get(ClientLogger.class))
                         .addStatement("composite." +
                                           compositeModel.getParameterAcceptors()

@@ -3,8 +3,8 @@ package com.github.nalukit.nalu.processor.controller.controllerAnnotationWithPar
 import com.github.nalukit.nalu.client.component.AbstractComponent;
 
 public class BadComponent
-  extends AbstractComponent<IBadComponent.Controller, String>
-  implements IBadComponent {
+    extends AbstractComponent<IBadComponent.Controller, String>
+    implements IBadComponent {
 
   public BadComponent() {
   }

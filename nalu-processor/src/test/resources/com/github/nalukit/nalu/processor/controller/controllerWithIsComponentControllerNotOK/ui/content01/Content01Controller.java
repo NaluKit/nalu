@@ -24,17 +24,16 @@ import com.github.nalukit.nalu.processor.controller.controllerWithIsComponentCon
 import com.github.nalukit.nalu.processor.controller.controllerWithIsComponentControllerOK.ui.content01.IContent01Component;
 
 @Controller(route = "/route01",
-  selector = "selector01",
-  component = Content01Component.class,
-  componentInterface = IContent01Component.class)
+            selector = "selector01",
+            component = Content01Component.class,
+            componentInterface = IContent01Component.class)
 public class Content01Controller
-  extends AbstractComponentController<MockContext, IContent01Component, String>
-  implements IContent01Component.Controller,
-             IsComponentCreator<IContent02Component> {
+    extends AbstractComponentController<MockContext, IContent01Component, String>
+    implements IContent01Component.Controller,
+               IsComponentCreator<IContent02Component> {
 
   public Content01Controller() {
   }
-
 
   @Override
   public IContent02Component createComponent() {

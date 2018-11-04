@@ -24,7 +24,7 @@ import com.github.nalukit.nalu.client.application.IsLogger;
  * @author plcoirier
  */
 public class MockLogger
-  implements IsLogger {
+    implements IsLogger {
 
   static final String INDENT = "    ";
 

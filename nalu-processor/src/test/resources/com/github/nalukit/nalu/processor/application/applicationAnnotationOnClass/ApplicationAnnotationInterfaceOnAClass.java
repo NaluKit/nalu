@@ -16,13 +16,18 @@
 
 package com.github.nalukit.nalu.processor.application.applicationAnnotationOnClass;
 
-
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
+import com.github.nalukit.nalu.client.application.annotation.Shell;
+import com.github.nalukit.nalu.client.application.annotation.Shells;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.MockShell;
 
-@Application(shell = MockShell.class, startRoute = "/search", context = MockContext.class)
+@Application(startShell = "mockShell",
+             startRoute = "/mockShell/search",
+             context = MockContext.class)
+@Shells({ @Shell(name = "mockShell",
+                 shell = MockShell.class) })
 public class ApplicationAnnotationInterfaceOnAClass
-  implements IsApplication {
+    implements IsApplication {
 }

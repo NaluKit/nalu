@@ -21,7 +21,7 @@ import com.github.nalukit.nalu.client.application.AbstractApplicationLoader;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
 public class MockApplicationLoader
-  extends AbstractApplicationLoader<MockContext> {
+    extends AbstractApplicationLoader<MockContext> {
 
   @Override
   public void load(FinishLoadCommand finishLoadCommand) {

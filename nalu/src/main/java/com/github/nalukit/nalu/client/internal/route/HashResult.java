@@ -21,23 +21,30 @@ import java.util.List;
 
 public class HashResult {
 
+  private String shell;
+
   private String route;
 
   private List<String> parameterValues;
 
   public HashResult() {
     this(null,
+         null,
          new ArrayList<>());
   }
 
-  public HashResult(String route,
+  public HashResult(String shell,
+                    String route,
                     List<String> parameterValues) {
+    this.shell = shell;
     this.route = route;
     this.parameterValues = parameterValues;
   }
 
-  public HashResult(String route) {
-    this(route,
+  public HashResult(String shell,
+                    String route) {
+    this(shell,
+         route,
          new ArrayList<>());
   }
 
@@ -55,5 +62,13 @@ public class HashResult {
 
   public void setParameterValues(List<String> parameterValues) {
     this.parameterValues = parameterValues;
+  }
+
+  public String getShell() {
+    return shell;
+  }
+
+  public void setShell(String shell) {
+    this.shell = shell;
   }
 }

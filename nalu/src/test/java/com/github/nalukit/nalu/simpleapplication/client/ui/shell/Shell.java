@@ -20,10 +20,6 @@ package com.github.nalukit.nalu.simpleapplication.client.ui.shell;
 import com.github.nalukit.nalu.client.component.AbstractShell;
 import com.github.nalukit.nalu.simpleapplication.client.NaluSimpleApplicationContext;
 
-/**
- * this is the presenter of the shell. The shell divides the browser in
- * severeal areas.
- */
 public class Shell
     extends AbstractShell<NaluSimpleApplicationContext> {
 
@@ -32,6 +28,10 @@ public class Shell
 
   @Override
   public void attachShell() {
+  }
+
+  @Override
+  public void detachShell() {
   }
 
   @Override

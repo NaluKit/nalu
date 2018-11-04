@@ -16,19 +16,18 @@
 
 package com.github.nalukit.nalu.processor;
 
-import com.github.nalukit.nalu.processor.test.ApplicationTest;
-import com.github.nalukit.nalu.processor.test.ControllerTest;
-import com.github.nalukit.nalu.processor.test.DebugTest;
-import com.github.nalukit.nalu.processor.test.FilterTest;
+import com.github.nalukit.nalu.processor.test.*;
 import com.github.nalukit.nalu.processor.test.model.intern.ClassNameModelTest;
+import com.github.nalukit.nalu.processor.test.model.property.PropertiesTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ApplicationTest.class,
                      ClassNameModelTest.class,
+                     ConsistenceTest.class,
                      ControllerTest.class,
                      DebugTest.class,
-                     FilterTest.class})
+                     FilterTest.class })
 public class AllTests {
 }

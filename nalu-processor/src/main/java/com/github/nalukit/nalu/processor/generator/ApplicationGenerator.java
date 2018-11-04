@@ -89,6 +89,12 @@ public class ApplicationGenerator {
                   .generate();
     typeSpec.addMethod(constructor);
 
+    ShellGenerator.builder()
+                  .applicationMetaModel(metaModel)
+                  .typeSpec(typeSpec)
+                  .build()
+                  .generate();
+
     CompositeControllerGenerator.builder()
                                 .applicationMetaModel(metaModel)
                                 .typeSpec(typeSpec)
@@ -150,11 +156,11 @@ public class ApplicationGenerator {
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
-                                       metaModel.getApplication()
-                                                .getSimpleName() +
-                                       ApplicationGenerator.IMPL_NAME +
-                                       "<< -> exception: " +
-                                       e.getMessage());
+                                   metaModel.getApplication()
+                                            .getSimpleName() +
+                                   ApplicationGenerator.IMPL_NAME +
+                                   "<< -> exception: " +
+                                   e.getMessage());
     }
   }
 

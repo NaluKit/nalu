@@ -170,4 +170,59 @@ public class ControllerModel {
   public void setComponentCreator(boolean componentCreator) {
     this.componentCreator = componentCreator;
   }
+
+  public boolean match(String startRoute) {
+    if (this.matchcShell(startRoute)) {
+      if (this.matchRouteWithoutShell(startRoute)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private boolean matchRouteWithoutShell(String startRoute) {
+    String routeWithoutShell = this.getRouteWithoutShell(this.route);
+    String startRouteWithoutShell = this.getRouteWithoutShell(startRoute);
+    return routeWithoutShell.contains(startRouteWithoutShell);
+  }
+
+  private String getRouteWithoutShell(String route) {
+    String routeWithoutShell = route;
+    if (routeWithoutShell.startsWith("/")) {
+      routeWithoutShell = routeWithoutShell.substring(1);
+    }
+    if (routeWithoutShell.contains("/")) {
+      routeWithoutShell = routeWithoutShell.substring(routeWithoutShell.indexOf("/"));
+      if (routeWithoutShell.contains("/:")) {
+        routeWithoutShell = routeWithoutShell.substring(routeWithoutShell.indexOf("/:"));
+      }
+      return routeWithoutShell;
+    } else {
+      return "/";
+    }
+  }
+
+  private boolean matchcShell(String startRoute) {
+    if (this.route.startsWith("/*")) {
+      return true;
+    }
+    String shellOfRoute = this.getShellFromRoute(this.route);
+    String shellOfStartRoute = this.getShellFromRoute(startRoute);
+    if (shellOfRoute.contains(shellOfStartRoute)) {
+      return true;
+    }
+    return false;
+  }
+
+  private String getShellFromRoute(String route) {
+    String shellOfRoute = route;
+    if (shellOfRoute.startsWith("/")) {
+      shellOfRoute = shellOfRoute.substring(1);
+    }
+    if (shellOfRoute.contains("/")) {
+      shellOfRoute = shellOfRoute.substring(0,
+                                            shellOfRoute.indexOf("/"));
+    }
+    return shellOfRoute;
+  }
 }

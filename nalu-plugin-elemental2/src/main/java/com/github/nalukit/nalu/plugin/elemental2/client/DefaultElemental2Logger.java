@@ -24,7 +24,7 @@ import java.util.stream.IntStream;
 public class DefaultElemental2Logger
     implements IsLogger {
 
-  static final String INDENT = "    ";
+  static final String INDENT = "..";
 
   public void log(String message,
                   int depth) {

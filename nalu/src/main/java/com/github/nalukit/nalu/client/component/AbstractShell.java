@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractShell<C extends IsContext>
@@ -28,6 +29,8 @@ public abstract class AbstractShell<C extends IsContext>
   protected C context;
 
   protected SimpleEventBus eventBus;
+
+  protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
 
   public AbstractShell() {
   }
@@ -48,8 +51,29 @@ public abstract class AbstractShell<C extends IsContext>
     // override this method if you need to bind something inside the Shell
   }
 
+  /**
+   * internal framework method! Will be called by the framdework after the
+   * stop-method f the controller is called
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   */
+  @Override
+  public void removeHandlers() {
+    this.handlerRegistrations.removeHandler();
+    this.handlerRegistrations = new HandlerRegistrations();
+  }
+
   @Override
   public void onAttachedComponent() {
     // override this method if you need to do something, after a component is attached!
+  }
+
+  /**
+   * Will be called in case a shell ist detachred.
+   *
+   * In case you have something to do if a shell is detached, override this mehtod.
+   */
+  @Override
+  public void detachShell() {
   }
 }

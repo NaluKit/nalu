@@ -19,8 +19,8 @@ package com.github.nalukit.nalu.processor.controller.controllerWithIsComponentCo
 import com.github.nalukit.nalu.client.component.AbstractComponent;
 
 public class Content02Component
-  extends AbstractComponent<IContent02Component.Controller, String>
-  implements IContent02Component {
+    extends AbstractComponent<IContent02Component.Controller, String>
+    implements IContent02Component {
 
   public Content02Component() {
   }

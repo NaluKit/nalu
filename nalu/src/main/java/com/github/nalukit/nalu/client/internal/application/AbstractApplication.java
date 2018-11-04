@@ -25,9 +25,7 @@ import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.internal.route.HashResult;
-import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
-import com.github.nalukit.nalu.client.internal.route.RouterException;
+import com.github.nalukit.nalu.client.internal.route.*;
 import com.github.nalukit.nalu.client.plugin.IsPlugin;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -41,6 +39,9 @@ import java.util.List;
 public abstract class AbstractApplication<C extends IsContext>
     implements IsApplication {
 
+  /* start viewport */
+  protected String startShell;
+
   /* start route */
   protected String startRoute;
 
@@ -49,6 +50,9 @@ public abstract class AbstractApplication<C extends IsContext>
 
   /* Shell */
   protected IsShell shell;
+
+  /* Shell Configuration */
+  protected ShellConfiguration shellConfiguration;
 
   /* Router Configuration */
   protected RouterConfiguration routerConfiguration;
@@ -81,23 +85,41 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadDebugConfiguration();
     // debug message
     ClientLogger.get()
+                .logDetailed("=================================================================================",
+                           0);
+    ClientLogger.get()
+                .logDetailed("Running Nalu version: v" + Nalu.NALU_VERSION,
+                           0);
+    ClientLogger.get()
+                .logDetailed("=================================================================================",
+                           0);
+    // debug message
+    ClientLogger.get()
                 .logSimple("AbstractApplication: application is started!",
                            0);
     // instantiate necessary classes
     this.eventBus = new SimpleEventBus();
+    this.shellConfiguration = new ShellConfiguration();
     this.routerConfiguration = new RouterConfiguration();
     this.router = new Router(this.plugin,
+                             this.shellConfiguration,
                              this.routerConfiguration,
                              this.compositeControllerReferences);
     // load everything you need to start
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load configurations",
                              1);
+    this.loadShells();
     this.loadRoutes();
     this.loadFilters();
     this.loadDefaultRoutes();
     this.loadCompositeReferences();
     this.router.setRouteErrorRoute(Nalu.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
+    // load the shells of the application
+    ClientLogger.get()
+                .logDetailed("AbstractApplication: load shells",
+                             1);
+    this.loadShellFactory();
     // load the composite of the application
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load compositeControllers",
@@ -128,7 +150,11 @@ public abstract class AbstractApplication<C extends IsContext>
     }
   }
 
+  protected abstract void loadShellFactory();
+
   protected abstract void loadDebugConfiguration();
+
+  protected abstract void loadShells();
 
   protected abstract void loadRoutes();
 
@@ -152,16 +178,6 @@ public abstract class AbstractApplication<C extends IsContext>
   private void onFinishLaoding() {
     // save the current hash
     String hashOnStart = this.plugin.getStartRoute();
-    // initialize shell ...
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: onAttach shell",
-                             1);
-    this.attachShell();
-    // start the application by calling url + '#'
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: initialize application (route to '/')",
-                             1);
-    this.router.route("");
     // check if the url contains a hash.
     // in case it has a hash, use this to route otherwise
     // use the startRoute from the annotation
@@ -182,7 +198,7 @@ public abstract class AbstractApplication<C extends IsContext>
                                   .toArray(new String[0]));
     } else {
       ClientLogger.get()
-                  .logDetailed("AbstractApplication: no history found -> use startRoute: >>" + this.startRoute + "<<",
+                  .logDetailed("AbstractApplication: no history found -> use startShell >>" + this.startShell + "<< and startRoute: >>" + this.startRoute + "<<",
                                1);
       this.router.route(this.startRoute);
     }
@@ -191,7 +207,7 @@ public abstract class AbstractApplication<C extends IsContext>
                            0);
   }
 
-  public void attachShell() {
-    this.shell.attachShell();
-  }
+//  public void attachShell() {
+//    this.shell.attachShell();
+//  }
 }

@@ -19,10 +19,14 @@ package com.github.nalukit.nalu;
 
 import com.github.nalukit.nalu.client.RouterTest;
 import com.github.nalukit.nalu.client.RoutingTest;
+import com.github.nalukit.nalu.client.internal.route.RouteConfig;
+import com.github.nalukit.nalu.client.internal.route.RouteConfigTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ RouterTest.class, RoutingTest.class })
+@Suite.SuiteClasses({ RouteConfigTest.class,
+                      RouterTest.class,
+                      RoutingTest.class })
 public class AllTests {
 }

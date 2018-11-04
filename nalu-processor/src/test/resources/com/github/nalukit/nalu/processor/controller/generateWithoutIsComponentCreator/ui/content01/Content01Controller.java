@@ -17,17 +17,16 @@
 package com.github.nalukit.nalu.processor.controller.generateWithoutIsComponentCreator.ui.content01;
 
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
-import com.github.nalukit.nalu.client.component.IsComponentCreator;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
-@Controller(route = "/route01",
-  selector = "selector01",
-  component = Content01Component.class,
-  componentInterface = IContent01Component.class)
+@Controller(route = "/mockShell/route01",
+            selector = "selector01",
+            component = Content01Component.class,
+            componentInterface = IContent01Component.class)
 public class Content01Controller
-  extends AbstractComponentController<MockContext, IContent01Component, String>
-  implements IContent01Component.Controller {
+    extends AbstractComponentController<MockContext, IContent01Component, String>
+    implements IContent01Component.Controller {
 
   public Content01Controller() {
   }

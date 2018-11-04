@@ -20,7 +20,7 @@ package com.github.nalukit.nalu.processor.common;
 import com.github.nalukit.nalu.client.application.IsContext;
 
 public class MockContext
-  implements IsContext {
+    implements IsContext {
 
   public MockContext() {
   }

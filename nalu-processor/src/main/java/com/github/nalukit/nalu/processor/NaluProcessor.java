@@ -25,6 +25,7 @@ import com.github.nalukit.nalu.processor.generator.ApplicationGenerator;
 import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
 import com.github.nalukit.nalu.processor.scanner.ApplicationAnnotationScanner;
 import com.github.nalukit.nalu.processor.scanner.HandlerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.validation.ConsistenceValidator;
 import com.google.auto.service.AutoService;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -45,8 +46,6 @@ public class NaluProcessor
   private ProcessorUtils processorUtils;
 
   private ApplicationAnnotationScanner applicationAnnotationScanner;
-
-  private HandlerAnnotationScanner     handlerAnnotationScanner;
 
   private ApplicationGenerator applicationGenerator;
 
@@ -82,7 +81,7 @@ public class NaluProcessor
       } else {
         if (annotations.size() > 0) {
           this.scan(roundEnv);
-          this.generate();
+          this.validate(roundEnv);
         }
       }
       return true;
@@ -118,15 +117,23 @@ public class NaluProcessor
       throws ProcessorException {
     this.applicationMetaModel = this.applicationAnnotationScanner.scan();
     // cause we need the meta model, we have to create the Handler scanner here!
-    this.handlerAnnotationScanner = HandlerAnnotationScanner.builder()
-                                                            .roundEnvironment(roundEnv)
-                                                            .processingEnvironment(this.processingEnv)
-                                                            .applicationMetaModel(this.applicationMetaModel)
-                                                            .build();
-    this.applicationMetaModel = this.handlerAnnotationScanner.scan();
+    HandlerAnnotationScanner handlerAnnotationScanner = HandlerAnnotationScanner.builder()
+                                                                                .roundEnvironment(roundEnv)
+                                                                                .processingEnvironment(this.processingEnv)
+                                                                                .applicationMetaModel(this.applicationMetaModel)
+                                                                                .build();
+    this.applicationMetaModel = handlerAnnotationScanner.scan();
   }
 
-  private void generate()
+  private void validate(RoundEnvironment roundEnv)
       throws ProcessorException {
+    if (!isNull(this.applicationMetaModel)) {
+      ConsistenceValidator.builder()
+                          .roundEnvironment(roundEnv)
+                          .processingEnvironment(this.processingEnv)
+                          .applicationMetaModel(this.applicationMetaModel)
+                          .build()
+                          .validate();
+    }
   }
 }

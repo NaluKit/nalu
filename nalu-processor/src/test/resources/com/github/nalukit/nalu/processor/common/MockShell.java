@@ -16,14 +16,16 @@
 
 package com.github.nalukit.nalu.processor.common;
 
-import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.component.AbstractShell;
-import elemental2.dom.*;
+import elemental2.dom.CSSProperties;
+import elemental2.dom.Element;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 
 import static elemental2.dom.DomGlobal.document;
 
 public class MockShell
-  extends AbstractShell<MockContext> {
+    extends AbstractShell<MockContext> {
 
   public MockShell() {
   }
@@ -38,7 +40,6 @@ public class MockShell
   public void attachShell() {
     document.body.appendChild(this.render());
   }
-
 
   private HTMLElement render() {
     document.body.style.margin = CSSProperties.MarginUnionType.of(0);

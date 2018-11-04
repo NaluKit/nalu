@@ -22,6 +22,7 @@ public class RouterTest {
   public void before() {
     this.router = new Router(Utils.createPlugin(true,
                                                 true),
+                             Utils.createShellConfiguration(),
                              Utils.createRouterConfiguration(),
                              Utils.createCompositeConfiguration());
   }
@@ -32,18 +33,40 @@ public class RouterTest {
   }
 
   /**
-   * Method: parse(String hash) without paramter ("/testRoute01")
+   * Method: parse(String hash) without paramter ("/MockShell")
+   */
+  @Test
+  public void testParseHashViewportOnly() {
+    HashResult hashResult = null;
+    try {
+      hashResult = this.router.parse("/MockShell");
+    } catch (RouterException e) {
+      Assert.fail();
+    }
+    Assert.assertEquals("route test with leading '/'",
+                        "/MockShell",
+                        hashResult.getShell());
+    Assert.assertEquals("route test with leading '/' and no parameters",
+                        "/MockShell",
+                        hashResult.getRoute());
+  }
+
+  /**
+   * Method: parse(String hash) without paramter ("/textViewport/testRoute01")
    */
   @Test
   public void testParseHash01() {
     HashResult hashResult = null;
     try {
-      hashResult = this.router.parse("/testRoute01");
+      hashResult = this.router.parse("/MockShell/testRoute01");
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("route test with leading '/' and not parameters",
-                        "/testRoute01",
+    Assert.assertEquals("route test with leading '/'",
+                        "/MockShell",
+                        hashResult.getShell());
+    Assert.assertEquals("route test with leading '/' and no parameters",
+                        "/MockShell/testRoute01",
                         hashResult.getRoute());
   }
 
@@ -54,12 +77,15 @@ public class RouterTest {
   public void testParseHash02() {
     HashResult hashResult = null;
     try {
-      hashResult = this.router.parse("testRoute01");
+      hashResult = this.router.parse("MockShell/testRoute01");
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("route test without leading '/' and not parameters",
-                        "/testRoute01",
+    Assert.assertEquals("route test without leading '/'",
+                        "/MockShell",
+                        hashResult.getShell());
+    Assert.assertEquals("route test with leading '/' and no parameters",
+                        "/MockShell/testRoute01",
                         hashResult.getRoute());
   }
 
@@ -70,12 +96,15 @@ public class RouterTest {
   public void testParseHash03() {
     HashResult hashResult = null;
     try {
-      hashResult = this.router.parse("/testRoute02/testParameter01");
+      hashResult = this.router.parse("/MockShell/testRoute02/testParameter01");
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("route test with leading '/' and one parameters",
-                        "/testRoute02",
+    Assert.assertEquals("route test with leading '/'",
+                        "/MockShell",
+                        hashResult.getShell());
+   Assert.assertEquals("route test with leading '/' and one parameters",
+                        "/MockShell/testRoute02",
                         hashResult.getRoute());
     Assert.assertEquals("route test with leading '/' and one parameters",
                         "testParameter01",
@@ -90,13 +119,13 @@ public class RouterTest {
   public void testParseHash04() {
     HashResult hashResult = null;
     try {
-      hashResult = this.router.parse("/testRoute02/testParameter01/testParameter02");
+      hashResult = this.router.parse("/MockShell/testRoute02/testParameter01/testParameter02");
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("route test with leading '/' and two parameters",
-                        "/testRoute02",
-                        hashResult.getRoute());
+    Assert.assertEquals("route test with leading '/'",
+                        "/MockShell",
+                        hashResult.getShell());
     Assert.assertEquals("route test with leading '/' and two parameters",
                         "testParameter01",
                         hashResult.getParameterValues()
@@ -114,12 +143,15 @@ public class RouterTest {
   public void testParseHash05() {
     HashResult hashResult = null;
     try {
-      hashResult = this.router.parse("/testRoute02//testParameter02");
+      hashResult = this.router.parse("/MockShell/testRoute02//testParameter02");
     } catch (RouterException e) {
       Assert.fail();
     }
+    Assert.assertEquals("route test with leading '/'",
+                        "/MockShell",
+                        hashResult.getShell());
     Assert.assertEquals("route test with leading '/' and two parameters, first one empty",
-                        "/testRoute02",
+                        "/MockShell/testRoute02",
                         hashResult.getRoute());
     Assert.assertEquals("route test with leading '/' and two parameters, first one empty",
                         "",
@@ -138,14 +170,17 @@ public class RouterTest {
   public void testParseHash06() {
     HashResult hashResult = null;
     try {
-      hashResult = this.router.parse("testRoute02/testParameter01");
+      hashResult = this.router.parse("MockShell/testRoute02/testParameter01");
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("route test without leading '/' and one parameters",
-                        "/testRoute02",
+    Assert.assertEquals("route test without leading '/'",
+                        "/MockShell",
+                        hashResult.getShell());
+    Assert.assertEquals("route test with leading '/' and one parameters",
+                        "/MockShell/testRoute02",
                         hashResult.getRoute());
-    Assert.assertEquals("route test without leading '/' and one parameters",
+    Assert.assertEquals("route test with leading '/' and one parameters",
                         "testParameter01",
                         hashResult.getParameterValues()
                                   .get(0));
@@ -158,18 +193,21 @@ public class RouterTest {
   public void testParseHash07() {
     HashResult hashResult = null;
     try {
-      hashResult = this.router.parse("testRoute02/testParameter01/testParameter02");
+      hashResult = this.router.parse("MockShell/testRoute02/testParameter01/testParameter02");
     } catch (RouterException e) {
       Assert.fail();
     }
-    Assert.assertEquals("route test without leading '/' and two parameters",
-                        "/testRoute02",
+    Assert.assertEquals("route test without leading '/'",
+                        "/MockShell",
+                        hashResult.getShell());
+    Assert.assertEquals("route test with leading '/' and two parameters",
+                        "/MockShell/testRoute02",
                         hashResult.getRoute());
-    Assert.assertEquals("route test without leading '/' and two parameters",
+    Assert.assertEquals("route test with leading '/' and two parameters",
                         "testParameter01",
                         hashResult.getParameterValues()
                                   .get(0));
-    Assert.assertEquals("route test without leading '/' and two parameters",
+    Assert.assertEquals("route test with leading '/' and two parameters",
                         "testParameter02",
                         hashResult.getParameterValues()
                                   .get(1));
@@ -182,12 +220,15 @@ public class RouterTest {
   public void testParseHash08() {
     HashResult hashResult = null;
     try {
-      hashResult = this.router.parse("testRoute02//testParameter02");
+      hashResult = this.router.parse("MockShell/testRoute02//testParameter02");
     } catch (RouterException e) {
       Assert.fail();
     }
+    Assert.assertEquals("route test without leading '/'",
+                        "/MockShell",
+                        hashResult.getShell());
     Assert.assertEquals("route test without leading '/' and two parameters, first one empty",
-                        "/testRoute02",
+                        "/MockShell/testRoute02",
                         hashResult.getRoute());
     Assert.assertEquals("route test without leading '/' and two parameters, first one empty",
                         "",
@@ -206,12 +247,15 @@ public class RouterTest {
   public void testParseHash09() {
     HashResult hashResult = null;
     try {
-      hashResult = this.router.parse("/testRoute03/testRoute04/testRoute05");
+      hashResult = this.router.parse("/MockShell/testRoute03/testRoute04/testRoute05");
     } catch (RouterException e) {
       Assert.fail();
     }
     Assert.assertEquals("route test with leading '/'",
-                        "/testRoute03/testRoute04/testRoute05",
+                        "/MockShell",
+                        hashResult.getShell());
+    Assert.assertEquals("route test with leading '/'",
+                        "/MockShell/testRoute03/testRoute04/testRoute05",
                         hashResult.getRoute());
   }
 
@@ -222,12 +266,15 @@ public class RouterTest {
   public void testParseHash10() {
     HashResult hashResult = null;
     try {
-      hashResult = this.router.parse("testRoute03/testRoute04/testRoute05");
+      hashResult = this.router.parse("MockShell/testRoute03/testRoute04/testRoute05");
     } catch (RouterException e) {
       Assert.fail();
     }
     Assert.assertEquals("route test without leading '/'",
-                        "/testRoute03/testRoute04/testRoute05",
+                        "/MockShell",
+                        hashResult.getShell());
+    Assert.assertEquals("route test without leading '/'",
+                        "/MockShell/testRoute03/testRoute04/testRoute05",
                         hashResult.getRoute());
   }
 
@@ -237,13 +284,13 @@ public class RouterTest {
   @Test
   public void testParseHash11() {
     try {
-      this.router.parse("/testRoute03/testRoute04/testRoute05/testParameter01");
+      this.router.parse("/MockShell/testRoute03/testRoute04/testRoute05/testParameter01");
       Assert.fail("Expected exception to be thrown");
     } catch (RouterException e) {
       Assert.assertThat(e,
                         Is.isA(RouterException.class));
       Assert.assertThat(e.getMessage(),
-                        Is.is("hash >>/testRoute03/testRoute04/testRoute05/testParameter01<< --> found routing >>/testRoute03/testRoute04/testRoute05<< -> too much parameters! Expeted >>0<< - found >>1<<"));
+                        Is.is("hash >>/MockShell/testRoute03/testRoute04/testRoute05/testParameter01<< --> found routing >>/MockShell/testRoute03/testRoute04/testRoute05<< -> too much parameters! Expeted >>0<< - found >>1<<"));
     }
   }
 
@@ -254,12 +301,15 @@ public class RouterTest {
   public void testParseHash12() {
     HashResult hashResult = null;
     try {
-      hashResult = this.router.parse("/testRoute06/testRoute07/testParameter01/testParameter02");
+      hashResult = this.router.parse("/MockShell/testRoute06/testRoute07/testParameter01/testParameter02");
     } catch (RouterException e) {
       Assert.fail();
     }
+    Assert.assertEquals("route test without leading '/'",
+                        "/MockShell",
+                        hashResult.getShell());
     Assert.assertEquals("route test without leading '/' and two parameters, first one empty",
-                        "/testRoute06/testRoute07",
+                        "/MockShell/testRoute06/testRoute07",
                         hashResult.getRoute());
     Assert.assertEquals("route test with leading '/', complex path and two parameters, both parametes exist",
                         "testParameter01",
@@ -276,7 +326,7 @@ public class RouterTest {
    */
   @Test
   public void testGenerateHash01() {
-    String hash = "testRoute01";
+    String hash = "MockShell/testRoute01";
     HashResult hashResult = null;
     try {
       hashResult = this.router.parse(hash);
@@ -294,7 +344,7 @@ public class RouterTest {
    */
   @Test
   public void testGenerateHash02() {
-    String hash = "testRoute02/testParameter01";
+    String hash = "MockShell/testRoute02/testParameter01";
     HashResult hashResult = null;
     try {
       hashResult = this.router.parse(hash);
@@ -314,7 +364,7 @@ public class RouterTest {
    */
   @Test
   public void testGenerateHash03() {
-    String hash = "testRoute02/testParameter01/testParameter02";
+    String hash = "MockShell/testRoute02/testParameter01/testParameter02";
     HashResult hashResult = null;
     try {
       hashResult = this.router.parse(hash);
@@ -334,7 +384,7 @@ public class RouterTest {
    */
   @Test
   public void testGenerateHash04() {
-    String hash = "testRoute02//testParameter02";
+    String hash = "MockShell/testRoute02//testParameter02";
     HashResult hashResult = null;
     try {
       hashResult = this.router.parse(hash);

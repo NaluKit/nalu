@@ -18,10 +18,15 @@ package com.github.nalukit.nalu.processor.controller.generateWithoutIsComponentC
 
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
+import com.github.nalukit.nalu.client.application.annotation.Shell;
+import com.github.nalukit.nalu.client.application.annotation.Shells;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.MockShell;
 
-@Application(shell = MockShell.class, startRoute = "/route01", context = MockContext.class)
+@Application(startRoute = "/mockShell/route01",
+             context = MockContext.class)
+@Shells({ @Shell(name = "mockShell",
+                 shell = MockShell.class) })
 public interface GenerateWithoutIsComponentCreator
-  extends IsApplication {
+    extends IsApplication {
 }

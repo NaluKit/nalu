@@ -19,8 +19,8 @@ package com.github.nalukit.nalu.processor.controller.generateWithoutIsComponentC
 import com.github.nalukit.nalu.client.component.AbstractComponent;
 
 public class Content01Component
-  extends AbstractComponent<IContent01Component.Controller, String>
-  implements IContent01Component {
+    extends AbstractComponent<IContent01Component.Controller, String>
+    implements IContent01Component {
 
   public Content01Component() {
   }

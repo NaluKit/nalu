@@ -24,24 +24,24 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
-public class SplitterControllerAnnotationValidator {
+public class CompositeControllerAnnotationValidator {
 
-  private ProcessorUtils        processorUtils;
+  private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment      roundEnvironment;
+  private RoundEnvironment roundEnvironment;
 
-  private Element               splitterElement;
+  private Element compositeElement;
 
   @SuppressWarnings("unused")
-  private SplitterControllerAnnotationValidator() {
+  private CompositeControllerAnnotationValidator() {
   }
 
-  private SplitterControllerAnnotationValidator(Builder builder) {
+  private CompositeControllerAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.roundEnvironment = builder.roundEnvironment;
-    this.splitterElement = builder.splitterElement;
+    this.compositeElement = builder.compositeElement;
     setUp();
   }
 
@@ -57,19 +57,19 @@ public class SplitterControllerAnnotationValidator {
 
   public void validate()
       throws ProcessorException {
-    TypeElement typeElement = (TypeElement) this.splitterElement;
-    // @SplitterController can only be used on a class
+    TypeElement typeElement = (TypeElement) this.compositeElement;
+    // @CompositeController can only be used on a class
     if (!typeElement.getKind()
                     .isClass()) {
-      throw new ProcessorException("Nalu-Processor: @SplitterController can only be used with an class");
+      throw new ProcessorException("Nalu-Processor: @CompositeController can only be used with an class");
     }
-    // @SplitterController can only be used on a interface that extends IsSplitter
+    // @CompositeController can only be used on a interface that extends IsSplitter
     if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
                                                       typeElement.asType(),
                                                       this.processingEnvironment.getElementUtils()
                                                                                 .getTypeElement(IsComposite.class.getCanonicalName())
                                                                                 .asType()))) {
-      throw new ProcessorException("Nalu-Processor: @SplitterController can only be used on a class that extends IsSplitter");
+      throw new ProcessorException("Nalu-Processor: @CompositeController can only be used on a class that extends IsSplitter");
     }
   }
 
@@ -77,9 +77,9 @@ public class SplitterControllerAnnotationValidator {
 
     ProcessingEnvironment processingEnvironment;
 
-    RoundEnvironment      roundEnvironment;
+    RoundEnvironment roundEnvironment;
 
-    Element               splitterElement;
+    Element compositeElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
@@ -91,13 +91,13 @@ public class SplitterControllerAnnotationValidator {
       return this;
     }
 
-    public Builder splitterElement(Element splitterElement) {
-      this.splitterElement = splitterElement;
+    public Builder compsoteElement(Element compositeElement) {
+      this.compositeElement = compositeElement;
       return this;
     }
 
-    public SplitterControllerAnnotationValidator build() {
-      return new SplitterControllerAnnotationValidator(this);
+    public CompositeControllerAnnotationValidator build() {
+      return new CompositeControllerAnnotationValidator(this);
     }
   }
 }

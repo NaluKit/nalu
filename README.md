@@ -8,7 +8,7 @@ Nalu is a tiny framework that helps you to create GWT based applications quite e
 
 Nalu offers the following features:
 
-* Fully support of the browser's back- forward- and reload-button.
+* Full support of the browser's back- forward- and reload-button.
 
 * An optional loader that will be executed at application start to load data from the server.
 
@@ -16,7 +16,7 @@ Nalu offers the following features:
 
 * Filters to intercept routing.
 
-* Full history support.
+* History Support by default.
 
 * Seperation of views into a controller and a component with framework sided instantiation.
 
@@ -34,16 +34,19 @@ Nalu offers the following features:
 
 * Component creation inside a controller to support GWT replacement rules and static factory methods
 
+* Multi Shell Support
+
 
 ## Basic Concept
 Nalu uses the hash of an url to navigate.
 
 Example hash:
 ```
-#[route]/[parameter_1]/:[parameter_2]/:[parameter_3]
+#[shell]/[route]/:[parameter_1]/:[parameter_2]/:[parameter_3]
 ```
 
 where
+* shell: the shell to be used to display the route
 * route: is the navigation end point
 * parameter_x: are the parameters of the route (it is possible to have a route without parameter or to use a route, that excepts parameter without parameter in inside the url.)
 
@@ -54,7 +57,7 @@ The following flow shows the steps to be done, once a routing is initiated. The 
 To connect a component to a route, just create a controller class which extends ```AbstractComponentController```and add the controller annotation ```@Controller```.
 
 ```JAVA
-@Controller(route = "/route/:parameter_1/:parameter_2/:parameter_3",
+@Controller(route = "/shell/route/:parameter_1/:parameter_2/:parameter_3",
             selector = "content",
             component = MyComponent.class,
             componentInterface = IMyComponent.class)
@@ -66,7 +69,7 @@ public class MyController
 
 To navigate to a new route use:
 ```JAVA
-    this.router.route("/route",
+    this.router.route("/shell/route",
                       parameter_1,
                       parameter_2);
 ```
@@ -123,7 +126,7 @@ See the wiki for more informations on Nalu and how to use it.
 More useful information about Nalu and how to use it, can be find inside the [Wiki](https://github.com/nalukit/nalu/wiki).
 
 ## J2CL / GWT3
-With the next version of GWT (GWT 3) and the new J2CL transpiler, there will be major changes in the GWT developmemt. For example: JSNI and generators, besides other things, will be gone. To be prepared for the future things like JSNI, generators or any other dependency to GWT has to be avoided. Nalu uses only the already migrated ```gwt-events``` from ```org.gwtproject```.
+With the next version of GWT (GWT 3) and the new J2CL transpiler, there will be major changes in the GWT developmemt. For example: JSNI and generators, besides other things, will be gone. To be prepared for the future things like JSNI, generators or any other dependency to GWT has to be avoided. Nalu uses only the already migrated ```gwt-events``` from ```org.gwtproject```. (As long as gwt-events is not on Mavan Central the sources of gwt-events will be part of Nalu.)
 
 Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not use JSNI, generators or anything else from GWT. Nalu is ready to use with J2CL / GWT 3.
 

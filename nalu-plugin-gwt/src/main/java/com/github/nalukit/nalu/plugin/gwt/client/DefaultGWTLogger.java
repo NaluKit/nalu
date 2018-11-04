@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 public class DefaultGWTLogger
     implements IsLogger {
 
-  static final String INDENT = "... ";
+  static final String INDENT = "..";
 
   public void log(String message,
                   int depth) {

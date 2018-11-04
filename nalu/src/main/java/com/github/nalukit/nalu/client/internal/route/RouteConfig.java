@@ -16,15 +16,22 @@
 
 package com.github.nalukit.nalu.client.internal.route;
 
-import com.github.nalukit.nalu.client.Nalu;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
+// TODO tests
 public class RouteConfig {
+
+  /* shell */
+  private List<String> shell;
 
   /* route */
   private String route;
+
+  /* route without shell */
+  private String routeWithoutShell;
 
   /* parameters */
   private List<String> parameters;
@@ -35,7 +42,8 @@ public class RouteConfig {
   /* class name of the class which uses this configuration */
   private String className;
 
-  public RouteConfig() {
+  @SuppressWarnings("unused")
+  private RouteConfig() {
   }
 
   public RouteConfig(String route,
@@ -44,29 +52,39 @@ public class RouteConfig {
                      String className) {
     super();
 
-    //    this.parameters = new ArrayList<>();
-    //
-    //    this.parse(route);
+    this.shell = new ArrayList<>();
+
     this.route = route;
     this.parameters = parameters;
     this.selector = selector;
     this.className = className;
-  }
-
-  private void parse(String route) {
-    String parseValue = route;
-    // route has parameter?
-    if (parseValue.contains(Nalu.NALU_PARAMETER)) {
-      // seperate route:
-      this.route = parseValue.substring(0,
-                                        parseValue.indexOf(Nalu.NALU_PARAMETER));
-      // shorten String
-      parseValue = parseValue.substring(parseValue.indexOf(Nalu.NALU_PARAMETER) + 2);
-      // split String
-      Stream.of(parseValue.split(Nalu.NALU_PARAMETER))
-            .forEach(p -> this.parameters.add(p));
+    // get shell from route
+    String tmpValue = route;
+    if (tmpValue.startsWith("/")) {
+      tmpValue = tmpValue.substring(1);
+    }
+    String shellFromRoute = "";
+    if (tmpValue.contains("/")) {
+      shellFromRoute = tmpValue.substring(0,
+                                          tmpValue.indexOf("/"));
+      this.routeWithoutShell = tmpValue.substring(tmpValue.indexOf("/"));
     } else {
-      this.route = parseValue;
+      shellFromRoute = tmpValue;
+      this.routeWithoutShell = "/";
+    }
+    if (shellFromRoute.startsWith("[")) {
+      shellFromRoute = shellFromRoute.substring(1);
+    }
+    if (shellFromRoute.endsWith("]")) {
+      shellFromRoute = shellFromRoute.substring(0, shellFromRoute.length() - 1);
+    }
+    if (shellFromRoute.contains("|")) {
+      this.shell = Arrays.asList(shellFromRoute.split("\\|"))
+                         .stream()
+                         .map(s -> "/" + s)
+                         .collect(Collectors.toList());
+    } else {
+      this.shell.add("/" + shellFromRoute);
     }
   }
 
@@ -74,24 +92,57 @@ public class RouteConfig {
     return route;
   }
 
-  public void setRoute(String route) {
-    this.route = route;
+  public boolean match(String route) {
+    if (this.matchShell(route)) {
+      return this.matchRouteWithoutShell(route);
+    }
+    return false;
+  }
+
+  private boolean matchShell(String route) {
+    if (this.shell.contains("*")) {
+      return true;
+    }
+    // seperate shell from route
+    String shellOfRoute = route;
+    if (shellOfRoute.startsWith("/")) {
+      shellOfRoute = shellOfRoute.substring(1);
+    }
+    if (shellOfRoute.contains("/")) {
+      shellOfRoute = shellOfRoute.substring(0,
+                                            shellOfRoute.indexOf("/"));
+    }
+    return this.shell.contains("/" + shellOfRoute);
+  }
+
+  private boolean matchRouteWithoutShell(String route) {
+    // seperate shell from route
+    String routeWithoutShell = route;
+    if (routeWithoutShell.startsWith("/")) {
+      routeWithoutShell = routeWithoutShell.substring(1);
+    }
+    if (routeWithoutShell.contains("/")) {
+      routeWithoutShell = routeWithoutShell.substring(routeWithoutShell.indexOf("/") + 1);
+    } else {
+      routeWithoutShell = "";
+    }
+    return this.routeWithoutShell.equals("/" + routeWithoutShell);
+  }
+
+  public List<String> getShell() {
+    return shell;
+  }
+
+  public String getRouteWithoutShell() {
+    return routeWithoutShell;
   }
 
   public String getSelector() {
     return selector;
   }
 
-  public void setSelector(String selector) {
-    this.selector = selector;
-  }
-
   public String getClassName() {
     return className;
-  }
-
-  public void setClassName(String className) {
-    this.className = className;
   }
 
   public List<String> getParameters() {

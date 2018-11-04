@@ -90,16 +90,23 @@ public class ApplicationAnnotationScanner {
         Application applicationAnnotation = applicationAnnotationElement.getAnnotation(Application.class);
         if (!isNull(applicationAnnotation)) {
           TypeElement applicationLoaderTypeElement = this.getApplicationLoaderTypeElement(applicationAnnotation);
-          TypeElement shellTypeElement = this.getShellTypeElement(applicationAnnotation);
+          //          TypeElement shellTypeElement = this.getShellTypeElement(applicationAnnotation);
           TypeElement contextTypeElement = this.getContextTypeElement(applicationAnnotation);
           model = new ApplicationMetaModel(this.processorUtils.getPackageAsString(applicationAnnotationElement),
                                            applicationAnnotationElement.toString(),
                                            isNull(applicationLoaderTypeElement) ? "" : applicationLoaderTypeElement.toString(),
-                                           isNull(shellTypeElement) ? "" : shellTypeElement.toString(),
+                                           //                                           isNull(shellTypeElement) ? "" : shellTypeElement.toString(),
                                            Objects.requireNonNull(contextTypeElement)
                                                   .toString(),
                                            applicationAnnotation.startRoute(),
                                            applicationAnnotation.routeErrorRoute());
+          // Shell-Annotation
+          model = ShellsAnnotationScanner.builder()
+                                         .processingEnvironment(processingEnvironment)
+                                         .applicationTypeElement((TypeElement) applicationAnnotationElement)
+                                         .applicationMetaModel(model)
+                                         .build()
+                                         .scan(roundEnvironment);
           // Debug-Annotation
           model = DebugAnnotationScanner.builder()
                                         .processingEnvironment(processingEnvironment)
@@ -135,7 +142,6 @@ public class ApplicationAnnotationScanner {
     return model;
   }
 
-  // TODO scheint nciht mehr zu lesen!)
   private ApplicationMetaModel restore() {
     Gson gson = new Gson();
     try {
@@ -155,16 +161,6 @@ public class ApplicationAnnotationScanner {
   private TypeElement getApplicationLoaderTypeElement(Application applicationAnnotation) {
     try {
       applicationAnnotation.loader();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
-    }
-    return null;
-  }
-
-  private TypeElement getShellTypeElement(Application applicationAnnotation) {
-    try {
-      applicationAnnotation.shell();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());

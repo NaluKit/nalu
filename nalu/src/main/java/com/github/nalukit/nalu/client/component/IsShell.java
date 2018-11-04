@@ -27,9 +27,6 @@ public interface IsShell {
    * of the shell to the user. Here the user has to add the shell
    * of the application to the viewport.
    * </p>
-   * <p>
-   * It is a good idea to use a presenter/view pair as shell:
-   * </p>
    * <code>
    * public void attachShell() {
    * RootLayoutPanel.get().add(view.asWidget());
@@ -40,11 +37,34 @@ public interface IsShell {
   void attachShell();
 
   /**
+   * <p>
+   * This method is used by the framework, to delegate the removing
+   * of the shell to the user. Here the user has to remove the shell
+   * from the viewport.
+   * </p>
+   * <p>
+   * It is a good idea to use a presenter/view pair as shell:
+   * </p>
+   * <code>
+   * public void detachShell() {
+   * view.removeFromParent();
+   * }
+   * </code>
+   * <p>This will make the framework indepent of GWT or user implemantations!</p>
+   */
+  void detachShell();
+
+  /**
    * Method will be called after a component is attached.
    * <p>
    * This is a good place to do a 'forceLayout()'.
    * f.e.: if you are working with GXT!
    */
   void onAttachedComponent();
+
+  /**
+   * Removes all registered handlers.
+   */
+  void removeHandlers();
 
 }

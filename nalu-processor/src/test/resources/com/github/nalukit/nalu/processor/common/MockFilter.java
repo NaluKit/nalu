@@ -19,7 +19,7 @@ package com.github.nalukit.nalu.processor.common;
 import com.github.nalukit.nalu.client.filter.AbstractFilter;
 
 public class MockFilter
-  extends AbstractFilter<MockContext> {
+    extends AbstractFilter<MockContext> {
 
   @Override
   public boolean filter(String route,
@@ -34,7 +34,6 @@ public class MockFilter
 
   @Override
   public String[] parameters() {
-    return new String[]{
-    };
+    return new String[] {};
   }
 }

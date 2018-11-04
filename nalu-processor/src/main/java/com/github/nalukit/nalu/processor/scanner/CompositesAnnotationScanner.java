@@ -67,14 +67,14 @@ public class CompositesAnnotationScanner {
       for (Composite composite : annotation.value()) {
         controllerModel.getComposites()
                        .add(new ControllerCompositeModel(composite.name(),
-                                                         new ClassNameModel(getSplitterTypeElement(composite).toString()),
+                                                         new ClassNameModel(getCompositeTypeElement(composite).toString()),
                                                          composite.selector()));
       }
     }
     return this.controllerModel;
   }
 
-  private TypeElement getSplitterTypeElement(Composite annotation) {
+  private TypeElement getCompositeTypeElement(Composite annotation) {
     try {
       annotation.compositeController();
     } catch (MirroredTypeException exception) {
@@ -84,12 +84,11 @@ public class CompositesAnnotationScanner {
     return null;
   }
 
-  private String[] getParameters(String parameters) {
-    return Stream.of(parameters.split("/:"))
-                 .filter(p -> !"".equals(p))
-                 .collect(Collectors.toList())
-                 .toArray(new String[0]);
-  }
+//  private String[] getParameters(String parameters) {
+//    return Stream.of(parameters.split("/:"))
+//                 .filter(p -> !"".equals(p))
+//                 .toArray(String[]::new);
+//  }
 
   public static class Builder {
 

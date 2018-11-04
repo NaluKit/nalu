@@ -22,6 +22,7 @@ import com.github.nalukit.nalu.client.application.IsContext;
 import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.internal.application.NoApplicationLoader;
 
+import javax.xml.bind.annotation.XmlElementDecl;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -30,7 +31,6 @@ import java.lang.annotation.RetentionPolicy;
  * <br><br>
  * The annotation has the following attributes:
  * <ul>
- * <li>shell: defines the shell of this application</li>
  * <li>loader: a loader that will be executed in case the application loads. If no loader
  * is defined, the NoApplicationLoader.class will be used. In this case, the loader will do nothing.</li>
  * <li>startRoute: in case the application is called without a bookmark, is this the initial route.</li>
@@ -45,12 +45,11 @@ public @interface Application {
 
   Class<? extends AbstractApplicationLoader<?>> loader() default NoApplicationLoader.class;
 
-  Class<? extends IsShell> shell();
-
   String startRoute();
 
   Class<? extends IsContext> context();
 
+  @Deprecated
   String routeErrorRoute() default Nalu.NO_ROUTE;
 
 }

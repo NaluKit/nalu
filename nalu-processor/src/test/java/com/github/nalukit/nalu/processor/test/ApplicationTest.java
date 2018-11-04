@@ -19,7 +19,6 @@ package com.github.nalukit.nalu.processor.test;
 import com.github.nalukit.nalu.processor.NaluProcessor;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.CompilationSubject;
-import com.google.testing.compile.JavaFileObjectSubject;
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.Test;
 
@@ -81,6 +80,9 @@ public class ApplicationTest {
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoader.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -98,6 +100,9 @@ public class ApplicationTest {
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoader.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -115,6 +120,9 @@ public class ApplicationTest {
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/ApplicationAnnotationOkWithoutLoaderAsInnerInterface.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -132,6 +140,9 @@ public class ApplicationTest {
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterface.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)

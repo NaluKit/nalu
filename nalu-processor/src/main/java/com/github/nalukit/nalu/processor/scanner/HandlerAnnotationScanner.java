@@ -16,7 +16,6 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
-import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
@@ -26,16 +25,14 @@ import com.github.nalukit.nalu.processor.scanner.validation.HandlerAnnotationVal
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.MirroredTypeException;
 
 public class HandlerAnnotationScanner {
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment      roundEnvironment;
+  private RoundEnvironment roundEnvironment;
 
-  private ApplicationMetaModel  applicationMetaModel;
+  private ApplicationMetaModel applicationMetaModel;
 
   @SuppressWarnings("unused")
   private HandlerAnnotationScanner(Builder builder) {
@@ -71,33 +68,13 @@ public class HandlerAnnotationScanner {
     return this.applicationMetaModel;
   }
 
-  private TypeElement getComponentTypeElement(Controller annotation) {
-    try {
-      annotation.component();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
-    }
-    return null;
-  }
-
-  private TypeElement getComponentInterfaceTypeElement(Controller annotation) {
-    try {
-      annotation.componentInterface();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
-    }
-    return null;
-  }
-
   public static class Builder {
 
     ProcessingEnvironment processingEnvironment;
 
-    RoundEnvironment      roundEnvironment;
+    RoundEnvironment roundEnvironment;
 
-    ApplicationMetaModel  applicationMetaModel;
+    ApplicationMetaModel applicationMetaModel;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;

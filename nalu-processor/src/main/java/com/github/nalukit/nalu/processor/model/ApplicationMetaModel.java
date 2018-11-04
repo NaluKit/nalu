@@ -17,8 +17,9 @@
 package com.github.nalukit.nalu.processor.model;
 
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
-import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
+import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class ApplicationMetaModel {
 
   private ClassNameModel loader;
 
-  private ClassNameModel shell;
+  private List<ShellModel> shells;
 
   private ClassNameModel context;
 
@@ -63,18 +64,17 @@ public class ApplicationMetaModel {
   public ApplicationMetaModel(String generateToPackage,
                               String application,
                               String loader,
-                              String shell,
                               String context,
                               String startRoute,
                               String routeErrorRoute) {
     this.generateToPackage = generateToPackage;
     this.application = new ClassNameModel(application);
     this.loader = new ClassNameModel(loader);
-    this.shell = new ClassNameModel(shell);
     this.context = new ClassNameModel(context);
     this.startRoute = startRoute;
     this.routeErrorRoute = routeErrorRoute;
 
+    this.shells = new ArrayList<>();
     this.routes = new ArrayList<>();
     this.filters = new ArrayList<>();
     this.handlers = new ArrayList<>();
@@ -95,14 +95,6 @@ public class ApplicationMetaModel {
 
   public void setLoader(ClassNameModel loader) {
     this.loader = loader;
-  }
-
-  public ClassNameModel getShell() {
-    return shell;
-  }
-
-  public void setShell(ClassNameModel shell) {
-    this.shell = shell;
   }
 
   public boolean isHavingDebugAnnotation() {
@@ -210,5 +202,21 @@ public class ApplicationMetaModel {
 
   public void setCompositeModels(List<CompositeModel> compositeModels) {
     this.compositeModels = compositeModels;
+  }
+
+  public List<ShellModel> getShells() {
+    return shells;
+  }
+
+  public String getShellOfStartRoute() {
+    String shellOfStartRoute = this.startRoute;
+    if (shellOfStartRoute.startsWith("/")) {
+      shellOfStartRoute = shellOfStartRoute.substring(1);
+    }
+    if (shellOfStartRoute.contains("/")) {
+      shellOfStartRoute = shellOfStartRoute.substring(0,
+                                                      shellOfStartRoute.indexOf("/"));
+    }
+    return shellOfStartRoute;
   }
 }

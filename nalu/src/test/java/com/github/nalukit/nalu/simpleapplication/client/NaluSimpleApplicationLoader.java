@@ -35,7 +35,6 @@ public class NaluSimpleApplicationLoader
    */
   @Override
   public void load(FinishLoadCommand finishLoadCommand) {
-    System.out.println("Do Loading ... ");
     finishLoadCommand.finishLoading();
   }
 }

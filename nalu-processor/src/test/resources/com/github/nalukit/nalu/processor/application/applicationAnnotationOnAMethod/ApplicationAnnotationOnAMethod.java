@@ -18,12 +18,12 @@ package com.github.nalukit.nalu.processor.application.applicationAnnotationOnAMe
 
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import com.github.nalukit.nalu.processor.common.MockShell;
 
 public interface ApplicationAnnotationOnAMethod
-  extends IsApplication {
+    extends IsApplication {
 
-  @Application(shell = MockShell.class, startRoute = "/search", context = MockContext.class)
+  @Application(startRoute = "/mockShell/search",
+               context = MockContext.class)
   void oneMethod();
 
 }

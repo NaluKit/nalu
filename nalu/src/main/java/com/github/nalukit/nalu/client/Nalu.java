@@ -18,6 +18,10 @@ package com.github.nalukit.nalu.client;
 
 public class Nalu {
 
+  public static final String NALU_VERSION = "1.0.0-rc-8";
+
+  public static final String DEFAULT_NALU_VIEWPORT = "DefaulNaluViewport";
+
   public static final String NALU_ID_ATTRIBUTE = "id";
 
   public final static String NALU_PARAMETER = "/:";
