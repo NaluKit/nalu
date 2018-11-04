@@ -26,6 +26,7 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -82,6 +83,15 @@ public class ShellAnnotationValidator {
       throws ProcessorException {
     if (element instanceof TypeElement) {
       TypeElement typeElement = (TypeElement) element;
+      // check, if the @Shells annotation exists!
+      Shells shellsAnotation = typeElement.getAnnotation(Shells.class);
+      if (Objects.isNull(shellsAnotation)) {
+        // TODO test!
+        throw new ProcessorException("Nalu-Processor: " +
+                                     typeElement.getSimpleName()
+                                                .toString() +
+                                     ": @Shells is missing for IsApplication interface");
+      }
       // annotated element has to be a interface
       if (!typeElement.getKind()
                       .isInterface()) {
