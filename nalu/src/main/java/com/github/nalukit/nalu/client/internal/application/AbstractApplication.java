@@ -39,9 +39,6 @@ import java.util.List;
 public abstract class AbstractApplication<C extends IsContext>
     implements IsApplication {
 
-  /* start viewport */
-  protected String startShell;
-
   /* start route */
   protected String startRoute;
 
@@ -198,7 +195,7 @@ public abstract class AbstractApplication<C extends IsContext>
                                   .toArray(new String[0]));
     } else {
       ClientLogger.get()
-                  .logDetailed("AbstractApplication: no history found -> use startShell >>" + this.startShell + "<< and startRoute: >>" + this.startRoute + "<<",
+                  .logDetailed("AbstractApplication: no history found -> use startRoute: >>" + this.startRoute + "<<",
                                1);
       this.router.route(this.startRoute);
     }
@@ -206,8 +203,4 @@ public abstract class AbstractApplication<C extends IsContext>
                 .logSimple("AbstractApplication: application started",
                            0);
   }
-
-//  public void attachShell() {
-//    this.shell.attachShell();
-//  }
 }

@@ -148,7 +148,7 @@ public final class Router {
                           .logDetailed("Router: shell >>" +
                                        this.shell.getClass()
                                                  .getCanonicalName() +
-                                       "<< attached",
+                                       "<< detached",
                                        1);
             }
             // set newe shell value
