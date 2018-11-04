@@ -16,6 +16,7 @@
 package com.github.nalukit.nalu.processor.scanner.validation;
 
 import com.github.nalukit.nalu.client.application.IsApplication;
+import com.github.nalukit.nalu.client.application.annotation.Shell;
 import com.github.nalukit.nalu.client.application.annotation.Shells;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
@@ -26,9 +27,8 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ShellAnnotationValidator {
 
@@ -71,7 +71,7 @@ public class ShellAnnotationValidator {
     Set<? extends Element> elementsWithShellsAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Shells.class);
     // at least there should exatly one Application annotation!
     if (elementsWithShellsAnnotation.size() == 0) {
-      throw new ProcessorException("Nalu-Processor: Missing Nalu Application interface");
+      throw new ProcessorException("Nalu-Processor: @Shells is missing for IsApplication interface");
     }
     // at least there should only one Application annotation!
     if (elementsWithShellsAnnotation.size() > 1) {
@@ -83,15 +83,6 @@ public class ShellAnnotationValidator {
       throws ProcessorException {
     if (element instanceof TypeElement) {
       TypeElement typeElement = (TypeElement) element;
-      // check, if the @Shells annotation exists!
-      Shells shellsAnotation = typeElement.getAnnotation(Shells.class);
-      if (Objects.isNull(shellsAnotation)) {
-        // TODO test!
-        throw new ProcessorException("Nalu-Processor: " +
-                                     typeElement.getSimpleName()
-                                                .toString() +
-                                     ": @Shells is missing for IsApplication interface");
-      }
       // annotated element has to be a interface
       if (!typeElement.getKind()
                       .isInterface()) {
@@ -111,11 +102,26 @@ public class ShellAnnotationValidator {
     } else {
       throw new ProcessorException("Nalu-Processor:" + "@Shells can only be used on a type (interface)");
     }
+    // check the name of the shells for duplicates
+    Shells shellsAnnotation = element.getAnnotation(Shells.class);
+    if (!Objects.isNull(shellsAnnotation)) {
+      List<String>compareList = new ArrayList<>();
+      for (int i = 0; i < shellsAnnotation.value().length; i++) {
+        Shell shell = shellsAnnotation.value()[i];
+        if (compareList.contains(shell.name())) {
+          throw new ProcessorException("Nalu-Processor:" + "@Shell: the name >>" + shell.name() + "<< is dunplicate! Please use another unique name!");
+        }
+        compareList.add(shell.name());
+      }
+    }
   }
 
   public void validateName(String name)
       throws ProcessorException {
-    Optional<ShellModel> optionalShellModel = this.applicationMetaModel.getShells().stream().filter(m -> name.equals(m.getName())).findAny();
+    Optional<ShellModel> optionalShellModel = this.applicationMetaModel.getShells()
+                                                                       .stream()
+                                                                       .filter(m -> name.equals(m.getName()))
+                                                                       .findAny();
     if (optionalShellModel.isPresent()) {
       throw new ProcessorException("Nalu-Processor:" + "@Shell: the shell ame >>" + name + "<< is already used!");
     }

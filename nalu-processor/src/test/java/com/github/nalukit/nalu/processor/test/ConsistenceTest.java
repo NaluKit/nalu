@@ -125,4 +125,22 @@ public class ConsistenceTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
+
+  @Test
+  public void testNoShells() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/noShells/NoShellsApplication.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("Nalu-Processor: @Shells is missing for IsApplication interface");
+  }
+
 }

@@ -100,7 +100,6 @@ public class ControllerAnnotationValidator {
     boolean handlingParameter = false;
     String[] splits = route.split("/");
     for (String s : splits) {
-      // TODO TESTEN !!!!!!
       // handle "//" -> not allowed
       if (s.length() == 0) {
         throw new ProcessorException("Nalu-Processor: controller >>" +

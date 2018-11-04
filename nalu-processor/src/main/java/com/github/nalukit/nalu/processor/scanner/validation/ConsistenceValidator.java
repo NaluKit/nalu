@@ -80,8 +80,6 @@ public class ConsistenceValidator {
     if (!optionalRoute.isPresent()) {
       throw new ProcessorException("Nalu-Processor: The route of the startRoute >>" + this.applicationMetaModel.getStartRoute() + "<< does not exist!");
     }
-
-    // TODO doppleter shell name
   }
 
   public static final class Builder {

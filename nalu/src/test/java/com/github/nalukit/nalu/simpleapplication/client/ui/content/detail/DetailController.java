@@ -45,7 +45,6 @@ public class DetailController
   @Override
   public void start() {
     if (this.id == 0) {
-      // TODO set viewport!
       this.router.route("",
                         "/search");
     }
@@ -97,7 +96,6 @@ public class DetailController
     PersonService.get()
                  .update(this.component.flush(this.person));
     if (this.context.getSearchName() == null && this.context.getSearchCity() == null) {
-      // TODO set viewport
       this.router.route("",
                         "/search");
     } else {
