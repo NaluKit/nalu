@@ -33,7 +33,7 @@ public class RouterTest {
   }
 
   /**
-   * Method: parse(String hash) without paramter ("/MockShell")
+   * Method: parse(String hash) without parameter ("/MockShell")
    */
   @Test
   public void testParseHashViewportOnly() {
@@ -52,7 +52,7 @@ public class RouterTest {
   }
 
   /**
-   * Method: parse(String hash) without paramter ("/textViewport/testRoute01")
+   * Method: parse(String hash) without parameter ("/textViewport/testRoute01")
    */
   @Test
   public void testParseHash01() {
@@ -71,7 +71,7 @@ public class RouterTest {
   }
 
   /**
-   * Method: parse(String hash) without paramter ("testRoute01")
+   * Method: parse(String hash) without parameter ("testRoute01")
    */
   @Test
   public void testParseHash02() {
@@ -90,7 +90,7 @@ public class RouterTest {
   }
 
   /**
-   * Method: parse(String hash) with one paramter ("/testRoute02/testParameter01")
+   * Method: parse(String hash) with one parameter ("/testRoute02/testParameter01")
    */
   @Test
   public void testParseHash03() {
@@ -103,17 +103,17 @@ public class RouterTest {
     Assert.assertEquals("route test with leading '/'",
                         "/MockShell",
                         hashResult.getShell());
-   Assert.assertEquals("route test with leading '/' and one parameters",
+   Assert.assertEquals("route test with leading '/' and one parameter",
                         "/MockShell/testRoute02",
                         hashResult.getRoute());
-    Assert.assertEquals("route test with leading '/' and one parameters",
+    Assert.assertEquals("route test with leading '/' and one parameter",
                         "testParameter01",
                         hashResult.getParameterValues()
                                   .get(0));
   }
 
   /**
-   * Method: parse(String hash) with one paramter ("/testRoute02/testParameter01/testParameter02")
+   * Method: parse(String hash) with one parameter ("/testRoute02/testParameter01/testParameter02")
    */
   @Test
   public void testParseHash04() {
@@ -137,7 +137,7 @@ public class RouterTest {
   }
 
   /**
-   * Method: parse(String hash) with one paramter ("/testRoute02//testParameter02")
+   * Method: parse(String hash) with one parameter ("/testRoute02//testParameter02")
    */
   @Test
   public void testParseHash05() {
@@ -164,7 +164,7 @@ public class RouterTest {
   }
 
   /**
-   * Method: parse(String hash) with one paramter ("testRoute02/testParameter01")
+   * Method: parse(String hash) with one parameter ("testRoute02/testParameter01")
    */
   @Test
   public void testParseHash06() {
@@ -177,17 +177,17 @@ public class RouterTest {
     Assert.assertEquals("route test without leading '/'",
                         "/MockShell",
                         hashResult.getShell());
-    Assert.assertEquals("route test with leading '/' and one parameters",
+    Assert.assertEquals("route test with leading '/' and one parameter",
                         "/MockShell/testRoute02",
                         hashResult.getRoute());
-    Assert.assertEquals("route test with leading '/' and one parameters",
+    Assert.assertEquals("route test with leading '/' and one parameter",
                         "testParameter01",
                         hashResult.getParameterValues()
                                   .get(0));
   }
 
   /**
-   * Method: parse(String hash) with one paramter ("testRoute02/testParameter01/testParameter02")
+   * Method: parse(String hash) with one parameter ("testRoute02/testParameter01/testParameter02")
    */
   @Test
   public void testParseHash07() {
@@ -214,7 +214,7 @@ public class RouterTest {
   }
 
   /**
-   * Method: parse(String hash) with one paramter ("testRoute02//testParameter02")
+   * Method: parse(String hash) with one parameter ("testRoute02//testParameter02")
    */
   @Test
   public void testParseHash08() {
@@ -241,7 +241,7 @@ public class RouterTest {
   }
 
   /**
-   * Method: parse(String hash) with one paramter ("/testRoute03/testRoute04/testRoute05")
+   * Method: parse(String hash) with one parameter ("/testRoute03/testRoute04/testRoute05")
    */
   @Test
   public void testParseHash09() {
@@ -260,7 +260,7 @@ public class RouterTest {
   }
 
   /**
-   * Method: parse(String hash) with one paramter ("/testRoute03/testRoute04/testRoute05")
+   * Method: parse(String hash) with one parameter ("/testRoute03/testRoute04/testRoute05")
    */
   @Test
   public void testParseHash10() {
@@ -279,7 +279,7 @@ public class RouterTest {
   }
 
   /**
-   * Method: parse(String hash) with one paramter ("/testRoute03/testRoute04/testRoute05/testParameter01")
+   * Method: parse(String hash) with one parameter ("/testRoute03/testRoute04/testRoute05/testParameter01")
    */
   @Test
   public void testParseHash11() {
@@ -290,12 +290,12 @@ public class RouterTest {
       Assert.assertThat(e,
                         Is.isA(RouterException.class));
       Assert.assertThat(e.getMessage(),
-                        Is.is("hash >>/MockShell/testRoute03/testRoute04/testRoute05/testParameter01<< --> found routing >>/MockShell/testRoute03/testRoute04/testRoute05<< -> too much parameters! Expeted >>0<< - found >>1<<"));
+                        Is.is("hash >>/MockShell/testRoute03/testRoute04/testRoute05/testParameter01<< --> found routing >>/MockShell/testRoute03/testRoute04/testRoute05<< -> too much parameters! Expected >>0<< - found >>1<<"));
     }
   }
 
   /**
-   * Method: parse(String hash) with one paramter ("/testRoute06/testRoute07/testParameter01/testParameter02")
+   * Method: parse(String hash) with one parameter ("/testRoute06/testRoute07/testParameter01/testParameter02")
    */
   @Test
   public void testParseHash12() {
@@ -311,7 +311,7 @@ public class RouterTest {
     Assert.assertEquals("route test without leading '/' and two parameters, first one empty",
                         "/MockShell/testRoute06/testRoute07",
                         hashResult.getRoute());
-    Assert.assertEquals("route test with leading '/', complex path and two parameters, both parametes exist",
+    Assert.assertEquals("route test with leading '/', complex path and two parameters, both parameters exist",
                         "testParameter01",
                         hashResult.getParameterValues()
                                   .get(0));
@@ -334,7 +334,7 @@ public class RouterTest {
       Assert.fail();
     }
     String generateHash = this.router.generateHash(hashResult.getRoute());
-    Assert.assertEquals("genereate hash with no parameters",
+    Assert.assertEquals("generate hash with no parameters",
                         hash,
                         generateHash);
   }
@@ -354,7 +354,7 @@ public class RouterTest {
     String generateHash = this.router.generateHash(hashResult.getRoute(),
                                                    hashResult.getParameterValues()
                                                              .toArray(new String[0]));
-    Assert.assertEquals("generate hash with one parameters",
+    Assert.assertEquals("generate hash with one parameter",
                         hash,
                         generateHash);
   }
@@ -374,7 +374,7 @@ public class RouterTest {
     String generateHash = this.router.generateHash(hashResult.getRoute(),
                                                    hashResult.getParameterValues()
                                                              .toArray(new String[0]));
-    Assert.assertEquals("genereate hash with two parameters",
+    Assert.assertEquals("generate hash with two parameters",
                         hash,
                         generateHash);
   }
@@ -394,7 +394,7 @@ public class RouterTest {
     String generateHash = this.router.generateHash(hashResult.getRoute(),
                                                    hashResult.getParameterValues()
                                                              .toArray(new String[0]));
-    Assert.assertEquals("genereate hash with two parameters, first empty",
+    Assert.assertEquals("generate hash with two parameters, first empty",
                         hash,
                         generateHash);
   }
