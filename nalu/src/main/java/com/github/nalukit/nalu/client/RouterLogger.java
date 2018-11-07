@@ -236,7 +236,7 @@ class RouterLogger {
       .append(hash)
       .append("<< --> found routing >>")
       .append(route)
-      .append("<< -> too much parameters! Expeted >>")
+      .append("<< -> too much parameters! Expected >>")
       .append(sizeParameterConfig)
       .append("<< - found >>")
       .append(sizeParameterRoute)
