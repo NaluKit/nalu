@@ -28,7 +28,7 @@
   <packaging>pom</packaging>
 
   <name>nalu-parent</name>
-  <description>The wave that hlps to build GWT application</description>
+  <description>The wave that helps to build GWT application</description>
   <url>https://github.com/nalukit/nalu</url>
 
   <modules>
@@ -97,8 +97,8 @@
     <plugin.version.gpg.maven>1.6</plugin.version.gpg.maven>
     <plugin.version.gwt.maven>1.0-rc-10</plugin.version.gwt.maven>
     <plugin.version.javadoc>3.0.0</plugin.version.javadoc>
-    <plugin.version.project.info.report>2.8</plugin.version.project.info.report>
     <plugin.version.nexus.staging>1.6.8</plugin.version.nexus.staging>
+    <plugin.version.project.info.report>3.0.0</plugin.version.project.info.report>
     <plugin.version.sonatype>1.6.3</plugin.version.sonatype>
     <plugin.version.source>3.0.1</plugin.version.source>
     <plugin.version.surfire>2.21.0</plugin.version.surfire>
@@ -297,10 +297,6 @@
               <links>
                 <link>http://www.gwtproject.org/javadoc/latest/</link>
               </links>
-              <!--<excludePackageNames>-->
-              <!---->
-              <!--org.jboss.gwt.elemento.processor:org.jboss.gwt.elemento.processor.context-->
-              <!--</excludePackageNames>-->
             </configuration>
             <reportSets>
               <reportSet>

@@ -28,7 +28,7 @@ Nalu offers the following features:
 
 * Support for UiBinder (nalu-plugin-gwt)
 
-* Nalu composites to support smaller classes
+* Nalu composites to support smaller units
 
 * Controller & component caching
 
