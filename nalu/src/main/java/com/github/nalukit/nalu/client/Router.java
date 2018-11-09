@@ -672,6 +672,15 @@ public final class Router {
   }
 
   /**
+   * Clears the Nalu error message.
+   * <p>
+   * Should be called after the error message is displayed!
+   */
+  public void clearNaluErrorMessage() {
+    this.naluErrorMessage = null;
+  }
+
+  /**
    * Return the error route.
    *
    * @return the error route
