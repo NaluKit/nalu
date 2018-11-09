@@ -317,4 +317,14 @@ class RouterLogger {
     logDetailed(sb,
                 5);
   }
+
+  static String logLoopDetected(String hash) {
+    StringBuilder sb = new StringBuilder();
+    sb.append("loop detected for hash >>")
+      .append(hash)
+      .append("<< --> Routing aborted!");
+    logSimple(sb.toString(),
+              0);
+    return sb.toString();
+  }
 }

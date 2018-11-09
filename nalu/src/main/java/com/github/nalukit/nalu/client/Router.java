@@ -66,7 +66,7 @@ public final class Router {
   private IsPlugin plugin;
 
   /* list of routes used for handling the current route - used to detect loops */
-  private List<String> calledRoutes;
+  private List<String> loopDetectionList;
 
   public Router(IsPlugin plugin,
                 ShellConfiguration shellConfiguration,
@@ -85,12 +85,31 @@ public final class Router {
     this.activeComponents = new HashMap<>();
     // register event handler
     this.plugin.register(this::handleRouting);
-    // initialize calledRoutes
-    this.calledRoutes = new ArrayList<>();
+    // initialize loopDetectionList
+    this.loopDetectionList = new ArrayList<>();
   }
 
   private void handleRouting(String hash) {
     RouterLogger.logHandleHash(hash);
+    // save have to loo detector list ...
+    if (this.loopDetectionList.contains(hash)) {
+      // loop discovered .... -> show message
+      String message = RouterLogger.logLoopDetected(this.loopDetectionList.get(0));
+      // check, if there is a loop containing the error route
+      if (this.loopDetectionList.contains(this.routeError)) {
+        // YES!! -> just use the alert feature of the plugin
+        this.plugin.alert(message);
+      } else {
+        // NO!! -> route to error site ....
+        this.naluErrorMessage = new NaluErrorMessage(Nalu.NALU_ERROR_TYPE_LOOP_DETECTED,
+                                                     message);
+        this.route(this.routeError);
+      }
+      // abort handling!
+      return;
+    } else {
+      this.loopDetectionList.add(hash);
+    }
     // parse hash ...
     HashResult hashResult;
     try {
@@ -342,6 +361,8 @@ public final class Router {
                                                                       .getCanonicalName());
       }
       this.lastExecutedHash = hash;
+      // clear loo detection list ...
+      this.loopDetectionList.clear();
     }
 
   }

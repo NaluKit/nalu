@@ -28,10 +28,12 @@ public class Nalu {
 
   public final static String NO_ROUTE = "WhenShallWeThreeMeetAgainInThunderLightningOrInRain";
 
-  final static String NALU_SLASH_REPLACEMENT = "--U972--";
+  public final static String NALU_SLASH_REPLACEMENT = "--U972--";
 
-  static final String NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE = "NoControllerInstance";
+  public static final String NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE = "NoControllerInstance";
 
-  static final String NALU_ERROR_TYPE_NO_SELECTOR_FOUND = "NoSelectorFound";
+  public static final String NALU_ERROR_TYPE_NO_SELECTOR_FOUND = "NoSelectorFound";
+
+  public static final String NALU_ERROR_TYPE_LOOP_DETECTED = "RoutingLoopDEtected";
 
 }
