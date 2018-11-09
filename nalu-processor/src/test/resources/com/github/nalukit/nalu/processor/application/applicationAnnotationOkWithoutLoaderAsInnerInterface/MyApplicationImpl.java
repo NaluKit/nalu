@@ -130,7 +130,7 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
 
   @Override
   public void loadRoutes() {
-    super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01", Arrays.asList(new String[]{}), "selector01", "com.github.nalukit.nalu.processor.common.ui.component01.Controller01"));
+    super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01", Arrays.asList(new String[]{"parameter01"}), "selector01", "com.github.nalukit.nalu.processor.common.ui.component01.Controller01"));
   }
 
   @Override
@@ -153,6 +153,6 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
   @Override
   public void loadDefaultRoutes() {
     this.startRoute = "/mockShell/route01";
-    this.errorRoute = "/errorShell/error";
+    this.errorRoute = "/mockShell/route01";
   }
 }

@@ -25,7 +25,7 @@ import com.github.nalukit.nalu.processor.common.MockShell;
 
 @Application(startRoute = "/mockShell02/route04",
              context = MockContext.class,
-             routeError = "/errorShell/error")
+             routeError = "/mockShell02/route04")
 @Shells({ @Shell(name = "mockShell02",
                  shell = MockShell.class) })
 public interface ShellOfSelectionApplication

@@ -25,7 +25,7 @@ import com.github.nalukit.nalu.processor.common.MockShell;
 
 @Application(startRoute = "/mockShell/route01",
              context = MockContext.class,
-             routeError = "/errorShell/error")
+             routeError = "/mockShell/route01")
 @Shells({ @Shell(name = "mockShell",
                  shell = MockShell.class) })
 public interface GenerateWithoutIsComponentCreator

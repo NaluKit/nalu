@@ -4,7 +4,7 @@ import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
-@Controller(route = "/mockShell/route01",
+@Controller(route = "/mockShell/route01/:parameter01",
             selector = "selector01",
             component = Component01.class,
             componentInterface = IComponent01.class)

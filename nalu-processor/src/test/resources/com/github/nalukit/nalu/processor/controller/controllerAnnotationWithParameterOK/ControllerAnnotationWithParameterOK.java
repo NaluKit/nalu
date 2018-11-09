@@ -25,7 +25,7 @@ import com.github.nalukit.nalu.processor.common.MockShell;
 
 @Application(startRoute = "/mockShell/route02",
              context = MockContext.class,
-             routeError = "/errorShell/error")
+             routeError = "/mockShell/route02")
 @Shells({ @Shell(name = "mockShell",
                  shell = MockShell.class) })
 public interface ControllerAnnotationWithParameterOK

@@ -151,6 +151,6 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
   @Override
   public void loadDefaultRoutes() {
     this.startRoute = "/mockShell/route01";
-    this.errorRoute = "/errorShell/error";
+    this.errorRoute = "/mockShell/route01";
   }
 }

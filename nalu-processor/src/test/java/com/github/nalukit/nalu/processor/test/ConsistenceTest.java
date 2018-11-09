@@ -143,4 +143,24 @@ public class ConsistenceTest {
                       .hadErrorContaining("Nalu-Processor: @Shells is missing for IsApplication interface");
   }
 
+  @Test
+  public void testIllegalErrorRoute() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/illegalError/IllegalErrorRouteApplication.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Controller04.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/IComponent04.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Component04.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("Nalu-Processor: The errorRoute >>/errorShellIllegal/error<< does not exist!");
+  }
+
 }

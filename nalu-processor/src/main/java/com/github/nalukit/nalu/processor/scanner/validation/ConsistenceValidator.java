@@ -22,6 +22,7 @@ import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class ConsistenceValidator {
@@ -60,6 +61,83 @@ public class ConsistenceValidator {
       throws ProcessorException {
     // check startroute parameter
     this.validateStartRoute();
+    // check, that the error route exists!
+    this.validateErrorRoute();
+  }
+
+  private void validateErrorRoute()
+      throws ProcessorException {
+    Optional<String> optionalErrorRoute = this.applicationMetaModel.getController()
+                                                                   .stream()
+                                                                   .map(m -> m.getRoute())
+                                                                   .filter(s -> matchRoute(s,
+                                                                                           this.applicationMetaModel.getRouteError()))
+                                                                   .findFirst();
+    if (!optionalErrorRoute.isPresent()) {
+      throw new ProcessorException("Nalu-Processor: The errorRoute >>" + this.applicationMetaModel.getRouteError() + "<< does not exist!");
+    }
+  }
+
+  private boolean matchRoute(String controllerRoute,
+                             String errorRoute) {
+    // first check, if equals
+    if (controllerRoute.equals(errorRoute)) {
+      return true;
+    }
+    // analyse controller route
+    String controllerRouteShell = this.getShellFromRoute(controllerRoute);
+    String controllerReducedRoute = this.getRouteWithoutShellAndParameter(controllerRoute);
+    String errorRouteShell = this.getShellFromRoute(errorRoute);
+    String errorRouteReduced = this.getRouteWithoutShellAndParameter(errorRoute);
+    // wildcard ->  check route
+    if ("*".equals(controllerRouteShell)) {
+      if (controllerReducedRoute.equals(errorRouteReduced)) {
+        return true;
+      }
+    }
+    if (controllerRouteShell.startsWith("")) {
+      controllerRouteShell = controllerRouteShell.substring(1);
+    }
+    if (controllerRouteShell.endsWith("]")) {
+      controllerRouteShell = controllerRouteShell.substring(0,
+                                                            controllerRouteShell.indexOf("]"));
+    }
+    Optional<String> optional = Arrays.asList(controllerRouteShell.split("\\|"))
+                                      .stream()
+                                      .filter(s -> s.equals(errorRouteShell))
+                                      .findFirst();
+    return optional.isPresent();
+  }
+
+  private String getShellFromRoute(String route) {
+    String shell = route;
+    // remove leading "/"
+    if (shell.startsWith("/")) {
+      shell = shell.substring(1);
+    }
+    // seperate shell
+    if (shell.contains("/")) {
+      shell = shell.substring(0,
+                              shell.indexOf("/"));
+    }
+    return shell;
+  }
+
+  private String getRouteWithoutShellAndParameter(String route) {
+    String reducedRoute = route;
+    if (route.startsWith("/")) {
+      reducedRoute = reducedRoute.substring(1);
+    }
+    // remove shell
+    if (reducedRoute.contains("/")) {
+      reducedRoute = reducedRoute.substring(reducedRoute.indexOf("/"));
+    }
+    // remove parameters
+    if (reducedRoute.contains("/:")) {
+      reducedRoute = reducedRoute.substring(0,
+                                            reducedRoute.indexOf("/:"));
+    }
+    return reducedRoute;
   }
 
   private void validateStartRoute()
