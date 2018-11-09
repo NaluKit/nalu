@@ -38,8 +38,6 @@ public class NaluPluginElemental2
                         Object asElement) {
     Element selectorElement = DomGlobal.document.querySelector("#" + selector);
     if (selectorElement == null) {
-      // TODO better message
-      DomGlobal.window.alert("Ups ... selector >>" + selector + "<< not found!");
       return false;
     } else {
       selectorElement.appendChild((HTMLElement) asElement);

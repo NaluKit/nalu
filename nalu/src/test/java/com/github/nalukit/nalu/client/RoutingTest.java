@@ -1,7 +1,7 @@
 package com.github.nalukit.nalu.client;
 
 import com.github.nalukit.nalu.client.plugin.IsPlugin;
-import com.github.nalukit.nalu.simpleapplication.client.Application;
+import com.github.nalukit.nalu.simpleapplication01.client.Application;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

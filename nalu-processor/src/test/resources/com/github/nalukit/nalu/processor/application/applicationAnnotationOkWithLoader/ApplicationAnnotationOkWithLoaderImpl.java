@@ -152,6 +152,6 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
   @Override
   public void loadDefaultRoutes() {
     this.startRoute = "/mockShell/route01";
-    this.errorRoute = "WhenShallWeThreeMeetAgainInThunderLightningOrInRain";
+    this.errorRoute = "/errorShell/error";
   }
 }

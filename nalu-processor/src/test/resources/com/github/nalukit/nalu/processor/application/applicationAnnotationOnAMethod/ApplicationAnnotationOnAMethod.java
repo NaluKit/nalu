@@ -23,7 +23,8 @@ public interface ApplicationAnnotationOnAMethod
     extends IsApplication {
 
   @Application(startRoute = "/mockShell/search",
-               context = MockContext.class)
+               context = MockContext.class,
+               routeError = "/errorShell/error")
   void oneMethod();
 
 }

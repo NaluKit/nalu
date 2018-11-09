@@ -32,8 +32,6 @@ public class NaluPluginGWT
                                                       .getSelectorCommands()
                                                       .get(selector);
     if (selectorCommand == null) {
-      // TODO better message
-      Window.alert("Ups ... selector >>" + selector + "<< not found!");
       return false;
     } else {
       selectorCommand.append(((IsWidget) asElement).asWidget());

@@ -172,7 +172,7 @@ public class ApplicationGenerator {
                                  .addStatement("this.startRoute = $S",
                                                metaModel.getStartRoute())
                                  .addStatement("this.errorRoute = $S",
-                                               metaModel.getRouteErrorRoute())
+                                               metaModel.getRouteError())
                                  .build());
   }
 

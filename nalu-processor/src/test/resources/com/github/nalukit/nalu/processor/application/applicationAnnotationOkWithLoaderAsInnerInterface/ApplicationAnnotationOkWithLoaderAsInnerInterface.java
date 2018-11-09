@@ -27,7 +27,8 @@ import com.github.nalukit.nalu.processor.common.MockShell;
 
 @Application(loader = MyApplicationLoader.class,
              startRoute = "/mockShell/route01",
-             context = MockContext.class)
+             context = MockContext.class,
+             routeError = "/errorShell/error")
 @Shells({ @Shell(name = "mockShell",
                  shell = MockShell.class) })
 public interface ApplicationAnnotationOkWithLoaderAsInnerInterface

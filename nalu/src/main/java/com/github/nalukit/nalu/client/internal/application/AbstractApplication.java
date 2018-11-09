@@ -111,7 +111,7 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadFilters();
     this.loadDefaultRoutes();
     this.loadCompositeReferences();
-    this.router.setRouteErrorRoute(Nalu.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
+    this.router.setRouteError(Nalu.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
     // load the shells of the application
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load shells",

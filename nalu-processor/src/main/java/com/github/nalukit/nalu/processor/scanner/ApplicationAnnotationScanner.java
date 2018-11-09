@@ -99,7 +99,7 @@ public class ApplicationAnnotationScanner {
                                            Objects.requireNonNull(contextTypeElement)
                                                   .toString(),
                                            applicationAnnotation.startRoute(),
-                                           applicationAnnotation.routeErrorRoute());
+                                           applicationAnnotation.routeError());
           // Shell-Annotation
           model = ShellsAnnotationScanner.builder()
                                          .processingEnvironment(processingEnvironment)

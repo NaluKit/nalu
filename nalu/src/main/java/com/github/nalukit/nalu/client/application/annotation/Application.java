@@ -36,6 +36,8 @@ import java.lang.annotation.RetentionPolicy;
  * <li>startRoute: in case the application is called without a bookmark, is this the initial route.</li>
  * <li>context: the context of the class. Nalu will create an instance of this class and inject
  * the instance into all controllers, filters, handlers and the application loader.</li>
+ * <li>context: the context of the class. Nalu will create an instance of this class and inject
+ * the instance into all controllers, filters, handlers and the application loader.</li>
  * </ul>
  *
  * @author Frank Hossfeld
@@ -49,7 +51,6 @@ public @interface Application {
 
   Class<? extends IsContext> context();
 
-  @Deprecated
-  String routeErrorRoute() default Nalu.NO_ROUTE;
+  String routeError();
 
 }

@@ -39,11 +39,12 @@ class RouterLogger {
                              depth);
   }
 
-  static void logNoMatchingRoute(String hash,
-                                 String routeErrorRoute) {
-    String sb = "no matching route for hash >>" + hash + "<< --> use configurated route: >" + routeErrorRoute + "<<";
+  static String logNoMatchingRoute(String hash,
+                                 String routeError) {
+    String sb = "no matching route for hash >>" + hash + "<< --> use configurated route: >" + routeError + "<<";
     logSimple(sb,
               3);
+    return sb;
   }
 
   static void logSimple(String message,
@@ -95,14 +96,15 @@ class RouterLogger {
               0);
   }
 
-  static void logNoControllerFoundForHash(String hash) {
+  static String logNoControllerFoundForHash(String hash) {
     String sb = "no controller found for hash >>" + hash + "<<";
     logSimple(sb,
               3);
+    return sb;
   }
 
-  static void logUseErrorRoute(String routeErrorRoute) {
-    String sb = "use configurated default route >>" + routeErrorRoute + "<<";
+  static void logUseErrorRoute(String routeError) {
+    String sb = "use configurated default route >>" + routeError + "<<";
     logSimple(sb,
               3);
   }

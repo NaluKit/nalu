@@ -21,7 +21,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-// TODO more Tests!
 public class RouteConfigTest {
 
   @Test

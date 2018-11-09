@@ -38,7 +38,7 @@ public class ApplicationMetaModel {
 
   private String startRoute;
 
-  private String routeErrorRoute;
+  private String routeError;
 
   private boolean havingDebugAnnotation;
 
@@ -66,13 +66,13 @@ public class ApplicationMetaModel {
                               String loader,
                               String context,
                               String startRoute,
-                              String routeErrorRoute) {
+                              String routeError) {
     this.generateToPackage = generateToPackage;
     this.application = new ClassNameModel(application);
     this.loader = new ClassNameModel(loader);
     this.context = new ClassNameModel(context);
     this.startRoute = startRoute;
-    this.routeErrorRoute = routeErrorRoute;
+    this.routeError = routeError;
 
     this.shells = new ArrayList<>();
     this.routes = new ArrayList<>();
@@ -188,12 +188,12 @@ public class ApplicationMetaModel {
     this.componentType = componentType;
   }
 
-  public String getRouteErrorRoute() {
-    return routeErrorRoute;
+  public String getRouteError() {
+    return routeError;
   }
 
-  public void setRouteErrorRoute(String routeErrorRoute) {
-    this.routeErrorRoute = routeErrorRoute;
+  public void setRouteError(String routeError) {
+    this.routeError = routeError;
   }
 
   public List<CompositeModel> getCompositeModels() {

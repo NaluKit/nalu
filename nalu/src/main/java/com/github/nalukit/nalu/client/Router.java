@@ -25,6 +25,7 @@ import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.internal.route.*;
+import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 import com.github.nalukit.nalu.client.plugin.IsPlugin;
 
 import java.util.*;
@@ -35,7 +36,10 @@ import java.util.stream.Stream;
 public final class Router {
 
   /* route in case of route error */
-  private String routeErrorRoute;
+  private String routeError;
+
+  /* the latest error object */
+  private NaluErrorMessage naluErrorMessage;
 
   /* composite configuration */
   private List<CompositeControllerReference> compositeControllerReferences;
@@ -61,6 +65,9 @@ public final class Router {
   /* the plugin */
   private IsPlugin plugin;
 
+  /* list of routes used for handling the current route - used to detect loops */
+  private List<String> calledRoutes;
+
   public Router(IsPlugin plugin,
                 ShellConfiguration shellConfiguration,
                 RouterConfiguration routerConfiguration,
@@ -78,25 +85,27 @@ public final class Router {
     this.activeComponents = new HashMap<>();
     // register event handler
     this.plugin.register(this::handleRouting);
+    // initialize calledRoutes
+    this.calledRoutes = new ArrayList<>();
   }
 
   private void handleRouting(String hash) {
     RouterLogger.logHandleHash(hash);
-    // ok, everything is fine, route!
     // parse hash ...
     HashResult hashResult;
     try {
       hashResult = this.parse(hash);
     } catch (RouterException e) {
-      // TODO Router exception ->  routing auf Nalu Fehler-Seite implementieren!
-      if (Objects.isNull(this.routeErrorRoute) || this.routeErrorRoute.isEmpty()) {
-        return;
+      this.naluErrorMessage = new NaluErrorMessage(Nalu.NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE,
+                                                   RouterLogger.logNoMatchingRoute(hash,
+                                                                                   this.routeError));
+      if (!Objects.isNull(this.routeError)) {
+        RouterLogger.logUseErrorRoute(this.routeError);
+        this.route(this.routeError,
+                   true);
       } else {
-        RouterLogger.logNoMatchingRoute(hash,
-                                        this.routeErrorRoute);
-        // TODO
-        //        this.route(this.routeErrorRoute,
-        //                   true);
+        // should never be seen!
+        this.plugin.alert("Ups ... not found!");
       }
       return;
     }
@@ -223,12 +232,14 @@ public final class Router {
                          RouteConfig routeConfiguraion,
                          ControllerInstance controllerInstance) {
     if (Objects.isNull(controllerInstance.getController())) {
-      RouterLogger.logNoControllerFoundForHash(hash);
-      if (!Objects.isNull(this.routeErrorRoute)) {
-        RouterLogger.logUseErrorRoute(this.routeErrorRoute);
-        this.route(this.routeErrorRoute,
+      this.naluErrorMessage = new NaluErrorMessage(Nalu.NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE,
+                                                   RouterLogger.logNoControllerFoundForHash(hash));
+      if (!Objects.isNull(this.routeError)) {
+        RouterLogger.logUseErrorRoute(this.routeError);
+        this.route(this.routeError,
                    true);
       } else {
+        // should never be seen!
         this.plugin.alert("Ups ... not found!");
       }
     } else {
@@ -303,7 +314,6 @@ public final class Router {
           }
         }
         if (reference != null) {
-          // TODO Was soll das? kann das raus????
           this.append(reference.getSelector(),
                       compositeController);
           RouterLogger.logControllerOnAttachedCompositeController(controllerInstance.getController()
@@ -581,7 +591,14 @@ public final class Router {
                       AbstractCompositeController<?, ?, ?> compositeController) {
     if (!this.plugin.attach(selector,
                             compositeController.asElement())) {
-      // TODO ... write log, das der append fehl geschalgen st!
+      String sb = "no element found, that matches selector >>" + selector + "<< --> Routing aborted!";
+      RouterLogger.logSimple(sb,
+                             1);
+      this.naluErrorMessage = new NaluErrorMessage(Nalu.NALU_ERROR_TYPE_NO_SELECTOR_FOUND,
+                                                   sb);
+      RouterLogger.logUseErrorRoute(this.routeError);
+      this.route(this.routeError,
+                 true);
     }
   }
 
@@ -642,14 +659,34 @@ public final class Router {
     return sb.toString();
   }
 
-  // TODO
-  @Deprecated
-  public void setShell(IsShell shell) {
-    //this.shell = shell;
+  /**
+   * Returns the last error message set by Nalu.
+   * <p>
+   * Once the error message is consumed, it should be reseted by the developer.
+   * (after displayed on the error site!)
+   *
+   * @return the last set error message or null, if there is none
+   */
+  public NaluErrorMessage getNaluErrorMessage() {
+    return naluErrorMessage;
   }
 
-  public void setRouteErrorRoute(String routeErrorRoute) {
-    this.routeErrorRoute = routeErrorRoute;
+  /**
+   * Return the error route.
+   *
+   * @return the error route
+   */
+  public String getRouteError() {
+    return routeError;
+  }
+
+  /**
+   * Sets the error route. (Mostly done by the framework)
+   *
+   * @param routeError
+   */
+  public void setRouteError(String routeError) {
+    this.routeError = routeError;
   }
 
   /**

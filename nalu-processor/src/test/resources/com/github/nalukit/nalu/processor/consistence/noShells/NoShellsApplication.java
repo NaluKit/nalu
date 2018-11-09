@@ -24,7 +24,8 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.MockShell;
 
 @Application(startRoute = "/mockShell02/route03",
-             context = MockContext.class)
+             context = MockContext.class,
+             routeError = "/errorShell/error")
 public interface NoShellsApplication
     extends IsApplication {
 }

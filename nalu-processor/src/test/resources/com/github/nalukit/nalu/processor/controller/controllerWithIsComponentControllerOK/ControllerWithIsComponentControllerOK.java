@@ -24,7 +24,8 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.MockShell;
 
 @Application(startRoute = "/mockShell/route01",
-             context = MockContext.class)
+             context = MockContext.class,
+             routeError = "/errorShell/error")
 @Shells({ @Shell(name = "mockShell",
                  shell = MockShell.class) })
 public interface ControllerWithIsComponentControllerOK

@@ -26,7 +26,8 @@ import com.github.nalukit.nalu.processor.common.MockShell;
 
 @Application(startShell = "mockShell",
              startRoute = "/search",
-             context = MockContext.class)
+             context = MockContext.class,
+             routeError = "/errorShell/error")
 @Shells({ @Shell(name = "mockShell",
                  shell = MockShell.class) })
 public interface FilterAnnotationOnAMethod

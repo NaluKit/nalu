@@ -18,7 +18,7 @@ package com.github.nalukit.nalu.client;
 
 public class Nalu {
 
-  public static final String NALU_VERSION = "1.0.0-rc-10";
+  public static final String NALU_VERSION = "1.0.0-rc-11";
 
   public static final String DEFAULT_NALU_VIEWPORT = "DefaulNaluViewport";
 
@@ -29,5 +29,9 @@ public class Nalu {
   public final static String NO_ROUTE = "WhenShallWeThreeMeetAgainInThunderLightningOrInRain";
 
   final static String NALU_SLASH_REPLACEMENT = "--U972--";
+
+  static final String NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE = "NoControllerInstance";
+
+  static final String NALU_ERROR_TYPE_NO_SELECTOR_FOUND = "NoSelectorFound";
 
 }
