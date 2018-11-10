@@ -90,6 +90,11 @@ public final class Router {
   }
 
   private void handleRouting(String hash) {
+    // in some cases the hash contains protocoll, port and URI, we clean it
+    if (hash.contains("#")) {
+      hash = hash.substring(hash.indexOf("#") + 1);
+    }
+    // logg hash
     RouterLogger.logHandleHash(hash);
     // save have to loo detector list ...
     if (this.loopDetectionList.contains(hash)) {
