@@ -95,7 +95,7 @@ public class ConsistenceValidator {
         return true;
       }
     }
-    if (controllerRouteShell.startsWith("")) {
+    if (controllerRouteShell.startsWith("[")) {
       controllerRouteShell = controllerRouteShell.substring(1);
     }
     if (controllerRouteShell.endsWith("]")) {
