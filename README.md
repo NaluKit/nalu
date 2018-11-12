@@ -36,6 +36,8 @@ Nalu offers the following features:
 
 * Multi Shell Support
 
+* works with nearly every widget lib (tested with: GWT, GXT, Domino-UI, Elemento, Elemental2, GWT-Meterial) 
+
 
 ## Basic Concept
 Nalu uses the hash of an url to navigate.
