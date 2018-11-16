@@ -121,6 +121,7 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
           ClientLogger.get().logDetailed(sb01.toString(), 4);
           controllerInstance.setController(storedController);
           controllerInstance.setChached(true);
+          controllerInstance.getController().setRestored(true);
         }
         return controllerInstance;
       }
