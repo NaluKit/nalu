@@ -122,6 +122,7 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
           ClientLogger.get().logDetailed(sb01.toString(), 4);
           controllerInstance.setController(storedController);
           controllerInstance.setChached(true);
+          controllerInstance.getController().setRestored(true);
         }
         return controllerInstance;
       }
