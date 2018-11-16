@@ -257,6 +257,7 @@ public class ControllerGenerator {
                               ClassName.get(ClientLogger.class))
                 .addStatement("controllerInstance.setController(storedController)")
                 .addStatement("controllerInstance.setChached(true)")
+                .addStatement("controller.setRestored(true)")
                 .endControlFlow();
     return createMethod;
   }
