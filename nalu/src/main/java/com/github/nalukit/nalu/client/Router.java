@@ -718,7 +718,7 @@ public final class Router {
   /**
    * Sets the error route. (Mostly done by the framework)
    *
-   * @param routeError
+   * @param routeError route used by Nalu in case of a routing error
    */
   public void setRouteError(String routeError) {
     this.routeError = routeError;

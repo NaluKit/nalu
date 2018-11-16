@@ -21,7 +21,7 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
 @FunctionalInterface
-public interface ControllerCreator {
+public interface IsControllerCreator {
 
   ControllerInstance create(String... params)
       throws RoutingInterceptionException;

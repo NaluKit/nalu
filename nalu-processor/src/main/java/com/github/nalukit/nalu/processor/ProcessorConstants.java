@@ -18,13 +18,6 @@ package com.github.nalukit.nalu.processor;
 
 public class ProcessorConstants {
 
-  //  public final static String EVENT_HANDLER                 = "Handler";
-  //  public final static String IMPL_NAME                     = "Impl";
-  //  public final static String META_FILE_EVENTHANDLER_PREFIX = "EventHandlingMethods_";
-  //  public final static String EVENT_BUS_FOLDER_NAME         = "eventbus";
-  //  public final static String EVENT_HANDLER_FOLDER_NAME     = "eventhandler";
-  //  public final static String PRESENTER                     = "Presenter";
-
   public final static String META_DATA              = "MetaData";
 
   public final static String META_INF               = "META-INF";
@@ -36,5 +29,7 @@ public class ProcessorConstants {
   public final static String TYPE_DELIMITER         = "_tTt_";
 
   public final static String PROPERTIES_POSTFIX     = ".properties";
+
+  public final static String CREATOR_IMPL = "CreatorImpl";
 
 }

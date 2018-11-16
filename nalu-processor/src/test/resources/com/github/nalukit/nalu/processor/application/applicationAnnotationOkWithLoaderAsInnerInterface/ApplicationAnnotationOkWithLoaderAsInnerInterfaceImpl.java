@@ -4,16 +4,10 @@ import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
-import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
-import com.github.nalukit.nalu.client.internal.application.ControllerCreator;
-import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
-import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
-import com.github.nalukit.nalu.client.internal.application.ShellCreator;
-import com.github.nalukit.nalu.client.internal.application.ShellFactory;
-import com.github.nalukit.nalu.client.internal.application.ShellInstance;
+import com.github.nalukit.nalu.client.internal.application.*;
+import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
-import com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithLoaderAsInnerInterface.ApplicationAnnotationOkWithLoaderAsInnerInterface.MyApplicationLoader;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.MockShell;
 import com.github.nalukit.nalu.processor.common.ui.component01.Component01;
@@ -76,7 +70,7 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   @Override
   public void loadComponents() {
     // create ControllerCreator for: com.github.nalukit.nalu.processor.common.ui.component01.Controller01
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01", new ControllerCreator() {
+    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01", new IsControllerCreator() {
       @Override
       public ControllerInstance create(String... parms) throws RoutingInterceptionException {
         StringBuilder sb01 = new StringBuilder();

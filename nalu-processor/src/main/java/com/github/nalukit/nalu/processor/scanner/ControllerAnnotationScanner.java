@@ -22,6 +22,7 @@ import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
+import com.github.nalukit.nalu.processor.generator.ControllerCreatorGenerator;
 import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
@@ -83,6 +84,13 @@ public class ControllerAnnotationScanner {
                                                    .controllerTypeElement((TypeElement) element)
                                                    .build()
                                                    .scan(roundEnvironment);
+      // create the ControllerCreator
+      ControllerCreatorGenerator.builder()
+                                .applicationMetaModel(this.applicationMetaModel)
+                                .processingEnvironment(this.processingEnvironment)
+                                .controllerModel(controllerModel)
+                                .build()
+                                .generate();
 
       // add model to routes ...
       this.applicationMetaModel.getController()
@@ -199,8 +207,8 @@ public class ControllerAnnotationScanner {
     if (!componentInterfaceTypeElement.toString()
                                       .equals(result[0].toString())) {
       throw new ProcessorException("Nalu-Processor: controller >>" +
-                                       element.toString() +
-                                       "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
+                                   element.toString() +
+                                   "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
     }
     return true;
   }

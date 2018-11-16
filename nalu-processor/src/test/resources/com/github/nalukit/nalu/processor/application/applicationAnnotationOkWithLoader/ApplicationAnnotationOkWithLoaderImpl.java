@@ -5,7 +5,7 @@ import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
-import com.github.nalukit.nalu.client.internal.application.ControllerCreator;
+import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
 import com.github.nalukit.nalu.client.internal.application.ShellCreator;
@@ -75,7 +75,7 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
   @Override
   public void loadComponents() {
     // create ControllerCreator for: com.github.nalukit.nalu.processor.common.ui.component01.Controller01
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01", new ControllerCreator() {
+    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01", new IsControllerCreator() {
       @Override
       public ControllerInstance create(String... parms) throws RoutingInterceptionException {
         StringBuilder sb01 = new StringBuilder();
