@@ -58,28 +58,28 @@ public class HandlerAnnotationValidator {
 
   public void validate()
       throws ProcessorException {
-    TypeElement typeElement = (TypeElement) this.handlerElement;
-    // @ProvidesSelector can only be used on a class
-    if (!typeElement.getKind()
-                    .isClass()) {
-      throw new ProcessorException("Nalu-Processor: @Handler can only be used with an class");
-    }
-    // @Handler can only be used on a interface that extends IsHandler
-    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                      typeElement.asType(),
-                                                      this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(IsHandler.class.getCanonicalName())
-                                                                                .asType()))) {
-      throw new ProcessorException("Nalu-Processor: @Handler can only be used on a class that implements IsHandler");
-    }
-    // @Handler can only be used on a interface that extends IsApplication
-    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                      typeElement.asType(),
-                                                      this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(AbstractHandler.class.getCanonicalName())
-                                                                                .asType()))) {
-      throw new ProcessorException("Nalu-Processor: @Handler can only be used on a class that extends AbstractHandler");
-    }
+//    TypeElement typeElement = (TypeElement) this.handlerElement;
+//    // @ProvidesSelector can only be used on a class
+//    if (!typeElement.getKind()
+//                    .isClass()) {
+//      throw new ProcessorException("Nalu-Processor: @Handler can only be used with an class");
+//    }
+//    // @Handler can only be used on a interface that extends IsHandler
+//    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+//                                                      typeElement.asType(),
+//                                                      this.processingEnvironment.getElementUtils()
+//                                                                                .getTypeElement(IsHandler.class.getCanonicalName())
+//                                                                                .asType()))) {
+//      throw new ProcessorException("Nalu-Processor: @Handler can only be used on a class that implements IsHandler");
+//    }
+//    // @Handler can only be used on a interface that extends IsApplication
+//    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+//                                                      typeElement.asType(),
+//                                                      this.processingEnvironment.getElementUtils()
+//                                                                                .getTypeElement(AbstractHandler.class.getCanonicalName())
+//                                                                                .asType()))) {
+//      throw new ProcessorException("Nalu-Processor: @Handler can only be used on a class that extends AbstractHandler");
+//    }
   }
 
   public static final class Builder {

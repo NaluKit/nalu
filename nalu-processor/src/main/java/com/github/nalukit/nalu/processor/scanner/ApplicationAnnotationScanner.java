@@ -121,12 +121,12 @@ public class ApplicationAnnotationScanner {
                                              .build()
                                              .scan(roundEnvironment);
           // Filter-Annotation
-          model = FiltersAnnotationScanner.builder()
-                                          .processingEnvironment(processingEnvironment)
-                                          .applicationTypeElement((TypeElement) applicationAnnotationElement)
-                                          .applicationMetaModel(model)
-                                          .build()
-                                          .scan(roundEnvironment);
+//          model = FiltersAnnotationScanner.builder()
+//                                          .processingEnvironment(processingEnvironment)
+//                                          .applicationTypeElement((TypeElement) applicationAnnotationElement)
+//                                          .applicationMetaModel(model)
+//                                          .build()
+//                                          .scan(roundEnvironment);
           // CompositeController-Annotation (must be executed after then ControllerAnnotationScanner!)
           model = CompositeControllerAnnotationScanner.builder()
                                                       .processingEnvironment(processingEnvironment)
@@ -155,7 +155,7 @@ public class ApplicationAnnotationScanner {
     } catch (IOException e) {
       // every thing is ok -> no operation
     }
-    return null;
+    return new ApplicationMetaModel();
   }
 
   private TypeElement getApplicationLoaderTypeElement(Application applicationAnnotation) {

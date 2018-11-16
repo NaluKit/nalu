@@ -66,45 +66,45 @@ public class FiltersAnnotationValidator {
 
   public void validate()
       throws ProcessorException {
-    // get elements annotated with EventBus annotation
-    Set<? extends Element> elementsWithFiltersAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Filters.class);
-    // at least there should only one Application annotation!
-    if (elementsWithFiltersAnnotation.size() > 1) {
-      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Filters");
-    }
-    // annotated element has to be a interface
-    for (Element element : elementsWithFiltersAnnotation) {
-      if (element instanceof TypeElement) {
-        TypeElement typeElement = (TypeElement) element;
-        if (!typeElement.getKind()
-                        .isInterface()) {
-          throw new ProcessorException("Nalu-Processor: @Filters can only be used with an interface");
-        }
-        // @Filter can only be used on a interface that extends IsEventBus
-        if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                         typeElement.asType(),
-                                                         this.processingEnvironment.getElementUtils()
-                                                                                   .getTypeElement(IsApplication.class.getCanonicalName())
-                                                                                   .asType())) {
-          throw new ProcessorException("Nalu-Processor: @Filters can only be used on interfaces that extends IsApplication");
-        }
-        // test, that all filterClasses implement IsEventFilter!
-        List<String> filtersAsStringList = this.getFilterClassesAsList(this.applicationTypeElement);
-        for (String eventFilterClassname : filtersAsStringList) {
-          TypeElement filterElement = this.processingEnvironment.getElementUtils()
-                                                                .getTypeElement(eventFilterClassname);
-          if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                           filterElement.asType(),
-                                                           this.processingEnvironment.getElementUtils()
-                                                                                     .getTypeElement(IsFilter.class.getCanonicalName())
-                                                                                     .asType())) {
-            throw new ProcessorException("Nalu-Processor: @Filters - the filterClasses attribute needs classes that implements IsFilter");
-          }
-        }
-      } else {
-        throw new ProcessorException("Nalu-Processor: @Filters can only be used on a type (interface)");
-      }
-    }
+//    // get elements annotated with EventBus annotation
+//    Set<? extends Element> elementsWithFiltersAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Filters.class);
+//    // at least there should only one Application annotation!
+//    if (elementsWithFiltersAnnotation.size() > 1) {
+//      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Filters");
+//    }
+//    // annotated element has to be a interface
+//    for (Element element : elementsWithFiltersAnnotation) {
+//      if (element instanceof TypeElement) {
+//        TypeElement typeElement = (TypeElement) element;
+//        if (!typeElement.getKind()
+//                        .isInterface()) {
+//          throw new ProcessorException("Nalu-Processor: @Filters can only be used with an interface");
+//        }
+//        // @Filter can only be used on a interface that extends IsEventBus
+//        if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+//                                                         typeElement.asType(),
+//                                                         this.processingEnvironment.getElementUtils()
+//                                                                                   .getTypeElement(IsApplication.class.getCanonicalName())
+//                                                                                   .asType())) {
+//          throw new ProcessorException("Nalu-Processor: @Filters can only be used on interfaces that extends IsApplication");
+//        }
+//        // test, that all filterClasses implement IsEventFilter!
+//        List<String> filtersAsStringList = this.getFilterClassesAsList(this.applicationTypeElement);
+//        for (String eventFilterClassname : filtersAsStringList) {
+//          TypeElement filterElement = this.processingEnvironment.getElementUtils()
+//                                                                .getTypeElement(eventFilterClassname);
+//          if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+//                                                           filterElement.asType(),
+//                                                           this.processingEnvironment.getElementUtils()
+//                                                                                     .getTypeElement(IsFilter.class.getCanonicalName())
+//                                                                                     .asType())) {
+//            throw new ProcessorException("Nalu-Processor: @Filters - the filterClasses attribute needs classes that implements IsFilter");
+//          }
+//        }
+//      } else {
+//        throw new ProcessorException("Nalu-Processor: @Filters can only be used on a type (interface)");
+//      }
+//    }
   }
 
   private List<String> getFilterClassesAsList(TypeElement typeElement) {

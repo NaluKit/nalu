@@ -1,7 +1,7 @@
 package com.github.nalukit.nalu.plugin.gwt.client;
 
 import com.github.nalukit.nalu.client.internal.ClientLogger;
-import com.github.nalukit.nalu.client.plugin.IsPlugin;
+import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorCommand;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorProvider;
 import com.google.gwt.dom.client.Element;
@@ -14,7 +14,7 @@ import elemental2.dom.Location;
 import jsinterop.base.Js;
 
 public class NaluPluginGWT
-    implements IsPlugin {
+    implements IsNaluProcessorPlugin {
 
   public NaluPluginGWT() {
     super();

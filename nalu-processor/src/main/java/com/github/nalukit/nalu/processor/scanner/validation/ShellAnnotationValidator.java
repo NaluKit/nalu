@@ -67,16 +67,16 @@ public class ShellAnnotationValidator {
 
   public void validate()
       throws ProcessorException {
-    // get elements annotated with Application annotation
-    Set<? extends Element> elementsWithShellsAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Shells.class);
-    // at least there should exatly one Application annotation!
-    if (elementsWithShellsAnnotation.size() == 0) {
-      throw new ProcessorException("Nalu-Processor: @Shells is missing for IsApplication interface");
-    }
-    // at least there should only one Application annotation!
-    if (elementsWithShellsAnnotation.size() > 1) {
-      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Shells");
-    }
+//    // get elements annotated with Application annotation
+//    Set<? extends Element> elementsWithShellsAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Shells.class);
+//    // at least there should exatly one Application annotation!
+//    if (elementsWithShellsAnnotation.size() == 0) {
+//      throw new ProcessorException("Nalu-Processor: @Shells is missing for IsApplication interface");
+//    }
+//    // at least there should only one Application annotation!
+//    if (elementsWithShellsAnnotation.size() > 1) {
+//      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Shells");
+//    }
   }
 
   public void validate(Element element)

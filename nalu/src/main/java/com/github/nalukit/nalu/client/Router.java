@@ -26,7 +26,7 @@ import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.internal.route.*;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
-import com.github.nalukit.nalu.client.plugin.IsPlugin;
+import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -63,12 +63,12 @@ public final class Router {
   private IsShell shell;
 
   /* the plugin */
-  private IsPlugin plugin;
+  private IsNaluProcessorPlugin plugin;
 
   /* list of routes used for handling the current route - used to detect loops */
   private List<String> loopDetectionList;
 
-  public Router(IsPlugin plugin,
+  public Router(IsNaluProcessorPlugin plugin,
                 ShellConfiguration shellConfiguration,
                 RouterConfiguration routerConfiguration,
                 List<CompositeControllerReference> compositeControllerReferences) {

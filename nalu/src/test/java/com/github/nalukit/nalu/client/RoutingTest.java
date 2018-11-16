@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.client;
 
-import com.github.nalukit.nalu.client.plugin.IsPlugin;
+import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.simpleapplication01.client.Application;
 import org.junit.After;
 import org.junit.Assert;
@@ -137,7 +137,7 @@ public class RoutingTest {
   }
 
   interface IsPluginJUnit
-      extends IsPlugin {
+      extends IsNaluProcessorPlugin {
 
     void addCompareHandler(CompareHandler compareHandler);
 

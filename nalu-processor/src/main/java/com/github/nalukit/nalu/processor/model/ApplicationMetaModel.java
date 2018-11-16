@@ -23,6 +23,7 @@ import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ApplicationMetaModel {
 
@@ -59,6 +60,11 @@ public class ApplicationMetaModel {
   private List<CompositeModel> compositeModels;
 
   public ApplicationMetaModel() {
+    this.shells = new ArrayList<>();
+    this.routes = new ArrayList<>();
+    this.filters = new ArrayList<>();
+    this.handlers = new ArrayList<>();
+    this.compositeModels = new ArrayList<>();
   }
 
   public ApplicationMetaModel(String generateToPackage,
@@ -209,6 +215,9 @@ public class ApplicationMetaModel {
   }
 
   public String getShellOfStartRoute() {
+    if (Objects.isNull(this.startRoute)) {
+      return "";
+    }
     String shellOfStartRoute = this.startRoute;
     if (shellOfStartRoute.startsWith("/")) {
       shellOfStartRoute = shellOfStartRoute.substring(1);

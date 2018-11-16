@@ -56,27 +56,27 @@ public class ApplicationAnnotationValidator {
 
   public void validate()
       throws ProcessorException {
-    // get elements annotated with Application annotation
-    Set<? extends Element> elementsWithApplicationAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Application.class);
-    // at least there should exatly one Application annotation!
-    if (elementsWithApplicationAnnotation.size() == 0) {
-      throw new ProcessorException("Nalu-Processor: Missing Nalu Application interface");
-    }
-    // at least there should only one Application annotation!
-    if (elementsWithApplicationAnnotation.size() > 1) {
-      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Application");
-    }
-    // validate annotation
-    for (Element element : elementsWithApplicationAnnotation) {
-      Application annotation = element.getAnnotation(Application.class);
-      if (annotation.startRoute() == null ||
-          annotation.startRoute()
-                    .equals("") ||
-          annotation.startRoute()
-                    .equals("/")) {
-        throw new ProcessorException("Nalu-Processor: @Application -> startroute can not be empty and can not be '/'");
-      }
-    }
+//    // get elements annotated with Application annotation
+//    Set<? extends Element> elementsWithApplicationAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Application.class);
+//    // at least there should exatly one Application annotation!
+//    if (elementsWithApplicationAnnotation.size() == 0) {
+//      throw new ProcessorException("Nalu-Processor: Missing Nalu Application interface");
+//    }
+//    // at least there should only one Application annotation!
+//    if (elementsWithApplicationAnnotation.size() > 1) {
+//      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Application");
+//    }
+//    // validate annotation
+//    for (Element element : elementsWithApplicationAnnotation) {
+//      Application annotation = element.getAnnotation(Application.class);
+//      if (annotation.startRoute() == null ||
+//          annotation.startRoute()
+//                    .equals("") ||
+//          annotation.startRoute()
+//                    .equals("/")) {
+//        throw new ProcessorException("Nalu-Processor: @Application -> startroute can not be empty and can not be '/'");
+//      }
+//    }
   }
 
   public void validate(Element element)

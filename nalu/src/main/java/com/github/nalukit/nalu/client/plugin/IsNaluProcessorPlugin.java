@@ -14,12 +14,30 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.application;
+package com.github.nalukit.nalu.client.plugin;
 
-import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+public interface IsNaluProcessorPlugin {
 
-public interface IsApplication {
+  void alert(String message);
 
-  void run(IsNaluProcessorPlugin plugin);
+  boolean attach(String selector,
+                 Object asElement);
 
+  boolean confirm(String message);
+
+  String getStartRoute();
+
+  void register(HashHandler handler);
+
+  void remove(String selector);
+
+  void route(String newRoute,
+             boolean replace);
+
+  @FunctionalInterface
+  interface HashHandler {
+
+    void onHashChange(String newHash);
+
+  }
 }

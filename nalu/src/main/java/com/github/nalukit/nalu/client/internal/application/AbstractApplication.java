@@ -26,7 +26,7 @@ import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.*;
-import com.github.nalukit.nalu.client.plugin.IsPlugin;
+import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ public abstract class AbstractApplication<C extends IsContext>
   protected SimpleEventBus eventBus;
 
   /* plugin */
-  protected IsPlugin plugin;
+  protected IsNaluProcessorPlugin plugin;
 
   public AbstractApplication() {
     super();
@@ -75,7 +75,7 @@ public abstract class AbstractApplication<C extends IsContext>
   }
 
   @Override
-  public void run(IsPlugin plugin) {
+  public void run(IsNaluProcessorPlugin plugin) {
     // save the plugin
     this.plugin = plugin;
     // first load the debug configuration

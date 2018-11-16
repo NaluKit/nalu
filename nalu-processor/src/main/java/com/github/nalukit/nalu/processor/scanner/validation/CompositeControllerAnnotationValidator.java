@@ -58,19 +58,19 @@ public class CompositeControllerAnnotationValidator {
   public void validate()
       throws ProcessorException {
     TypeElement typeElement = (TypeElement) this.compositeElement;
-    // @CompositeController can only be used on a class
-    if (!typeElement.getKind()
-                    .isClass()) {
-      throw new ProcessorException("Nalu-Processor: @CompositeController can only be used with an class");
-    }
-    // @CompositeController can only be used on a interface that extends IsSplitter
-    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                      typeElement.asType(),
-                                                      this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(IsComposite.class.getCanonicalName())
-                                                                                .asType()))) {
-      throw new ProcessorException("Nalu-Processor: @CompositeController can only be used on a class that extends IsSplitter");
-    }
+//    // @CompositeController can only be used on a class
+//    if (!typeElement.getKind()
+//                    .isClass()) {
+//      throw new ProcessorException("Nalu-Processor: @CompositeController can only be used with an class");
+//    }
+//    // @CompositeController can only be used on a interface that extends IsSplitter
+//    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+//                                                      typeElement.asType(),
+//                                                      this.processingEnvironment.getElementUtils()
+//                                                                                .getTypeElement(IsComposite.class.getCanonicalName())
+//                                                                                .asType()))) {
+//      throw new ProcessorException("Nalu-Processor: @CompositeController can only be used on a class that extends IsSplitter");
+//    }
   }
 
   public static final class Builder {

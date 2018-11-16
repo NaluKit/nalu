@@ -16,28 +16,64 @@
 
 package com.github.nalukit.nalu.client.plugin;
 
-public interface IsPlugin {
+import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.internal.route.RouteConfig;
+import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 
-  void alert(String message);
+import java.util.List;
 
-  boolean attach(String selector,
-                 Object asElement);
+public interface IsPlugin<C extends IsContext> {
 
-  boolean confirm(String message);
+  /**
+   * Loads the plugin features.
+   * <p>
+   * FeEatures are controller, composite controllers, shells, handlers and filters
+   */
+  void loadPlugin();
+//
+//  /**
+//   * returns the list of shells defined in this plugin.
+//   * // TODO loadShells ist das
+//   *
+//   * @return List of shell configs
+//   */
+//  List<ShellConfig> getShellConfig();
+//
+//  /**
+//   * Add the routes to route configurations
+//   *
+//   * @retuns a list of route configs
+//   */
+//  List<RouteConfig> getRouteConfig();
+//
+//  /**
+//   * Adds the ShellCreator to the ShellFactory
+//   */
+//  void loadShellFactory();
+//
+//  /**
+//   * Register the CompositeController at the CompositeFactory
+//   */
+//  void loadCompositeController();
+//
+//  /**
+//   * Register the ControllerCerator at the ControllerFactory
+//   */
+//  void loadComponents();
+//
+//  /**
+//   * Loads the filters of the plugin.
+//   */
+//  void loadFilters();
+//
+//  /**
+//   * Loads the handlers of the plugin
+//   */
+//  void loadHandlers();
+//
+//  /**
+//   * Loads the composite references
+//   */
+//  void loadCompositeReferences();
 
-  String getStartRoute();
-
-  void register(HashHandler handler);
-
-  void remove(String selector);
-
-  void route(String newRoute,
-             boolean replace);
-
-  @FunctionalInterface
-  interface HashHandler {
-
-    void onHashChange(String newHash);
-
-  }
 }

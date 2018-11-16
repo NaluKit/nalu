@@ -60,46 +60,46 @@ public class DebugAnnotationValidator {
 
   public void validate()
       throws ProcessorException {
-    // get elements annotated with Debug annotation
-    Set<? extends Element> elementsWithDebugAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Debug.class);
-    // at least there should only one Application annotation!
-    if (elementsWithDebugAnnotation.size() > 1) {
-      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Debug");
-    }
-    for (Element element : elementsWithDebugAnnotation) {
-      if (element instanceof TypeElement) {
-        TypeElement typeElement = (TypeElement) element;
-        // @Debug can only be used on a interface
-        if (!typeElement.getKind()
-                        .isInterface()) {
-          throw new ProcessorException("Nalu-Processor: @Debug can only be used with an interface");
-        }
-        // @Debug can only be used on a interface that extends IsEventBus
-        if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                         typeElement.asType(),
-                                                         this.processingEnvironment.getElementUtils()
-                                                                                   .getTypeElement(IsApplication.class.getCanonicalName())
-                                                                                   .asType())) {
-          throw new ProcessorException("Nalu-Processor: @Debug can only be used on interfaces that extends IsApplication");
-        }
-        // @Debug can only be used on a interface that has a @Application annoatation
-        if (typeElement.getAnnotation(Application.class) == null) {
-          throw new ProcessorException("Nalu-Processor: @Debug can only be used with an interfaces annotated with IsApplication");
-        }
-        // the loggerinside the annotation must extends IsNaluLogger!
-        TypeElement loggerElement = this.getLogger(typeElement.getAnnotation(Debug.class));
-        if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                         Objects.requireNonNull(loggerElement)
-                                                                .asType(),
-                                                         this.processingEnvironment.getElementUtils()
-                                                                                   .getTypeElement(IsLogger.class.getCanonicalName())
-                                                                                   .asType())) {
-          throw new ProcessorException("Nalu-Processor: @Debug - the logger attribute needs class that extends IsLogger");
-        }
-      } else {
-        throw new ProcessorException("Nalu-Processor: @Debug can only be used on a type (interface)");
-      }
-    }
+//    // get elements annotated with Debug annotation
+//    Set<? extends Element> elementsWithDebugAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Debug.class);
+//    // at least there should only one Application annotation!
+//    if (elementsWithDebugAnnotation.size() > 1) {
+//      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Debug");
+//    }
+//    for (Element element : elementsWithDebugAnnotation) {
+//      if (element instanceof TypeElement) {
+//        TypeElement typeElement = (TypeElement) element;
+//        // @Debug can only be used on a interface
+//        if (!typeElement.getKind()
+//                        .isInterface()) {
+//          throw new ProcessorException("Nalu-Processor: @Debug can only be used with an interface");
+//        }
+//        // @Debug can only be used on a interface that extends IsEventBus
+//        if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+//                                                         typeElement.asType(),
+//                                                         this.processingEnvironment.getElementUtils()
+//                                                                                   .getTypeElement(IsApplication.class.getCanonicalName())
+//                                                                                   .asType())) {
+//          throw new ProcessorException("Nalu-Processor: @Debug can only be used on interfaces that extends IsApplication");
+//        }
+//        // @Debug can only be used on a interface that has a @Application annoatation
+//        if (typeElement.getAnnotation(Application.class) == null) {
+//          throw new ProcessorException("Nalu-Processor: @Debug can only be used with an interfaces annotated with IsApplication");
+//        }
+//        // the loggerinside the annotation must extends IsNaluLogger!
+//        TypeElement loggerElement = this.getLogger(typeElement.getAnnotation(Debug.class));
+//        if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+//                                                         Objects.requireNonNull(loggerElement)
+//                                                                .asType(),
+//                                                         this.processingEnvironment.getElementUtils()
+//                                                                                   .getTypeElement(IsLogger.class.getCanonicalName())
+//                                                                                   .asType())) {
+//          throw new ProcessorException("Nalu-Processor: @Debug - the logger attribute needs class that extends IsLogger");
+//        }
+//      } else {
+//        throw new ProcessorException("Nalu-Processor: @Debug can only be used on a type (interface)");
+//      }
+//    }
   }
 
   private TypeElement getLogger(Debug debugAnnotation) {

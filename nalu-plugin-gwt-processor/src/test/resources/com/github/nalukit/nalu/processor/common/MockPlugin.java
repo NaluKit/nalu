@@ -15,10 +15,10 @@
  */
 package com.github.nalukit.nalu.processor.common;
 
-import com.github.nalukit.nalu.client.plugin.IsPlugin;
+import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 
 public class MockPlugin
-    implements IsPlugin {
+    implements IsNaluProcessorPlugin {
 
   @Override
   public void alert(String message) {

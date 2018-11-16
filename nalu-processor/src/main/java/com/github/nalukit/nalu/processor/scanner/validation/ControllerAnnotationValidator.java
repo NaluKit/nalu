@@ -62,27 +62,27 @@ public class ControllerAnnotationValidator {
 
   public void validate()
       throws ProcessorException {
-    TypeElement typeElement = (TypeElement) this.controllerElement;
-    // @ProvidesSelector can only be used on a class
-    if (!typeElement.getKind()
-                    .isClass()) {
-      throw new ProcessorException("Nalu-Processor: @Controller can only be used with an class");
-    }
-    // @ProvidesSelector can only be used on a interface that extends IsApplication
-    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                      typeElement.asType(),
-                                                      this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(IsController.class.getCanonicalName())
-                                                                                .asType()) ||
-              this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                          typeElement.asType(),
-                                                          this.processingEnvironment.getElementUtils()
-                                                                                    .getTypeElement(IsShell.class.getCanonicalName())
-                                                                                    .asType()))) {
-      throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController or IsShell");
-    }
-    // validate route
-    validateRoute();
+//    TypeElement typeElement = (TypeElement) this.controllerElement;
+//    // @ProvidesSelector can only be used on a class
+//    if (!typeElement.getKind()
+//                    .isClass()) {
+//      throw new ProcessorException("Nalu-Processor: @Controller can only be used with an class");
+//    }
+//    // @ProvidesSelector can only be used on a interface that extends IsApplication
+//    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+//                                                      typeElement.asType(),
+//                                                      this.processingEnvironment.getElementUtils()
+//                                                                                .getTypeElement(IsController.class.getCanonicalName())
+//                                                                                .asType()) ||
+//              this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+//                                                          typeElement.asType(),
+//                                                          this.processingEnvironment.getElementUtils()
+//                                                                                    .getTypeElement(IsShell.class.getCanonicalName())
+//                                                                                    .asType()))) {
+//      throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController or IsShell");
+//    }
+//    // validate route
+//    validateRoute();
   }
 
   private void validateRoute()

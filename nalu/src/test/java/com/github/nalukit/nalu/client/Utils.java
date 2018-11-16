@@ -5,7 +5,7 @@ import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
-import com.github.nalukit.nalu.client.plugin.IsPlugin;
+import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,9 +13,9 @@ import java.util.List;
 
 class Utils {
 
-  static IsPlugin createPlugin(boolean attached,
-                               boolean confirm) {
-    return new IsPlugin() {
+  static IsNaluProcessorPlugin createPlugin(boolean attached,
+                                            boolean confirm) {
+    return new IsNaluProcessorPlugin() {
       @Override
       public void alert(String message) {
         // nothing to do

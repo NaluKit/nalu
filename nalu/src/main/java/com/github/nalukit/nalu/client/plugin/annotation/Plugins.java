@@ -14,12 +14,22 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.application;
+package com.github.nalukit.nalu.client.plugin.annotation;
 
-import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.component.AbstractComponent;
+import com.github.nalukit.nalu.client.component.IsComponent;
+import com.github.nalukit.nalu.client.plugin.IsPlugin;
 
-public interface IsApplication {
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-  void run(IsNaluProcessorPlugin plugin);
+/**
+ * @author Frank Hossfeld
+ */
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Plugins {
+
+  Class<? extends IsPlugin<?>>[] value();
 
 }

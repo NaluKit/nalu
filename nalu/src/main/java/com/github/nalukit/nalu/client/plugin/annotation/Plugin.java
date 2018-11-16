@@ -14,12 +14,29 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.application;
+package com.github.nalukit.nalu.client.plugin.annotation;
 
-import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-public interface IsApplication {
+/**
+ * Marks a project as plugin.
+ *
+ * @author Frank Hossfeld
+ */
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Plugin {
 
-  void run(IsNaluProcessorPlugin plugin);
+  /**
+   * Tells the calling app, which Nalu plugin is required to use
+   * this plugin.
+   *
+   * @return the required plugin: ELEMENTAL2 -> Plugin-ELemantal2, GWT -> Plugin-GWT
+   */
+  NaluPlugin requiredPlugin();
 
+  enum NaluPlugin {
+    ELEMENTAL2,
+    GWT;
+  }
 }

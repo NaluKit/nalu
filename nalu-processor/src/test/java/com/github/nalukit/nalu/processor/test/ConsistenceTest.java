@@ -30,137 +30,137 @@ import static com.google.testing.compile.Compiler.javac;
 @SuppressWarnings("serial")
 public class ConsistenceTest {
 
-  @Test
-  public void testStarRouteShellDoesNotExists() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/startRouteShellDoesNotExist/StartRouteShellDoesNotExistApplication.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
-                                       }
-                                     });
-    CompilationSubject.assertThat(compilation)
-                      .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("The shell of the startRoute >>MockShell<< does not exist!");
-  }
-
-  @Test
-  public void testStarRouteDoesNotExists() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/startRouteDeosNotExist/StartRouteDoesNotExistApplication.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
-                                       }
-                                     });
-    CompilationSubject.assertThat(compilation)
-                      .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("The route of the startRoute >>/mockShell/search<< does not exist!");
-  }
-
-  @Test
-  public void testShellOfSelection() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/shellOfSelection/ShellOfSelectionApplication.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Controller04.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/IComponent04.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Component04.java"));
-                                       }
-                                     });
-        CompilationSubject.assertThat(compilation)
-                          .succeeded();
-  }
-
-  @Test
-  public void testShellOfSelectionWildCard() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/shellOfSelectionWildCard/ShellOfSelectionWildCardApplication.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component05/Controller05.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component05/IComponent05.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component05/Component05.java"));
-                                       }
-                                     });
-        CompilationSubject.assertThat(compilation)
-                          .succeeded();
-  }
-
-  @Test
-  public void testDuplicateShellName() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/dubplicateShellName/DubplicateShellNameApplication.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
-                                       }
-                                     });
-    CompilationSubject.assertThat(compilation)
-                      .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("the shell ame >>mockShell02<< is already used!");
-  }
-
-  @Test
-  public void testMultipleShells() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/multiShells/MultiShellApplication.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
-                                       }
-                                     });
-    CompilationSubject.assertThat(compilation)
-                      .succeeded();
-  }
-
-  @Test
-  public void testNoShells() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/noShells/NoShellsApplication.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
-                                       }
-                                     });
-    CompilationSubject.assertThat(compilation)
-                      .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: @Shells is missing for IsApplication interface");
-  }
-
-  @Test
-  public void testIllegalErrorRoute() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/illegalError/IllegalErrorRouteApplication.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Controller04.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/IComponent04.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Component04.java"));
-                                       }
-                                     });
-    CompilationSubject.assertThat(compilation)
-                      .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: The errorRoute >>/errorShellIllegal/error<< does not exist!");
-  }
+//  @Test
+//  public void testStarRouteShellDoesNotExists() {
+//    Compilation compilation = javac().withProcessors(new NaluProcessor())
+//                                     .compile(new ArrayList<JavaFileObject>() {
+//                                       {
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/startRouteShellDoesNotExist/StartRouteShellDoesNotExistApplication.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
+//                                       }
+//                                     });
+//    CompilationSubject.assertThat(compilation)
+//                      .failed();
+//    CompilationSubject.assertThat(compilation)
+//                      .hadErrorContaining("The shell of the startRoute >>MockShell<< does not exist!");
+//  }
+//
+//  @Test
+//  public void testStarRouteDoesNotExists() {
+//    Compilation compilation = javac().withProcessors(new NaluProcessor())
+//                                     .compile(new ArrayList<JavaFileObject>() {
+//                                       {
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/startRouteDeosNotExist/StartRouteDoesNotExistApplication.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
+//                                       }
+//                                     });
+//    CompilationSubject.assertThat(compilation)
+//                      .failed();
+//    CompilationSubject.assertThat(compilation)
+//                      .hadErrorContaining("The route of the startRoute >>/mockShell/search<< does not exist!");
+//  }
+//
+//  @Test
+//  public void testShellOfSelection() {
+//    Compilation compilation = javac().withProcessors(new NaluProcessor())
+//                                     .compile(new ArrayList<JavaFileObject>() {
+//                                       {
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/shellOfSelection/ShellOfSelectionApplication.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Controller04.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/IComponent04.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Component04.java"));
+//                                       }
+//                                     });
+//        CompilationSubject.assertThat(compilation)
+//                          .succeeded();
+//  }
+//
+//  @Test
+//  public void testShellOfSelectionWildCard() {
+//    Compilation compilation = javac().withProcessors(new NaluProcessor())
+//                                     .compile(new ArrayList<JavaFileObject>() {
+//                                       {
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/shellOfSelectionWildCard/ShellOfSelectionWildCardApplication.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component05/Controller05.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component05/IComponent05.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component05/Component05.java"));
+//                                       }
+//                                     });
+//        CompilationSubject.assertThat(compilation)
+//                          .succeeded();
+//  }
+//
+//  @Test
+//  public void testDuplicateShellName() {
+//    Compilation compilation = javac().withProcessors(new NaluProcessor())
+//                                     .compile(new ArrayList<JavaFileObject>() {
+//                                       {
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/dubplicateShellName/DubplicateShellNameApplication.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
+//                                       }
+//                                     });
+//    CompilationSubject.assertThat(compilation)
+//                      .failed();
+//    CompilationSubject.assertThat(compilation)
+//                      .hadErrorContaining("the shell ame >>mockShell02<< is already used!");
+//  }
+//
+//  @Test
+//  public void testMultipleShells() {
+//    Compilation compilation = javac().withProcessors(new NaluProcessor())
+//                                     .compile(new ArrayList<JavaFileObject>() {
+//                                       {
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/multiShells/MultiShellApplication.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
+//                                       }
+//                                     });
+//    CompilationSubject.assertThat(compilation)
+//                      .succeeded();
+//  }
+//
+//  @Test
+//  public void testNoShells() {
+//    Compilation compilation = javac().withProcessors(new NaluProcessor())
+//                                     .compile(new ArrayList<JavaFileObject>() {
+//                                       {
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/noShells/NoShellsApplication.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
+//                                       }
+//                                     });
+//    CompilationSubject.assertThat(compilation)
+//                      .failed();
+//    CompilationSubject.assertThat(compilation)
+//                      .hadErrorContaining("Nalu-Processor: @Shells is missing for IsApplication interface");
+//  }
+//
+//  @Test
+//  public void testIllegalErrorRoute() {
+//    Compilation compilation = javac().withProcessors(new NaluProcessor())
+//                                     .compile(new ArrayList<JavaFileObject>() {
+//                                       {
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/illegalError/IllegalErrorRouteApplication.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Controller04.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/IComponent04.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Component04.java"));
+//                                       }
+//                                     });
+//    CompilationSubject.assertThat(compilation)
+//                      .failed();
+//    CompilationSubject.assertThat(compilation)
+//                      .hadErrorContaining("Nalu-Processor: The errorRoute >>/errorShellIllegal/error<< does not exist!");
+//  }
 
 }

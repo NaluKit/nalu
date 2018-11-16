@@ -29,10 +29,7 @@ import javax.tools.Diagnostic;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ProcessorUtils {
@@ -316,6 +313,9 @@ public class ProcessorUtils {
   }
 
   public boolean doesExist(ClassNameModel typeElementClassName) {
+    if (Objects.isNull(typeElementClassName)) {
+      return false;
+    }
     return this.processingEnvironment.getElementUtils()
                                      .getTypeElement(typeElementClassName.getClassName()) != null;
   }
