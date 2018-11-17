@@ -18,7 +18,7 @@ package com.github.nalukit.nalu.processor.generator;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
-import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
+import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
@@ -32,7 +32,7 @@ import java.util.stream.IntStream;
 
 public class ControllerGenerator {
 
-  private ApplicationMetaModel applicationMetaModel;
+  private MetaModel metaModel;
 
   private TypeSpec.Builder typeSpec;
 
@@ -41,7 +41,7 @@ public class ControllerGenerator {
   }
 
   private ControllerGenerator(Builder builder) {
-    this.applicationMetaModel = builder.applicationMetaModel;
+    this.metaModel = builder.metaModel;
     this.typeSpec = builder.typeSpec;
   }
 
@@ -59,7 +59,7 @@ public class ControllerGenerator {
     MethodSpec.Builder loadComponentsMethodBuilder = MethodSpec.methodBuilder("loadComponents")
                                                                .addModifiers(Modifier.PUBLIC)
                                                                .addAnnotation(Override.class);
-    this.getAllComponents(this.applicationMetaModel.getController())
+    this.getAllComponents(this.metaModel.getController())
         .forEach(controllerModel -> {
           loadComponentsMethodBuilder.addComment("create ControllerCreator for: " +
                                                  controllerModel.getProvider()
@@ -87,15 +87,15 @@ public class ControllerGenerator {
     MethodSpec.Builder loadSelectorsMethod = MethodSpec.methodBuilder("loadRoutes")
                                                        .addAnnotation(Override.class)
                                                        .addModifiers(Modifier.PUBLIC);
-    this.applicationMetaModel.getController()
-                             .forEach(route -> loadSelectorsMethod.addStatement("super.routerConfiguration.getRouters().add(new $T($S, $T.asList(new String[]{$L}), $S, $S))",
-                                                                                ClassName.get(RouteConfig.class),
-                                                                                createRoute(route.getRoute()),
-                                                                                ClassName.get(Arrays.class),
-                                                                                createParaemter(route.getParameters()),
-                                                                                route.getSelector(),
-                                                                                route.getProvider()
-                                                                                     .getClassName()));
+    this.metaModel.getController()
+                  .forEach(route -> loadSelectorsMethod.addStatement("super.routerConfiguration.getRouters().add(new $T($S, $T.asList(new String[]{$L}), $S, $S))",
+                                                                     ClassName.get(RouteConfig.class),
+                                                                     createRoute(route.getRoute()),
+                                                                     ClassName.get(Arrays.class),
+                                                                     createParaemter(route.getParameters()),
+                                                                     route.getSelector(),
+                                                                     route.getProvider()
+                                                                          .getClassName()));
     typeSpec.addMethod(loadSelectorsMethod.build());
   }
 
@@ -142,18 +142,18 @@ public class ControllerGenerator {
 
   public static final class Builder {
 
-    ApplicationMetaModel applicationMetaModel;
+    MetaModel metaModel;
 
     TypeSpec.Builder typeSpec;
 
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param applicationMetaModel meta data model of the eventbus
+     * @param metaModel meta data model of the eventbus
      * @return the Builder
      */
-    public Builder applicationMetaModel(ApplicationMetaModel applicationMetaModel) {
-      this.applicationMetaModel = applicationMetaModel;
+    public Builder metaModel(MetaModel metaModel) {
+      this.metaModel = metaModel;
       return this;
     }
 

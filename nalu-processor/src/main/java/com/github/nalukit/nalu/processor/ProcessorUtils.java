@@ -341,10 +341,10 @@ public class ProcessorUtils {
 
   public String createSetMethodName(String value) {
     return "set" +
-        value.substring(0,
-                        1)
-             .toUpperCase() +
-        value.substring(1);
+           value.substring(0,
+                           1)
+                .toUpperCase() +
+           value.substring(1);
   }
 
   public String createEventNameFromHandlingMethod(String event) {

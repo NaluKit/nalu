@@ -24,9 +24,9 @@ import com.github.nalukit.nalu.client.internal.route.RouteConfigTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ RouteConfigTest.class,
-                      RouterTest.class,
-                      RoutingTest.class })
+//@RunWith(Suite.class)
+//@Suite.SuiteClasses({ RouteConfigTest.class,
+//                      RouterTest.class,
+//                      RoutingTest.class })
 public class AllTests {
 }

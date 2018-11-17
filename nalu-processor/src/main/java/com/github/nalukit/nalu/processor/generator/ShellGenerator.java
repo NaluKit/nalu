@@ -15,13 +15,10 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
-import com.github.nalukit.nalu.client.internal.application.ShellInstance;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
-import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
-import com.github.nalukit.nalu.processor.model.intern.ShellModel;
+import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -30,7 +27,7 @@ import javax.lang.model.element.Modifier;
 
 public class ShellGenerator {
 
-  private ApplicationMetaModel applicationMetaModel;
+  private MetaModel metaModel;
 
   private TypeSpec.Builder typeSpec;
 
@@ -39,7 +36,7 @@ public class ShellGenerator {
   }
 
   private ShellGenerator(Builder builder) {
-    this.applicationMetaModel = builder.applicationMetaModel;
+    this.metaModel = builder.metaModel;
     this.typeSpec = builder.typeSpec;
   }
 
@@ -57,12 +54,12 @@ public class ShellGenerator {
     MethodSpec.Builder loadShellsMethodBuilder = MethodSpec.methodBuilder("loadShells")
                                                            .addModifiers(Modifier.PUBLIC)
                                                            .addAnnotation(Override.class);
-    this.applicationMetaModel.getShells()
-                             .forEach(shellModel -> loadShellsMethodBuilder.addStatement("super.shellConfiguration.getShells().add(new $T($S, $S))",
-                                                                                         ClassName.get(ShellConfig.class),
-                                                                                         "/" + shellModel.getName(),
-                                                                                         shellModel.getShell()
-                                                                                                   .getClassName()));
+    this.metaModel.getShells()
+                  .forEach(shellModel -> loadShellsMethodBuilder.addStatement("super.shellConfiguration.getShells().add(new $T($S, $S))",
+                                                                              ClassName.get(ShellConfig.class),
+                                                                              "/" + shellModel.getName(),
+                                                                              shellModel.getShell()
+                                                                                        .getClassName()));
     typeSpec.addMethod(loadShellsMethodBuilder.build());
   }
 
@@ -71,45 +68,45 @@ public class ShellGenerator {
     MethodSpec.Builder loadShellFactoryMethodBuilder = MethodSpec.methodBuilder("loadShellFactory")
                                                                  .addModifiers(Modifier.PUBLIC)
                                                                  .addAnnotation(Override.class);
-    this.applicationMetaModel.getShells()
-                             .forEach(shellModel -> {
-                               // add return statement
-                               loadShellFactoryMethodBuilder.addComment("create ShellCreator for: " +
-                                                                        shellModel.getShell()
-                                                                                  .getPackage() +
-                                                                        "." +
-                                                                        shellModel.getShell()
-                                                                                  .getSimpleName())
-                                                            .addStatement("$T.get().registerShell($S, new $L(router, context, eventBus))",
-                                                                          ClassName.get(ShellFactory.class),
-                                                                          shellModel.getShell()
-                                                                                    .getPackage() +
-                                                                          "." +
-                                                                          shellModel.getShell()
-                                                                                    .getSimpleName(),
-                                                                          ClassName.get(shellModel.getShell()
-                                                                                                  .getPackage(),
-                                                                                        shellModel.getShell()
-                                                                                                  .getSimpleName() + ProcessorConstants.CREATOR_IMPL));
+    this.metaModel.getShells()
+                  .forEach(shellModel -> {
+                    // add return statement
+                    loadShellFactoryMethodBuilder.addComment("create ShellCreator for: " +
+                                                             shellModel.getShell()
+                                                                       .getPackage() +
+                                                             "." +
+                                                             shellModel.getShell()
+                                                                       .getSimpleName())
+                                                 .addStatement("$T.get().registerShell($S, new $L(router, context, eventBus))",
+                                                               ClassName.get(ShellFactory.class),
+                                                               shellModel.getShell()
+                                                                         .getPackage() +
+                                                               "." +
+                                                               shellModel.getShell()
+                                                                         .getSimpleName(),
+                                                               ClassName.get(shellModel.getShell()
+                                                                                       .getPackage(),
+                                                                             shellModel.getShell()
+                                                                                       .getSimpleName() + ProcessorConstants.CREATOR_IMPL));
 
-                             });
+                  });
     typeSpec.addMethod(loadShellFactoryMethodBuilder.build());
   }
 
   public static final class Builder {
 
-    ApplicationMetaModel applicationMetaModel;
+    MetaModel metaModel;
 
     TypeSpec.Builder typeSpec;
 
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param applicationMetaModel meta data model of the eventbus
+     * @param metaModel meta data model of the eventbus
      * @return the Builder
      */
-    public Builder applicationMetaModel(ApplicationMetaModel applicationMetaModel) {
-      this.applicationMetaModel = applicationMetaModel;
+    public Builder metaModel(MetaModel metaModel) {
+      this.metaModel = metaModel;
       return this;
     }
 

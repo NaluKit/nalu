@@ -30,20 +30,20 @@ import static com.google.testing.compile.Compiler.javac;
 @SuppressWarnings("serial")
 public class DebugTest {
 
-//  @Test
-//  public void testDebugAnnotationOnAMethod() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(new ArrayList<JavaFileObject>() {
-//                                       {
-//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationOnAMethod/DebugAnnotationOnAMethod.java"));
-//                                       }
-//                                     });
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("@Debug can only be used on a type (interface)");
-//  }
-//
+  @Test
+  public void testDebugAnnotationOnAMethod() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationOnAMethod/DebugAnnotationOnAMethod.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("@Debug can only be used on a type (interface)");
+  }
+
 //  @Test
 //  public void testDebugAnnotationOnAClass() {
 //    Compilation compilation = javac().withProcessors(new NaluProcessor())

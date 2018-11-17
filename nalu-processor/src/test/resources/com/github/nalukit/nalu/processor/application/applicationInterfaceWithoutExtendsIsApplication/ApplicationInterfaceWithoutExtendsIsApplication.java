@@ -17,16 +17,11 @@
 package com.github.nalukit.nalu.processor.application.applicationInterfaceWithoutExtendsIsApplication;
 
 import com.github.nalukit.nalu.client.application.annotation.Application;
-import com.github.nalukit.nalu.client.application.annotation.Shell;
-import com.github.nalukit.nalu.client.application.annotation.Shells;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import com.github.nalukit.nalu.processor.common.MockShell;
 
 @Application(startShell = "mockShell",
              startRoute = "/search",
              context = MockContext.class,
              routeError = "/errorShell/error")
-@Shells({ @Shell(name = "mockShell",
-                 shell = MockShell.class) })
 public interface ApplicationInterfaceWithoutExtendsIsApplication {
 }

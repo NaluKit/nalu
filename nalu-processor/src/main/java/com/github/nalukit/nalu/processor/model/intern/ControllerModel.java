@@ -30,6 +30,8 @@ public class ControllerModel {
 
   private List<String> parameters;
 
+  private ClassNameModel context;
+
   private ClassNameModel controller;
 
   private ClassNameModel componentInterface;
@@ -50,6 +52,7 @@ public class ControllerModel {
                          String route,
                          String selector,
                          List<String> parameters,
+                         ClassNameModel context,
                          ClassNameModel controller,
                          ClassNameModel componentInterface,
                          ClassNameModel component,
@@ -60,6 +63,7 @@ public class ControllerModel {
     this.route = route;
     this.selector = selector;
     this.parameters = parameters;
+    this.context = context;
     this.controller = controller;
     this.componentInterface = componentInterface;
     this.component = component;
@@ -153,6 +157,14 @@ public class ControllerModel {
                                                                   .findFirst();
     return optional.map(ParameterAcceptor::getMethodName)
                    .orElse(null);
+  }
+
+  public ClassNameModel getContext() {
+    return context;
+  }
+
+  public void setContext(ClassNameModel context) {
+    this.context = context;
   }
 
   public List<ControllerCompositeModel> getComposites() {

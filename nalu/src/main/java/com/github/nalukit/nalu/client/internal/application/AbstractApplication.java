@@ -106,6 +106,7 @@ public abstract class AbstractApplication<C extends IsContext>
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load configurations",
                              1);
+    this.loadPlugins();
     this.loadShells();
     this.loadRoutes();
     this.loadFilters();
@@ -146,6 +147,8 @@ public abstract class AbstractApplication<C extends IsContext>
       applicationLoader.load(this::onFinishLaoding);
     }
   }
+
+  protected abstract void loadPlugins();
 
   protected abstract void loadShellFactory();
 

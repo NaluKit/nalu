@@ -15,8 +15,6 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
-import com.github.nalukit.nalu.client.component.IsController;
-import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
@@ -24,20 +22,19 @@ import com.github.nalukit.nalu.processor.ProcessorUtils;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ControllerAnnotationValidator {
 
-  private ProcessorUtils        processorUtils;
+  private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment      roundEnvironment;
+  private RoundEnvironment roundEnvironment;
 
-  private Element               controllerElement;
+  private Element controllerElement;
 
   @SuppressWarnings("unused")
   private ControllerAnnotationValidator() {
@@ -62,27 +59,27 @@ public class ControllerAnnotationValidator {
 
   public void validate()
       throws ProcessorException {
-//    TypeElement typeElement = (TypeElement) this.controllerElement;
-//    // @ProvidesSelector can only be used on a class
-//    if (!typeElement.getKind()
-//                    .isClass()) {
-//      throw new ProcessorException("Nalu-Processor: @Controller can only be used with an class");
-//    }
-//    // @ProvidesSelector can only be used on a interface that extends IsApplication
-//    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-//                                                      typeElement.asType(),
-//                                                      this.processingEnvironment.getElementUtils()
-//                                                                                .getTypeElement(IsController.class.getCanonicalName())
-//                                                                                .asType()) ||
-//              this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-//                                                          typeElement.asType(),
-//                                                          this.processingEnvironment.getElementUtils()
-//                                                                                    .getTypeElement(IsShell.class.getCanonicalName())
-//                                                                                    .asType()))) {
-//      throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController or IsShell");
-//    }
-//    // validate route
-//    validateRoute();
+    //    TypeElement typeElement = (TypeElement) this.controllerElement;
+    //    // @ProvidesSelector can only be used on a class
+    //    if (!typeElement.getKind()
+    //                    .isClass()) {
+    //      throw new ProcessorException("Nalu-Processor: @Controller can only be used with an class");
+    //    }
+    //    // @ProvidesSelector can only be used on a interface that extends IsApplication
+    //    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+    //                                                      typeElement.asType(),
+    //                                                      this.processingEnvironment.getElementUtils()
+    //                                                                                .getTypeElement(IsController.class.getCanonicalName())
+    //                                                                                .asType()) ||
+    //              this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+    //                                                          typeElement.asType(),
+    //                                                          this.processingEnvironment.getElementUtils()
+    //                                                                                    .getTypeElement(IsShell.class.getCanonicalName())
+    //                                                                                    .asType()))) {
+    //      throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController or IsShell");
+    //    }
+    //    // validate route
+    //    validateRoute();
   }
 
   private void validateRoute()
@@ -103,11 +100,11 @@ public class ControllerAnnotationValidator {
       // handle "//" -> not allowed
       if (s.length() == 0) {
         throw new ProcessorException("Nalu-Processor: controller >>" +
-                                         this.controllerElement.getEnclosingElement()
-                                                               .toString() +
-                                         "<<  - illegal route >>" +
-                                         route +
-                                         "<< -> '//' not allowed!");
+                                     this.controllerElement.getEnclosingElement()
+                                                           .toString() +
+                                     "<<  - illegal route >>" +
+                                     route +
+                                     "<< -> '//' not allowed!");
       }
       // check if it is a parameter definition (starting with ':' at first position)
       if (s.startsWith(":")) {
@@ -115,28 +112,28 @@ public class ControllerAnnotationValidator {
         // starts with a parameter ==> error
         if (route.length() == 0) {
           throw new ProcessorException("Nalu-Processor: controller >>" +
-                                           this.controllerElement.getEnclosingElement()
-                                                                 .toString() +
-                                           "<<  - illegal route >>" +
-                                           route +
-                                           "<< -> route cannot start with parameter");
+                                       this.controllerElement.getEnclosingElement()
+                                                             .toString() +
+                                       "<<  - illegal route >>" +
+                                       route +
+                                       "<< -> route cannot start with parameter");
         }
         if (s.length() == 1) {
           throw new ProcessorException("Nalu-Processor: controller >>" +
-                                           this.controllerElement.getEnclosingElement()
-                                                                 .toString() +
-                                           "<<  - illegal route >>" +
-                                           route +
-                                           "<< -> illegal parameter name!");
+                                       this.controllerElement.getEnclosingElement()
+                                                             .toString() +
+                                       "<<  - illegal route >>" +
+                                       route +
+                                       "<< -> illegal parameter name!");
         }
       } else {
         if (handlingParameter) {
           throw new ProcessorException("Nalu-Processor: controller >>" +
-                                           this.controllerElement.getEnclosingElement()
-                                                                 .toString() +
-                                           "<<  - illegal route >>" +
-                                           route +
-                                           "<< -> illegal route!");
+                                       this.controllerElement.getEnclosingElement()
+                                                             .toString() +
+                                       "<<  - illegal route >>" +
+                                       route +
+                                       "<< -> illegal route!");
         }
       }
     }
@@ -154,9 +151,9 @@ public class ControllerAnnotationValidator {
 
     ProcessingEnvironment processingEnvironment;
 
-    RoundEnvironment      roundEnvironment;
+    RoundEnvironment roundEnvironment;
 
-    Element               controllerElement;
+    Element controllerElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;

@@ -22,8 +22,8 @@ import com.github.nalukit.nalu.client.internal.application.IsShellCreator;
 import com.github.nalukit.nalu.client.internal.application.ShellInstance;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
-import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
-import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
+import com.github.nalukit.nalu.processor.model.MetaModel;
+import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 import com.squareup.javapoet.*;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -33,20 +33,20 @@ import java.io.IOException;
 
 public class ShellCreatorGenerator {
 
-  private ApplicationMetaModel applicationMetaModel;
+  private MetaModel metaModel;
 
   private ProcessingEnvironment processingEnvironment;
 
-  private ClassNameModel shell;
+  private ShellModel shellModel;
 
   @SuppressWarnings("unused")
   private ShellCreatorGenerator() {
   }
 
   private ShellCreatorGenerator(Builder builder) {
-    this.applicationMetaModel = builder.applicationMetaModel;
+    this.metaModel = builder.metaModel;
     this.processingEnvironment = builder.processingEnvironment;
-    this.shell = builder.shell;
+    this.shellModel = builder.shellModel;
   }
 
   public static Builder builder() {
@@ -55,10 +55,11 @@ public class ShellCreatorGenerator {
 
   public void generate()
       throws ProcessorException {
-    TypeSpec.Builder typeSpec = TypeSpec.classBuilder(shell.getSimpleName() + ProcessorConstants.CREATOR_IMPL)
+    TypeSpec.Builder typeSpec = TypeSpec.classBuilder(shellModel.getShell()
+                                                                .getSimpleName() + ProcessorConstants.CREATOR_IMPL)
                                         .superclass(ParameterizedTypeName.get(ClassName.get(AbstractShellCreator.class),
-                                                                              applicationMetaModel.getContext()
-                                                                                                  .getTypeName()))
+                                                                              shellModel.getContext()
+                                                                                        .getTypeName()))
                                         .addModifiers(Modifier.PUBLIC,
                                                       Modifier.FINAL)
                                         .addSuperinterface(ClassName.get(IsShellCreator.class));
@@ -68,8 +69,8 @@ public class ShellCreatorGenerator {
                                        .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
                                                                            "router")
                                                                   .build())
-                                       .addParameter(ParameterSpec.builder(applicationMetaModel.getContext()
-                                                                                               .getTypeName(),
+                                       .addParameter(ParameterSpec.builder(shellModel.getContext()
+                                                                                     .getTypeName(),
                                                                            "context")
                                                                   .build())
                                        .addParameter(ParameterSpec.builder(ClassName.get(SimpleEventBus.class),
@@ -89,36 +90,45 @@ public class ShellCreatorGenerator {
                                                               ClassName.get(ShellInstance.class),
                                                               ClassName.get(ShellInstance.class))
                                                 .addStatement("shellInstance.setShellClassName($S)",
-                                                              this.shell.getClassName())
+                                                              this.shellModel.getShell()
+                                                                             .getClassName())
                                                 .addStatement("sb01.append(\"compositeModel >>$L<< --> will be created\")",
-                                                              shell.getClassName())
+                                                              shellModel.getShell()
+                                                                        .getClassName())
                                                 .addStatement("$T.get().logSimple(sb01.toString(), 1)",
                                                               ClassName.get(ClientLogger.class))
                                                 .addStatement("$T compositeModel = new $T()",
-                                                              ClassName.get(this.shell.getPackage(),
-                                                                            this.shell.getSimpleName()),
-                                                              ClassName.get(this.shell.getPackage(),
-                                                                            this.shell.getSimpleName()))
+                                                              ClassName.get(this.shellModel.getShell()
+                                                                                           .getPackage(),
+                                                                            this.shellModel.getShell()
+                                                                                           .getSimpleName()),
+                                                              ClassName.get(this.shellModel.getShell()
+                                                                                           .getPackage(),
+                                                                            this.shellModel.getShell()
+                                                                                           .getSimpleName()))
                                                 .addStatement("compositeModel.setContext(context)")
                                                 .addStatement("compositeModel.setEventBus(eventBus)")
                                                 .addStatement("compositeModel.setRouter(router)")
                                                 .addStatement("sb01 = new $T()",
                                                               ClassName.get(StringBuilder.class))
                                                 .addStatement("sb01.append(\"compositeModel >>$L<< --> created and data injected\")",
-                                                              this.shell.getClassName())
+                                                              this.shellModel.getShell()
+                                                                             .getClassName())
                                                 .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                               ClassName.get(ClientLogger.class))
                                                 .addStatement("sb01 = new $T()",
                                                               ClassName.get(StringBuilder.class))
                                                 .addStatement("sb01.append(\"compositeModel >>$L<< --> call bind()-method\")",
-                                                              this.shell.getClassName())
+                                                              this.shellModel.getShell()
+                                                                             .getClassName())
                                                 .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                               ClassName.get(ClientLogger.class))
                                                 .addStatement("compositeModel.bind()")
                                                 .addStatement("sb01 = new $T()",
                                                               ClassName.get(StringBuilder.class))
                                                 .addStatement("sb01.append(\"compositeModel >>$L<< --> called bind()-method\")",
-                                                              this.shell.getClassName())
+                                                              this.shellModel.getShell()
+                                                                             .getClassName())
                                                 .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                               ClassName.get(ClientLogger.class))
                                                 .addStatement("shellInstance.setShell(compositeModel)")
@@ -126,33 +136,39 @@ public class ShellCreatorGenerator {
 
     typeSpec.addMethod(createMethod.build());
 
-    JavaFile javaFile = JavaFile.builder(this.shell.getPackage(),
+    JavaFile javaFile = JavaFile.builder(this.shellModel.getShell()
+                                                        .getPackage(),
                                          typeSpec.build())
                                 .build();
     try {
       //      System.out.println(javaFile.toString());
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
-      throw new ProcessorException("Unable to write generated file: >>" + this.shell.getClassName() + ProcessorConstants.CREATOR_IMPL + "<< -> exception: " + e.getMessage());
+      throw new ProcessorException("Unable to write generated file: >>" +
+                                   this.shellModel.getShell()
+                                                  .getClassName() +
+                                   ProcessorConstants.CREATOR_IMPL +
+                                   "<< -> exception: " +
+                                   e.getMessage());
     }
   }
 
   public static final class Builder {
 
-    ApplicationMetaModel applicationMetaModel;
+    MetaModel metaModel;
 
     ProcessingEnvironment processingEnvironment;
 
-    ClassNameModel shell;
+    ShellModel shellModel;
 
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param applicationMetaModel meta data model of the eventbus
+     * @param metaModel meta data model of the eventbus
      * @return the Builder
      */
-    public Builder applicationMetaModel(ApplicationMetaModel applicationMetaModel) {
-      this.applicationMetaModel = applicationMetaModel;
+    public Builder metaModel(MetaModel metaModel) {
+      this.metaModel = metaModel;
       return this;
     }
 
@@ -161,8 +177,8 @@ public class ShellCreatorGenerator {
       return this;
     }
 
-    public Builder shell(ClassNameModel shell) {
-      this.shell = shell;
+    public Builder shellModel(ShellModel shellModel) {
+      this.shellModel = shellModel;
       return this;
     }
 

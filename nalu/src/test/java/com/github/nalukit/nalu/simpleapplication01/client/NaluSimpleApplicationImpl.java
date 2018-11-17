@@ -58,6 +58,11 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
   }
 
   @Override
+  protected void loadPlugins() {
+
+  }
+
+  @Override
   protected void loadShellFactory() {
 
   }

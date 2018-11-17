@@ -17,7 +17,7 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
-import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
+import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
@@ -27,7 +27,7 @@ import javax.lang.model.element.Modifier;
 
 public class CompositeControllerGenerator {
 
-  private ApplicationMetaModel applicationMetaModel;
+  private MetaModel metaModel;
 
   private TypeSpec.Builder typeSpec;
 
@@ -36,7 +36,7 @@ public class CompositeControllerGenerator {
   }
 
   private CompositeControllerGenerator(Builder builder) {
-    this.applicationMetaModel = builder.applicationMetaModel;
+    this.metaModel = builder.metaModel;
     this.typeSpec = builder.typeSpec;
   }
 
@@ -53,7 +53,7 @@ public class CompositeControllerGenerator {
     MethodSpec.Builder loadCompositesMethodBuilder = MethodSpec.methodBuilder("loadCompositeController")
                                                                .addModifiers(Modifier.PUBLIC)
                                                                .addAnnotation(Override.class);
-    for (CompositeModel compositeModel : this.applicationMetaModel.getCompositeModels()) {
+    for (CompositeModel compositeModel : this.metaModel.getCompositeModels()) {
       loadCompositesMethodBuilder.addComment("create Composite for: " +
                                              compositeModel.getProvider()
                                                            .getPackage() +
@@ -77,18 +77,18 @@ public class CompositeControllerGenerator {
 
   public static final class Builder {
 
-    ApplicationMetaModel applicationMetaModel;
+    MetaModel metaModel;
 
     TypeSpec.Builder typeSpec;
 
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param applicationMetaModel meta data model of the eventbus
+     * @param metaModel meta data model of the eventbus
      * @return the Builder
      */
-    public Builder applicationMetaModel(ApplicationMetaModel applicationMetaModel) {
-      this.applicationMetaModel = applicationMetaModel;
+    public Builder metaModel(MetaModel metaModel) {
+      this.metaModel = metaModel;
       return this;
     }
 

@@ -25,7 +25,7 @@ import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
 import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
-import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
+import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.squareup.javapoet.*;
 import org.gwtproject.event.shared.SimpleEventBus;
@@ -36,7 +36,7 @@ import java.io.IOException;
 
 public class ControllerCreatorGenerator {
 
-  private ApplicationMetaModel applicationMetaModel;
+  private MetaModel metaModel;
 
   private ProcessingEnvironment processingEnvironment;
 
@@ -47,7 +47,7 @@ public class ControllerCreatorGenerator {
   }
 
   private ControllerCreatorGenerator(Builder builder) {
-    this.applicationMetaModel = builder.applicationMetaModel;
+    this.metaModel = builder.metaModel;
     this.processingEnvironment = builder.processingEnvironment;
     this.controllerModel = builder.controllerModel;
   }
@@ -61,8 +61,8 @@ public class ControllerCreatorGenerator {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(controllerModel.getController()
                                                                      .getSimpleName() + ProcessorConstants.CREATOR_IMPL)
                                         .superclass(ParameterizedTypeName.get(ClassName.get(AbstractControllerCreator.class),
-                                                                              applicationMetaModel.getContext()
-                                                                                                  .getTypeName()))
+                                                                              controllerModel.getContext()
+                                                                                             .getTypeName()))
                                         .addModifiers(Modifier.PUBLIC,
                                                       Modifier.FINAL)
                                         .addSuperinterface(ClassName.get(IsControllerCreator.class));
@@ -72,8 +72,8 @@ public class ControllerCreatorGenerator {
                                        .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
                                                                            "router")
                                                                   .build())
-                                       .addParameter(ParameterSpec.builder(applicationMetaModel.getContext()
-                                                                                               .getTypeName(),
+                                       .addParameter(ParameterSpec.builder(controllerModel.getContext()
+                                                                                          .getTypeName(),
                                                                            "context")
                                                                   .build())
                                        .addParameter(ParameterSpec.builder(ClassName.get(SimpleEventBus.class),
@@ -254,7 +254,7 @@ public class ControllerCreatorGenerator {
 
   public static final class Builder {
 
-    ApplicationMetaModel applicationMetaModel;
+    MetaModel metaModel;
 
     ProcessingEnvironment processingEnvironment;
 
@@ -263,11 +263,11 @@ public class ControllerCreatorGenerator {
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param applicationMetaModel meta data model of the eventbus
+     * @param metaModel meta data model of the eventbus
      * @return the Builder
      */
-    public Builder applicationMetaModel(ApplicationMetaModel applicationMetaModel) {
-      this.applicationMetaModel = applicationMetaModel;
+    public Builder metaModel(MetaModel metaModel) {
+      this.metaModel = metaModel;
       return this;
     }
 

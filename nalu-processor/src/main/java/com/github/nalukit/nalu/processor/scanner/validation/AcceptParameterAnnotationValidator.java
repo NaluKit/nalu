@@ -15,7 +15,6 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
-import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
@@ -23,8 +22,6 @@ import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.ExecutableElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,13 +30,13 @@ public class AcceptParameterAnnotationValidator {
 
   List<Element> annotatedElements;
 
-  private ProcessorUtils        processorUtils;
+  private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment      roundEnvironment;
+  private RoundEnvironment roundEnvironment;
 
-  private ControllerModel       controllerModel;
+  private ControllerModel controllerModel;
 
   @SuppressWarnings("unused")
   private AcceptParameterAnnotationValidator() {
@@ -65,29 +62,29 @@ public class AcceptParameterAnnotationValidator {
 
   public void validate()
       throws ProcessorException {
-//    for (Element annotatedElement : this.annotatedElements) {
-//      // @AcceptParameter can only be used on a method
-//      if (!ElementKind.METHOD.equals(annotatedElement.getKind())) {
-//        throw new ProcessorException("Nalu-Processor: @AcceptParameter can only be used with a method");
-//      }
-//      ExecutableElement executableElement = (ExecutableElement) annotatedElement;
-//      if (executableElement.getParameters()
-//                           .size() != 1) {
-//        throw new ProcessorException("Nalu-Processor: @AcceptParameter can only be used with a method that has one parameter");
-//      }
-//      if (!executableElement.getParameters()
-//                            .get(0)
-//                            .asType()
-//                            .toString()
-//                            .equals("java.lang.String")) {
-//        throw new ProcessorException("Nalu-Processor: @AcceptParameter can only be used with a method that has one parameter and the parameter type is String");
-//      }
-//      AcceptParameter annotation = annotatedElement.getAnnotation(AcceptParameter.class);
-//      if (!this.controllerModel.getParameters()
-//                               .contains(annotation.value())) {
-//        throw new ProcessorException("Nalu-Processor: @AcceptParameter refering a variable which is not in the controller's route");
-//      }
-//    }
+    //    for (Element annotatedElement : this.annotatedElements) {
+    //      // @AcceptParameter can only be used on a method
+    //      if (!ElementKind.METHOD.equals(annotatedElement.getKind())) {
+    //        throw new ProcessorException("Nalu-Processor: @AcceptParameter can only be used with a method");
+    //      }
+    //      ExecutableElement executableElement = (ExecutableElement) annotatedElement;
+    //      if (executableElement.getParameters()
+    //                           .size() != 1) {
+    //        throw new ProcessorException("Nalu-Processor: @AcceptParameter can only be used with a method that has one parameter");
+    //      }
+    //      if (!executableElement.getParameters()
+    //                            .get(0)
+    //                            .asType()
+    //                            .toString()
+    //                            .equals("java.lang.String")) {
+    //        throw new ProcessorException("Nalu-Processor: @AcceptParameter can only be used with a method that has one parameter and the parameter type is String");
+    //      }
+    //      AcceptParameter annotation = annotatedElement.getAnnotation(AcceptParameter.class);
+    //      if (!this.controllerModel.getParameters()
+    //                               .contains(annotation.value())) {
+    //        throw new ProcessorException("Nalu-Processor: @AcceptParameter refering a variable which is not in the controller's route");
+    //      }
+    //    }
   }
 
   private List<String> getParameterFromRoute(String route) {
@@ -102,11 +99,11 @@ public class AcceptParameterAnnotationValidator {
 
     ProcessingEnvironment processingEnvironment;
 
-    RoundEnvironment      roundEnvironment;
+    RoundEnvironment roundEnvironment;
 
-    List<Element>         annotatedElements;
+    List<Element> annotatedElements;
 
-    ControllerModel       controllerModel;
+    ControllerModel controllerModel;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;

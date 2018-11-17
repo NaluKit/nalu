@@ -18,20 +18,11 @@ package com.github.nalukit.nalu.processor.consistence.illegalError;
 
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
-import com.github.nalukit.nalu.client.application.annotation.Shell;
-import com.github.nalukit.nalu.client.application.annotation.Shells;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import com.github.nalukit.nalu.processor.common.MockShell;
 
 @Application(startRoute = "/mockShell/route03",
              context = MockContext.class,
              routeError = "/errorShellIllegal/error")
-@Shells({ @Shell(name = "mockShell",
-                 shell = MockShell.class),
-          @Shell(name = "mockShell02",
-                 shell = MockShell.class),
-          @Shell(name = "mockShell03",
-                 shell = MockShell.class)})
 public interface IllegalErrorRouteApplication
     extends IsApplication {
 }

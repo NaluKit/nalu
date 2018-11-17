@@ -28,19 +28,19 @@ import java.util.ArrayList;
 import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
-public class FilterTest {
+public class FiltersTest {
 
-//  @Test
-//  public void testFiltersAnnotationOnAMethod() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(new ArrayList<JavaFileObject>() {
-//                                       {
-//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/filter/filterAnnotationOnAMethod/FilterAnnotationOnAMethod.java"));
-//                                       }
-//                                     });
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("Nalu-Processor: @Filters can only be used on a type (interface)");
-//  }
+  @Test
+  public void testFiltersAnnotationOnAMethod() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/filter/filterAnnotationOnAMethod/FilterAnnotationOnAMethod.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("Nalu-Processor: @Filters can only be used on a type (interface)");
+  }
 }

@@ -18,8 +18,10 @@ package com.github.nalukit.nalu.client.application.annotation;
 
 import com.github.nalukit.nalu.client.component.IsShell;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * This annotation defines a viewport/shell of a Nalu application.
@@ -35,8 +37,6 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Shell {
 
-  String name();
-
-  Class<? extends IsShell> shell();
+  String value();
 
 }

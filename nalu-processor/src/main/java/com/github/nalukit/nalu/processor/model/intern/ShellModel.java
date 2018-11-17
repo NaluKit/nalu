@@ -22,10 +22,14 @@ public class ShellModel {
 
   private ClassNameModel shell;
 
+  private ClassNameModel context;
+
   public ShellModel(String name,
-                    ClassNameModel shell) {
+                    ClassNameModel shell,
+                    ClassNameModel context) {
     this.name = name;
     this.shell = shell;
+    this.context = context;
   }
 
   public String getName() {
@@ -42,5 +46,13 @@ public class ShellModel {
 
   public void setShell(ClassNameModel shell) {
     this.shell = shell;
+  }
+
+  public ClassNameModel getContext() {
+    return context;
+  }
+
+  public void setContext(ClassNameModel context) {
+    this.context = context;
   }
 }

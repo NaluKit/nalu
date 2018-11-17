@@ -16,27 +16,20 @@
 
 package com.github.nalukit.nalu.client.plugin.annotation;
 
+import com.github.nalukit.nalu.client.internal.plugin.NoPluginLoader;
+import com.github.nalukit.nalu.client.plugin.AbstractPluginLoader;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Marks a project as plugin.
- *
  * @author Frank Hossfeld
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Plugin {
 
-  /**
-   * Tells the calling app, which Nalu plugin is required to use
-   * this plugin.
-   *
-   * @return the required plugin: ELEMENTAL2 needs Plugin-ELemantal2, GWT nedds Plugin-GWT
-   */
-  NaluPlugin requiredPlugin();
+  String name();
 
-  enum NaluPlugin {
-    ELEMENTAL2,
-    GWT;
-  }
+  Class<? extends AbstractPluginLoader<?>> loader() default NoPluginLoader.class;
+
 }

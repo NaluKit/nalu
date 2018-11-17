@@ -16,22 +16,23 @@
 
 package com.github.nalukit.nalu.processor.model;
 
-import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
-import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
-import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.ShellModel;
+import com.github.nalukit.nalu.processor.model.intern.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ApplicationMetaModel {
+public class MetaModel {
 
   private String generateToPackage;
 
   private ClassNameModel application;
 
   private ClassNameModel loader;
+
+  private List<ClassNameModel> plugins;
+
+  private PluginModel pluginModel;
 
   private List<ShellModel> shells;
 
@@ -40,6 +41,8 @@ public class ApplicationMetaModel {
   private String startRoute;
 
   private String routeError;
+
+  private boolean hasPluginsAnnotation;
 
   private boolean havingDebugAnnotation;
 
@@ -59,7 +62,8 @@ public class ApplicationMetaModel {
 
   private List<CompositeModel> compositeModels;
 
-  public ApplicationMetaModel() {
+  public MetaModel() {
+    this.plugins = new ArrayList<>();
     this.shells = new ArrayList<>();
     this.routes = new ArrayList<>();
     this.filters = new ArrayList<>();
@@ -67,24 +71,12 @@ public class ApplicationMetaModel {
     this.compositeModels = new ArrayList<>();
   }
 
-  public ApplicationMetaModel(String generateToPackage,
-                              String application,
-                              String loader,
-                              String context,
-                              String startRoute,
-                              String routeError) {
-    this.generateToPackage = generateToPackage;
-    this.application = new ClassNameModel(application);
-    this.loader = new ClassNameModel(loader);
-    this.context = new ClassNameModel(context);
-    this.startRoute = startRoute;
-    this.routeError = routeError;
+  public PluginModel getPluginModel() {
+    return pluginModel;
+  }
 
-    this.shells = new ArrayList<>();
-    this.routes = new ArrayList<>();
-    this.filters = new ArrayList<>();
-    this.handlers = new ArrayList<>();
-    this.compositeModels = new ArrayList<>();
+  public void setPluginModel(PluginModel pluginModel) {
+    this.pluginModel = pluginModel;
   }
 
   public ClassNameModel getApplication() {
@@ -162,13 +154,13 @@ public class ApplicationMetaModel {
     this.routes = routes;
   }
 
-  public String getHasFiltersAnnotation() {
-    return hasFiltersAnnotation;
-  }
-
-  public void setHasFiltersAnnotation(String hasFiltersAnnotation) {
-    this.hasFiltersAnnotation = hasFiltersAnnotation;
-  }
+  //  public String getHasFiltersAnnotation() {
+  //    return hasFiltersAnnotation;
+  //  }
+  //
+  //  public void setHasFiltersAnnotation(String hasFiltersAnnotation) {
+  //    this.hasFiltersAnnotation = hasFiltersAnnotation;
+  //  }
 
   public List<ClassNameModel> getFilters() {
     return filters;
@@ -206,12 +198,24 @@ public class ApplicationMetaModel {
     return compositeModels;
   }
 
-  public void setCompositeModels(List<CompositeModel> compositeModels) {
-    this.compositeModels = compositeModels;
-  }
-
   public List<ShellModel> getShells() {
     return shells;
+  }
+
+  public boolean hasPluginsAnnotation() {
+    return hasPluginsAnnotation;
+  }
+
+  public void setHasPluginsAnnotation(boolean hasPluginsAnnotation) {
+    this.hasPluginsAnnotation = hasPluginsAnnotation;
+  }
+
+  public List<ClassNameModel> getPlugins() {
+    return plugins;
+  }
+
+  public void setPlugins(List<ClassNameModel> plugins) {
+    this.plugins = plugins;
   }
 
   public String getShellOfStartRoute() {

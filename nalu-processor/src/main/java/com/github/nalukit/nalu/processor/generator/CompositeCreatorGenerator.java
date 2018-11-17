@@ -23,7 +23,7 @@ import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
 import com.github.nalukit.nalu.client.internal.application.IsCompositeCreator;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
-import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
+import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.squareup.javapoet.*;
 import org.gwtproject.event.shared.SimpleEventBus;
@@ -34,7 +34,7 @@ import java.io.IOException;
 
 public class CompositeCreatorGenerator {
 
-  private ApplicationMetaModel applicationMetaModel;
+  private MetaModel metaModel;
 
   private ProcessingEnvironment processingEnvironment;
 
@@ -45,7 +45,7 @@ public class CompositeCreatorGenerator {
   }
 
   private CompositeCreatorGenerator(Builder builder) {
-    this.applicationMetaModel = builder.applicationMetaModel;
+    this.metaModel = builder.metaModel;
     this.processingEnvironment = builder.processingEnvironment;
     this.compositeModel = builder.compositeModel;
   }
@@ -59,8 +59,8 @@ public class CompositeCreatorGenerator {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(compositeModel.getProvider()
                                                                     .getSimpleName() + ProcessorConstants.CREATOR_IMPL)
                                         .superclass(ParameterizedTypeName.get(ClassName.get(AbstractCompositeCreator.class),
-                                                                              applicationMetaModel.getContext()
-                                                                                                  .getTypeName()))
+                                                                              compositeModel.getContext()
+                                                                                            .getTypeName()))
                                         .addModifiers(Modifier.PUBLIC,
                                                       Modifier.FINAL)
                                         .addSuperinterface(ClassName.get(IsCompositeCreator.class));
@@ -70,8 +70,8 @@ public class CompositeCreatorGenerator {
                                        .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
                                                                            "router")
                                                                   .build())
-                                       .addParameter(ParameterSpec.builder(applicationMetaModel.getContext()
-                                                                                               .getTypeName(),
+                                       .addParameter(ParameterSpec.builder(compositeModel.getContext()
+                                                                                         .getTypeName(),
                                                                            "context")
                                                                   .build())
                                        .addParameter(ParameterSpec.builder(ClassName.get(SimpleEventBus.class),
@@ -93,7 +93,8 @@ public class CompositeCreatorGenerator {
                                                               ClassName.get(StringBuilder.class),
                                                               ClassName.get(StringBuilder.class))
                                                 .addStatement("sb01.append(\"compositeModel >>$L<< --> will be created\")",
-                                                              compositeModel.getProvider().getClassName())
+                                                              compositeModel.getProvider()
+                                                                            .getClassName())
                                                 .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                                                               ClassName.get(ClientLogger.class))
                                                 .addStatement("$T compositeModel = new $T()",
@@ -236,7 +237,7 @@ public class CompositeCreatorGenerator {
 
   public static final class Builder {
 
-    ApplicationMetaModel applicationMetaModel;
+    MetaModel metaModel;
 
     ProcessingEnvironment processingEnvironment;
 
@@ -245,11 +246,11 @@ public class CompositeCreatorGenerator {
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param applicationMetaModel meta data model of the eventbus
+     * @param metaModel meta data model of the eventbus
      * @return the Builder
      */
-    public Builder applicationMetaModel(ApplicationMetaModel applicationMetaModel) {
-      this.applicationMetaModel = applicationMetaModel;
+    public Builder metaModel(MetaModel metaModel) {
+      this.metaModel = metaModel;
       return this;
     }
 

@@ -14,19 +14,20 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.application.annotation;
+package com.github.nalukit.nalu.processor.handler.handlerAnnotationOnAClass;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import com.github.nalukit.nalu.client.handler.AbstractHandler;
+import com.github.nalukit.nalu.client.handler.annotation.Handler;
+import com.github.nalukit.nalu.processor.common.MockContext;
 
-/**
- * Defines the viewports of the application.
- *
- * @author Frank Hossfeld
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Shells {
+@Handler
+public class HandlerAnnotationOnAClass
+    extends AbstractHandler<MockContext> {
 
-  Shell[] value();
+  public HandlerAnnotationOnAClass() {
+  }
 
+  @Override
+  public void bind() {
+  }
 }

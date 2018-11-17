@@ -17,8 +17,7 @@ package com.github.nalukit.nalu.processor.scanner.validation;
 
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
-import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
-import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
+import com.github.nalukit.nalu.processor.model.MetaModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -33,7 +32,7 @@ public class ConsistenceValidator {
 
   private RoundEnvironment roundEnvironment;
 
-  private ApplicationMetaModel applicationMetaModel;
+  private MetaModel metaModel;
 
   @SuppressWarnings("unused")
   private ConsistenceValidator() {
@@ -42,7 +41,7 @@ public class ConsistenceValidator {
   private ConsistenceValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.roundEnvironment = builder.roundEnvironment;
-    this.applicationMetaModel = builder.applicationMetaModel;
+    this.metaModel = builder.metaModel;
 
     setUp();
   }
@@ -67,15 +66,15 @@ public class ConsistenceValidator {
 
   private void validateErrorRoute()
       throws ProcessorException {
-//    Optional<String> optionalErrorRoute = this.applicationMetaModel.getController()
-//                                                                   .stream()
-//                                                                   .map(m -> m.getRoute())
-//                                                                   .filter(s -> matchRoute(s,
-//                                                                                           this.applicationMetaModel.getRouteError()))
-//                                                                   .findFirst();
-//    if (!optionalErrorRoute.isPresent()) {
-//      throw new ProcessorException("Nalu-Processor: The errorRoute >>" + this.applicationMetaModel.getRouteError() + "<< does not exist!");
-//    }
+    //    Optional<String> optionalErrorRoute = this.metaModel.getController()
+    //                                                                   .stream()
+    //                                                                   .map(m -> m.getRoute())
+    //                                                                   .filter(s -> matchRoute(s,
+    //                                                                                           this.metaModel.getRouteError()))
+    //                                                                   .findFirst();
+    //    if (!optionalErrorRoute.isPresent()) {
+    //      throw new ProcessorException("Nalu-Processor: The errorRoute >>" + this.metaModel.getRouteError() + "<< does not exist!");
+    //    }
   }
 
   private boolean matchRoute(String controllerRoute,
@@ -142,22 +141,22 @@ public class ConsistenceValidator {
 
   private void validateStartRoute()
       throws ProcessorException {
-//    Optional<String> optionalShell = this.applicationMetaModel.getShells()
-//                                                              .stream()
-//                                                              .map(m -> m.getName())
-//                                                              .filter(s -> s.equals(this.applicationMetaModel.getShellOfStartRoute()))
-//                                                              .findFirst();
-//    if (!optionalShell.isPresent()) {
-//      throw new ProcessorException("Nalu-Processor: The shell of the startRoute >>" + this.applicationMetaModel.getShellOfStartRoute() + "<< does not exist!");
-//    }
-//
-//    Optional<ControllerModel> optionalRoute = this.applicationMetaModel.getController()
-//                                                                       .stream()
-//                                                                       .filter(m -> m.match(this.applicationMetaModel.getStartRoute()))
-//                                                                       .findAny();
-//    if (!optionalRoute.isPresent()) {
-//      throw new ProcessorException("Nalu-Processor: The route of the startRoute >>" + this.applicationMetaModel.getStartRoute() + "<< does not exist!");
-//    }
+    //    Optional<String> optionalShell = this.metaModel.getShells()
+    //                                                              .stream()
+    //                                                              .map(m -> m.getName())
+    //                                                              .filter(s -> s.equals(this.metaModel.getShellOfStartRoute()))
+    //                                                              .findFirst();
+    //    if (!optionalShell.isPresent()) {
+    //      throw new ProcessorException("Nalu-Processor: The shell of the startRoute >>" + this.metaModel.getShellOfStartRoute() + "<< does not exist!");
+    //    }
+    //
+    //    Optional<ControllerModel> optionalRoute = this.metaModel.getController()
+    //                                                                       .stream()
+    //                                                                       .filter(m -> m.match(this.metaModel.getStartRoute()))
+    //                                                                       .findAny();
+    //    if (!optionalRoute.isPresent()) {
+    //      throw new ProcessorException("Nalu-Processor: The route of the startRoute >>" + this.metaModel.getStartRoute() + "<< does not exist!");
+    //    }
   }
 
   public static final class Builder {
@@ -166,7 +165,7 @@ public class ConsistenceValidator {
 
     RoundEnvironment roundEnvironment;
 
-    ApplicationMetaModel applicationMetaModel;
+    MetaModel metaModel;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
@@ -178,8 +177,8 @@ public class ConsistenceValidator {
       return this;
     }
 
-    public Builder applicationMetaModel(ApplicationMetaModel applicationMetaModel) {
-      this.applicationMetaModel = applicationMetaModel;
+    public Builder metaModel(MetaModel metaModel) {
+      this.metaModel = metaModel;
       return this;
     }
 
