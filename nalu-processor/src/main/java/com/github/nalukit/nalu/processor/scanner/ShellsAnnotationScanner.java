@@ -20,10 +20,10 @@ import com.github.nalukit.nalu.client.application.annotation.Shell;
 import com.github.nalukit.nalu.client.application.annotation.Shells;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
+import com.github.nalukit.nalu.processor.generator.ShellCreatorGenerator;
 import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.ShellModel;
-import com.github.nalukit.nalu.processor.scanner.validation.FiltersAnnotationValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.ShellAnnotationValidator;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -85,6 +85,13 @@ public class ShellsAnnotationScanner {
         this.applicationMetaModel.getShells()
                                  .add(new ShellModel(shell.name(),
                                                      new ClassNameModel(getShellTypeElement(shell).toString())));
+        // this is a good place to generate the ShellCreator
+        ShellCreatorGenerator.builder()
+                             .processingEnvironment(this.processingEnvironment)
+                             .applicationMetaModel(this.applicationMetaModel)
+                             .shell(new ClassNameModel(getShellTypeElement(shell).toString()))
+                             .build()
+                             .generate();
       }
     }
     return this.applicationMetaModel;

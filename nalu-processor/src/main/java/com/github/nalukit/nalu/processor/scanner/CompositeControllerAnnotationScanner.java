@@ -22,11 +22,12 @@ import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import com.github.nalukit.nalu.client.component.annotation.CompositeController;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
+import com.github.nalukit.nalu.processor.generator.CompositeCreatorGenerator;
 import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
+import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterAcceptor;
-import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.scanner.validation.AcceptParameterAnnotationValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.CompositeControllerAnnotationValidator;
 
@@ -71,9 +72,9 @@ public class CompositeControllerAnnotationScanner {
       throws ProcessorException {
     // handle CompositeController-annotation
     for (Element element : roundEnvironment.getElementsAnnotatedWith(CompositeController.class)) {
-      // handle composite
+      // handle compositeModel
       CompositeModel compositeModel = handleComposite(roundEnvironment,
-                                                     element);
+                                                      element);
       // handle AcceptParameter annotation
       handleAcceptParameters(roundEnvironment,
                              element,
@@ -81,12 +82,19 @@ public class CompositeControllerAnnotationScanner {
       // add model to configuration ...
       this.applicationMetaModel.getCompositeModels()
                                .add(compositeModel);
+      // generate CompositeCreator
+      CompositeCreatorGenerator.builder()
+                               .processingEnvironment(this.processingEnvironment)
+                               .applicationMetaModel(this.applicationMetaModel)
+                               .compositeModel(compositeModel)
+                               .build()
+                               .generate();
     }
     return this.applicationMetaModel;
   }
 
   private CompositeModel handleComposite(RoundEnvironment roundEnvironment,
-                                        Element element)
+                                         Element element)
       throws ProcessorException {
     // do validation
     CompositeControllerAnnotationValidator.builder()
@@ -185,9 +193,9 @@ public class CompositeControllerAnnotationScanner {
     // check generic!
     if (!componentInterfaceTypeElement.toString()
                                       .equals(result[0].toString())) {
-      throw new ProcessorException("Nalu-Processor: composite controller >>" +
-                                       element.toString() +
-                                       "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
+      throw new ProcessorException("Nalu-Processor: compositeModel controller >>" +
+                                   element.toString() +
+                                   "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
     }
     return true;
   }
@@ -200,7 +208,7 @@ public class CompositeControllerAnnotationScanner {
     List<Element> annotatedElements = this.processorUtils.getMethodFromTypeElementAnnotatedWith(this.processingEnvironment,
                                                                                                 typeElement,
                                                                                                 AcceptParameter.class);
-    // get all controllers, that use the composite (for validation)
+    // get all controllers, that use the compositeModel (for validation)
     for (ControllerModel model : this.getControllerUsingComposite(element)) {
       // validate
       AcceptParameterAnnotationValidator.builder()
@@ -306,8 +314,8 @@ public class CompositeControllerAnnotationScanner {
                                controllerModel.getComposites()
                                               .stream()
                                               .filter(controllerCompositeModel -> element.toString()
-                                                                                        .equals(controllerCompositeModel.getComposite()
-                                                                                                                       .getClassName()))
+                                                                                         .equals(controllerCompositeModel.getComposite()
+                                                                                                                         .getClassName()))
                                               .map(controllerCompositeModel -> controllerModel)
                                               .collect(Collectors.toList())
                                               .forEach(models::add);

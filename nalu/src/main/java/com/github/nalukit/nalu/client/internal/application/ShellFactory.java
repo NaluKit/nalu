@@ -16,8 +16,6 @@
 
 package com.github.nalukit.nalu.client.internal.application;
 
-import com.github.nalukit.nalu.client.component.IsShell;
-import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.HashMap;
@@ -30,7 +28,7 @@ public class ShellFactory {
   private static ShellFactory instance;
 
   /* map of components (key: name of class, Value: ShellCreator */
-  private Map<String, ShellCreator> shellFactory;
+  private Map<String, IsShellCreator> shellFactory;
 
   private ShellFactory() {
     this.shellFactory = new HashMap<>();
@@ -44,7 +42,7 @@ public class ShellFactory {
   }
 
   public void registerShell(String shellName,
-                            ShellCreator creator) {
+                            IsShellCreator creator) {
     this.shellFactory.put(shellName,
                           creator);
   }

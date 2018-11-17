@@ -285,27 +285,29 @@ public final class Router {
                                                            compositeForController.size());
         compositeForController.forEach(s -> {
           try {
-            AbstractCompositeController<?, ?, ?> composite = CompositeFactory.get()
-                                                                             .getComposite(s.getComposite(),
-                                                                                           hashResult.getParameterValues()
-                                                                                                     .toArray(new String[0]));
-            if (composite == null) {
+            CompositeInstance compositeInstance = CompositeFactory.get()
+                                                                  .getComposite(s.getComposite(),
+                                                                                hashResult.getParameterValues()
+                                                                                          .toArray(new String[0]));
+            if (compositeInstance == null) {
               RouterLogger.logCompositeNotFound(controllerInstance.getController()
                                                                   .getClass()
                                                                   .getCanonicalName(),
                                                 s.getCompositeName());
 
             } else {
-              compositeControllers.add(composite);
+              compositeControllers.add(compositeInstance.getComposite());
               // inject router into composite
-              composite.setRouter(this);
+              compositeInstance.getComposite()
+                               .setRouter(this);
               // inject composite into controller
               controllerInstance.getController()
                                 .getComposites()
                                 .put(s.getCompositeName(),
-                                     composite);
-              RouterLogger.logCompositeControllerInjectedInController(composite.getClass()
-                                                                               .getCanonicalName(),
+                                     compositeInstance.getComposite());
+              RouterLogger.logCompositeControllerInjectedInController(compositeInstance.getComposite()
+                                                                                       .getClass()
+                                                                                       .getCanonicalName(),
                                                                       controllerInstance.getController()
                                                                                         .getClass()
                                                                                         .getCanonicalName());

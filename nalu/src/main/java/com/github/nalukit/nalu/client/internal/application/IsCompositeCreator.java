@@ -22,9 +22,9 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
 @FunctionalInterface
-public interface CompositeCreator {
+public interface IsCompositeCreator {
 
-  AbstractCompositeController<?, ?, ?> create(String... params)
+  CompositeInstance create(String... params)
       throws RoutingInterceptionException;
 
 }

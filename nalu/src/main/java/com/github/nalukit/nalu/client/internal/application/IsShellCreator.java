@@ -21,7 +21,7 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
 @FunctionalInterface
-public interface ShellCreator {
+public interface IsShellCreator {
 
   ShellInstance create();
 

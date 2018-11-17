@@ -35,7 +35,7 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
   @Override
   public void loadShellFactory() {
     // create ShellCreator for: com.github.nalukit.nalu.processor.common.MockShell
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockShell", new ShellCreator() {
+    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockShell", new IsShellCreator() {
       @Override
       public ShellInstance create() {
         StringBuilder sb01 = new StringBuilder();

@@ -16,7 +16,6 @@
 
 package com.github.nalukit.nalu.client.internal.application;
 
-import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
@@ -30,7 +29,7 @@ public class CompositeFactory {
   private static CompositeFactory instance;
 
   /* map of components (key: name of class, Value: CompositeCreatorF */
-  private Map<String, CompositeCreator> compositeFactory;
+  private Map<String, IsCompositeCreator> compositeFactory;
 
   private CompositeFactory() {
     this.compositeFactory = new HashMap<>();
@@ -44,13 +43,13 @@ public class CompositeFactory {
   }
 
   public void registerComposite(String name,
-                                CompositeCreator creator) {
+                                IsCompositeCreator creator) {
     this.compositeFactory.put(name,
                               creator);
   }
 
-  public AbstractCompositeController<?, ?, ?> getComposite(String composite,
-                                                           String... parms)
+  public CompositeInstance getComposite(String composite,
+                                        String... parms)
       throws RoutingInterceptionException {
     if (this.compositeFactory.containsKey(composite)) {
       return this.compositeFactory.get(composite)

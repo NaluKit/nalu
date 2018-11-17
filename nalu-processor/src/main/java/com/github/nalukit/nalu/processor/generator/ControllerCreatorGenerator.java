@@ -33,15 +33,10 @@ import org.gwtproject.event.shared.SimpleEventBus;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
 
 public class ControllerCreatorGenerator {
 
   private ApplicationMetaModel applicationMetaModel;
-
-  private TypeSpec.Builder typeSpec;
 
   private ProcessingEnvironment processingEnvironment;
 
@@ -53,7 +48,6 @@ public class ControllerCreatorGenerator {
 
   private ControllerCreatorGenerator(Builder builder) {
     this.applicationMetaModel = builder.applicationMetaModel;
-    this.typeSpec = builder.typeSpec;
     this.processingEnvironment = builder.processingEnvironment;
     this.controllerModel = builder.controllerModel;
   }
@@ -258,52 +252,9 @@ public class ControllerCreatorGenerator {
     }
   }
 
-  private List<ControllerModel> getAllComponents(List<ControllerModel> routes) {
-    List<ControllerModel> models = new ArrayList<>();
-    routes.forEach(route -> {
-      if (!contains(models,
-                    route)) {
-        models.add(route);
-      }
-    });
-    return models;
-  }
-
-  private String createRoute(String route) {
-    if (route.startsWith("/")) {
-      return route;
-    } else {
-      return "/" + route;
-    }
-  }
-
-  private String createParaemter(List<String> parameters) {
-    StringBuilder sb = new StringBuilder();
-    IntStream.range(0,
-                    parameters.size())
-             .forEach(i -> {
-               sb.append("\"")
-                 .append(parameters.get(i))
-                 .append("\"");
-               if (i != parameters.size() - 1) {
-                 sb.append(", ");
-               }
-             });
-    return sb.toString();
-  }
-
-  private boolean contains(List<ControllerModel> models,
-                           ControllerModel controllerModel) {
-    return models.stream()
-                 .anyMatch(model -> model.getProvider()
-                                         .equals(controllerModel.getProvider()));
-  }
-
   public static final class Builder {
 
     ApplicationMetaModel applicationMetaModel;
-
-    TypeSpec.Builder typeSpec;
 
     ProcessingEnvironment processingEnvironment;
 
@@ -317,17 +268,6 @@ public class ControllerCreatorGenerator {
      */
     public Builder applicationMetaModel(ApplicationMetaModel applicationMetaModel) {
       this.applicationMetaModel = applicationMetaModel;
-      return this;
-    }
-
-    /**
-     * Set the typeSpec of the currently generated eventBus
-     *
-     * @param typeSpec ttype spec of the crruent eventbus
-     * @return the Builder
-     */
-    Builder typeSpec(TypeSpec.Builder typeSpec) {
-      this.typeSpec = typeSpec;
       return this;
     }
 

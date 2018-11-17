@@ -4,13 +4,8 @@ import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
-import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
-import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
-import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
-import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
-import com.github.nalukit.nalu.client.internal.application.ShellCreator;
-import com.github.nalukit.nalu.client.internal.application.ShellFactory;
-import com.github.nalukit.nalu.client.internal.application.ShellInstance;
+import com.github.nalukit.nalu.client.internal.application.*;
+import com.github.nalukit.nalu.client.internal.application.IsShellCreator;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.processor.common.MockContext;
@@ -41,7 +36,7 @@ public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplica
   @Override
   public void loadShellFactory() {
     // create ShellCreator for: com.github.nalukit.nalu.processor.common.MockShell
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockShell", new ShellCreator() {
+    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockShell", new IsShellCreator() {
       @Override
       public ShellInstance create() {
         StringBuilder sb01 = new StringBuilder();
