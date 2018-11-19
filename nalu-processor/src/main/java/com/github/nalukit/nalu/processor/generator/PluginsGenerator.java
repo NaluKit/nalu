@@ -74,6 +74,8 @@ public class PluginsGenerator {
                                            .addStatement("$T.get().logSimple(sb01.toString(), 1)",
                                                          ClassName.get(ClientLogger.class))
 
+                                           .addStatement("sb01 = new $T()",
+                                                         ClassName.get(StringBuilder.class))
                                            .addStatement("sb01.append(\"create plugin >>$L<<\")",
                                                          pluginModel.getClassName())
                                            .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
@@ -84,51 +86,71 @@ public class PluginsGenerator {
                                                          pluginInstanceName,
                                                          ClassName.get(pluginModel.getPackage(),
                                                                        pluginModel.getSimpleName() + ProcessorConstants.PLUGIN_IMPL))
+                                           .addStatement("sb01 = new $T()",
+                                                         ClassName.get(StringBuilder.class))
                                            .addStatement("sb01.append(\"plugin >>$L<< created\")",
                                                          pluginModel.getClassName())
                                            .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                          ClassName.get(ClientLogger.class))
 
+                                           .addStatement("sb01 = new $T()",
+                                                         ClassName.get(StringBuilder.class))
                                            .addStatement("sb01.append(\"call >>loadPlugin<<\")")
                                            .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                          ClassName.get(ClientLogger.class))
                                            .addStatement("$L.loadPlugin()",
                                                          pluginInstanceName)
+                                           .addStatement("sb01 = new $T()",
+                                                         ClassName.get(StringBuilder.class))
                                            .addStatement("sb01.append(\"plugin >>$L<< loaded\")",
                                                          pluginInstanceName)
                                            .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                          ClassName.get(ClientLogger.class))
 
+                                           .addStatement("sb01 = new $T()",
+                                                         ClassName.get(StringBuilder.class))
                                            .addStatement("sb01.append(\"call >>getShellConfigs<< and add to shell config list\")")
                                            .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                          ClassName.get(ClientLogger.class))
                                            .addStatement("super.shellConfiguration.getShells().addAll($L.getShellConfigs())",
                                                          pluginInstanceName)
+                                           .addStatement("sb01 = new $T()",
+                                                         ClassName.get(StringBuilder.class))
                                            .addStatement("sb01.append(\"called >>getShellConfigs<<\")",
                                                          pluginInstanceName)
                                            .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                          ClassName.get(ClientLogger.class))
 
+                                           .addStatement("sb01 = new $T()",
+                                                         ClassName.get(StringBuilder.class))
                                            .addStatement("sb01.append(\"call >>getRouteConfigs<< and add to route config list\")")
                                            .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                          ClassName.get(ClientLogger.class))
                                            .addStatement("super.routerConfiguration.getRouters().addAll($L.getRouteConfigs())",
                                                          pluginInstanceName)
+                                           .addStatement("sb01 = new $T()",
+                                                         ClassName.get(StringBuilder.class))
                                            .addStatement("sb01.append(\"called >>getRouteConfigs<<\")",
                                                          pluginInstanceName)
                                            .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                          ClassName.get(ClientLogger.class))
 
+                                           .addStatement("sb01 = new $T()",
+                                                         ClassName.get(StringBuilder.class))
                                            .addStatement("sb01.append(\"call >>getCompositeReferences<< and add to composite controller references\")")
                                            .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                          ClassName.get(ClientLogger.class))
                                            .addStatement("super.compositeControllerReferences.addAll($L.getCompositeReferences())",
                                                          pluginInstanceName)
+                                           .addStatement("sb01 = new $T()",
+                                                         ClassName.get(StringBuilder.class))
                                            .addStatement("sb01.append(\"called >>getCompositeReferences<<\")",
                                                          pluginInstanceName)
                                            .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                          ClassName.get(ClientLogger.class))
 
+                                           .addStatement("sb01 = new $T()",
+                                                         ClassName.get(StringBuilder.class))
                                            .addStatement("sb01.append(\"plugin >>$L<< loaded\")",
                                                          pluginModel.getClassName())
                                            .addStatement("$T.get().logSimple(sb01.toString(), 2)",
