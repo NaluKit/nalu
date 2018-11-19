@@ -280,7 +280,7 @@ public class PluginGenerator {
                                                                 .addAnnotation(Override.class)
                                                                 .returns(ParameterizedTypeName.get(ClassName.get(List.class),
                                                                                                    ClassName.get(ShellConfig.class)))
-                                                                .addStatement("$T<$T> list = new $T()",
+                                                                .addStatement("$T<$T> list = new $T<>()",
                                                                               ClassName.get(List.class),
                                                                               ClassName.get(ShellConfig.class),
                                                                               ClassName.get(ArrayList.class));
@@ -301,7 +301,7 @@ public class PluginGenerator {
                                                                 .addAnnotation(Override.class)
                                                                 .returns(ParameterizedTypeName.get(ClassName.get(List.class),
                                                                                                    ClassName.get(RouteConfig.class)))
-                                                                .addStatement("$T<$T> list = new $T()",
+                                                                .addStatement("$T<$T> list = new $T<>()",
                                                                               ClassName.get(List.class),
                                                                               ClassName.get(RouteConfig.class),
                                                                               ClassName.get(ArrayList.class));
@@ -324,7 +324,7 @@ public class PluginGenerator {
                                                                 .addAnnotation(Override.class)
                                                                 .returns(ParameterizedTypeName.get(ClassName.get(List.class),
                                                                                                    ClassName.get(CompositeControllerReference.class)))
-                                                                .addStatement("$T<$T> list = new $T()",
+                                                                .addStatement("$T<$T> list = new $T<>()",
                                                                               ClassName.get(List.class),
                                                                               ClassName.get(CompositeControllerReference.class),
                                                                               ClassName.get(ArrayList.class));
