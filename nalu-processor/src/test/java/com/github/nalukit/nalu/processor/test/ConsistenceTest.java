@@ -46,7 +46,7 @@ public class ConsistenceTest {
 //    CompilationSubject.assertThat(compilation)
 //                      .hadErrorContaining("The shell of the startRoute >>MockShell<< does not exist!");
 //  }
-//
+
 //  @Test
 //  public void testStarRouteDoesNotExists() {
 //    Compilation compilation = javac().withProcessors(new NaluProcessor())

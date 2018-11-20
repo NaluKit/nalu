@@ -64,20 +64,16 @@ public class ShellAnnotationScanner {
   public ShellModel scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
     // handle Shells-annotation
-    Shell annotation = this.shellElement.getAnnotation(Shell.class);
+    Shell shell = this.shellElement.getAnnotation(Shell.class);
     // get context!
     String context = this.getContextType(shellElement);
-    if (Objects.isNull(context)) {
-      throw new ProcessorException("Nalu-Processor: shell >>" + shellElement.toString() + "<< does not have a context generic!");
-    }
     // add shell model
-    return new ShellModel(annotation.value(),
+    return new ShellModel(shell.value(),
                           new ClassNameModel(shellElement.toString()),
                           new ClassNameModel(context));
   }
 
-  private String getContextType(Element element)
-      throws ProcessorException {
+  private String getContextType(Element element){
     final TypeMirror[] result = { null };
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
                                                                 element.asType(),

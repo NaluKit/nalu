@@ -23,6 +23,6 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 @Application(startRoute = "/mockShell/route01",
              context = MockContext.class,
              routeError = "/mockShell/route01")
-public interface ControllerAnnotationWithoutParameterOK
+public interface CompositeIsNotAClass
     extends IsApplication {
 }

@@ -21,8 +21,7 @@ import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.MockLogger;
 
-@Application(startShell = "mockShell",
-             startRoute = "/search",
+@Application(startRoute = "/search",
              context = MockContext.class,
              routeError = "/errorShell/error")
 @Debug(logger = MockLogger.class)

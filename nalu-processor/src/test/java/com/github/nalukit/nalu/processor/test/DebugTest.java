@@ -44,20 +44,20 @@ public class DebugTest {
                       .hadErrorContaining("@Debug can only be used on a type (interface)");
   }
 
-//  @Test
-//  public void testDebugAnnotationOnAClass() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(new ArrayList<JavaFileObject>() {
-//                                       {
-//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationOnAClass/DebugAnnotationOnAClass.java"));
-//                                       }
-//                                     });
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("Nalu-Processor: @Application annotated must be used with an interface");
-//  }
-//
+  @Test
+  public void testDebugAnnotationOnAClass() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationOnAClass/DebugAnnotationOnAClass.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("Nalu-Processor: @Debug can only be used on a type (interface)");
+  }
+
 //  @Test
 //  public void testDebugAnnotationWithoutExtendsIsApplication() {
 //    Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -71,16 +71,16 @@ public class DebugTest {
 //    CompilationSubject.assertThat(compilation)
 //                      .hadErrorContaining("@Application must implement IsApplication interface");
 //  }
-//
-//  @Test
-//  public void testDebugAnnotationOnClassWithoutApplicationAnnotation() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(new ArrayList<JavaFileObject>() {
-//                                       {
-//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationOnClassWithoutApplicationAnnotation/DebugAnnotationOnClassWithoutApplicationAnnotation.java"));
-//                                       }
-//                                     });
-//    CompilationSubject.assertThat(compilation)
-//                      .succeeded();
-//  }
+
+  @Test
+  public void testDebugAnnotationOnClassWithoutApplicationAnnotation() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationOnClassWithoutApplicationAnnotation/DebugAnnotationOnClassWithoutApplicationAnnotation.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+  }
 }

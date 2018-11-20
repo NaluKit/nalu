@@ -217,7 +217,6 @@ public class NaluProcessor
       ShellAnnotationValidator.builder()
                               .processingEnvironment(processingEnv)
                               .roundEnvironment(roundEnv)
-                              .shellElement(shellElement)
                               .build()
                               .validate(shellElement);
       // generate ShellCreator

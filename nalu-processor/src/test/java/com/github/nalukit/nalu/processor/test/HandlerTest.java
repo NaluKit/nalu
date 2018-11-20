@@ -100,7 +100,6 @@ public class HandlerTest {
                       .hadErrorContaining("Nalu-Processor: @Handler can only be used on a class that extends AbstractHandler");
   }
 
-  // TODO
   @Test
   public void testHandlerAnnotationOnAClassThatDoesExtendAbstractHandler() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())

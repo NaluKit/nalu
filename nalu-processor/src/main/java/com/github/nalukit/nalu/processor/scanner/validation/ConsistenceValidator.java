@@ -15,6 +15,7 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
+import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
@@ -22,6 +23,8 @@ import com.github.nalukit.nalu.processor.model.MetaModel;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class ConsistenceValidator {
@@ -62,6 +65,23 @@ public class ConsistenceValidator {
     this.validateStartRoute();
     // check, that the error route exists!
     this.validateErrorRoute();
+
+
+
+
+    // check the name of the shells for duplicates
+//    Shell shellsAnnotation = element.getAnnotation(Shell.class);
+//    if (!Objects.isNull(shellsAnnotation)) {
+//      List<String> compareList = new ArrayList<>();
+//      for (int i = 0; i < shellsAnnotation.value().length; i++) {
+//        Shell shell = shellsAnnotation.value()[i];
+//        if (compareList.contains(shell.name())) {
+//          throw new ProcessorException("Nalu-Processor:" + "@Shell: the name >>" + shell.name() + "<< is dunplicate! Please use another unique name!");
+//        }
+//        compareList.add(shell.name());
+//      }
+//    }
+
   }
 
   private void validateErrorRoute()
