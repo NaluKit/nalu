@@ -30,17 +30,52 @@ import static com.google.testing.compile.Compiler.javac;
 @SuppressWarnings("serial")
 public class ShellCreatorTest {
 
-//  @Test
-//  public void testFiltersAnnotationOnAMethod() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(new ArrayList<JavaFileObject>() {
-//                                       {
-//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/filter/filterAnnotationOnAMethod/FilterAnnotationOnAMethod.java"));
-//                                       }
-//                                     });
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("Nalu-Processor: @Filters can only be used on a type (interface)");
-//  }
+    @Test
+    public void testShellOnAInterface() {
+        Compilation
+            compilation =
+            javac().withProcessors(new NaluProcessor())
+                   .compile(new ArrayList<JavaFileObject>() {
+                       {
+                           add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/shellOnAInterface/ShellOnAInterface.java"));
+                       }
+                   });
+        CompilationSubject.assertThat(compilation)
+                          .failed();
+        CompilationSubject.assertThat(compilation)
+                          .hadErrorContaining("Nalu-Processor: @Shell annotation must be used with a class");
+    }
+
+    @Test
+    public void testShellDoesNotExtendAbstractShell() {
+        Compilation
+            compilation =
+            javac().withProcessors(new NaluProcessor())
+                   .compile(new ArrayList<JavaFileObject>() {
+                       {
+                           add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/shellDoesNotExtendAbstractShell/ShellDoesNotExtendAbstractShell.java"));
+                       }
+                   });
+        CompilationSubject.assertThat(compilation)
+                          .failed();
+        CompilationSubject.assertThat(compilation)
+                          .hadErrorContaining("Nalu-Processor: @Shell annotation must be used with a class");
+    }
+
+    @Test
+    public void testShellCreatorOk() {
+        Compilation
+            compilation =
+            javac().withProcessors(new NaluProcessor())
+                   .compile(new ArrayList<JavaFileObject>() {
+                       {
+                           add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockShell.java"));
+                       }
+                   });
+        CompilationSubject.assertThat(compilation)
+                          .succeeded();
+        CompilationSubject.assertThat(compilation)
+                          .generatedSourceFile("com/github/nalukit/nalu/processor/common/MockShellCreatorImpl")
+                          .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/ok/MockShellCreatorImpl.java"));
+    }
 }

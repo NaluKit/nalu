@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
-import com.github.nalukit.nalu.client.application.annotation.Shell;
+import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.client.component.AbstractShell;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;

@@ -23,138 +23,125 @@ import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
 import java.util.Optional;
 
 public class ShellAnnotationValidator {
 
-  private ProcessorUtils processorUtils;
+    private ProcessorUtils processorUtils;
 
-  private ProcessingEnvironment processingEnvironment;
+    private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment roundEnvironment;
+    private RoundEnvironment roundEnvironment;
 
-  private MetaModel metaModel;
+    private MetaModel metaModel;
 
-  private Element shellElement;
+    private Element shellElement;
 
-  @SuppressWarnings("unused")
-  private ShellAnnotationValidator() {
-  }
-
-  private ShellAnnotationValidator(Builder builder) {
-    this.processingEnvironment = builder.processingEnvironment;
-    this.roundEnvironment = builder.roundEnvironment;
-    this.shellElement = builder.shellElement;
-    this.metaModel = builder.metaModel;
-
-    setUp();
-  }
-
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  private void setUp() {
-    this.processorUtils = ProcessorUtils.builder()
-                                        .processingEnvironment(this.processingEnvironment)
-                                        .build();
-  }
-
-  public void validate()
-      throws ProcessorException {
-    // TODO validieren!v
-    //    // get elements annotated with Application annotation
-    //    Set<? extends Element> elementsWithShellsAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Shells.class);
-    //    // at least there should exatly one Application annotation!
-    //    if (elementsWithShellsAnnotation.size() == 0) {
-    //      throw new ProcessorException("Nalu-Processor: @Shells is missing for IsApplication interface");
-    //    }
-    //    // at least there should only one Application annotation!
-    //    if (elementsWithShellsAnnotation.size() > 1) {
-    //      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Shells");
-    //    }
-  }
-
-  public void validate(Element element)
-      throws ProcessorException {
-    //    if (element instanceof TypeElement) {
-    //      TypeElement typeElement = (TypeElement) element;
-    //      // annotated element has to be a interface
-    //      if (!typeElement.getKind()
-    //                      .isInterface()) {
-    //        throw new ProcessorException("Nalu-Processor: @Shells annotated must be used with an interface");
-    //      }
-    //      // check, that the typeElement implements IsApplication
-    //      if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-    //                                                       typeElement.asType(),
-    //                                                       this.processingEnvironment.getElementUtils()
-    //                                                                                 .getTypeElement(IsApplication.class.getCanonicalName())
-    //                                                                                 .asType())) {
-    //        throw new ProcessorException("Nalu-Processor: " +
-    //                                     typeElement.getSimpleName()
-    //                                                .toString() +
-    //                                     ": @Shells must implement IsApplication interface");
-    //      }
-    //    } else {
-    //      throw new ProcessorException("Nalu-Processor:" + "@Shells can only be used on a type (interface)");
-    //    }
-    //    // check the name of the shells for duplicates
-    //    Shells shellsAnnotation = element.getAnnotation(Shells.class);
-    //    if (!Objects.isNull(shellsAnnotation)) {
-    //      List<String>compareList = new ArrayList<>();
-    //      for (int i = 0; i < shellsAnnotation.value().length; i++) {
-    //        Shell shell = shellsAnnotation.value()[i];
-    //        if (compareList.contains(shell.name())) {
-    //          throw new ProcessorException("Nalu-Processor:" + "@Shell: the name >>" + shell.name() + "<< is dunplicate! Please use another unique name!");
-    //        }
-    //        compareList.add(shell.name());
-    //      }
-    //    }
-  }
-
-  public void validateName(String name)
-      throws ProcessorException {
-    Optional<ShellModel> optionalShellModel = this.metaModel.getShells()
-                                                            .stream()
-                                                            .filter(m -> name.equals(m.getName()))
-                                                            .findAny();
-    if (optionalShellModel.isPresent()) {
-      throw new ProcessorException("Nalu-Processor:" + "@Shell: the shell ame >>" + name + "<< is already used!");
-    }
-  }
-
-  public static final class Builder {
-
-    ProcessingEnvironment processingEnvironment;
-
-    RoundEnvironment roundEnvironment;
-
-    MetaModel metaModel;
-
-    Element shellElement;
-
-    public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
-      this.processingEnvironment = processingEnvironment;
-      return this;
+    @SuppressWarnings("unused")
+    private ShellAnnotationValidator() {
     }
 
-    public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
-      this.roundEnvironment = roundEnvironment;
-      return this;
+    private ShellAnnotationValidator(Builder builder) {
+        this.processingEnvironment = builder.processingEnvironment;
+        this.roundEnvironment = builder.roundEnvironment;
+        this.shellElement = builder.shellElement;
+        this.metaModel = builder.metaModel;
+
+        setUp();
     }
 
-    public Builder metaModel(MetaModel metaModel) {
-      this.metaModel = metaModel;
-      return this;
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public Builder shellElement(Element shellElement) {
-      this.shellElement = shellElement;
-      return this;
+    private void setUp() {
+        this.processorUtils =
+            ProcessorUtils.builder()
+                          .processingEnvironment(this.processingEnvironment)
+                          .build();
     }
 
-    public ShellAnnotationValidator build() {
-      return new ShellAnnotationValidator(this);
+    public void validate(Element element) throws ProcessorException {
+        if (element instanceof TypeElement) {
+            TypeElement typeElement = (TypeElement) element;
+            // annotated element has to be a class
+            if (!typeElement.getKind()
+                            .isClass()) {
+                throw new ProcessorException("Nalu-Processor: @Shell annotation must be used with a class");
+            }
+            //      // check, that the typeElement implements IsApplication
+            //      if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+            //                                                       typeElement.asType(),
+            //                                                       this.processingEnvironment.getElementUtils()
+            //                                                                                 .getTypeElement(IsApplication.class.getCanonicalName())
+            //                                                                                 .asType())) {
+            //        throw new ProcessorException("Nalu-Processor: " +
+            //                                     typeElement.getSimpleName()
+            //                                                .toString() +
+            //                                     ": @Shells must implement IsApplication interface");
+            //      }
+        } else {
+            throw new ProcessorException("Nalu-Processor:" + "@Shells can only be used on a type (interface)");
+        }
+        //    // check the name of the shells for duplicates
+        //    Shells shellsAnnotation = element.getAnnotation(Shells.class);
+        //    if (!Objects.isNull(shellsAnnotation)) {
+        //      List<String>compareList = new ArrayList<>();
+        //      for (int i = 0; i < shellsAnnotation.value().length; i++) {
+        //        Shell shell = shellsAnnotation.value()[i];
+        //        if (compareList.contains(shell.name())) {
+        //          throw new ProcessorException("Nalu-Processor:" + "@Shell: the name >>" + shell.name() + "<< is dunplicate! Please use another unique name!");
+        //        }
+        //        compareList.add(shell.name());
+        //      }
+        //  }
     }
-  }
+
+    public void validateName(String name) throws ProcessorException {
+        Optional<ShellModel>
+            optionalShellModel =
+            this.metaModel.getShells()
+                          .stream()
+                          .filter(m -> name.equals(m.getName()))
+                          .findAny();
+        if (optionalShellModel.isPresent()) {
+            throw new ProcessorException("Nalu-Processor:" + "@Shell: the shell ame >>" + name + "<< is already used!");
+        }
+    }
+
+    public static final class Builder {
+
+        ProcessingEnvironment processingEnvironment;
+
+        RoundEnvironment roundEnvironment;
+
+        MetaModel metaModel;
+
+        Element shellElement;
+
+        public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
+            this.processingEnvironment = processingEnvironment;
+            return this;
+        }
+
+        public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
+            this.roundEnvironment = roundEnvironment;
+            return this;
+        }
+
+        public Builder metaModel(MetaModel metaModel) {
+            this.metaModel = metaModel;
+            return this;
+        }
+
+        public Builder shellElement(Element shellElement) {
+            this.shellElement = shellElement;
+            return this;
+        }
+
+        public ShellAnnotationValidator build() {
+            return new ShellAnnotationValidator(this);
+        }
+    }
 }

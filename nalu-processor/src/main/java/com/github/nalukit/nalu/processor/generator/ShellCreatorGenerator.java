@@ -141,7 +141,7 @@ public class ShellCreatorGenerator {
                                          typeSpec.build())
                                 .build();
     try {
-      //      System.out.println(javaFile.toString());
+            System.out.println(javaFile.toString());
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +

@@ -28,8 +28,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({ ClassNameModelTest.class,
                       DebugTest.class,
                       FiltersTest.class,
-                      HandlerTest.class
-//                      ShellCreatorTest.class
+                      HandlerTest.class,
+                      ShellCreatorTest.class
 })
 //                        ApplicationTest.class
 //                     ClassNameModelTest.class,

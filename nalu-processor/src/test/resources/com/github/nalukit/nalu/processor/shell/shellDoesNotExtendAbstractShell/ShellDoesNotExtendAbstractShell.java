@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.common;
+package com.github.nalukit.nalu.processor.shell.shellDoesNotExtendAbstractShell;
 
 import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.client.component.AbstractShell;
@@ -26,10 +26,9 @@ import elemental2.dom.HTMLElement;
 import static elemental2.dom.DomGlobal.document;
 
 @Shell("mockShell")
-public class MockShell
-    extends AbstractShell<MockContext> {
+public class ShellDoesNotExtendAbstractShell {
 
-  public MockShell() {
+  public ShellDoesNotExtendAbstractShell() {
   }
 
   /**

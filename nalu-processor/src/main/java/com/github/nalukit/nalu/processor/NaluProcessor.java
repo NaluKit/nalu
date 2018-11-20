@@ -19,7 +19,7 @@ package com.github.nalukit.nalu.processor;
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.client.application.annotation.Filters;
-import com.github.nalukit.nalu.client.application.annotation.Shell;
+import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.client.component.annotation.CompositeController;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
@@ -219,7 +219,7 @@ public class NaluProcessor
                               .roundEnvironment(roundEnv)
                               .shellElement(shellElement)
                               .build()
-                              .validate();
+                              .validate(shellElement);
       // generate ShellCreator
       ShellModel shellModel = ShellAnnotationScanner.builder()
                                                     .processingEnvironment(processingEnv)

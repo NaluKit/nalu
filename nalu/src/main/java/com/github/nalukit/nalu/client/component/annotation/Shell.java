@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.application.annotation;
+package com.github.nalukit.nalu.client.component.annotation;
 
 import com.github.nalukit.nalu.client.component.IsShell;
 
