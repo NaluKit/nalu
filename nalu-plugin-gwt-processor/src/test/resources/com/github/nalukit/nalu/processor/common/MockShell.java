@@ -41,7 +41,7 @@ public class MockShell
   }
 
   private HTMLElement render() {
-    return div().css("shell")
+    return div().css("shellCreator")
                 .add(createNorth())
                 .add(createSouth())
                 .add(div().css("shellNavigation")

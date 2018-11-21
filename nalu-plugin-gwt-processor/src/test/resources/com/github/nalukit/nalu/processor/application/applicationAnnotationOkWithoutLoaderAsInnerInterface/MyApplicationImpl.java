@@ -75,14 +75,14 @@ public final class MyApplicationImpl
 
   @Override
   public void loadComponents() {
-    // shell ...
+    // shellCreator ...
     MockShell shell = new MockShell();
     shell.setRouter(this.router);
     shell.setEventBus(this.eventBus);
     shell.setContext(this.context);
     super.shell = shell;
     ClientLogger.get()
-                .logDetailed("AbstractApplicationImpl: shell created",
+                .logDetailed("AbstractApplicationImpl: shellCreator created",
                              1);
   }
 

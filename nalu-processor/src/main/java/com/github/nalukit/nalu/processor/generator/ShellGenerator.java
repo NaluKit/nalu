@@ -15,6 +15,7 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
+import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
@@ -53,13 +54,28 @@ public class ShellGenerator {
     // generate method 'generateLoadShells()'
     MethodSpec.Builder loadShellsMethodBuilder = MethodSpec.methodBuilder("loadShells")
                                                            .addModifiers(Modifier.PUBLIC)
-                                                           .addAnnotation(Override.class);
+                                                           .addAnnotation(Override.class)
+                                                           .addStatement("$T sb01 = new $T()",
+                                                                         ClassName.get(StringBuilder.class),
+                                                                         ClassName.get(StringBuilder.class))
+                                                           .addStatement("sb01.append(\"load shell references\")")
+                                                           .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                                                                         ClassName.get(ClientLogger.class));
+
     this.metaModel.getShells()
                   .forEach(shellModel -> loadShellsMethodBuilder.addStatement("super.shellConfiguration.getShells().add(new $T($S, $S))",
                                                                               ClassName.get(ShellConfig.class),
                                                                               "/" + shellModel.getName(),
                                                                               shellModel.getShell()
-                                                                                        .getClassName()));
+                                                                                        .getClassName())
+                                                                .addStatement("sb01 = new $T()",
+                                                                              ClassName.get(StringBuilder.class))
+                                                                .addStatement("sb01.append(\"register shell >>$L<< with class >>$L<<\")",
+                                                                              "/" + shellModel.getName(),
+                                                                              shellModel.getShell()
+                                                                                        .getClassName())
+                                                                .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
+                                                                              ClassName.get(ClientLogger.class)));
     typeSpec.addMethod(loadShellsMethodBuilder.build());
   }
 

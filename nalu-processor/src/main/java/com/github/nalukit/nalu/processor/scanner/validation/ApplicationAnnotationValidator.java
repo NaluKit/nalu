@@ -51,8 +51,8 @@ public class ApplicationAnnotationValidator {
                                         .build();
   }
 
-  public void validate()
-      throws ProcessorException {
+//  public void validate()
+//      throws ProcessorException {
     //    // get elements annotated with Application annotation
     //    Set<? extends Element> elementsWithApplicationAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Application.class);
     //    // at least there should exatly one Application annotation!
@@ -74,12 +74,12 @@ public class ApplicationAnnotationValidator {
     //        throw new ProcessorException("Nalu-Processor: @Application -> startroute can not be empty and can not be '/'");
     //      }
     //    }
-  }
+//  }
 
-  public void validate(Element element)
+  public void validate()
       throws ProcessorException {
-    if (element instanceof TypeElement) {
-      TypeElement typeElement = (TypeElement) element;
+    if (this.applicationElement instanceof TypeElement) {
+      TypeElement typeElement = (TypeElement) this.applicationElement;
       // annotated element has to be a interface
       if (!typeElement.getKind()
                       .isInterface()) {

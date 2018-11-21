@@ -83,14 +83,14 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
 
   @Override
   public void loadComponents() {
-    // shell ...
+    // shellCreator ...
     Shell shell = new Shell();
     shell.setRouter(this.router);
     shell.setEventBus(this.eventBus);
     shell.setContext(this.context);
     super.shell = shell;
     shell.bind();
-    ClientLogger.get().logDetailed("AbstractApplicationImpl: shell created", 1);
+    ClientLogger.get().logDetailed("AbstractApplicationImpl: shellCreator created", 1);
     // create ControllerCreator for: NavigationController
     ControllerFactory.get().registerController("NavigationController", new IsControllerCreator() {
       @Override

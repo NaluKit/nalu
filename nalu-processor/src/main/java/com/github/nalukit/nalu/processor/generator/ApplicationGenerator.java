@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
+import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.NoApplicationLoader;
 import com.github.nalukit.nalu.processor.ProcessorException;
@@ -178,10 +179,23 @@ public class ApplicationGenerator {
     typeSpec.addMethod(MethodSpec.methodBuilder("loadDefaultRoutes")
                                  .addModifiers(Modifier.PUBLIC)
                                  .addAnnotation(Override.class)
+                                 .addStatement("$T sb01 = new $T()",
+                                               ClassName.get(StringBuilder.class),
+                                               ClassName.get(StringBuilder.class))
                                  .addStatement("this.startRoute = $S",
                                                metaModel.getStartRoute())
+                                 .addStatement("sb01.append(\"found startRoute >>$L<<\")",
+                                               metaModel.getStartRoute())
+                                 .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                                               ClassName.get(ClientLogger.class))
+                                 .addStatement("sb01 = new $T()",
+                                               ClassName.get(StringBuilder.class))
                                  .addStatement("this.errorRoute = $S",
                                                metaModel.getRouteError())
+                                 .addStatement("sb01.append(\"found errorRoute >>$L<<\")",
+                                               metaModel.getRouteError())
+                                 .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                                               ClassName.get(ClientLogger.class))
                                  .build());
   }
 

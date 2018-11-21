@@ -22,7 +22,7 @@ import com.github.nalukit.nalu.simpleapplication02.client.event.StatusChangeEven
 import org.gwtproject.event.shared.HandlerRegistration;
 
 /**
- * this is the presenter of the shell. The shell divides the browser in
+ * this is the presenter of the shellCreator. The shellCreator divides the browser in
  * severeal areas.
  */
 public class FooterController

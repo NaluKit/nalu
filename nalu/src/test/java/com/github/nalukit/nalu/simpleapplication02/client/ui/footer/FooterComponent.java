@@ -19,7 +19,7 @@ package com.github.nalukit.nalu.simpleapplication02.client.ui.footer;
 import com.github.nalukit.nalu.client.component.AbstractComponent;
 
 /**
- * this is the presenter of the shell. The shell divides the browser in
+ * this is the presenter of the shellCreator. The shellCreator divides the browser in
  * severeal areas.
  */
 public class FooterComponent

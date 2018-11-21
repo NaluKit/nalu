@@ -15,6 +15,7 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
+import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
@@ -85,17 +86,35 @@ public class ControllerGenerator {
   private void generateLoadSelectors() {
     // method must always be created!
     MethodSpec.Builder loadSelectorsMethod = MethodSpec.methodBuilder("loadRoutes")
+                                                       .addModifiers(Modifier.PUBLIC)
                                                        .addAnnotation(Override.class)
-                                                       .addModifiers(Modifier.PUBLIC);
+                                                       .addStatement("$T sb01 = new $T()",
+                                                                     ClassName.get(StringBuilder.class),
+                                                                     ClassName.get(StringBuilder.class))
+                                                       .addStatement("sb01.append(\"load routes\")")
+                                                       .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                                                                     ClassName.get(ClientLogger.class));
     this.metaModel.getController()
                   .forEach(route -> loadSelectorsMethod.addStatement("super.routerConfiguration.getRouters().add(new $T($S, $T.asList(new String[]{$L}), $S, $S))",
                                                                      ClassName.get(RouteConfig.class),
                                                                      createRoute(route.getRoute()),
                                                                      ClassName.get(Arrays.class),
-                                                                     createParaemter(route.getParameters()),
+                                                                     createParaemter(route.getParameters(),
+                                                                                     true),
                                                                      route.getSelector(),
                                                                      route.getProvider()
-                                                                          .getClassName()));
+                                                                          .getClassName())
+                                                       .addStatement("sb01 = new $T()",
+                                                                     ClassName.get(StringBuilder.class))
+                                                       .addStatement("sb01.append(\"register route >>$L<< with parameter >>$L<< for selector >>$L<< for controller >>$L<<\")",
+                                                                     createRoute(route.getRoute()),
+                                                                     createParaemter(route.getParameters(),
+                                                                                     false),
+                                                                     route.getSelector(),
+                                                                     route.getProvider()
+                                                                          .getClassName())
+                                                       .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
+                                                                     ClassName.get(ClientLogger.class)));
     typeSpec.addMethod(loadSelectorsMethod.build());
   }
 
@@ -118,14 +137,19 @@ public class ControllerGenerator {
     }
   }
 
-  private String createParaemter(List<String> parameters) {
+  private String createParaemter(List<String> parameters,
+                                 boolean apostrophe) {
     StringBuilder sb = new StringBuilder();
     IntStream.range(0,
                     parameters.size())
              .forEach(i -> {
-               sb.append("\"")
-                 .append(parameters.get(i))
-                 .append("\"");
+               if (apostrophe) {
+                 sb.append("\"")
+                   .append(parameters.get(i))
+                   .append("\"");
+               } else {
+                 sb.append(parameters.get(i));
+               }
                if (i != parameters.size() - 1) {
                  sb.append(", ");
                }

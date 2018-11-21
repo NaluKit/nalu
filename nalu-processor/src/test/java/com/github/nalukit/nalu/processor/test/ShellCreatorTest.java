@@ -35,7 +35,7 @@ public class ShellCreatorTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/shellOnAInterface/ShellOnAInterface.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shellCreator/shellOnAInterface/ShellOnAInterface.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -49,7 +49,7 @@ public class ShellCreatorTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/shellDoesNotExtendAbstractShell01/ShellDoesNotExtendAbstractShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shellCreator/shellDoesNotExtendAbstractShell01/ShellDoesNotExtendAbstractShell.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -63,13 +63,13 @@ public class ShellCreatorTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/shellDoesNotHaveGenericContext/ShellDoesNotHaveGenericContext.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shellCreator/shellDoesNotHaveGenericContext/ShellDoesNotHaveGenericContext.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: shell >>com.github.nalukit.nalu.processor.shell.shellDoesNotHaveGenericContext.ShellDoesNotHaveGenericContext<< does not have a context generic!");
+                      .hadErrorContaining("Nalu-Processor: shellCreator >>com.github.nalukit.nalu.processor.shellCreator.shellDoesNotHaveGenericContext.ShellDoesNotHaveGenericContext<< does not have a context generic!");
   }
 
   @Test
@@ -84,6 +84,6 @@ public class ShellCreatorTest {
                       .succeeded();
     CompilationSubject.assertThat(compilation)
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/MockShellCreatorImpl")
-                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/ok/MockShellCreatorImpl.java"));
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shellCreator/ok/MockShellCreatorImpl.java"));
   }
 }

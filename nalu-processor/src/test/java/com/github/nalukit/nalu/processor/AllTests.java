@@ -22,7 +22,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ ClassNameModelTest.class,
+@Suite.SuiteClasses({ ApplicationTest.class,
+                      ClassNameModelTest.class,
                       CompositeTest.class,
                       ControllerTest.class,
                       DebugTest.class,
@@ -30,9 +31,6 @@ import org.junit.runners.Suite;
                       HandlerTest.class,
                       ShellCreatorTest.class
                     })
-//                        ApplicationTest.class
-//                     ClassNameModelTest.class,
 //                     ConsistenceTest.class,
-//                     FilterTest.class })
 public class AllTests {
 }

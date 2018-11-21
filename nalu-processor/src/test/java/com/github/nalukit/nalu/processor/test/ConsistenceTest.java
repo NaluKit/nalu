@@ -44,7 +44,7 @@ public class ConsistenceTest {
 //    CompilationSubject.assertThat(compilation)
 //                      .failed();
 //    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("The shell of the startRoute >>MockShell<< does not exist!");
+//                      .hadErrorContaining("The shellCreator of the startRoute >>MockShell<< does not exist!");
 //  }
 
 //  @Test
@@ -108,7 +108,7 @@ public class ConsistenceTest {
 //    CompilationSubject.assertThat(compilation)
 //                      .failed();
 //    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("the shell ame >>mockShell02<< is already used!");
+//                      .hadErrorContaining("the shellCreator ame >>mockShell02<< is already used!");
 //  }
 //
 //  @Test

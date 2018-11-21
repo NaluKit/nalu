@@ -152,7 +152,7 @@ public class ShellAnnotationValidator {
     try {
       return result[0].toString();
     } catch (NullPointerException e) {
-      throw new ProcessorException("Nalu-Processor: shell >>com.github.nalukit.nalu.processor.shell.shellDoesNotHaveGenericContext.ShellDoesNotHaveGenericContext<< does not have a context generic!");
+      throw new ProcessorException("Nalu-Processor: shellCreator >>com.github.nalukit.nalu.processor.shellCreator.shellDoesNotHaveGenericContext.ShellDoesNotHaveGenericContext<< does not have a context generic!");
     }
   }
 
@@ -163,7 +163,7 @@ public class ShellAnnotationValidator {
                                                             .filter(m -> name.equals(m.getName()))
                                                             .findAny();
     if (optionalShellModel.isPresent()) {
-      throw new ProcessorException("Nalu-Processor:" + "@Shell: the shell ame >>" + name + "<< is already used!");
+      throw new ProcessorException("Nalu-Processor:" + "@Shell: the shellCreator ame >>" + name + "<< is already used!");
     }
   }
 

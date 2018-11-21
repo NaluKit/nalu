@@ -58,19 +58,19 @@ public class DebugTest {
                       .hadErrorContaining("Nalu-Processor: @Debug can only be used on a type (interface)");
   }
 
-//  @Test
-//  public void testDebugAnnotationWithoutExtendsIsApplication() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(new ArrayList<JavaFileObject>() {
-//                                       {
-//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationWithoutExtendsIsApplication/DebugAnnotationWithoutExtendsIsApplication.java"));
-//                                       }
-//                                     });
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("@Application must implement IsApplication interface");
-//  }
+  @Test
+  public void testDebugAnnotationWithoutExtendsIsApplication() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationWithoutExtendsIsApplication/DebugAnnotationWithoutExtendsIsApplication.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("@Application must implement IsApplication interface");
+  }
 
   @Test
   public void testDebugAnnotationOnClassWithoutApplicationAnnotation() {

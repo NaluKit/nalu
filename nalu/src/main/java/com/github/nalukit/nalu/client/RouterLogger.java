@@ -122,7 +122,7 @@ class RouterLogger {
   }
 
   static void logShellOnAttachedComponentMethodCalled(String canonicalName) {
-    String sb = "Router: create controller >>" + canonicalName + "<< - calls shell.onAttachedComponent()";
+    String sb = "Router: create controller >>" + canonicalName + "<< - calls shellCreator.onAttachedComponent()";
     logDetailed(sb,
                 4);
   }

@@ -74,11 +74,11 @@ public class ConsistenceValidator {
 //    if (!Objects.isNull(shellsAnnotation)) {
 //      List<String> compareList = new ArrayList<>();
 //      for (int i = 0; i < shellsAnnotation.value().length; i++) {
-//        Shell shell = shellsAnnotation.value()[i];
-//        if (compareList.contains(shell.name())) {
-//          throw new ProcessorException("Nalu-Processor:" + "@Shell: the name >>" + shell.name() + "<< is dunplicate! Please use another unique name!");
+//        Shell shellCreator = shellsAnnotation.value()[i];
+//        if (compareList.contains(shellCreator.name())) {
+//          throw new ProcessorException("Nalu-Processor:" + "@Shell: the name >>" + shellCreator.name() + "<< is dunplicate! Please use another unique name!");
 //        }
-//        compareList.add(shell.name());
+//        compareList.add(shellCreator.name());
 //      }
 //    }
 
@@ -134,7 +134,7 @@ public class ConsistenceValidator {
     if (shell.startsWith("/")) {
       shell = shell.substring(1);
     }
-    // seperate shell
+    // seperate shellCreator
     if (shell.contains("/")) {
       shell = shell.substring(0,
                               shell.indexOf("/"));
@@ -147,7 +147,7 @@ public class ConsistenceValidator {
     if (route.startsWith("/")) {
       reducedRoute = reducedRoute.substring(1);
     }
-    // remove shell
+    // remove shellCreator
     if (reducedRoute.contains("/")) {
       reducedRoute = reducedRoute.substring(reducedRoute.indexOf("/"));
     }
@@ -167,7 +167,7 @@ public class ConsistenceValidator {
     //                                                              .filter(s -> s.equals(this.metaModel.getShellOfStartRoute()))
     //                                                              .findFirst();
     //    if (!optionalShell.isPresent()) {
-    //      throw new ProcessorException("Nalu-Processor: The shell of the startRoute >>" + this.metaModel.getShellOfStartRoute() + "<< does not exist!");
+    //      throw new ProcessorException("Nalu-Processor: The shellCreator of the startRoute >>" + this.metaModel.getShellOfStartRoute() + "<< does not exist!");
     //    }
     //
     //    Optional<ControllerModel> optionalRoute = this.metaModel.getController()

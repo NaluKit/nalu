@@ -17,14 +17,14 @@
 package com.github.nalukit.nalu.client.component;
 
 /**
- * <p>Marks an class as a Nalu's shell.</p>
+ * <p>Marks an class as a Nalu's shellCreator.</p>
  */
 public interface IsShell {
 
   /**
    * <p>
    * This method is used by the framework, to delegate the adding
-   * of the shell to the user. Here the user has to add the shell
+   * of the shellCreator to the user. Here the user has to add the shellCreator
    * of the application to the viewport.
    * </p>
    * <code>
@@ -39,11 +39,11 @@ public interface IsShell {
   /**
    * <p>
    * This method is used by the framework, to delegate the removing
-   * of the shell to the user. Here the user has to remove the shell
+   * of the shellCreator to the user. Here the user has to remove the shellCreator
    * from the viewport.
    * </p>
    * <p>
-   * It is a good idea to use a presenter/view pair as shell:
+   * It is a good idea to use a presenter/view pair as shellCreator:
    * </p>
    * <code>
    * public void detachShell() {

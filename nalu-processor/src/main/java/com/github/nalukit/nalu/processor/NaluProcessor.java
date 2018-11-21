@@ -213,7 +213,7 @@ public class NaluProcessor
       throws ProcessorException {
     List<ShellModel> shellsModels = new ArrayList<>();
     for (Element shellElement : roundEnv.getElementsAnnotatedWith(Shell.class)) {
-      // validate shell!
+      // validate shellCreator!
       ShellAnnotationValidator.builder()
                               .processingEnvironment(processingEnv)
                               .roundEnvironment(roundEnv)

@@ -109,7 +109,7 @@ public class PluginsGenerator {
 
                                            .addStatement("sb01 = new $T()",
                                                          ClassName.get(StringBuilder.class))
-                                           .addStatement("sb01.append(\"call >>getShellConfigs<< and add to shell config list\")")
+                                           .addStatement("sb01.append(\"call >>getShellConfigs<< and add to shellCreator config list\")")
                                            .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                          ClassName.get(ClientLogger.class))
                                            .addStatement("super.shellConfiguration.getShells().addAll($L.getShellConfigs())",
