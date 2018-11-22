@@ -16,6 +16,9 @@
 
 package com.github.nalukit.nalu.processor.model.intern;
 
+/**
+ * Model of the Plugin annotation.
+ */
 public class PluginModel {
 
   private String name;

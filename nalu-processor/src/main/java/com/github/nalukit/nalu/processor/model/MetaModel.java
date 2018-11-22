@@ -32,6 +32,9 @@ public class MetaModel {
 
   private List<ClassNameModel> plugins;
 
+  /* this model represents the plugin interface */
+  /* is the model not null, we have to deal     */
+  /* with a a plugin and not with a pplication  */
   private PluginModel pluginModel;
 
   private List<ShellModel> shells;

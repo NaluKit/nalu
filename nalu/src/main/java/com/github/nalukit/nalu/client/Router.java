@@ -218,6 +218,10 @@ public final class Router {
                                      hash);
             }
           }
+        } else {
+          RouterLogger.logUseErrorRoute(this.routeError);
+          this.route(this.routeError,
+                     true);
         }
       }
       // routing

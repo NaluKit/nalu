@@ -324,6 +324,12 @@ public class ProcessorUtils {
     return this.setFirstCharacterToUpperCase(this.createHistoryMetaDataVariableName(historyConverterClassName)) + "_" + ProcessorConstants.META_DATA;
   }
 
+  public String setFirstCharacterToLowerCase(String className) {
+    return className.substring(0,
+                               1)
+                    .toLowerCase() + className.substring(1);
+  }
+
   public String setFirstCharacterToUpperCase(String className) {
     return className.substring(0,
                                1)
