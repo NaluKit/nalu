@@ -59,10 +59,6 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
     this.handlerRegistrations = new HandlerRegistrations();
   }
 
-  public void setComponent(V component) {
-    this.component = component;
-  }
-
   @Override
   public String mayStop() {
     return null;
@@ -95,5 +91,9 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
    */
   public V getComponent() {
     return this.component;
+  }
+
+  public void setComponent(V component) {
+    this.component = component;
   }
 }

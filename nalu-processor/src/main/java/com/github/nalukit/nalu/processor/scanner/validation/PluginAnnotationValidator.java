@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2018 - Frank Hossfeld
- *  
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
  *  the License at
- *  
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  *  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -15,13 +15,11 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
-import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
 
 public class PluginAnnotationValidator {
 
@@ -78,27 +76,27 @@ public class PluginAnnotationValidator {
 
   public void validate(Element element)
       throws ProcessorException {
-//    if (element instanceof TypeElement) {
-//      TypeElement typeElement = (TypeElement) element;
-//      // annotated element has to be a interface
-//      if (!typeElement.getKind()
-//                      .isInterface()) {
-//        throw new ProcessorException("Nalu-Processor: @Application annotated must be used with an interface");
-//      }
-//      // check, that the typeElement implements IsApplication
-//      if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-//                                                       typeElement.asType(),
-//                                                       this.processingEnvironment.getElementUtils()
-//                                                                                 .getTypeElement(IsApplication.class.getCanonicalName())
-//                                                                                 .asType())) {
-//        throw new ProcessorException("Nalu-Processor: " +
-//                                     typeElement.getSimpleName()
-//                                                .toString() +
-//                                     ": @Application must implement IsApplication interface");
-//      }
-//    } else {
-//      throw new ProcessorException("Nalu-Processor:" + "@Application can only be used on a type (interface)");
-//    }
+    //    if (element instanceof TypeElement) {
+    //      TypeElement typeElement = (TypeElement) element;
+    //      // annotated element has to be a interface
+    //      if (!typeElement.getKind()
+    //                      .isInterface()) {
+    //        throw new ProcessorException("Nalu-Processor: @Application annotated must be used with an interface");
+    //      }
+    //      // check, that the typeElement implements IsApplication
+    //      if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+    //                                                       typeElement.asType(),
+    //                                                       this.processingEnvironment.getElementUtils()
+    //                                                                                 .getTypeElement(IsApplication.class.getCanonicalName())
+    //                                                                                 .asType())) {
+    //        throw new ProcessorException("Nalu-Processor: " +
+    //                                     typeElement.getSimpleName()
+    //                                                .toString() +
+    //                                     ": @Application must implement IsApplication interface");
+    //      }
+    //    } else {
+    //      throw new ProcessorException("Nalu-Processor:" + "@Application can only be used on a type (interface)");
+    //    }
   }
 
   public static final class Builder {

@@ -25,17 +25,13 @@ public class PluginModel {
 
   private ClassNameModel plugin;
 
-  private ClassNameModel loader;
-
   private ClassNameModel context;
 
   public PluginModel(String name,
                      ClassNameModel plugin,
-                     ClassNameModel loader,
                      ClassNameModel context) {
     this.name = name;
     this.plugin = plugin;
-    this.loader = loader;
     this.context = context;
   }
 
@@ -53,14 +49,6 @@ public class PluginModel {
 
   public void setPlugin(ClassNameModel plugin) {
     this.plugin = plugin;
-  }
-
-  public ClassNameModel getLoader() {
-    return loader;
-  }
-
-  public void setLoader(ClassNameModel loader) {
-    this.loader = loader;
   }
 
   public ClassNameModel getContext() {

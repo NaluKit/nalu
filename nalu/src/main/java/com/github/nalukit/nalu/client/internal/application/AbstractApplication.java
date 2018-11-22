@@ -25,7 +25,10 @@ import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.internal.route.*;
+import com.github.nalukit.nalu.client.internal.route.HashResult;
+import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
+import com.github.nalukit.nalu.client.internal.route.RouterException;
+import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -83,13 +86,13 @@ public abstract class AbstractApplication<C extends IsContext>
     // debug message
     ClientLogger.get()
                 .logDetailed("=================================================================================",
-                           0);
+                             0);
     ClientLogger.get()
                 .logDetailed("Running Nalu version: v" + Nalu.NALU_VERSION,
-                           0);
+                             0);
     ClientLogger.get()
                 .logDetailed("=================================================================================",
-                           0);
+                             0);
     // debug message
     ClientLogger.get()
                 .logSimple("AbstractApplication: application is started!",

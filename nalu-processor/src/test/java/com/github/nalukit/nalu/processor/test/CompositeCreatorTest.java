@@ -29,61 +29,22 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class CompositeCreatorTest {
-//
-//  @Test
-//  public void testShellOnAInterface() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(new ArrayList<JavaFileObject>() {
-//                                       {
-//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/shellOnAInterface/ShellOnAInterface.java"));
-//                                       }
-//                                     });
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("Nalu-Processor: @Shell annotation must be used with a class");
-//  }
-//
-//  @Test
-//  public void testShellDoesNotExtendAbstractShell() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(new ArrayList<JavaFileObject>() {
-//                                       {
-//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/shellDoesNotExtendAbstractShell01/ShellDoesNotExtendAbstractShell.java"));
-//                                       }
-//                                     });
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("Nalu-Processor: ShellDoesNotExtendAbstractShell: @Shells must extend AbstractShell interface");
-//  }
-//
-//  @Test
-//  public void testShellDoesNotHaveGenericContext() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(new ArrayList<JavaFileObject>() {
-//                                       {
-//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/shellDoesNotHaveGenericContext/ShellDoesNotHaveGenericContext.java"));
-//                                       }
-//                                     });
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("Nalu-Processor: shell >>com.github.nalukit.nalu.processor.shell.shellDoesNotHaveGenericContext.ShellDoesNotHaveGenericContext<< does not have a context generic!");
-//  }
-//
-//  @Test
-//  public void testShellCreatorOk() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(new ArrayList<JavaFileObject>() {
-//                                       {
-//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockShell.java"));
-//                                       }
-//                                     });
-//    CompilationSubject.assertThat(compilation)
-//                      .succeeded();
-//    CompilationSubject.assertThat(compilation)
-//                      .generatedSourceFile("com/github/nalukit/nalu/processor/common/MockShellCreatorImpl")
-//                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/ok/MockShellCreatorImpl.java"));
-//  }
+
+  @Test
+  public void testCompositeCreatorOk() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/ok/Composite.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/ok/ICompositeComponent.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/ok/CompositeComponent.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/ok/CompositeCreatorImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/ok/CompositeCreatorImpl.java"));
+  }
 }

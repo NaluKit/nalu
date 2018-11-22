@@ -16,9 +16,6 @@
 
 package com.github.nalukit.nalu.client.plugin.annotation;
 
-import com.github.nalukit.nalu.client.internal.plugin.NoPluginLoader;
-import com.github.nalukit.nalu.client.plugin.AbstractPluginLoader;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -29,7 +26,5 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Plugin {
 
   String name();
-
-  Class<? extends AbstractPluginLoader<?>> loader() default NoPluginLoader.class;
 
 }

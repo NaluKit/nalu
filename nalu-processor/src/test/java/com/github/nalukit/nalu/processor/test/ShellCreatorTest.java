@@ -31,53 +31,11 @@ import static com.google.testing.compile.Compiler.javac;
 public class ShellCreatorTest {
 
   @Test
-  public void testShellOnAInterface() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shellCreator/shellOnAInterface/ShellOnAInterface.java"));
-                                       }
-                                     });
-    CompilationSubject.assertThat(compilation)
-                      .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: @Shell annotation must be used with a class");
-  }
-
-  @Test
-  public void testShellDoesNotExtendAbstractShell() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shellCreator/shellDoesNotExtendAbstractShell01/ShellDoesNotExtendAbstractShell.java"));
-                                       }
-                                     });
-    CompilationSubject.assertThat(compilation)
-                      .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: ShellDoesNotExtendAbstractShell: @Shells must extend AbstractShell interface");
-  }
-
-  @Test
-  public void testShellDoesNotHaveGenericContext() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shellCreator/shellDoesNotHaveGenericContext/ShellDoesNotHaveGenericContext.java"));
-                                       }
-                                     });
-    CompilationSubject.assertThat(compilation)
-                      .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: shellCreator >>com.github.nalukit.nalu.processor.shellCreator.shellDoesNotHaveGenericContext.ShellDoesNotHaveGenericContext<< does not have a context generic!");
-  }
-
-  @Test
   public void testShellCreatorOk() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)

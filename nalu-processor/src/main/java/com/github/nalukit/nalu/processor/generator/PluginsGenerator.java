@@ -50,8 +50,7 @@ public class PluginsGenerator {
                                                            .addAnnotation(Override.class)
                                                            .addStatement("$T sb01 = new $T()",
                                                                          ClassName.get(StringBuilder.class),
-                                                                         ClassName.get(StringBuilder.class))
-        ;
+                                                                         ClassName.get(StringBuilder.class));
     // are there any plugins?
     this.metaModel.getPlugins()
                   .forEach(pluginModel -> {
@@ -98,7 +97,7 @@ public class PluginsGenerator {
                                            .addStatement("sb01.append(\"call >>loadPlugin<<\")")
                                            .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                          ClassName.get(ClientLogger.class))
-                                           .addStatement("$L.loadPlugin()",
+                                           .addStatement("$L.loadPlugin(super.routerConfiguration)",
                                                          pluginInstanceName)
                                            .addStatement("sb01 = new $T()",
                                                          ClassName.get(StringBuilder.class))

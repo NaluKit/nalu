@@ -31,14 +31,15 @@ import static com.google.testing.compile.Compiler.javac;
 @SuppressWarnings("serial")
 public class CompositeTest {
 
+  // TODO ziemlich falsch ...
   @Test
   public void testCompositeNotAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/composite/compositeIsNotAClass/CompositeIsNotAClass.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockShell.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java"));

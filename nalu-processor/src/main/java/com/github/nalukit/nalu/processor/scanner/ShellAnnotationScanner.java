@@ -16,8 +16,8 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
-import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.client.component.AbstractShell;
+import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
@@ -30,7 +30,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.type.*;
 import javax.lang.model.util.SimpleTypeVisitor6;
 import java.util.List;
-import java.util.Objects;
 
 public class ShellAnnotationScanner {
 
@@ -73,7 +72,7 @@ public class ShellAnnotationScanner {
                           new ClassNameModel(context));
   }
 
-  private String getContextType(Element element){
+  private String getContextType(Element element) {
     final TypeMirror[] result = { null };
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
                                                                 element.asType(),

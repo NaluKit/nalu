@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.internal.plugin;
 
 import com.github.nalukit.nalu.client.application.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsPlugin;
 
 /**
@@ -31,23 +32,22 @@ public abstract class AbstractPlugin<C extends IsContext>
   }
 
   @Override
-  public void loadPlugin() {
+  public void loadPlugin(RouterConfiguration routeConfiguration) {
     this.loadShellFactory();
     this.loadCompositeController();
     this.loadComponents();
-    this.loadFilters();
+    this.loadFilters(routeConfiguration);
     this.loadHandlers();
   }
 
   protected abstract void loadHandlers();
 
-  protected abstract void loadFilters();
+  protected abstract void loadFilters(RouterConfiguration routeConfiguration);
 
   protected abstract void loadComponents();
 
   protected abstract void loadCompositeController();
 
   protected abstract void loadShellFactory();
-  
 
 }

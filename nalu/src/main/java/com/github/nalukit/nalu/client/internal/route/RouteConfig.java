@@ -75,7 +75,8 @@ public class RouteConfig {
       shellFromRoute = shellFromRoute.substring(1);
     }
     if (shellFromRoute.endsWith("]")) {
-      shellFromRoute = shellFromRoute.substring(0, shellFromRoute.length() - 1);
+      shellFromRoute = shellFromRoute.substring(0,
+                                                shellFromRoute.length() - 1);
     }
     if (shellFromRoute.contains("|")) {
       this.shell = Arrays.asList(shellFromRoute.split("\\|"))

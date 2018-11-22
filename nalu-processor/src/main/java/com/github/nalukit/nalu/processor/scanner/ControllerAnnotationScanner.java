@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
-import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.AbstractController;
 import com.github.nalukit.nalu.client.component.IsComponentCreator;
 import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
@@ -110,7 +109,7 @@ public class ControllerAnnotationScanner {
     // get context!
     String context = this.getContextType(controllerElement);
     if (Objects.isNull(context)) {
-      throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString()+ "<< does not have a context generic!");
+      throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString() + "<< does not have a context generic!");
     }
     // save model ...
     return new ControllerModel(annotation.route(),

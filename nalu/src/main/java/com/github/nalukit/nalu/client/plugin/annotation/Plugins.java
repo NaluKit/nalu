@@ -16,9 +16,6 @@
 
 package com.github.nalukit.nalu.client.plugin.annotation;
 
-import com.github.nalukit.nalu.client.application.IsContext;
-import com.github.nalukit.nalu.client.component.AbstractComponent;
-import com.github.nalukit.nalu.client.component.IsComponent;
 import com.github.nalukit.nalu.client.plugin.IsPlugin;
 
 import java.lang.annotation.Retention;

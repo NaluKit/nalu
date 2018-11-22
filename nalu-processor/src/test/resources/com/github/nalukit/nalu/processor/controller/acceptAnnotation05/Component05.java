@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2018 - Frank Hossfeld
- *
+ *  
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
  *  the License at
- *
+ *  
  *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ *  
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  *  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -14,25 +14,19 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.plugin;
+package com.github.nalukit.nalu.processor.controller.acceptAnnotation05;
 
-import com.github.nalukit.nalu.client.application.IsContext;
-import org.gwtproject.event.shared.SimpleEventBus;
+import com.github.nalukit.nalu.client.component.AbstractComponent;
 
-// TODO
-public abstract class AbstractPluginLoader<C extends IsContext>
-    implements IsPluginLoader<C> {
+public class Component05
+    extends AbstractComponent<IComponent05.Controller, String>
+    implements IComponent05 {
 
-  protected C context;
-
-  protected SimpleEventBus eventBus;
-
-  public void setContext(C context) {
-    this.context = context;
+  public Component05() {
   }
 
   @Override
-  public void setEventBus(SimpleEventBus eventBus) {
-    this.eventBus = eventBus;
+  public void render() {
+    initElement("Component05");
   }
 }

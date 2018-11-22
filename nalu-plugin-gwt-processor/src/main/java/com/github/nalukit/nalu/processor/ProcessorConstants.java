@@ -18,7 +18,7 @@ package com.github.nalukit.nalu.processor;
 
 public class ProcessorConstants {
 
-  public final static String META_DATA           = "MetaData";
+  public final static String META_DATA = "MetaData";
 
   public final static String PARAMETER_DELIMITER = "_pPp_";
 

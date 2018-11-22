@@ -40,7 +40,7 @@ class RouterLogger {
   }
 
   static String logNoMatchingRoute(String hash,
-                                 String routeError) {
+                                   String routeError) {
     String sb = "no matching route for hash >>" + hash + "<< --> use configurated route: >" + routeError + "<<";
     logSimple(sb,
               3);

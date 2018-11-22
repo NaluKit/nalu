@@ -24,7 +24,7 @@ package com.github.nalukit.nalu.client.component;
  * In case using this interface, there must be createComponent method, that looks like that:
  * <code>
  * public IMyCompenent createComponent() {
- *  return new MyComponent();
+ * return new MyComponent();
  * }
  * </code>
  *

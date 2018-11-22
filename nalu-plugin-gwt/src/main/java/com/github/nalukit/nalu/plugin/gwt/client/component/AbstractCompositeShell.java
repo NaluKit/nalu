@@ -57,7 +57,7 @@ public abstract class AbstractCompositeShell<C extends IsContext>
 
   /**
    * Will be called in case a shell ist detachred.
-   *
+   * <p>
    * In case you have something to do if a shell is detached, override this mehtod.
    */
   @Override

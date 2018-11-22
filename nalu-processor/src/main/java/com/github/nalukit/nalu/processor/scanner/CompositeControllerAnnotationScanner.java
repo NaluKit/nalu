@@ -113,7 +113,7 @@ public class CompositeControllerAnnotationScanner {
     // get context!
     String context = this.getContextType(element);
     if (Objects.isNull(context)) {
-      throw new ProcessorException("Nalu-Processor: composite controller >>" + element.toString()+ "<< does not have a context generic!");
+      throw new ProcessorException("Nalu-Processor: composite controller >>" + element.toString() + "<< does not have a context generic!");
     }
     // create model ...
     return new CompositeModel(new ClassNameModel(context),

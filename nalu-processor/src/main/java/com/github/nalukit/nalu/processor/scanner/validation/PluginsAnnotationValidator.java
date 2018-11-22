@@ -20,7 +20,6 @@ import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
@@ -84,7 +83,7 @@ public class PluginsAnnotationValidator {
       // annotated element has to be a interface
       if (!typeElement.getKind()
                       .isInterface()) {
-        throw new ProcessorException("Nalu-Processor: @Application annotated must be used with an interface");
+        throw new ProcessorException("Nalu-Processor: @Plugins annotated must be used with an interface");
       }
       // check, that the typeElement implements IsApplication
       if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
@@ -95,10 +94,10 @@ public class PluginsAnnotationValidator {
         throw new ProcessorException("Nalu-Processor: " +
                                      typeElement.getSimpleName()
                                                 .toString() +
-                                     ": @Application must implement IsApplication interface");
+                                     ": @Plugins must implement IsApplication interface");
       }
     } else {
-      throw new ProcessorException("Nalu-Processor:" + "@Application can only be used on a type (interface)");
+      throw new ProcessorException("Nalu-Processor:" + "@Plugins can only be used on a type (interface)");
     }
   }
 

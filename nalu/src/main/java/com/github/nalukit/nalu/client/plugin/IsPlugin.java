@@ -19,13 +19,14 @@ package com.github.nalukit.nalu.client.plugin;
 import com.github.nalukit.nalu.client.application.IsContext;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
+import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 
 import java.util.List;
 
 public interface IsPlugin<C extends IsContext> {
 
-  void loadPlugin();
+  void loadPlugin(RouterConfiguration routeConfiguration);
 
   List<ShellConfig> getShellConfigs();
 

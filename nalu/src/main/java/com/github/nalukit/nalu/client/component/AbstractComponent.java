@@ -21,11 +21,11 @@ import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
 public abstract class AbstractComponent<C extends IsComponent.Controller, W>
     implements IsComponent<C, W> {
 
+  protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
+
   private C controller;
 
   private W element;
-
-  protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
 
   public AbstractComponent() {
   }

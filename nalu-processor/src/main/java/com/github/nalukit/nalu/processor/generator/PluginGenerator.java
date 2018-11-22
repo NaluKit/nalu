@@ -24,6 +24,7 @@ import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
+import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
@@ -168,7 +169,10 @@ public class PluginGenerator {
     // method must always be created!
     MethodSpec.Builder loadFiltersMethod = MethodSpec.methodBuilder("loadFilters")
                                                      .addAnnotation(Override.class)
-                                                     .addModifiers(Modifier.PUBLIC);
+                                                     .addModifiers(Modifier.PUBLIC)
+                                                     .addParameter(ParameterSpec.builder(ClassName.get(RouterConfiguration.class),
+                                                                                         "routerConfiguration")
+                                                                                .build());
 
     this.metaModel.getFilters()
                   .forEach(classNameModel -> loadFiltersMethod.addStatement("$T $L = new $T()",
@@ -179,7 +183,7 @@ public class PluginGenerator {
                                                                                           classNameModel.getSimpleName()))
                                                               .addStatement("$L.setContext(super.context)",
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName()))
-                                                              .addStatement("super.routerConfiguration.getFilters().add($L)",
+                                                              .addStatement("routerConfiguration.getFilters().add($L)",
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName()))
                                                               .addStatement("$T.get().logDetailed(\"AbstractApplication: filter >> $L << created\", 0)",
                                                                             ClassName.get(ClientLogger.class),

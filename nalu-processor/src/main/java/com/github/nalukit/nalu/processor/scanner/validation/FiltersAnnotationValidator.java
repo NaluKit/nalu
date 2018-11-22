@@ -37,8 +37,6 @@ public class FiltersAnnotationValidator {
 
   private RoundEnvironment roundEnvironment;
 
-  private Element filterElement;
-
   @SuppressWarnings("unused")
   private FiltersAnnotationValidator() {
   }
@@ -46,7 +44,6 @@ public class FiltersAnnotationValidator {
   private FiltersAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.roundEnvironment = builder.roundEnvironment;
-    this.filterElement = builder.filterElement;
 
     setUp();
   }
@@ -61,7 +58,7 @@ public class FiltersAnnotationValidator {
                                         .build();
   }
 
-  public void validate()
+  public void validate(Element filterElement)
       throws ProcessorException {
     // get elements annotated with EventBus annotation
     //    Set<? extends Element> elementsWithFiltersAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Filters.class);
@@ -135,10 +132,6 @@ public class FiltersAnnotationValidator {
 
     RoundEnvironment roundEnvironment;
 
-    Element providesSecletorElement;
-
-    Element filterElement;
-
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
@@ -146,11 +139,6 @@ public class FiltersAnnotationValidator {
 
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
-      return this;
-    }
-
-    public Builder filterElement(Element filterElement) {
-      this.filterElement = filterElement;
       return this;
     }
 

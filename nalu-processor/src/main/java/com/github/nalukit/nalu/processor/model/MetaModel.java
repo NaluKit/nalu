@@ -225,14 +225,25 @@ public class MetaModel {
     if (Objects.isNull(this.startRoute)) {
       return "";
     }
-    String shellOfStartRoute = this.startRoute;
-    if (shellOfStartRoute.startsWith("/")) {
-      shellOfStartRoute = shellOfStartRoute.substring(1);
+    return getShellFromRoute(this.startRoute);
+  }
+
+  public String getShellOfErrorRoute() {
+    if (Objects.isNull(this.routeError)) {
+      return "";
     }
-    if (shellOfStartRoute.contains("/")) {
-      shellOfStartRoute = shellOfStartRoute.substring(0,
-                                                      shellOfStartRoute.indexOf("/"));
+    return getShellFromRoute(this.routeError);
+  }
+
+  private String getShellFromRoute(String route) {
+    String shellFromRoute = route;
+    if (shellFromRoute.startsWith("/")) {
+      shellFromRoute = shellFromRoute.substring(1);
     }
-    return shellOfStartRoute;
+    if (shellFromRoute.contains("/")) {
+      shellFromRoute = shellFromRoute.substring(0,
+                                                shellFromRoute.indexOf("/"));
+    }
+    return shellFromRoute;
   }
 }

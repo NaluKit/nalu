@@ -19,9 +19,9 @@ package com.github.nalukit.nalu.processor;
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.client.application.annotation.Filters;
-import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.client.component.annotation.CompositeController;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
+import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.client.plugin.annotation.Plugin;
 import com.github.nalukit.nalu.client.plugin.annotation.Plugins;
@@ -109,8 +109,6 @@ public class NaluProcessor
       } else {
         if (annotations.size() > 0) {
           for (TypeElement annotation : annotations) {
-            System.out.println(Handler.class.getCanonicalName());
-            System.out.println(annotation.toString());
             if (Application.class.getCanonicalName()
                                  .equals(annotation.toString())) {
               handleApplicationAnnotation(roundEnv);
@@ -341,9 +339,8 @@ public class NaluProcessor
       FiltersAnnotationValidator.builder()
                                 .roundEnvironment(roundEnv)
                                 .processingEnvironment(processingEnv)
-                                .filterElement(filtersElement)
                                 .build()
-                                .validate();
+                                .validate(filtersElement);
       // scan filter element
       List<ClassNameModel> filterModels = FiltersAnnotationScanner.builder()
                                                                   .processingEnvironment(processingEnv)

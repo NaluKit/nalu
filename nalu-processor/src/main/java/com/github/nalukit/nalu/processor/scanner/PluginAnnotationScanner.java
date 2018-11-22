@@ -26,13 +26,10 @@ import com.github.nalukit.nalu.processor.model.intern.PluginModel;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.*;
 import javax.lang.model.util.SimpleTypeVisitor6;
 import java.util.List;
 import java.util.Objects;
-
-import static java.util.Objects.isNull;
 
 public class PluginAnnotationScanner {
 
@@ -68,22 +65,10 @@ public class PluginAnnotationScanner {
     if (Objects.isNull(context)) {
       throw new ProcessorException("Nalu-Processor: plugin >>" + pluginElement.toString() + "<< does not have a context generic!");
     }
-    TypeElement pluginLoaderTypeElement = this.getPluginLoaderTypeElement(pluginAnnotation);
 
     return new PluginModel(pluginAnnotation.name(),
                            new ClassNameModel(pluginElement.toString()),
-                           new ClassNameModel(isNull(pluginLoaderTypeElement) ? "" : pluginLoaderTypeElement.toString()),
                            new ClassNameModel(context));
-  }
-
-  private TypeElement getPluginLoaderTypeElement(Plugin pluginAnnotation) {
-    try {
-      pluginAnnotation.loader();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
-    }
-    return null;
   }
 
   private String getContextType(Element element)

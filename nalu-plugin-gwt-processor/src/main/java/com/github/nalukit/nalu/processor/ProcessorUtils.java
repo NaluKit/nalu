@@ -341,10 +341,10 @@ public class ProcessorUtils {
 
   public String createEventHandlingMethodName(String eventName) {
     return "on" +
-        eventName.substring(0,
-                            1)
-                 .toUpperCase() +
-        eventName.substring(1);
+           eventName.substring(0,
+                               1)
+                    .toUpperCase() +
+           eventName.substring(1);
   }
 
   public String createEventNameFromHandlingMethod(String event) {

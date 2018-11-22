@@ -15,17 +15,15 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
-import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
+import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class ConsistenceValidator {
 
@@ -65,36 +63,54 @@ public class ConsistenceValidator {
     this.validateStartRoute();
     // check, that the error route exists!
     this.validateErrorRoute();
+    // check, if there is at least one shell
+    this.validateNoShellsDefined();
+    // check, is there is at least one shell
+    this.validateDuplicateShellName();
+  }
 
+  private void validateDuplicateShellName()
+      throws ProcessorException {
+    List<String> compareList = new ArrayList<>();
+    for (ShellModel shellModel : this.metaModel.getShells()) {
+      if (compareList.contains(shellModel.getName())) {
+        throw new ProcessorException("Nalu-Processor:" + "@Shell: the name >>" + shellModel.getName() + "<< is dunplicate! Please use another unique name!");
+      }
+      compareList.add(shellModel.getName());
+    }
+  }
 
-
-
-    // check the name of the shells for duplicates
-//    Shell shellsAnnotation = element.getAnnotation(Shell.class);
-//    if (!Objects.isNull(shellsAnnotation)) {
-//      List<String> compareList = new ArrayList<>();
-//      for (int i = 0; i < shellsAnnotation.value().length; i++) {
-//        Shell shellCreator = shellsAnnotation.value()[i];
-//        if (compareList.contains(shellCreator.name())) {
-//          throw new ProcessorException("Nalu-Processor:" + "@Shell: the name >>" + shellCreator.name() + "<< is dunplicate! Please use another unique name!");
-//        }
-//        compareList.add(shellCreator.name());
-//      }
-//    }
-
+  private void validateNoShellsDefined()
+      throws ProcessorException {
+    if (!Objects.isNull(metaModel.getApplication())) {
+      if (metaModel.getShells()
+                   .size() > 0) {
+        return;
+      }
+      throw new ProcessorException("Nalu-Processor: No shells defined! Please define (at least) one shell.");
+    }
   }
 
   private void validateErrorRoute()
       throws ProcessorException {
-    //    Optional<String> optionalErrorRoute = this.metaModel.getController()
-    //                                                                   .stream()
-    //                                                                   .map(m -> m.getRoute())
-    //                                                                   .filter(s -> matchRoute(s,
-    //                                                                                           this.metaModel.getRouteError()))
-    //                                                                   .findFirst();
-    //    if (!optionalErrorRoute.isPresent()) {
-    //      throw new ProcessorException("Nalu-Processor: The errorRoute >>" + this.metaModel.getRouteError() + "<< does not exist!");
-    //    }
+    if (!Objects.isNull(metaModel.getApplication())) {
+      Optional<String> optionalShell = this.metaModel.getShells()
+                                                     .stream()
+                                                     .map(m -> m.getName())
+                                                     .filter(s -> s.equals(this.metaModel.getShellOfErrorRoute()))
+                                                     .findFirst();
+      if (!optionalShell.isPresent()) {
+        throw new ProcessorException("Nalu-Processor: The shell of the errorRoute >>" + this.metaModel.getShellOfErrorRoute() + "<< does not exist!");
+      }
+
+      Optional<ControllerModel> optionalRoute = this.metaModel.getController()
+                                                              .stream()
+                                                              .filter(m -> m.match(this.metaModel.getRouteError()))
+                                                              .findAny();
+      if (!optionalRoute.isPresent()) {
+        throw new ProcessorException("Nalu-Processor: The route of the errorRoute >>" + this.metaModel.getRouteError() + "<< does not exist!");
+      }
+    }
   }
 
   private boolean matchRoute(String controllerRoute,
@@ -161,22 +177,24 @@ public class ConsistenceValidator {
 
   private void validateStartRoute()
       throws ProcessorException {
-    //    Optional<String> optionalShell = this.metaModel.getShells()
-    //                                                              .stream()
-    //                                                              .map(m -> m.getName())
-    //                                                              .filter(s -> s.equals(this.metaModel.getShellOfStartRoute()))
-    //                                                              .findFirst();
-    //    if (!optionalShell.isPresent()) {
-    //      throw new ProcessorException("Nalu-Processor: The shellCreator of the startRoute >>" + this.metaModel.getShellOfStartRoute() + "<< does not exist!");
-    //    }
-    //
-    //    Optional<ControllerModel> optionalRoute = this.metaModel.getController()
-    //                                                                       .stream()
-    //                                                                       .filter(m -> m.match(this.metaModel.getStartRoute()))
-    //                                                                       .findAny();
-    //    if (!optionalRoute.isPresent()) {
-    //      throw new ProcessorException("Nalu-Processor: The route of the startRoute >>" + this.metaModel.getStartRoute() + "<< does not exist!");
-    //    }
+    if (!Objects.isNull(metaModel.getApplication())) {
+      Optional<String> optionalShell = this.metaModel.getShells()
+                                                     .stream()
+                                                     .map(m -> m.getName())
+                                                     .filter(s -> s.equals(this.metaModel.getShellOfStartRoute()))
+                                                     .findFirst();
+      if (!optionalShell.isPresent()) {
+        throw new ProcessorException("Nalu-Processor: The shell of the startRoute >>" + this.metaModel.getShellOfStartRoute() + "<< does not exist!");
+      }
+
+      Optional<ControllerModel> optionalRoute = this.metaModel.getController()
+                                                              .stream()
+                                                              .filter(m -> m.match(this.metaModel.getStartRoute()))
+                                                              .findAny();
+      if (!optionalRoute.isPresent()) {
+        throw new ProcessorException("Nalu-Processor: The route of the startRoute >>" + this.metaModel.getStartRoute() + "<< does not exist!");
+      }
+    }
   }
 
   public static final class Builder {

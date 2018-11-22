@@ -16,7 +16,6 @@
 package com.github.nalukit.nalu.processor.scanner.validation;
 
 import com.github.nalukit.nalu.client.component.AbstractShell;
-import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
@@ -29,7 +28,6 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.*;
 import javax.lang.model.util.SimpleTypeVisitor6;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public class ShellAnnotationValidator {
@@ -163,7 +161,7 @@ public class ShellAnnotationValidator {
                                                             .filter(m -> name.equals(m.getName()))
                                                             .findAny();
     if (optionalShellModel.isPresent()) {
-      throw new ProcessorException("Nalu-Processor:" + "@Shell: the shellCreator ame >>" + name + "<< is already used!");
+      throw new ProcessorException("Nalu-Processor:" + "@Shell: the shell name >>" + name + "<< is already used!");
     }
   }
 
