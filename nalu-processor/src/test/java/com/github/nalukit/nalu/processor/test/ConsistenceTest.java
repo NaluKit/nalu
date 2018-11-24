@@ -117,7 +117,29 @@ public class ConsistenceTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor:@Shell: the name >>mockShell02<< is dunplicate! Please use another unique name!");
+                      .hadErrorContaining("Nalu-Processor:@Shell: the name >>mockShell02<< is duplicate! Please use another unique name!");
+  }
+
+  @Test
+  public void testNoDuplicateShellName() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/dubplicateShellName/DubplicateShellNameApplication.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell02.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell01.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/error/ErrorController.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/error/IErrorComponent.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/error/ErrorComponent.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
   }
 
   @Test

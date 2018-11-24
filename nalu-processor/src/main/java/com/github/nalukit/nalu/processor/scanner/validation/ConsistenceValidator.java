@@ -23,6 +23,7 @@ import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
+import javax.tools.Diagnostic;
 import java.util.*;
 
 public class ConsistenceValidator {
@@ -74,7 +75,7 @@ public class ConsistenceValidator {
     List<String> compareList = new ArrayList<>();
     for (ShellModel shellModel : this.metaModel.getShells()) {
       if (compareList.contains(shellModel.getName())) {
-        throw new ProcessorException("Nalu-Processor:" + "@Shell: the name >>" + shellModel.getName() + "<< is dunplicate! Please use another unique name!");
+        throw new ProcessorException("Nalu-Processor:" + "@Shell: the name >>" + shellModel.getName() + "<< is duplicate! Please use another unique name!");
       }
       compareList.add(shellModel.getName());
     }
@@ -100,7 +101,14 @@ public class ConsistenceValidator {
                                                      .filter(s -> s.equals(this.metaModel.getShellOfErrorRoute()))
                                                      .findFirst();
       if (!optionalShell.isPresent()) {
-        throw new ProcessorException("Nalu-Processor: The shell of the errorRoute >>" + this.metaModel.getShellOfErrorRoute() + "<< does not exist!");
+        if (this.metaModel.getPlugins()
+                          .size() > 0) {
+          this.processingEnvironment.getMessager()
+                                    .printMessage(Diagnostic.Kind.NOTE,
+                                                  "Nalu-Processor: The shell of the errorRoute >>" + this.metaModel.getShellOfErrorRoute() + "<< does not exist in this project");
+        } else {
+          throw new ProcessorException("Nalu-Processor: The shell of the errorRoute >>" + this.metaModel.getShellOfErrorRoute() + "<< does not exist!");
+        }
       }
 
       Optional<ControllerModel> optionalRoute = this.metaModel.getController()
@@ -108,7 +116,14 @@ public class ConsistenceValidator {
                                                               .filter(m -> m.match(this.metaModel.getRouteError()))
                                                               .findAny();
       if (!optionalRoute.isPresent()) {
-        throw new ProcessorException("Nalu-Processor: The route of the errorRoute >>" + this.metaModel.getRouteError() + "<< does not exist!");
+        if (this.metaModel.getPlugins()
+                          .size() > 0) {
+          this.processingEnvironment.getMessager()
+                                    .printMessage(Diagnostic.Kind.NOTE,
+                                                  "\"Nalu-Processor: The route of the errorRoute >>" + this.metaModel.getRouteError() + "<< does not exist in this project");
+        } else {
+          throw new ProcessorException("Nalu-Processor: The route of the errorRoute >>" + this.metaModel.getRouteError() + "<< does not exist!");
+        }
       }
     }
   }
@@ -184,7 +199,14 @@ public class ConsistenceValidator {
                                                      .filter(s -> s.equals(this.metaModel.getShellOfStartRoute()))
                                                      .findFirst();
       if (!optionalShell.isPresent()) {
-        throw new ProcessorException("Nalu-Processor: The shell of the startRoute >>" + this.metaModel.getShellOfStartRoute() + "<< does not exist!");
+        if (this.metaModel.getPlugins()
+                          .size() > 0) {
+          this.processingEnvironment.getMessager()
+                                    .printMessage(Diagnostic.Kind.NOTE,
+                                                  "Nalu-Processor: The shell of the startRoute >>" + this.metaModel.getShellOfStartRoute() + "<< does not exist in this project");
+        } else {
+          throw new ProcessorException("Nalu-Processor: The shell of the startRoute >>" + this.metaModel.getShellOfStartRoute() + "<< does not exist!");
+        }
       }
 
       Optional<ControllerModel> optionalRoute = this.metaModel.getController()
@@ -192,7 +214,14 @@ public class ConsistenceValidator {
                                                               .filter(m -> m.match(this.metaModel.getStartRoute()))
                                                               .findAny();
       if (!optionalRoute.isPresent()) {
-        throw new ProcessorException("Nalu-Processor: The route of the startRoute >>" + this.metaModel.getStartRoute() + "<< does not exist!");
+        if (this.metaModel.getPlugins()
+                          .size() > 0) {
+          this.processingEnvironment.getMessager()
+                                    .printMessage(Diagnostic.Kind.NOTE,
+                                                  "Nalu-Processor: The route of the startRoute >>" + this.metaModel.getStartRoute() + "<< does not exist in this project");
+        } else {
+          throw new ProcessorException("Nalu-Processor: The route of the startRoute >>" + this.metaModel.getStartRoute() + "<< does not exist!");
+        }
       }
     }
   }

@@ -29,6 +29,7 @@ import com.github.nalukit.nalu.client.internal.route.HashResult;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.internal.route.RouterException;
 import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
+import com.github.nalukit.nalu.client.internal.validation.RouteValidation;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -140,6 +141,19 @@ public abstract class AbstractApplication<C extends IsContext>
     ClientLogger.get()
                 .logDetailed("AbstractApplication: execute loader",
                              1);
+    // validate
+    if (!RouteValidation.validateStartRoute(this.shellConfiguration,
+                                            this.routerConfiguration,
+                                            this.startRoute)) {
+      this.plugin.alert("startRoute not valid - application stopped!");
+      return;
+    }
+    if (!RouteValidation.validateRouteError(this.shellConfiguration,
+                                            this.routerConfiguration,
+                                            this.errorRoute)) {
+      this.plugin.alert("routeError not valid - application stopped!");
+      return;
+    }
     // handling application loading
     IsApplicationLoader<C> applicationLoader = getApplicationLoader();
     if (getApplicationLoader() == null) {

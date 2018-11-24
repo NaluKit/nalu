@@ -55,7 +55,7 @@ public class ShellTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: ShellDoesNotExtendAbstractShell: @Shells must extend AbstractShell interface");
+                      .hadErrorContaining("Nalu-Processor: ShellDoesNotExtendAbstractShell: @Shells must extend IsShell interface");
   }
 
   @Test

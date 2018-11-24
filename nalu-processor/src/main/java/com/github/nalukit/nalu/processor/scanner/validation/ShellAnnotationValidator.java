@@ -15,7 +15,9 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
+import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.AbstractShell;
+import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
@@ -76,12 +78,12 @@ public class ShellAnnotationValidator {
       if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
                                                        typeElement.asType(),
                                                        this.processingEnvironment.getElementUtils()
-                                                                                 .getTypeElement(AbstractShell.class.getCanonicalName())
+                                                                                 .getTypeElement(IsShell.class.getCanonicalName())
                                                                                  .asType())) {
         throw new ProcessorException("Nalu-Processor: " +
                                      typeElement.getSimpleName()
                                                 .toString() +
-                                     ": @Shells must extend AbstractShell interface");
+                                     ": @Shells must extend IsShell interface");
       }
     } else {
       throw new ProcessorException("Nalu-Processor:" + "@Shells can only be used on a type (class)");
