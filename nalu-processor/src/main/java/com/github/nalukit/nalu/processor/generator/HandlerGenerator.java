@@ -17,7 +17,7 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
-import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
+import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -27,20 +27,20 @@ import javax.lang.model.element.Modifier;
 
 public class HandlerGenerator {
 
-  private ProcessorUtils        processorUtils;
+  private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
-  private ApplicationMetaModel  applicationMetaModel;
+  private MetaModel metaModel;
 
-  private TypeSpec.Builder      typeSpec;
+  private TypeSpec.Builder typeSpec;
 
   @SuppressWarnings("unused")
   private HandlerGenerator() {
   }
 
   private HandlerGenerator(Builder builder) {
-    this.applicationMetaModel = builder.applicationMetaModel;
+    this.metaModel = builder.metaModel;
     this.processingEnvironment = builder.processingEnvironment;
     this.typeSpec = builder.typeSpec;
     setUp();
@@ -62,29 +62,29 @@ public class HandlerGenerator {
                                                       .addAnnotation(Override.class)
                                                       .addModifiers(Modifier.PUBLIC);
 
-    this.applicationMetaModel.getHandlers()
-                             .forEach(handler -> {
-                               String variableName = this.processorUtils.createFullClassName(handler.getPackage(),
-                                                                                             handler.getSimpleName());
-                               loadHandlersMethod.addComment("create handler for: " + handler.getPackage() + "." + handler.getSimpleName())
-                                                 .addStatement("$T $L = new $T()",
-                                                               ClassName.get(handler.getPackage(),
-                                                                             handler.getSimpleName()),
-                                                               variableName,
-                                                               ClassName.get(handler.getPackage(),
-                                                                             handler.getSimpleName()))
-                                                 .addStatement("$L.setContext(super.context)",
-                                                               variableName)
-                                                 .addStatement("$L.setEventBus(super.eventBus)",
-                                                               variableName)
-                                                 .addStatement("$L.setRouter(super.router)",
-                                                               variableName)
-                                                 .addStatement("$L.bind()",
-                                                               variableName)
-                                                 .addStatement("$T.get().logDetailed(\"AbstractController: handler >>$L<< created\", 0)",
-                                                               ClassName.get(ClientLogger.class),
-                                                               handler.getClassName());
-                             });
+    this.metaModel.getHandlers()
+                  .forEach(handler -> {
+                    String variableName = this.processorUtils.createFullClassName(handler.getPackage(),
+                                                                                  handler.getSimpleName());
+                    loadHandlersMethod.addComment("create handler for: " + handler.getPackage() + "." + handler.getSimpleName())
+                                      .addStatement("$T $L = new $T()",
+                                                    ClassName.get(handler.getPackage(),
+                                                                  handler.getSimpleName()),
+                                                    variableName,
+                                                    ClassName.get(handler.getPackage(),
+                                                                  handler.getSimpleName()))
+                                      .addStatement("$L.setContext(super.context)",
+                                                    variableName)
+                                      .addStatement("$L.setEventBus(super.eventBus)",
+                                                    variableName)
+                                      .addStatement("$L.setRouter(super.router)",
+                                                    variableName)
+                                      .addStatement("$L.bind()",
+                                                    variableName)
+                                      .addStatement("$T.get().logDetailed(\"AbstractController: handler >>$L<< created\", 0)",
+                                                    ClassName.get(ClientLogger.class),
+                                                    handler.getClassName());
+                  });
 
     typeSpec.addMethod(loadHandlersMethod.build());
   }
@@ -93,9 +93,9 @@ public class HandlerGenerator {
 
     ProcessingEnvironment processingEnvironment;
 
-    ApplicationMetaModel  applicationMetaModel;
+    MetaModel metaModel;
 
-    TypeSpec.Builder      typeSpec;
+    TypeSpec.Builder typeSpec;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
@@ -105,11 +105,11 @@ public class HandlerGenerator {
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param applicationMetaModel meta data model of the eventbus
+     * @param metaModel meta data model of the eventbus
      * @return the Builder
      */
-    public Builder applicationMetaModel(ApplicationMetaModel applicationMetaModel) {
-      this.applicationMetaModel = applicationMetaModel;
+    public Builder metaModel(MetaModel metaModel) {
+      this.metaModel = metaModel;
       return this;
     }
 

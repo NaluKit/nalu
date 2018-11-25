@@ -16,13 +16,10 @@
 
 package com.github.nalukit.nalu.client.application.annotation;
 
-import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.application.AbstractApplicationLoader;
 import com.github.nalukit.nalu.client.application.IsContext;
-import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.internal.application.NoApplicationLoader;
 
-import javax.xml.bind.annotation.XmlElementDecl;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 

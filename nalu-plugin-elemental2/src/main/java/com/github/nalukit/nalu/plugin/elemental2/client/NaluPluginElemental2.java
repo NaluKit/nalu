@@ -17,12 +17,12 @@
 package com.github.nalukit.nalu.plugin.elemental2.client;
 
 import com.github.nalukit.nalu.client.internal.ClientLogger;
-import com.github.nalukit.nalu.client.plugin.IsPlugin;
+import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 
 public class NaluPluginElemental2
-    implements IsPlugin {
+    implements IsNaluProcessorPlugin {
 
   public NaluPluginElemental2() {
     super();

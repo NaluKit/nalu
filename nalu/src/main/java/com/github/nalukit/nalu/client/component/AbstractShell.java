@@ -69,9 +69,9 @@ public abstract class AbstractShell<C extends IsContext>
   }
 
   /**
-   * Will be called in case a shell ist detachred.
-   *
-   * In case you have something to do if a shell is detached, override this mehtod.
+   * Will be called in case a shellCreator ist detachred.
+   * <p>
+   * In case you have something to do if a shellCreator is detached, override this mehtod.
    */
   @Override
   public void detachShell() {

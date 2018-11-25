@@ -15,10 +15,11 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
+import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
-import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
-import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
+import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerCompositeModel;
+import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -27,7 +28,7 @@ import javax.lang.model.element.Modifier;
 
 public class CompositesGenerator {
 
-  private ApplicationMetaModel applicationMetaModel;
+  private MetaModel metaModel;
 
   private TypeSpec.Builder typeSpec;
 
@@ -36,7 +37,7 @@ public class CompositesGenerator {
   }
 
   private CompositesGenerator(Builder builder) {
-    this.applicationMetaModel = builder.applicationMetaModel;
+    this.metaModel = builder.metaModel;
     this.typeSpec = builder.typeSpec;
   }
 
@@ -52,8 +53,14 @@ public class CompositesGenerator {
     // generate method 'generateLoadCompositeReferences()'
     MethodSpec.Builder loadCompositesMethodBuilder = MethodSpec.methodBuilder("loadCompositeReferences")
                                                                .addModifiers(Modifier.PUBLIC)
-                                                               .addAnnotation(Override.class);
-    for (ControllerModel controllerModel : this.applicationMetaModel.getController()) {
+                                                               .addAnnotation(Override.class)
+                                                               .addStatement("$T sb01 = new $T()",
+                                                                             ClassName.get(StringBuilder.class),
+                                                                             ClassName.get(StringBuilder.class))
+                                                               .addStatement("sb01.append(\"load composite references\")")
+                                                               .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
+                                                                             ClassName.get(ClientLogger.class));
+    for (ControllerModel controllerModel : this.metaModel.getController()) {
       for (ControllerCompositeModel controllerCompositeModel : controllerModel.getComposites()) {
         loadCompositesMethodBuilder.addStatement("this.compositeControllerReferences.add(new $T($S, $S, $S, $S))",
                                                  ClassName.get(CompositeControllerReference.class),
@@ -62,7 +69,17 @@ public class CompositesGenerator {
                                                  controllerCompositeModel.getName(),
                                                  controllerCompositeModel.getComposite()
                                                                          .getClassName(),
-                                                 controllerCompositeModel.getSelector());
+                                                 controllerCompositeModel.getSelector())
+                                   .addStatement("sb01 = new $T()",
+                                                 ClassName.get(StringBuilder.class))
+                                   .addStatement("sb01.append(\"register composite >>$L<< for controller >>$L<< in selector >>$L<<\")",
+                                                 controllerCompositeModel.getName(),
+                                                 controllerModel.getProvider()
+                                                                .getClassName(),
+                                                 controllerCompositeModel.getSelector())
+                                   .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
+                                                 ClassName.get(ClientLogger.class));
+
       }
     }
     typeSpec.addMethod(loadCompositesMethodBuilder.build());
@@ -70,18 +87,18 @@ public class CompositesGenerator {
 
   public static final class Builder {
 
-    ApplicationMetaModel applicationMetaModel;
+    MetaModel metaModel;
 
     TypeSpec.Builder typeSpec;
 
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param applicationMetaModel meta data model of the eventbus
+     * @param metaModel meta data model of the eventbus
      * @return the Builder
      */
-    public Builder applicationMetaModel(ApplicationMetaModel applicationMetaModel) {
-      this.applicationMetaModel = applicationMetaModel;
+    public Builder metaModel(MetaModel metaModel) {
+      this.metaModel = metaModel;
       return this;
     }
 

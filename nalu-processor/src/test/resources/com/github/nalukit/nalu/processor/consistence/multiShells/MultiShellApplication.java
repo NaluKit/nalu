@@ -18,18 +18,11 @@ package com.github.nalukit.nalu.processor.consistence.multiShells;
 
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
-import com.github.nalukit.nalu.client.application.annotation.Shell;
-import com.github.nalukit.nalu.client.application.annotation.Shells;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import com.github.nalukit.nalu.processor.common.MockShell;
 
 @Application(startRoute = "/mockShell02/route03",
              context = MockContext.class,
              routeError = "/mockShell02/route03")
-@Shells({ @Shell(name = "mockShell01",
-                 shell = MockShell.class),
-          @Shell(name = "mockShell02",
-                 shell = MockShell.class) })
 public interface MultiShellApplication
     extends IsApplication {
 }

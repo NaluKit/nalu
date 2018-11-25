@@ -22,7 +22,7 @@ import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
-import com.github.nalukit.nalu.client.internal.application.ControllerCreator;
+import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
@@ -55,6 +55,10 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
   }
 
   @Override
+  protected void loadPlugins() {
+  }
+
+  @Override
   protected void loadShellFactory() {
 
   }
@@ -75,16 +79,16 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
 
   @Override
   public void loadComponents() {
-    // shell ...
+    // shellCreator ...
     Shell shell = new Shell();
     shell.setRouter(this.router);
     shell.setEventBus(this.eventBus);
     shell.setContext(this.context);
     super.shell = shell;
     shell.bind();
-    ClientLogger.get().logDetailed("AbstractApplicationImpl: shell created", 1);
+    ClientLogger.get().logDetailed("AbstractApplicationImpl: shellCreator created", 1);
     // create ControllerCreator for: NavigationController
-    ControllerFactory.get().registerController("NavigationController", new ControllerCreator() {
+    ControllerFactory.get().registerController("NavigationController", new IsControllerCreator() {
       @Override
       public ControllerInstance create(String... parms) throws RoutingInterceptionException {
         StringBuilder sb01 = new StringBuilder();
@@ -132,7 +136,7 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
       }
     });
     // create ControllerCreator for: DetailController
-    ControllerFactory.get().registerController("DetailController", new ControllerCreator() {
+    ControllerFactory.get().registerController("DetailController", new IsControllerCreator() {
       @Override
       public ControllerInstance create(String... parms) throws RoutingInterceptionException {
         StringBuilder sb01 = new StringBuilder();
@@ -188,7 +192,7 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
       }
     });
     // create ControllerCreator for: ListController
-    ControllerFactory.get().registerController("ListController", new ControllerCreator() {
+    ControllerFactory.get().registerController("ListController", new IsControllerCreator() {
       @Override
       public ControllerInstance create(String... parms) throws RoutingInterceptionException {
         StringBuilder sb01 = new StringBuilder();
@@ -250,7 +254,7 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
       }
     });
     // create ControllerCreator for: FooterController
-    ControllerFactory.get().registerController("FooterController", new ControllerCreator() {
+    ControllerFactory.get().registerController("FooterController", new IsControllerCreator() {
       @Override
       public ControllerInstance create(String... parms) throws RoutingInterceptionException {
         StringBuilder sb01 = new StringBuilder();
@@ -298,7 +302,7 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
       }
     });
     // create ControllerCreator for: SearchController
-    ControllerFactory.get().registerController("SearchController", new ControllerCreator() {
+    ControllerFactory.get().registerController("SearchController", new IsControllerCreator() {
       @Override
       public ControllerInstance create(String... parms) throws RoutingInterceptionException {
         StringBuilder sb01 = new StringBuilder();

@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
 
 public class RouteConfig {
 
-  /* shell */
+  /* shellCreator */
   private List<String> shell;
 
   /* route */
   private String route;
 
-  /* route without shell */
+  /* route without shellCreator */
   private String routeWithoutShell;
 
   /* parameters */
@@ -57,7 +57,7 @@ public class RouteConfig {
     this.parameters = parameters;
     this.selector = selector;
     this.className = className;
-    // get shell from route
+    // get shellCreator from route
     String tmpValue = route;
     if (tmpValue.startsWith("/")) {
       tmpValue = tmpValue.substring(1);
@@ -75,7 +75,8 @@ public class RouteConfig {
       shellFromRoute = shellFromRoute.substring(1);
     }
     if (shellFromRoute.endsWith("]")) {
-      shellFromRoute = shellFromRoute.substring(0, shellFromRoute.length() - 1);
+      shellFromRoute = shellFromRoute.substring(0,
+                                                shellFromRoute.length() - 1);
     }
     if (shellFromRoute.contains("|")) {
       this.shell = Arrays.asList(shellFromRoute.split("\\|"))
@@ -102,7 +103,7 @@ public class RouteConfig {
     if (this.shell.contains("*")) {
       return true;
     }
-    // seperate shell from route
+    // seperate shellCreator from route
     String shellOfRoute = route;
     if (shellOfRoute.startsWith("/")) {
       shellOfRoute = shellOfRoute.substring(1);
@@ -115,7 +116,7 @@ public class RouteConfig {
   }
 
   private boolean matchRouteWithoutShell(String route) {
-    // seperate shell from route
+    // seperate shellCreator from route
     String routeWithoutShell = route;
     if (routeWithoutShell.startsWith("/")) {
       routeWithoutShell = routeWithoutShell.substring(1);

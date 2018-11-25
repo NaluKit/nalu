@@ -20,22 +20,13 @@ import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
-import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
-import com.github.nalukit.nalu.processor.scanner.validation.ApplicationAnnotationValidator;
-import com.google.gson.Gson;
+import com.github.nalukit.nalu.processor.model.MetaModel;
+import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.MirroredTypeException;
-import javax.tools.FileObject;
-import javax.tools.StandardLocation;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.util.Objects;
-import java.util.Optional;
 
 import static java.util.Objects.isNull;
 
@@ -47,13 +38,16 @@ public class ApplicationAnnotationScanner {
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment roundEnvironment;
+  private MetaModel metaModel;
+
+  private Element applicationElement;
 
   @SuppressWarnings("unused")
   private ApplicationAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.roundEnvironment = builder.roundEnvironment;
+    this.metaModel = builder.metaModel;
+    this.applicationElement = builder.applicationElement;
     setUp();
   }
 
@@ -67,95 +61,20 @@ public class ApplicationAnnotationScanner {
                                         .build();
   }
 
-  public ApplicationMetaModel scan()
+  public void scan()
       throws ProcessorException {
-    // First we try to read an already created resource ...
-    ApplicationMetaModel model = this.restore();
-    // Check if we have an element annotated with @Application
-    if (!roundEnvironment.getElementsAnnotatedWith(Application.class)
-                         .isEmpty()) {
-      // check, whether we have o do something ...
-      ApplicationAnnotationValidator validator = ApplicationAnnotationValidator.builder()
-                                                                               .roundEnvironment(roundEnvironment)
-                                                                               .processingEnvironment(this.processingEnvironment)
-                                                                               .build();
-      validator.validate();
-      // should only be one, so we can search for the first! ...
-      Optional<? extends Element> optionalElement = this.roundEnvironment.getElementsAnnotatedWith(Application.class)
-                                                                         .stream()
-                                                                         .findFirst();
-      if (optionalElement.isPresent()) {
-        Element applicationAnnotationElement = optionalElement.get();
-        validator.validate(applicationAnnotationElement);
-        Application applicationAnnotation = applicationAnnotationElement.getAnnotation(Application.class);
-        if (!isNull(applicationAnnotation)) {
-          TypeElement applicationLoaderTypeElement = this.getApplicationLoaderTypeElement(applicationAnnotation);
-          //          TypeElement shellTypeElement = this.getShellTypeElement(applicationAnnotation);
-          TypeElement contextTypeElement = this.getContextTypeElement(applicationAnnotation);
-          model = new ApplicationMetaModel(this.processorUtils.getPackageAsString(applicationAnnotationElement),
-                                           applicationAnnotationElement.toString(),
-                                           isNull(applicationLoaderTypeElement) ? "" : applicationLoaderTypeElement.toString(),
-                                           //                                           isNull(shellTypeElement) ? "" : shellTypeElement.toString(),
-                                           Objects.requireNonNull(contextTypeElement)
-                                                  .toString(),
-                                           applicationAnnotation.startRoute(),
-                                           applicationAnnotation.routeError());
-          // Shell-Annotation
-          model = ShellsAnnotationScanner.builder()
-                                         .processingEnvironment(processingEnvironment)
-                                         .applicationTypeElement((TypeElement) applicationAnnotationElement)
-                                         .applicationMetaModel(model)
-                                         .build()
-                                         .scan(roundEnvironment);
-          // Debug-Annotation
-          model = DebugAnnotationScanner.builder()
-                                        .processingEnvironment(processingEnvironment)
-                                        .applicationTypeElement((TypeElement) applicationAnnotationElement)
-                                        .applicationMetaModel(model)
-                                        .build()
-                                        .scan(roundEnvironment);
-          // Controller-Annotation
-          model = ControllerAnnotationScanner.builder()
-                                             .processingEnvironment(processingEnvironment)
-                                             .applicationMetaModel(model)
-                                             .build()
-                                             .scan(roundEnvironment);
-          // Filter-Annotation
-          model = FiltersAnnotationScanner.builder()
-                                          .processingEnvironment(processingEnvironment)
-                                          .applicationTypeElement((TypeElement) applicationAnnotationElement)
-                                          .applicationMetaModel(model)
-                                          .build()
-                                          .scan(roundEnvironment);
-          // CompositeController-Annotation (must be executed after then ControllerAnnotationScanner!)
-          model = CompositeControllerAnnotationScanner.builder()
-                                                      .processingEnvironment(processingEnvironment)
-                                                      .applicationMetaModel(model)
-                                                      .build()
-                                                      .scan(roundEnvironment);
-
-          // let's store the updated model
-          this.store(model);
-        }
-      }
+    Application applicationAnnotation = applicationElement.getAnnotation(Application.class);
+    if (!isNull(applicationAnnotation)) {
+      TypeElement applicationLoaderTypeElement = this.getApplicationLoaderTypeElement(applicationAnnotation);
+      //      TypeElement shellTypeElement = this.getShellTypeElement(applicationAnnotation);
+      TypeElement contextTypeElement = this.getContextTypeElement(applicationAnnotation);
+      metaModel.setGenerateToPackage(this.processorUtils.getPackageAsString(applicationElement));
+      metaModel.setApplication(new ClassNameModel(applicationElement.toString()));
+      metaModel.setLoader(new ClassNameModel(isNull(applicationLoaderTypeElement) ? "" : applicationLoaderTypeElement.toString()));
+      metaModel.setContext(new ClassNameModel(contextTypeElement.toString()));
+      metaModel.setStartRoute(applicationAnnotation.startRoute());
+      metaModel.setRouteError(applicationAnnotation.routeError());
     }
-    return model;
-  }
-
-  private ApplicationMetaModel restore() {
-    Gson gson = new Gson();
-    try {
-      FileObject resource = this.processingEnvironment.getFiler()
-                                                      .getResource(StandardLocation.CLASS_OUTPUT,
-                                                                   "",
-                                                                   this.createRelativeFileName());
-      return gson.fromJson(resource.getCharContent(true)
-                                   .toString(),
-                           ApplicationMetaModel.class);
-    } catch (IOException e) {
-      // every thing is ok -> no operation
-    }
-    return null;
   }
 
   private TypeElement getApplicationLoaderTypeElement(Application applicationAnnotation) {
@@ -178,23 +97,6 @@ public class ApplicationAnnotationScanner {
     return null;
   }
 
-  private void store(ApplicationMetaModel model)
-      throws ProcessorException {
-    Gson gson = new Gson();
-    try {
-      FileObject fileObject = processingEnvironment.getFiler()
-                                                   .createResource(StandardLocation.CLASS_OUTPUT,
-                                                                   "",
-                                                                   this.createRelativeFileName());
-      PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(fileObject.openOutputStream()));
-      printWriter.print(gson.toJson(model));
-      printWriter.flush();
-      printWriter.close();
-    } catch (IOException e) {
-      throw new ProcessorException("NaluProcessor: Unable to write file: >>" + this.createRelativeFileName() + "<< -> exception: " + e.getMessage());
-    }
-  }
-
   private String createRelativeFileName() {
     return ProcessorConstants.META_INF + "/" + ProcessorConstants.NALU_REACT_FOLDER_NAME + "/" + ApplicationAnnotationScanner.APPLICATION_PROPERTIES;
   }
@@ -203,15 +105,22 @@ public class ApplicationAnnotationScanner {
 
     ProcessingEnvironment processingEnvironment;
 
-    RoundEnvironment roundEnvironment;
+    MetaModel metaModel;
+
+    Element applicationElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
 
-    public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
-      this.roundEnvironment = roundEnvironment;
+    public Builder metaModel(MetaModel metaModel) {
+      this.metaModel = metaModel;
+      return this;
+    }
+
+    public Builder applicationElement(Element applicationElement) {
+      this.applicationElement = applicationElement;
       return this;
     }
 

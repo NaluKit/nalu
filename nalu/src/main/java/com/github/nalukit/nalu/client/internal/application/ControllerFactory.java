@@ -30,7 +30,7 @@ public class ControllerFactory {
   private static ControllerFactory instance;
 
   /* map of components (key: name of class, Value: ControllerCreator */
-  private Map<String, ControllerCreator> controllerFactory;
+  private Map<String, IsControllerCreator> controllerFactory;
 
   /* map of stored components (key: name of class, Value: instance of controller */
   private Map<String, AbstractComponentController<?, ?, ?>> controllerStore;
@@ -48,7 +48,7 @@ public class ControllerFactory {
   }
 
   public void registerController(String controller,
-                                 ControllerCreator creator) {
+                                 IsControllerCreator creator) {
     this.controllerFactory.put(controller,
                                creator);
   }

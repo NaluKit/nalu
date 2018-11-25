@@ -15,20 +15,22 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
-import com.github.nalukit.nalu.client.application.IsApplication;
-import com.github.nalukit.nalu.client.application.annotation.Shell;
-import com.github.nalukit.nalu.client.application.annotation.Shells;
+import com.github.nalukit.nalu.client.component.AbstractCompositeController;
+import com.github.nalukit.nalu.client.component.AbstractShell;
+import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
-import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
+import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import java.util.*;
-import java.util.stream.Collectors;
+import javax.lang.model.type.*;
+import javax.lang.model.util.SimpleTypeVisitor6;
+import java.util.List;
+import java.util.Optional;
 
 public class ShellAnnotationValidator {
 
@@ -38,9 +40,7 @@ public class ShellAnnotationValidator {
 
   private RoundEnvironment roundEnvironment;
 
-  private ApplicationMetaModel applicationMetaModel;
-
-  private TypeElement applicationTypeElement;
+  private MetaModel metaModel;
 
   @SuppressWarnings("unused")
   private ShellAnnotationValidator() {
@@ -49,8 +49,7 @@ public class ShellAnnotationValidator {
   private ShellAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.roundEnvironment = builder.roundEnvironment;
-    this.applicationTypeElement = builder.applicationTypeElement;
-    this.applicationMetaModel = builder.applicationMetaModel;
+    this.metaModel = builder.metaModel;
 
     setUp();
   }
@@ -65,65 +64,106 @@ public class ShellAnnotationValidator {
                                         .build();
   }
 
-  public void validate()
-      throws ProcessorException {
-    // get elements annotated with Application annotation
-    Set<? extends Element> elementsWithShellsAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Shells.class);
-    // at least there should exatly one Application annotation!
-    if (elementsWithShellsAnnotation.size() == 0) {
-      throw new ProcessorException("Nalu-Processor: @Shells is missing for IsApplication interface");
-    }
-    // at least there should only one Application annotation!
-    if (elementsWithShellsAnnotation.size() > 1) {
-      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Shells");
-    }
-  }
-
   public void validate(Element element)
       throws ProcessorException {
+
     if (element instanceof TypeElement) {
       TypeElement typeElement = (TypeElement) element;
-      // annotated element has to be a interface
+      // annotated element has to be a class
       if (!typeElement.getKind()
-                      .isInterface()) {
-        throw new ProcessorException("Nalu-Processor: @Shells annotated must be used with an interface");
+                      .isClass()) {
+        throw new ProcessorException("Nalu-Processor: @Shell annotation must be used with a class");
       }
-      // check, that the typeElement implements IsApplication
+      // check, that the typeElement implements AbstractShell
       if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
                                                        typeElement.asType(),
                                                        this.processingEnvironment.getElementUtils()
-                                                                                 .getTypeElement(IsApplication.class.getCanonicalName())
+                                                                                 .getTypeElement(IsShell.class.getCanonicalName())
                                                                                  .asType())) {
         throw new ProcessorException("Nalu-Processor: " +
                                      typeElement.getSimpleName()
                                                 .toString() +
-                                     ": @Shells must implement IsApplication interface");
+                                     ": @Shells must extend IsShell interface");
       }
     } else {
-      throw new ProcessorException("Nalu-Processor:" + "@Shells can only be used on a type (interface)");
+      throw new ProcessorException("Nalu-Processor:" + "@Shells can only be used on a type (class)");
     }
-    // check the name of the shells for duplicates
-    Shells shellsAnnotation = element.getAnnotation(Shells.class);
-    if (!Objects.isNull(shellsAnnotation)) {
-      List<String>compareList = new ArrayList<>();
-      for (int i = 0; i < shellsAnnotation.value().length; i++) {
-        Shell shell = shellsAnnotation.value()[i];
-        if (compareList.contains(shell.name())) {
-          throw new ProcessorException("Nalu-Processor:" + "@Shell: the name >>" + shell.name() + "<< is dunplicate! Please use another unique name!");
-        }
-        compareList.add(shell.name());
-      }
+    // check context!
+    this.getContextType(element);
+  }
+
+  private String getContextType(Element element)
+      throws ProcessorException {
+    final TypeMirror[] result = { null };
+    TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
+                                                                element.asType(),
+                                                                this.processorUtils.getElements()
+                                                                                   .getTypeElement(AbstractShell.class.getCanonicalName())
+                                                                                   .asType());
+    // on case type is null, no IsComponentCreator interface found!
+    if (type == null) {
+      return null;
+    }
+    // check the generic!
+    type.accept(new SimpleTypeVisitor6<Void, Void>() {
+                  @Override
+                  protected Void defaultAction(TypeMirror typeMirror,
+                                               Void v) {
+                    throw new UnsupportedOperationException();
+                  }
+
+                  @Override
+                  public Void visitPrimitive(PrimitiveType primitiveType,
+                                             Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitArray(ArrayType arrayType,
+                                         Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitDeclared(DeclaredType declaredType,
+                                            Void v) {
+                    List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
+                    if (!typeArguments.isEmpty()) {
+                      if (typeArguments.size() > 0) {
+                        result[0] = typeArguments.get(0);
+                      }
+                    }
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitError(ErrorType errorType,
+                                         Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitTypeVariable(TypeVariable typeVariable,
+                                                Void v) {
+                    return null;
+                  }
+                },
+                null);
+    try {
+      return result[0].toString();
+    } catch (NullPointerException e) {
+      throw new ProcessorException("Nalu-Processor: shellCreator >>com.github.nalukit.nalu.processor.shellCreator.shellDoesNotHaveGenericContext.ShellDoesNotHaveGenericContext<< does not have a context generic!");
     }
   }
 
   public void validateName(String name)
       throws ProcessorException {
-    Optional<ShellModel> optionalShellModel = this.applicationMetaModel.getShells()
-                                                                       .stream()
-                                                                       .filter(m -> name.equals(m.getName()))
-                                                                       .findAny();
+    Optional<ShellModel> optionalShellModel = this.metaModel.getShells()
+                                                            .stream()
+                                                            .filter(m -> name.equals(m.getName()))
+                                                            .findAny();
     if (optionalShellModel.isPresent()) {
-      throw new ProcessorException("Nalu-Processor:" + "@Shell: the shell ame >>" + name + "<< is already used!");
+      throw new ProcessorException("Nalu-Processor:" + "@Shell: the shell name >>" + name + "<< is already used!");
     }
   }
 
@@ -133,9 +173,7 @@ public class ShellAnnotationValidator {
 
     RoundEnvironment roundEnvironment;
 
-    ApplicationMetaModel applicationMetaModel;
-
-    TypeElement applicationTypeElement;
+    MetaModel metaModel;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
@@ -147,13 +185,8 @@ public class ShellAnnotationValidator {
       return this;
     }
 
-    public Builder applicationMetaModel(ApplicationMetaModel applicationMetaModel) {
-      this.applicationMetaModel = applicationMetaModel;
-      return this;
-    }
-
-    public Builder applicationTypeElement(TypeElement applicationTypeElement) {
-      this.applicationTypeElement = applicationTypeElement;
+    public Builder metaModel(MetaModel metaModel) {
+      this.metaModel = metaModel;
       return this;
     }
 

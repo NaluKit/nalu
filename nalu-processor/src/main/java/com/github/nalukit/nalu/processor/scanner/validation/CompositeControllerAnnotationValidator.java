@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.processor.scanner.validation;
 import com.github.nalukit.nalu.client.component.IsComposite;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
+import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -69,7 +70,7 @@ public class CompositeControllerAnnotationValidator {
                                                       this.processingEnvironment.getElementUtils()
                                                                                 .getTypeElement(IsComposite.class.getCanonicalName())
                                                                                 .asType()))) {
-      throw new ProcessorException("Nalu-Processor: @CompositeController can only be used on a class that extends IsSplitter");
+      throw new ProcessorException("Nalu-Processor: @CompositeController can only be used on a class that extends IsComposite");
     }
   }
 
@@ -81,6 +82,8 @@ public class CompositeControllerAnnotationValidator {
 
     Element compositeElement;
 
+    CompositeModel compositeModel;
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
@@ -91,13 +94,19 @@ public class CompositeControllerAnnotationValidator {
       return this;
     }
 
-    public Builder compsoteElement(Element compositeElement) {
+    public Builder compositeElement(Element compositeElement) {
       this.compositeElement = compositeElement;
+      return this;
+    }
+
+    public Builder compositeModel(CompositeModel compositeModel) {
+      this.compositeModel = compositeModel;
       return this;
     }
 
     public CompositeControllerAnnotationValidator build() {
       return new CompositeControllerAnnotationValidator(this);
     }
+
   }
 }

@@ -29,10 +29,7 @@ import javax.tools.Diagnostic;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ProcessorUtils {
@@ -316,12 +313,21 @@ public class ProcessorUtils {
   }
 
   public boolean doesExist(ClassNameModel typeElementClassName) {
+    if (Objects.isNull(typeElementClassName)) {
+      return false;
+    }
     return this.processingEnvironment.getElementUtils()
                                      .getTypeElement(typeElementClassName.getClassName()) != null;
   }
 
   public String createHistoryMetaDataClassName(String historyConverterClassName) {
     return this.setFirstCharacterToUpperCase(this.createHistoryMetaDataVariableName(historyConverterClassName)) + "_" + ProcessorConstants.META_DATA;
+  }
+
+  public String setFirstCharacterToLowerCase(String className) {
+    return className.substring(0,
+                               1)
+                    .toLowerCase() + className.substring(1);
   }
 
   public String setFirstCharacterToUpperCase(String className) {
@@ -341,10 +347,10 @@ public class ProcessorUtils {
 
   public String createSetMethodName(String value) {
     return "set" +
-        value.substring(0,
-                        1)
-             .toUpperCase() +
-        value.substring(1);
+           value.substring(0,
+                           1)
+                .toUpperCase() +
+           value.substring(1);
   }
 
   public String createEventNameFromHandlingMethod(String event) {

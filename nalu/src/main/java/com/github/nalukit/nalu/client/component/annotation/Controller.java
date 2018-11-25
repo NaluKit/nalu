@@ -19,8 +19,10 @@ package com.github.nalukit.nalu.client.component.annotation;
 import com.github.nalukit.nalu.client.component.AbstractComponent;
 import com.github.nalukit.nalu.client.component.IsComponent;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * <p>This annotation is used to annotate an calls in nalu-route. It defines the route and the selector.</p>
@@ -33,6 +35,7 @@ import java.lang.annotation.RetentionPolicy;
  * @author Frank Hossfeld
  */
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
 public @interface Controller {
 
   String route();

@@ -26,7 +26,7 @@ import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.internal.route.*;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
-import com.github.nalukit.nalu.client.plugin.IsPlugin;
+import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -56,19 +56,19 @@ public final class Router {
   //* hash of last successful routing */
   private String lastExecutedHash = "";
 
-  /* last added shell */
+  /* last added shellCreator */
   private String lastAddedShell;
 
-  /* instnce of the shell */
+  /* instnce of the shellCreator */
   private IsShell shell;
 
   /* the plugin */
-  private IsPlugin plugin;
+  private IsNaluProcessorPlugin plugin;
 
   /* list of routes used for handling the current route - used to detect loops */
   private List<String> loopDetectionList;
 
-  public Router(IsPlugin plugin,
+  public Router(IsNaluProcessorPlugin plugin,
                 ShellConfiguration shellConfiguration,
                 RouterConfiguration routerConfiguration,
                 List<CompositeControllerReference> compositeControllerReferences) {
@@ -97,23 +97,24 @@ public final class Router {
     // logg hash
     RouterLogger.logHandleHash(hash);
     // save have to loo detector list ...
-    if (this.loopDetectionList.contains(hash)) {
+    if (this.loopDetectionList.contains(pimpUpHashForLoopDetection(hash))) {
       // loop discovered .... -> show message
       String message = RouterLogger.logLoopDetected(this.loopDetectionList.get(0));
       // check, if there is a loop containing the error route
-      if (this.loopDetectionList.contains(this.routeError)) {
+      if (this.loopDetectionList.contains(pimpUpHashForLoopDetection(this.routeError))) {
         // YES!! -> just use the alert feature of the plugin
         this.plugin.alert(message);
       } else {
         // NO!! -> route to error site ....
         this.naluErrorMessage = new NaluErrorMessage(Nalu.NALU_ERROR_TYPE_LOOP_DETECTED,
                                                      message);
+        this.loopDetectionList.add(pimpUpHashForLoopDetection(this.routeError));
         this.route(this.routeError);
       }
       // abort handling!
       return;
     } else {
-      this.loopDetectionList.add(hash);
+      this.loopDetectionList.add(pimpUpHashForLoopDetection(hash));
     }
     // parse hash ...
     HashResult hashResult;
@@ -124,12 +125,21 @@ public final class Router {
                                                    RouterLogger.logNoMatchingRoute(hash,
                                                                                    this.routeError));
       if (!Objects.isNull(this.routeError)) {
+        // loop discovered .... -> show message
+        String message = RouterLogger.logLoopDetected(this.loopDetectionList.get(0));
+        // check, if there is a loop containing the error route
+        if (this.loopDetectionList.contains(pimpUpHashForLoopDetection(this.routeError))) {
+          // YES!! -> just use the alert feature of the plugin
+          this.plugin.alert(message);
+          return;
+        }
         RouterLogger.logUseErrorRoute(this.routeError);
+        this.loopDetectionList.add(pimpUpHashForLoopDetection(hash));
         this.route(this.routeError,
                    true);
       } else {
         // should never be seen!
-        this.plugin.alert("Ups ... not found!");
+        this.plugin.alert("No error Route defeined");
       }
       return;
     }
@@ -155,52 +165,52 @@ public final class Router {
     if (this.confirmRouting(routeConfigurations)) {
       // call stop for all elements
       this.stopController(routeConfigurations);
-      // handle shell
+      // handle shellCreator
       //
-      // in case shell changed or is not set, use the actual shell!
+      // in case shellCreator changed or is not set, use the actual shellCreator!
       if (this.lastAddedShell == null ||
           !hashResult.getShell()
                      .equals(this.lastAddedShell)) {
-        // add shell to the viewport
+        // add shellCreator to the viewport
         ShellConfig shellConfig = this.shellConfiguration.match(hashResult.getShell());
         if (!Objects.isNull(shellConfig)) {
           ShellInstance shellInstance = ShellFactory.get()
                                                     .shell(shellConfig.getClassName());
           if (!Objects.isNull(shellInstance)) {
-            // in case there is an instance of an shell existing, call the onDetach mehtod inside the shell
+            // in case there is an instance of an shellCreator existing, call the onDetach mehtod inside the shellCreator
             if (!Objects.isNull(this.shell)) {
               ClientLogger.get()
-                          .logDetailed("Router: detach shell >>" +
+                          .logDetailed("Router: detach shellCreator >>" +
                                        this.shell.getClass()
                                                  .getCanonicalName() +
                                        "<<",
                                        1);
               this.shell.detachShell();
               ClientLogger.get()
-                          .logDetailed("Router: shell >>" +
+                          .logDetailed("Router: shellCreator >>" +
                                        this.shell.getClass()
                                                  .getCanonicalName() +
                                        "<< detached",
                                        1);
             }
-            // set newe shell value
+            // set newe shellCreator value
             this.shell = shellInstance.getShell();
-            // save the last added shell ....
+            // save the last added shellCreator ....
             this.lastAddedShell = hashResult.getShell();
-            // initialize shell ...
+            // initialize shellCreator ...
             ClientLogger.get()
-                        .logDetailed("Router: attach shell >>" + hashResult.getShell() + "<<",
+                        .logDetailed("Router: attach shellCreator >>" + hashResult.getShell() + "<<",
                                      1);
             shellInstance.getShell()
                          .attachShell();
             ClientLogger.get()
-                        .logDetailed("Router: shell >>" + hashResult.getShell() + "<< attached",
+                        .logDetailed("Router: shellCreator >>" + hashResult.getShell() + "<< attached",
                                      1);
             // start the application by calling url + '#'
             ClientLogger.get()
-                        .logDetailed("Router: initialize shell >>" + hashResult.getShell() + "<< (route to '/')",
+                        .logDetailed("Router: initialize shellCreator >>" + hashResult.getShell() + "<< (route to '/')",
                                      1);
-            // get shell matching root configs ...
+            // get shellCreator matching root configs ...
             List<RouteConfig> shellMatchingRouteConfigurations = this.routerConfiguration.match(hashResult.getShell());
             for (RouteConfig routeConfiguraion : shellMatchingRouteConfigurations) {
               this.handleRouteConfig(routeConfiguraion,
@@ -208,6 +218,10 @@ public final class Router {
                                      hash);
             }
           }
+        } else {
+          RouterLogger.logUseErrorRoute(this.routeError);
+          this.route(this.routeError,
+                     true);
         }
       }
       // routing
@@ -285,27 +299,29 @@ public final class Router {
                                                            compositeForController.size());
         compositeForController.forEach(s -> {
           try {
-            AbstractCompositeController<?, ?, ?> composite = CompositeFactory.get()
-                                                                             .getComposite(s.getComposite(),
-                                                                                           hashResult.getParameterValues()
-                                                                                                     .toArray(new String[0]));
-            if (composite == null) {
+            CompositeInstance compositeInstance = CompositeFactory.get()
+                                                                  .getComposite(s.getComposite(),
+                                                                                hashResult.getParameterValues()
+                                                                                          .toArray(new String[0]));
+            if (compositeInstance == null) {
               RouterLogger.logCompositeNotFound(controllerInstance.getController()
                                                                   .getClass()
                                                                   .getCanonicalName(),
                                                 s.getCompositeName());
 
             } else {
-              compositeControllers.add(composite);
+              compositeControllers.add(compositeInstance.getComposite());
               // inject router into composite
-              composite.setRouter(this);
+              compositeInstance.getComposite()
+                               .setRouter(this);
               // inject composite into controller
               controllerInstance.getController()
                                 .getComposites()
                                 .put(s.getCompositeName(),
-                                     composite);
-              RouterLogger.logCompositeControllerInjectedInController(composite.getClass()
-                                                                               .getCanonicalName(),
+                                     compositeInstance.getComposite());
+              RouterLogger.logCompositeControllerInjectedInController(compositeInstance.getComposite()
+                                                                                       .getClass()
+                                                                                       .getCanonicalName(),
                                                                       controllerInstance.getController()
                                                                                         .getClass()
                                                                                         .getCanonicalName());
@@ -373,7 +389,7 @@ public final class Router {
   }
 
   /**
-   * Parse the hash and divides it into shell, route and parameters
+   * Parse the hash and divides it into shellCreator, route and parameters
    *
    * @param hash ths hash to parse
    * @return parse result
@@ -387,7 +403,7 @@ public final class Router {
     if (hashValue.contains("#")) {
       hashValue = hashValue.substring(hashValue.indexOf("#") + 1);
     }
-    // extract shell first:
+    // extract shellCreator first:
     if (hashValue.startsWith("/")) {
       hashValue = hashValue.substring(1);
     }
@@ -399,7 +415,7 @@ public final class Router {
     } else {
       hashResult.setShell("/" + hashValue);
     }
-    // check, if the shell exists ....
+    // check, if the shellCreator exists ....
     Optional<String> optional = this.shellConfiguration.getShells()
                                                        .stream()
                                                        .map(ShellConfig::getRoute)
@@ -407,7 +423,7 @@ public final class Router {
                                                        .findAny();
     if (!optional.isPresent()) {
       StringBuilder sb = new StringBuilder();
-      sb.append("no matching shell found for hash >>")
+      sb.append("no matching shellCreator found for hash >>")
         .append(hash)
         .append("<< --> Routing aborted!");
       RouterLogger.logSimple(sb.toString(),
@@ -685,6 +701,17 @@ public final class Router {
     return sb.toString();
   }
 
+  private String pimpUpHashForLoopDetection(String hash) {
+    String value = hash;
+    if (value.startsWith("#")) {
+      value = value.substring(1);
+    }
+    if (value.startsWith("/")) {
+      value = value.substring(1);
+    }
+    return value;
+  }
+
   /**
    * Returns the last error message set by Nalu.
    * <p>
@@ -718,7 +745,7 @@ public final class Router {
   /**
    * Sets the error route. (Mostly done by the framework)
    *
-   * @param routeError
+   * @param routeError route used by Nalu in case of a routing error
    */
   public void setRouteError(String routeError) {
     this.routeError = routeError;

@@ -28,6 +28,8 @@ public class CompositeModel {
 
   private ClassNameModel component;
 
+  private ClassNameModel context;
+
   private List<ParameterAcceptor> parameterAcceptors;
 
   private boolean componentCreator;
@@ -35,16 +37,26 @@ public class CompositeModel {
   public CompositeModel() {
   }
 
-  public CompositeModel(ClassNameModel provider,
+  public CompositeModel(ClassNameModel context,
+                        ClassNameModel provider,
                         ClassNameModel componentInterface,
                         ClassNameModel component,
                         boolean componentCreator) {
+    this.context = context;
     this.provider = provider;
     this.componentInterface = componentInterface;
     this.component = component;
     this.componentCreator = componentCreator;
 
     this.parameterAcceptors = new ArrayList<>();
+  }
+
+  public ClassNameModel getContext() {
+    return context;
+  }
+
+  public void setContext(ClassNameModel context) {
+    this.context = context;
   }
 
   public ClassNameModel getProvider() {

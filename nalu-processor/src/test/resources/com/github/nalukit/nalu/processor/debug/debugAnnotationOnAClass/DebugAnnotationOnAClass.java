@@ -19,11 +19,11 @@ package com.github.nalukit.nalu.processor.debug.debugAnnotationOnAClass;
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
+import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.MockLogger;
 
-@Application(startShell = "mockShell",
-             startRoute = "/search",
+@Application(startRoute = "/search",
              context = MockContext.class,
              routeError = "/errorShell/error")
 @Debug(logLevel = Debug.LogLevel.DETAILED,
@@ -31,6 +31,6 @@ import com.github.nalukit.nalu.processor.common.MockLogger;
 public class DebugAnnotationOnAClass
     implements IsApplication {
 
-  public void run(IsPlugin plugin) {
+  public void run(IsNaluProcessorPlugin plugin) {
   }
 }

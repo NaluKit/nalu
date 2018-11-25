@@ -21,15 +21,14 @@ import com.github.nalukit.nalu.client.component.annotation.Composites;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
-import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerCompositeModel;
+import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.MirroredTypeException;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class CompositesAnnotationScanner {
 
@@ -39,14 +38,14 @@ public class CompositesAnnotationScanner {
 
   private ControllerModel controllerModel;
 
-  private TypeElement controllerTypeElement;
+  private Element controllerElement;
 
   @SuppressWarnings("unused")
   private CompositesAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
     this.controllerModel = builder.controllerModel;
-    this.controllerTypeElement = builder.controllerTypeElement;
+    this.controllerElement = builder.controllerElement;
     setUp();
   }
 
@@ -60,9 +59,9 @@ public class CompositesAnnotationScanner {
                                         .build();
   }
 
-  ControllerModel scan(RoundEnvironment roundEnvironment)
+  public ControllerModel scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
-    Composites annotation = this.controllerTypeElement.getAnnotation(Composites.class);
+    Composites annotation = this.controllerElement.getAnnotation(Composites.class);
     if (annotation != null) {
       for (Composite composite : annotation.value()) {
         controllerModel.getComposites()
@@ -84,19 +83,13 @@ public class CompositesAnnotationScanner {
     return null;
   }
 
-//  private String[] getParameters(String parameters) {
-//    return Stream.of(parameters.split("/:"))
-//                 .filter(p -> !"".equals(p))
-//                 .toArray(String[]::new);
-//  }
-
   public static class Builder {
 
     ProcessingEnvironment processingEnvironment;
 
     ControllerModel controllerModel;
 
-    TypeElement controllerTypeElement;
+    Element controllerElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
@@ -108,8 +101,8 @@ public class CompositesAnnotationScanner {
       return this;
     }
 
-    public Builder controllerTypeElement(TypeElement controllerTypeElement) {
-      this.controllerTypeElement = controllerTypeElement;
+    public Builder controllerElement(Element controllerElement) {
+      this.controllerElement = controllerElement;
       return this;
     }
 

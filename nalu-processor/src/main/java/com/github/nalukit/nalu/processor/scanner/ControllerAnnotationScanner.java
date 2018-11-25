@@ -17,17 +17,17 @@
 package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.component.AbstractController;
 import com.github.nalukit.nalu.client.component.IsComponentCreator;
 import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
-import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
+import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterAcceptor;
 import com.github.nalukit.nalu.processor.scanner.validation.AcceptParameterAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.ControllerAnnotationValidator;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -37,6 +37,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.*;
 import javax.lang.model.util.SimpleTypeVisitor6;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -46,13 +47,16 @@ public class ControllerAnnotationScanner {
 
   private ProcessingEnvironment processingEnvironment;
 
-  private ApplicationMetaModel applicationMetaModel;
+  private MetaModel metaModel;
+
+  private Element controllerElement;
 
   @SuppressWarnings("unused")
   private ControllerAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.applicationMetaModel = builder.applicationMetaModel;
+    this.metaModel = builder.metaModel;
+    this.controllerElement = builder.controllerElement;
     setUp();
   }
 
@@ -66,75 +70,119 @@ public class ControllerAnnotationScanner {
                                         .build();
   }
 
-  ApplicationMetaModel scan(RoundEnvironment roundEnvironment)
+  public ControllerModel scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
     // handle ProvidesSelector-annotation
-    for (Element element : roundEnvironment.getElementsAnnotatedWith(Controller.class)) {
-      ControllerModel controllerModel = this.handleController(roundEnvironment,
-                                                              element);
-      // handle AcceptParameter annotation
-      handleAcceptParameters(roundEnvironment,
-                             element,
-                             controllerModel);
-      // Composites-Annotation
-      controllerModel = CompositesAnnotationScanner.builder()
-                                                   .processingEnvironment(processingEnvironment)
-                                                   .controllerModel(controllerModel)
-                                                   .controllerTypeElement((TypeElement) element)
-                                                   .build()
-                                                   .scan(roundEnvironment);
-
-      // add model to routes ...
-      this.applicationMetaModel.getController()
-                               .add(controllerModel);
-    }
+    ControllerModel controllerModel = this.handleController();
+    // handle AcceptParameter annotation
+    handleAcceptParameters(roundEnvironment,
+                           controllerElement,
+                           controllerModel);
     // TODO validiere alle controller und Router!
-    return this.applicationMetaModel;
+    return controllerModel;
   }
 
-  private ControllerModel handleController(RoundEnvironment roundEnvironment,
-                                           Element element)
+  private ControllerModel handleController()
       throws ProcessorException {
-    // do validation
-    ControllerAnnotationValidator.builder()
-                                 .roundEnvironment(roundEnvironment)
-                                 .processingEnvironment(processingEnvironment)
-                                 .controllerElement(element)
-                                 .build()
-                                 .validate();
     // get Annotation ...
-    Controller annotation = element.getAnnotation(Controller.class);
+    Controller annotation = controllerElement.getAnnotation(Controller.class);
     // handle ...
     TypeElement componentTypeElement = this.getComponentTypeElement(annotation);
     if (componentTypeElement == null) {
       throw new ProcessorException("Nalu-Processor: componentTypeElement is null");
     }
     TypeElement componentInterfaceTypeElement = this.getComponentInterfaceTypeElement(annotation);
-    TypeMirror componentTypeTypeMirror = this.getComponentType(element.asType());
+    TypeMirror componentTypeTypeMirror = this.getComponentType(controllerElement.asType());
     // check and save the component type ...
-    if (applicationMetaModel.getComponentType() == null) {
-      applicationMetaModel.setComponentType(new ClassNameModel(componentTypeTypeMirror.toString()));
+    if (metaModel.getComponentType() == null) {
+      metaModel.setComponentType(new ClassNameModel(componentTypeTypeMirror.toString()));
     } else {
       ClassNameModel compareValue = new ClassNameModel(componentTypeTypeMirror.toString());
-      if (!applicationMetaModel.getComponentType()
-                               .equals(compareValue)) {
+      if (!metaModel.getComponentType()
+                    .equals(compareValue)) {
         throw new ProcessorException("Nalu-Processor: componentType >>" + compareValue + "<< is different. All controllers must implement the componentType!");
       }
     }
     // check, if the controller implements IsComponentController
-    boolean componentController = this.checkIsComponentCreator(element,
+    boolean componentController = this.checkIsComponentCreator(controllerElement,
                                                                componentInterfaceTypeElement);
+    // get context!
+    String context = this.getContextType(controllerElement);
+    if (Objects.isNull(context)) {
+      throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString() + "<< does not have a context generic!");
+    }
     // save model ...
     return new ControllerModel(annotation.route(),
                                getRoute(annotation.route()),
                                annotation.selector(),
                                getParametersFromRoute(annotation.route()),
-                               new ClassNameModel(element.toString()),
+                               new ClassNameModel(context),
+                               new ClassNameModel(controllerElement.toString()),
                                new ClassNameModel(componentInterfaceTypeElement.toString()),
                                new ClassNameModel(componentTypeElement.toString()),
                                new ClassNameModel(componentTypeTypeMirror.toString()),
-                               new ClassNameModel(element.toString()),
+                               new ClassNameModel(controllerElement.toString()),
                                componentController);
+  }
+
+  private String getContextType(Element element)
+      throws ProcessorException {
+    final TypeMirror[] result = { null };
+    TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
+                                                                element.asType(),
+                                                                this.processorUtils.getElements()
+                                                                                   .getTypeElement(AbstractController.class.getCanonicalName())
+                                                                                   .asType());
+    // on case type is null, no IsComponentCreator interface found!
+    if (type == null) {
+      return null;
+    }
+    // check the generic!
+    type.accept(new SimpleTypeVisitor6<Void, Void>() {
+                  @Override
+                  protected Void defaultAction(TypeMirror typeMirror,
+                                               Void v) {
+                    throw new UnsupportedOperationException();
+                  }
+
+                  @Override
+                  public Void visitPrimitive(PrimitiveType primitiveType,
+                                             Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitArray(ArrayType arrayType,
+                                         Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitDeclared(DeclaredType declaredType,
+                                            Void v) {
+                    List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
+                    if (!typeArguments.isEmpty()) {
+                      if (typeArguments.size() > 0) {
+                        result[0] = typeArguments.get(0);
+                      }
+                    }
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitError(ErrorType errorType,
+                                         Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitTypeVariable(TypeVariable typeVariable,
+                                                Void v) {
+                    return null;
+                  }
+                },
+                null);
+    return result[0].toString();
   }
 
   private boolean checkIsComponentCreator(Element element,
@@ -199,8 +247,8 @@ public class ControllerAnnotationScanner {
     if (!componentInterfaceTypeElement.toString()
                                       .equals(result[0].toString())) {
       throw new ProcessorException("Nalu-Processor: controller >>" +
-                                       element.toString() +
-                                       "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
+                                   element.toString() +
+                                   "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
     }
     return true;
   }
@@ -340,15 +388,22 @@ public class ControllerAnnotationScanner {
 
     ProcessingEnvironment processingEnvironment;
 
-    ApplicationMetaModel applicationMetaModel;
+    MetaModel metaModel;
+
+    Element controllerElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
 
-    public Builder applicationMetaModel(ApplicationMetaModel applicationMetaModel) {
-      this.applicationMetaModel = applicationMetaModel;
+    public Builder metaModel(MetaModel metaModel) {
+      this.metaModel = metaModel;
+      return this;
+    }
+
+    public Builder controllerElement(Element controllerElement) {
+      this.controllerElement = controllerElement;
       return this;
     }
 

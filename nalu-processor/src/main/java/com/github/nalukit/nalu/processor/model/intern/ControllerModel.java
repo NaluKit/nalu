@@ -30,6 +30,8 @@ public class ControllerModel {
 
   private List<String> parameters;
 
+  private ClassNameModel context;
+
   private ClassNameModel controller;
 
   private ClassNameModel componentInterface;
@@ -50,6 +52,7 @@ public class ControllerModel {
                          String route,
                          String selector,
                          List<String> parameters,
+                         ClassNameModel context,
                          ClassNameModel controller,
                          ClassNameModel componentInterface,
                          ClassNameModel component,
@@ -60,6 +63,7 @@ public class ControllerModel {
     this.route = route;
     this.selector = selector;
     this.parameters = parameters;
+    this.context = context;
     this.controller = controller;
     this.componentInterface = componentInterface;
     this.component = component;
@@ -155,6 +159,14 @@ public class ControllerModel {
                    .orElse(null);
   }
 
+  public ClassNameModel getContext() {
+    return context;
+  }
+
+  public void setContext(ClassNameModel context) {
+    this.context = context;
+  }
+
   public List<ControllerCompositeModel> getComposites() {
     return composites;
   }
@@ -171,19 +183,19 @@ public class ControllerModel {
     this.componentCreator = componentCreator;
   }
 
-  public boolean match(String startRoute) {
-    if (this.matchcShell(startRoute)) {
-      if (this.matchRouteWithoutShell(startRoute)) {
+  public boolean match(String route) {
+    if (this.matchShell(route)) {
+      if (this.matchRouteWithoutShell(route)) {
         return true;
       }
     }
     return false;
   }
 
-  private boolean matchRouteWithoutShell(String startRoute) {
-    String routeWithoutShell = this.getRouteWithoutShell(this.route);
-    String startRouteWithoutShell = this.getRouteWithoutShell(startRoute);
-    return routeWithoutShell.contains(startRouteWithoutShell);
+  private boolean matchRouteWithoutShell(String route) {
+    String routeWithoutShell = this.getRouteWithoutShell(this.originalRoute);
+    String startRouteWithoutShell = this.getRouteWithoutShell(route);
+    return routeWithoutShell.equals(startRouteWithoutShell);
   }
 
   private String getRouteWithoutShell(String route) {
@@ -194,7 +206,8 @@ public class ControllerModel {
     if (routeWithoutShell.contains("/")) {
       routeWithoutShell = routeWithoutShell.substring(routeWithoutShell.indexOf("/"));
       if (routeWithoutShell.contains("/:")) {
-        routeWithoutShell = routeWithoutShell.substring(routeWithoutShell.indexOf("/:"));
+        routeWithoutShell = routeWithoutShell.substring(0,
+                                                        routeWithoutShell.indexOf("/:"));
       }
       return routeWithoutShell;
     } else {
@@ -202,13 +215,13 @@ public class ControllerModel {
     }
   }
 
-  private boolean matchcShell(String startRoute) {
-    if (this.route.startsWith("/*")) {
+  private boolean matchShell(String route) {
+    if (this.originalRoute.startsWith("/*")) {
       return true;
     }
-    String shellOfRoute = this.getShellFromRoute(this.route);
-    String shellOfStartRoute = this.getShellFromRoute(startRoute);
-    if (shellOfRoute.contains(shellOfStartRoute)) {
+    String shellOfRoute = this.getShellFromRoute(route);
+    String shellOfOriginalRoute = this.getShellFromRoute(this.originalRoute);
+    if (shellOfOriginalRoute.contains(shellOfRoute)) {
       return true;
     }
     return false;

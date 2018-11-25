@@ -55,7 +55,7 @@ public class DebugTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: @Application annotated must be used with an interface");
+                      .hadErrorContaining("Nalu-Processor: @Debug can only be used on a type (interface)");
   }
 
   @Test
@@ -69,7 +69,7 @@ public class DebugTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("@Application must implement IsApplication interface");
+                      .hadErrorContaining("Nalu-Processor: @Debug can only be used on interfaces that extends IsApplication");
   }
 
   @Test
@@ -81,6 +81,8 @@ public class DebugTest {
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
-                      .succeeded();
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("Nalu-Processor: @Debug can only be used with an interfaces annotated with IsApplication");
   }
 }

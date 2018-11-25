@@ -16,11 +16,9 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
-import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.processor.ProcessorException;
-import com.github.nalukit.nalu.processor.model.ApplicationMetaModel;
+import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
-import com.github.nalukit.nalu.processor.scanner.validation.HandlerAnnotationValidator;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -32,14 +30,17 @@ public class HandlerAnnotationScanner {
 
   private RoundEnvironment roundEnvironment;
 
-  private ApplicationMetaModel applicationMetaModel;
+  private MetaModel metaModel;
+
+  private Element handlerElement;
 
   @SuppressWarnings("unused")
   private HandlerAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
     this.roundEnvironment = builder.roundEnvironment;
-    this.applicationMetaModel = builder.applicationMetaModel;
+    this.metaModel = builder.metaModel;
+    this.handlerElement = builder.handlerElement;
     setUp();
   }
 
@@ -50,22 +51,10 @@ public class HandlerAnnotationScanner {
   private void setUp() {
   }
 
-  public ApplicationMetaModel scan()
+  public ClassNameModel scan()
       throws ProcessorException {
-    // handle ProvidesSelector-annotation
-    for (Element element : roundEnvironment.getElementsAnnotatedWith(Handler.class)) {
-      // do validation
-      HandlerAnnotationValidator.builder()
-                                .roundEnvironment(roundEnvironment)
-                                .processingEnvironment(processingEnvironment)
-                                .handlerElement(element)
-                                .build()
-                                .validate();
-      // save handler class in meta model
-      this.applicationMetaModel.getHandlers()
-                               .add(new ClassNameModel(element.toString()));
-    }
-    return this.applicationMetaModel;
+    ClassNameModel handlerModel = new ClassNameModel(handlerElement.toString());
+    return handlerModel;
   }
 
   public static class Builder {
@@ -74,15 +63,22 @@ public class HandlerAnnotationScanner {
 
     RoundEnvironment roundEnvironment;
 
-    ApplicationMetaModel applicationMetaModel;
+    Element handlerElement;
+
+    MetaModel metaModel;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
 
-    public Builder applicationMetaModel(ApplicationMetaModel applicationMetaModel) {
-      this.applicationMetaModel = applicationMetaModel;
+    public Builder metaModel(MetaModel metaModel) {
+      this.metaModel = metaModel;
+      return this;
+    }
+
+    public Builder handlerElement(Element handlerElement) {
+      this.handlerElement = handlerElement;
       return this;
     }
 

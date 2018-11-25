@@ -19,13 +19,16 @@ package com.github.nalukit.nalu.client.component.annotation;
 import com.github.nalukit.nalu.client.component.AbstractComponent;
 import com.github.nalukit.nalu.client.component.IsComponent;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author Frank Hossfeld
  */
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
 public @interface CompositeController {
 
   Class<? extends IsComponent<?, ?>> componentInterface();

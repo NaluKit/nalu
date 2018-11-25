@@ -18,20 +18,11 @@ package com.github.nalukit.nalu.processor.consistence.dubplicatShellName;
 
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
-import com.github.nalukit.nalu.client.application.annotation.Shell;
-import com.github.nalukit.nalu.client.application.annotation.Shells;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import com.github.nalukit.nalu.processor.common.MockShell;
 
-@Application(startRoute = "/mockShell02/route04",
+@Application(startRoute = "/mockShell02/route03",
              context = MockContext.class,
              routeError = "/errorShell/error")
-@Shells({ @Shell(name = "mockShell01",
-                 shell = MockShell.class),
-          @Shell(name = "mockShell02",
-                 shell = MockShell.class),
-          @Shell(name = "mockShell02",
-                 shell = MockShell.class)})
 public interface DubplicateShellNameApplication
     extends IsApplication {
 }

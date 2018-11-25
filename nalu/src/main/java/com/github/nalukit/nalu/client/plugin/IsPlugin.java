@@ -16,28 +16,22 @@
 
 package com.github.nalukit.nalu.client.plugin;
 
-public interface IsPlugin {
+import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
+import com.github.nalukit.nalu.client.internal.route.RouteConfig;
+import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
+import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 
-  void alert(String message);
+import java.util.List;
 
-  boolean attach(String selector,
-                 Object asElement);
+public interface IsPlugin<C extends IsContext> {
 
-  boolean confirm(String message);
+  void loadPlugin(RouterConfiguration routeConfiguration);
 
-  String getStartRoute();
+  List<ShellConfig> getShellConfigs();
 
-  void register(HashHandler handler);
+  List<RouteConfig> getRouteConfigs();
 
-  void remove(String selector);
+  List<CompositeControllerReference> getCompositeReferences();
 
-  void route(String newRoute,
-             boolean replace);
-
-  @FunctionalInterface
-  interface HashHandler {
-
-    void onHashChange(String newHash);
-
-  }
 }

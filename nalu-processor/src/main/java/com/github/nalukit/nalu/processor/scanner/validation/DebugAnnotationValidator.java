@@ -32,11 +32,13 @@ import java.util.Set;
 
 public class DebugAnnotationValidator {
 
-  private ProcessorUtils        processorUtils;
+  Element debugElement;
+
+  private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment      roundEnvironment;
+  private RoundEnvironment roundEnvironment;
 
   @SuppressWarnings("unused")
   private DebugAnnotationValidator() {
@@ -45,6 +47,7 @@ public class DebugAnnotationValidator {
   private DebugAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.roundEnvironment = builder.roundEnvironment;
+    this.debugElement = builder.debugElement;
     setUp();
   }
 
@@ -70,24 +73,24 @@ public class DebugAnnotationValidator {
       if (element instanceof TypeElement) {
         TypeElement typeElement = (TypeElement) element;
         // @Debug can only be used on a interface
-        if (!typeElement.getKind()
-                        .isInterface()) {
-          throw new ProcessorException("Nalu-Processor: @Debug can only be used with an interface");
+        if (!debugElement.getKind()
+                         .isInterface()) {
+          throw new ProcessorException("Nalu-Processor: @Debug can only be used on a type (interface)");
         }
-        // @Debug can only be used on a interface that extends IsEventBus
+        // @Debug can only be used on a interface that extends IsApplication
         if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                         typeElement.asType(),
+                                                         debugElement.asType(),
                                                          this.processingEnvironment.getElementUtils()
                                                                                    .getTypeElement(IsApplication.class.getCanonicalName())
                                                                                    .asType())) {
           throw new ProcessorException("Nalu-Processor: @Debug can only be used on interfaces that extends IsApplication");
         }
         // @Debug can only be used on a interface that has a @Application annoatation
-        if (typeElement.getAnnotation(Application.class) == null) {
+        if (debugElement.getAnnotation(Application.class) == null) {
           throw new ProcessorException("Nalu-Processor: @Debug can only be used with an interfaces annotated with IsApplication");
         }
         // the loggerinside the annotation must extends IsNaluLogger!
-        TypeElement loggerElement = this.getLogger(typeElement.getAnnotation(Debug.class));
+        TypeElement loggerElement = this.getLogger(debugElement.getAnnotation(Debug.class));
         if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
                                                          Objects.requireNonNull(loggerElement)
                                                                 .asType(),
@@ -116,7 +119,9 @@ public class DebugAnnotationValidator {
 
     ProcessingEnvironment processingEnvironment;
 
-    RoundEnvironment      roundEnvironment;
+    RoundEnvironment roundEnvironment;
+
+    Element debugElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
@@ -125,6 +130,11 @@ public class DebugAnnotationValidator {
 
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
+      return this;
+    }
+
+    public Builder debugElement(Element debugElement) {
+      this.debugElement = debugElement;
       return this;
     }
 

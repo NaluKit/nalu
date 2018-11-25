@@ -21,18 +21,16 @@ import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import java.util.Set;
 
 public class ApplicationAnnotationValidator {
 
-  private ProcessorUtils        processorUtils;
+  private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment      roundEnvironment;
+  private Element applicationElement;
 
   @SuppressWarnings("unused")
   private ApplicationAnnotationValidator() {
@@ -40,7 +38,7 @@ public class ApplicationAnnotationValidator {
 
   private ApplicationAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
-    this.roundEnvironment = builder.roundEnvironment;
+    this.applicationElement = builder.applicationElement;
     setUp();
   }
 
@@ -54,35 +52,35 @@ public class ApplicationAnnotationValidator {
                                         .build();
   }
 
+  //  public void validate()
+  //      throws ProcessorException {
+  //    // get elements annotated with Application annotation
+  //    Set<? extends Element> elementsWithApplicationAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Application.class);
+  //    // at least there should exatly one Application annotation!
+  //    if (elementsWithApplicationAnnotation.size() == 0) {
+  //      throw new ProcessorException("Nalu-Processor: Missing Nalu Application interface");
+  //    }
+  //    // at least there should only one Application annotation!
+  //    if (elementsWithApplicationAnnotation.size() > 1) {
+  //      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Application");
+  //    }
+  //    // validate annotation
+  //    for (Element element : elementsWithApplicationAnnotation) {
+  //      Application annotation = element.getAnnotation(Application.class);
+  //      if (annotation.startRoute() == null ||
+  //          annotation.startRoute()
+  //                    .equals("") ||
+  //          annotation.startRoute()
+  //                    .equals("/")) {
+  //        throw new ProcessorException("Nalu-Processor: @Application -> startroute can not be empty and can not be '/'");
+  //      }
+  //    }
+  //  }
+
   public void validate()
       throws ProcessorException {
-    // get elements annotated with Application annotation
-    Set<? extends Element> elementsWithApplicationAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Application.class);
-    // at least there should exatly one Application annotation!
-    if (elementsWithApplicationAnnotation.size() == 0) {
-      throw new ProcessorException("Nalu-Processor: Missing Nalu Application interface");
-    }
-    // at least there should only one Application annotation!
-    if (elementsWithApplicationAnnotation.size() > 1) {
-      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Application");
-    }
-    // validate annotation
-    for (Element element : elementsWithApplicationAnnotation) {
-      Application annotation = element.getAnnotation(Application.class);
-      if (annotation.startRoute() == null ||
-          annotation.startRoute()
-                    .equals("") ||
-          annotation.startRoute()
-                    .equals("/")) {
-        throw new ProcessorException("Nalu-Processor: @Application -> startroute can not be empty and can not be '/'");
-      }
-    }
-  }
-
-  public void validate(Element element)
-      throws ProcessorException {
-    if (element instanceof TypeElement) {
-      TypeElement typeElement = (TypeElement) element;
+    if (this.applicationElement instanceof TypeElement) {
+      TypeElement typeElement = (TypeElement) this.applicationElement;
       // annotated element has to be a interface
       if (!typeElement.getKind()
                       .isInterface()) {
@@ -95,9 +93,19 @@ public class ApplicationAnnotationValidator {
                                                                                  .getTypeElement(IsApplication.class.getCanonicalName())
                                                                                  .asType())) {
         throw new ProcessorException("Nalu-Processor: " +
-                                         typeElement.getSimpleName()
-                                                    .toString() +
-                                         ": @Application must implement IsApplication interface");
+                                     typeElement.getSimpleName()
+                                                .toString() +
+                                     ": @Application must implement IsApplication interface");
+      }
+      // check if startRoute start with "/"
+      Application applicationAnnotation = applicationElement.getAnnotation(Application.class);
+      if (!applicationAnnotation.startRoute()
+                                .startsWith("/")) {
+        throw new ProcessorException("Nalu-Processor:" + "@Application - startRoute attribute muss begin with a '/'");
+      }
+      if (!applicationAnnotation.routeError()
+                                .startsWith("/")) {
+        throw new ProcessorException("Nalu-Processor:" + "@Application - routeError attribute muss begin with a '/'");
       }
     } else {
       throw new ProcessorException("Nalu-Processor:" + "@Application can only be used on a type (interface)");
@@ -108,15 +116,15 @@ public class ApplicationAnnotationValidator {
 
     ProcessingEnvironment processingEnvironment;
 
-    RoundEnvironment      roundEnvironment;
+    Element applicationElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
 
-    public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
-      this.roundEnvironment = roundEnvironment;
+    public Builder applicationElement(Element applicationElement) {
+      this.applicationElement = applicationElement;
       return this;
     }
 

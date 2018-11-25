@@ -1,0 +1,3 @@
+to be fair, he got a head start, but i'm working to open that up to everyone now: https://repo.vertispan.com/j2cl/ now contains com.vertispan.j2cl:build-tools which has a very simple "dev mode", plus all of its dependencies - a brand new version of j2cl, all of its dependencies (including the specific jdt build they are using), the preprocessor, and a forked copy of closure-compiler that we're using
+for the time being, you cannot use the usual jsinterop-base, we have a forked copy in that repo too that works
+https://github.com/vertispan/connected/tree/j2cl shows a very simple project and pom that work with these dependencies, domino-do-j2cl is based on that work, plus a whole lot more code

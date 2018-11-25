@@ -119,15 +119,6 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
 
   /**
-   * Sets the component inside the controller
-   *
-   * @param component instance fo the component
-   */
-  public void setComponent(V component) {
-    this.component = component;
-  }
-
-  /**
    * The map of the depending composites of the controller
    *
    * @return Map of depending composites
@@ -194,5 +185,14 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    */
   public V getComponent() {
     return this.component;
+  }
+
+  /**
+   * Sets the component inside the controller
+   *
+   * @param component instance fo the component
+   */
+  public void setComponent(V component) {
+    this.component = component;
   }
 }

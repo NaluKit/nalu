@@ -16,10 +16,10 @@
 
 package com.github.nalukit.nalu.client.application;
 
-import com.github.nalukit.nalu.client.plugin.IsPlugin;
+import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 
 public interface IsApplication {
 
-  void run(IsPlugin plugin);
+  void run(IsNaluProcessorPlugin plugin);
 
 }

@@ -40,7 +40,7 @@ class RouterLogger {
   }
 
   static String logNoMatchingRoute(String hash,
-                                 String routeError) {
+                                   String routeError) {
     String sb = "no matching route for hash >>" + hash + "<< --> use configurated route: >" + routeError + "<<";
     logSimple(sb,
               3);
@@ -122,7 +122,7 @@ class RouterLogger {
   }
 
   static void logShellOnAttachedComponentMethodCalled(String canonicalName) {
-    String sb = "Router: create controller >>" + canonicalName + "<< - calls shell.onAttachedComponent()";
+    String sb = "Router: create controller >>" + canonicalName + "<< - calls shellCreator.onAttachedComponent()";
     logDetailed(sb,
                 4);
   }

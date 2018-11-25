@@ -25,8 +25,12 @@ import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.internal.route.*;
-import com.github.nalukit.nalu.client.plugin.IsPlugin;
+import com.github.nalukit.nalu.client.internal.route.HashResult;
+import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
+import com.github.nalukit.nalu.client.internal.route.RouterException;
+import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
+import com.github.nalukit.nalu.client.internal.validation.RouteValidation;
+import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 import java.util.ArrayList;
@@ -67,7 +71,7 @@ public abstract class AbstractApplication<C extends IsContext>
   protected SimpleEventBus eventBus;
 
   /* plugin */
-  protected IsPlugin plugin;
+  protected IsNaluProcessorPlugin plugin;
 
   public AbstractApplication() {
     super();
@@ -75,7 +79,7 @@ public abstract class AbstractApplication<C extends IsContext>
   }
 
   @Override
-  public void run(IsPlugin plugin) {
+  public void run(IsNaluProcessorPlugin plugin) {
     // save the plugin
     this.plugin = plugin;
     // first load the debug configuration
@@ -83,13 +87,13 @@ public abstract class AbstractApplication<C extends IsContext>
     // debug message
     ClientLogger.get()
                 .logDetailed("=================================================================================",
-                           0);
+                             0);
     ClientLogger.get()
                 .logDetailed("Running Nalu version: v" + Nalu.NALU_VERSION,
-                           0);
+                             0);
     ClientLogger.get()
                 .logDetailed("=================================================================================",
-                           0);
+                             0);
     // debug message
     ClientLogger.get()
                 .logSimple("AbstractApplication: application is started!",
@@ -106,6 +110,7 @@ public abstract class AbstractApplication<C extends IsContext>
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load configurations",
                              1);
+    this.loadPlugins();
     this.loadShells();
     this.loadRoutes();
     this.loadFilters();
@@ -136,6 +141,19 @@ public abstract class AbstractApplication<C extends IsContext>
     ClientLogger.get()
                 .logDetailed("AbstractApplication: execute loader",
                              1);
+    // validate
+    if (!RouteValidation.validateStartRoute(this.shellConfiguration,
+                                            this.routerConfiguration,
+                                            this.startRoute)) {
+      this.plugin.alert("startRoute not valid - application stopped!");
+      return;
+    }
+    if (!RouteValidation.validateRouteError(this.shellConfiguration,
+                                            this.routerConfiguration,
+                                            this.errorRoute)) {
+      this.plugin.alert("routeError not valid - application stopped!");
+      return;
+    }
     // handling application loading
     IsApplicationLoader<C> applicationLoader = getApplicationLoader();
     if (getApplicationLoader() == null) {
@@ -146,6 +164,8 @@ public abstract class AbstractApplication<C extends IsContext>
       applicationLoader.load(this::onFinishLaoding);
     }
   }
+
+  protected abstract void loadPlugins();
 
   protected abstract void loadShellFactory();
 

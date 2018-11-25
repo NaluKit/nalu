@@ -42,9 +42,9 @@ import static java.util.stream.Stream.of;
 public class NaluPluginGwtProcessor
     extends AbstractProcessor {
 
-  private static final String         IMPL_NAME = "SelectorProviderImpl";
+  private static final String IMPL_NAME = "SelectorProviderImpl";
 
-  private              ProcessorUtils processorUtils;
+  private ProcessorUtils processorUtils;
 
   private Map<Element, List<SelectorMetaModel>> models;
 
@@ -121,8 +121,8 @@ public class NaluPluginGwtProcessor
                                              .toString();
     if (!(IsWidget.class.getCanonicalName()
                         .equals(parameterClass) ||
-              Widget.class.getCanonicalName()
-                          .equals(parameterClass))) {
+          Widget.class.getCanonicalName()
+                      .equals(parameterClass))) {
       throw new ProcessorException("Nalu-Processor: @Selector can only be used with a method that has one parameter and the parameter type is com.google.gwt.user.client.ui.IsWidget or com.google.gwt.user.client.ui.WIdget");
     }
   }

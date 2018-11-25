@@ -1,26 +1,15 @@
 package com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithLoaderAsInnerInterface;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
-import com.github.nalukit.nalu.client.component.AbstractComponentController;
-import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
-import com.github.nalukit.nalu.client.internal.application.ControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
-import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
-import com.github.nalukit.nalu.client.internal.application.ShellCreator;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
-import com.github.nalukit.nalu.client.internal.application.ShellInstance;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithLoaderAsInnerInterface.ApplicationAnnotationOkWithLoaderAsInnerInterface.MyApplicationLoader;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import com.github.nalukit.nalu.processor.common.MockShell;
-import com.github.nalukit.nalu.processor.common.ui.component01.Component01;
-import com.github.nalukit.nalu.processor.common.ui.component01.Controller01;
-import com.github.nalukit.nalu.processor.common.ui.component01.IComponent01;
 import java.lang.Override;
-import java.lang.String;
 import java.lang.StringBuilder;
 import java.util.Arrays;
 
@@ -36,37 +25,19 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
 
   @Override
   public void loadShells() {
+    StringBuilder sb01 = new StringBuilder();
+    sb01.append("load shell references");
+    ClientLogger.get().logDetailed(sb01.toString(), 2);
     super.shellConfiguration.getShells().add(new ShellConfig("/mockShell", "com.github.nalukit.nalu.processor.common.MockShell"));
+    sb01 = new StringBuilder();
+    sb01.append("register shell >>/mockShell<< with class >>com.github.nalukit.nalu.processor.common.MockShell<<");
+    ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
 
   @Override
   public void loadShellFactory() {
     // create ShellCreator for: com.github.nalukit.nalu.processor.common.MockShell
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockShell", new ShellCreator() {
-      @Override
-      public ShellInstance create() {
-        StringBuilder sb01 = new StringBuilder();
-        ShellInstance shellInstance = new ShellInstance();
-        shellInstance.setShellClassName("com.github.nalukit.nalu.processor.common.MockShell");
-        sb01.append("shell >>com.github.nalukit.nalu.processor.common.MockShell<< --> will be created");
-        ClientLogger.get().logSimple(sb01.toString(), 1);
-        MockShell shell = new MockShell();
-        shell.setContext(context);
-        shell.setEventBus(eventBus);
-        shell.setRouter(router);
-        sb01 = new StringBuilder();
-        sb01.append("shell >>").append(shell.getClass().getCanonicalName()).append("<< --> created and data injected");
-        ClientLogger.get().logDetailed(sb01.toString(), 2);
-        sb01 = new StringBuilder();
-        sb01.append("shell >>").append(shell.getClass().getCanonicalName()).append("<< --> call bind()-method");
-        ClientLogger.get().logDetailed(sb01.toString(), 2);
-        shell.bind();
-        sb01.append("shell >>").append(shell.getClass().getCanonicalName()).append("<< --> called bind()-method");
-        ClientLogger.get().logDetailed(sb01.toString(), 2);
-        shellInstance.setShell(shell);
-        return shellInstance;
-      }
-    });
+    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockShell", new com.github.nalukit.nalu.processor.common.MockShellCreatorImpl(router, context, eventBus));
   }
 
   @Override
@@ -76,62 +47,18 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   @Override
   public void loadComponents() {
     // create ControllerCreator for: com.github.nalukit.nalu.processor.common.ui.component01.Controller01
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01", new ControllerCreator() {
-      @Override
-      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
-        StringBuilder sb01 = new StringBuilder();
-        ControllerInstance controllerInstance = new ControllerInstance();
-        controllerInstance.setControllerClassName("com.github.nalukit.nalu.processor.common.ui.component01.Controller01");
-        AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("com.github.nalukit.nalu.processor.common.ui.component01.Controller01");
-        if (storedController == null) {
-          sb01.append("controller >>com.github.nalukit.nalu.processor.common.ui.component01.Controller01<< --> will be created");
-          ClientLogger.get().logSimple(sb01.toString(), 3);
-          Controller01 controller = new Controller01();
-          controllerInstance.setController(controller);
-          controllerInstance.setChached(false);
-          controller.setContext(context);
-          controller.setEventBus(eventBus);
-          controller.setRouter(router);
-          controller.setRestored(false);
-          sb01 = new StringBuilder();
-          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 4);
-          IComponent01 component = new Component01();
-          sb01 = new StringBuilder();
-          sb01.append("component >>com.github.nalukit.nalu.processor.common.ui.component01.Component01<< --> created using new");
-          ClientLogger.get().logDetailed(sb01.toString(), 4);
-          component.setController(controller);
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> created and controller instance injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 4);
-          controller.setComponent(component);
-          sb01 = new StringBuilder();
-          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> instance of >>").append(component.getClass().getCanonicalName()).append("<< injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 4);
-          component.render();
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> rendered");
-          ClientLogger.get().logDetailed(sb01.toString(), 4);
-          component.bind();
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
-          ClientLogger.get().logDetailed(sb01.toString(), 4);
-          ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.common.ui.component01.Component01<< created for route >>/mockShell/route01<<", 3);
-        } else {
-          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
-          ClientLogger.get().logDetailed(sb01.toString(), 4);
-          controllerInstance.setController(storedController);
-          controllerInstance.setChached(true);
-          controllerInstance.getController().setRestored(true);
-        }
-        return controllerInstance;
-      }
-    });
+    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01", new com.github.nalukit.nalu.processor.common.ui.component01.Controller01CreatorImpl(router, context, eventBus));
   }
 
   @Override
   public void loadRoutes() {
+    StringBuilder sb01 = new StringBuilder();
+    sb01.append("load routes");
+    ClientLogger.get().logDetailed(sb01.toString(), 2);
     super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01", Arrays.asList(new String[]{"parameter01"}), "selector01", "com.github.nalukit.nalu.processor.common.ui.component01.Controller01"));
+    sb01 = new StringBuilder();
+    sb01.append("register route >>/mockShell/route01<< with parameter >>parameter01<< for selector >>selector01<< for controller >>com.github.nalukit.nalu.processor.common.ui.component01.Controller01<<");
+    ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
 
   @Override
@@ -144,6 +71,14 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
 
   @Override
   public void loadCompositeReferences() {
+    StringBuilder sb01 = new StringBuilder();
+    sb01.append("load composite references");
+    ClientLogger.get().logDetailed(sb01.toString(), 2);
+  }
+
+  @Override
+  public void loadPlugins() {
+    StringBuilder sb01 = new StringBuilder();
   }
 
   @Override
@@ -153,7 +88,13 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
 
   @Override
   public void loadDefaultRoutes() {
+    StringBuilder sb01 = new StringBuilder();
     this.startRoute = "/mockShell/route01";
+    sb01.append("found startRoute >>/mockShell/route01<<");
+    ClientLogger.get().logDetailed(sb01.toString(), 2);
+    sb01 = new StringBuilder();
     this.errorRoute = "/mockShell/route01";
+    sb01.append("found errorRoute >>/mockShell/route01<<");
+    ClientLogger.get().logDetailed(sb01.toString(), 2);
   }
 }

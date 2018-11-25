@@ -15,9 +15,7 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
-import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Filters;
-import com.github.nalukit.nalu.client.filter.IsFilter;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 
@@ -29,18 +27,15 @@ import javax.lang.model.type.TypeMirror;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class FiltersAnnotationValidator {
 
-  private ProcessorUtils        processorUtils;
+  private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment      roundEnvironment;
-
-  private TypeElement           applicationTypeElement;
+  private RoundEnvironment roundEnvironment;
 
   @SuppressWarnings("unused")
   private FiltersAnnotationValidator() {
@@ -49,7 +44,6 @@ public class FiltersAnnotationValidator {
   private FiltersAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.roundEnvironment = builder.roundEnvironment;
-    this.applicationTypeElement = builder.applicationTypeElement;
 
     setUp();
   }
@@ -64,47 +58,47 @@ public class FiltersAnnotationValidator {
                                         .build();
   }
 
-  public void validate()
+  public void validate(Element filterElement)
       throws ProcessorException {
     // get elements annotated with EventBus annotation
-    Set<? extends Element> elementsWithFiltersAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Filters.class);
-    // at least there should only one Application annotation!
-    if (elementsWithFiltersAnnotation.size() > 1) {
-      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Filters");
+    //    Set<? extends Element> elementsWithFiltersAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Filters.class);
+    //    // at least there should only one Application annotation!
+    //    if (elementsWithFiltersAnnotation.size() > 1) {
+    //      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Filters");
+    //    }
+    //    // annotated element has to be a interface
+    //    for (Element element : elementsWithFiltersAnnotation) {
+    //      if (element instanceof TypeElement) {
+    //        TypeElement typeElement = (TypeElement) element;
+    if (!filterElement.getKind()
+                      .isInterface()) {
+      throw new ProcessorException("Nalu-Processor: @Filters can only be used on a type (interface)");
     }
-    // annotated element has to be a interface
-    for (Element element : elementsWithFiltersAnnotation) {
-      if (element instanceof TypeElement) {
-        TypeElement typeElement = (TypeElement) element;
-        if (!typeElement.getKind()
-                        .isInterface()) {
-          throw new ProcessorException("Nalu-Processor: @Filters can only be used with an interface");
-        }
-        // @Filter can only be used on a interface that extends IsEventBus
-        if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                         typeElement.asType(),
-                                                         this.processingEnvironment.getElementUtils()
-                                                                                   .getTypeElement(IsApplication.class.getCanonicalName())
-                                                                                   .asType())) {
-          throw new ProcessorException("Nalu-Processor: @Filters can only be used on interfaces that extends IsApplication");
-        }
-        // test, that all filterClasses implement IsEventFilter!
-        List<String> filtersAsStringList = this.getFilterClassesAsList(this.applicationTypeElement);
-        for (String eventFilterClassname : filtersAsStringList) {
-          TypeElement filterElement = this.processingEnvironment.getElementUtils()
-                                                                .getTypeElement(eventFilterClassname);
-          if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                           filterElement.asType(),
-                                                           this.processingEnvironment.getElementUtils()
-                                                                                     .getTypeElement(IsFilter.class.getCanonicalName())
-                                                                                     .asType())) {
-            throw new ProcessorException("Nalu-Processor: @Filters - the filterClasses attribute needs classes that implements IsFilter");
-          }
-        }
-      } else {
-        throw new ProcessorException("Nalu-Processor: @Filters can only be used on a type (interface)");
-      }
-    }
+    //        // @Filter can only be used on a interface that extends IsEventBus
+    //        if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+    //                                                         typeElement.asType(),
+    //                                                         this.processingEnvironment.getElementUtils()
+    //                                                                                   .getTypeElement(IsApplication.class.getCanonicalName())
+    //                                                                                   .asType())) {
+    //          throw new ProcessorException("Nalu-Processor: @Filters can only be used on interfaces that extends IsApplication");
+    //        }
+    //        // test, that all filterClasses implement IsEventFilter!
+    //        List<String> filtersAsStringList = this.getFilterClassesAsList(this.applicationTypeElement);
+    //        for (String eventFilterClassname : filtersAsStringList) {
+    //          TypeElement filterElement = this.processingEnvironment.getElementUtils()
+    //                                                                .getTypeElement(eventFilterClassname);
+    //          if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+    //                                                           filterElement.asType(),
+    //                                                           this.processingEnvironment.getElementUtils()
+    //                                                                                     .getTypeElement(IsFilter.class.getCanonicalName())
+    //                                                                                     .asType())) {
+    //            throw new ProcessorException("Nalu-Processor: @Filters - the filterClasses attribute needs classes that implements IsFilter");
+    //          }
+    //        }
+    //      } else {
+    //        throw new ProcessorException("Nalu-Processor: @Filters can only be used on a type (interface)");
+    //      }
+    //    }
   }
 
   private List<String> getFilterClassesAsList(TypeElement typeElement) {
@@ -136,11 +130,7 @@ public class FiltersAnnotationValidator {
 
     ProcessingEnvironment processingEnvironment;
 
-    RoundEnvironment      roundEnvironment;
-
-    Element               providesSecletorElement;
-
-    TypeElement           applicationTypeElement;
+    RoundEnvironment roundEnvironment;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
@@ -149,11 +139,6 @@ public class FiltersAnnotationValidator {
 
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
-      return this;
-    }
-
-    public Builder applicationTypeElement(TypeElement applicationTypeElement) {
-      this.applicationTypeElement = applicationTypeElement;
       return this;
     }
 
