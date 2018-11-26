@@ -61,7 +61,7 @@ The following flow shows the steps to be done, once a routing is initiated. The 
 To connect a component to a route, just create a controller class which extends ```AbstractComponentController```and add the controller annotation ```@Controller```.
 
 ```JAVA
-@Controller(route = shellCreator,
+@Controller(route = "/shell/route",
             selector = "content",
             component = MyComponent.class,
             componentInterface = IMyComponent.class)
