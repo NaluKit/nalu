@@ -38,7 +38,7 @@ Nalu offers the following features:
 
 * works with nearly every widget lib (tested with: GWT, GXT, Domino-UI, Elemento, Elemental2, GWT-Meterial) 
 
-* Supports Maven multi module projects to seperate an applicaiton in smaller parts (plugin feature)
+* Supports Maven multi module projects to seperate an application in smaller parts (plugin feature)
 
 
 ## Basic Concept
