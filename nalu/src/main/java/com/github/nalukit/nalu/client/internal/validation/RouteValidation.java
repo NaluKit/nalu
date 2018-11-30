@@ -102,13 +102,13 @@ public class RouteValidation {
   private static void logRouteNotFoud(String route,
                                       boolean startRoute,
                                       boolean routeError) {
-    String sb = "route of ";
+    String sb = "value of ";
     if (startRoute) {
-      sb += " start route ";
+      sb += "start route ";
     } else if (routeError) {
-      sb += " route error ";
+      sb += "route error ";
     } else {
-      sb += " route ";
+      sb += "route ";
     }
     sb += ">>" + route + "<< does not exist!";
     ClientLogger.get()
