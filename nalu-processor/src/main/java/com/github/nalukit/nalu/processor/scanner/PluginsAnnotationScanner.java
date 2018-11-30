@@ -24,7 +24,6 @@ import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.type.TypeMirror;
 import java.util.Arrays;
@@ -69,23 +68,26 @@ public class PluginsAnnotationScanner {
 
     List<String> pluginClasses = this.pluginsElement.getAnnotationMirrors()
                                                     .stream()
-                                                    .filter(annotationMirror -> ((AnnotationMirror) annotationMirror).getAnnotationType()
-                                                                                                                     .equals(pluginsTypeMirror))
-                                                    .flatMap(annotationMirror -> ((AnnotationMirror) annotationMirror).getElementValues()
-                                                                                                                      .entrySet()
-                                                                                                                      .stream())
-                                                    .findFirst().<List<String>>map(entry -> Arrays.stream(entry.getValue()
-                                                                                                               .toString()
-                                                                                                               .replace("{",
-                                                                                                                        "")
-                                                                                                               .replace("}",
-                                                                                                                        "")
-                                                                                                               .replace(" ",
-                                                                                                                        "")
-                                                                                                               .split(","))
-                                                                                                  .map((v) -> v.substring(0,
-                                                                                                                          v.indexOf(".class")))
-                                                                                                  .collect(Collectors.toList())).orElse(null);
+                                                    .filter(annotationMirror -> annotationMirror.getAnnotationType()
+                                                                                                .equals(pluginsTypeMirror))
+                                                    .flatMap(annotationMirror -> annotationMirror.getElementValues()
+                                                                                                 .entrySet()
+                                                                                                 .stream())
+                                                    .findFirst()
+                                                    .map(entry -> Arrays.stream(entry.getValue()
+                                                                                     .toString()
+                                                                                     .replace("{",
+                                                                                              "")
+                                                                                     .replace("}",
+                                                                                              "")
+                                                                                     .replace(" ",
+                                                                                              "")
+                                                                                     .split(","))
+                                                                        .filter(c -> c.contains(".class"))
+                                                                        .map((v) -> v.substring(0,
+                                                                                                v.indexOf(".class")))
+                                                                        .collect(Collectors.toList()))
+                                                    .orElse(null);
     this.metaModel.getPlugins()
                   .clear();
     if (!Objects.isNull(pluginClasses)) {

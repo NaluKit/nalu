@@ -15,7 +15,6 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
-import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.AbstractShell;
 import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.processor.ProcessorException;
