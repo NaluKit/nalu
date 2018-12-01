@@ -20,7 +20,7 @@ Nalu offers the following features:
 
 * Filters to intercept routing.
 
-* Seperation of views into a controller and a component with framework sided instantiation.
+* Separation of views into a controller and a component with framework sided instantiation.
 
 * A controller life-cycle using `start`-, `mayStop`- and `stop`- similar to GWT Activities.
 
@@ -38,7 +38,7 @@ Nalu offers the following features:
 
 * works with nearly every widget lib (tested with: GWT, GXT, Domino-UI, Elemento, Elemental2, GWT-Meterial) 
 
-* Supports Maven multi module projects to seperate an application in smaller parts (plugin feature)
+* Supports Maven multi module projects to separate an application in smaller parts (plugin feature)
 
 
 ## Basic Concept
