@@ -8,21 +8,21 @@ Nalu is a tiny framework that helps you to create GWT based applications quite e
 
 Nalu offers the following features:
 
+* Route based navigation
+
+* Supports HTML links and programmatically routing thanks to a router.
+
 * Full support of the browser's back- forward- and reload-button.
 
 * An optional loader that will be executed at application start to load data from the server.
 
-* A client side context, router and event bus which will be automatically injected in every controller. (Handler have only access to the context and the event bus)
+* A client side context, router and event bus which will be automatically injected in every controller, filter, loader and handler (Handlers have only access to the context and the event bus)
 
 * Filters to intercept routing.
 
-* History Support by default.
-
 * Seperation of views into a controller and a component with framework sided instantiation.
 
-* A controller life-cycle using ```start```-, ```mayStop```- and ```stop```- similar to GWT Activities.
-
-* Supports HTML links and programmatically routing thanks to a router.
+* A controller life-cycle using `start`-, `mayStop`- and `stop`- similar to GWT Activities.
 
 * Controller based handler manager, that will remove all handlers from the event bus in case the controller is stopped to prevent memory leaks (handler registrations must be added to the manager).
 
