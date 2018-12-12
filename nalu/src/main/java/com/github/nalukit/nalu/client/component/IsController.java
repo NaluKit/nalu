@@ -32,4 +32,6 @@ public interface IsController<W> {
 
   void stop();
 
+  void removeComposites();
+
 }

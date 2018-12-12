@@ -195,4 +195,12 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   public void setComponent(V component) {
     this.component = component;
   }
+
+  /**
+   * Handles remove of all composites.
+   */
+  @Override
+  public void removeComposites() {
+    this.compositeComtrollers.values().forEach(cc -> cc.remove());
+  }
 }
