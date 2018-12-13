@@ -22,7 +22,7 @@ import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
 public abstract class AbstractCompositeController<C extends IsContext, V extends IsCompositeComponent<?, W>, W>
     extends AbstractController<C>
     implements IsComposite<W>,
-               IsComponent.Controller {
+               IsCompositeComponent.Controller {
 
   protected V component;
 
@@ -98,7 +98,8 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   }
 
   /**
-   * Removes the composite from the DOM!
+   * Removes all composite from the DOM by calling
+   * the remove method of the composite component!
    */
   @Override
   public void remove() {

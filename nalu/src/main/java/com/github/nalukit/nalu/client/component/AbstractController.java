@@ -43,4 +43,5 @@ public abstract class AbstractController<C extends IsContext> {
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
+
 }

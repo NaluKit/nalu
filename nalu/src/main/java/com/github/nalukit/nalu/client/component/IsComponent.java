@@ -32,8 +32,6 @@ public interface IsComponent<C extends IsComponent.Controller, W> {
 
   void onDetach();
 
-  void remove();
-
   void removeHandlers();
 
   interface Controller {

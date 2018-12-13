@@ -145,6 +145,12 @@ class RouterLogger {
                 4);
   }
 
+  static void logCompositeControllerRemoveMethodCalled(String canonicalName) {
+    String sb = "composite controller >>" + canonicalName + "<< --> remove";
+    logDetailed(sb,
+                6);
+  }
+
   static void logCompositeControllerStopMethodCalled(String canonicalName) {
     String sb = "composite controller >>" + canonicalName + "<< --> stopped";
     logDetailed(sb,

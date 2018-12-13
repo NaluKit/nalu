@@ -16,13 +16,13 @@
 
 package com.github.nalukit.nalu.client.component;
 
-public interface IsCompositeComponent<C extends IsCompositeComponent.Controller, W>
+public interface IsCompositeComponent<C extends IsComponent.Controller, W>
     extends IsComponent<C, W> {
 
   void remove();
 
   interface Controller
-    extends IsComponent.Controller {
+      extends IsComponent.Controller {
 
   }
 }

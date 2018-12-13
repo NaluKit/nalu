@@ -562,6 +562,9 @@ public final class Router {
                                     s.getClass()
                                      .getCanonicalName();
                                     s.stop();
+                                    RouterLogger.logCompositeControllerRemoveMethodCalled(s.getClass()
+                                                                                           .getCanonicalName());
+                                    s.remove();
                                     RouterLogger.logCompositeControllerStopMethodCalled(s.getClass()
                                                                                          .getCanonicalName());
                                     s.onDetach();

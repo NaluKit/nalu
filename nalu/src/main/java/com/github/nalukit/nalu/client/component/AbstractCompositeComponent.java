@@ -16,70 +16,13 @@
 
 package com.github.nalukit.nalu.client.component;
 
-import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
-
-public abstract class AbstractCompositeComponent<C extends IsCompositeComponent.Controller, W>
+public abstract class AbstractCompositeComponent<C extends IsComponent.Controller, W>
+    extends AbstractComponent<C, W>
     implements IsCompositeComponent<C, W> {
 
-//  protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
-//
-//  private C controller;
-//
-//  private W element;
-//
-//  public AbstractCompositeComponent() {
-//  }
-//
-//  /**
-//   * <b>Important:<br>
-//   * Inside the render-method, you have to call the initElement-method!</b>
-//   */
-//  public abstract void render();
-//
-//  protected void initElement(W element) {
-//    this.element = element;
-//  }
-//
-//  public void bind() {
-//    // if you need to bind some handlers and would like to do this in a seperate method
-//    // just override this method.
-//  }
-//
-//  @Override
-//  public W asElement() {
-//    assert element != null : "no alement set!";
-//    return this.element;
-//  }
-//
-//  @Override
-//  public void onAttach() {
-//    // if you need to do something in case the widget is added to the DOM tree
-//  }
-//
-//  @Override
-//  public void onDetach() {
-//    // if you need to do something in case the widget is removed from the DOM tree
-//  }
-//
-//  /**
-//   * internal framework method! Will be called by the framdework after the
-//   * stop-method f the controller is called
-//   *
-//   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
-//   */
-//  @Override
-//  public void removeHandlers() {
-//    this.handlerRegistrations.removeHandler();
-//    this.handlerRegistrations = new HandlerRegistrations();
-//  }
-//
-//  @Override
-//  public C getController() {
-//    return this.controller;
-//  }
-//
-//  @Override
-//  public void setController(C controller) {
-//    this.controller = controller;
-//  }
+  @Override
+  public void remove() {
+    // In caxe you have to remove something on screen change
+    // this is a good place to do so!
+  }
 }
