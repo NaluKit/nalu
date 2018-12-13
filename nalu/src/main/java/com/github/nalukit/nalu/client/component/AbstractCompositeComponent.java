@@ -16,22 +16,13 @@
 
 package com.github.nalukit.nalu.client.component;
 
-public interface IsComposite<W> {
+public abstract class AbstractCompositeComponent<C extends IsComponent.Controller, W>
+    extends AbstractComponent<C, W>
+    implements IsCompositeComponent<C, W> {
 
-  W asElement();
-
-  void onAttach();
-
-  void onDetach();
-
-  String mayStop();
-
-  void removeHandlers();
-
-  void start();
-
-  void stop();
-
-  void remove();
-
+  @Override
+  public void remove() {
+    // In caxe you have to remove something on screen change
+    // this is a good place to do so!
+  }
 }

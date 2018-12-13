@@ -195,4 +195,5 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   public void setComponent(V component) {
     this.component = component;
   }
+
 }

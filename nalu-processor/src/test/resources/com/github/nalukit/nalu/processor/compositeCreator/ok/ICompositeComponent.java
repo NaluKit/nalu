@@ -16,14 +16,15 @@
 
 package com.github.nalukit.nalu.processor.compositeCreator.ok;
 
-import com.github.nalukit.nalu.client.component.IsComponent;
+import com.github.nalukit.nalu.client.component.IsCompositeComponent;
+import com.github.nalukit.nalu.processor.compositeCreator.ok.ICompositeComponent.Controller;
 import elemental2.dom.HTMLElement;
 
 public interface ICompositeComponent
-    extends IsComponent<ICompositeComponent.Controller, HTMLElement> {
+    extends IsCompositeComponent<Controller, HTMLElement> {
 
   interface Controller
-      extends IsComponent.Controller {
+      extends IsCompositeComponent.Controller {
 
   }
 }

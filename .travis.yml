@@ -4,12 +4,6 @@ jdk:
   - oraclejdk8
   - openjdk8
 
-branches:
-  only:
-    - master
-
-sudo: false
-
 cache:
   directories:
     - "$HOME/.m2"
