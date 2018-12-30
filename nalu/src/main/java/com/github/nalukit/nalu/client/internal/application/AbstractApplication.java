@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.Nalu;
-import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.application.IsContext;
@@ -25,10 +24,7 @@ import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.internal.route.HashResult;
-import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
-import com.github.nalukit.nalu.client.internal.route.RouterException;
-import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
+import com.github.nalukit.nalu.client.internal.route.*;
 import com.github.nalukit.nalu.client.internal.validation.RouteValidation;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import org.gwtproject.event.shared.SimpleEventBus;
@@ -62,7 +58,7 @@ public abstract class AbstractApplication<C extends IsContext>
   protected List<CompositeControllerReference> compositeControllerReferences;
 
   /* Router */
-  protected Router router;
+  protected ConfiguratableRouter router;
 
   /* application context */
   protected C context;
@@ -102,10 +98,10 @@ public abstract class AbstractApplication<C extends IsContext>
     this.eventBus = new SimpleEventBus();
     this.shellConfiguration = new ShellConfiguration();
     this.routerConfiguration = new RouterConfiguration();
-    this.router = new Router(this.plugin,
-                             this.shellConfiguration,
-                             this.routerConfiguration,
-                             this.compositeControllerReferences);
+    this.router = new RouterHashImpl(this.plugin,
+                                     this.shellConfiguration,
+                                     this.routerConfiguration,
+                                     this.compositeControllerReferences);
     // load everything you need to start
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load configurations",
@@ -204,7 +200,7 @@ public abstract class AbstractApplication<C extends IsContext>
       ClientLogger.get()
                   .logDetailed("AbstractApplication: handle history (hash at start: >>" + hashOnStart + "<<",
                                1);
-      HashResult hashResult = null;
+      HashResult hashResult;
       try {
         hashResult = this.router.parse(hashOnStart);
       } catch (RouterException e) {
@@ -223,4 +219,5 @@ public abstract class AbstractApplication<C extends IsContext>
                 .logSimple("AbstractApplication: application started",
                            0);
   }
+
 }

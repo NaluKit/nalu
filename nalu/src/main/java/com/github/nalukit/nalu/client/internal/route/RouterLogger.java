@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client;
+package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 
