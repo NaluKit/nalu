@@ -98,10 +98,12 @@ public abstract class AbstractApplication<C extends IsContext>
     this.eventBus = new SimpleEventBus();
     this.shellConfiguration = new ShellConfiguration();
     this.routerConfiguration = new RouterConfiguration();
-    this.router = new RouterHashImpl(this.plugin,
-                                     this.shellConfiguration,
-                                     this.routerConfiguration,
-                                     this.compositeControllerReferences);
+    // create router ...
+    this.router = new RouterImpl(this.plugin,
+                                 this.shellConfiguration,
+                                 this.routerConfiguration,
+                                 this.compositeControllerReferences,
+                                 this.isUsingHash());
     // load everything you need to start
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load configurations",
@@ -185,12 +187,14 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract IsApplicationLoader<C> getApplicationLoader();
 
+  protected abstract boolean isUsingHash();
+
   /**
    * Once the loader did his job, we will continue
    */
   private void onFinishLaoding() {
     // save the current hash
-    String hashOnStart = this.plugin.getStartRoute();
+    String hashOnStart = this.plugin.getStartRoute(isUsingHash());
     // check if the url contains a hash.
     // in case it has a hash, use this to route otherwise
     // use the startRoute from the annotation

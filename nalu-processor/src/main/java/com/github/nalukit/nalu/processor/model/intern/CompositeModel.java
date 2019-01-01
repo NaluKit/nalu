@@ -102,4 +102,5 @@ public class CompositeModel {
   public void setComponentCreator(boolean componentCreator) {
     this.componentCreator = componentCreator;
   }
+
 }

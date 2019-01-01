@@ -38,4 +38,5 @@ public interface IsApplicationLoader<C extends IsContext> {
     void finishLoading();
 
   }
+
 }

@@ -71,4 +71,5 @@ public class HashResult {
   public void setShell(String shell) {
     this.shell = shell;
   }
+
 }

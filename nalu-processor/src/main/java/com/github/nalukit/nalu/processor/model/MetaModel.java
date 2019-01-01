@@ -32,6 +32,8 @@ public class MetaModel {
 
   private List<ClassNameModel> plugins;
 
+  private boolean usingHash;
+
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
   /* with a a plugin and not with a pplication  */
@@ -221,6 +223,14 @@ public class MetaModel {
     this.plugins = plugins;
   }
 
+  public boolean isUsingHash() {
+    return usingHash;
+  }
+
+  public void setUsingHash(boolean usingHash) {
+    this.usingHash = usingHash;
+  }
+
   public String getShellOfStartRoute() {
     if (Objects.isNull(this.startRoute)) {
       return "";
@@ -246,4 +256,5 @@ public class MetaModel {
     }
     return shellFromRoute;
   }
+
 }

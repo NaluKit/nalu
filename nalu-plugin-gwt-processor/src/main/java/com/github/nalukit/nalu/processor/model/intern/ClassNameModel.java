@@ -119,4 +119,5 @@ public class ClassNameModel {
     return Objects.equals(className,
                           that.className);
   }
+
 }

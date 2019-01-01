@@ -74,6 +74,7 @@ public class ApplicationAnnotationScanner {
       metaModel.setContext(new ClassNameModel(contextTypeElement.toString()));
       metaModel.setStartRoute(applicationAnnotation.startRoute());
       metaModel.setRouteError(applicationAnnotation.routeError());
+      metaModel.setUsingHash(applicationAnnotation.useHash());
     }
   }
 
@@ -127,5 +128,7 @@ public class ApplicationAnnotationScanner {
     public ApplicationAnnotationScanner build() {
       return new ApplicationAnnotationScanner(this);
     }
+
   }
+
 }

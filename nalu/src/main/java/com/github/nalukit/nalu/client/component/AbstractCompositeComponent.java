@@ -25,4 +25,5 @@ public abstract class AbstractCompositeComponent<C extends IsComponent.Controlle
     // In caxe you have to remove something on screen change
     // this is a good place to do so!
   }
+
 }

@@ -90,5 +90,7 @@ public class HandlerAnnotationScanner {
     public HandlerAnnotationScanner build() {
       return new HandlerAnnotationScanner(this);
     }
+
   }
+
 }

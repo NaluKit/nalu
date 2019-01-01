@@ -410,5 +410,7 @@ public class ControllerAnnotationScanner {
     public ControllerAnnotationScanner build() {
       return new ControllerAnnotationScanner(this);
     }
+
   }
+
 }

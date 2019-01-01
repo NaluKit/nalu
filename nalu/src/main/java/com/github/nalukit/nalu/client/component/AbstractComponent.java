@@ -82,4 +82,5 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
   public void setController(C controller) {
     this.controller = controller;
   }
+
 }

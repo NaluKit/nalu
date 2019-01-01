@@ -117,5 +117,7 @@ public class FiltersAnnotationScanner {
     public FiltersAnnotationScanner build() {
       return new FiltersAnnotationScanner(this);
     }
+
   }
+
 }

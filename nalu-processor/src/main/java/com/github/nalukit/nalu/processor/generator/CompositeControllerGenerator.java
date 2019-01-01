@@ -106,5 +106,7 @@ public class CompositeControllerGenerator {
     public CompositeControllerGenerator build() {
       return new CompositeControllerGenerator(this);
     }
+
   }
+
 }

@@ -235,5 +235,7 @@ public class ControllerAnnotationValidator {
     public ControllerAnnotationValidator build() {
       return new ControllerAnnotationValidator(this);
     }
+
   }
+
 }

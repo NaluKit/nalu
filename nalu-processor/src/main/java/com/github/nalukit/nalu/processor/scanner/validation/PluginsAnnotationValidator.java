@@ -120,5 +120,7 @@ public class PluginsAnnotationValidator {
     public PluginsAnnotationValidator build() {
       return new PluginsAnnotationValidator(this);
     }
+
   }
+
 }

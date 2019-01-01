@@ -25,4 +25,5 @@ public interface IsCompositeComponent<C extends IsComponent.Controller, W>
       extends IsComponent.Controller {
 
   }
+
 }

@@ -27,6 +27,7 @@ import java.util.Set;
  */
 public class ResettableEventBus
     extends EventBus {
+
   private final EventBus wrapped;
 
   private final Set<HandlerRegistration> registrations = new HashSet<>();
@@ -101,4 +102,5 @@ public class ResettableEventBus
       registrations.remove(registration);
     }
   }
+
 }

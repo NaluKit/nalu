@@ -157,5 +157,7 @@ public class ShellAnnotationScanner {
     public ShellAnnotationScanner build() {
       return new ShellAnnotationScanner(this);
     }
+
   }
+
 }

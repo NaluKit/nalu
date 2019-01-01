@@ -115,5 +115,7 @@ public class DebugAnnotationScanner {
     public DebugAnnotationScanner build() {
       return new DebugAnnotationScanner(this);
     }
+
   }
+
 }

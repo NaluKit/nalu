@@ -231,5 +231,7 @@ public class NaluPluginGwtProcessor
     public ClassNameModel getEnclosingElementModel() {
       return new ClassNameModel(this.enclosingElement);
     }
+
   }
+
 }

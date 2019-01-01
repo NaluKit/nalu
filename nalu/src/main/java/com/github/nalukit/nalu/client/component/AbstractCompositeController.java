@@ -105,4 +105,5 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   public void remove() {
     this.component.remove();
   }
+
 }

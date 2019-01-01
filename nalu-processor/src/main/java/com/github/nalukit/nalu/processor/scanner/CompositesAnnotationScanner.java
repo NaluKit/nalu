@@ -109,5 +109,7 @@ public class CompositesAnnotationScanner {
     public CompositesAnnotationScanner build() {
       return new CompositesAnnotationScanner(this);
     }
+
   }
+
 }

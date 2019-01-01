@@ -33,4 +33,5 @@ public abstract class AbstractApplicationLoader<C extends IsContext>
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
+
 }

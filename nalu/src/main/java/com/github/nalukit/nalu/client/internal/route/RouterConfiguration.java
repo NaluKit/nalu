@@ -48,4 +48,5 @@ public class RouterConfiguration {
                        .filter(routeConfig -> routeConfig.match(hash))
                        .collect(Collectors.toList());
   }
+
 }

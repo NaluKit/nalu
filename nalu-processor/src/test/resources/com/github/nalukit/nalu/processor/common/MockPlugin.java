@@ -43,7 +43,7 @@ public class MockPlugin
   }
 
   @Override
-  public void register(HashHandler handler) {
+  public void register(RouteChangeHandler handler) {
 
   }
 

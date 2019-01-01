@@ -120,5 +120,7 @@ public class FiltersGenerator {
     public FiltersGenerator build() {
       return new FiltersGenerator(this);
     }
+
   }
+
 }

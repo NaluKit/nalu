@@ -128,5 +128,7 @@ public class AcceptParameterAnnotationValidator {
     public AcceptParameterAnnotationValidator build() {
       return new AcceptParameterAnnotationValidator(this);
     }
+
   }
+
 }

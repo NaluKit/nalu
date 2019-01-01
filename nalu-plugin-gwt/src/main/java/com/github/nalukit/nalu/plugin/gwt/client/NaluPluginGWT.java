@@ -45,16 +45,42 @@ public class NaluPluginGWT
   }
 
   @Override
-  public String getStartRoute() {
-    String starthash = Window.Location.getHash();
-    if (starthash.startsWith("#")) {
-      starthash = starthash.substring(1);
+  public String getStartRoute(boolean usingHash) {
+    Location location = Js.uncheckedCast(DomGlobal.location);
+    if (usingHash) {
+      String startRoute = location.getHash();
+      if (startRoute.startsWith("#")) {
+        startRoute = startRoute.substring(1);
+      }
+      return startRoute;
+    } else {
+      String startRoute = location.getSearch();
+      if (startRoute.contains("&")) {
+        startRoute = startRoute.substring(0,
+                                          startRoute.indexOf("&"));
+      }
+      if (startRoute.startsWith("?")) {
+        startRoute = startRoute.substring(1);
+      }
+      if (startRoute.contains("=")) {
+        if (startRoute.length() > startRoute.indexOf("=") + 1) {
+          startRoute = startRoute.substring(startRoute.indexOf("=") + 1);
+          if (startRoute.startsWith("/")) {
+            if (startRoute.length() > 1) {
+              startRoute = startRoute.substring(1);
+            }
+          }
+        } else {
+          startRoute = "";
+        }
+      }
+      return startRoute;
     }
-    return starthash;
   }
 
   @Override
-  public void register(HashHandler handler) {
+  public void register(RouteChangeHandler handler,
+                       boolean usingHash) {
     DomGlobal.window.onhashchange = e -> {
       String newUrl = "";
       if (detectIE11()) {
@@ -76,7 +102,7 @@ public class NaluPluginGWT
                   .logSimple(sb.toString(),
                              0);
       // look for a routing ...
-      handler.onHashChange(newUrl);
+      handler.onRouteChange(newUrl);
       return null;
     };
   }
@@ -91,7 +117,8 @@ public class NaluPluginGWT
 
   @Override
   public void route(String newRoute,
-                    boolean replace) {
+                    boolean replace,
+                    boolean usingHash) {
     if (replace) {
       DomGlobal.window.history.replaceState(null,
                                             null,
@@ -128,4 +155,5 @@ public class NaluPluginGWT
     }
     return ua.indexOf("Trident/") > 0;
   }
+
 }

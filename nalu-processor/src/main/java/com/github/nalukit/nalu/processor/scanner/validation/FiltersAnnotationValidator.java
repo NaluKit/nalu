@@ -145,5 +145,7 @@ public class FiltersAnnotationValidator {
     public FiltersAnnotationValidator build() {
       return new FiltersAnnotationValidator(this);
     }
+
   }
+
 }

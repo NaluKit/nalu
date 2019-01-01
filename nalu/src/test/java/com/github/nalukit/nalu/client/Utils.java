@@ -34,12 +34,13 @@ class Utils {
       }
 
       @Override
-      public String getStartRoute() {
+      public String getStartRoute(boolean usingHash) {
         return "/";
       }
 
       @Override
-      public void register(HashHandler handler) {
+      public void register(RouteChangeHandler handler,
+                           boolean usingHash) {
       }
 
       @Override
@@ -48,7 +49,8 @@ class Utils {
 
       @Override
       public void route(String newRoute,
-                        boolean replace) {
+                        boolean replace,
+                        boolean usingHash) {
       }
     };
   }

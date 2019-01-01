@@ -24,6 +24,7 @@ import java.util.*;
  */
 public class SimpleEventBus
     extends EventBus {
+
   /**
    * Map of event type to map of event source to list of their handlers.
    */
@@ -272,6 +273,9 @@ public class SimpleEventBus
   }
 
   private interface Command {
+
     void execute();
+
   }
+
 }

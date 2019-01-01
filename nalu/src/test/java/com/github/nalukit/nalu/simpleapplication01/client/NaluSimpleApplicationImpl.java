@@ -407,6 +407,11 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
   }
 
   @Override
+  protected boolean isUsingHash() {
+    return true;
+  }
+
+  @Override
   public void loadDefaultRoutes() {
     this.startRoute = "/search";
     this.errorRoute = "WhenShallWeThreeMeetAgainInThunderLightningOrInRain";

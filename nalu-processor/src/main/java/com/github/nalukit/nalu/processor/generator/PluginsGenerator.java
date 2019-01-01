@@ -190,5 +190,7 @@ public class PluginsGenerator {
     public PluginsGenerator build() {
       return new PluginsGenerator(this);
     }
+
   }
+
 }

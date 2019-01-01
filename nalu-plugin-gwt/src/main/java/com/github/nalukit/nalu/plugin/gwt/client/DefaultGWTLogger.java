@@ -34,4 +34,5 @@ public class DefaultGWTLogger
       return "Nalu-Logger -> " + indent;
     }
   }
+
 }

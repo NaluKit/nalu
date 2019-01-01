@@ -108,5 +108,7 @@ public class HandlerAnnotationValidator {
     public HandlerAnnotationValidator build() {
       return new HandlerAnnotationValidator(this);
     }
+
   }
+
 }

@@ -39,4 +39,5 @@ public @interface NaluProcessorPlugin {
     ELEMENTAL2,
     GWT;
   }
+
 }

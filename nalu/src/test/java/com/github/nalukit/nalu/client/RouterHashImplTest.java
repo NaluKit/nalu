@@ -2,7 +2,7 @@ package com.github.nalukit.nalu.client;
 
 import com.github.nalukit.nalu.client.internal.route.HashResult;
 import com.github.nalukit.nalu.client.internal.route.RouterException;
-import com.github.nalukit.nalu.client.internal.route.RouterHashImpl;
+import com.github.nalukit.nalu.client.internal.route.RouterImpl;
 import org.hamcrest.core.Is;
 import org.junit.After;
 import org.junit.Assert;
@@ -17,15 +17,16 @@ import org.junit.Test;
  */
 public class RouterHashImplTest {
 
-  private RouterHashImpl router;
+  private RouterImpl router;
 
   @Before
   public void before() {
-    this.router = new RouterHashImpl(Utils.createPlugin(true,
-                                                        true),
-                                     Utils.createShellConfiguration(),
-                                     Utils.createRouterConfiguration(),
-                                     Utils.createCompositeConfiguration());
+    this.router = new RouterImpl(Utils.createPlugin(true,
+                                                    true),
+                                 Utils.createShellConfiguration(),
+                                 Utils.createRouterConfiguration(),
+                                 Utils.createCompositeConfiguration(),
+                                 true);
   }
 
   @After

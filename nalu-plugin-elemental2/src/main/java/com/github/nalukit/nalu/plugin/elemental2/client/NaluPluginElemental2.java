@@ -51,17 +51,67 @@ public class NaluPluginElemental2
   }
 
   @Override
-  public String getStartRoute() {
+  public String getStartRoute(boolean usingHash) {
     Location location = Js.uncheckedCast(DomGlobal.location);
-    String starthash = location.getHash();
-    if (starthash.startsWith("#")) {
-      starthash = starthash.substring(1);
+    if (usingHash) {
+      String startRoute = location.getHash();
+      if (startRoute.startsWith("#")) {
+        startRoute = startRoute.substring(1);
+      }
+      return startRoute;
+    } else {
+      String startRoute = location.getSearch();
+      if (startRoute.contains("&")) {
+        startRoute = startRoute.substring(0,
+                                          startRoute.indexOf("&"));
+      }
+      if (startRoute.startsWith("?")) {
+        startRoute = startRoute.substring(1);
+      }
+      if (startRoute.contains("=")) {
+        if (startRoute.length() > startRoute.indexOf("=") + 1) {
+          startRoute = startRoute.substring(startRoute.indexOf("=") + 1);
+          if (startRoute.startsWith("/")) {
+            if (startRoute.length() > 1) {
+              startRoute = startRoute.substring(1);
+            }
+          }
+        } else {
+          startRoute = "";
+        }
+      }
+      return startRoute;
     }
-    return starthash;
   }
 
   @Override
-  public void register(HashHandler handler) {
+  public void register(RouteChangeHandler handler,
+                       boolean usingHash) {
+    if (usingHash) {
+      addOnHashChangeHandler(handler);
+    } else {
+      addPopStateHandler(handler);
+    }
+  }
+
+  private void addPopStateHandler(RouteChangeHandler handler) {
+    DomGlobal.window.onpopstate = e -> {
+      String newUrl = "";
+      if (detectIE11()) {
+        Location location = Js.uncheckedCast(DomGlobal.location);
+        newUrl = location.getHash();
+      } else {
+        // cast event ...
+        PopStateEvent event = (PopStateEvent) e;
+        newUrl = (String) event.state;
+      }
+      this.handleChange(handler,
+                        newUrl);
+      return null;
+    };
+  }
+
+  private void addOnHashChangeHandler(RouteChangeHandler handler) {
     DomGlobal.window.onhashchange = e -> {
       String newUrl = "";
       if (detectIE11()) {
@@ -69,23 +119,29 @@ public class NaluPluginElemental2
         newUrl = location.getHash();
       } else {
         // cast event ...
-        HashChangeEvent hashChangeEvent = (HashChangeEvent) e;
-        newUrl = hashChangeEvent.newURL;
+        HashChangeEvent event = (HashChangeEvent) e;
+        newUrl = event.newURL;
       }
-      if (newUrl.startsWith("#")) {
-        newUrl = newUrl.substring(1);
-      }
-      StringBuilder sb = new StringBuilder();
-      sb.append("Router: onhashchange: new url ->>")
-        .append(newUrl)
-        .append("<<");
-      ClientLogger.get()
-                  .logSimple(sb.toString(),
-                             0);
-      // look for a routing ...
-      handler.onHashChange(newUrl);
+      this.handleChange(handler,
+                        newUrl);
       return null;
     };
+  }
+
+  private void handleChange(RouteChangeHandler handler,
+                            String newUrl) {
+    if (newUrl.startsWith("#")) {
+      newUrl = newUrl.substring(1);
+    }
+    StringBuilder sb = new StringBuilder();
+    sb.append("Router: onhashchange: new url ->>")
+      .append(newUrl)
+      .append("<<");
+    ClientLogger.get()
+                .logSimple(sb.toString(),
+                           0);
+    // look for a routing ...
+    handler.onRouteChange(newUrl);
   }
 
   @Override
@@ -104,15 +160,17 @@ public class NaluPluginElemental2
 
   @Override
   public void route(String newRoute,
-                    boolean replace) {
+                    boolean replace,
+                    boolean usingHash) {
+    String value = usingHash ? "#" + newRoute : "/" + newRoute;
     if (replace) {
-      DomGlobal.window.history.replaceState(null,
+      DomGlobal.window.history.replaceState(value,
                                             null,
-                                            "#" + newRoute);
+                                            value);
     } else {
-      DomGlobal.window.history.pushState(null,
+      DomGlobal.window.history.pushState(value,
                                          null,
-                                         "#" + newRoute);
+                                         value);
     }
   }
 
@@ -141,4 +199,5 @@ public class NaluPluginElemental2
     }
     return ua.indexOf("Trident/") > 0;
   }
+
 }

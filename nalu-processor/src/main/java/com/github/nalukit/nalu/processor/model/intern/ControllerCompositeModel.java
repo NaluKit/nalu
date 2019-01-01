@@ -58,4 +58,5 @@ public class ControllerCompositeModel {
   public void setSelector(String selector) {
     this.selector = selector;
   }
+
 }

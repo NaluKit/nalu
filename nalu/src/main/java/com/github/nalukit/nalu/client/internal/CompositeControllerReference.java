@@ -51,4 +51,5 @@ public class CompositeControllerReference {
   public String getSelector() {
     return selector;
   }
+
 }

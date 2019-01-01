@@ -158,6 +158,9 @@ public class ApplicationGenerator {
     generateLoadDefaultsRoutes(typeSpec,
                                metaModel);
 
+    generateIsUsingHashMethod(typeSpec,
+                              metaModel);
+
     JavaFile javaFile = JavaFile.builder(metaModel.getGenerateToPackage(),
                                          typeSpec.build())
                                 .build();
@@ -172,6 +175,17 @@ public class ApplicationGenerator {
                                    "<< -> exception: " +
                                    e.getMessage());
     }
+  }
+
+  private void generateIsUsingHashMethod(TypeSpec.Builder typeSpec,
+                                         MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("isUsingHash")
+                                 .addAnnotation(Override.class)
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .returns(boolean.class)
+                                 .addStatement("return $L",
+                                               metaModel.isUsingHash() ? "true" : "false")
+                                 .build());
   }
 
   private void generateLoadDefaultsRoutes(TypeSpec.Builder typeSpec,
@@ -211,5 +225,7 @@ public class ApplicationGenerator {
     public ApplicationGenerator build() {
       return new ApplicationGenerator(this);
     }
+
   }
+
 }

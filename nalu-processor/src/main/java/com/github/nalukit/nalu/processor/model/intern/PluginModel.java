@@ -58,4 +58,5 @@ public class PluginModel {
   public void setContext(ClassNameModel context) {
     this.context = context;
   }
+
 }

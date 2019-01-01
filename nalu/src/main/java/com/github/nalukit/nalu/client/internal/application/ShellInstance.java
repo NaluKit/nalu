@@ -46,4 +46,5 @@ public class ShellInstance {
   public void setShell(IsShell shell) {
     this.shell = shell;
   }
+
 }

@@ -195,5 +195,7 @@ public class ControllerGenerator {
     public ControllerGenerator build() {
       return new ControllerGenerator(this);
     }
+
   }
+
 }

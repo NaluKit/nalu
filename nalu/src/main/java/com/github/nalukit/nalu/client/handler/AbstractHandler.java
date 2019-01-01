@@ -44,4 +44,5 @@ public abstract class AbstractHandler<C extends IsContext>
   public void setRouter(Router router) {
     this.router = router;
   }
+
 }

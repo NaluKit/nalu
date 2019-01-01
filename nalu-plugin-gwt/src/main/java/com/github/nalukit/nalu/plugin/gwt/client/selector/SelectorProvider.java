@@ -20,4 +20,5 @@ public class SelectorProvider {
   public Map<String, SelectorCommand> getSelectorCommands() {
     return selectorCommands;
   }
+
 }

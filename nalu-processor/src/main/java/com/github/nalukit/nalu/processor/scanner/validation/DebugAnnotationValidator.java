@@ -141,5 +141,7 @@ public class DebugAnnotationValidator {
     public DebugAnnotationValidator build() {
       return new DebugAnnotationValidator(this);
     }
+
   }
+
 }

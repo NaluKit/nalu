@@ -49,4 +49,5 @@ public class DefaultElemental2Logger
       return "Nalu-Logger -> " + indent;
     }
   }
+
 }

@@ -33,4 +33,5 @@ public final class NoApplicationLoader
   public void load(FinishLoadCommand finishLoadCommand) {
     finishLoadCommand.finishLoading();
   }
+
 }

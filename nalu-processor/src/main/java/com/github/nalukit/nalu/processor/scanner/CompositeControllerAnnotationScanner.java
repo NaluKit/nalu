@@ -400,5 +400,7 @@ public class CompositeControllerAnnotationScanner {
     public CompositeControllerAnnotationScanner build() {
       return new CompositeControllerAnnotationScanner(this);
     }
+
   }
+
 }

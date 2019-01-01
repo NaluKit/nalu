@@ -42,4 +42,5 @@ public abstract class AbstractShellCreator<C extends IsContext>
     this.context = context;
     this.eventBus = eventBus;
   }
+
 }

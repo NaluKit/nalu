@@ -42,4 +42,5 @@ public abstract class AbstractControllerCreator<C extends IsContext>
     this.context = context;
     this.eventBus = eventBus;
   }
+
 }

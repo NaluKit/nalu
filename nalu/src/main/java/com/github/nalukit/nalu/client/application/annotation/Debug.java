@@ -44,4 +44,5 @@ public @interface Debug {
     SIMPLE,
     DETAILED
   }
+
 }

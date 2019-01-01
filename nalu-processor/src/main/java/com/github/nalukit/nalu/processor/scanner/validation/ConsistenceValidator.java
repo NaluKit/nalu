@@ -252,5 +252,7 @@ public class ConsistenceValidator {
     public ConsistenceValidator build() {
       return new ConsistenceValidator(this);
     }
+
   }
+
 }

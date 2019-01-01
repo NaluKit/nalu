@@ -37,4 +37,5 @@ public interface IsComponent<C extends IsComponent.Controller, W> {
   interface Controller {
 
   }
+
 }

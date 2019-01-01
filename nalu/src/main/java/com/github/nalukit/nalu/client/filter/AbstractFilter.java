@@ -30,4 +30,5 @@ public abstract class AbstractFilter<C extends IsContext>
   public void setContext(C context) {
     this.context = context;
   }
+
 }

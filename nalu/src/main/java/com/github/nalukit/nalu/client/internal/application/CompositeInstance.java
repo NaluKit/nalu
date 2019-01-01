@@ -46,4 +46,5 @@ public class CompositeInstance {
   public void setComposite(AbstractCompositeController<?, ?, ?> composite) {
     this.composite = composite;
   }
+
 }

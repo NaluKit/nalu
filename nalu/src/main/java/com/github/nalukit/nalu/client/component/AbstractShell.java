@@ -76,4 +76,5 @@ public abstract class AbstractShell<C extends IsContext>
   @Override
   public void detachShell() {
   }
+
 }

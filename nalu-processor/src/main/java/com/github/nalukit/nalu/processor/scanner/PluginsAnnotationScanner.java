@@ -124,5 +124,7 @@ public class PluginsAnnotationScanner {
     public PluginsAnnotationScanner build() {
       return new PluginsAnnotationScanner(this);
     }
+
   }
+
 }

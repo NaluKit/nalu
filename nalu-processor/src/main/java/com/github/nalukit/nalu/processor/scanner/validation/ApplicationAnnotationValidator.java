@@ -131,5 +131,7 @@ public class ApplicationAnnotationValidator {
     public ApplicationAnnotationValidator build() {
       return new ApplicationAnnotationValidator(this);
     }
+
   }
+
 }

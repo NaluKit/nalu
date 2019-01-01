@@ -57,4 +57,5 @@ public class ControllerInstance {
   public void setChached(boolean chached) {
     this.chached = chached;
   }
+
 }
