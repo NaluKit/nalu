@@ -17,12 +17,19 @@
 package com.github.nalukit.nalu.plugin.elemental2.client;
 
 import com.github.nalukit.nalu.client.internal.ClientLogger;
+import com.github.nalukit.nalu.client.internal.route.ShellConfig;
+import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import elemental2.dom.*;
 import jsinterop.base.Js;
 
+import java.util.Optional;
+
 public class NaluPluginElemental2
     implements IsNaluProcessorPlugin {
+
+  // context path ...
+  private String contextPath;
 
   public NaluPluginElemental2() {
     super();
@@ -75,6 +82,12 @@ public class NaluPluginElemental2
             if (startRoute.length() > 1) {
               startRoute = startRoute.substring(1);
             }
+          }
+          if (startRoute.startsWith(this.contextPath)) {
+            startRoute = startRoute.substring(this.contextPath.length());
+          }
+          if (startRoute.endsWith("/")) {
+            startRoute = startRoute.substring(0, startRoute.length() - 1);
           }
         } else {
           startRoute = "";
@@ -162,7 +175,16 @@ public class NaluPluginElemental2
   public void route(String newRoute,
                     boolean replace,
                     boolean usingHash) {
-    String value = usingHash ? "#" + newRoute : "/" + newRoute;
+    String value;
+    if (usingHash) {
+      value = "#" + newRoute;
+    } else {
+      value = "/";
+      if (this.contextPath.length() > 0) {
+        value = value + this.contextPath + "/";
+      }
+      value = value + newRoute;
+    }
     if (replace) {
       DomGlobal.window.history.replaceState(value,
                                             null,
@@ -171,6 +193,45 @@ public class NaluPluginElemental2
       DomGlobal.window.history.pushState(value,
                                          null,
                                          value);
+    }
+  }
+
+  @Override
+  public void initialize(boolean usingHash,
+                           ShellConfiguration shellConfiguration) {
+    if (usingHash) {
+      this.contextPath = "";
+      return;
+    }
+    Location location = Js.uncheckedCast(DomGlobal.location);
+    String pathName = location.getPathname();
+    if (pathName.startsWith("/") && pathName.length() > 1) {
+      pathName = pathName.substring(1);
+    }
+    if (pathName.contains(".")) {
+      if (pathName.contains("/")) {
+        pathName = pathName.substring(0,
+                                  pathName.lastIndexOf("/"));
+        StringBuilder context = new StringBuilder();
+        for (String partOfContext : pathName.split("/")) {
+          Optional<String> optional = shellConfiguration.getShells()
+                                                             .stream()
+                                                             .map(ShellConfig::getRoute)
+                                                             .filter(f -> f.equals("/" + partOfContext))
+                                                             .findAny();
+          if (optional.isPresent()) {
+            break;
+          } else {
+            if (context.length() > 0) {
+              context.append("/");
+            }
+            context.append(partOfContext);
+          }
+        }
+        this.contextPath = context.toString();
+      } else {
+        this.contextPath = "";
+      }
     }
   }
 

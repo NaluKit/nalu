@@ -52,6 +52,11 @@ class Utils {
                         boolean replace,
                         boolean usingHash) {
       }
+
+      @Override
+      public void initialize(boolean usingHash,
+                             ShellConfiguration shellConfiguration) {
+      }
     };
   }
 

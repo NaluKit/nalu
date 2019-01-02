@@ -27,7 +27,7 @@ public interface ConfiguratableRouter
    * @param route the route to be parsed ...
    * @return the hashResult class of this route!
    */
-  HashResult parse(String route)
+  RouteResult parse(String route)
       throws RouterException;
 
   /**

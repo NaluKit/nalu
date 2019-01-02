@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.client;
 
-import com.github.nalukit.nalu.client.internal.route.HashResult;
+import com.github.nalukit.nalu.client.internal.route.RouteResult;
 import com.github.nalukit.nalu.client.internal.route.RouterException;
 import com.github.nalukit.nalu.client.internal.route.RouterImpl;
 import org.hamcrest.core.Is;
@@ -39,7 +39,7 @@ public class RouterHashImplTest {
    */
   @Test
   public void testParseHashViewportOnly() {
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse("/MockShell");
     } catch (RouterException e) {
@@ -58,7 +58,7 @@ public class RouterHashImplTest {
    */
   @Test
   public void testParseHash01() {
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse("/MockShell/testRoute01");
     } catch (RouterException e) {
@@ -77,7 +77,7 @@ public class RouterHashImplTest {
    */
   @Test
   public void testParseHash02() {
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse("MockShell/testRoute01");
     } catch (RouterException e) {
@@ -96,7 +96,7 @@ public class RouterHashImplTest {
    */
   @Test
   public void testParseHash03() {
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse("/MockShell/testRoute02/testParameter01");
     } catch (RouterException e) {
@@ -119,7 +119,7 @@ public class RouterHashImplTest {
    */
   @Test
   public void testParseHash04() {
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse("/MockShell/testRoute02/testParameter01/testParameter02");
     } catch (RouterException e) {
@@ -143,7 +143,7 @@ public class RouterHashImplTest {
    */
   @Test
   public void testParseHash05() {
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse("/MockShell/testRoute02//testParameter02");
     } catch (RouterException e) {
@@ -170,7 +170,7 @@ public class RouterHashImplTest {
    */
   @Test
   public void testParseHash06() {
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse("MockShell/testRoute02/testParameter01");
     } catch (RouterException e) {
@@ -193,7 +193,7 @@ public class RouterHashImplTest {
    */
   @Test
   public void testParseHash07() {
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse("MockShell/testRoute02/testParameter01/testParameter02");
     } catch (RouterException e) {
@@ -220,7 +220,7 @@ public class RouterHashImplTest {
    */
   @Test
   public void testParseHash08() {
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse("MockShell/testRoute02//testParameter02");
     } catch (RouterException e) {
@@ -247,7 +247,7 @@ public class RouterHashImplTest {
    */
   @Test
   public void testParseHash09() {
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse("/MockShell/testRoute03/testRoute04/testRoute05");
     } catch (RouterException e) {
@@ -266,7 +266,7 @@ public class RouterHashImplTest {
    */
   @Test
   public void testParseHash10() {
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse("MockShell/testRoute03/testRoute04/testRoute05");
     } catch (RouterException e) {
@@ -301,7 +301,7 @@ public class RouterHashImplTest {
    */
   @Test
   public void testParseHash12() {
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse("/MockShell/testRoute06/testRoute07/testParameter01/testParameter02");
     } catch (RouterException e) {
@@ -329,7 +329,7 @@ public class RouterHashImplTest {
   @Test
   public void testGenerateHash01() {
     String hash = "MockShell/testRoute01";
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse(hash);
     } catch (RouterException e) {
@@ -347,7 +347,7 @@ public class RouterHashImplTest {
   @Test
   public void testGenerateHash02() {
     String hash = "MockShell/testRoute02/testParameter01";
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse(hash);
     } catch (RouterException e) {
@@ -367,7 +367,7 @@ public class RouterHashImplTest {
   @Test
   public void testGenerateHash03() {
     String hash = "MockShell/testRoute02/testParameter01/testParameter02";
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse(hash);
     } catch (RouterException e) {
@@ -387,7 +387,7 @@ public class RouterHashImplTest {
   @Test
   public void testGenerateHash04() {
     String hash = "MockShell/testRoute02//testParameter02";
-    HashResult hashResult = null;
+    RouteResult hashResult = null;
     try {
       hashResult = this.router.parse(hash);
     } catch (RouterException e) {

@@ -16,13 +16,9 @@
 
 package com.github.nalukit.nalu.processor.model;
 
-import com.github.nalukit.nalu.client.internal.route.HashResult;
-import com.github.nalukit.nalu.client.internal.route.RouterException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class MetaModelTest {
 

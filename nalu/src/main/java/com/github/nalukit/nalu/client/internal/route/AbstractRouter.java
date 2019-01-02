@@ -36,30 +36,30 @@ import java.util.stream.Stream;
 abstract class AbstractRouter
     implements ConfiguratableRouter {
 
-  // route in case of route error
-  String                                            routeError;
-  // the latest error object
-  NaluErrorMessage                                  naluErrorMessage;
-  // composite configuration
-  List<CompositeControllerReference>                compositeControllerReferences;
-  // List of the application shells
-  ShellConfiguration                                shellConfiguration;
-  // List of the routes of the application
-  RouterConfiguration                               routerConfiguration;
-  // List of active components
-  Map<String, AbstractComponentController<?, ?, ?>> activeComponents;
-  // hash of last successful routing
-  String                                            lastExecutedHash = "";
-  // last added shell - used, to check if the shell needs an shell replacement
-  String                                            lastAddedShell;
-  // instance of the current shell
-  IsShell                                           shell;
   // the plugin
-  IsNaluProcessorPlugin                             plugin;
-  // list of routes used for handling the current route - used to detect loops
-  List<String>                                      loopDetectionList;
+  IsNaluProcessorPlugin plugin;
   // is the application using hash in url?
-  boolean                                           usingHash;
+  boolean               usingHash;
+  // route in case of route error
+  private String                                            routeError;
+  // the latest error object
+  private NaluErrorMessage                                  naluErrorMessage;
+  // composite configuration
+  private List<CompositeControllerReference>                compositeControllerReferences;
+  // List of the application shells
+  private ShellConfiguration                                shellConfiguration;
+  // List of the routes of the application
+  private RouterConfiguration                               routerConfiguration;
+  // List of active components
+  private Map<String, AbstractComponentController<?, ?, ?>> activeComponents;
+  // hash of last successful routing
+  private String                                            lastExecutedHash = "";
+  // last added shell - used, to check if the shell needs an shell replacement
+  private String                                            lastAddedShell;
+  // instance of the current shell
+  private IsShell                                           shell;
+  // list of routes used for handling the current route - used to detect loops
+  private List<String>                                      loopDetectionList;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
                  ShellConfiguration shellConfiguration,
@@ -170,9 +170,9 @@ abstract class AbstractRouter
       this.loopDetectionList.add(pimpUpHashForLoopDetection(hash));
     }
     // parse hash ...
-    HashResult hashResult;
+    RouteResult routeResult;
     try {
-      hashResult = this.parse(hash);
+      routeResult = this.parse(hash);
     } catch (RouterException e) {
       this.naluErrorMessage = new NaluErrorMessage(Nalu.NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE,
                                                    RouterLogger.logNoMatchingRoute(hash,
@@ -199,9 +199,9 @@ abstract class AbstractRouter
     // First we have to check if there is a filter
     // if there are filters ==>  filter the route
     for (IsFilter filter : this.routerConfiguration.getFilters()) {
-      if (!filter.filter(addLeadindgSlash(hashResult.getRoute()),
-                         hashResult.getParameterValues()
-                                   .toArray(new String[0]))) {
+      if (!filter.filter(addLeadindgSlash(routeResult.getRoute()),
+                         routeResult.getParameterValues()
+                                    .toArray(new String[0]))) {
         RouterLogger.logFilterInterceptsRouting(filter.getClass()
                                                       .getCanonicalName(),
                                                 filter.redirectTo(),
@@ -213,7 +213,7 @@ abstract class AbstractRouter
       }
     }
     // search for a matching routing
-    List<RouteConfig> routeConfigurations = this.routerConfiguration.match(hashResult.getRoute());
+    List<RouteConfig> routeConfigurations = this.routerConfiguration.match(routeResult.getRoute());
     // check whether or not the routing is possible ...
     if (this.confirmRouting(routeConfigurations)) {
       // call stop for all elements
@@ -222,10 +222,10 @@ abstract class AbstractRouter
       //
       // in case shellCreator changed or is not set, use the actual shellCreator!
       if (this.lastAddedShell == null ||
-          !hashResult.getShell()
-                     .equals(this.lastAddedShell)) {
+          !routeResult.getShell()
+                      .equals(this.lastAddedShell)) {
         // add shellCreator to the viewport
-        ShellConfig shellConfig = this.shellConfiguration.match(hashResult.getShell());
+        ShellConfig shellConfig = this.shellConfiguration.match(routeResult.getShell());
         if (!Objects.isNull(shellConfig)) {
           ShellInstance shellInstance = ShellFactory.get()
                                                     .shell(shellConfig.getClassName());
@@ -249,25 +249,25 @@ abstract class AbstractRouter
             // set newe shellCreator value
             this.shell = shellInstance.getShell();
             // save the last added shellCreator ....
-            this.lastAddedShell = hashResult.getShell();
+            this.lastAddedShell = routeResult.getShell();
             // initialize shellCreator ...
             ClientLogger.get()
-                        .logDetailed("Router: attach shellCreator >>" + hashResult.getShell() + "<<",
+                        .logDetailed("Router: attach shellCreator >>" + routeResult.getShell() + "<<",
                                      1);
             shellInstance.getShell()
                          .attachShell();
             ClientLogger.get()
-                        .logDetailed("Router: shellCreator >>" + hashResult.getShell() + "<< attached",
+                        .logDetailed("Router: shellCreator >>" + routeResult.getShell() + "<< attached",
                                      1);
             // start the application by calling url + '#'
             ClientLogger.get()
-                        .logDetailed("Router: initialize shellCreator >>" + hashResult.getShell() + "<< (route to '/')",
+                        .logDetailed("Router: initialize shellCreator >>" + routeResult.getShell() + "<< (route to '/')",
                                      1);
             // get shellCreator matching root configs ...
-            List<RouteConfig> shellMatchingRouteConfigurations = this.routerConfiguration.match(hashResult.getShell());
+            List<RouteConfig> shellMatchingRouteConfigurations = this.routerConfiguration.match(routeResult.getShell());
             for (RouteConfig routeConfiguraion : shellMatchingRouteConfigurations) {
               this.handleRouteConfig(routeConfiguraion,
-                                     hashResult,
+                                     routeResult,
                                      hash);
             }
           }
@@ -280,7 +280,7 @@ abstract class AbstractRouter
       // routing
       for (RouteConfig routeConfiguraion : routeConfigurations) {
         this.handleRouteConfig(routeConfiguraion,
-                               hashResult,
+                               routeResult,
                                hash);
       }
       this.shell.onAttachedComponent();
@@ -295,14 +295,14 @@ abstract class AbstractRouter
   }
 
   private void handleRouteConfig(RouteConfig routeConfiguraion,
-                                 HashResult hashResult,
+                                 RouteResult routeResult,
                                  String hash) {
     ControllerInstance controller;
     try {
       controller = ControllerFactory.get()
                                     .controller(routeConfiguraion.getClassName(),
-                                                hashResult.getParameterValues()
-                                                          .toArray(new String[0]));
+                                                routeResult.getParameterValues()
+                                                           .toArray(new String[0]));
     } catch (RoutingInterceptionException e) {
       RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
                                                   e.getRoute(),
@@ -314,13 +314,13 @@ abstract class AbstractRouter
     }
     // do the routing ...
     doRouting(hash,
-              hashResult,
+              routeResult,
               routeConfiguraion,
               controller);
   }
 
   private void doRouting(String hash,
-                         HashResult hashResult,
+                         RouteResult hashResult,
                          RouteConfig routeConfiguraion,
                          ControllerInstance controllerInstance) {
     if (Objects.isNull(controllerInstance.getController())) {
@@ -445,14 +445,14 @@ abstract class AbstractRouter
   /**
    * Parse the hash and divides it into shellCreator, route and parameters
    *
-   * @param hash ths hash to parse
+   * @param route ths hash to parse
    * @return parse result
    * @throws com.github.nalukit.nalu.client.internal.route.RouterException in case no controller is found for the routing
    */
-  public HashResult parse(String hash)
+  public RouteResult parse(String route)
       throws RouterException {
-    HashResult hashResult = new HashResult();
-    String hashValue = hash;
+    RouteResult hashResult = new RouteResult();
+    String hashValue = route;
     // only the part after the first # is intresting:
     if (hashValue.contains("#")) {
       hashValue = hashValue.substring(hashValue.indexOf("#") + 1);
@@ -478,14 +478,14 @@ abstract class AbstractRouter
     if (!optional.isPresent()) {
       StringBuilder sb = new StringBuilder();
       sb.append("no matching shellCreator found for hash >>")
-        .append(hash)
+        .append(route)
         .append("<< --> Routing aborted!");
       RouterLogger.logSimple(sb.toString(),
                              1);
       throw new RouterException(sb.toString());
     }
     // extract route first:
-    hashValue = hash;
+    hashValue = route;
     if (hashValue.startsWith("/")) {
       hashValue = hashValue.substring(1);
     }
@@ -511,7 +511,7 @@ abstract class AbstractRouter
       if (hashResult.getRoute() == null) {
         StringBuilder sb = new StringBuilder();
         sb.append("no matching route found for hash >>")
-          .append(hash)
+          .append(route)
           .append("<< --> Routing aborted!");
         RouterLogger.logSimple(sb.toString(),
                                1);
@@ -538,7 +538,7 @@ abstract class AbstractRouter
                              .size() <
                   hashResult.getParameterValues()
                             .size()) {
-                throw new RouterException(RouterLogger.logWrongNumbersOfPrameters(hash,
+                throw new RouterException(RouterLogger.logWrongNumbersOfPrameters(route,
                                                                                   hashResult.getRoute(),
                                                                                   routeConfig.getParameters()
                                                                                              .size(),
@@ -557,7 +557,7 @@ abstract class AbstractRouter
                                   .anyMatch(f -> f.match(finalSearchPart))) {
         hashResult.setRoute("/" + hashValue);
       } else {
-        throw new RouterException(RouterLogger.logNoMatchingRoute(hash));
+        throw new RouterException(RouterLogger.logNoMatchingRoute(route));
       }
     }
     return hashResult;

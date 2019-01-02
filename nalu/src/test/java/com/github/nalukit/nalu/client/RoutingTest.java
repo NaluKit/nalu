@@ -1,5 +1,6 @@
 package com.github.nalukit.nalu.client;
 
+import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.simpleapplication01.client.Application;
 import org.junit.After;
@@ -76,6 +77,11 @@ public class RoutingTest {
         Assert.assertTrue("route mismatch!",
                           routeHandler.compare(newRoute,
                                                replace));
+      }
+
+      @Override
+      public void initialize(boolean usingHash,
+                             ShellConfiguration shellConfiguration) {
       }
 
       public void addCompareHandler(CompareHandler compareHandler) {

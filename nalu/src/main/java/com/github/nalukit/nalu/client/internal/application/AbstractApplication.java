@@ -40,34 +40,25 @@ public abstract class AbstractApplication<C extends IsContext>
     implements IsApplication {
 
   /* start route */
-  protected String startRoute;
-
+  protected String                             startRoute;
   /* route in case of route error */
-  protected String errorRoute;
-
+  protected String                             errorRoute;
   /* Shell */
-  protected IsShell shell;
-
+  protected IsShell                            shell;
   /* Shell Configuration */
-  protected ShellConfiguration shellConfiguration;
-
+  protected ShellConfiguration                 shellConfiguration;
   /* Router Configuration */
-  protected RouterConfiguration routerConfiguration;
-
+  protected RouterConfiguration                routerConfiguration;
   /* List of CompositeControllerReferences */
   protected List<CompositeControllerReference> compositeControllerReferences;
-
   /* Router */
-  protected ConfiguratableRouter router;
-
+  protected ConfiguratableRouter               router;
   /* application context */
-  protected C context;
-
+  protected C                                  context;
   /* the event bus of the application */
-  protected SimpleEventBus eventBus;
-
+  protected SimpleEventBus                     eventBus;
   /* plugin */
-  protected IsNaluProcessorPlugin plugin;
+  protected IsNaluProcessorPlugin              plugin;
 
   public AbstractApplication() {
     super();
@@ -98,6 +89,9 @@ public abstract class AbstractApplication<C extends IsContext>
     this.eventBus = new SimpleEventBus();
     this.shellConfiguration = new ShellConfiguration();
     this.routerConfiguration = new RouterConfiguration();
+    // initialize plugin
+    this.plugin.initialize(this.isUsingHash(),
+                           this.shellConfiguration);
     // create router ...
     this.router = new RouterImpl(this.plugin,
                                  this.shellConfiguration,
@@ -204,15 +198,15 @@ public abstract class AbstractApplication<C extends IsContext>
       ClientLogger.get()
                   .logDetailed("AbstractApplication: handle history (hash at start: >>" + hashOnStart + "<<",
                                1);
-      HashResult hashResult;
+      RouteResult routeResult;
       try {
-        hashResult = this.router.parse(hashOnStart);
+        routeResult = this.router.parse(hashOnStart);
       } catch (RouterException e) {
         return;
       }
-      this.router.route(hashResult.getRoute(),
-                        hashResult.getParameterValues()
-                                  .toArray(new String[0]));
+      this.router.route(routeResult.getRoute(),
+                        routeResult.getParameterValues()
+                                   .toArray(new String[0]));
     } else {
       ClientLogger.get()
                   .logDetailed("AbstractApplication: no history found -> use startRoute: >>" + this.startRoute + "<<",

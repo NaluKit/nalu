@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.client.plugin;
 
+import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
+
 public interface IsNaluProcessorPlugin {
 
   void alert(String message);
@@ -35,6 +37,9 @@ public interface IsNaluProcessorPlugin {
   void route(String newRoute,
              boolean replace,
              boolean usingHash);
+
+  void initialize(boolean usingHash,
+                  ShellConfiguration shellConfiguration);
 
   @FunctionalInterface
   interface RouteChangeHandler {
