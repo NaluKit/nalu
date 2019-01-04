@@ -19,6 +19,8 @@ package com.github.nalukit.nalu.client;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 
+import java.util.Map;
+
 public interface Router {
 
   /**
@@ -78,5 +80,12 @@ public interface Router {
    * @param <C>        controller type
    */
   <C extends AbstractComponentController<?, ?, ?>> void storeInCache(C controller);
+
+  /**
+   * Get a map of parameters contained in the url at application start
+   *
+   * @return list of parameters at application start
+   */
+  Map<String, String> getStartQueryParameters();
 
 }
