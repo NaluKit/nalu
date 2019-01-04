@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -769,6 +769,15 @@ abstract class AbstractRouter
       value = value.substring(1);
     }
     return value;
+  }
+
+  /**
+   * Returns a map of query parameters that was available at application start.
+   *
+   * @return list of query parameters at application start
+   */
+  public Map<String, String> getStartQueryParameters() {
+    return this.plugin.getQueryParameters();
   }
 
 }

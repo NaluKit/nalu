@@ -7,9 +7,7 @@ import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 class Utils {
 
@@ -36,6 +34,11 @@ class Utils {
       @Override
       public String getStartRoute(boolean usingHash) {
         return "/";
+      }
+
+      @Override
+      public Map<String, String> getQueryParameters() {
+        return new HashMap<>();
       }
 
       @Override

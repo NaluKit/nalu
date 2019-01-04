@@ -8,6 +8,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Router Tester.
  *
@@ -16,7 +19,7 @@ import org.junit.Test;
  */
 public class RoutingTest {
 
-  private Application   application;
+  private Application application;
 
   private IsPluginJUnit plugin;
 
@@ -57,6 +60,11 @@ public class RoutingTest {
       @Override
       public String getStartRoute(boolean usingHash) {
         return "/search";
+      }
+
+      @Override
+      public Map<String, String> getQueryParameters() {
+        return new HashMap<>();
       }
 
       @Override
@@ -116,14 +124,14 @@ public class RoutingTest {
     this.plugin.addCompareHandler(this::compare);
     this.plugin.addRouteHandler((newRoute, replace) -> {
       switch (newRoute) {
-      case "":
-        return !replace;
-      case "footer":
-        return !replace;
-      case "search":
-        return !replace;
-      default:
-        return false;
+        case "":
+          return !replace;
+        case "footer":
+          return !replace;
+        case "search":
+          return !replace;
+        default:
+          return false;
       }
     });
     this.application = new Application();
@@ -133,14 +141,14 @@ public class RoutingTest {
   private boolean compare(String selector,
                           String object) {
     switch (selector) {
-    case "content":
-      return "DetailForm".equals(object) || "ListView".equals(object) || "SearchForm".equals(object);
-    case "navigation":
-      return "navigation".equals(object);
-    case "footer":
-      return "footer".equals(object);
-    default:
-      return false;
+      case "content":
+        return "DetailForm".equals(object) || "ListView".equals(object) || "SearchForm".equals(object);
+      case "navigation":
+        return "navigation".equals(object);
+      case "footer":
+        return "footer".equals(object);
+      default:
+        return false;
     }
   }
 
@@ -174,4 +182,5 @@ public class RoutingTest {
                     boolean replace);
 
   }
+
 }
