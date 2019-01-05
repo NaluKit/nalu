@@ -91,7 +91,6 @@ public class NaluPluginCoreWeb {
 
   public static NaluStartModel getNaluStartModel(String contextPath,
                                                  boolean usingHash) {
-    Js.debugger();
     Location location = Js.uncheckedCast(DomGlobal.location);
     Map<String, String> queryParameters = new HashMap<>();
     String search = location.getSearch();
