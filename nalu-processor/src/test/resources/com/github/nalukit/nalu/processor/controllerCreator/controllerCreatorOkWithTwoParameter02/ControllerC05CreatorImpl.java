@@ -1,6 +1,5 @@
 package com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter02;
 
-import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.AbstractControllerCreator;

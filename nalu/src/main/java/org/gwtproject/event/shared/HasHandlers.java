@@ -30,4 +30,5 @@ public interface HasHandlers {
    * @param event the event
    */
   void fireEvent(Event<?> event);
+
 }

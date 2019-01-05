@@ -21,6 +21,7 @@ package org.gwtproject.event.shared;
  * @param <H> interface implemented by handlers of this kind of event
  */
 public abstract class Event<H> {
+
   private Object source;
 
   /**
@@ -103,6 +104,7 @@ public abstract class Event<H> {
    * @param <H> handler type
    */
   public static class Type<H> {
+
     private static int nextHashCode;
 
     private final int index;
@@ -123,5 +125,7 @@ public abstract class Event<H> {
     public String toString() {
       return "Event type";
     }
+
   }
+
 }

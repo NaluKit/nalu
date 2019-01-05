@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -33,11 +33,8 @@ public class RouteValidationTest {
 
   private RouterConfiguration routerConfiguration;
 
-  private RouteValidation routeValidation;
-
   @Before
   public void setUp() {
-    this.routeValidation = new RouteValidation();
     this.routerConfiguration = new RouterConfiguration();
     this.shellConfiguration = new ShellConfiguration();
 
@@ -87,53 +84,54 @@ public class RouteValidationTest {
 
   @Test
   public void validateRoute() {
-    Assert.assertTrue(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                              this.routerConfiguration,
-                                                              "/application"));
-    Assert.assertTrue(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                              this.routerConfiguration,
-                                                              "/error/show"));
-    Assert.assertTrue(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                              this.routerConfiguration,
-                                                              "/application/person/detail"));
-    Assert.assertTrue(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                              this.routerConfiguration,
-                                                              "/application/person/detail/:parameter01"));
-    Assert.assertTrue(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                              this.routerConfiguration,
-                                                              "/application/person/detail/:parameter01/:parameter02"));
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application"));
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/error/show"));
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail"));
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail/:parameter01"));
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail/:parameter01/:parameter02"));
 
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/unknownShell"));
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/unknownShell/show"));
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/unknownShell/person/detail"));
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/unknownShell/person/detail/:parameter01"));
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/unknownShell/person/detail/:parameter01/:parameter02"));
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell"));
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell/show"));
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell/person/detail"));
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell/person/detail/:parameter01"));
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell/person/detail/:parameter01/:parameter02"));
 
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/error/showa"));
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/application/persona/detail"));
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/application/persona/detail/:parameter01"));
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/application/persona/detail/:parameter01/:parameter02"));
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/error/showa"));
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/application/persona/detail"));
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/application/persona/detail/:parameter01"));
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/application/persona/detail/:parameter01/:parameter02"));
 
-    Assert.assertTrue(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/application/"));
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/"));
   }
+
 }

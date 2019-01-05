@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -31,6 +31,8 @@ public class MetaModel {
   private ClassNameModel loader;
 
   private List<ClassNameModel> plugins;
+
+  private boolean usingHash;
 
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
@@ -221,6 +223,14 @@ public class MetaModel {
     this.plugins = plugins;
   }
 
+  public boolean isUsingHash() {
+    return usingHash;
+  }
+
+  public void setUsingHash(boolean usingHash) {
+    this.usingHash = usingHash;
+  }
+
   public String getShellOfStartRoute() {
     if (Objects.isNull(this.startRoute)) {
       return "";
@@ -246,4 +256,5 @@ public class MetaModel {
     }
     return shellFromRoute;
   }
+
 }

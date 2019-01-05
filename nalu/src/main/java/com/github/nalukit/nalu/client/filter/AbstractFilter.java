@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -30,4 +30,5 @@ public abstract class AbstractFilter<C extends IsContext>
   public void setContext(C context) {
     this.context = context;
   }
+
 }

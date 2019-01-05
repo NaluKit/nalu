@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -16,6 +16,10 @@
 
 package com.github.nalukit.nalu.client.plugin;
 
+import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
+
+import java.util.Map;
+
 public interface IsNaluProcessorPlugin {
 
   void alert(String message);
@@ -25,19 +29,27 @@ public interface IsNaluProcessorPlugin {
 
   boolean confirm(String message);
 
-  String getStartRoute();
+  String getStartRoute(boolean usingHash);
 
-  void register(HashHandler handler);
+  Map<String, String> getQueryParameters();
+
+  void register(RouteChangeHandler handler,
+                boolean usingHash);
 
   void remove(String selector);
 
   void route(String newRoute,
-             boolean replace);
+             boolean replace,
+             boolean usingHash);
+
+  void initialize(boolean usingHash,
+                  ShellConfiguration shellConfiguration);
 
   @FunctionalInterface
-  interface HashHandler {
+  interface RouteChangeHandler {
 
-    void onHashChange(String newHash);
+    void onRouteChange(String newRoute);
 
   }
+
 }

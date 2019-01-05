@@ -97,4 +97,9 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
     sb01.append("found errorRoute >>/mockShell/route01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
   }
+
+  @Override
+  public boolean isUsingHash() {
+    return true;
+  }
 }

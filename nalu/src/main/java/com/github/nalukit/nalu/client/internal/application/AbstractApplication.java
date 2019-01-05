@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.Nalu;
-import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.application.IsContext;
@@ -25,10 +24,7 @@ import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.internal.route.HashResult;
-import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
-import com.github.nalukit.nalu.client.internal.route.RouterException;
-import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
+import com.github.nalukit.nalu.client.internal.route.*;
 import com.github.nalukit.nalu.client.internal.validation.RouteValidation;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import org.gwtproject.event.shared.SimpleEventBus;
@@ -44,34 +40,25 @@ public abstract class AbstractApplication<C extends IsContext>
     implements IsApplication {
 
   /* start route */
-  protected String startRoute;
-
+  protected String                             startRoute;
   /* route in case of route error */
-  protected String errorRoute;
-
+  protected String                             errorRoute;
   /* Shell */
-  protected IsShell shell;
-
+  protected IsShell                            shell;
   /* Shell Configuration */
-  protected ShellConfiguration shellConfiguration;
-
+  protected ShellConfiguration                 shellConfiguration;
   /* Router Configuration */
-  protected RouterConfiguration routerConfiguration;
-
+  protected RouterConfiguration                routerConfiguration;
   /* List of CompositeControllerReferences */
   protected List<CompositeControllerReference> compositeControllerReferences;
-
   /* Router */
-  protected Router router;
-
+  protected ConfiguratableRouter               router;
   /* application context */
-  protected C context;
-
+  protected C                                  context;
   /* the event bus of the application */
-  protected SimpleEventBus eventBus;
-
+  protected SimpleEventBus                     eventBus;
   /* plugin */
-  protected IsNaluProcessorPlugin plugin;
+  protected IsNaluProcessorPlugin              plugin;
 
   public AbstractApplication() {
     super();
@@ -102,10 +89,15 @@ public abstract class AbstractApplication<C extends IsContext>
     this.eventBus = new SimpleEventBus();
     this.shellConfiguration = new ShellConfiguration();
     this.routerConfiguration = new RouterConfiguration();
-    this.router = new Router(this.plugin,
-                             this.shellConfiguration,
-                             this.routerConfiguration,
-                             this.compositeControllerReferences);
+    // initialize plugin
+    this.plugin.initialize(this.isUsingHash(),
+                           this.shellConfiguration);
+    // create router ...
+    this.router = new RouterImpl(this.plugin,
+                                 this.shellConfiguration,
+                                 this.routerConfiguration,
+                                 this.compositeControllerReferences,
+                                 this.isUsingHash());
     // load everything you need to start
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load configurations",
@@ -189,12 +181,14 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract IsApplicationLoader<C> getApplicationLoader();
 
+  protected abstract boolean isUsingHash();
+
   /**
    * Once the loader did his job, we will continue
    */
   private void onFinishLaoding() {
     // save the current hash
-    String hashOnStart = this.plugin.getStartRoute();
+    String hashOnStart = this.plugin.getStartRoute(isUsingHash());
     // check if the url contains a hash.
     // in case it has a hash, use this to route otherwise
     // use the startRoute from the annotation
@@ -204,15 +198,15 @@ public abstract class AbstractApplication<C extends IsContext>
       ClientLogger.get()
                   .logDetailed("AbstractApplication: handle history (hash at start: >>" + hashOnStart + "<<",
                                1);
-      HashResult hashResult = null;
+      RouteResult routeResult;
       try {
-        hashResult = this.router.parse(hashOnStart);
+        routeResult = this.router.parse(hashOnStart);
       } catch (RouterException e) {
         return;
       }
-      this.router.route(hashResult.getRoute(),
-                        hashResult.getParameterValues()
-                                  .toArray(new String[0]));
+      this.router.route(routeResult.getRoute(),
+                        routeResult.getParameterValues()
+                                   .toArray(new String[0]));
     } else {
       ClientLogger.get()
                   .logDetailed("AbstractApplication: no history found -> use startRoute: >>" + this.startRoute + "<<",
@@ -223,4 +217,5 @@ public abstract class AbstractApplication<C extends IsContext>
                 .logSimple("AbstractApplication: application started",
                            0);
   }
+
 }

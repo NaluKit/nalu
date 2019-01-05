@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -19,7 +19,7 @@ package com.github.nalukit.nalu.client.internal.route;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HashResult {
+public class RouteResult {
 
   private String shell;
 
@@ -27,22 +27,22 @@ public class HashResult {
 
   private List<String> parameterValues;
 
-  public HashResult() {
+  public RouteResult() {
     this(null,
          null,
          new ArrayList<>());
   }
 
-  public HashResult(String shell,
-                    String route,
-                    List<String> parameterValues) {
+  public RouteResult(String shell,
+                     String route,
+                     List<String> parameterValues) {
     this.shell = shell;
     this.route = route;
     this.parameterValues = parameterValues;
   }
 
-  public HashResult(String shell,
-                    String route) {
+  public RouteResult(String shell,
+                     String route) {
     this(shell,
          route,
          new ArrayList<>());
@@ -71,4 +71,5 @@ public class HashResult {
   public void setShell(String shell) {
     this.shell = shell;
   }
+
 }
