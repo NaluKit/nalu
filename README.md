@@ -42,7 +42,7 @@ Nalu offers the following features:
 
 
 ## Basic Concept
-Nalu uses the hash of an url to navigate.
+Nalu uses the hash of an url to navigate. **Starting with version 1.1.0 Nalu supports the use of hash less urls.** Everything explained here will also work without hash. In case of working with a hash less url, you need to implement something on the server to handle a reload.
 
 Example hash:
 ```
