@@ -75,7 +75,8 @@ public class NaluPluginElemental2
     if (usingHash) {
       NaluPluginCoreWeb.addOnHashChangeHandler(handler);
     } else {
-      NaluPluginCoreWeb.addPopStateHandler(handler);
+      NaluPluginCoreWeb.addPopStateHandler(handler,
+                                           this.contextPath);
     }
   }
 

@@ -203,7 +203,8 @@ public class NaluPluginCoreWeb {
     return ua.indexOf("Trident/") > 0;
   }
 
-  public static void addPopStateHandler(RouteChangeHandler handler) {
+  public static void addPopStateHandler(RouteChangeHandler handler,
+                                        String contextPath) {
     DomGlobal.window.onpopstate = e -> {
       String newUrl;
       if (NaluPluginCoreWeb.detectIE11()) {
@@ -213,6 +214,16 @@ public class NaluPluginCoreWeb {
         // cast event ...
         PopStateEvent event = (PopStateEvent) e;
         newUrl = (String) event.state;
+      }
+      // remove leading '/'
+      if (newUrl.length() > 1) {
+        if (newUrl.startsWith("/")) {
+          newUrl = newUrl.substring(1);
+        }
+      }
+      // remove contextPath
+      if (newUrl.length() > contextPath.length()) {
+        newUrl = newUrl.substring(contextPath.length());
       }
       NaluPluginCoreWeb.handleChange(handler,
                                      newUrl);

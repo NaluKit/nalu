@@ -80,7 +80,8 @@ public class NaluPluginGWT
     if (usingHash) {
       NaluPluginCoreWeb.addOnHashChangeHandler(handler);
     } else {
-      NaluPluginCoreWeb.addPopStateHandler(handler);
+      NaluPluginCoreWeb.addPopStateHandler(handler,
+                                           this.contextPath);
     }
   }
 
