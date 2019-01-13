@@ -101,4 +101,9 @@ public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplica
   public boolean isUsingHash() {
     return true;
   }
+
+  @Override
+  public boolean isUsingColonForParametersInUrl() {
+    return false;
+  }
 }

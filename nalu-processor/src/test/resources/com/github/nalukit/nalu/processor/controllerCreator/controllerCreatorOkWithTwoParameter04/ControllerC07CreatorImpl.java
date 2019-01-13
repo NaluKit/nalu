@@ -56,7 +56,7 @@ public final class ControllerC07CreatorImpl extends AbstractControllerCreator<Mo
       sb01 = new StringBuilder();
       sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
-      ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter04.Component07<< created for route >>/mockShell/route01<<", 3);
+      ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter04.Component07<< created for route >>/mockShell/route01/*/*<<", 3);
     } else {
       sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
       ClientLogger.get().logDetailed(sb01.toString(), 4);

@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ControllerAnnotationValidator {
 
@@ -95,7 +97,7 @@ public class ControllerAnnotationValidator {
     // validate route
     validateRoute();
     // AcceptParameter annotation
-    List<String> paraemtersFromRoute = this.getParaemtersFromRote(controllerAnnotation.route());
+    List<String> paraemtersFromRoute = this.getParaemtersFromRoute(controllerAnnotation.route());
     for (Element element : this.processingEnvironment.getElementUtils()
                                                      .getAllMembers((TypeElement) this.controllerElement)) {
       if (ElementKind.METHOD.equals(element.getKind())) {
@@ -131,17 +133,11 @@ public class ControllerAnnotationValidator {
     }
   }
 
-  private List<String> getParaemtersFromRote(String route) {
-    List<String> parameters = new ArrayList<>();
-    if (route.contains("/:")) {
-      String parametersOfRoute = route.substring(route.indexOf("/:"));
-      for (String s : parametersOfRoute.split("/:")) {
-        if (!"".equals(s)) {
-          parameters.add(s);
-        }
-      }
-    }
-    return parameters;
+  private List<String> getParaemtersFromRoute(String route) {
+    return Stream.of(route.split("/"))
+                 .filter(s -> s.startsWith(":"))
+                 .map(s -> s.substring(1))
+                 .collect(Collectors.toList());
   }
 
   private void validateRoute()
@@ -188,15 +184,15 @@ public class ControllerAnnotationValidator {
                                        route +
                                        "<< -> illegal parameter name!");
         }
-      } else {
-        if (handlingParameter) {
-          throw new ProcessorException("Nalu-Processor: controller >>" +
-                                       this.controllerElement.getEnclosingElement()
-                                                             .toString() +
-                                       "<<  - illegal route >>" +
-                                       route +
-                                       "<< -> illegal route!");
-        }
+        //      } else {
+        //        if (handlingParameter) {
+        //          throw new ProcessorException("Nalu-Processor: controller >>" +
+        //                                       this.controllerElement.getEnclosingElement()
+        //                                                             .toString() +
+        //                                       "<<  - illegal route >>" +
+        //                                       route +
+        //                                       "<< -> illegal route!");
+        //        }
       }
     }
   }

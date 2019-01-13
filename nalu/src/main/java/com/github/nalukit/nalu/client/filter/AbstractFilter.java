@@ -22,6 +22,11 @@ public abstract class AbstractFilter<C extends IsContext>
     implements IsFilter {
 
   protected C context;
+  // TODO
+  //  // is the application using hash in url?
+//  boolean usingHash;
+//  // is the application using colon in url for parameter?
+//  boolean usingColonForParametersInUrl;
 
   public AbstractFilter() {
     super();

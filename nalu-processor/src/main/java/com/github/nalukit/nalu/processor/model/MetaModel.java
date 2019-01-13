@@ -34,6 +34,8 @@ public class MetaModel {
 
   private boolean usingHash;
 
+  private boolean usingColonForParametersInUrl;
+
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
   /* with a a plugin and not with a pplication  */
@@ -229,6 +231,14 @@ public class MetaModel {
 
   public void setUsingHash(boolean usingHash) {
     this.usingHash = usingHash;
+  }
+
+  public boolean isUsingColonForParametersInUrl() {
+    return usingColonForParametersInUrl;
+  }
+
+  public void setUsingColonForParametersInUrl(boolean usingColonForParametersInUrl) {
+    this.usingColonForParametersInUrl = usingColonForParametersInUrl;
   }
 
   public String getShellOfStartRoute() {

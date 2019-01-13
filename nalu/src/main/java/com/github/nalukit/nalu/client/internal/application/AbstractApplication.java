@@ -39,6 +39,8 @@ import java.util.List;
 public abstract class AbstractApplication<C extends IsContext>
     implements IsApplication {
 
+  private final static String NO_ROUTE = "WhenShallWeThreeMeetAgainInThunderLightningOrInRain";
+
   /* start route */
   protected String                             startRoute;
   /* route in case of route error */
@@ -76,7 +78,7 @@ public abstract class AbstractApplication<C extends IsContext>
                 .logDetailed("=================================================================================",
                              0);
     ClientLogger.get()
-                .logDetailed("Running Nalu version: v" + Nalu.NALU_VERSION,
+                .logDetailed("Running Nalu version: v" + Nalu.getVersion(),
                              0);
     ClientLogger.get()
                 .logDetailed("=================================================================================",
@@ -97,7 +99,8 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.shellConfiguration,
                                  this.routerConfiguration,
                                  this.compositeControllerReferences,
-                                 this.isUsingHash());
+                                 this.isUsingHash(),
+                                 this.isUsingColonForParametersInUrl());
     // load everything you need to start
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load configurations",
@@ -108,7 +111,7 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadFilters();
     this.loadDefaultRoutes();
     this.loadCompositeReferences();
-    this.router.setRouteError(Nalu.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
+    this.router.setRouteError(AbstractApplication.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
     // load the shells of the application
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load shells",
@@ -182,6 +185,8 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract IsApplicationLoader<C> getApplicationLoader();
 
   protected abstract boolean isUsingHash();
+
+  protected abstract boolean isUsingColonForParametersInUrl();
 
   /**
    * Once the loader did his job, we will continue

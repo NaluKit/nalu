@@ -161,6 +161,9 @@ public class ApplicationGenerator {
     generateIsUsingHashMethod(typeSpec,
                               metaModel);
 
+    generateisUsingColonForParametersInUrl(typeSpec,
+                                           metaModel);
+
     JavaFile javaFile = JavaFile.builder(metaModel.getGenerateToPackage(),
                                          typeSpec.build())
                                 .build();
@@ -185,6 +188,17 @@ public class ApplicationGenerator {
                                  .returns(boolean.class)
                                  .addStatement("return $L",
                                                metaModel.isUsingHash() ? "true" : "false")
+                                 .build());
+  }
+
+  private void generateisUsingColonForParametersInUrl(TypeSpec.Builder typeSpec,
+                                                      MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("isUsingColonForParametersInUrl")
+                                 .addAnnotation(Override.class)
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .returns(boolean.class)
+                                 .addStatement("return $L",
+                                               metaModel.isUsingColonForParametersInUrl() ? "true" : "false")
                                  .build());
   }
 

@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client;
 
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.internal.route.RouterException;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 
 import java.util.Map;
