@@ -157,11 +157,11 @@ public abstract class AbstractApplication<C extends IsContext>
     // handling application loading
     IsApplicationLoader<C> applicationLoader = getApplicationLoader();
     if (getApplicationLoader() == null) {
-      this.onFinishLaoding();
+      this.onFinishLoading();
     } else {
       applicationLoader.setContext(this.context);
       applicationLoader.setEventBus(this.eventBus);
-      applicationLoader.load(this::onFinishLaoding);
+      applicationLoader.load(this::onFinishLoading);
     }
   }
 
@@ -192,7 +192,7 @@ public abstract class AbstractApplication<C extends IsContext>
   /**
    * Once the loader did his job, we will continue
    */
-  private void onFinishLaoding() {
+  private void onFinishLoading() {
     // save the current hash
     String hashOnStart = this.plugin.getStartRoute();
     // check if the url contains a hash.
