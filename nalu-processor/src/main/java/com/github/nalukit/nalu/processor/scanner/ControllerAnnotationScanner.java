@@ -368,10 +368,15 @@ public class ControllerAnnotationScanner {
     StringBuilder sbRoute = new StringBuilder();
     Stream.of(tmpRoute.split("/"))
           .collect(Collectors.toList())
-          .stream()
-          .filter(s -> !s.startsWith(":"))
-          .forEach(s -> sbRoute.append("/")
-                               .append(s));
+          .forEach(s -> {
+            if (s.startsWith(":")) {
+              sbRoute.append("/")
+                     .append("*");
+            } else {
+              sbRoute.append("/")
+                     .append(s);
+            }
+          });
     return sbRoute.toString();
   }
 

@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.client.internal.route;
 
+import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 
@@ -28,16 +29,16 @@ public final class RouterImpl
                     ShellConfiguration shellConfiguration,
                     RouterConfiguration routerConfiguration,
                     List<CompositeControllerReference> compositeControllerReferences,
-                    boolean usingHash) {
+                    boolean usingHash,
+                    boolean usingColonForParametersInUrl) {
     super(compositeControllerReferences,
           shellConfiguration,
           routerConfiguration,
           plugin,
-          usingHash);
-    // register event handler
+          usingHash,
+          usingColonForParametersInUrl);
     this.plugin.register(super::handleRouting,
-                         super.usingHash);
-    // initialize loopDetectionList
+                         Nalu.isUsingHash());
   }
 
 }

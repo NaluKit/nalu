@@ -39,9 +39,9 @@ class RouterLogger {
                              depth);
   }
 
-  static String logNoMatchingRoute(String hash,
+  static String logNoMatchingRoute(String route,
                                    String routeError) {
-    String sb = "no matching route for hash >>" + hash + "<< --> use configurated route: >" + routeError + "<<";
+    String sb = "no matching controller for route >>" + route + "<< found --> use configurated route: >" + routeError + "<<";
     logSimple(sb,
               3);
     return sb;

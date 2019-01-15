@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client;
 
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.internal.route.RouterException;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 
 import java.util.Map;
@@ -36,7 +37,7 @@ public interface Router {
   void clearNaluErrorMessage();
 
   /**
-   * Generates the hash using the given input ..
+   * Generates the url using the given input ..
    *
    * @param route route to navigate to
    * @param parms parameters of the route

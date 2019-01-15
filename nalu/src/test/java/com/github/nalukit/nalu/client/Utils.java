@@ -84,7 +84,7 @@ class Utils {
                                             "content",
                                             "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     routerConfiguration.getRouters()
-                       .add(new RouteConfig("/MockShell/testRoute02",
+                       .add(new RouteConfig("/MockShell/testRoute02/*/*",
                                             Arrays.asList("testParaemter01",
                                                           "testParameter02"),
                                             "content",
@@ -95,7 +95,7 @@ class Utils {
                                             "content",
                                             "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     routerConfiguration.getRouters()
-                       .add(new RouteConfig("/MockShell/testRoute06/testRoute07",
+                       .add(new RouteConfig("/MockShell/testRoute06/testRoute07/*/*",
                                             Arrays.asList("testParameter01",
                                                           "testParameter02",
                                                           "testParameter03"),

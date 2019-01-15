@@ -17,15 +17,16 @@
 
 package com.github.nalukit.nalu;
 
-import com.github.nalukit.nalu.client.RouterHashImplTest;
+import com.github.nalukit.nalu.client.RouterImplTest;
 import com.github.nalukit.nalu.client.RoutingTest;
 import com.github.nalukit.nalu.client.internal.validation.RouteValidationTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ RouterHashImplTest.class,
+@Suite.SuiteClasses({ RouterImplTest.class,
                       RoutingTest.class,
                       RouteValidationTest.class })
 public class AllTests {
+
 }

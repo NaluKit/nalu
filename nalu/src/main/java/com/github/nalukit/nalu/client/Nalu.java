@@ -16,22 +16,80 @@
 
 package com.github.nalukit.nalu.client;
 
+import com.github.nalukit.nalu.client.internal.PropertyFactory;
+import com.github.nalukit.nalu.client.internal.route.RouterUtils;
+
 public class Nalu {
 
-  public static final String NALU_VERSION = "1.1.0-SNAPSHOT";
+  public static String getVersion() {
+    return "1.1.0-SNAPSHOT";
+  }
 
-  public static final String NALU_ID_ATTRIBUTE = "id";
+  public static boolean isUsingHash() {
+    return PropertyFactory.get()
+                          .isUsingHash();
+  }
 
-  public final static String NALU_PARAMETER = "/:";
+  public static boolean isUsingColonForParametersInUrl() {
+    return PropertyFactory.get()
+                          .isUsingColonForParametersInUrl();
+  }
 
-  public final static String NO_ROUTE = "WhenShallWeThreeMeetAgainInThunderLightningOrInRain";
+  /**
+   * This method compares the route with the value of withRoute respecting parameters.
+   *
+   * <ul>
+   * <li>the route can contain parameter values</li>
+   * <li>the withRoute should contain '*' instead of parameter values</li>
+   * </ul>
+   * <p>
+   * Comparing route '/app/person/3/edit/ with '/app/person/*&#47;edit'
+   * will return true
+   * <p>
+   * Comparing route '/app/person/3/edit/ with '/app/person/edit/*&#47'
+   * will return false.
+   * <p>
+   * Comparing route '/app/person/3/edit/ with '/app/person/*&#47/*&#47'
+   * will return true.
+   *
+   * @param route     the route containing parameter values instead of '*'
+   * @param withRoute the compare route which has no parameter values and uses '*' instead
+   * @return true the routes matches or false in case not
+   */
+  public static boolean match(String route,
+                              String withRoute) {
+    return RouterUtils.match(route,
+                             withRoute);
+  }
 
-  public final static String NALU_SLASH_REPLACEMENT = "--U972--";
-
-  public static final String NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE = "NoControllerInstance";
-
-  public static final String NALU_ERROR_TYPE_NO_SELECTOR_FOUND = "NoSelectorFound";
-
-  public static final String NALU_ERROR_TYPE_LOOP_DETECTED = "RoutingLoopDEtected";
+  /**
+   * This method compares the route with the value of withRoute respecting parameters.
+   *
+   * <ul>
+   * <li>the route can contain parameter values</li>
+   * <li>the withRoute should contain '*' instead of parameter values</li>
+   * </ul>
+   * <p>
+   * Comparing route '/app/person/3/edit/ with '/app/person/*&#47;edit'
+   * will return true
+   * <p>
+   * Comparing route '/app/person/3/edit/ with '/app/person/edit/*&#47'
+   * will return false.
+   * <p>
+   * Comparing route '/app/person/3/edit/ with '/app/person/*&#47/*&#47'
+   * will return true.
+   *
+   * @param route     the route containing parameter values instead of '*'
+   * @param withRoute the compare route which has no parameter values and uses '*' instead
+   * @param exact     if true, routes must match exactly
+   * @return true the routes matches or false in case not
+   */
+  public static boolean match(String route,
+                              String withRoute,
+                              boolean exact) {
+    return RouterUtils.match(route,
+                             withRoute,
+                             exact);
+  }
 
 }

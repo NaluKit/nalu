@@ -56,7 +56,7 @@ public final class ControllerC02CreatorImpl extends AbstractControllerCreator<Mo
       sb01 = new StringBuilder();
       sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
-      ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithOneParameter01.Component02<< created for route >>/mockShell/route01<<", 3);
+      ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithOneParameter01.Component02<< created for route >>/mockShell/route01/*<<", 3);
       if (parms != null) {
         if (parms.length >= 1) {
           sb01 = new StringBuilder();

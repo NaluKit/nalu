@@ -412,6 +412,11 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
   }
 
   @Override
+  protected boolean isUsingColonForParametersInUrl() {
+    return false;
+  }
+
+  @Override
   public void loadDefaultRoutes() {
     this.startRoute = "/search";
     this.errorRoute = "WhenShallWeThreeMeetAgainInThunderLightningOrInRain";

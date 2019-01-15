@@ -24,6 +24,7 @@ import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.filter.IsFilter;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
+import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
@@ -36,10 +37,16 @@ import java.util.stream.Stream;
 abstract class AbstractRouter
     implements ConfiguratableRouter {
 
+  private final static String NALU_SLASH_REPLACEMENT = "--U972--";
+
+  private static final String NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE = "NoControllerInstance";
+
+  private static final String NALU_ERROR_TYPE_NO_SELECTOR_FOUND = "NoSelectorFound";
+
+  private static final String NALU_ERROR_TYPE_LOOP_DETECTED = "RoutingLoopDEtected";
+
   // the plugin
   IsNaluProcessorPlugin plugin;
-  // is the application using hash in url?
-  boolean               usingHash;
   // route in case of route error
   private String                                            routeError;
   // the latest error object
@@ -65,7 +72,8 @@ abstract class AbstractRouter
                  ShellConfiguration shellConfiguration,
                  RouterConfiguration routerConfiguration,
                  IsNaluProcessorPlugin plugin,
-                 boolean usingHash) {
+                 boolean usingHash,
+                 boolean usingColonForParametersInUrl) {
     // save the composite configuration reference
     this.compositeControllerReferences = compositeControllerReferences;
     // save the shell configuration reference
@@ -77,8 +85,10 @@ abstract class AbstractRouter
     // inistantiate lists, etc.
     this.activeComponents = new HashMap<>();
     this.loopDetectionList = new ArrayList<>();
-    // save the flag
-    this.usingHash = usingHash;
+    // set up PropertyFactory
+    PropertyFactory.get()
+                   .register(usingHash,
+                             usingColonForParametersInUrl);
   }
 
   /**
@@ -159,7 +169,7 @@ abstract class AbstractRouter
         this.plugin.alert(message);
       } else {
         // NO!! -> route to error site ....
-        this.naluErrorMessage = new NaluErrorMessage(Nalu.NALU_ERROR_TYPE_LOOP_DETECTED,
+        this.naluErrorMessage = new NaluErrorMessage(AbstractRouter.NALU_ERROR_TYPE_LOOP_DETECTED,
                                                      message);
         this.loopDetectionList.add(pimpUpHashForLoopDetection(this.routeError));
         this.route(this.routeError);
@@ -174,7 +184,7 @@ abstract class AbstractRouter
     try {
       routeResult = this.parse(hash);
     } catch (RouterException e) {
-      this.naluErrorMessage = new NaluErrorMessage(Nalu.NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE,
+      this.naluErrorMessage = new NaluErrorMessage(AbstractRouter.NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE,
                                                    RouterLogger.logNoMatchingRoute(hash,
                                                                                    this.routeError));
       if (!Objects.isNull(this.routeError)) {
@@ -221,8 +231,7 @@ abstract class AbstractRouter
       // handle shellCreator
       //
       // in case shellCreator changed or is not set, use the actual shellCreator!
-      if (this.lastAddedShell == null ||
-          !routeResult.getShell()
+      if (!routeResult.getShell()
                       .equals(this.lastAddedShell)) {
         // add shellCreator to the viewport
         ShellConfig shellConfig = this.shellConfiguration.match(routeResult.getShell());
@@ -290,7 +299,7 @@ abstract class AbstractRouter
     } else {
       this.plugin.route("#" + this.lastExecutedHash,
                         false,
-                        this.usingHash);
+                        Nalu.isUsingHash());
     }
   }
 
@@ -324,7 +333,7 @@ abstract class AbstractRouter
                          RouteConfig routeConfiguraion,
                          ControllerInstance controllerInstance) {
     if (Objects.isNull(controllerInstance.getController())) {
-      this.naluErrorMessage = new NaluErrorMessage(Nalu.NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE,
+      this.naluErrorMessage = new NaluErrorMessage(AbstractRouter.NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE,
                                                    RouterLogger.logNoControllerFoundForHash(hash));
       if (!Objects.isNull(this.routeError)) {
         RouterLogger.logUseErrorRoute(this.routeError);
@@ -451,33 +460,35 @@ abstract class AbstractRouter
    */
   public RouteResult parse(String route)
       throws RouterException {
-    RouteResult hashResult = new RouteResult();
-    String hashValue = route;
+    RouteResult routeResult = new RouteResult();
+    String routeValue = route;
     // only the part after the first # is intresting:
-    if (hashValue.contains("#")) {
-      hashValue = hashValue.substring(hashValue.indexOf("#") + 1);
+    if (routeValue.contains("#")) {
+      routeValue = routeValue.substring(routeValue.indexOf("#") + 1);
     }
     // extract shellCreator first:
-    if (hashValue.startsWith("/")) {
-      hashValue = hashValue.substring(1);
+    if (routeValue.startsWith("/")) {
+      routeValue = routeValue.substring(1);
     }
     // check, if there are more "/"
-    if (hashValue.contains("/")) {
-      hashResult.setShell("/" +
-                          hashValue.substring(0,
-                                              hashValue.indexOf("/")));
+    if (routeValue.contains("/")) {
+      routeResult.setShell("/" +
+                           routeValue.substring(0,
+                                                routeValue.indexOf("/")));
     } else {
-      hashResult.setShell("/" + hashValue);
+      routeResult.setShell("/" + routeValue);
     }
     // check, if the shellCreator exists ....
     Optional<String> optional = this.shellConfiguration.getShells()
                                                        .stream()
                                                        .map(ShellConfig::getRoute)
-                                                       .filter(f -> f.equals(hashResult.getShell()))
+                                                       .filter(f -> f.equals(routeResult.getShell()))
                                                        .findAny();
-    if (!optional.isPresent()) {
+    if (optional.isPresent()) {
+      routeResult.setShell(optional.get());
+    } else {
       StringBuilder sb = new StringBuilder();
-      sb.append("no matching shellCreator found for hash >>")
+      sb.append("no matching shellCreator found for route >>")
         .append(route)
         .append("<< --> Routing aborted!");
       RouterLogger.logSimple(sb.toString(),
@@ -485,82 +496,70 @@ abstract class AbstractRouter
       throw new RouterException(sb.toString());
     }
     // extract route first:
-    hashValue = route;
-    if (hashValue.startsWith("/")) {
-      hashValue = hashValue.substring(1);
+    routeValue = route;
+    if (routeValue.startsWith("/")) {
+      routeValue = routeValue.substring(1);
     }
-    if (hashValue.contains("/")) {
-      String searchPart = hashValue;
-      do {
-        String finalSearchPart = "/" + searchPart;
-        if (this.routerConfiguration.getRouters()
-                                    .stream()
-                                    .anyMatch(f -> f.getRoute()
-                                                    .equals(finalSearchPart))) {
-          hashResult.setRoute("/" + searchPart);
-          break;
-        } else {
-          if (searchPart.contains("/")) {
-            searchPart = searchPart.substring(0,
-                                              searchPart.lastIndexOf("/"));
-          } else {
-            break;
+    if (routeValue.contains("/")) {
+      String searchRoute = routeValue;
+      Optional<RouteConfig> optionalRouterConfig = this.routerConfiguration.getRouters()
+                                                                           .stream()
+                                                                           .filter(rc -> Nalu.match(searchRoute,
+                                                                                                    rc.getRoute()))
+                                                                           .findFirst();
+      if (optionalRouterConfig.isPresent()) {
+        routeResult.setRoute(optionalRouterConfig.get()
+                                                 .getRoute());
+        if (routeResult.getRoute()
+                       .contains("*")) {
+          String[] partsOfRoute = routeValue.split("/");
+          String compareRoute = optionalRouterConfig.get()
+                                                    .getRoute();
+          if (compareRoute.startsWith("/")) {
+            compareRoute = compareRoute.substring(1);
+          }
+          String[] partsOfRouteFromConfiguration = compareRoute.split("/");
+          for (int i = 0; i < partsOfRouteFromConfiguration.length; i++) {
+            if (partsOfRouteFromConfiguration[i].equals("*")) {
+              if (partsOfRoute.length - 1 >= i) {
+                String parameterValue = partsOfRoute[i].replace(AbstractRouter.NALU_SLASH_REPLACEMENT,
+                                                                "/");
+                if (Nalu.isUsingColonForParametersInUrl()) {
+                  if (parameterValue.length() > 0) {
+                    if (parameterValue.startsWith(":")) {
+                      parameterValue = parameterValue.substring(1);
+                    }
+                  }
+                }
+                routeResult.getParameterValues()
+                           .add(parameterValue);
+              } else {
+                routeResult.getParameterValues()
+                           .add("");
+              }
+            }
           }
         }
-      } while (searchPart.length() > 1);
-      if (hashResult.getRoute() == null) {
+      } else {
         StringBuilder sb = new StringBuilder();
-        sb.append("no matching route found for hash >>")
+        sb.append("no matching route found for route >>")
           .append(route)
           .append("<< --> Routing aborted!");
         RouterLogger.logSimple(sb.toString(),
                                1);
         throw new RouterException(sb.toString());
-      } else {
-        if (!hashResult.getRoute()
-                       .equals("/" + hashValue)) {
-          String parametersFromHash = hashValue.substring(hashResult.getRoute()
-                                                                    .length());
-          // lets get the parameters!
-          List<String> paramsList = Stream.of(parametersFromHash.split("/"))
-                                          .collect(Collectors.toList());
-          // reset slash in params ....
-          paramsList.forEach(parm -> hashResult.getParameterValues()
-                                               .add(parm.replace(Nalu.NALU_SLASH_REPLACEMENT,
-                                                                 "/")));
-          // check the number of parameter
-          // if the hash contains more paremters then the configuration
-          // accepts, throw an exception!
-          for (RouteConfig routeConfig : this.routerConfiguration.getRouters()) {
-            if (routeConfig.getRoute()
-                           .equals(hashResult.getRoute())) {
-              if (routeConfig.getParameters()
-                             .size() <
-                  hashResult.getParameterValues()
-                            .size()) {
-                throw new RouterException(RouterLogger.logWrongNumbersOfPrameters(route,
-                                                                                  hashResult.getRoute(),
-                                                                                  routeConfig.getParameters()
-                                                                                             .size(),
-                                                                                  hashResult.getParameterValues()
-                                                                                            .size()));
-
-              }
-            }
-          }
-        }
       }
     } else {
-      String finalSearchPart = "/" + hashValue;
+      String finalSearchPart = "/" + routeValue;
       if (this.routerConfiguration.getRouters()
                                   .stream()
                                   .anyMatch(f -> f.match(finalSearchPart))) {
-        hashResult.setRoute("/" + hashValue);
+        routeResult.setRoute("/" + routeValue);
       } else {
         throw new RouterException(RouterLogger.logNoMatchingRoute(route));
       }
     }
-    return hashResult;
+    return routeResult;
   }
 
   private String addLeadindgSlash(String value) {
@@ -693,7 +692,7 @@ abstract class AbstractRouter
       String sb = "no element found, that matches selector >>" + selector + "<< --> Routing aborted!";
       RouterLogger.logSimple(sb,
                              1);
-      this.naluErrorMessage = new NaluErrorMessage(Nalu.NALU_ERROR_TYPE_NO_SELECTOR_FOUND,
+      this.naluErrorMessage = new NaluErrorMessage(AbstractRouter.NALU_ERROR_TYPE_NO_SELECTOR_FOUND,
                                                    sb);
       RouterLogger.logUseErrorRoute(this.routeError);
       this.route(this.routeError,
@@ -729,35 +728,110 @@ abstract class AbstractRouter
   private void route(String newRoute,
                      boolean replaceState,
                      String... parms) {
-    String newRouteWithParams = this.generate(newRoute,
-                                              parms);
+    String newRouteWithParams = null;
+    newRouteWithParams = this.generate(newRoute,
+                                       parms);
     if (replaceState) {
       this.plugin.route(newRouteWithParams,
                         true,
-                        this.usingHash);
+                        Nalu.isUsingHash());
     } else {
       this.plugin.route(newRouteWithParams,
                         false,
-                        this.usingHash);
+                        Nalu.isUsingHash());
     }
     this.handleRouting(newRouteWithParams);
   }
 
+  /**
+   * Generates a new route!
+   * <p>
+   * If there is something to generate with parameters, the route
+   * needs the same number of '*' in it.
+   *
+   * @param route route to navigate to
+   * @param parms parameters of the route
+   * @return
+   */
   public String generate(String route,
                          String... parms) {
     StringBuilder sb = new StringBuilder();
-    if (route.startsWith("/")) {
-      route = route.substring(1);
+    String routeValue = route;
+    if (routeValue.startsWith("/")) {
+      routeValue = routeValue.substring(1);
     }
-    sb.append(route);
-    if (parms != null) {
-      Stream.of(parms)
-            .filter(Objects::nonNull)
-            .forEach(s -> sb.append("/")
-                            .append(s.replace("/",
-                                              Nalu.NALU_SLASH_REPLACEMENT)));
+    String[] partsOfRoute = routeValue.split("/");
+
+    int parameterIndex = 0;
+    for (int i = 0; i < partsOfRoute.length; i++) {
+      sb.append("/");
+      if ("*".equals(partsOfRoute[i])) {
+        if (Nalu.isUsingColonForParametersInUrl()) {
+          sb.append(":");
+        }
+        if (parms.length - 1 >= parameterIndex) {
+          sb.append(parms[parameterIndex].replace("/",
+                                                  AbstractRouter.NALU_SLASH_REPLACEMENT));
+          parameterIndex++;
+        }
+      } else {
+        sb.append(partsOfRoute[i]);
+      }
     }
-    return sb.toString();
+
+    // in case there are more paraemters then placesholders, we add them add the end!
+    long numberOfPlaceHolders = Stream.of(partsOfRoute)
+                                      .filter(s -> "*".equals(s))
+                                      .count();
+    if (parms.length > numberOfPlaceHolders) {
+      StringBuilder sbExeption = new StringBuilder();
+      sbExeption.append("Warning: route >>")
+                .append(route)
+                .append("<< has less parameter placeholder >>")
+                .append(numberOfPlaceHolders)
+                .append("<< than the number of parameters in the list of parameters >>")
+                .append(parms.length)
+                .append("<< --> adding Prameters add the end of the url");
+      RouterLogger.logSimple(sbExeption.toString(),
+                             1);
+      for (int i = parameterIndex; i < parms.length; i++) {
+        sb.append("/");
+        if (Nalu.isUsingColonForParametersInUrl()) {
+          sb.append(":");
+        }
+        if (!Objects.isNull(parms[parameterIndex])) {
+          sb.append(parms[parameterIndex].replace("/",
+                                                  AbstractRouter.NALU_SLASH_REPLACEMENT));
+        } else {
+          sb.append("null");
+        }
+        parameterIndex++;
+      }
+    }
+
+    // remove leading '/'
+    String generatedRoute = sb.toString();
+    if (generatedRoute.startsWith("/")) {
+      generatedRoute = generatedRoute.substring(1);
+    }
+    String parameters = "";
+    for (int i = 0; i < parms.length; i++) {
+      parameters = parameters + parms[i];
+      if (parms.length - 1 < i) {
+        parameters = parameters + ",";
+      }
+    }
+    StringBuilder sblog = new StringBuilder();
+    sblog.append("generated route >>")
+         .append(generatedRoute)
+         .append("<< -> created from >>")
+         .append(route)
+         .append("<< with parameters >>")
+         .append(parameters)
+         .append("<<");
+    RouterLogger.logSimple(sblog.toString(),
+                           1);
+    return generatedRoute;
   }
 
   private String pimpUpHashForLoopDetection(String hash) {

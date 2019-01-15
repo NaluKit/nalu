@@ -25,7 +25,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * <p>This annotation is used to annotate an interface in Nalu and mark it as a Nalu application.</p>
- * <br><br>
+ * <p>
  * The annotation has the following attributes:
  * <ul>
  * <li>loader: a loader that will be executed in case the application loads. If no loader
@@ -35,6 +35,7 @@ import java.lang.annotation.RetentionPolicy;
  * the instance into all controllers, filters, handlers and the application loader.</li>
  * <li>routeError: in case an error occurs, Nalu will use this route toi display the error</li>
  * <li>useHash: if useHash is true, use a hash based url, otherwise a non hash based url</li>
+ * <li>useColonForParametersInUrl: if useColonForParametersInUrl is true, Nalu expects parameters with a leading colon in urls</li>
  * </ul>
  *
  * @author Frank Hossfeld
@@ -51,5 +52,7 @@ public @interface Application {
   String routeError();
 
   boolean useHash() default true;
+
+  boolean useColonForParametersInUrl() default false;
 
 }
