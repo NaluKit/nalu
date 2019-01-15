@@ -37,7 +37,7 @@ public interface Router {
   void clearNaluErrorMessage();
 
   /**
-   * Generates the hash using the given input ..
+   * Generates the url using the given input ..
    *
    * @param route route to navigate to
    * @param parms parameters of the route

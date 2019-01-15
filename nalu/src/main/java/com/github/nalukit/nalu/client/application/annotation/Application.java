@@ -25,7 +25,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * <p>This annotation is used to annotate an interface in Nalu and mark it as a Nalu application.</p>
- * <br><br>
+ * <p>
  * The annotation has the following attributes:
  * <ul>
  * <li>loader: a loader that will be executed in case the application loads. If no loader
