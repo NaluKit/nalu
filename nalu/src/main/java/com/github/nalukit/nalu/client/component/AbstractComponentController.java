@@ -34,7 +34,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
 
   /* list fo compsite controllers */
-  private Map<String, AbstractCompositeController<?, ?, ?>> compositeComtrollers;
+  private Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
 
   /* the route the controller is related to */
   private String relatedRoute;
@@ -44,7 +44,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
 
   public AbstractComponentController() {
     super();
-    this.compositeComtrollers = new HashMap<>();
+    this.compositeControllers = new HashMap<>();
   }
 
   /**
@@ -124,7 +124,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * @return Map of depending composites
    */
   public Map<String, AbstractCompositeController<?, ?, ?>> getComposites() {
-    return compositeComtrollers;
+    return compositeControllers;
   }
 
   /**
