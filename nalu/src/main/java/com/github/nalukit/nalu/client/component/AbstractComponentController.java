@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.application.IsContext;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,8 +60,13 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
 
   /**
-   * Method will be called in case the element is attached to the DOM
+   * Method will be called in case the element is attached to the DOM.
+   * <p>
+   * The method is used by the framework!
+   * <p>>
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
+  @NaluInternalUse
   @Override
   public final void onAttach() {
     component.onAttach();
@@ -68,7 +74,12 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
 
   /**
    * Method will be called in case the element is removed from the DOM
+   * <p>
+   * The method is used by the framework!
+   * <p>>
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
+  @NaluInternalUse
   @Override
   public final void onDetach() {
     component.onDetach();
@@ -89,9 +100,12 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   /**
    * internal framework method! Will be called by the framdework after the
    * stop-method f the controller is called
-   *
+   * <p>
+   * The method is used by the framework!
+   * <p>>
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
+  @NaluInternalUse
   @Override
   public void removeHandlers() {
     this.handlerRegistrations.removeHandler();
