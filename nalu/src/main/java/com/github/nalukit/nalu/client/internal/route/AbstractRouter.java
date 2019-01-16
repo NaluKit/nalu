@@ -341,9 +341,11 @@ abstract class AbstractRouter
                    true);
       } else {
         // should never be seen!
-        this.plugin.alert("Ups ... not found!");
+        this.plugin.alert("Nalu: ups ... not found!");
       }
     } else {
+
+      // TODO cching for composite controller? Does it work?
       // handle controller
       controllerInstance.getController()
                         .setRouter(this);
