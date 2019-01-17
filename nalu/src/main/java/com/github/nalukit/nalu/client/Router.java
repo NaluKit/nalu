@@ -285,7 +285,7 @@ public final class Router {
       controllerInstance.getController()
                         .setRouter(this);
       // handle composite of the controller
-      RouterLogger.logControllerLookForCompositeCotroller(controllerInstance.getController()
+      RouterLogger.logControllerLookForCompositeController(controllerInstance.getController()
                                                                             .getClass()
                                                                             .getCanonicalName());
       List<CompositeControllerReference> compositeForController = this.getCompositeForController(controllerInstance.getController()
@@ -484,7 +484,7 @@ public final class Router {
                              .size() <
                   hashResult.getParameterValues()
                             .size()) {
-                throw new RouterException(RouterLogger.logWrongNumbersOfPrameters(hash,
+                throw new RouterException(RouterLogger.logWrongNumberOfParameters(hash,
                                                                                   hashResult.getRoute(),
                                                                                   routeConfig.getParameters()
                                                                                              .size(),
@@ -587,7 +587,7 @@ public final class Router {
                                                                                          .getCanonicalName());
                                   });
 
-                        RouterLogger.logControllerCompositesStoppped(controller.getClass()
+                        RouterLogger.logControllerCompositesStopped(controller.getClass()
                                                                                .getCanonicalName());
 
                         // stop controller
