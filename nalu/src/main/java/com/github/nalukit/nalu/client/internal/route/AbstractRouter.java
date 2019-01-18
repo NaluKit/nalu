@@ -350,7 +350,7 @@ abstract class AbstractRouter
       controllerInstance.getController()
                         .setRouter(this);
       // handle composite of the controller
-      RouterLogger.logControllerLookForCompositeCotroller(controllerInstance.getController()
+      RouterLogger.logControllerLookForCompositeController(controllerInstance.getController()
                                                                             .getClass()
                                                                             .getCanonicalName());
       List<CompositeControllerReference> compositeForController = this.getCompositeForController(controllerInstance.getController()
@@ -642,7 +642,7 @@ abstract class AbstractRouter
                                                                                          .getCanonicalName());
                                   });
 
-                        RouterLogger.logControllerCompositesStoppped(controller.getClass()
+                        RouterLogger.logControllerCompositesStopped(controller.getClass()
                                                                                .getCanonicalName());
 
                         // stop controller
