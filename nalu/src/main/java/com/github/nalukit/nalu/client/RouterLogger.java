@@ -223,7 +223,7 @@ class RouterLogger {
               4);
   }
 
-  static void logControllerCompositesStoppped(String canonicalName) {
+  static void logControllerCompositesStopped(String canonicalName) {
     String sb = "controller >>" + canonicalName + "<< --> composites stopped";
     logSimple(sb,
               4);
@@ -235,7 +235,7 @@ class RouterLogger {
               5);
   }
 
-  static String logWrongNumbersOfPrameters(String hash,
+  static String logWrongNumberOfParameters(String hash,
                                            String route,
                                            int sizeParameterConfig,
                                            int sizeParameterRoute) {
@@ -264,7 +264,7 @@ class RouterLogger {
     return sb.toString();
   }
 
-  static void logControllerLookForCompositeCotroller(String controller) {
+  static void logControllerLookForCompositeController(String controller) {
     String sb = "controller >>" + controller + "<< --> looking for composite";
     logDetailed(sb,
                 4);
