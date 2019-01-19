@@ -65,6 +65,28 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   }
 
   /**
+   * The activate-method will be called instead of the start-method
+   * in case the controller is cached.
+   * <p>
+   * If you have to do something in case controller gets active,
+   * that's the right place.
+   */
+  @Override
+  public void activate() {
+  }
+
+  /**
+   * The deactivate-method will be called instead of the stop-method
+   * in case the controller is cached.
+   * <p>
+   * If you have to do something in case controller gets deactivated,
+   * that's the right place.
+   */
+  @Override
+  public void deactivate() {
+  }
+
+  /**
    * The stop-method will be called at the start of the controller's life cycle.
    * <p>
    * If you have to do something in case controller gets active,

@@ -28,6 +28,24 @@ public interface IsController<W> {
 
   void removeHandlers();
 
+  /**
+   * The activate-method will be called instead of the start-method
+   * in case the controller is cached.
+   * <p>
+   * If you have to do something in case controller gets active,
+   * that's the right place.
+   */
+  void activate();
+
+  /**
+   * The deactivate-method will be called instead of the stop-method
+   * in case the controller is cached.
+   * <p>
+   * If you have to do something in case controller gets deactivated,
+   * that's the right place.
+   */
+  void deactivate();
+
   void start();
 
   void stop();

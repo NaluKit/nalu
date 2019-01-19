@@ -128,7 +128,7 @@ public class ControllerCreatorGenerator {
                                                 .addStatement("controller.setContext(context)")
                                                 .addStatement("controller.setEventBus(eventBus)")
                                                 .addStatement("controller.setRouter(router)")
-                                                .addStatement("controller.setRestored(false)")
+                                                .addStatement("controller.setCached(false)")
                                                 .addStatement("sb01 = new $T()",
                                                               ClassName.get(StringBuilder.class))
                                                 .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> created and data injected\")")
@@ -229,7 +229,7 @@ public class ControllerCreatorGenerator {
                               ClassName.get(ClientLogger.class))
                 .addStatement("controllerInstance.setController(storedController)")
                 .addStatement("controllerInstance.setChached(true)")
-                .addStatement("controllerInstance.getController().setRestored(true)")
+                .addStatement("controllerInstance.getController().setCached(true)")
                 .endControlFlow();
     createMethod.addStatement("return controllerInstance");
 

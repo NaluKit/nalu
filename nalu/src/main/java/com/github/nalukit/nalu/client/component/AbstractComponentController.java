@@ -40,8 +40,8 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   /* the route the controller is related to */
   private String relatedRoute;
 
-  /* flag, if the controller is restored or not */
-  private boolean restored;
+  /* flag, if the controller is cached or not */
+  private boolean cached;
 
   public AbstractComponentController() {
     super();
@@ -113,6 +113,28 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
 
   /**
+   * The activate-method will be called instead of the start-method
+   * in case the controller is cached.
+   * <p>
+   * If you have to do something in case controller gets active,
+   * that's the right place.
+   */
+  @Override
+  public void activate() {
+  }
+
+  /**
+   * The deactivate-method will be called instead of the stop-method
+   * in case the controller is cached.
+   * <p>
+   * If you have to do something in case controller gets deactivated,
+   * that's the right place.
+   */
+  @Override
+  public void deactivate() {
+  }
+
+  /**
    * The stop-method will be called at the start of the controller's life cycle.
    * <p>
    * If you have to do something in case controller gets active,
@@ -178,18 +200,18 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    *
    * @return true: the controller is reused, false: the controller is newly created
    */
-  public boolean isRestored() {
-    return restored;
+  public boolean isCached() {
+    return cached;
   }
 
   /**
-   * Sets the value, if the controller is newly created or restored!
+   * Sets the value, if the controller is newly created or cached!
    * <b>This field is used by Nalu! Setting the value can lead to unexpected behavior!</b>
    *
-   * @param restored true: the controller is reused, false: the controller is newly created
+   * @param cached true: the controller is reused, false: the controller is newly created
    */
-  public void setRestored(boolean restored) {
-    this.restored = restored;
+  public void setCached(boolean cached) {
+    this.cached = cached;
   }
 
   /**

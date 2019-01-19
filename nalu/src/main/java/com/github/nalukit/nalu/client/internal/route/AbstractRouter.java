@@ -131,6 +131,7 @@ abstract class AbstractRouter
   public <C extends AbstractComponentController<?, ?, ?>> void storeInCache(C controller) {
     ControllerFactory.get()
                      .storeInCache(controller);
+    controller.setCached(true);
   }
 
   /**
@@ -142,6 +143,7 @@ abstract class AbstractRouter
   public <C extends AbstractComponentController<?, ?, ?>> void removeFromCache(C controller) {
     ControllerFactory.get()
                      .removeFromCache(controller);
+    controller.setCached(false);
   }
 
   /**
@@ -360,6 +362,7 @@ abstract class AbstractRouter
       List<CompositeControllerReference> compositeForController = this.getCompositeForController(controllerInstance.getController()
                                                                                                                    .getClass()
                                                                                                                    .getCanonicalName());
+      // in case the controller is not cached, we have to deal with composites!
       if (!controllerInstance.isChached()) {
         if (compositeForController.size() > 0) {
           RouterLogger.logControllerCompositeControllerFound(controllerInstance.getController()
@@ -442,18 +445,30 @@ abstract class AbstractRouter
       RouterLogger.logControllerOnAttachedMethodCalled(controllerInstance.getController()
                                                                          .getClass()
                                                                          .getCanonicalName());
-      // TODO: Hier issue 29 bearbeiten!
-
-      compositeControllers.forEach(s -> {
-        s.start();
-        RouterLogger.logCompositeComntrollerStartMethodCalled(s.getClass()
-                                                               .getCanonicalName());
-      });
-      controllerInstance.getController()
-                        .start();
-      RouterLogger.logControllerStartMethodCalled(controllerInstance.getController()
-                                                                    .getClass()
+      // in case the controller is cached, we call activate instead of start ...
+      if (controllerInstance.isChached()) {
+        compositeControllers.forEach(s -> {
+          s.activate();
+          RouterLogger.logCompositeComntrollerActivateMethodCalled(s.getClass()
                                                                     .getCanonicalName());
+        });
+        controllerInstance.getController()
+                          .activate();
+        RouterLogger.logControllerActivateMethodCalled(controllerInstance.getController()
+                                                                         .getClass()
+                                                                         .getCanonicalName());
+      } else {
+        compositeControllers.forEach(s -> {
+          s.start();
+          RouterLogger.logCompositeComntrollerStartMethodCalled(s.getClass()
+                                                                 .getCanonicalName());
+        });
+        controllerInstance.getController()
+                          .start();
+        RouterLogger.logControllerStartMethodCalled(controllerInstance.getController()
+                                                                      .getClass()
+                                                                      .getCanonicalName());
+      }
       // save current hash
       this.lastExecutedHash = hash;
       // clear loo detection list ...
@@ -608,6 +623,7 @@ abstract class AbstractRouter
   }
 
   private void stopController(List<RouteConfig> routeConfiguraions) {
+    // ToDo: issue 30!
     routeConfiguraions.stream()
                       .map(config -> this.activeComponents.get(config.getSelector()))
                       .filter(Objects::nonNull)
@@ -621,69 +637,123 @@ abstract class AbstractRouter
                         controller.getComposites()
                                   .values()
                                   .forEach(s -> {
-                                    RouterLogger.logCompositeControllerStopMethodWillBeCalled(s.getClass()
-                                                                                               .getCanonicalName());
-                                    s.getClass()
-                                     .getCanonicalName();
-                                    s.stop();
-                                    RouterLogger.logCompositeControllerRemoveMethodCalled(s.getClass()
-                                                                                           .getCanonicalName());
-                                    s.remove();
-                                    RouterLogger.logCompositeControllerStopMethodCalled(s.getClass()
-                                                                                         .getCanonicalName());
-                                    s.onDetach();
-                                    RouterLogger.logCompositeControllerDetached(s.getClass()
-                                                                                 .getCanonicalName());
-                                    s.removeHandlers();
-                                    RouterLogger.logCompositeControllerRemoveHandlersMethodCalled(s.getClass()
-                                                                                                   .getCanonicalName());
-                                    s.getComponent()
-                                     .onDetach();
-                                    RouterLogger.logCompositeComponentDetached(s.getComponent()
-                                                                                .getClass()
-                                                                                .getCanonicalName());
-                                    s.getComponent()
-                                     .removeHandlers();
-                                    RouterLogger.logCompositeComponentRemoveHandlersMethodCalled(s.getComponent()
-                                                                                                  .getClass()
-                                                                                                  .getCanonicalName());
-                                    RouterLogger.logCompositeControllerStopped(controller.getClass()
-                                                                                         .getCanonicalName());
+                                    if (controller.isCached()) {
+                                      deactivateCompositeController(controller,
+                                                                    s);
+                                    } else {
+                                      stopCompositeController(controller,
+                                                              s);
+                                    }
                                   });
 
                         RouterLogger.logControllerCompositesStopped(controller.getClass()
                                                                               .getCanonicalName());
-
-                        // stop controller
-                        RouterLogger.logControllerStopMethodWillBeCalled(controller.getClass()
-                                                                                   .getCanonicalName());
-                        controller.stop();
-                        RouterLogger.logControllerStopMethodCalled(controller.getClass()
-                                                                             .getCanonicalName());
-                        controller.onDetach();
-                        RouterLogger.logControllerDetached(controller.getClass()
-                                                                     .getCanonicalName());
-                        controller.removeHandlers();
-                        RouterLogger.logControllerRemoveHandlersMethodCalled(controller.getClass()
-                                                                                       .getCanonicalName());
-                        controller.getComponent()
-                                  .onDetach();
-                        RouterLogger.logComponentDetached(controller.getComponent()
-                                                                    .getClass()
-                                                                    .getCanonicalName());
-                        controller.getComponent()
-                                  .removeHandlers();
-                        RouterLogger.logComponentRemoveHandlersMethodCalled(controller.getComponent()
-                                                                                      .getClass()
-                                                                                      .getCanonicalName());
-                        RouterLogger.logControllerStopped(controller.getClass()
-                                                                    .getCanonicalName());
+                        if (controller.isCached()) {
+                          deactivateController(controller);
+                        } else {
+                          stopController(controller);
+                        }
                       });
     routeConfiguraions.forEach(routeConfiguraion -> this.plugin.remove(routeConfiguraion.getSelector()));
     routeConfiguraions.stream()
                       .map(config -> this.activeComponents.get(config.getSelector()))
                       .filter(Objects::nonNull)
                       .forEach(c -> this.activeComponents.remove(c));
+  }
+
+  private void deactivateController(AbstractComponentController<?, ?, ?> controller) {
+    // stop controller
+    RouterLogger.logControllerdeactivateMethodWillBeCalled(controller.getClass()
+                                                                     .getCanonicalName());
+    controller.deactivate();
+    RouterLogger.logControllerDeactivateMethodCalled(controller.getClass()
+                                                               .getCanonicalName());
+    controller.onDetach();
+    RouterLogger.logControllerDetached(controller.getClass()
+                                                 .getCanonicalName());
+    controller.getComponent()
+              .onDetach();
+    RouterLogger.logComponentDetached(controller.getComponent()
+                                                .getClass()
+                                                .getCanonicalName());
+    RouterLogger.logControllerDeactivated(controller.getClass()
+                                                    .getCanonicalName());
+  }
+
+  private void stopController(AbstractComponentController<?, ?, ?> controller) {
+    // stop controller
+    RouterLogger.logControllerStopMethodWillBeCalled(controller.getClass()
+                                                               .getCanonicalName());
+    controller.stop();
+    RouterLogger.logControllerStopMethodCalled(controller.getClass()
+                                                         .getCanonicalName());
+    controller.onDetach();
+    RouterLogger.logControllerDetached(controller.getClass()
+                                                 .getCanonicalName());
+    controller.removeHandlers();
+    RouterLogger.logControllerRemoveHandlersMethodCalled(controller.getClass()
+                                                                   .getCanonicalName());
+    controller.getComponent()
+              .onDetach();
+    RouterLogger.logComponentDetached(controller.getComponent()
+                                                .getClass()
+                                                .getCanonicalName());
+    controller.getComponent()
+              .removeHandlers();
+    RouterLogger.logComponentRemoveHandlersMethodCalled(controller.getComponent()
+                                                                  .getClass()
+                                                                  .getCanonicalName());
+    RouterLogger.logControllerStopped(controller.getClass()
+                                                .getCanonicalName());
+  }
+
+  private void deactivateCompositeController(AbstractComponentController<?, ?, ?> controller,
+                                             AbstractCompositeController<?, ?, ?> compositeController) {
+    RouterLogger.logCompositeControllerDeactivateMethodWillBeCalled(compositeController.getClass()
+                                                                                       .getCanonicalName());
+    compositeController.deactivate();
+    RouterLogger.logCompositeControllerDeactivateMethodCalled(compositeController.getClass()
+                                                                                 .getCanonicalName());
+    compositeController.onDetach();
+    RouterLogger.logCompositeControllerDetached(compositeController.getClass()
+                                                                   .getCanonicalName());
+    compositeController.getComponent()
+                       .onDetach();
+    RouterLogger.logCompositeComponentDetached(compositeController.getComponent()
+                                                                  .getClass()
+                                                                  .getCanonicalName());
+    RouterLogger.logCompositeControllerDeactivated(controller.getClass()
+                                                             .getCanonicalName());
+  }
+
+  private void stopCompositeController(AbstractComponentController<?, ?, ?> controller,
+                                       AbstractCompositeController<?, ?, ?> compositeController) {
+    RouterLogger.logCompositeControllerStopMethodWillBeCalled(compositeController.getClass()
+                                                                                 .getCanonicalName());
+    compositeController.stop();
+    RouterLogger.logCompositeControllerRemoveMethodCalled(compositeController.getClass()
+                                                                             .getCanonicalName());
+    compositeController.remove();
+    RouterLogger.logCompositeControllerStopMethodCalled(compositeController.getClass()
+                                                                           .getCanonicalName());
+    compositeController.onDetach();
+    RouterLogger.logCompositeControllerDetached(compositeController.getClass()
+                                                                   .getCanonicalName());
+    compositeController.removeHandlers();
+    RouterLogger.logCompositeControllerRemoveHandlersMethodCalled(compositeController.getClass()
+                                                                                     .getCanonicalName());
+    compositeController.getComponent()
+                       .onDetach();
+    RouterLogger.logCompositeComponentDetached(compositeController.getComponent()
+                                                                  .getClass()
+                                                                  .getCanonicalName());
+    compositeController.getComponent()
+                       .removeHandlers();
+    RouterLogger.logCompositeComponentRemoveHandlersMethodCalled(compositeController.getComponent()
+                                                                                    .getClass()
+                                                                                    .getCanonicalName());
+    RouterLogger.logCompositeControllerStopped(controller.getClass()
+                                                         .getCanonicalName());
   }
 
   private void append(String selector,
@@ -739,9 +809,8 @@ abstract class AbstractRouter
   private void route(String newRoute,
                      boolean replaceState,
                      String... parms) {
-    String newRouteWithParams = null;
-    newRouteWithParams = this.generate(newRoute,
-                                       parms);
+    String newRouteWithParams = this.generate(newRoute,
+                                              parms);
     if (replaceState) {
       this.plugin.route(newRouteWithParams,
                         true,
@@ -774,9 +843,9 @@ abstract class AbstractRouter
     String[] partsOfRoute = routeValue.split("/");
 
     int parameterIndex = 0;
-    for (int i = 0; i < partsOfRoute.length; i++) {
+    for (String s : partsOfRoute) {
       sb.append("/");
-      if ("*".equals(partsOfRoute[i])) {
+      if ("*".equals(s)) {
         if (Nalu.isUsingColonForParametersInUrl()) {
           sb.append(":");
         }
@@ -786,7 +855,7 @@ abstract class AbstractRouter
           parameterIndex++;
         }
       } else {
-        sb.append(partsOfRoute[i]);
+        sb.append(s);
       }
     }
 
@@ -795,15 +864,14 @@ abstract class AbstractRouter
                                       .filter(s -> "*".equals(s))
                                       .count();
     if (parms.length > numberOfPlaceHolders) {
-      StringBuilder sbExeption = new StringBuilder();
-      sbExeption.append("Warning: route >>")
-                .append(route)
-                .append("<< has less parameter placeholder >>")
-                .append(numberOfPlaceHolders)
-                .append("<< than the number of parameters in the list of parameters >>")
-                .append(parms.length)
-                .append("<< --> adding Prameters add the end of the url");
-      RouterLogger.logSimple(sbExeption.toString(),
+      String sbExeption = "Warning: route >>" +
+                          route +
+                          "<< has less parameter placeholder >>" +
+                          numberOfPlaceHolders +
+                          "<< than the number of parameters in the list of parameters >>" +
+                          parms.length +
+                          "<< --> adding Prameters add the end of the url";
+      RouterLogger.logSimple(sbExeption,
                              1);
       for (int i = parameterIndex; i < parms.length; i++) {
         sb.append("/");
@@ -825,22 +893,15 @@ abstract class AbstractRouter
     if (generatedRoute.startsWith("/")) {
       generatedRoute = generatedRoute.substring(1);
     }
-    String parameters = "";
+    StringBuilder parameters = new StringBuilder();
     for (int i = 0; i < parms.length; i++) {
-      parameters = parameters + parms[i];
+      parameters.append(parms[i]);
       if (parms.length - 1 < i) {
-        parameters = parameters + ",";
+        parameters.append(",");
       }
     }
-    StringBuilder sblog = new StringBuilder();
-    sblog.append("generated route >>")
-         .append(generatedRoute)
-         .append("<< -> created from >>")
-         .append(route)
-         .append("<< with parameters >>")
-         .append(parameters)
-         .append("<<");
-    RouterLogger.logSimple(sblog.toString(),
+    String sblog = "generated route >>" + generatedRoute + "<< -> created from >>" + route + "<< with parameters >>" + parameters + "<<";
+    RouterLogger.logSimple(sblog,
                            1);
     return generatedRoute;
   }

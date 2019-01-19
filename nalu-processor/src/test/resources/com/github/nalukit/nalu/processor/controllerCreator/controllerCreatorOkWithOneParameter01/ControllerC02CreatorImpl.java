@@ -32,7 +32,7 @@ public final class ControllerC02CreatorImpl extends AbstractControllerCreator<Mo
       controller.setContext(context);
       controller.setEventBus(eventBus);
       controller.setRouter(router);
-      controller.setRestored(false);
+      controller.setCached(false);
       sb01 = new StringBuilder();
       sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
@@ -70,7 +70,7 @@ public final class ControllerC02CreatorImpl extends AbstractControllerCreator<Mo
       ClientLogger.get().logDetailed(sb01.toString(), 4);
       controllerInstance.setController(storedController);
       controllerInstance.setChached(true);
-      controllerInstance.getController().setRestored(true);
+      controllerInstance.getController().setCached(true);
     }
     return controllerInstance;
   }
