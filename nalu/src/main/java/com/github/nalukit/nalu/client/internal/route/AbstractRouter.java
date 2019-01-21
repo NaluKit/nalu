@@ -445,7 +445,7 @@ abstract class AbstractRouter
       RouterLogger.logControllerOnAttachedMethodCalled(controllerInstance.getController()
                                                                          .getClass()
                                                                          .getCanonicalName());
-      // in case the controller is cached, we call activate instead of start ...
+      // in case the controller is cached, we call only activate  ...
       if (controllerInstance.isChached()) {
         compositeControllers.forEach(s -> {
           s.activate();
@@ -462,12 +462,20 @@ abstract class AbstractRouter
           s.start();
           RouterLogger.logCompositeComntrollerStartMethodCalled(s.getClass()
                                                                  .getCanonicalName());
+          s.activate();
+          RouterLogger.logCompositeComntrollerActivateMethodCalled(s.getClass()
+                                                                    .getCanonicalName());
         });
         controllerInstance.getController()
                           .start();
         RouterLogger.logControllerStartMethodCalled(controllerInstance.getController()
                                                                       .getClass()
                                                                       .getCanonicalName());
+        controllerInstance.getController()
+                          .activate();
+        RouterLogger.logControllerActivateMethodCalled(controllerInstance.getController()
+                                                                         .getClass()
+                                                                         .getCanonicalName());
       }
       // save current hash
       this.lastExecutedHash = hash;
@@ -662,7 +670,7 @@ abstract class AbstractRouter
   }
 
   private void deactivateController(AbstractComponentController<?, ?, ?> controller) {
-    // stop controller
+    // deactivate controller
     RouterLogger.logControllerdeactivateMethodWillBeCalled(controller.getClass()
                                                                      .getCanonicalName());
     controller.deactivate();
@@ -681,6 +689,14 @@ abstract class AbstractRouter
   }
 
   private void stopController(AbstractComponentController<?, ?, ?> controller) {
+    RouterLogger.logControllerdeactivateMethodWillBeCalled(controller.getClass()
+                                                                     .getCanonicalName());
+    controller.deactivate();
+    RouterLogger.logControllerDeactivateMethodCalled(controller.getClass()
+                                                               .getCanonicalName());
+    controller.onDetach();
+    RouterLogger.logControllerDetached(controller.getClass()
+                                                 .getCanonicalName());
     // stop controller
     RouterLogger.logControllerStopMethodWillBeCalled(controller.getClass()
                                                                .getCanonicalName());
@@ -728,6 +744,11 @@ abstract class AbstractRouter
 
   private void stopCompositeController(AbstractComponentController<?, ?, ?> controller,
                                        AbstractCompositeController<?, ?, ?> compositeController) {
+    RouterLogger.logCompositeControllerDeactivateMethodWillBeCalled(compositeController.getClass()
+                                                                                       .getCanonicalName());
+    compositeController.deactivate();
+    RouterLogger.logCompositeControllerDeactivateMethodCalled(compositeController.getClass()
+                                                                                 .getCanonicalName());
     RouterLogger.logCompositeControllerStopMethodWillBeCalled(compositeController.getClass()
                                                                                  .getCanonicalName());
     compositeController.stop();
