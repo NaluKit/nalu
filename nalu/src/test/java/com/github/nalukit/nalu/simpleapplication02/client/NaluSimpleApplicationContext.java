@@ -31,7 +31,7 @@ public class NaluSimpleApplicationContext
   private String searchCity;
 
   public NaluSimpleApplicationContext() {
-    this.version = "1.1.0-SNAPSHOT";
+    this.version = "1.1.0";
   }
 
   public String getVersion() {
