@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -368,10 +368,15 @@ public class ControllerAnnotationScanner {
     StringBuilder sbRoute = new StringBuilder();
     Stream.of(tmpRoute.split("/"))
           .collect(Collectors.toList())
-          .stream()
-          .filter(s -> !s.startsWith(":"))
-          .forEach(s -> sbRoute.append("/")
-                               .append(s));
+          .forEach(s -> {
+            if (s.startsWith(":")) {
+              sbRoute.append("/")
+                     .append("*");
+            } else {
+              sbRoute.append("/")
+                     .append(s);
+            }
+          });
     return sbRoute.toString();
   }
 
@@ -410,5 +415,7 @@ public class ControllerAnnotationScanner {
     public ControllerAnnotationScanner build() {
       return new ControllerAnnotationScanner(this);
     }
+
   }
+
 }

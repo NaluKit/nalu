@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.client.internal.validation;
 
+import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
@@ -33,22 +34,19 @@ public class RouteValidationTest {
 
   private RouterConfiguration routerConfiguration;
 
-  private RouteValidation routeValidation;
-
   @Before
   public void setUp() {
-    this.routeValidation = new RouteValidation();
     this.routerConfiguration = new RouterConfiguration();
     this.shellConfiguration = new ShellConfiguration();
 
     this.routerConfiguration.getRouters()
-                            .add(new RouteConfig("/application/person/list",
+                            .add(new RouteConfig("/application/person/list/*/*",
                                                  Arrays.asList("name",
                                                                "city"),
                                                  "content",
                                                  "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.list.ListController"));
     this.routerConfiguration.getRouters()
-                            .add(new RouteConfig("/application/person/search",
+                            .add(new RouteConfig("/application/person/search/*/*",
                                                  Arrays.asList("searchName",
                                                                "searchCity"),
                                                  "content",
@@ -69,7 +67,12 @@ public class RouteValidationTest {
                                                  "navigation",
                                                  "com.github.nalukit.example.nalu.simpleapplication.client.ui.navigation.NavigationController"));
     this.routerConfiguration.getRouters()
-                            .add(new RouteConfig("/application/person/detail",
+                            .add(new RouteConfig("/application/person/detail/*",
+                                                 Collections.singletonList("id"),
+                                                 "content",
+                                                 "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
+    this.routerConfiguration.getRouters()
+                            .add(new RouteConfig("/application/person/*/detail",
                                                  Collections.singletonList("id"),
                                                  "content",
                                                  "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
@@ -86,54 +89,345 @@ public class RouteValidationTest {
   }
 
   @Test
-  public void validateRoute() {
-    Assert.assertTrue(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                              this.routerConfiguration,
-                                                              "/application"));
-    Assert.assertTrue(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                              this.routerConfiguration,
-                                                              "/error/show"));
-    Assert.assertTrue(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                              this.routerConfiguration,
-                                                              "/application/person/detail"));
-    Assert.assertTrue(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                              this.routerConfiguration,
-                                                              "/application/person/detail/:parameter01"));
-    Assert.assertTrue(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                              this.routerConfiguration,
-                                                              "/application/person/detail/:parameter01/:parameter02"));
-
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/unknownShell"));
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/unknownShell/show"));
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/unknownShell/person/detail"));
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/unknownShell/person/detail/:parameter01"));
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/unknownShell/person/detail/:parameter01/:parameter02"));
-
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/error/showa"));
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/application/persona/detail"));
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/application/persona/detail/:parameter01"));
-    Assert.assertFalse(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/application/persona/detail/:parameter01/:parameter02"));
-
-    Assert.assertTrue(this.routeValidation.validateStartRoute(this.shellConfiguration,
-                                                               this.routerConfiguration,
-                                                               "/application/"));
+  public void validateStartRoute01() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application"));
   }
+
+  @Test
+  public void validateStartRoute02() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/error/show"));
+  }
+
+  @Test
+  public void validateStartRoute03() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail"));
+  }
+
+  @Test
+  public void validateStartRoute04() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail/parameter01"));
+  }
+
+  @Test
+  public void validateStartRoute05() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell"));
+  }
+
+  @Test
+  public void validateStartRoute06() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/application/person/detail/parameter01/parameter02"));
+  }
+
+  @Test
+  public void validateStartRoute07() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell/show"));
+  }
+
+  @Test
+  public void validateStartRoute08() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell/person/detail"));
+  }
+
+  @Test
+  public void validateStartRoute09() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell/person/detail/parameter01"));
+  }
+
+  @Test
+  public void validateStartRoute00() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell/person/detail/parameter01/parameter02"));
+  }
+
+  @Test
+  public void validateStartRoute10() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/error/showa"));
+  }
+
+  @Test
+  public void validateStartRoute11() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/application/person/detail"));
+  }
+
+  @Test
+  public void validateStartRoute12() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/application/person/detail/parameter01"));
+  }
+
+  @Test
+  public void validateStartRoute13() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/application/person/detail/parameter01/parameter02"));
+  }
+
+  @Test
+  public void validateStartRoute14() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/"));
+  }
+
+  @Test
+  public void validateStartRoute15() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail/parameter01"));
+  }
+
+  @Test
+  public void validateStartRoute16() {
+    PropertyFactory.get()
+                   .register(true,
+                             false);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail/parameter01"));
+  }
+
+  // - useColon = true
+
+  @Test
+  public void validateStartRoute51() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application"));
+  }
+
+  @Test
+  public void validateStartRoute52() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/error/show"));
+  }
+
+  @Test
+  public void validateStartRoute53() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail"));
+  }
+
+  @Test
+  public void validateStartRoute54() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail/:parameter01"));
+  }
+
+  @Test
+  public void validateStartRoute55() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell"));
+  }
+
+  @Test
+  public void validateStartRoute56() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail/:parameter01/:parameter02"));
+  }
+
+  @Test
+  public void validateStartRoute57() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell/show"));
+  }
+
+  @Test
+  public void validateStartRoute58() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell/person/detail"));
+  }
+
+  @Test
+  public void validateStartRoute59() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell/person/detail/:parameter01"));
+  }
+
+  @Test
+  public void validateStartRoute50() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/unknownShell/person/detail/:parameter01/:parameter02"));
+  }
+
+  @Test
+  public void validateStartRoute60() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                          this.routerConfiguration,
+                                                          "/error/showa"));
+  }
+
+  @Test
+  public void validateStartRoute61() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail"));
+  }
+
+  @Test
+  public void validateStartRoute62() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail/:parameter01"));
+  }
+
+  @Test
+  public void validateStartRoute63() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail/:parameter01/:parameter02"));
+  }
+
+  @Test
+  public void validateStartRoute64() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/"));
+  }
+
+  @Test
+  public void validateStartRoute65() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail/:parameter01"));
+  }
+
+  @Test
+  public void validateStartRoute66() {
+    PropertyFactory.get()
+                   .register(true,
+                             true);
+    Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail/:parameter01"));
+  }
+
 }

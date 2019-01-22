@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.application.IsContext;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,8 +40,8 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   /* the route the controller is related to */
   private String relatedRoute;
 
-  /* flag, if the controller is restored or not */
-  private boolean restored;
+  /* flag, if the controller is cached or not */
+  private boolean cached;
 
   public AbstractComponentController() {
     super();
@@ -59,8 +60,13 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
 
   /**
-   * Method will be called in case the element is attached to the DOM
+   * Method will be called in case the element is attached to the DOM.
+   * <p>
+   * The method is used by the framework!
+   * <p>>
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
+  @NaluInternalUse
   @Override
   public final void onAttach() {
     component.onAttach();
@@ -68,7 +74,12 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
 
   /**
    * Method will be called in case the element is removed from the DOM
+   * <p>
+   * The method is used by the framework!
+   * <p>>
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
+  @NaluInternalUse
   @Override
   public final void onDetach() {
     component.onDetach();
@@ -89,13 +100,38 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   /**
    * internal framework method! Will be called by the framdework after the
    * stop-method f the controller is called
-   *
+   * <p>
+   * The method is used by the framework!
+   * <p>>
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
+  @NaluInternalUse
   @Override
   public void removeHandlers() {
     this.handlerRegistrations.removeHandler();
     this.handlerRegistrations = new HandlerRegistrations();
+  }
+
+  /**
+   * The activate-method will be called instead of the start-method
+   * in case the controller is cached.
+   * <p>
+   * If you have to do something in case controller gets active,
+   * that's the right place.
+   */
+  @Override
+  public void activate() {
+  }
+
+  /**
+   * The deactivate-method will be called instead of the stop-method
+   * in case the controller is cached.
+   * <p>
+   * If you have to do something in case controller gets deactivated,
+   * that's the right place.
+   */
+  @Override
+  public void deactivate() {
   }
 
   /**
@@ -164,18 +200,18 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    *
    * @return true: the controller is reused, false: the controller is newly created
    */
-  public boolean isRestored() {
-    return restored;
+  public boolean isCached() {
+    return cached;
   }
 
   /**
-   * Sets the value, if the controller is newly created or restored!
+   * Sets the value, if the controller is newly created or cached!
    * <b>This field is used by Nalu! Setting the value can lead to unexpected behavior!</b>
    *
-   * @param restored true: the controller is reused, false: the controller is newly created
+   * @param cached true: the controller is reused, false: the controller is newly created
    */
-  public void setRestored(boolean restored) {
-    this.restored = restored;
+  public void setCached(boolean cached) {
+    this.cached = cached;
   }
 
   /**

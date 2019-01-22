@@ -66,5 +66,7 @@ public class HandlerRegistrations {
       // if someone fails to null out their reference to us
       handlers = null;
     }
+
   }
+
 }

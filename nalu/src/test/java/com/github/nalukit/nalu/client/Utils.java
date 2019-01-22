@@ -7,9 +7,7 @@ import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 class Utils {
 
@@ -34,12 +32,18 @@ class Utils {
       }
 
       @Override
-      public String getStartRoute() {
+      public String getStartRoute(boolean usingHash) {
         return "/";
       }
 
       @Override
-      public void register(HashHandler handler) {
+      public Map<String, String> getQueryParameters() {
+        return new HashMap<>();
+      }
+
+      @Override
+      public void register(RouteChangeHandler handler,
+                           boolean usingHash) {
       }
 
       @Override
@@ -48,7 +52,13 @@ class Utils {
 
       @Override
       public void route(String newRoute,
-                        boolean replace) {
+                        boolean replace,
+                        boolean usingHash) {
+      }
+
+      @Override
+      public void initialize(boolean usingHash,
+                             ShellConfiguration shellConfiguration) {
       }
     };
   }
@@ -74,7 +84,7 @@ class Utils {
                                             "content",
                                             "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     routerConfiguration.getRouters()
-                       .add(new RouteConfig("/MockShell/testRoute02",
+                       .add(new RouteConfig("/MockShell/testRoute02/*/*",
                                             Arrays.asList("testParaemter01",
                                                           "testParameter02"),
                                             "content",
@@ -85,7 +95,7 @@ class Utils {
                                             "content",
                                             "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     routerConfiguration.getRouters()
-                       .add(new RouteConfig("/MockShell/testRoute06/testRoute07",
+                       .add(new RouteConfig("/MockShell/testRoute06/testRoute07/*/*",
                                             Arrays.asList("testParameter01",
                                                           "testParameter02",
                                                           "testParameter03"),

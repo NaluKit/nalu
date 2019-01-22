@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -17,17 +17,16 @@
 
 package com.github.nalukit.nalu;
 
-import com.github.nalukit.nalu.client.RouterTest;
+import com.github.nalukit.nalu.client.RouterImplTest;
 import com.github.nalukit.nalu.client.RoutingTest;
-import com.github.nalukit.nalu.client.internal.route.RouteConfigTest;
 import com.github.nalukit.nalu.client.internal.validation.RouteValidationTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ RouteConfigTest.class,
-                      RouterTest.class,
+@Suite.SuiteClasses({ RouterImplTest.class,
                       RoutingTest.class,
                       RouteValidationTest.class })
 public class AllTests {
+
 }

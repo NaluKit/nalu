@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -26,6 +26,8 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 public class MockShell
     extends AbstractShell<MockContext> {
 
+  private static final String NALU_ID_ATTRIBUTE = "id";
+
   public MockShell() {
   }
 
@@ -45,11 +47,11 @@ public class MockShell
                 .add(createNorth())
                 .add(createSouth())
                 .add(div().css("shellNavigation")
-                          .attr(Nalu.NALU_ID_ATTRIBUTE,
+                          .attr(MockShell.NALU_ID_ATTRIBUTE,
                                 "navigation")
                           .asElement())
                 .add(div().css("shellContent")
-                          .attr(Nalu.NALU_ID_ATTRIBUTE,
+                          .attr(MockShell.NALU_ID_ATTRIBUTE,
                                 "content")
                           .asElement())
                 .asElement();
@@ -57,14 +59,14 @@ public class MockShell
 
   private Element createNorth() {
     return header().css("shellHeader")
-                   .attr(Nalu.NALU_ID_ATTRIBUTE,
+                   .attr(MockShell.NALU_ID_ATTRIBUTE,
                          "header")
                    .asElement();
   }
 
   private Element createSouth() {
     return footer().css("shellFooter")
-                   .attr(Nalu.NALU_ID_ATTRIBUTE,
+                   .attr(MockShell.NALU_ID_ATTRIBUTE,
                          "footer")
                    .asElement();
   }

@@ -54,9 +54,9 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
     StringBuilder sb01 = new StringBuilder();
     sb01.append("load routes");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
-    super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01", Arrays.asList(new String[]{"parameter01"}), "selector01", "com.github.nalukit.nalu.processor.common.ui.component01.Controller01"));
+    super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01/*", Arrays.asList(new String[]{"parameter01"}), "selector01", "com.github.nalukit.nalu.processor.common.ui.component01.Controller01"));
     sb01 = new StringBuilder();
-    sb01.append("register route >>/mockShell/route01<< with parameter >>parameter01<< for selector >>selector01<< for controller >>com.github.nalukit.nalu.processor.common.ui.component01.Controller01<<");
+    sb01.append("register route >>/mockShell/route01/*<< with parameter >>parameter01<< for selector >>selector01<< for controller >>com.github.nalukit.nalu.processor.common.ui.component01.Controller01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
 
@@ -95,5 +95,15 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
     this.errorRoute = "/mockShell/route01";
     sb01.append("found errorRoute >>/mockShell/route01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
+  }
+
+  @Override
+  public boolean isUsingHash() {
+    return true;
+  }
+
+  @Override
+  public boolean isUsingColonForParametersInUrl() {
+    return false;
   }
 }

@@ -96,4 +96,14 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
     sb01.append("found errorRoute >>/mockShell/route01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
   }
+
+  @Override
+  public boolean isUsingHash() {
+    return true;
+  }
+
+  @Override
+  public boolean isUsingColonForParametersInUrl() {
+    return false;
+  }
 }

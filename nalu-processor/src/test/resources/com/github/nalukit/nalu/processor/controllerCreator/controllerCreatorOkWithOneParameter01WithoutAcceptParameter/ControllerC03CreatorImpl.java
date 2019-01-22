@@ -32,7 +32,7 @@ public final class ControllerC03CreatorImpl extends AbstractControllerCreator<Mo
       controller.setContext(context);
       controller.setEventBus(eventBus);
       controller.setRouter(router);
-      controller.setRestored(false);
+      controller.setCached(false);
       sb01 = new StringBuilder();
       sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
@@ -56,13 +56,13 @@ public final class ControllerC03CreatorImpl extends AbstractControllerCreator<Mo
       sb01 = new StringBuilder();
       sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
-      ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithOneParameter01WithoutAcceptParameter.Component03<< created for route >>/mockShell/route01<<", 3);
+      ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithOneParameter01WithoutAcceptParameter.Component03<< created for route >>/mockShell/route01/*<<", 3);
     } else {
       sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
       controllerInstance.setController(storedController);
       controllerInstance.setChached(true);
-      controllerInstance.getController().setRestored(true);
+      controllerInstance.getController().setCached(true);
     }
     return controllerInstance;
   }

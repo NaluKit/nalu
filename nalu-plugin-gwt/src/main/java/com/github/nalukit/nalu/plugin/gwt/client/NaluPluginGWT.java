@@ -1,20 +1,40 @@
+/*
+ * Copyright (c) 2019 - Frank Hossfeld
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ *  use this file except in compliance with the License. You may obtain a copy of
+ *  the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ *  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ *  License for the specific language governing permissions and limitations under
+ *  the License.
+ */
+
 package com.github.nalukit.nalu.plugin.gwt.client;
 
-import com.github.nalukit.nalu.client.internal.ClientLogger;
+import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
+import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorCommand;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorProvider;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.IsWidget;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.HashChangeEvent;
-import elemental2.dom.Location;
-import jsinterop.base.Js;
+
+import java.util.Map;
 
 public class NaluPluginGWT
     implements IsNaluProcessorPlugin {
+
+  private String contextPath;
+
+  private NaluStartModel naluStartModel;
 
   public NaluPluginGWT() {
     super();
@@ -45,40 +65,24 @@ public class NaluPluginGWT
   }
 
   @Override
-  public String getStartRoute() {
-    String starthash = Window.Location.getHash();
-    if (starthash.startsWith("#")) {
-      starthash = starthash.substring(1);
-    }
-    return starthash;
+  public String getStartRoute(boolean usingHash) {
+    return this.naluStartModel.getStartRoute();
   }
 
   @Override
-  public void register(HashHandler handler) {
-    DomGlobal.window.onhashchange = e -> {
-      String newUrl = "";
-      if (detectIE11()) {
-        Location location = Js.uncheckedCast(DomGlobal.location);
-        newUrl = location.getHash();
-      } else {
-        // cast event ...
-        HashChangeEvent hashChangeEvent = (HashChangeEvent) e;
-        newUrl = hashChangeEvent.newURL;
-      }
-      if (newUrl.startsWith("#")) {
-        newUrl = newUrl.substring(1);
-      }
-      StringBuilder sb = new StringBuilder();
-      sb.append("Router: onhashchange: new url ->>")
-        .append(newUrl)
-        .append("<<");
-      ClientLogger.get()
-                  .logSimple(sb.toString(),
-                             0);
-      // look for a routing ...
-      handler.onHashChange(newUrl);
-      return null;
-    };
+  public Map<String, String> getQueryParameters() {
+    return this.naluStartModel.getQueryParameters();
+  }
+
+  @Override
+  public void register(RouteChangeHandler handler,
+                       boolean usingHash) {
+    if (usingHash) {
+      NaluPluginCoreWeb.addOnHashChangeHandler(handler);
+    } else {
+      NaluPluginCoreWeb.addPopStateHandler(handler,
+                                           this.contextPath);
+    }
   }
 
   @Override
@@ -91,41 +95,22 @@ public class NaluPluginGWT
 
   @Override
   public void route(String newRoute,
-                    boolean replace) {
-    if (replace) {
-      DomGlobal.window.history.replaceState(null,
-                                            null,
-                                            "#" + newRoute);
-    } else {
-      DomGlobal.window.history.pushState(null,
-                                         null,
-                                         "#" + newRoute);
-    }
+                    boolean replace,
+                    boolean usingHash) {
+    NaluPluginCoreWeb.route(this.contextPath,
+                            newRoute,
+                            replace,
+                            usingHash);
   }
 
-  /**
-   * checks weather the current browser is IE or not.
-   * <p>
-   * IE 10
-   * ua = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)';
-   * <p>
-   * IE 11
-   * ua = 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
-   * <p>
-   * Edge 12 (Spartan)
-   * ua = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0';
-   * <p>
-   * Edge 13
-   * ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586';
-   *
-   * @param
-   * @return true -> is IE
-   */
-  private boolean detectIE11() {
-    String ua = DomGlobal.window.navigator.userAgent;
-    if (ua.indexOf("MSIE ") > 0) {
-      return true;
-    }
-    return ua.indexOf("Trident/") > 0;
+  @Override
+  public void initialize(boolean usingHash,
+                         ShellConfiguration shellConfiguration) {
+    this.contextPath = NaluPluginCoreWeb.getContextPath(usingHash,
+                                                        shellConfiguration);
+
+    this.naluStartModel = NaluPluginCoreWeb.getNaluStartModel(this.contextPath,
+                                                              usingHash);
   }
+
 }
