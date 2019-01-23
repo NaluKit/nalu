@@ -852,7 +852,7 @@ abstract class AbstractRouter
    *
    * @param route route to navigate to
    * @param parms parameters of the route
-   * @return
+   * @return generate String of new route
    */
   public String generate(String route,
                          String... parms) {
