@@ -46,10 +46,10 @@ public class Nalu {
    * Comparing route '/app/person/3/edit/ with '/app/person/*&#47;edit'
    * will return true
    * <p>
-   * Comparing route '/app/person/3/edit/ with '/app/person/edit/*&#47'
+   * Comparing route '/app/person/3/edit/ with '/app/person/edit/*&#47;'
    * will return false.
    * <p>
-   * Comparing route '/app/person/3/edit/ with '/app/person/*&#47/*&#47'
+   * Comparing route '/app/person/3/edit/ with '/app/person/*&#47;/*&#47;'
    * will return true.
    *
    * @param route     the route containing parameter values instead of '*'
@@ -73,10 +73,10 @@ public class Nalu {
    * Comparing route '/app/person/3/edit/ with '/app/person/*&#47;edit'
    * will return true
    * <p>
-   * Comparing route '/app/person/3/edit/ with '/app/person/edit/*&#47'
+   * Comparing route '/app/person/3/edit/ with '/app/person/edit/*&#47;'
    * will return false.
    * <p>
-   * Comparing route '/app/person/3/edit/ with '/app/person/*&#47/*&#47'
+   * Comparing route '/app/person/3/edit/ with '/app/person/*&#47;/*&#47;'
    * will return true.
    *
    * @param route     the route containing parameter values instead of '*'

@@ -63,7 +63,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * Method will be called in case the element is attached to the DOM.
    * <p>
    * The method is used by the framework!
-   * <p>>
+   * <p>
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
   @NaluInternalUse
@@ -76,7 +76,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * Method will be called in case the element is removed from the DOM
    * <p>
    * The method is used by the framework!
-   * <p>>
+   * <p>
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
   @NaluInternalUse
@@ -102,7 +102,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * stop-method f the controller is called
    * <p>
    * The method is used by the framework!
-   * <p>>
+   * <p>
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
   @NaluInternalUse
