@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -104,7 +104,7 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
           controller.setContext(context);
           controller.setEventBus(eventBus);
           controller.setRouter(router);
-          controller.setRestored(false);
+          controller.setCached(false);
           sb01 = new StringBuilder();
           sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
           ClientLogger.get().logDetailed(sb01.toString(), 2);
@@ -152,7 +152,7 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
           controller.setContext(context);
           controller.setEventBus(eventBus);
           controller.setRouter(router);
-          controller.setRestored(false);
+          controller.setCached(false);
           sb01 = new StringBuilder();
           sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
           ClientLogger.get().logDetailed(sb01.toString(), 2);
@@ -208,7 +208,7 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
           controller.setContext(context);
           controller.setEventBus(eventBus);
           controller.setRouter(router);
-          controller.setRestored(false);
+          controller.setCached(false);
           sb01 = new StringBuilder();
           sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
           ClientLogger.get().logDetailed(sb01.toString(), 2);
@@ -270,7 +270,7 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
           controller.setContext(context);
           controller.setEventBus(eventBus);
           controller.setRouter(router);
-          controller.setRestored(false);
+          controller.setCached(false);
           sb01 = new StringBuilder();
           sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
           ClientLogger.get().logDetailed(sb01.toString(), 2);
@@ -318,7 +318,7 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
           controller.setContext(context);
           controller.setEventBus(eventBus);
           controller.setRouter(router);
-          controller.setRestored(false);
+          controller.setCached(false);
           sb01 = new StringBuilder();
           sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
           ClientLogger.get().logDetailed(sb01.toString(), 2);
@@ -400,6 +400,16 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
   @Override
   public IsApplicationLoader<NaluSimpleApplicationContext> getApplicationLoader() {
     return new NaluSimpleApplicationLoader();
+  }
+
+  @Override
+  protected boolean isUsingHash() {
+    return true;
+  }
+
+  @Override
+  protected boolean isUsingColonForParametersInUrl() {
+    return false;
   }
 
   @Override

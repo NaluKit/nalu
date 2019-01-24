@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2018 - Frank Hossfeld
+  ~ Copyright (c) 2018 - 2019 - Frank Hossfeld
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License"); you may not
   ~  use this file except in compliance with the License. You may obtain a copy of
@@ -24,7 +24,7 @@
 
   <groupId>com.github.nalukit</groupId>
   <artifactId>nalu-parent</artifactId>
-  <version>1.0.1</version>
+  <version>1.1.0</version>
   <packaging>pom</packaging>
 
   <name>nalu-parent</name>
@@ -34,12 +34,13 @@
   <modules>
     <module>nalu</module>
     <module>nalu-processor</module>
+    <module>nalu-plugin-core-web</module>
     <module>nalu-plugin-elemental2</module>
     <module>nalu-plugin-gwt</module>
     <module>nalu-plugin-gwt-processor</module>
   </modules>
 
-  <inceptionYear>2018</inceptionYear>
+  <inceptionYear>2018 - 2019</inceptionYear>
 
   <licenses>
     <license>
@@ -170,6 +171,7 @@
       <modules>
         <module>nalu</module>
         <module>nalu-processor</module>
+        <module>nalu-plugin-core-web</module>
         <module>nalu-plugin-elemental2</module>
         <module>nalu-plugin-gwt</module>
         <module>nalu-plugin-gwt-processor</module>
@@ -249,6 +251,7 @@
       <modules>
         <module>nalu</module>
         <module>nalu-processor</module>
+        <module>nalu-plugin-core-web</module>
         <module>nalu-plugin-elemental2</module>
         <module>nalu-plugin-gwt</module>
         <module>nalu-plugin-gwt-processor</module>

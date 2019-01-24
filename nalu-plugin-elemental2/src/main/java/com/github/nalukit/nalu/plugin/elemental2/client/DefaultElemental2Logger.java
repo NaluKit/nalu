@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -15,38 +15,21 @@
  */
 package com.github.nalukit.nalu.plugin.elemental2.client;
 
-import com.github.nalukit.nalu.client.application.IsLogger;
+import com.github.nalukit.nalu.plugin.core.web.client.AbstractLogger;
+import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
 import elemental2.dom.DomGlobal;
 
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 public class DefaultElemental2Logger
-    implements IsLogger {
+    extends AbstractLogger {
 
   static final String INDENT = "..";
 
   public void log(String message,
                   int depth) {
-    if ("on".equals(System.getProperty("superdevmode",
-                                       "off"))) {
+    if (NaluPluginCoreWeb.isSuperDevMode()) {
       DomGlobal.window.console.log(createLog(message,
                                              depth));
     }
   }
 
-  private String createLog(String message,
-                           int depth) {
-    if (depth == 0) {
-      return "Nalu-Logger -> " + message;
-    } else {
-      String indent = IntStream.range(0,
-                                      depth)
-                               .mapToObj(i -> INDENT)
-                               .collect(Collectors.joining("",
-                                                           "",
-                                                           message));
-      return "Nalu-Logger -> " + indent;
-    }
-  }
 }

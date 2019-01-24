@@ -1,6 +1,5 @@
 package com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter02;
 
-import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.AbstractControllerCreator;
@@ -32,7 +31,7 @@ public final class ControllerC05CreatorImpl extends AbstractControllerCreator<Mo
       controller.setContext(context);
       controller.setEventBus(eventBus);
       controller.setRouter(router);
-      controller.setRestored(false);
+      controller.setCached(false);
       sb01 = new StringBuilder();
       sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
@@ -70,7 +69,7 @@ public final class ControllerC05CreatorImpl extends AbstractControllerCreator<Mo
       ClientLogger.get().logDetailed(sb01.toString(), 4);
       controllerInstance.setController(storedController);
       controllerInstance.setChached(true);
-      controllerInstance.getController().setRestored(true);
+      controllerInstance.getController().setCached(true);
     }
     return controllerInstance;
   }

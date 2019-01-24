@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - Frank Hossfeld
+ * Copyright (c) 2018 - 2019 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.client.internal.validation;
 
+import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
@@ -87,8 +88,8 @@ public class RouteValidation {
     String finalSearchRoute = searchRoute;
     Optional<RouteConfig> optionalRoute = routerConfiguration.getRouters()
                                                              .stream()
-                                                             .filter(r -> r.getRoute()
-                                                                           .equals(finalSearchRoute))
+                                                             .filter(r -> Nalu.match(finalSearchRoute,
+                                                                                     r.getRoute()))
                                                              .findFirst();
     if (!optionalRoute.isPresent()) {
       logRouteNotFoud(route,
