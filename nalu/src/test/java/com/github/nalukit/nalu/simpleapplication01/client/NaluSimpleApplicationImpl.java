@@ -407,6 +407,16 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
   }
 
   @Override
+  protected String getShellSelector() {
+    return "root";
+  }
+
+  @Override
+  protected boolean hasHistory() {
+    return true;
+  }
+
+  @Override
   protected boolean isUsingHash() {
     return true;
   }

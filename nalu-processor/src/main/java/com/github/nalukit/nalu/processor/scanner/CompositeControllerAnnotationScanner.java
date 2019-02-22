@@ -73,8 +73,7 @@ public class CompositeControllerAnnotationScanner {
   public CompositeModel scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
     // handle CompositeController-annotation
-    CompositeModel compositeModel = handleComposite(roundEnvironment,
-                                                    this.compositeElement);
+    CompositeModel compositeModel = handleComposite(this.compositeElement);
     // handle AcceptParameter annotation
     handleAcceptParameters(roundEnvironment,
                            this.compositeElement,
@@ -85,8 +84,7 @@ public class CompositeControllerAnnotationScanner {
     return compositeModel;
   }
 
-  private CompositeModel handleComposite(RoundEnvironment roundEnvironment,
-                                         Element element)
+  private CompositeModel handleComposite(Element element)
       throws ProcessorException {
     // get Annotation ...
     CompositeController annotation = element.getAnnotation(CompositeController.class);
@@ -97,6 +95,9 @@ public class CompositeControllerAnnotationScanner {
     }
     TypeElement componentInterfaceTypeElement = this.getComponentInterfaceTypeElement(annotation);
     TypeMirror componentTypeTypeMirror = this.getComponentType(element.asType());
+    if (Objects.isNull(componentTypeTypeMirror)) {
+      throw new ProcessorException("Nalu-Processor: componentTypeTypeMirror is null");
+    }
     // check and save the component type ...
     if (metaModel.getComponentType() == null) {
       metaModel.setComponentType(new ClassNameModel(componentTypeTypeMirror.toString()));
@@ -116,6 +117,9 @@ public class CompositeControllerAnnotationScanner {
       throw new ProcessorException("Nalu-Processor: composite controller >>" + element.toString() + "<< does not have a context generic!");
     }
     // create model ...
+    if (Objects.isNull(componentInterfaceTypeElement)) {
+      throw new ProcessorException("Nalu-Processor: componentInterfaceTypeElement is null!");
+    }
     return new CompositeModel(new ClassNameModel(context),
                               new ClassNameModel(element.toString()),
                               new ClassNameModel(componentInterfaceTypeElement.toString()),
@@ -123,8 +127,7 @@ public class CompositeControllerAnnotationScanner {
                               componentController);
   }
 
-  private String getContextType(Element element)
-      throws ProcessorException {
+  private String getContextType(Element element) {
     final TypeMirror[] result = { null };
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
                                                                 element.asType(),
@@ -160,9 +163,7 @@ public class CompositeControllerAnnotationScanner {
                                             Void v) {
                     List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
                     if (!typeArguments.isEmpty()) {
-                      if (typeArguments.size() > 0) {
-                        result[0] = typeArguments.get(0);
-                      }
+                      result[0] = typeArguments.get(0);
                     }
                     return null;
                   }
@@ -309,7 +310,7 @@ public class CompositeControllerAnnotationScanner {
                                                                                    .getTypeElement(AbstractCompositeController.class.getCanonicalName())
                                                                                    .asType());
     if (type == null) {
-      return result[0];
+      return null;
     }
     type.accept(new SimpleTypeVisitor6<Void, Void>() {
                   @Override
@@ -361,16 +362,13 @@ public class CompositeControllerAnnotationScanner {
   private List<ControllerModel> getControllerUsingComposite(Element element) {
     List<ControllerModel> models = new ArrayList<>();
     this.metaModel.getController()
-                  .forEach(controllerModel -> {
-                    controllerModel.getComposites()
-                                   .stream()
-                                   .filter(controllerCompositeModel -> element.toString()
-                                                                              .equals(controllerCompositeModel.getComposite()
-                                                                                                              .getClassName()))
-                                   .map(controllerCompositeModel -> controllerModel)
-                                   .collect(Collectors.toList())
-                                   .forEach(models::add);
-                  });
+                  .forEach(controllerModel -> models.addAll(controllerModel.getComposites()
+                                                                           .stream()
+                                                                           .filter(controllerCompositeModel -> element.toString()
+                                                                                                                      .equals(controllerCompositeModel.getComposite()
+                                                                                                                                                      .getClassName()))
+                                                                           .map(controllerCompositeModel -> controllerModel)
+                                                                           .collect(Collectors.toList())));
     return models;
   }
 

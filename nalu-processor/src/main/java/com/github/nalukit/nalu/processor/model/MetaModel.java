@@ -59,8 +59,6 @@ public class MetaModel {
 
   private List<ControllerModel> routes;
 
-  private String hasFiltersAnnotation;
-
   private List<ClassNameModel> filters;
 
   private List<ClassNameModel> handlers;
@@ -68,6 +66,15 @@ public class MetaModel {
   private ClassNameModel componentType;
 
   private List<CompositeModel> compositeModels;
+
+  /* flag, that indicates, if a Nalu application */
+  /* uses a history token or not.                */
+  private boolean history;
+
+  /* the selctor for the shell.                  */
+  /* in caase it is not equals 'root', Nalu will */
+  /* search for a not with this ID.              */
+  private String shellSelector;
 
   public MetaModel() {
     this.plugins = new ArrayList<>();
@@ -265,6 +272,22 @@ public class MetaModel {
                                                 shellFromRoute.indexOf("/"));
     }
     return shellFromRoute;
+  }
+
+  public boolean hasHistory() {
+    return history;
+  }
+
+  public void setHistory(boolean history) {
+    this.history = history;
+  }
+
+  public String getShellSelector() {
+    return shellSelector;
+  }
+
+  public void setShellSelector(String shellSelector) {
+    this.shellSelector = shellSelector;
   }
 
 }

@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.application.annotation.Application;
-import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
@@ -31,8 +30,6 @@ import javax.lang.model.type.MirroredTypeException;
 import static java.util.Objects.isNull;
 
 public class ApplicationAnnotationScanner {
-
-  private final static String APPLICATION_PROPERTIES = "application.properties";
 
   private ProcessorUtils processorUtils;
 
@@ -71,11 +68,17 @@ public class ApplicationAnnotationScanner {
       metaModel.setGenerateToPackage(this.processorUtils.getPackageAsString(applicationElement));
       metaModel.setApplication(new ClassNameModel(applicationElement.toString()));
       metaModel.setLoader(new ClassNameModel(isNull(applicationLoaderTypeElement) ? "" : applicationLoaderTypeElement.toString()));
-      metaModel.setContext(new ClassNameModel(contextTypeElement.toString()));
+      if (isNull(contextTypeElement)) {
+        throw new ProcessorException("Nalu-Processor: context in application annotation is null!");
+      } else {
+        metaModel.setContext(new ClassNameModel(contextTypeElement.toString()));
+      }
       metaModel.setStartRoute(applicationAnnotation.startRoute());
       metaModel.setRouteError(applicationAnnotation.routeError());
       metaModel.setUsingHash(applicationAnnotation.useHash());
       metaModel.setUsingColonForParametersInUrl(applicationAnnotation.useColonForParametersInUrl());
+      metaModel.setHistory(applicationAnnotation.history());
+      metaModel.setShellSelector(applicationAnnotation.shellSelector());
     }
   }
 
@@ -97,10 +100,6 @@ public class ApplicationAnnotationScanner {
                                                      .asElement(exception.getTypeMirror());
     }
     return null;
-  }
-
-  private String createRelativeFileName() {
-    return ProcessorConstants.META_INF + "/" + ProcessorConstants.NALU_REACT_FOLDER_NAME + "/" + ApplicationAnnotationScanner.APPLICATION_PROPERTIES;
   }
 
   public static class Builder {

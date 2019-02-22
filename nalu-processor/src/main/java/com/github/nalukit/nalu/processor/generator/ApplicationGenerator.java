@@ -24,6 +24,7 @@ import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.squareup.javapoet.*;
+import com.squareup.javapoet.TypeSpec.Builder;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
@@ -158,6 +159,12 @@ public class ApplicationGenerator {
     generateLoadDefaultsRoutes(typeSpec,
                                metaModel);
 
+    generateShellSelectorhMethod(typeSpec,
+                              metaModel);
+
+    generatHasHistoryMethod(typeSpec,
+                              metaModel);
+
     generateIsUsingHashMethod(typeSpec,
                               metaModel);
 
@@ -178,6 +185,28 @@ public class ApplicationGenerator {
                                    "<< -> exception: " +
                                    e.getMessage());
     }
+  }
+
+  private void generateShellSelectorhMethod(TypeSpec.Builder typeSpec,
+                                            MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("getShellSelector")
+                                 .addAnnotation(Override.class)
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .returns(String.class)
+                                 .addStatement("return $S",
+                                               metaModel.getShellSelector())
+                                 .build());
+  }
+
+  private void generatHasHistoryMethod(TypeSpec.Builder typeSpec,
+                                         MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("hasHistory")
+                                 .addAnnotation(Override.class)
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .returns(boolean.class)
+                                 .addStatement("return $L",
+                                               metaModel.hasHistory() ? "true" : "false")
+                                 .build());
   }
 
   private void generateIsUsingHashMethod(TypeSpec.Builder typeSpec,

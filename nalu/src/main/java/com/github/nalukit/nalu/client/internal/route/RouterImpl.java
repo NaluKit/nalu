@@ -29,16 +29,19 @@ public final class RouterImpl
                     ShellConfiguration shellConfiguration,
                     RouterConfiguration routerConfiguration,
                     List<CompositeControllerReference> compositeControllerReferences,
+                    boolean hasHistory,
                     boolean usingHash,
                     boolean usingColonForParametersInUrl) {
     super(compositeControllerReferences,
           shellConfiguration,
           routerConfiguration,
           plugin,
+          hasHistory,
           usingHash,
           usingColonForParametersInUrl);
     this.plugin.register(super::handleRouting,
-                         Nalu.isUsingHash());
+                         hasHistory,
+                         usingHash);
   }
 
 }

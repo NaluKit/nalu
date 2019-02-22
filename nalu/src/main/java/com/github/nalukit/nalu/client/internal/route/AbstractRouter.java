@@ -72,6 +72,7 @@ abstract class AbstractRouter
                  ShellConfiguration shellConfiguration,
                  RouterConfiguration routerConfiguration,
                  IsNaluProcessorPlugin plugin,
+                 boolean hasHistory,
                  boolean usingHash,
                  boolean usingColonForParametersInUrl) {
     // save the composite configuration reference
@@ -87,7 +88,8 @@ abstract class AbstractRouter
     this.loopDetectionList = new ArrayList<>();
     // set up PropertyFactory
     PropertyFactory.get()
-                   .register(usingHash,
+                   .register(hasHistory,
+                             usingHash,
                              usingColonForParametersInUrl);
   }
 
@@ -301,6 +303,7 @@ abstract class AbstractRouter
     } else {
       this.plugin.route("#" + this.lastExecutedHash,
                         false,
+                        Nalu.hasHistory(),
                         Nalu.isUsingHash());
     }
   }
@@ -631,7 +634,6 @@ abstract class AbstractRouter
   }
 
   private void stopController(List<RouteConfig> routeConfiguraions) {
-    // ToDo: issue 30!
     routeConfiguraions.stream()
                       .map(config -> this.activeComponents.get(config.getSelector()))
                       .filter(Objects::nonNull)
@@ -813,7 +815,7 @@ abstract class AbstractRouter
    * it will:
    * <ul>
    * <li>create a new hash</li>
-   * <li>update the url</li>
+   * <li>update the url (in case history is desired)</li>
    * </ul>
    * Once the url gets updated, it triggers the onahshchange event and Nalu starts to work
    *
@@ -835,10 +837,12 @@ abstract class AbstractRouter
     if (replaceState) {
       this.plugin.route(newRouteWithParams,
                         true,
+                        Nalu.hasHistory(),
                         Nalu.isUsingHash());
     } else {
       this.plugin.route(newRouteWithParams,
                         false,
+                        Nalu.hasHistory(),
                         Nalu.isUsingHash());
     }
     this.handleRouting(newRouteWithParams);
@@ -882,7 +886,7 @@ abstract class AbstractRouter
 
     // in case there are more paraemters then placesholders, we add them add the end!
     long numberOfPlaceHolders = Stream.of(partsOfRoute)
-                                      .filter(s -> "*".equals(s))
+                                      .filter("*"::equals)
                                       .count();
     if (parms.length > numberOfPlaceHolders) {
       String sbExeption = "Warning: route >>" +

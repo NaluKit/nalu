@@ -51,6 +51,10 @@ public @interface Application {
 
   String routeError();
 
+  String shellSelector() default "root";
+
+  boolean history() default true;
+
   boolean useHash() default true;
 
   boolean useColonForParametersInUrl() default false;

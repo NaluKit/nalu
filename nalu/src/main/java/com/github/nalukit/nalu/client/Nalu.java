@@ -22,7 +22,12 @@ import com.github.nalukit.nalu.client.internal.route.RouterUtils;
 public class Nalu {
 
   public static String getVersion() {
-    return "1.1.0";
+    return "1.2.0-SNAPSHOT";
+  }
+
+  public static boolean hasHistory() {
+    return PropertyFactory.get()
+                          .hasHistory();
   }
 
   public static boolean isUsingHash() {

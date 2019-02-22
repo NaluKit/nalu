@@ -51,8 +51,6 @@ public abstract class AbstractApplication<C extends IsContext>
   protected ShellConfiguration                 shellConfiguration;
   /* Router Configuration */
   protected RouterConfiguration                routerConfiguration;
-  /* List of CompositeControllerReferences */
-  protected List<CompositeControllerReference> compositeControllerReferences;
   /* Router */
   protected ConfiguratableRouter               router;
   /* application context */
@@ -61,6 +59,8 @@ public abstract class AbstractApplication<C extends IsContext>
   protected SimpleEventBus                     eventBus;
   /* plugin */
   protected IsNaluProcessorPlugin              plugin;
+  /* List of CompositeControllerReferences */
+  protected List<CompositeControllerReference> compositeControllerReferences;
 
   public AbstractApplication() {
     super();
@@ -99,6 +99,7 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.shellConfiguration,
                                  this.routerConfiguration,
                                  this.compositeControllerReferences,
+                                 this.hasHistory(),
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl());
     // load everything you need to start
@@ -183,6 +184,10 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract void loadHandlers();
 
   protected abstract IsApplicationLoader<C> getApplicationLoader();
+
+  protected abstract String getShellSelector();
+
+  protected abstract boolean hasHistory();
 
   protected abstract boolean isUsingHash();
 

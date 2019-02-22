@@ -36,6 +36,10 @@ public class NaluPluginGWT
 
   private NaluStartModel naluStartModel;
 
+  /* RouteChangeHandler - to be used directly   */
+  /* in case Nalu does not have history support */
+  private RouteChangeHandler routeChangeHandler;
+
   public NaluPluginGWT() {
     super();
   }
@@ -76,12 +80,17 @@ public class NaluPluginGWT
 
   @Override
   public void register(RouteChangeHandler handler,
+                       boolean hasHistory,
                        boolean usingHash) {
-    if (usingHash) {
-      NaluPluginCoreWeb.addOnHashChangeHandler(handler);
+    if (hasHistory) {
+      if (usingHash) {
+        NaluPluginCoreWeb.addOnHashChangeHandler(handler);
+      } else {
+        NaluPluginCoreWeb.addPopStateHandler(handler,
+                                             this.contextPath);
+      }
     } else {
-      NaluPluginCoreWeb.addPopStateHandler(handler,
-                                           this.contextPath);
+      this.routeChangeHandler = handler;
     }
   }
 
@@ -96,10 +105,13 @@ public class NaluPluginGWT
   @Override
   public void route(String newRoute,
                     boolean replace,
+                    boolean hasHistory,
                     boolean usingHash) {
     NaluPluginCoreWeb.route(this.contextPath,
                             newRoute,
                             replace,
+                            this.routeChangeHandler,
+                            hasHistory,
                             usingHash);
   }
 
