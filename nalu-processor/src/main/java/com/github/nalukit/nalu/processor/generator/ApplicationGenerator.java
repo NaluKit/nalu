@@ -159,9 +159,6 @@ public class ApplicationGenerator {
     generateLoadDefaultsRoutes(typeSpec,
                                metaModel);
 
-    generateShellSelectorhMethod(typeSpec,
-                              metaModel);
-
     generatHasHistoryMethod(typeSpec,
                               metaModel);
 
@@ -185,17 +182,6 @@ public class ApplicationGenerator {
                                    "<< -> exception: " +
                                    e.getMessage());
     }
-  }
-
-  private void generateShellSelectorhMethod(TypeSpec.Builder typeSpec,
-                                            MetaModel metaModel) {
-    typeSpec.addMethod(MethodSpec.methodBuilder("getShellSelector")
-                                 .addAnnotation(Override.class)
-                                 .addModifiers(Modifier.PUBLIC)
-                                 .returns(String.class)
-                                 .addStatement("return $S",
-                                               metaModel.getShellSelector())
-                                 .build());
   }
 
   private void generatHasHistoryMethod(TypeSpec.Builder typeSpec,

@@ -78,7 +78,6 @@ public class ApplicationAnnotationScanner {
       metaModel.setUsingHash(applicationAnnotation.useHash());
       metaModel.setUsingColonForParametersInUrl(applicationAnnotation.useColonForParametersInUrl());
       metaModel.setHistory(applicationAnnotation.history());
-      metaModel.setShellSelector(applicationAnnotation.shellSelector());
     }
   }
 

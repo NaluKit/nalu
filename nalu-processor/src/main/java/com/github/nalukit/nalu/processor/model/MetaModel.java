@@ -71,11 +71,6 @@ public class MetaModel {
   /* uses a history token or not.                */
   private boolean history;
 
-  /* the selctor for the shell.                  */
-  /* in caase it is not equals 'root', Nalu will */
-  /* search for a not with this ID.              */
-  private String shellSelector;
-
   public MetaModel() {
     this.plugins = new ArrayList<>();
     this.shells = new ArrayList<>();
@@ -280,14 +275,6 @@ public class MetaModel {
 
   public void setHistory(boolean history) {
     this.history = history;
-  }
-
-  public String getShellSelector() {
-    return shellSelector;
-  }
-
-  public void setShellSelector(String shellSelector) {
-    this.shellSelector = shellSelector;
   }
 
 }

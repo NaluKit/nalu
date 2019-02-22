@@ -10,7 +10,6 @@ import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithoutLoaderAsInnerInterface.ApplicationAnnotationOkWithoutLoaderAsInnerInterface.MyApplication;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import java.lang.Override;
-import java.lang.String;
 import java.lang.StringBuilder;
 import java.util.Arrays;
 
@@ -97,11 +96,6 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
     this.errorRoute = "/mockShell/route01";
     sb01.append("found errorRoute >>/mockShell/route01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
-  }
-
-  @Override
-  public String getShellSelector() {
-    return "root";
   }
 
   @Override

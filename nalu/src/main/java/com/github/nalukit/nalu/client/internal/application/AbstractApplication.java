@@ -185,8 +185,6 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract IsApplicationLoader<C> getApplicationLoader();
 
-  protected abstract String getShellSelector();
-
   protected abstract boolean hasHistory();
 
   protected abstract boolean isUsingHash();

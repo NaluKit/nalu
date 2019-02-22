@@ -43,7 +43,7 @@ public class NaluPluginCoreWeb {
    */
   public static void logNewUrl(String newUrl) {
     StringBuilder sb = new StringBuilder();
-    sb.append("Router: onhashchange: new url ->>")
+    sb.append("Router: new url ->>")
       .append(newUrl)
       .append("<<");
     ClientLogger.get()
