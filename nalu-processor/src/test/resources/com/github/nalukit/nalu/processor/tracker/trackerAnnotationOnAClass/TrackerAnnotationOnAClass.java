@@ -14,23 +14,19 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.common;
+package com.github.nalukit.nalu.processor.debug.debugAnnotationOnAClass;
 
-import com.github.nalukit.nalu.client.application.IsLogger;
+import com.github.nalukit.nalu.client.application.IsApplication;
+import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
+import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import com.github.nalukit.nalu.client.tracker.IsTracker;
+import com.github.nalukit.nalu.processor.common.MockContext;
+import com.github.nalukit.nalu.processor.common.MockTracker;
 
-/**
- * Default implementation of Nalu's logger.
- *
- * @author Frank Hossfeld
- */
-public class MockLogger
-    implements IsLogger {
+@Tracker(IsTracker.class)
+public class TrackerAnnotationOnAClass
+    implements IsApplication {
 
-  static final String INDENT = "    ";
-
-  public void log(String message,
-                  int depth) {
-    // we do nothing!
+  public void run(IsNaluProcessorPlugin plugin) {
   }
 }
-

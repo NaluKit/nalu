@@ -16,21 +16,26 @@
 
 package com.github.nalukit.nalu.processor.common;
 
-import com.github.nalukit.nalu.client.application.IsLogger;
+import com.github.nalukit.nalu.client.tracker.AbstractTracker;
+import com.github.nalukit.nalu.client.tracker.IsTracker;
 
 /**
  * Default implementation of Nalu's logger.
  *
  * @author Frank Hossfeld
  */
-public class MockLogger
-    implements IsLogger {
+public class MockTracker
+    extends AbstractTracker<MockContext>
+    implements IsTracker {
 
-  static final String INDENT = "    ";
-
-  public void log(String message,
-                  int depth) {
-    // we do nothing!
+  @Override
+  public void bind() {
   }
+
+  @Override
+  public void track(String route,
+                    String... params) {
+  }
+
 }
 

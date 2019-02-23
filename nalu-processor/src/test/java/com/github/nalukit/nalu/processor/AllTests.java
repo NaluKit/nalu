@@ -37,6 +37,7 @@ import org.junit.runners.Suite;
                       FiltersTest.class,
                       HandlerTest.class,
                       MetaModelTest.class,
-                      ShellCreatorTest.class })
+                      ShellCreatorTest.class,
+                      TrackerTest.class })
 public class AllTests {
 }

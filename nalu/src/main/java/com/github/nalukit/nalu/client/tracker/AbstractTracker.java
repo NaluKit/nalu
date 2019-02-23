@@ -14,23 +14,28 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.common;
+package com.github.nalukit.nalu.client.tracker;
 
-import com.github.nalukit.nalu.client.application.IsLogger;
+import com.github.nalukit.nalu.client.application.IsContext;
+import org.gwtproject.event.shared.SimpleEventBus;
 
-/**
- * Default implementation of Nalu's logger.
- *
- * @author Frank Hossfeld
- */
-public class MockLogger
-    implements IsLogger {
+public abstract class AbstractTracker<C extends IsContext>
+    implements IsTracker {
 
-  static final String INDENT = "    ";
+  protected C context;
 
-  public void log(String message,
-                  int depth) {
-    // we do nothing!
+  protected SimpleEventBus eventBus;
+
+  public AbstractTracker() {
+    super();
   }
-}
 
+  public void setContext(C context) {
+    this.context = context;
+  }
+
+  public void setEventBus(SimpleEventBus eventBus) {
+    this.eventBus = eventBus;
+  }
+
+}

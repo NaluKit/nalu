@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
-import com.github.nalukit.nalu.client.application.annotation.Debug;
+import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
@@ -30,21 +30,21 @@ import javax.lang.model.type.MirroredTypeException;
 
 import static java.util.Objects.isNull;
 
-public class DebugAnnotationScanner {
+public class TrackerAnnotationScanner {
 
   private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
-  private Element debugElement;
+  private Element trackerElement;
 
   private MetaModel metaModel;
 
   @SuppressWarnings("unused")
-  private DebugAnnotationScanner(Builder builder) {
+  private TrackerAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.debugElement = builder.debugElement;
+    this.trackerElement = builder.trackerElement;
     this.metaModel = builder.metaModel;
     setUp();
   }
@@ -62,26 +62,23 @@ public class DebugAnnotationScanner {
   public MetaModel scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
     // handle debug-annotation
-    Debug debugAnnotation = debugElement.getAnnotation(Debug.class);
-    if (!isNull(debugAnnotation)) {
-      this.metaModel.setHasDebugAnnotation(true);
-      this.metaModel.setDebugLogLevel(debugAnnotation.logLevel()
-                                                     .toString());
-      if (!isNull(getLogger(debugAnnotation))) {
-        this.metaModel.setDebugLogger(new ClassNameModel(getLogger(debugAnnotation).getQualifiedName()
-                                                                                   .toString()));
+    Tracker trackerAnnotation = trackerElement.getAnnotation(Tracker.class);
+    if (!isNull(trackerAnnotation)) {
+      this.metaModel.setHasTrackerAnnotation(true);
+      if (!isNull(getTracker(trackerAnnotation))) {
+        this.metaModel.setTracker(new ClassNameModel(getTracker(trackerAnnotation).getQualifiedName()
+                                                                                  .toString()));
       }
     } else {
-      this.metaModel.setHasDebugAnnotation(false);
-      this.metaModel.setDebugLogLevel("");
-      this.metaModel.setDebugLogger(null);
+      this.metaModel.setHasTrackerAnnotation(false);
+      this.metaModel.setTracker(null);
     }
     return this.metaModel;
   }
 
-  private TypeElement getLogger(Debug debugAnnotation) {
+  private TypeElement getTracker(Tracker trackerAnnotation) {
     try {
-      debugAnnotation.logger();
+      trackerAnnotation.value();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());
@@ -93,7 +90,7 @@ public class DebugAnnotationScanner {
 
     ProcessingEnvironment processingEnvironment;
 
-    Element debugElement;
+    Element trackerElement;
 
     MetaModel metaModel;
 
@@ -102,8 +99,8 @@ public class DebugAnnotationScanner {
       return this;
     }
 
-    public Builder debugElement(Element debugElement) {
-      this.debugElement = debugElement;
+    public Builder trackerElement(Element debugElement) {
+      this.trackerElement = debugElement;
       return this;
     }
 
@@ -112,8 +109,8 @@ public class DebugAnnotationScanner {
       return this;
     }
 
-    public DebugAnnotationScanner build() {
-      return new DebugAnnotationScanner(this);
+    public TrackerAnnotationScanner build() {
+      return new TrackerAnnotationScanner(this);
     }
 
   }

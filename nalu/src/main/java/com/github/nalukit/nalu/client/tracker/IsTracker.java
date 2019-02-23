@@ -14,23 +14,23 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.common;
+package com.github.nalukit.nalu.client.tracker;
 
-import com.github.nalukit.nalu.client.application.IsLogger;
+public interface IsTracker {
 
-/**
- * Default implementation of Nalu's logger.
- *
- * @author Frank Hossfeld
- */
-public class MockLogger
-    implements IsLogger {
+  /**
+   * Right after the instance is dreted, the bind-method is called.
+   * R.e.: this method can be used to bind handler to the event bus.
+   */
+  void bind();
 
-  static final String INDENT = "    ";
+  /**
+   * Method is called to log a routing in case a new route is initiated.
+   *
+   * @param route the new route
+   * @param parms the parameters of the new route
+   */
+  void track(String route,
+             String... parms);
 
-  public void log(String message,
-                  int depth) {
-    // we do nothing!
-  }
 }
-

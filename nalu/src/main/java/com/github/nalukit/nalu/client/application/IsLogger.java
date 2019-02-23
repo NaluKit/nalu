@@ -18,7 +18,7 @@ package com.github.nalukit.nalu.client.application;
 /**
  * Interface that defines a logger used for events logging.
  *
- * @author plcoirier
+ * @author Frank Hossfeld
  */
 public interface IsLogger {
 

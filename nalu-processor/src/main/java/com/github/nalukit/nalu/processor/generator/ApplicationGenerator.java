@@ -24,7 +24,6 @@ import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.squareup.javapoet.*;
-import com.squareup.javapoet.TypeSpec.Builder;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
@@ -91,6 +90,12 @@ public class ApplicationGenerator {
                   .typeSpec(typeSpec)
                   .build()
                   .generate();
+
+    TrackerGenerator.builder()
+                    .metaModel(metaModel)
+                    .typeSpec(typeSpec)
+                    .build()
+                    .generate();
 
     ShellGenerator.builder()
                   .metaModel(metaModel)
@@ -160,7 +165,7 @@ public class ApplicationGenerator {
                                metaModel);
 
     generatHasHistoryMethod(typeSpec,
-                              metaModel);
+                            metaModel);
 
     generateIsUsingHashMethod(typeSpec,
                               metaModel);
@@ -185,7 +190,7 @@ public class ApplicationGenerator {
   }
 
   private void generatHasHistoryMethod(TypeSpec.Builder typeSpec,
-                                         MetaModel metaModel) {
+                                       MetaModel metaModel) {
     typeSpec.addMethod(MethodSpec.methodBuilder("hasHistory")
                                  .addAnnotation(Override.class)
                                  .addModifiers(Modifier.PUBLIC)

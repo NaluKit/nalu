@@ -27,6 +27,7 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.*;
 import com.github.nalukit.nalu.client.internal.validation.RouteValidation;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import com.github.nalukit.nalu.client.tracker.IsTracker;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 import java.util.ArrayList;
@@ -61,6 +62,8 @@ public abstract class AbstractApplication<C extends IsContext>
   protected IsNaluProcessorPlugin              plugin;
   /* List of CompositeControllerReferences */
   protected List<CompositeControllerReference> compositeControllerReferences;
+  /* Tracker instance */
+  protected IsTracker tracker;
 
   public AbstractApplication() {
     super();
@@ -71,8 +74,6 @@ public abstract class AbstractApplication<C extends IsContext>
   public void run(IsNaluProcessorPlugin plugin) {
     // save the plugin
     this.plugin = plugin;
-    // first load the debug configuration
-    this.loadDebugConfiguration();
     // debug message
     ClientLogger.get()
                 .logDetailed("=================================================================================",
@@ -87,6 +88,8 @@ public abstract class AbstractApplication<C extends IsContext>
     ClientLogger.get()
                 .logSimple("AbstractApplication: application is started!",
                            0);
+    // first load the debug configuration
+    this.loadDebugConfiguration();
     // instantiate necessary classes
     this.eventBus = new SimpleEventBus();
     this.shellConfiguration = new ShellConfiguration();
@@ -94,11 +97,14 @@ public abstract class AbstractApplication<C extends IsContext>
     // initialize plugin
     this.plugin.initialize(this.isUsingHash(),
                            this.shellConfiguration);
+    // load optional tracker
+    this.tracker = this.loadTrackerConfiguration();
     // create router ...
     this.router = new RouterImpl(this.plugin,
                                  this.shellConfiguration,
                                  this.routerConfiguration,
                                  this.compositeControllerReferences,
+                                 this.tracker,
                                  this.hasHistory(),
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl());
@@ -166,6 +172,8 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract void loadShellFactory();
 
   protected abstract void loadDebugConfiguration();
+
+  protected abstract IsTracker loadTrackerConfiguration();
 
   protected abstract void loadShells();
 

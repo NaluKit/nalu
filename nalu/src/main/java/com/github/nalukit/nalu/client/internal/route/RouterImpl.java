@@ -16,9 +16,9 @@
 
 package com.github.nalukit.nalu.client.internal.route;
 
-import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import com.github.nalukit.nalu.client.tracker.IsTracker;
 
 import java.util.List;
 
@@ -29,6 +29,7 @@ public final class RouterImpl
                     ShellConfiguration shellConfiguration,
                     RouterConfiguration routerConfiguration,
                     List<CompositeControllerReference> compositeControllerReferences,
+                    IsTracker tracker,
                     boolean hasHistory,
                     boolean usingHash,
                     boolean usingColonForParametersInUrl) {
@@ -36,6 +37,7 @@ public final class RouterImpl
           shellConfiguration,
           routerConfiguration,
           plugin,
+          tracker,
           hasHistory,
           usingHash,
           usingColonForParametersInUrl);

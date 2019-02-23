@@ -48,7 +48,7 @@ public class DebugGenerator {
     MethodSpec.Builder loadDebugConfigurationMethod = MethodSpec.methodBuilder("loadDebugConfiguration")
                                                                 .addAnnotation(Override.class)
                                                                 .addModifiers(Modifier.PUBLIC);
-    if (metaModel.isHavingDebugAnnotation()) {
+    if (metaModel.isHasDebugAnnotation()) {
       loadDebugConfigurationMethod.addStatement("$T.get().register($L, new $T(), $T.LogLevel.$L)",
                                                 ClassName.get(ClientLogger.class),
                                                 "true",
