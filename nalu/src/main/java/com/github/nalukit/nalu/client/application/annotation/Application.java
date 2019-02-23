@@ -51,6 +51,8 @@ public @interface Application {
 
   String routeError();
 
+  boolean history() default true;
+
   boolean useHash() default true;
 
   boolean useColonForParametersInUrl() default false;

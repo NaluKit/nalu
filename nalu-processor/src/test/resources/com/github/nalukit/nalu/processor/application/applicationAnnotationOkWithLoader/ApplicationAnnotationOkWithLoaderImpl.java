@@ -98,6 +98,11 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
   }
 
   @Override
+  public boolean hasHistory() {
+    return true;
+  }
+
+  @Override
   public boolean isUsingHash() {
     return true;
   }

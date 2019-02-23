@@ -34,12 +34,14 @@ public interface IsNaluProcessorPlugin {
   Map<String, String> getQueryParameters();
 
   void register(RouteChangeHandler handler,
+                boolean hasHsitory,
                 boolean usingHash);
 
   void remove(String selector);
 
   void route(String newRoute,
              boolean replace,
+             boolean hasHistory,
              boolean usingHash);
 
   void initialize(boolean usingHash,

@@ -43,6 +43,7 @@ class Utils {
 
       @Override
       public void register(RouteChangeHandler handler,
+                           boolean hasHistory,
                            boolean usingHash) {
       }
 
@@ -53,6 +54,7 @@ class Utils {
       @Override
       public void route(String newRoute,
                         boolean replace,
+                        boolean hasHistory,
                         boolean usingHash) {
       }
 

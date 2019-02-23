@@ -43,7 +43,7 @@ public class NaluPluginCoreWeb {
    */
   public static void logNewUrl(String newUrl) {
     StringBuilder sb = new StringBuilder();
-    sb.append("Router: onhashchange: new url ->>")
+    sb.append("Router: new url ->>")
       .append(newUrl)
       .append("<<");
     ClientLogger.get()
@@ -156,25 +156,29 @@ public class NaluPluginCoreWeb {
   public static void route(String contextPath,
                            String newRoute,
                            boolean replace,
+                           RouteChangeHandler handler,
+                           boolean hasHistory,
                            boolean usingHash) {
-    String value;
+    String newRouteToken;
     if (usingHash) {
-      value = "#" + newRoute;
+      newRouteToken = "#" + newRoute;
     } else {
-      value = "/";
+      newRouteToken = "/";
       if (contextPath.length() > 0) {
-        value = value + contextPath + "/";
+        newRouteToken = newRouteToken + contextPath + "/";
       }
-      value = value + newRoute;
+      newRouteToken = newRouteToken + newRoute;
     }
-    if (replace) {
-      DomGlobal.window.history.replaceState(value,
-                                            null,
-                                            value);
-    } else {
-      DomGlobal.window.history.pushState(value,
-                                         null,
-                                         value);
+    if (hasHistory) {
+      if (replace) {
+        DomGlobal.window.history.replaceState(newRouteToken,
+                                              null,
+                                              newRouteToken);
+      } else {
+        DomGlobal.window.history.pushState(newRouteToken,
+                                           null,
+                                           newRouteToken);
+      }
     }
   }
 

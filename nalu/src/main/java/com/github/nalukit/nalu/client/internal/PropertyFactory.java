@@ -6,10 +6,12 @@ public class PropertyFactory {
 
   private static PropertyFactory instance;
 
+  // does the application have history
+  private boolean hasHistory;
   // is the application using hash in url?
-  boolean usingHash;
+  private boolean usingHash;
   // is the application using colon in url for parameter?
-  boolean usingColonForParametersInUrl;
+  private boolean usingColonForParametersInUrl;
 
   private PropertyFactory() {
   }
@@ -26,8 +28,17 @@ public class PropertyFactory {
    *
    * @return true: Nalus uses a hash
    */
+  public boolean hasHistory() {
+    return this.hasHistory;
+  }
+
+  /**
+   * Will Nalu use a ahs for Navigation?
+   *
+   * @return true: Nalus uses a hash
+   */
   public boolean isUsingHash() {
-    return usingHash;
+    return this.usingHash;
   }
 
   /**
@@ -36,17 +47,20 @@ public class PropertyFactory {
    * @return true: Nalu will use colon
    */
   public boolean isUsingColonForParametersInUrl() {
-    return usingColonForParametersInUrl;
+    return this.usingColonForParametersInUrl;
   }
 
   /**
-   * Do NOt cll this method!
+   * Do NOT cll this method!
    *
-   * @param usingHash                    Will Nalu use a ahs for Navigation?
+   * @param hasHistory                   Will Nalu support a histroy toekn?
+   * @param usingHash                    Will Nalu use a hash for Navigation?
    * @param usingColonForParametersInUrl Will Nalu use colons to mark parameters inside the url?
    */
-  public void register(boolean usingHash,
+  public void register(boolean hasHistory,
+                       boolean usingHash,
                        boolean usingColonForParametersInUrl) {
+    this.hasHistory = hasHistory;
     this.usingHash = usingHash;
     this.usingColonForParametersInUrl = usingColonForParametersInUrl;
   }

@@ -99,6 +99,11 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   }
 
   @Override
+  public boolean hasHistory() {
+    return true;
+  }
+
+  @Override
   public boolean isUsingHash() {
     return true;
   }

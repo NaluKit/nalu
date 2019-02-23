@@ -98,6 +98,11 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
   }
 
   @Override
+  public boolean hasHistory() {
+    return true;
+  }
+
+  @Override
   public boolean isUsingHash() {
     return true;
   }

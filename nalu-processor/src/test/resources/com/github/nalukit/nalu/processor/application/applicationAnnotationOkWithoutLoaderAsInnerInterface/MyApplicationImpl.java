@@ -99,6 +99,11 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
   }
 
   @Override
+  public boolean hasHistory() {
+    return true;
+  }
+
+  @Override
   public boolean isUsingHash() {
     return true;
   }
