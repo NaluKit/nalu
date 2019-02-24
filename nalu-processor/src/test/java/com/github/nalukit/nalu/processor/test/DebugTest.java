@@ -83,6 +83,6 @@ public class DebugTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: @Debug can only be used with an interfaces annotated with IsApplication");
+                      .hadErrorContaining("Nalu-Processor: @Debug can only be used with an interfaces annotated with @Application");
   }
 }

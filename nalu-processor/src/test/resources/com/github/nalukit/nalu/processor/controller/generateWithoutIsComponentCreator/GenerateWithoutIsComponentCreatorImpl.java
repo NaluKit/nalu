@@ -7,6 +7,7 @@ import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
+import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import java.lang.Override;
 import java.lang.StringBuilder;
@@ -20,6 +21,11 @@ public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplica
 
   @Override
   public void loadDebugConfiguration() {
+  }
+
+  @Override
+  public IsTracker loadTrackerConfiguration() {
+    return null;
   }
 
   @Override

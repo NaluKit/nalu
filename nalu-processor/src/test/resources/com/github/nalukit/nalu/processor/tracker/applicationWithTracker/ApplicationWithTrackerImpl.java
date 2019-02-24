@@ -1,4 +1,4 @@
-package com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithoutLoader;
+package com.github.nalukit.nalu.processor.tracker.applicationWithTracker;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
@@ -9,12 +9,13 @@ import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import com.github.nalukit.nalu.processor.common.MockTracker;
 import java.lang.Override;
 import java.lang.StringBuilder;
 import java.util.Arrays;
 
-public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithoutLoader {
-  public ApplicationAnnotationOkWithoutLoaderImpl() {
+public final class ApplicationWithTrackerImpl extends AbstractApplication<MockContext> implements ApplicationWithTracker {
+  public ApplicationWithTrackerImpl() {
     super();
     super.context = new com.github.nalukit.nalu.processor.common.MockContext();
   }
@@ -25,7 +26,11 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
 
   @Override
   public IsTracker loadTrackerConfiguration() {
-    return null;
+    MockTracker tracker = new MockTracker();
+    tracker.setContext(super.context);
+    tracker.setEventBus(super.eventBus);
+    tracker.bind();
+    return tracker;
   }
 
   @Override

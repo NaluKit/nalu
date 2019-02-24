@@ -14,23 +14,19 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.common;
+package com.github.nalukit.nalu.client.tracker.annotation;
 
-import com.github.nalukit.nalu.client.application.IsLogger;
+import com.github.nalukit.nalu.client.tracker.IsTracker;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
- * Default implementation of Nalu's logger.
- *
  * @author Frank Hossfeld
  */
-public class MockLogger
-    implements IsLogger {
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Tracker {
 
-  static final String INDENT = "    ";
+  Class<? extends IsTracker> value();
 
-  public void log(String message,
-                  int depth) {
-    // we do nothing!
-  }
 }
-

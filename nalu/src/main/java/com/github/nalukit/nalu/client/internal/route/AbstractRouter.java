@@ -28,6 +28,7 @@ import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import com.github.nalukit.nalu.client.tracker.IsTracker;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -67,11 +68,14 @@ abstract class AbstractRouter
   private IsShell                                           shell;
   // list of routes used for handling the current route - used to detect loops
   private List<String>                                      loopDetectionList;
+  // the tracker: if not null, track the users routing
+  private IsTracker                                         tracker;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
                  ShellConfiguration shellConfiguration,
                  RouterConfiguration routerConfiguration,
                  IsNaluProcessorPlugin plugin,
+                 IsTracker tracker,
                  boolean hasHistory,
                  boolean usingHash,
                  boolean usingColonForParametersInUrl) {
@@ -83,6 +87,8 @@ abstract class AbstractRouter
     this.routerConfiguration = routerConfiguration;
     // save te plugin
     this.plugin = plugin;
+    // save the tracker
+    this.tracker = tracker;
     // inistantiate lists, etc.
     this.activeComponents = new HashMap<>();
     this.loopDetectionList = new ArrayList<>();
@@ -824,6 +830,12 @@ abstract class AbstractRouter
    */
   public void route(String newRoute,
                     String... parms) {
+    // first, we track the new route (if there is a tracker!)
+    if (!Objects.isNull(this.tracker)) {
+      this.tracker.track(newRoute,
+                         parms);
+    }
+    // let's do the routing!
     this.route(newRoute,
                false,
                parms);
