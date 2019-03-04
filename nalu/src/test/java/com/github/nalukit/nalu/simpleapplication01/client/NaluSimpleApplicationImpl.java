@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.simpleapplication01.client;
 
 import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
+import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.simpleapplication01.client.filters.BartSimpsonFilter;
 import com.github.nalukit.nalu.simpleapplication01.client.handler.SimpleApplicationHandler01;
 import com.github.nalukit.nalu.simpleapplication01.client.logger.DefaultLogger;
@@ -70,6 +71,11 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
   @Override
   public void loadDebugConfiguration() {
     ClientLogger.get().register(true, new DefaultLogger(), Debug.LogLevel.DETAILED);
+  }
+
+  @Override
+  protected IsTracker loadTrackerConfiguration() {
+    return null;
   }
 
   @Override
@@ -404,6 +410,11 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
   @Override
   public IsApplicationLoader<NaluSimpleApplicationContext> getApplicationLoader() {
     return new NaluSimpleApplicationLoader();
+  }
+
+  @Override
+  protected boolean hasHistory() {
+    return true;
   }
 
   @Override

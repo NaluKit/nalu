@@ -28,6 +28,7 @@ import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import com.github.nalukit.nalu.client.tracker.IsTracker;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -67,11 +68,15 @@ abstract class AbstractRouter
   private IsShell                                           shell;
   // list of routes used for handling the current route - used to detect loops
   private List<String>                                      loopDetectionList;
+  // the tracker: if not null, track the users routing
+  private IsTracker                                         tracker;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
                  ShellConfiguration shellConfiguration,
                  RouterConfiguration routerConfiguration,
                  IsNaluProcessorPlugin plugin,
+                 IsTracker tracker,
+                 boolean hasHistory,
                  boolean usingHash,
                  boolean usingColonForParametersInUrl) {
     // save the composite configuration reference
@@ -82,12 +87,15 @@ abstract class AbstractRouter
     this.routerConfiguration = routerConfiguration;
     // save te plugin
     this.plugin = plugin;
+    // save the tracker
+    this.tracker = tracker;
     // inistantiate lists, etc.
     this.activeComponents = new HashMap<>();
     this.loopDetectionList = new ArrayList<>();
     // set up PropertyFactory
     PropertyFactory.get()
-                   .register(usingHash,
+                   .register(hasHistory,
+                             usingHash,
                              usingColonForParametersInUrl);
   }
 
@@ -301,6 +309,7 @@ abstract class AbstractRouter
     } else {
       this.plugin.route("#" + this.lastExecutedHash,
                         false,
+                        Nalu.hasHistory(),
                         Nalu.isUsingHash());
     }
   }
@@ -631,7 +640,6 @@ abstract class AbstractRouter
   }
 
   private void stopController(List<RouteConfig> routeConfiguraions) {
-    // ToDo: issue 30!
     routeConfiguraions.stream()
                       .map(config -> this.activeComponents.get(config.getSelector()))
                       .filter(Objects::nonNull)
@@ -813,7 +821,7 @@ abstract class AbstractRouter
    * it will:
    * <ul>
    * <li>create a new hash</li>
-   * <li>update the url</li>
+   * <li>update the url (in case history is desired)</li>
    * </ul>
    * Once the url gets updated, it triggers the onahshchange event and Nalu starts to work
    *
@@ -822,6 +830,12 @@ abstract class AbstractRouter
    */
   public void route(String newRoute,
                     String... parms) {
+    // first, we track the new route (if there is a tracker!)
+    if (!Objects.isNull(this.tracker)) {
+      this.tracker.track(newRoute,
+                         parms);
+    }
+    // let's do the routing!
     this.route(newRoute,
                false,
                parms);
@@ -835,10 +849,12 @@ abstract class AbstractRouter
     if (replaceState) {
       this.plugin.route(newRouteWithParams,
                         true,
+                        Nalu.hasHistory(),
                         Nalu.isUsingHash());
     } else {
       this.plugin.route(newRouteWithParams,
                         false,
+                        Nalu.hasHistory(),
                         Nalu.isUsingHash());
     }
     this.handleRouting(newRouteWithParams);
@@ -882,7 +898,7 @@ abstract class AbstractRouter
 
     // in case there are more paraemters then placesholders, we add them add the end!
     long numberOfPlaceHolders = Stream.of(partsOfRoute)
-                                      .filter(s -> "*".equals(s))
+                                      .filter("*"::equals)
                                       .count();
     if (parms.length > numberOfPlaceHolders) {
       String sbExeption = "Warning: route >>" +

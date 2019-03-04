@@ -69,6 +69,7 @@ public class RoutingTest {
 
       @Override
       public void register(RouteChangeHandler handler,
+                           boolean hasHistory,
                            boolean usingHash) {
         this.hashHandler = handler;
       }
@@ -81,6 +82,7 @@ public class RoutingTest {
       @Override
       public void route(String newRoute,
                         boolean replace,
+                        boolean hasHistory,
                         boolean usingHash) {
         Assert.assertTrue("route mismatch!",
                           routeHandler.compare(newRoute,

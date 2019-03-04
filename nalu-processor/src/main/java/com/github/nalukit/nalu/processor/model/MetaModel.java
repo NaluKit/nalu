@@ -51,15 +51,17 @@ public class MetaModel {
 
   private boolean hasPluginsAnnotation;
 
-  private boolean havingDebugAnnotation;
+  private boolean hasDebugAnnotation;
+
+  private boolean hasTrackerAnnotation;
+
+  private ClassNameModel tracker;
 
   private String debugLogLevel;
 
   private ClassNameModel debugLogger;
 
   private List<ControllerModel> routes;
-
-  private String hasFiltersAnnotation;
 
   private List<ClassNameModel> filters;
 
@@ -68,6 +70,10 @@ public class MetaModel {
   private ClassNameModel componentType;
 
   private List<CompositeModel> compositeModels;
+
+  /* flag, that indicates, if a Nalu application */
+  /* uses a history token or not.                */
+  private boolean history;
 
   public MetaModel() {
     this.plugins = new ArrayList<>();
@@ -102,12 +108,12 @@ public class MetaModel {
     this.loader = loader;
   }
 
-  public boolean isHavingDebugAnnotation() {
-    return havingDebugAnnotation;
+  public boolean isHasDebugAnnotation() {
+    return hasDebugAnnotation;
   }
 
-  public void setHavingDebugAnnotation(boolean havingDebugAnnotation) {
-    this.havingDebugAnnotation = havingDebugAnnotation;
+  public void setHasDebugAnnotation(boolean hasDebugAnnotation) {
+    this.hasDebugAnnotation = hasDebugAnnotation;
   }
 
   public String getDebugLogLevel() {
@@ -265,6 +271,30 @@ public class MetaModel {
                                                 shellFromRoute.indexOf("/"));
     }
     return shellFromRoute;
+  }
+
+  public boolean hasHistory() {
+    return history;
+  }
+
+  public void setHistory(boolean history) {
+    this.history = history;
+  }
+
+  public boolean hasTrackerAnnotation() {
+    return hasTrackerAnnotation;
+  }
+
+  public void setHasTrackerAnnotation(boolean hasTrackerAnnotation) {
+    this.hasTrackerAnnotation = hasTrackerAnnotation;
+  }
+
+  public ClassNameModel getTracker() {
+    return tracker;
+  }
+
+  public void setTracker(ClassNameModel tracker) {
+    this.tracker = tracker;
   }
 
 }

@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.client.application.IsLogger;
 /**
  * Default implementation of Nalu Logger.
  *
- * @author plcoirier
+ * @author Frank Hossfeld
  */
 public class MockLogger
     implements IsLogger {

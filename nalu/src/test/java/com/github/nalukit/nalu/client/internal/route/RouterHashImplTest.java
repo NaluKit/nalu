@@ -16,8 +16,6 @@
 
 package com.github.nalukit.nalu.client.internal.route;
 
-import static org.junit.Assert.*;
-
 public class RouterHashImplTest {
 
 }

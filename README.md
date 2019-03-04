@@ -12,7 +12,7 @@ Nalu offers the following features:
 
 * Supports HTML links and programmatically routing thanks to a router.
 
-* Full support of the browser's back- forward- and reload-button.
+* Full support of the browser's back- forward- and reload-button (In case the hasHistory-attribute of the `Applilcation`-annotation is set to **true**.
 
 * An optional loader that will be executed at application start to load data from the server.
 
@@ -39,6 +39,8 @@ Nalu offers the following features:
 * works with nearly every widget lib (tested with: GWT, GXT, Domino-UI, Elemento, Elemental2, GWT-Meterial) 
 
 * Supports Maven multi module projects to separate an application in smaller parts (plugin feature)
+
+* Tracks user routing in case a tracker is added
 
 
 ## Basic Concept

@@ -25,6 +25,7 @@ import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.client.plugin.annotation.Plugin;
 import com.github.nalukit.nalu.client.plugin.annotation.Plugins;
+import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
 import com.github.nalukit.nalu.processor.generator.*;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.*;
@@ -85,7 +86,8 @@ public class NaluProcessor
               Handler.class.getCanonicalName(),
               Plugin.class.getCanonicalName(),
               Plugins.class.getCanonicalName(),
-              Shell.class.getCanonicalName()).collect(toSet());
+              Shell.class.getCanonicalName(),
+              Tracker.class.getCanonicalName()).collect(toSet());
   }
 
   @Override
@@ -121,6 +123,9 @@ public class NaluProcessor
             } else if (Debug.class.getCanonicalName()
                                   .equals(annotation.toString())) {
               handleDebugAnnotation(roundEnv);
+            } else if (Tracker.class.getCanonicalName()
+                                    .equals(annotation.toString())) {
+              handleTrackerAnnotation(roundEnv);
             } else if (Filters.class.getCanonicalName()
                                     .equals(annotation.toString())) {
               handleFiltersAnnotation(roundEnv);
@@ -358,7 +363,6 @@ public class NaluProcessor
   private void handleDebugAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     for (Element debugElement : roundEnv.getElementsAnnotatedWith(Debug.class)) {
-      // validate filter element
       DebugAnnotationValidator.builder()
                               .roundEnvironment(roundEnv)
                               .processingEnvironment(processingEnv)
@@ -372,6 +376,27 @@ public class NaluProcessor
                                              .debugElement(debugElement)
                                              .build()
                                              .scan(roundEnv);
+
+    }
+  }
+
+  private void handleTrackerAnnotation(RoundEnvironment roundEnv)
+      throws ProcessorException {
+    for (Element trackerElement : roundEnv.getElementsAnnotatedWith(Tracker.class)) {
+      // validate filter element
+      TrackerAnnotationValidator.builder()
+                                .roundEnvironment(roundEnv)
+                                .processingEnvironment(processingEnv)
+                                .trackerElement(trackerElement)
+                                .build()
+                                .validate();
+      // scan filter element and save data in metaModel
+      this.metaModel = TrackerAnnotationScanner.builder()
+                                               .processingEnvironment(processingEnv)
+                                               .metaModel(this.metaModel)
+                                               .trackerElement(trackerElement)
+                                               .build()
+                                               .scan(roundEnv);
 
     }
   }

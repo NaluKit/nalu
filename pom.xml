@@ -24,7 +24,7 @@
 
   <groupId>com.github.nalukit</groupId>
   <artifactId>nalu-parent</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
   <packaging>pom</packaging>
 
   <name>nalu-parent</name>
@@ -87,7 +87,12 @@
   <properties>
     <github.global.server>github</github.global.server>
 
+    <compile-testing.version>0.15</compile-testing.version>
+    <guava.version>27.0.1-jre</guava.version>
+    <hamcrest-core.version>2.1</hamcrest-core.version>
     <junit.version>4.12</junit.version>
+    <junit-jupiter.version>5.4.0</junit-jupiter.version>
+    <junit-jupiter-platform.version>1.4.0</junit-jupiter-platform.version>
 
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>

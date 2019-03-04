@@ -64,7 +64,7 @@ public class DebugAnnotationScanner {
     // handle debug-annotation
     Debug debugAnnotation = debugElement.getAnnotation(Debug.class);
     if (!isNull(debugAnnotation)) {
-      this.metaModel.setHavingDebugAnnotation(true);
+      this.metaModel.setHasDebugAnnotation(true);
       this.metaModel.setDebugLogLevel(debugAnnotation.logLevel()
                                                      .toString());
       if (!isNull(getLogger(debugAnnotation))) {
@@ -72,7 +72,7 @@ public class DebugAnnotationScanner {
                                                                                    .toString()));
       }
     } else {
-      this.metaModel.setHavingDebugAnnotation(false);
+      this.metaModel.setHasDebugAnnotation(false);
       this.metaModel.setDebugLogLevel("");
       this.metaModel.setDebugLogger(null);
     }

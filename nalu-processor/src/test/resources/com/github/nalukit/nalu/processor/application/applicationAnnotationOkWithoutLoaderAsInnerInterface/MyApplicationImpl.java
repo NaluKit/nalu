@@ -7,6 +7,7 @@ import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
+import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithoutLoaderAsInnerInterface.ApplicationAnnotationOkWithoutLoaderAsInnerInterface.MyApplication;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import java.lang.Override;
@@ -21,6 +22,11 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
 
   @Override
   public void loadDebugConfiguration() {
+  }
+
+  @Override
+  public IsTracker loadTrackerConfiguration() {
+    return null;
   }
 
   @Override
@@ -96,6 +102,11 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
     this.errorRoute = "/mockShell/route01";
     sb01.append("found errorRoute >>/mockShell/route01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
+  }
+
+  @Override
+  public boolean hasHistory() {
+    return true;
   }
 
   @Override

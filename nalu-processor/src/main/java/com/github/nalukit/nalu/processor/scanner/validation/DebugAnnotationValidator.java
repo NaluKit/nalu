@@ -87,7 +87,7 @@ public class DebugAnnotationValidator {
         }
         // @Debug can only be used on a interface that has a @Application annoatation
         if (debugElement.getAnnotation(Application.class) == null) {
-          throw new ProcessorException("Nalu-Processor: @Debug can only be used with an interfaces annotated with IsApplication");
+          throw new ProcessorException("Nalu-Processor: @Debug can only be used with an interfaces annotated with @Application");
         }
         // the loggerinside the annotation must extends IsNaluLogger!
         TypeElement loggerElement = this.getLogger(debugElement.getAnnotation(Debug.class));

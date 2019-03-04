@@ -77,7 +77,7 @@ public class AcceptParameterTest {
 //    Compilation compilation = javac().withProcessors(new NaluProcessor())
 //                                     .compile(new ArrayList<JavaFileObject>() {
 //                                       {
-//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoader/AcceptParameterAnnotationOkWithLoader.java"));
+//                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationWithTracker/AcceptParameterAnnotationOkWithLoader.java"));
 //                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
 //                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockShell.java"));
 //                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
@@ -88,8 +88,8 @@ public class AcceptParameterTest {
 //    CompilationSubject.assertThat(compilation)
 //                      .succeeded();
 //    CompilationSubject.assertThat(compilation)
-//                      .generatedSourceFile("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoader/AcceptParameterAnnotationOkWithLoaderImpl")
-//                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoader/AcceptParameterAnnotationOkWithLoaderImpl.java"));
+//                      .generatedSourceFile("com/github/nalukit/nalu/processor/application/applicationWithTracker/AcceptParameterAnnotationOkWithLoaderImpl")
+//                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationWithTracker/AcceptParameterAnnotationOkWithLoaderImpl.java"));
 //  }
 //
 //  @Test

@@ -91,6 +91,12 @@ public class ApplicationGenerator {
                   .build()
                   .generate();
 
+    TrackerGenerator.builder()
+                    .metaModel(metaModel)
+                    .typeSpec(typeSpec)
+                    .build()
+                    .generate();
+
     ShellGenerator.builder()
                   .metaModel(metaModel)
                   .typeSpec(typeSpec)
@@ -158,6 +164,9 @@ public class ApplicationGenerator {
     generateLoadDefaultsRoutes(typeSpec,
                                metaModel);
 
+    generatHasHistoryMethod(typeSpec,
+                            metaModel);
+
     generateIsUsingHashMethod(typeSpec,
                               metaModel);
 
@@ -178,6 +187,17 @@ public class ApplicationGenerator {
                                    "<< -> exception: " +
                                    e.getMessage());
     }
+  }
+
+  private void generatHasHistoryMethod(TypeSpec.Builder typeSpec,
+                                       MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("hasHistory")
+                                 .addAnnotation(Override.class)
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .returns(boolean.class)
+                                 .addStatement("return $L",
+                                               metaModel.hasHistory() ? "true" : "false")
+                                 .build());
   }
 
   private void generateIsUsingHashMethod(TypeSpec.Builder typeSpec,
