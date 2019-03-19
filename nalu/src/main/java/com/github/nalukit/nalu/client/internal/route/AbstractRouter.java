@@ -882,7 +882,7 @@ abstract class AbstractRouter
     int parameterIndex = 0;
     for (String s : partsOfRoute) {
       sb.append("/");
-      if ("*".equals(s)) {
+      if ("*".equals(s) || s.startsWith(":")) {
         if (Nalu.isUsingColonForParametersInUrl()) {
           sb.append(":");
         }
