@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.client.application;
 
+import com.github.nalukit.nalu.client.Router;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractApplicationLoader<C extends IsContext>
@@ -25,6 +26,9 @@ public abstract class AbstractApplicationLoader<C extends IsContext>
 
   protected SimpleEventBus eventBus;
 
+  protected Router router;
+
+  @Override
   public void setContext(C context) {
     this.context = context;
   }
@@ -32,6 +36,11 @@ public abstract class AbstractApplicationLoader<C extends IsContext>
   @Override
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
+  }
+
+  @Override
+  public void setRouter(Router router) {
+    this.router = router;
   }
 
 }

@@ -163,6 +163,7 @@ public abstract class AbstractApplication<C extends IsContext>
     } else {
       applicationLoader.setContext(this.context);
       applicationLoader.setEventBus(this.eventBus);
+      applicationLoader.setRouter(this.router);
       applicationLoader.load(this::onFinishLoading);
     }
   }
