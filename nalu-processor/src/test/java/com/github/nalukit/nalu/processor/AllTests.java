@@ -16,7 +16,6 @@
 
 package com.github.nalukit.nalu.processor;
 
-import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.MetaModelTest;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModelTest;
 import com.github.nalukit.nalu.processor.test.*;
@@ -40,4 +39,5 @@ import org.junit.runners.Suite;
                       ShellCreatorTest.class,
                       TrackerTest.class })
 public class AllTests {
+
 }

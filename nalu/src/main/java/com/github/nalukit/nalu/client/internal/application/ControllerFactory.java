@@ -53,14 +53,41 @@ public class ControllerFactory {
                                creator);
   }
 
-  public ControllerInstance controller(String controller,
-                                       String... parms)
-      throws RoutingInterceptionException {
+  public void controller(String controller,
+                         ControllerCallback callback,
+                         String... parms) {
     if (this.controllerFactory.containsKey(controller)) {
-      return this.controllerFactory.get(controller)
-                                   .create(parms);
+      IsControllerCreator controllerCreator = this.controllerFactory.get(controller);
+      ControllerInstance controllerInstance = controllerCreator.create();
+      if (controllerInstance.isChached()) {
+        try {
+          controllerCreator.onFinishCreating(controllerInstance.getController(),
+                                             parms);
+          callback.onFishish(controllerInstance);
+        } catch (RoutingInterceptionException e) {
+          callback.onRoutingInterceptionException(e);
+        }
+      } else {
+        controllerCreator.logBindMethodCallToConsole(controllerInstance.getController(),
+                                                     false);
+        try {
+          controllerInstance.getController()
+                            .bind(() -> {
+                              try {
+                                controllerCreator.logBindMethodCallToConsole(controllerInstance.getController(),
+                                                                             true);
+                                controllerCreator.onFinishCreating(controllerInstance.getController(),
+                                                                   parms);
+                                callback.onFishish(controllerInstance);
+                              } catch (RoutingInterceptionException e) {
+                                callback.onRoutingInterceptionException(e);
+                              }
+                            });
+        } catch (RoutingInterceptionException e) {
+          callback.onRoutingInterceptionException(e);
+        }
+      }
     }
-    return null;
   }
 
   public AbstractComponentController<?, ?, ?> getControllerFormStore(String controllerClassName) {

@@ -16,14 +16,20 @@
 
 package com.github.nalukit.nalu.client.internal.application;
 
+import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
-@FunctionalInterface
 public interface IsControllerCreator {
 
-  ControllerInstance create(String... params)
+  ControllerInstance create();
+
+  void onFinishCreating(Object object,
+                        String... parms)
       throws RoutingInterceptionException;
+
+  void logBindMethodCallToConsole(AbstractComponentController<?, ?, ?> controller,
+                                  boolean isFinished);
 
 }

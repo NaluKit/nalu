@@ -317,26 +317,29 @@ abstract class AbstractRouter
   private void handleRouteConfig(RouteConfig routeConfiguraion,
                                  RouteResult routeResult,
                                  String hash) {
-    ControllerInstance controller;
-    try {
-      controller = ControllerFactory.get()
-                                    .controller(routeConfiguraion.getClassName(),
-                                                routeResult.getParameterValues()
-                                                           .toArray(new String[0]));
-    } catch (RoutingInterceptionException e) {
-      RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
-                                                  e.getRoute(),
-                                                  e.getParameter());
-      this.route(e.getRoute(),
-                 true,
-                 e.getParameter());
-      return;
-    }
-    // do the routing ...
-    doRouting(hash,
-              routeResult,
-              routeConfiguraion,
-              controller);
+    ControllerFactory.get()
+                     .controller(routeConfiguraion.getClassName(),
+                                 new ControllerCallback() {
+                                   @Override
+                                   public void onRoutingInterceptionException(RoutingInterceptionException e) {
+                                     RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
+                                                                                 e.getRoute(),
+                                                                                 e.getParameter());
+                                     route(e.getRoute(),
+                                           true,
+                                           e.getParameter());
+                                   }
+
+                                   @Override
+                                   public void onFishish(ControllerInstance controller) {
+                                     doRouting(hash,
+                                               routeResult,
+                                               routeConfiguraion,
+                                               controller);
+                                   }
+                                 },
+                                 routeResult.getParameterValues()
+                                            .toArray(new String[0]));
   }
 
   private void doRouting(String hash,
