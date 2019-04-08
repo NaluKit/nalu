@@ -32,6 +32,7 @@ import com.github.nalukit.nalu.processor.model.intern.*;
 import com.github.nalukit.nalu.processor.scanner.*;
 import com.github.nalukit.nalu.processor.scanner.validation.*;
 import com.google.auto.service.AutoService;
+import com.google.common.base.Stopwatch;
 import com.google.gson.Gson;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -62,10 +63,8 @@ public class NaluProcessor
   private final static String APPLICATION_PROPERTIES = "nalu.properties";
 
   private ProcessorUtils processorUtils;
-
-  private ApplicationAnnotationScanner applicationAnnotationScanner;
-
-  private MetaModel metaModel = new MetaModel();
+  private Stopwatch      stopwatch;
+  private MetaModel      metaModel = new MetaModel();
 
   public NaluProcessor() {
     super();
@@ -93,14 +92,15 @@ public class NaluProcessor
   @Override
   public synchronized void init(ProcessingEnvironment processingEnv) {
     super.init(processingEnv);
-    // set up processor
+    this.stopwatch = Stopwatch.createStarted();
     setUp();
+    this.processorUtils.createNoteMessage("Nalu-Processor started ...");
+    this.processorUtils.createNoteMessage("Nalu-Processor version >>1.2.1-SNAPSHOT<<");
   }
 
   @Override
   public boolean process(Set<? extends TypeElement> annotations,
                          RoundEnvironment roundEnv) {
-    //    processorUtils.createNoteMessage("Nalu-Processor triggered: " + System.currentTimeMillis());
     try {
       if (roundEnv.processingOver()) {
         if (!roundEnv.errorRaised()) {
@@ -108,6 +108,9 @@ public class NaluProcessor
           this.generateLastRound();
           this.store(metaModel);
         }
+        this.processorUtils.createNoteMessage("Nalu-Processor finished ... processing takes: " +
+                                              this.stopwatch.stop()
+                                                            .toString());
       } else {
         if (annotations.size() > 0) {
           for (TypeElement annotation : annotations) {

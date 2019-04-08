@@ -63,7 +63,7 @@ public abstract class AbstractApplication<C extends IsContext>
   /* List of CompositeControllerReferences */
   protected List<CompositeControllerReference> compositeControllerReferences;
   /* Tracker instance */
-  protected IsTracker tracker;
+  protected IsTracker                          tracker;
 
   public AbstractApplication() {
     super();

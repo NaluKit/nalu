@@ -31,27 +31,12 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
 
   /* component of the controller */
   protected V component;
-
-  /**
-   * Sets the component inside the controller
-   * <b>Do not use this method. This will lead to unexpected results</b>
-   *
-   * @param component instance fo the component
-   */
-  @Override
-  public void setComponent(V component) {
-    this.component = component;
-  }
-
   /* list of registered handlers */
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
-
   /* list fo compsite controllers */
   private Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
-
   /* the route the controller is related to */
   private String relatedRoute;
-
   /* flag, if the controller is cached or not */
   private boolean cached;
 
@@ -236,6 +221,17 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
 
   /**
+   * Sets the component inside the controller
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @param component instance fo the component
+   */
+  @Override
+  public void setComponent(V component) {
+    this.component = component;
+  }
+
+  /**
    * The bind-method will be called before the component of the
    * controller is created.
    * <p>
@@ -255,7 +251,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    *
    * @param loader loader to tell Nalu to continue loading the controller
    * @throws RoutingInterceptionException in case the create contrioller
-   * process should be interrupted
+   *                                      process should be interrupted
    */
   @Override
   public void bind(ControllerLoader loader)

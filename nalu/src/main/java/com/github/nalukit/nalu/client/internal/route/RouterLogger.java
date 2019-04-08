@@ -277,24 +277,24 @@ class RouterLogger {
               5);
   }
 
-//  static String logWrongNumberOfParameters(String hash,
-//                                           String route,
-//                                           int sizeParameterConfig,
-//                                           int sizeParameterRoute) {
-//    StringBuilder sb = new StringBuilder();
-//    sb.append("hash >>")
-//      .append(hash)
-//      .append("<< --> found routing >>")
-//      .append(route)
-//      .append("<< -> too much parameters! Expected >>")
-//      .append(sizeParameterConfig)
-//      .append("<< - found >>")
-//      .append(sizeParameterRoute)
-//      .append("<<");
-//    logSimple(sb.toString(),
-//              3);
-//    return sb.toString();
-//  }
+  //  static String logWrongNumberOfParameters(String hash,
+  //                                           String route,
+  //                                           int sizeParameterConfig,
+  //                                           int sizeParameterRoute) {
+  //    StringBuilder sb = new StringBuilder();
+  //    sb.append("hash >>")
+  //      .append(hash)
+  //      .append("<< --> found routing >>")
+  //      .append(route)
+  //      .append("<< -> too much parameters! Expected >>")
+  //      .append(sizeParameterConfig)
+  //      .append("<< - found >>")
+  //      .append(sizeParameterRoute)
+  //      .append("<<");
+  //    logSimple(sb.toString(),
+  //              3);
+  //    return sb.toString();
+  //  }
 
   static String logNoMatchingRoute(String hash) {
     StringBuilder sb = new StringBuilder();

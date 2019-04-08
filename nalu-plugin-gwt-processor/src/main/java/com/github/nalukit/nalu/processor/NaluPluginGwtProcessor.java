@@ -23,11 +23,13 @@ import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorCommand;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorProvider;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.google.auto.service.AutoService;
+import com.google.common.base.Stopwatch;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.squareup.javapoet.*;
 
 import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
@@ -44,12 +46,21 @@ public class NaluPluginGwtProcessor
 
   private static final String IMPL_NAME = "SelectorProviderImpl";
 
-  private ProcessorUtils processorUtils;
-
+  private ProcessorUtils                        processorUtils;
+  private Stopwatch                             stopwatch;
   private Map<Element, List<SelectorMetaModel>> models;
 
   public NaluPluginGwtProcessor() {
     super();
+  }
+
+  @Override
+  public synchronized void init(ProcessingEnvironment processingEnv) {
+    super.init(processingEnv);
+    this.stopwatch = Stopwatch.createStarted();
+    setUp();
+    this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor started ...");
+    this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor version >>1.2.1-SNAPSHOT<<");
   }
 
   @Override
@@ -65,10 +76,12 @@ public class NaluPluginGwtProcessor
   @Override
   public boolean process(Set<? extends TypeElement> annotations,
                          RoundEnvironment roundEnv) {
-    setUp(roundEnv);
-    processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor triggered: " + System.currentTimeMillis());
     try {
-      if (!roundEnv.processingOver()) {
+      if (roundEnv.processingOver()) {
+        this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor finished ... processing takes: " +
+                                              this.stopwatch.stop()
+                                                            .toString());
+      } else {
         for (TypeElement annotation : annotations) {
           for (Element element : roundEnv.getElementsAnnotatedWith(Selector.class)) {
             validate(element);
@@ -96,7 +109,7 @@ public class NaluPluginGwtProcessor
     return true;
   }
 
-  private void setUp(RoundEnvironment roundEnv) {
+  private void setUp() {
     this.models = new HashMap<>();
 
     this.processorUtils = ProcessorUtils.builder()

@@ -19,7 +19,6 @@ import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.client.tracker.AbstractTracker;
-import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
@@ -34,7 +33,7 @@ import java.util.Set;
 
 public class TrackerAnnotationValidator {
 
-  Element trackerElement;
+  private Element trackerElement;
 
   private ProcessorUtils processorUtils;
 
