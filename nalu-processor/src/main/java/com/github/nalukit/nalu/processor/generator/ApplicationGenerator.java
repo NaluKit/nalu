@@ -83,15 +83,28 @@ public class ApplicationGenerator {
                                                               .getPackage(),
                                                      metaModel.getContext()
                                                               .getSimpleName())
-                                       .addStatement("$T sb01 = new $T()",
-                                                     ClassName.get(StringBuilder.class),
-                                                     ClassName.get(StringBuilder.class))
-                                       .addStatement("sb01.append(\"Nalu processor version  >>$L<< used to generate this source\")",
-                                                     ProcessorVersion.PROCESSOR_VERSION)
-                                       .addStatement("$T.get().logDetailed(sb01.toString(), 0)",
-                                                     ClassName.get(ClientLogger.class))
                                        .build();
     typeSpec.addMethod(constructor);
+
+    typeSpec.addMethod(MethodSpec.methodBuilder("logProcessorVersion")
+                                 .addAnnotation(ClassName.get(Override.class))
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .addStatement("$T.get().logDetailed(\"\", 0)",
+                                               ClassName.get(ClientLogger.class))
+                                 .addStatement("$T.get().logDetailed(\"=================================================================================\", 0)",
+                                               ClassName.get(ClientLogger.class))
+                                 .addStatement("$T sb01 = new $T()",
+                                               ClassName.get(StringBuilder.class),
+                                               ClassName.get(StringBuilder.class))
+                                 .addStatement("sb01.append(\"Nalu processor version  >>$L<< used to generate this source\")",
+                                               ProcessorVersion.PROCESSOR_VERSION)
+                                 .addStatement("$T.get().logDetailed(sb01.toString(), 0)",
+                                               ClassName.get(ClientLogger.class))
+                                 .addStatement("$T.get().logDetailed(\"=================================================================================\", 0)",
+                                               ClassName.get(ClientLogger.class))
+                                 .addStatement("$T.get().logDetailed(\"\", 0)",
+                                               ClassName.get(ClientLogger.class))
+                                 .build());
 
     DebugGenerator.builder()
                   .metaModel(metaModel)

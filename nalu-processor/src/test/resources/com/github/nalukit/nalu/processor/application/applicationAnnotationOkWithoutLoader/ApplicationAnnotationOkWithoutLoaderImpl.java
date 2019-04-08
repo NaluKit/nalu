@@ -17,9 +17,17 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
   public ApplicationAnnotationOkWithoutLoaderImpl() {
     super();
     super.context = new com.github.nalukit.nalu.processor.common.MockContext();
+  }
+
+  @Override
+  public void logProcessorVersion() {
+    ClientLogger.get().logDetailed("", 0);
+    ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
     sb01.append("Nalu processor version  >>1.2.1-SNAPSHOT<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
+    ClientLogger.get().logDetailed("=================================================================================", 0);
+    ClientLogger.get().logDetailed("", 0);
   }
 
   @Override

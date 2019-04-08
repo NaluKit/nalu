@@ -74,6 +74,8 @@ public abstract class AbstractApplication<C extends IsContext>
   public void run(IsNaluProcessorPlugin plugin) {
     // save the plugin
     this.plugin = plugin;
+    // first load the debug configuration
+    this.loadDebugConfiguration();
     // debug message
     ClientLogger.get()
                 .logDetailed("=================================================================================",
@@ -84,12 +86,15 @@ public abstract class AbstractApplication<C extends IsContext>
     ClientLogger.get()
                 .logDetailed("=================================================================================",
                              0);
+    // log processsor version
+    this.logProcessorVersion();
+    ClientLogger.get()
+                .logDetailed("",
+                             0);
     // debug message
     ClientLogger.get()
                 .logSimple("AbstractApplication: application is started!",
                            0);
-    // first load the debug configuration
-    this.loadDebugConfiguration();
     // instantiate necessary classes
     this.eventBus = new SimpleEventBus();
     this.shellConfiguration = new ShellConfiguration();
@@ -167,6 +172,8 @@ public abstract class AbstractApplication<C extends IsContext>
       applicationLoader.load(this::onFinishLoading);
     }
   }
+
+  protected abstract void logProcessorVersion();
 
   protected abstract void loadPlugins();
 

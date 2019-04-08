@@ -59,6 +59,10 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
   }
 
   @Override
+  protected void logProcessorVersion() {
+  }
+
+  @Override
   protected void loadPlugins() {
 
   }
