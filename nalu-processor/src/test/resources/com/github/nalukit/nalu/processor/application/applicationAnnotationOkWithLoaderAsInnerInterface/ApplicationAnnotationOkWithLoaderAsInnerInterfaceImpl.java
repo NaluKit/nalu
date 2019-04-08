@@ -18,6 +18,12 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   public ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl() {
     super();
     super.context = new com.github.nalukit.nalu.processor.common.MockContext();
+    StringBuilder sb01 = new StringBuilder();
+    sb01.append("Nalu processor version  >>1.2.1-SNAPSHOT<< used to generate this source");
+    ClientLogger.get().logDetailed(sb01.toString(), 0);
+
+
+
   }
 
   @Override
