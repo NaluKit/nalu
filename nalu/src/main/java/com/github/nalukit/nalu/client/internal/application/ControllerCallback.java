@@ -6,6 +6,6 @@ public interface ControllerCallback {
 
   void onRoutingInterceptionException(RoutingInterceptionException e);
 
-  void onFishish(ControllerInstance controllerInstance);
+  void onFinish(ControllerInstance controllerInstance);
 
 }

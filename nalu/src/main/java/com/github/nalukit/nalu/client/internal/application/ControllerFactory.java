@@ -63,7 +63,7 @@ public class ControllerFactory {
         try {
           controllerCreator.onFinishCreating(controllerInstance.getController(),
                                              parms);
-          callback.onFishish(controllerInstance);
+          callback.onFinish(controllerInstance);
         } catch (RoutingInterceptionException e) {
           callback.onRoutingInterceptionException(e);
         }
@@ -78,7 +78,7 @@ public class ControllerFactory {
                                                                              true);
                                 controllerCreator.onFinishCreating(controllerInstance.getController(),
                                                                    parms);
-                                callback.onFishish(controllerInstance);
+                                callback.onFinish(controllerInstance);
                               } catch (RoutingInterceptionException e) {
                                 callback.onRoutingInterceptionException(e);
                               }

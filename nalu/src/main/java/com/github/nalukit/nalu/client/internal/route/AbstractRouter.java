@@ -399,7 +399,7 @@ abstract class AbstractRouter
                                    }
 
                                    @Override
-                                   public void onFishish(ControllerInstance controller) {
+                                   public void onFinish(ControllerInstance controller) {
                                      doRouting(hash,
                                                routeResult,
                                                routeConfiguraion,
