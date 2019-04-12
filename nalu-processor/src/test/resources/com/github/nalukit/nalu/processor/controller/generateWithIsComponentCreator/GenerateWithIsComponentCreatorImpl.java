@@ -20,6 +20,17 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
   }
 
   @Override
+  public void logProcessorVersion() {
+    ClientLogger.get().logDetailed("", 0);
+    ClientLogger.get().logDetailed("=================================================================================", 0);
+    StringBuilder sb01 = new StringBuilder();
+    sb01.append("Nalu processor version  >>1.2.1<< used to generate this source");
+    ClientLogger.get().logDetailed(sb01.toString(), 0);
+    ClientLogger.get().logDetailed("=================================================================================", 0);
+    ClientLogger.get().logDetailed("", 0);
+  }
+
+  @Override
   public void loadDebugConfiguration() {
   }
 

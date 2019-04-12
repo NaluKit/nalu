@@ -63,7 +63,7 @@ public abstract class AbstractApplication<C extends IsContext>
   /* List of CompositeControllerReferences */
   protected List<CompositeControllerReference> compositeControllerReferences;
   /* Tracker instance */
-  protected IsTracker tracker;
+  protected IsTracker                          tracker;
 
   public AbstractApplication() {
     super();
@@ -74,6 +74,8 @@ public abstract class AbstractApplication<C extends IsContext>
   public void run(IsNaluProcessorPlugin plugin) {
     // save the plugin
     this.plugin = plugin;
+    // first load the debug configuration
+    this.loadDebugConfiguration();
     // debug message
     ClientLogger.get()
                 .logDetailed("=================================================================================",
@@ -84,12 +86,15 @@ public abstract class AbstractApplication<C extends IsContext>
     ClientLogger.get()
                 .logDetailed("=================================================================================",
                              0);
+    // log processsor version
+    this.logProcessorVersion();
+    ClientLogger.get()
+                .logDetailed("",
+                             0);
     // debug message
     ClientLogger.get()
                 .logSimple("AbstractApplication: application is started!",
                            0);
-    // first load the debug configuration
-    this.loadDebugConfiguration();
     // instantiate necessary classes
     this.eventBus = new SimpleEventBus();
     this.shellConfiguration = new ShellConfiguration();
@@ -163,9 +168,12 @@ public abstract class AbstractApplication<C extends IsContext>
     } else {
       applicationLoader.setContext(this.context);
       applicationLoader.setEventBus(this.eventBus);
+      applicationLoader.setRouter(this.router);
       applicationLoader.load(this::onFinishLoading);
     }
   }
+
+  protected abstract void logProcessorVersion();
 
   protected abstract void loadPlugins();
 

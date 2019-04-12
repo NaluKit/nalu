@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.internal;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
 import org.gwtproject.event.shared.SimpleEventBus;
@@ -41,6 +42,23 @@ public abstract class AbstractControllerCreator<C extends IsContext>
     this.router = router;
     this.context = context;
     this.eventBus = eventBus;
+  }
+
+  @Override
+  public void logBindMethodCallToConsole(AbstractComponentController<?, ?, ?> controller,
+                                         boolean isFinished) {
+    StringBuilder sb = new StringBuilder();
+    sb.append("controller >>")
+      .append(controller.getClass()
+                        .getCanonicalName());
+    if (isFinished) {
+      sb.append("<< --> bind method called");
+    } else {
+      sb.append("<< --> call bind method");
+    }
+    ClientLogger.get()
+                .logDetailed(sb.toString(),
+                             4);
   }
 
 }

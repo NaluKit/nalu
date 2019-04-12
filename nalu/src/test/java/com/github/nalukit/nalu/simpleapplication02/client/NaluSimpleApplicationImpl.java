@@ -56,6 +56,11 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
   }
 
   @Override
+  protected void logProcessorVersion() {
+
+  }
+
+  @Override
   protected void loadPlugins() {
   }
 
@@ -94,281 +99,281 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
     shell.bind();
     ClientLogger.get().logDetailed("AbstractApplicationImpl: shellCreator created", 1);
     // create ControllerCreator for: NavigationController
-    ControllerFactory.get().registerController("NavigationController", new IsControllerCreator() {
-      @Override
-      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
-        StringBuilder sb01 = new StringBuilder();
-        ControllerInstance controllerInstance = new ControllerInstance();
-        controllerInstance.setControllerClassName("NavigationController");
-        AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("NavigationController");
-        if (storedController == null) {
-          sb01.append("controller >>NavigationController<< --> will be created");
-          ClientLogger.get().logSimple(sb01.toString(), 1);
-          NavigationController controller = new NavigationController();
-          controllerInstance.setController(controller);
-          controllerInstance.setChached(false);
-          controller.setContext(context);
-          controller.setEventBus(eventBus);
-          controller.setRouter(router);
-          controller.setCached(false);
-          sb01 = new StringBuilder();
-          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          INavigationComponent component = new NavigationComponent();
-          component.setController(controller);
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> created and controller instance injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          controller.setComponent(component);
-          sb01 = new StringBuilder();
-          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> instance of >>").append(component.getClass().getCanonicalName()).append("<< injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          component.render();
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> rendered");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          component.bind();
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          ClientLogger.get().logSimple("controller >>NavigationComponent<< created for route >>/<<", 1);
-        } else {
-          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          controllerInstance.setController(storedController);
-          controllerInstance.setChached(true);
-        }
-        return controllerInstance;
-      }
-    });
+//    ControllerFactory.get().registerController("NavigationController", new IsControllerCreator() {
+//      @Override
+//      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
+//        StringBuilder sb01 = new StringBuilder();
+//        ControllerInstance controllerInstance = new ControllerInstance();
+//        controllerInstance.setControllerClassName("NavigationController");
+//        AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("NavigationController");
+//        if (storedController == null) {
+//          sb01.append("controller >>NavigationController<< --> will be created");
+//          ClientLogger.get().logSimple(sb01.toString(), 1);
+//          NavigationController controller = new NavigationController();
+//          controllerInstance.setController(controller);
+//          controllerInstance.setChached(false);
+//          controller.setContext(context);
+//          controller.setEventBus(eventBus);
+//          controller.setRouter(router);
+//          controller.setCached(false);
+//          sb01 = new StringBuilder();
+//          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          INavigationComponent component = new NavigationComponent();
+//          component.setController(controller);
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> created and controller instance injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          controller.setComponent(component);
+//          sb01 = new StringBuilder();
+//          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> instance of >>").append(component.getClass().getCanonicalName()).append("<< injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          component.render();
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> rendered");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          component.bind();
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          ClientLogger.get().logSimple("controller >>NavigationComponent<< created for route >>/<<", 1);
+//        } else {
+//          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          controllerInstance.setController(storedController);
+//          controllerInstance.setChached(true);
+//        }
+//        return controllerInstance;
+//      }
+//    });
     // create ControllerCreator for: DetailController
-    ControllerFactory.get().registerController("DetailController", new IsControllerCreator() {
-      @Override
-      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
-        StringBuilder sb01 = new StringBuilder();
-        ControllerInstance controllerInstance = new ControllerInstance();
-        controllerInstance.setControllerClassName("com.github.nalukit.nalu.simpleapplication.client.ui.detail.DetailController");
-        AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("DetailController");
-        if (storedController == null) {
-          sb01.append("controller >>DetailController<< --> will be created");
-          ClientLogger.get().logSimple(sb01.toString(), 1);
-          DetailController controller = new DetailController();
-          controllerInstance.setController(controller);
-          controllerInstance.setChached(false);
-          controller.setContext(context);
-          controller.setEventBus(eventBus);
-          controller.setRouter(router);
-          controller.setCached(false);
-          sb01 = new StringBuilder();
-          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          IDetailComponent component = new DetailComponent();
-          component.setController(controller);
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> created and controller instance injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          controller.setComponent(component);
-          sb01 = new StringBuilder();
-          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> instance of >>").append(component.getClass().getCanonicalName()).append("<< injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          component.render();
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> rendered");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          component.bind();
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          ClientLogger.get().logSimple("controller >>DetailComponent<< created for route >>/detail<<", 1);
-          if (parms != null) {
-            if (parms.length >= 1) {
-              sb01 = new StringBuilder();
-              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setId<< to set value >>").append(parms[0]).append("<<");
-              ClientLogger.get().logDetailed(sb01.toString(), 2);
-              controller.setId(parms[0]);
-            }
-          }
-        } else {
-          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          controllerInstance.setController(storedController);
-          controllerInstance.setChached(true);
-        }
-        return controllerInstance;
-      }
-    });
-    // create ControllerCreator for: ListController
-    ControllerFactory.get().registerController("ListController", new IsControllerCreator() {
-      @Override
-      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
-        StringBuilder sb01 = new StringBuilder();
-        ControllerInstance controllerInstance = new ControllerInstance();
-        controllerInstance.setControllerClassName("com.github.nalukit.nalu.simpleapplication.client.ui.list.ListController");
-        AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("ListController");
-        if (storedController == null) {
-          sb01.append("controller >>ListController<< --> will be created");
-          ClientLogger.get().logSimple(sb01.toString(), 1);
-          ListController controller = new ListController();
-          controllerInstance.setController(controller);
-          controllerInstance.setChached(false);
-          controller.setContext(context);
-          controller.setEventBus(eventBus);
-          controller.setRouter(router);
-          controller.setCached(false);
-          sb01 = new StringBuilder();
-          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          IListComponent component = new ListComponent();
-          component.setController(controller);
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> created and controller instance injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          controller.setComponent(component);
-          sb01 = new StringBuilder();
-          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> instance of >>").append(component.getClass().getCanonicalName()).append("<< injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          component.render();
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> rendered");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          component.bind();
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          ClientLogger.get().logSimple("controller >>ListComponent<< created for route >>/list<<", 1);
-          if (parms != null) {
-            if (parms.length >= 1) {
-              sb01 = new StringBuilder();
-              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setName<< to set value >>").append(parms[0]).append("<<");
-              ClientLogger.get().logDetailed(sb01.toString(), 2);
-              controller.setName(parms[0]);
-            }
-            if (parms.length >= 2) {
-              sb01 = new StringBuilder();
-              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setCity<< to set value >>").append(parms[1]).append("<<");
-              ClientLogger.get().logDetailed(sb01.toString(), 2);
-              controller.setCity(parms[1]);
-            }
-          }
-        } else {
-          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          controllerInstance.setController(storedController);
-          controllerInstance.setChached(true);
-        }
-        return controllerInstance;
-      }
-    });
-    // create ControllerCreator for: FooterController
-    ControllerFactory.get().registerController("FooterController", new IsControllerCreator() {
-      @Override
-      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
-        StringBuilder sb01 = new StringBuilder();
-        ControllerInstance controllerInstance = new ControllerInstance();
-        controllerInstance.setControllerClassName("FooterController");
-        AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("FooterController");
-        if (storedController == null) {
-          sb01.append("controller >>FooterController<< --> will be created");
-          ClientLogger.get().logSimple(sb01.toString(), 1);
-          FooterController controller = new FooterController();
-          controllerInstance.setController(controller);
-          controllerInstance.setChached(false);
-          controller.setContext(context);
-          controller.setEventBus(eventBus);
-          controller.setRouter(router);
-          controller.setCached(false);
-          sb01 = new StringBuilder();
-          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          IFooterComponent component = new FooterComponent();
-          component.setController(controller);
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> created and controller instance injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          controller.setComponent(component);
-          sb01 = new StringBuilder();
-          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> instance of >>").append(component.getClass().getCanonicalName()).append("<< injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          component.render();
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> rendered");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          component.bind();
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          ClientLogger.get().logSimple("controller >>FooterComponent<< created for route >>/<<", 1);
-        } else {
-          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          controllerInstance.setController(storedController);
-          controllerInstance.setChached(true);
-        }
-        return controllerInstance;
-      }
-    });
-    // create ControllerCreator for: SearchController
-    ControllerFactory.get().registerController("SearchController", new IsControllerCreator() {
-      @Override
-      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
-        StringBuilder sb01 = new StringBuilder();
-        ControllerInstance controllerInstance = new ControllerInstance();
-        controllerInstance.setControllerClassName("com.github.nalukit.nalu.simpleapplication.client.ui.search.SearchController");
-        AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("SearchController");
-        if (storedController == null) {
-          sb01.append("controller >>SearchController<< --> will be created");
-          ClientLogger.get().logSimple(sb01.toString(), 1);
-          SearchController controller = new SearchController();
-          controllerInstance.setController(controller);
-          controllerInstance.setChached(false);
-          controller.setContext(context);
-          controller.setEventBus(eventBus);
-          controller.setRouter(router);
-          controller.setCached(false);
-          sb01 = new StringBuilder();
-          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          ISearchComponent component = new SearchComponent();
-          component.setController(controller);
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> created and controller instance injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          controller.setComponent(component);
-          sb01 = new StringBuilder();
-          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> instance of >>").append(component.getClass().getCanonicalName()).append("<< injected");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          component.render();
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> rendered");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          component.bind();
-          sb01 = new StringBuilder();
-          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          ClientLogger.get().logSimple("controller >>SearchComponent<< created for route >>/search<<", 1);
-          if (parms != null) {
-            if (parms.length >= 1) {
-              sb01 = new StringBuilder();
-              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setSearchName<< to set value >>").append(parms[0]).append("<<");
-              ClientLogger.get().logDetailed(sb01.toString(), 2);
-              controller.setSearchName(parms[0]);
-            }
-            if (parms.length >= 2) {
-              sb01 = new StringBuilder();
-              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setSearchCity<< to set value >>").append(parms[1]).append("<<");
-              ClientLogger.get().logDetailed(sb01.toString(), 2);
-              controller.setSearchCity(parms[1]);
-            }
-          }
-        } else {
-          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
-          ClientLogger.get().logDetailed(sb01.toString(), 2);
-          controllerInstance.setController(storedController);
-          controllerInstance.setChached(true);
-        }
-        return controllerInstance;
-      }
-    });
+//    ControllerFactory.get().registerController("DetailController", new IsControllerCreator() {
+//      @Override
+//      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
+//        StringBuilder sb01 = new StringBuilder();
+//        ControllerInstance controllerInstance = new ControllerInstance();
+//        controllerInstance.setControllerClassName("com.github.nalukit.nalu.simpleapplication.client.ui.detail.DetailController");
+//        AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("DetailController");
+//        if (storedController == null) {
+//          sb01.append("controller >>DetailController<< --> will be created");
+//          ClientLogger.get().logSimple(sb01.toString(), 1);
+//          DetailController controller = new DetailController();
+//          controllerInstance.setController(controller);
+//          controllerInstance.setChached(false);
+//          controller.setContext(context);
+//          controller.setEventBus(eventBus);
+//          controller.setRouter(router);
+//          controller.setCached(false);
+//          sb01 = new StringBuilder();
+//          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          IDetailComponent component = new DetailComponent();
+//          component.setController(controller);
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> created and controller instance injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          controller.setComponent(component);
+//          sb01 = new StringBuilder();
+//          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> instance of >>").append(component.getClass().getCanonicalName()).append("<< injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          component.render();
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> rendered");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          component.bind();
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          ClientLogger.get().logSimple("controller >>DetailComponent<< created for route >>/detail<<", 1);
+//          if (parms != null) {
+//            if (parms.length >= 1) {
+//              sb01 = new StringBuilder();
+//              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setId<< to set value >>").append(parms[0]).append("<<");
+//              ClientLogger.get().logDetailed(sb01.toString(), 2);
+//              controller.setId(parms[0]);
+//            }
+//          }
+//        } else {
+//          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          controllerInstance.setController(storedController);
+//          controllerInstance.setChached(true);
+//        }
+//        return controllerInstance;
+//      }
+//    });
+//    // create ControllerCreator for: ListController
+//    ControllerFactory.get().registerController("ListController", new IsControllerCreator() {
+//      @Override
+//      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
+//        StringBuilder sb01 = new StringBuilder();
+//        ControllerInstance controllerInstance = new ControllerInstance();
+//        controllerInstance.setControllerClassName("com.github.nalukit.nalu.simpleapplication.client.ui.list.ListController");
+//        AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("ListController");
+//        if (storedController == null) {
+//          sb01.append("controller >>ListController<< --> will be created");
+//          ClientLogger.get().logSimple(sb01.toString(), 1);
+//          ListController controller = new ListController();
+//          controllerInstance.setController(controller);
+//          controllerInstance.setChached(false);
+//          controller.setContext(context);
+//          controller.setEventBus(eventBus);
+//          controller.setRouter(router);
+//          controller.setCached(false);
+//          sb01 = new StringBuilder();
+//          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          IListComponent component = new ListComponent();
+//          component.setController(controller);
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> created and controller instance injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          controller.setComponent(component);
+//          sb01 = new StringBuilder();
+//          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> instance of >>").append(component.getClass().getCanonicalName()).append("<< injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          component.render();
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> rendered");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          component.bind();
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          ClientLogger.get().logSimple("controller >>ListComponent<< created for route >>/list<<", 1);
+//          if (parms != null) {
+//            if (parms.length >= 1) {
+//              sb01 = new StringBuilder();
+//              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setName<< to set value >>").append(parms[0]).append("<<");
+//              ClientLogger.get().logDetailed(sb01.toString(), 2);
+//              controller.setName(parms[0]);
+//            }
+//            if (parms.length >= 2) {
+//              sb01 = new StringBuilder();
+//              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setCity<< to set value >>").append(parms[1]).append("<<");
+//              ClientLogger.get().logDetailed(sb01.toString(), 2);
+//              controller.setCity(parms[1]);
+//            }
+//          }
+//        } else {
+//          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          controllerInstance.setController(storedController);
+//          controllerInstance.setChached(true);
+//        }
+//        return controllerInstance;
+//      }
+//    });
+//    // create ControllerCreator for: FooterController
+//    ControllerFactory.get().registerController("FooterController", new IsControllerCreator() {
+//      @Override
+//      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
+//        StringBuilder sb01 = new StringBuilder();
+//        ControllerInstance controllerInstance = new ControllerInstance();
+//        controllerInstance.setControllerClassName("FooterController");
+//        AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("FooterController");
+//        if (storedController == null) {
+//          sb01.append("controller >>FooterController<< --> will be created");
+//          ClientLogger.get().logSimple(sb01.toString(), 1);
+//          FooterController controller = new FooterController();
+//          controllerInstance.setController(controller);
+//          controllerInstance.setChached(false);
+//          controller.setContext(context);
+//          controller.setEventBus(eventBus);
+//          controller.setRouter(router);
+//          controller.setCached(false);
+//          sb01 = new StringBuilder();
+//          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          IFooterComponent component = new FooterComponent();
+//          component.setController(controller);
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> created and controller instance injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          controller.setComponent(component);
+//          sb01 = new StringBuilder();
+//          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> instance of >>").append(component.getClass().getCanonicalName()).append("<< injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          component.render();
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> rendered");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          component.bind();
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          ClientLogger.get().logSimple("controller >>FooterComponent<< created for route >>/<<", 1);
+//        } else {
+//          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          controllerInstance.setController(storedController);
+//          controllerInstance.setChached(true);
+//        }
+//        return controllerInstance;
+//      }
+//    });
+//    // create ControllerCreator for: SearchController
+//    ControllerFactory.get().registerController("SearchController", new IsControllerCreator() {
+//      @Override
+//      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
+//        StringBuilder sb01 = new StringBuilder();
+//        ControllerInstance controllerInstance = new ControllerInstance();
+//        controllerInstance.setControllerClassName("com.github.nalukit.nalu.simpleapplication.client.ui.search.SearchController");
+//        AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("SearchController");
+//        if (storedController == null) {
+//          sb01.append("controller >>SearchController<< --> will be created");
+//          ClientLogger.get().logSimple(sb01.toString(), 1);
+//          SearchController controller = new SearchController();
+//          controllerInstance.setController(controller);
+//          controllerInstance.setChached(false);
+//          controller.setContext(context);
+//          controller.setEventBus(eventBus);
+//          controller.setRouter(router);
+//          controller.setCached(false);
+//          sb01 = new StringBuilder();
+//          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          ISearchComponent component = new SearchComponent();
+//          component.setController(controller);
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> created and controller instance injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          controller.setComponent(component);
+//          sb01 = new StringBuilder();
+//          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> instance of >>").append(component.getClass().getCanonicalName()).append("<< injected");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          component.render();
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> rendered");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          component.bind();
+//          sb01 = new StringBuilder();
+//          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          ClientLogger.get().logSimple("controller >>SearchComponent<< created for route >>/search<<", 1);
+//          if (parms != null) {
+//            if (parms.length >= 1) {
+//              sb01 = new StringBuilder();
+//              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setSearchName<< to set value >>").append(parms[0]).append("<<");
+//              ClientLogger.get().logDetailed(sb01.toString(), 2);
+//              controller.setSearchName(parms[0]);
+//            }
+//            if (parms.length >= 2) {
+//              sb01 = new StringBuilder();
+//              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setSearchCity<< to set value >>").append(parms[1]).append("<<");
+//              ClientLogger.get().logDetailed(sb01.toString(), 2);
+//              controller.setSearchCity(parms[1]);
+//            }
+//          }
+//        } else {
+//          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
+//          ClientLogger.get().logDetailed(sb01.toString(), 2);
+//          controllerInstance.setController(storedController);
+//          controllerInstance.setChached(true);
+//        }
+//        return controllerInstance;
+//      }
+//    });
   }
 
   @Override

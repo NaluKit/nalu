@@ -44,12 +44,14 @@ abstract class AbstractRouter
 
   private static final String NALU_ERROR_TYPE_NO_SELECTOR_FOUND = "NoSelectorFound";
 
-  private static final String NALU_ERROR_TYPE_LOOP_DETECTED = "RoutingLoopDEtected";
+  private static final String NALU_ERROR_TYPE_LOOP_DETECTED = "RoutingLoopDetected";
 
   // the plugin
   IsNaluProcessorPlugin plugin;
   // route in case of route error
   private String                                            routeError;
+  // the latest error object (set by the application
+  private NaluErrorMessage                                  applicationErrorMessage;
   // the latest error object
   private NaluErrorMessage                                  naluErrorMessage;
   // composite configuration
@@ -100,6 +102,50 @@ abstract class AbstractRouter
   }
 
   /**
+   * Returns the last error message set by the application.
+   * <p>
+   * Once the error message is consumed, it should be reseted by the developer.
+   * (after displayed on the error site!)
+   *
+   * @return the last set error message or null, if there is none
+   */
+  public NaluErrorMessage getApplicationErrorMessage() {
+    return applicationErrorMessage;
+  }
+
+  /**
+   * Sets the application error message.
+   * <p>
+   *
+   * @param applicationErrorMessage the new applicaiton error message
+   */
+  public void setApplicationErrorMessage(NaluErrorMessage applicationErrorMessage) {
+    this.applicationErrorMessage = applicationErrorMessage;
+  }
+
+  /**
+   * Clears the application error message.
+   * <p>
+   * Should be called after the error message is displayed!
+   */
+  public void clearApplicationErrorMessage() {
+    this.applicationErrorMessage = null;
+  }
+
+  /**
+   * Sets the application error message.
+   * <p>
+   *
+   * @param errorType    a String that indicates the type of the error (value is to set by the developer)
+   * @param errorMessage the error message that should be displayed
+   */
+  public void setApplicationErrorMessage(String errorType,
+                                         String errorMessage) {
+    this.applicationErrorMessage = new NaluErrorMessage(errorType,
+                                                        errorMessage);
+  }
+
+  /**
    * Returns the last error message set by Nalu.
    * <p>
    * Once the error message is consumed, it should be reseted by the developer.
@@ -118,6 +164,28 @@ abstract class AbstractRouter
    */
   public void clearNaluErrorMessage() {
     this.naluErrorMessage = null;
+  }
+
+  /**
+   * Returns the last error message set by Nalu or application.
+   * <p>
+   * In case a error message is set by Nalu and by the application,
+   * this method will return the error message set by Nalu.
+   * <p>
+   * Once the error message is consumed, it should be reseted by the developer.
+   * (after displayed on the error site!)
+   *
+   * @return the last set error message set by thel application
+   * or null, if there is none
+   */
+  public NaluErrorMessage getErrorMessageByPriority() {
+    if (!Objects.isNull(this.naluErrorMessage)) {
+      return this.naluErrorMessage;
+    } else if (!Objects.isNull(this.applicationErrorMessage)) {
+      return this.applicationErrorMessage;
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -317,26 +385,29 @@ abstract class AbstractRouter
   private void handleRouteConfig(RouteConfig routeConfiguraion,
                                  RouteResult routeResult,
                                  String hash) {
-    ControllerInstance controller;
-    try {
-      controller = ControllerFactory.get()
-                                    .controller(routeConfiguraion.getClassName(),
-                                                routeResult.getParameterValues()
-                                                           .toArray(new String[0]));
-    } catch (RoutingInterceptionException e) {
-      RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
-                                                  e.getRoute(),
-                                                  e.getParameter());
-      this.route(e.getRoute(),
-                 true,
-                 e.getParameter());
-      return;
-    }
-    // do the routing ...
-    doRouting(hash,
-              routeResult,
-              routeConfiguraion,
-              controller);
+    ControllerFactory.get()
+                     .controller(routeConfiguraion.getClassName(),
+                                 new ControllerCallback() {
+                                   @Override
+                                   public void onRoutingInterceptionException(RoutingInterceptionException e) {
+                                     RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
+                                                                                 e.getRoute(),
+                                                                                 e.getParameter());
+                                     route(e.getRoute(),
+                                           true,
+                                           e.getParameter());
+                                   }
+
+                                   @Override
+                                   public void onFinish(ControllerInstance controller) {
+                                     doRouting(hash,
+                                               routeResult,
+                                               routeConfiguraion,
+                                               controller);
+                                   }
+                                 },
+                                 routeResult.getParameterValues()
+                                            .toArray(new String[0]));
   }
 
   private void doRouting(String hash,
@@ -882,7 +953,7 @@ abstract class AbstractRouter
     int parameterIndex = 0;
     for (String s : partsOfRoute) {
       sb.append("/");
-      if ("*".equals(s)) {
+      if ("*".equals(s) || s.startsWith(":")) {
         if (Nalu.isUsingColonForParametersInUrl()) {
           sb.append(":");
         }

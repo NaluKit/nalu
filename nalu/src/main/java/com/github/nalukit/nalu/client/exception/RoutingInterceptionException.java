@@ -26,6 +26,13 @@ public class RoutingInterceptionException
 
   private String[] parameter;
 
+  /**
+   * create a RoutingInterceptionException
+   *
+   * @param controllerClassName name of the class of the controller that intercepts the routing
+   * @param route               new route
+   * @param parameter           new parameters
+   */
   public RoutingInterceptionException(String controllerClassName,
                                       String route,
                                       String... parameter) {
@@ -34,6 +41,11 @@ public class RoutingInterceptionException
     this.parameter = parameter;
   }
 
+  /**
+   * Returns the name of the controller class that intercepts the routing
+   *
+   * @return class name of the intercepting controller
+   */
   public String getControllerClassName() {
     return controllerClassName;
   }

@@ -91,36 +91,36 @@ public class RouterUtils {
           }
         }
         if (partsOfRoute.length - 1 == i) {
-          if (partsOfWithRoute.length > partsOfRoute.length){
+          if (partsOfWithRoute.length > partsOfRoute.length) {
             return RouterUtils.onlyParameterAddEnd(partsOfWithRoute,
                                                    i + 1);
           }
         }
       }
-//
-//      for (int i = 0; i < partsOfWithRoute.length; i++) {
-//        if (partsOfRoute.length < i + 1) {
-//          return RouterUtils.onlyParameterAddEnd(partsOfWithRoute,
-//                                                 i);
-//        }
-//        // check if partsOfRoute[i] startsWith ':' ==> partOfWithRoute[i] must be '*'
-//        if (Nalu.isUsingColonForParametersInUrl()) {
-//          if (partsOfRoute[i].startsWith(":")) {
-//            if (!"*".equals(partsOfWithRoute[i])) {
-//              return false;
-//            }
-//          } else {
-//            if (!partsOfWithRoute[i].equals(partsOfRoute[i])) {
-//              return false;
-//            }
-//          }
-//        } else {
-//          if (!partsOfWithRoute[i].equals(partsOfRoute[i])) {
-//            if (!"*".equals(partsOfWithRoute[i])) {
-//              return false;
-//            }
-//          }
-//        }
+      //
+      //      for (int i = 0; i < partsOfWithRoute.length; i++) {
+      //        if (partsOfRoute.length < i + 1) {
+      //          return RouterUtils.onlyParameterAddEnd(partsOfWithRoute,
+      //                                                 i);
+      //        }
+      //        // check if partsOfRoute[i] startsWith ':' ==> partOfWithRoute[i] must be '*'
+      //        if (Nalu.isUsingColonForParametersInUrl()) {
+      //          if (partsOfRoute[i].startsWith(":")) {
+      //            if (!"*".equals(partsOfWithRoute[i])) {
+      //              return false;
+      //            }
+      //          } else {
+      //            if (!partsOfWithRoute[i].equals(partsOfRoute[i])) {
+      //              return false;
+      //            }
+      //          }
+      //        } else {
+      //          if (!partsOfWithRoute[i].equals(partsOfRoute[i])) {
+      //            if (!"*".equals(partsOfWithRoute[i])) {
+      //              return false;
+      //            }
+      //          }
+      //        }
     } else {
       // compare the parts!
       for (int i = 0; i < partsOfRoute.length; i++) {
@@ -130,30 +130,30 @@ public class RouterUtils {
           }
         }
         if (partsOfRoute.length - 1 == i) {
-          if (partsOfWithRoute.length > partsOfRoute.length){
+          if (partsOfWithRoute.length > partsOfRoute.length) {
             return RouterUtils.onlyParameterAddEnd(partsOfWithRoute,
                                                    i + 1);
           }
         }
-//        if (partsOfWithRoute.length < i + 1) {
-//          return RouterUtils.parameterOnPosition(partsOfWithRoute,
-//                                                 i);
-//        } else {
-//          // check if partOfWithRoute[i] is '*' ==> everything is fine
-//          if (!"*".equals(partsOfWithRoute[i])) {
-//            if (partsOfRoute.length < i + 1) {
-//              if (!exact) {
-//                return RouterUtils.onlyParameterAddEnd(partsOfRoute,
-//                                                       i);
-//              }
-//              return false;
-//            } else {
-//              if (!partsOfWithRoute[i].equals(partsOfRoute[i])) {
-//                return false;
-//              }
-//            }
-//          }
-//        }
+        //        if (partsOfWithRoute.length < i + 1) {
+        //          return RouterUtils.parameterOnPosition(partsOfWithRoute,
+        //                                                 i);
+        //        } else {
+        //          // check if partOfWithRoute[i] is '*' ==> everything is fine
+        //          if (!"*".equals(partsOfWithRoute[i])) {
+        //            if (partsOfRoute.length < i + 1) {
+        //              if (!exact) {
+        //                return RouterUtils.onlyParameterAddEnd(partsOfRoute,
+        //                                                       i);
+        //              }
+        //              return false;
+        //            } else {
+        //              if (!partsOfWithRoute[i].equals(partsOfRoute[i])) {
+        //                return false;
+        //              }
+        //            }
+        //          }
+        //        }
       }
     }
     return true;

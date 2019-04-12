@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.client.application;
 
+import com.github.nalukit.nalu.client.Router;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
@@ -24,14 +25,17 @@ import org.gwtproject.event.shared.SimpleEventBus;
  * <p>The Loader is executed during the start sequence of the application.
  * The loader can be used to load meta-informations at the start of the application</p>
  * <p>Once the work is done call finishLoadCommand.finishLoad() to resume with the normal processing.</p>
+ * <p><b>Coution: Do not use the router to route inside the loader!Just use it only to inject it!</b></p>
  */
 public interface IsApplicationLoader<C extends IsContext> {
+
+  void load(FinishLoadCommand finishLoadCommand);
 
   void setContext(C context);
 
   void setEventBus(SimpleEventBus eventBus);
 
-  void load(FinishLoadCommand finishLoadCommand);
+  void setRouter(Router router);
 
   interface FinishLoadCommand {
 

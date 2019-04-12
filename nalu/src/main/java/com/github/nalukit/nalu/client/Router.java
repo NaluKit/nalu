@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.client;
 
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
-import com.github.nalukit.nalu.client.internal.route.RouterException;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 
 import java.util.Map;
@@ -30,21 +29,47 @@ public interface Router {
   void clearCache();
 
   /**
+   * Returns the last error message set by the application.
+   * <p>
+   * Once the error message is consumed, it should be reseted by the developer.
+   * (after displayed on the error site!)
+   *
+   * @return the last set error message or null, if there is none
+   */
+  NaluErrorMessage getApplicationErrorMessage();
+
+  /**
+   * Sets the application error message.
+   * <p>
+   *
+   * @param applicationErrorMessage the new applicaiton error message
+   */
+  void setApplicationErrorMessage(NaluErrorMessage applicationErrorMessage);
+
+  /**
+   * Clears the application error message.
+   * <p>
+   * Should be called after the error message is displayed!
+   */
+  void clearApplicationErrorMessage();
+
+  /**
+   * Sets the application error message.
+   * <p>
+   *
+   * @param errorType    a String that indicates the type of the error
+   *                     (value is to set by the developer)
+   * @param errorMessage the error message that should be displayed
+   */
+  void setApplicationErrorMessage(String errorType,
+                                  String errorMessage);
+
+  /**
    * Clears the Nalu error message.
    * <p>
    * Should be called after the error message is displayed!
    */
   void clearNaluErrorMessage();
-
-  /**
-   * Generates the url using the given input ..
-   *
-   * @param route route to navigate to
-   * @param parms parameters of the route
-   * @return generated hash
-   */
-  String generate(String route,
-                  String... parms);
 
   /**
    * Returns the last error message set by Nalu.
@@ -55,6 +80,30 @@ public interface Router {
    * @return the last set error message or null, if there is none
    */
   NaluErrorMessage getNaluErrorMessage();
+
+  /**
+   * Returns the last error message set by Nalu or application.
+   * <p>
+   * In case a error message is set by Nalu and by the application,
+   * this method will return the error message set by Nalu.
+   * <p>
+   * Once the error message is consumed, it should be reseted by the developer.
+   * (after displayed on the error site!)
+   *
+   * @return the last set error message set by thel application
+   * or null, if there is none
+   */
+  NaluErrorMessage getErrorMessageByPriority();
+
+  /**
+   * Generates the url using the given input ..
+   *
+   * @param route route to navigate to
+   * @param parms parameters of the route
+   * @return generated hash
+   */
+  String generate(String route,
+                  String... parms);
 
   /**
    * Route to a new page.

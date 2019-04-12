@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
@@ -25,21 +26,17 @@ import java.util.Map;
 
 public abstract class AbstractComponentController<C extends IsContext, V extends IsComponent<?, W>, W>
     extends AbstractController<C>
-    implements IsController<W>,
+    implements IsController<V, W>,
                IsComponent.Controller {
 
   /* component of the controller */
   protected V component;
-
   /* list of registered handlers */
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
-
   /* list fo compsite controllers */
   private Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
-
   /* the route the controller is related to */
   private String relatedRoute;
-
   /* flag, if the controller is cached or not */
   private boolean cached;
 
@@ -225,11 +222,41 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
 
   /**
    * Sets the component inside the controller
+   * <b>Do not use this method. This will lead to unexpected results</b>
    *
    * @param component instance fo the component
    */
+  @Override
   public void setComponent(V component) {
     this.component = component;
+  }
+
+  /**
+   * The bind-method will be called before the component of the
+   * controller is created.
+   * <p>
+   * This method runs before the component and composites are
+   * created. This is f.e.: a got place to do some
+   * authentification checks.
+   * <p>
+   * Keep in mind, that the method is asynchron. Once you have
+   * done your work, you have to call <b>loader.continueLoading()</b>.
+   * Otherwise Nalu will stop working!
+   * <p>
+   * The method will not be called in case a controller is cached!
+   * <p>
+   * Attention:
+   * Do not call super.bind(loader)! Cause this will tell Nalu to
+   * continue laoding!
+   *
+   * @param loader loader to tell Nalu to continue loading the controller
+   * @throws RoutingInterceptionException in case the create contrioller
+   *                                      process should be interrupted
+   */
+  @Override
+  public void bind(ControllerLoader loader)
+      throws RoutingInterceptionException {
+    loader.continueLoading();
   }
 
 }

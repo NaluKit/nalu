@@ -120,7 +120,7 @@ public class ConsistenceValidator {
                           .size() > 0) {
           this.processingEnvironment.getMessager()
                                     .printMessage(Diagnostic.Kind.NOTE,
-                                                  "\"Nalu-Processor: The route of the errorRoute >>" + this.metaModel.getRouteError() + "<< does not exist in this project");
+                                                  "Nalu-Processor: The route of the errorRoute >>" + this.metaModel.getRouteError() + "<< does not exist in this project");
         } else {
           throw new ProcessorException("Nalu-Processor: The route of the errorRoute >>" + this.metaModel.getRouteError() + "<< does not exist!");
         }

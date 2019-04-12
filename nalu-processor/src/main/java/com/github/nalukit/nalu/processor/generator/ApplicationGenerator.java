@@ -22,6 +22,7 @@ import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.NoApplicationLoader;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
+import com.github.nalukit.nalu.processor.ProcessorVersion;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.squareup.javapoet.*;
 
@@ -84,6 +85,26 @@ public class ApplicationGenerator {
                                                               .getSimpleName())
                                        .build();
     typeSpec.addMethod(constructor);
+
+    typeSpec.addMethod(MethodSpec.methodBuilder("logProcessorVersion")
+                                 .addAnnotation(ClassName.get(Override.class))
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .addStatement("$T.get().logDetailed(\"\", 0)",
+                                               ClassName.get(ClientLogger.class))
+                                 .addStatement("$T.get().logDetailed(\"=================================================================================\", 0)",
+                                               ClassName.get(ClientLogger.class))
+                                 .addStatement("$T sb01 = new $T()",
+                                               ClassName.get(StringBuilder.class),
+                                               ClassName.get(StringBuilder.class))
+                                 .addStatement("sb01.append(\"Nalu processor version  >>$L<< used to generate this source\")",
+                                               ProcessorVersion.PROCESSOR_VERSION)
+                                 .addStatement("$T.get().logDetailed(sb01.toString(), 0)",
+                                               ClassName.get(ClientLogger.class))
+                                 .addStatement("$T.get().logDetailed(\"=================================================================================\", 0)",
+                                               ClassName.get(ClientLogger.class))
+                                 .addStatement("$T.get().logDetailed(\"\", 0)",
+                                               ClassName.get(ClientLogger.class))
+                                 .build());
 
     DebugGenerator.builder()
                   .metaModel(metaModel)
