@@ -60,7 +60,7 @@ public class NaluPluginGwtProcessor
     this.stopwatch = Stopwatch.createStarted();
     setUp();
     this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor started ...");
-    this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor version >>1.2.1-SNAPSHOT<<");
+    this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor version >>1.2.1<<");
   }
 
   @Override
@@ -82,25 +82,27 @@ public class NaluPluginGwtProcessor
                                               this.stopwatch.stop()
                                                             .toString());
       } else {
-        for (TypeElement annotation : annotations) {
-          for (Element element : roundEnv.getElementsAnnotatedWith(Selector.class)) {
-            validate(element);
-            // get enclosing element
-            Element enclosingElement = element.getEnclosingElement();
-            // get Annotation
-            Selector selectorAnnotation = element.getAnnotation(Selector.class);
-            // add data
-            this.models.computeIfAbsent(enclosingElement,
-                                        s -> new ArrayList<>())
-                       .add(new SelectorMetaModel(selectorAnnotation.value(),
-                                                  enclosingElement.toString(),
-                                                  element));
+        if (annotations.size() > 0) {
+          for (TypeElement annotation : annotations) {
+            for (Element element : roundEnv.getElementsAnnotatedWith(Selector.class)) {
+              validate(element);
+              // get enclosing element
+              Element enclosingElement = element.getEnclosingElement();
+              // get Annotation
+              Selector selectorAnnotation = element.getAnnotation(Selector.class);
+              // add data
+              this.models.computeIfAbsent(enclosingElement,
+                                          s -> new ArrayList<>())
+                         .add(new SelectorMetaModel(selectorAnnotation.value(),
+                                                    enclosingElement.toString(),
+                                                    element));
+            }
           }
-        }
-        // generate providers
-        for (Element k : this.models.keySet()) {
-          this.generate(k,
-                        this.models.get(k));
+          // generate providers
+          for (Element k : this.models.keySet()) {
+            this.generate(k,
+                          this.models.get(k));
+          }
         }
       }
     } catch (ProcessorException e) {
