@@ -525,6 +525,11 @@ abstract class AbstractRouter
       RouterLogger.logControllerOnAttachedMethodCalled(controllerInstance.getController()
                                                                          .getClass()
                                                                          .getCanonicalName());
+      compositeControllers.forEach(s -> {
+        s.onAttach();
+        RouterLogger.logControllerOnAttachedMethodCalled(s.getClass()
+                                                          .getCanonicalName());
+      });
       // in case the controller is cached, we call only activate  ...
       if (controllerInstance.isChached()) {
         compositeControllers.forEach(s -> {
