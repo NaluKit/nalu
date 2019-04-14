@@ -12,7 +12,7 @@ Nalu offers the following features:
 
 * Supports HTML links and programmatically routing thanks to a router.
 
-* Full support of the browser's back- forward- and reload-button (In case the hasHistory-attribute of the `Applilcation`-annotation is set to **true**.
+* Full support of the browser's back- forward- and reload-button (In case the hasHistory-attribute of the `Application`-annotation is set to **true**.
 
 * An optional loader that will be executed at application start to load data from the server.
 
@@ -36,7 +36,7 @@ Nalu offers the following features:
 
 * Multi Shell Support
 
-* works with nearly every widget lib (tested with: GWT, GXT, Domino-UI, Elemento, Elemental2, GWT-Meterial) 
+* works with nearly every widget lib (tested with: GWT, GXT, Domino-UI, Elemento, Elemental2, GWT-Material) 
 
 * Supports Maven multi module projects to separate an application in smaller parts (plugin feature)
 
@@ -44,7 +44,7 @@ Nalu offers the following features:
 
 
 ## Basic Concept
-Nalu uses the hash of an url to navigate. **Starting with version 1.1.0 Nalu supports the use of hash less urls.** Everything explained here will also work without hash. In case of working with a hash less url, you need to implement something on the server to handle a reload.
+Nalu uses the hash of an URL to navigate. **Starting with version 1.1.0 Nalu supports the use of hash less URLs.** Everything explained here will also work without hash. In case of working with a hash less URL, you need to implement something on the server to handle a reload.
 
 Example hash:
 ```
@@ -54,7 +54,7 @@ Example hash:
 where
 * shell: the shell to be used to display the route
 * route: is the navigation end point
-* parameter_x: are the parameters of the route (it is possible to have a route without parameter or to use a route, that excepts parameter without parameter in inside the url.)
+* parameter_x: are the parameters of the route (it is possible to have a route without parameter or to use a route, that excepts parameter without parameter in inside the URL.)
 
 The following flow shows the steps to be done, once a routing is initiated. The flow will end with appending the new component to the DOM.
 
@@ -129,10 +129,10 @@ If the project uses a widget set based on GWT 2.8.2 or newer, use the **Nalu-Plu
 See the wiki for more informations on Nalu and how to use it.
 
 ## Wiki
-More useful information about Nalu and how to use it, can be find inside the [Wiki](https://github.com/nalukit/nalu/wiki).
+More useful information about Nalu and how to use it, can be found inside the [Wiki](https://github.com/nalukit/nalu/wiki).
 
 ## J2CL / GWT3
-With the next version of GWT (GWT 3) and the new J2CL transpiler, there will be major changes in the GWT developmemt. For example: JSNI and generators, besides other things, will be gone. To be prepared for the future things like JSNI, generators or any other dependency to GWT has to be avoided. Nalu uses only the already migrated ```gwt-events``` from ```org.gwtproject```. (As long as gwt-events is not on Mavan Central the sources of gwt-events will be part of Nalu.)
+With the next version of GWT (GWT 3) and the new J2CL transpiler, there will be major changes in the GWT development. For example: JSNI and generators, besides other things, will be gone. To be prepared for the future things like JSNI, generators or any other dependency to GWT has to be avoided. Nalu uses only the already migrated ```gwt-events``` from ```org.gwtproject```. (As long as gwt-events is not on Maven Central the sources of gwt-events will be part of Nalu.)
 
 Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not use JSNI, generators or anything else from GWT. Nalu is ready to use with J2CL / GWT 3.
 
