@@ -83,7 +83,7 @@ inside the controller.
 The Router is automatically injected in the controller. To route to a new component call the route method and add at least the new route. If the route has parameters, just add them as additional parameters. (**Important:** Parameters must be Strings!)
 
 ## Using
-To use Nalu, clone the repo and run ```maven clean install``` and add the following dependencies to your pom:
+To use Nalu add the following dependencies to your pom:
 
 ```XML
 <dependency>
@@ -109,6 +109,7 @@ If the project uses a widget set based on Elemental2, Elemento or Domino-UI, use
     <version>LATEST</version>
 </dependency>
 ```
+(This plugin is ready to use with J2CL / GWT 3)
 
 If the project uses a widget set based on GWT 2.8.2 or newer, use the **Nalu-Plugin-GWT** by adding the following lines to your pom:
 
@@ -124,7 +125,7 @@ If the project uses a widget set based on GWT 2.8.2 or newer, use the **Nalu-Plu
       <version>LATEST</version>
     </dependency>
 ```
-
+(This plugin will not work with J2CL / GWT 3)
 
 See the wiki for more informations on Nalu and how to use it.
 
