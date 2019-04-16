@@ -83,7 +83,7 @@ inside the controller.
 The Router is automatically injected in the controller. To route to a new component call the route method and add at least the new route. If the route has parameters, just add them as additional parameters. (**Important:** Parameters must be Strings!)
 
 ## Using
-To use Nalu, clone the repo and run ```maven clean install``` and add the following dependencies to your pom:
+To use Nalu add the following dependencies to your pom:
 
 ```XML
 <dependency>
@@ -109,6 +109,7 @@ If the project uses a widget set based on Elemental2, Elemento or Domino-UI, use
     <version>LATEST</version>
 </dependency>
 ```
+(This plugin is ready to use with J2CL / GWT 3)
 
 If the project uses a widget set based on GWT 2.8.2 or newer, use the **Nalu-Plugin-GWT** by adding the following lines to your pom:
 
@@ -124,7 +125,7 @@ If the project uses a widget set based on GWT 2.8.2 or newer, use the **Nalu-Plu
       <version>LATEST</version>
     </dependency>
 ```
-
+(This plugin will not work with J2CL / GWT 3)
 
 See the wiki for more informations on Nalu and how to use it.
 
@@ -132,9 +133,13 @@ See the wiki for more informations on Nalu and how to use it.
 More useful information about Nalu and how to use it, can be found inside the [Wiki](https://github.com/nalukit/nalu/wiki).
 
 ## J2CL / GWT3
-With the next version of GWT (GWT 3) and the new J2CL transpiler, there will be major changes in the GWT development. For example: JSNI and generators, besides other things, will be gone. To be prepared for the future things like JSNI, generators or any other dependency to GWT has to be avoided. Nalu uses only the already migrated ```gwt-events``` from ```org.gwtproject```. (As long as gwt-events is not on Maven Central the sources of gwt-events will be part of Nalu.)
+With the next version of GWT (GWT 3) and the new J2CL transpiler, there will be major changes in the GWT development. For example: JSNI and generators, besides other things, will be gone. To be prepared for the future things like JSNI, generators or any other dependency to GWT has to be avoided. Nalu uses only the already migrated ```gwt-events``` from ```org.gwtproject```. (As long as gwt-events is not on Maven Central the sources of gwt-events will be part of Nalu. See **#9 Replace gwt-event source files with gwt-event from Maven Central**)
 
-Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not use JSNI, generators or anything else from GWT. Nalu is ready to use with J2CL / GWT 3.
+Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not use JSNI, generators or anything else from GWT  (except the nalu-plugin-gwt).
+
+Nalu is ready to use with J2CL / GWT 3 as long as you do not use the nalu-plugin-gwt!
+
+  
 
 ## To get in touch with the developer
 Please use the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
