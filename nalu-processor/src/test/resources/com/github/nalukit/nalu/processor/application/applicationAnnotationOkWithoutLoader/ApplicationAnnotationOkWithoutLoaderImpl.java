@@ -78,6 +78,10 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
   }
 
   @Override
+  public void loadPopUpControllerFactory() {
+  }
+
+  @Override
   public void loadFilters() {
   }
 
