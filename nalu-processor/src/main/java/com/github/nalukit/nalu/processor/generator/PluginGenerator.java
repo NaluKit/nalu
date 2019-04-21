@@ -254,7 +254,7 @@ public class PluginGenerator {
     MethodSpec.Builder loadComponentsMethodBuilder = MethodSpec.methodBuilder("loadComponents")
                                                                .addModifiers(Modifier.PUBLIC)
                                                                .addAnnotation(Override.class);
-    this.getAllComponents(this.metaModel.getController())
+    this.getAllComponents(this.metaModel.getControllers())
         .forEach(controllerModel -> {
           loadComponentsMethodBuilder.addComment("create ControllerCreator for: " +
                                                  controllerModel.getProvider()
@@ -309,7 +309,7 @@ public class PluginGenerator {
                                                                               ClassName.get(List.class),
                                                                               ClassName.get(RouteConfig.class),
                                                                               ClassName.get(ArrayList.class));
-    this.metaModel.getController()
+    this.metaModel.getControllers()
                   .forEach(route -> loadRouteConfigMethodBuilder.addStatement("list.add(new $T($S, $T.asList(new String[]{$L}), $S, $S))",
                                                                               ClassName.get(RouteConfig.class),
                                                                               createRoute(route.getRoute()),
@@ -332,7 +332,7 @@ public class PluginGenerator {
                                                                               ClassName.get(List.class),
                                                                               ClassName.get(CompositeControllerReference.class),
                                                                               ClassName.get(ArrayList.class));
-    this.metaModel.getController()
+    this.metaModel.getControllers()
                   .forEach(controllerModel -> controllerModel.getComposites()
                                                              .forEach(controllerCompositeModel -> getCompositeReferencesMethod.addStatement("list.add(new $T($S, $S, $S, $S))",
                                                                                                                                             ClassName.get(CompositeControllerReference.class),

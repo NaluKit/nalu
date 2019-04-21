@@ -60,7 +60,7 @@ public class CompositesGenerator {
                                                                .addStatement("sb01.append(\"load composite references\")")
                                                                .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                                              ClassName.get(ClientLogger.class));
-    for (ControllerModel controllerModel : this.metaModel.getController()) {
+    for (ControllerModel controllerModel : this.metaModel.getControllers()) {
       for (ControllerCompositeModel controllerCompositeModel : controllerModel.getComposites()) {
         loadCompositesMethodBuilder.addStatement("this.compositeControllerReferences.add(new $T($S, $S, $S, $S))",
                                                  ClassName.get(CompositeControllerReference.class),

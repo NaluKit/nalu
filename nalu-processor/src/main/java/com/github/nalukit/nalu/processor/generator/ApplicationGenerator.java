@@ -136,6 +136,12 @@ public class ApplicationGenerator {
                        .build()
                        .generate();
 
+    PopUpControllerGenerator.builder()
+                            .metaModel(metaModel)
+                            .typeSpec(typeSpec)
+                            .build()
+                            .generate();
+
     FiltersGenerator.builder()
                     .processingEnvironment(this.processingEnvironment)
                     .metaModel(metaModel)

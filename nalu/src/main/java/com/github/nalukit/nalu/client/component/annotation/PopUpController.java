@@ -16,8 +16,8 @@
 
 package com.github.nalukit.nalu.client.component.annotation;
 
-import com.github.nalukit.nalu.client.component.AbstractComponent;
-import com.github.nalukit.nalu.client.component.IsComponent;
+import com.github.nalukit.nalu.client.component.AbstractPopUpComponent;
+import com.github.nalukit.nalu.client.component.IsPopUpComponent;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -31,21 +31,18 @@ import java.lang.annotation.Target;
  * The annotation has the following attributes:
  * <ul>
  * <li>route: name of the route which will display the controller in case of calling</li>
- * <li>selector: id of the node where to insert the element</li>
  * </ul>
  *
  * @author Frank Hossfeld
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Controller {
+public @interface PopUpController {
 
-  String route();
+  String name();
 
-  String selector();
+  Class<? extends IsPopUpComponent<?>> componentInterface();
 
-  Class<? extends IsComponent<?, ?>> componentInterface();
-
-  Class<? extends AbstractComponent<?, ?>> component();
+  Class<? extends AbstractPopUpComponent<?>> component();
 
 }

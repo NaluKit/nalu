@@ -99,6 +99,9 @@ public abstract class AbstractApplication<C extends IsContext>
     this.eventBus = new SimpleEventBus();
     this.shellConfiguration = new ShellConfiguration();
     this.routerConfiguration = new RouterConfiguration();
+    // initialize popup factory
+    PopUpControllerFactory.get()
+                          .register(this.eventBus);
     // initialize plugin
     this.plugin.initialize(this.isUsingHash(),
                            this.shellConfiguration);
@@ -123,6 +126,7 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadFilters();
     this.loadDefaultRoutes();
     this.loadCompositeReferences();
+    this.loadPopUpControllerFactory();
     this.router.setRouteError(AbstractApplication.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
     // load the shells of the application
     ClientLogger.get()
@@ -198,6 +202,8 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract void loadComponents();
 
   protected abstract void loadHandlers();
+
+  protected abstract void loadPopUpControllerFactory();
 
   protected abstract IsApplicationLoader<C> getApplicationLoader();
 
