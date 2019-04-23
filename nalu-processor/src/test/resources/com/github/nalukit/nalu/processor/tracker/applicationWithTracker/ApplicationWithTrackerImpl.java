@@ -83,6 +83,10 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   }
 
   @Override
+  public void loadPopUpControllerFactory() {
+  }
+
+  @Override
   public void loadFilters() {
   }
 

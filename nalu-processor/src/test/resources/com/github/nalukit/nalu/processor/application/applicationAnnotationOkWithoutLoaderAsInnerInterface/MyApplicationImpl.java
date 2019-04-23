@@ -79,6 +79,10 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
   }
 
   @Override
+  public void loadPopUpControllerFactory() {
+  }
+
+  @Override
   public void loadFilters() {
   }
 

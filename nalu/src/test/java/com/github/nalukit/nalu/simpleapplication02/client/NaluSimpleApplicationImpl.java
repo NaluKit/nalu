@@ -18,33 +18,13 @@ package com.github.nalukit.nalu.simpleapplication02.client;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
-import com.github.nalukit.nalu.client.component.AbstractComponentController;
-import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
-import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
-import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
-import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.simpleapplication02.client.filters.BartSimpsonFilter;
 import com.github.nalukit.nalu.simpleapplication02.client.handler.SimpleApplicationHandler01;
 import com.github.nalukit.nalu.simpleapplication02.client.logger.DefaultLogger;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.content.detail.DetailComponent;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.content.detail.DetailController;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.content.detail.IDetailComponent;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.content.list.IListComponent;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.content.list.ListComponent;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.content.list.ListController;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.content.search.ISearchComponent;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.content.search.SearchComponent;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.content.search.SearchController;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.footer.FooterComponent;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.footer.FooterController;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.footer.IFooterComponent;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.navigation.INavigationComponent;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.navigation.NavigationComponent;
-import com.github.nalukit.nalu.simpleapplication02.client.ui.navigation.NavigationController;
 import com.github.nalukit.nalu.simpleapplication02.client.ui.shell.Shell;
 
 import java.util.Arrays;
@@ -402,6 +382,10 @@ public final class NaluSimpleApplicationImpl extends AbstractApplication<NaluSim
     com_github_nalukit_example_nalu_simpleapplication_client_handler_SimpleApplicationHandler01.setRouter(super.router);
     com_github_nalukit_example_nalu_simpleapplication_client_handler_SimpleApplicationHandler01.bind();
     ClientLogger.get().logDetailed("AbstractController: handler >>SimpleApplicationHandler01<< created", 0);
+  }
+
+  @Override
+  protected void loadPopUpControllerFactory() {
   }
 
   @Override

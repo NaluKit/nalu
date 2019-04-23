@@ -60,7 +60,7 @@ public class ControllerGenerator {
     MethodSpec.Builder loadComponentsMethodBuilder = MethodSpec.methodBuilder("loadComponents")
                                                                .addModifiers(Modifier.PUBLIC)
                                                                .addAnnotation(Override.class);
-    this.getAllComponents(this.metaModel.getController())
+    this.getAllComponents(this.metaModel.getControllers())
         .forEach(controllerModel -> {
           loadComponentsMethodBuilder.addComment("create ControllerCreator for: " +
                                                  controllerModel.getProvider()
@@ -94,7 +94,7 @@ public class ControllerGenerator {
                                                        .addStatement("sb01.append(\"load routes\")")
                                                        .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                                      ClassName.get(ClientLogger.class));
-    this.metaModel.getController()
+    this.metaModel.getControllers()
                   .forEach(route -> loadSelectorsMethod.addStatement("super.routerConfiguration.getRouters().add(new $T($S, $T.asList(new String[]{$L}), $S, $S))",
                                                                      ClassName.get(RouteConfig.class),
                                                                      createRoute(route.getRoute()),

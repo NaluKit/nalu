@@ -111,7 +111,7 @@ public class ConsistenceValidator {
         }
       }
 
-      Optional<ControllerModel> optionalRoute = this.metaModel.getController()
+      Optional<ControllerModel> optionalRoute = this.metaModel.getControllers()
                                                               .stream()
                                                               .filter(m -> m.match(this.metaModel.getRouteError()))
                                                               .findAny();
@@ -209,7 +209,7 @@ public class ConsistenceValidator {
         }
       }
 
-      Optional<ControllerModel> optionalRoute = this.metaModel.getController()
+      Optional<ControllerModel> optionalRoute = this.metaModel.getControllers()
                                                               .stream()
                                                               .filter(m -> m.match(this.metaModel.getStartRoute()))
                                                               .findAny();

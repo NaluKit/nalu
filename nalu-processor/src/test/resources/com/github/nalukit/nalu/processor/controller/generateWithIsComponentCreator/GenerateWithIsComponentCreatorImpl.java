@@ -78,6 +78,10 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
   }
 
   @Override
+  public void loadPopUpControllerFactory() {
+  }
+
+  @Override
   public void loadFilters() {
   }
 

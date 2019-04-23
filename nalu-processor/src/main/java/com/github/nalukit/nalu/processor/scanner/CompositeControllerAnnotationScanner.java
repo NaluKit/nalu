@@ -361,7 +361,7 @@ public class CompositeControllerAnnotationScanner {
 
   private List<ControllerModel> getControllerUsingComposite(Element element) {
     List<ControllerModel> models = new ArrayList<>();
-    this.metaModel.getController()
+    this.metaModel.getControllers()
                   .forEach(controllerModel -> models.addAll(controllerModel.getComposites()
                                                                            .stream()
                                                                            .filter(controllerCompositeModel -> element.toString()

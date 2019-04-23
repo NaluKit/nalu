@@ -79,6 +79,10 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   }
 
   @Override
+  public void loadPopUpControllerFactory() {
+  }
+
+  @Override
   public void loadFilters() {
   }
 
