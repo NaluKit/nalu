@@ -17,7 +17,7 @@
 package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.component.AbstractController;
-import com.github.nalukit.nalu.client.component.IsComponentCreator;
+import com.github.nalukit.nalu.client.component.IsPopUpComponentCreator;
 import com.github.nalukit.nalu.client.component.annotation.PopUpController;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
@@ -167,7 +167,7 @@ public class PopUpControllerAnnotationScanner {
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
                                                                 element.asType(),
                                                                 this.processorUtils.getElements()
-                                                                                   .getTypeElement(IsComponentCreator.class.getCanonicalName())
+                                                                                   .getTypeElement(IsPopUpComponentCreator.class.getCanonicalName())
                                                                                    .asType());
     // on case type is null, no IsComponentCreator interface found!
     if (type == null) {
@@ -221,7 +221,7 @@ public class PopUpControllerAnnotationScanner {
     // check generic!
     if (!componentInterfaceTypeElement.toString()
                                       .equals(result[0].toString())) {
-      throw new ProcessorException("Nalu-Processor: controller >>" + element.toString() + "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
+      throw new ProcessorException("Nalu-Processor: controller >>" + element.toString() + "<< is declared as IsPopUpComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
     }
     return true;
   }

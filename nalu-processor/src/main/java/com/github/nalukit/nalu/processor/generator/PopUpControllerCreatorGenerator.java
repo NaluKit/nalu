@@ -136,7 +136,7 @@ public class PopUpControllerCreatorGenerator {
     //                                                              ClassName.get(StringBuilder.class),
     //                                                              ClassName.get(StringBuilder.class));
     if (popUpControllerModel.isComponentCreator()) {
-      createMethod.addStatement("$T component = controller.createComponent()",
+      createMethod.addStatement("$T component = controller.createPopUpComponent()",
                                 ClassName.get(popUpControllerModel.getComponentInterface()
                                                                   .getPackage(),
                                               popUpControllerModel.getComponentInterface()

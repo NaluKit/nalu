@@ -36,6 +36,7 @@ import org.junit.runners.Suite;
                       FiltersTest.class,
                       HandlerTest.class,
                       MetaModelTest.class,
+                      PopUpControllerCreatorTest.class,
                       ShellCreatorTest.class,
                       TrackerTest.class })
 public class AllTests {
