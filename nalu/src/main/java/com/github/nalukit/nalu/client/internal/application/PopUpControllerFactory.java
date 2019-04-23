@@ -58,41 +58,6 @@ public class PopUpControllerFactory {
                           creator);
   }
 
-  //  public void controller(String controller,
-  //                         ControllerCallback callback,
-  //                         String... parms) {
-  //    if (this.controllerCreatorFactory.containsKey(controller)) {
-  //      IsControllerCreator controllerCreator = this.controllerCreatorFactory.get(controller);
-  //      ControllerInstance controllerInstance = controllerCreator.create();
-  //      if (controllerInstance.isChached()) {
-  //        callback.onFinish(controllerInstance);
-  //      } else {
-  //        controllerCreator.logBindMethodCallToConsole(controllerInstance.getController(),
-  //                                                     false);
-  //        try {
-  //          controllerInstance.getController()
-  //                            .bind(() -> {
-  //                              try {
-  //                                controllerCreator.logBindMethodCallToConsole(controllerInstance.getController(),
-  //                                                                             true);
-  //                                controllerCreator.onFinishCreating(controllerInstance.getController(),
-  //                                                                   parms);
-  //                                callback.onFinish(controllerInstance);
-  //                              } catch (RoutingInterceptionException e) {
-  //                                callback.onRoutingInterceptionException(e);
-  //                              }
-  //                            });
-  //        } catch (RoutingInterceptionException e) {
-  //          callback.onRoutingInterceptionException(e);
-  //        }
-  //      }
-  //    }
-  //  }
-  //
-  //  public AbstractComponentController<?, ?, ?> getControllerFormStore(String controllerClassName) {
-  //    return this.controllerStore.get(this.classFormatter(controllerClassName));
-  //  }
-
   public void register(EventBus eventBus) {
     this.eventBus = eventBus;
     if (!Objects.isNull(this.eventBus)) {
@@ -119,7 +84,6 @@ public class PopUpControllerFactory {
         popUpComponentController = instance;
       }
     }
-    // TODO start controller ...
     ClientLogger.get()
                 .logSimple("controller >>" + popUpComponentController.getPopUpControllerClassName() + "<< --> initializing",
                            3);
@@ -145,10 +109,5 @@ public class PopUpControllerFactory {
                 .logSimple("controller >>" + popUpComponentController.getPopUpControllerClassName() + "<< --> show called",
                            3);
   }
-
-  //  private String classFormatter(String route) {
-  //    return route.replace(".",
-  //                         "_");
-  //  }
 
 }
