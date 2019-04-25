@@ -37,11 +37,24 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
     return this.component.asElement();
   }
 
+
+  /**
+   * Method is called during onAttach.
+   * Nalu uses the method to call the onAttach-method of the compoent.
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   */
   @Override
   public final void onAttach() {
     component.onAttach();
   }
 
+  /**
+   * Method is called during onDetach.
+   * Nalu uses the method to call the onDetach-method of the compoent.
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   */
   @Override
   public final void onDetach() {
     component.onDetach();
@@ -49,12 +62,12 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
 
   /**
    * internal framework method! Will be called by the framdework after the
-   * stop-method f the controller is called
+   * stop-method of the controller is called
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
   @Override
-  public void removeHandlers() {
+  public final void removeHandlers() {
     this.handlerRegistrations.removeHandler();
     this.handlerRegistrations = new HandlerRegistrations();
   }
