@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.processor.model.intern;
 
+import com.github.nalukit.nalu.client.component.IsLoadCompositeCondition;
+
 public class ControllerCompositeModel {
 
   private String name;
@@ -24,39 +26,47 @@ public class ControllerCompositeModel {
 
   private String selector;
 
+  public ClassNameModel condition;
+
   public ControllerCompositeModel() {
   }
 
   public ControllerCompositeModel(String name,
                                   ClassNameModel composite,
-                                  String selector) {
+                                  String selector,
+                                  ClassNameModel condition) {
     this.name = name;
     this.composite = composite;
     this.selector = selector;
+    this.condition = condition;
   }
 
   public String getName() {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+//  public void setName(String name) {
+//    this.name = name;
+//  }
 
   public ClassNameModel getComposite() {
     return composite;
   }
 
-  public void setComposite(ClassNameModel composite) {
-    this.composite = composite;
-  }
+//  public void setComposite(ClassNameModel composite) {
+//    this.composite = composite;
+//  }
 
   public String getSelector() {
     return selector;
   }
 
-  public void setSelector(String selector) {
-    this.selector = selector;
+//  public void setSelector(String selector) {
+//    this.selector = selector;
+//  }
+
+  public ClassNameModel getCondition() {
+    return condition;
   }
 
 }

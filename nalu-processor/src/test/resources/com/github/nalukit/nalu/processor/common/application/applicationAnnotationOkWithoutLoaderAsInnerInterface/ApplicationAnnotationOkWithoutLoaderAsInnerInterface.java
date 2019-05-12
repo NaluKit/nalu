@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithoutLoaderAsInnerInterface;
+package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithoutLoaderAsInnerInterface;
 
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;

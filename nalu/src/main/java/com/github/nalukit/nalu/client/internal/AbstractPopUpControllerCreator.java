@@ -43,21 +43,4 @@ public abstract class AbstractPopUpControllerCreator<C extends IsContext>
     this.eventBus = eventBus;
   }
 
-  //  @Override
-  //  public void logBindMethodCallToConsole(AbstractComponentController<?, ?, ?> controller,
-  //                                         boolean isFinished) {
-  //    StringBuilder sb = new StringBuilder();
-  //    sb.append("controller >>")
-  //      .append(controller.getClass()
-  //                        .getCanonicalName());
-  //    if (isFinished) {
-  //      sb.append("<< --> bind method called");
-  //    } else {
-  //      sb.append("<< --> call bind method");
-  //    }
-  //    ClientLogger.get()
-  //                .logDetailed(sb.toString(),
-  //                             4);
-  //  }
-
 }

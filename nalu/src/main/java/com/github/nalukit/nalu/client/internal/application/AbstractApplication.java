@@ -20,6 +20,7 @@ import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
@@ -60,10 +61,12 @@ public abstract class AbstractApplication<C extends IsContext>
   protected SimpleEventBus                     eventBus;
   /* plugin */
   protected IsNaluProcessorPlugin              plugin;
-  /* List of CompositeControllerReferences */
-  protected List<CompositeControllerReference> compositeControllerReferences;
   /* Tracker instance */
   protected IsTracker                          tracker;
+  /* instance of AlwaysLoadComposite-class */
+  protected AlwaysLoadComposite                alwaysLoadComposite;
+  /* List of CompositeControllerReferences */
+  protected List<CompositeControllerReference> compositeControllerReferences;
 
   public AbstractApplication() {
     super();
@@ -99,6 +102,7 @@ public abstract class AbstractApplication<C extends IsContext>
     this.eventBus = new SimpleEventBus();
     this.shellConfiguration = new ShellConfiguration();
     this.routerConfiguration = new RouterConfiguration();
+    this.alwaysLoadComposite = new AlwaysLoadComposite();
     // initialize popup factory
     PopUpControllerFactory.get()
                           .register(this.eventBus);
