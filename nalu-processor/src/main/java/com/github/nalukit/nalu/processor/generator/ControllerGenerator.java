@@ -15,7 +15,9 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
+import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
+import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
@@ -79,6 +81,71 @@ public class ControllerGenerator {
                                                                                 .getPackage(),
                                                                  controllerModel.getController()
                                                                                 .getSimpleName() + ProcessorConstants.CREATOR_IMPL));
+
+          if (controllerModel.getComposites()
+                             .size() > 0) {
+            List<String> generatedConditionClassNames = new ArrayList<>();
+            loadComponentsMethodBuilder.addComment("register conditions of composites for: " +
+                                                   controllerModel.getProvider()
+                                                                  .getPackage() +
+                                                   "." +
+                                                   controllerModel.getProvider()
+                                                                  .getSimpleName());
+            controllerModel.getComposites()
+                           .forEach(controllerCompositeModel -> {
+                             if (AlwaysLoadComposite.class.getSimpleName()
+                                                          .equals(controllerCompositeModel.getCondition()
+                                                                                          .getSimpleName())) {
+                               loadComponentsMethodBuilder.addStatement("$T.get().registerCondition($S, $S, super.alwaysLoadComposite)",
+                                                                        ClassName.get(ControllerCompositeConditionFactory.class),
+                                                                        controllerModel.getProvider()
+                                                                                       .getPackage() +
+                                                                        "." +
+                                                                        controllerModel.getProvider()
+                                                                                       .getSimpleName(),
+                                                                        controllerCompositeModel.getComposite()
+                                                                                                .getPackage() +
+                                                                        "." +
+                                                                        controllerCompositeModel.getComposite()
+                                                                                                .getSimpleName());
+                             } else {
+                               if (!generatedConditionClassNames.contains(controllerCompositeModel.getCondition()
+                                                                                                  .getClassName())) {
+                                 loadComponentsMethodBuilder.addStatement("$T $L = new $T()",
+                                                                          ClassName.get(controllerCompositeModel.getCondition()
+                                                                                                                .getPackage(),
+                                                                                        controllerCompositeModel.getCondition()
+                                                                                                                .getSimpleName()),
+                                                                          this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
+                                                                                                                                    .getSimpleName()),
+                                                                          ClassName.get(controllerCompositeModel.getCondition()
+                                                                                                                .getPackage(),
+                                                                                        controllerCompositeModel.getCondition()
+                                                                                                                .getSimpleName()))
+                                                            .addStatement("$L.setContext(super.context)",
+                                                                          this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
+                                                                                                                                    .getSimpleName()));
+                                 // remmeber generated condition to avoid creating the smae class again!
+                                 generatedConditionClassNames.add(controllerCompositeModel.getCondition()
+                                                                                          .getClassName());
+                               }
+                               loadComponentsMethodBuilder.addStatement("$T.get().registerCondition($S, $S, $L)",
+                                                                        ClassName.get(ControllerCompositeConditionFactory.class),
+                                                                        controllerModel.getProvider()
+                                                                                       .getPackage() +
+                                                                        "." +
+                                                                        controllerModel.getProvider()
+                                                                                       .getSimpleName(),
+                                                                        controllerCompositeModel.getComposite()
+                                                                                                .getPackage() +
+                                                                        "." +
+                                                                        controllerCompositeModel.getComposite()
+                                                                                                .getSimpleName(),
+                                                                        this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
+                                                                                                                                  .getSimpleName()));
+                             }
+                           });
+          }
         });
     typeSpec.addMethod(loadComponentsMethodBuilder.build());
   }
@@ -162,6 +229,12 @@ public class ControllerGenerator {
     return models.stream()
                  .anyMatch(model -> model.getProvider()
                                          .equals(controllerModel.getProvider()));
+  }
+
+  private String setFirstCharacterToLowerCase(String className) {
+    return className.substring(0,
+                               1)
+                    .toLowerCase() + className.substring(1);
   }
 
   public static final class Builder {

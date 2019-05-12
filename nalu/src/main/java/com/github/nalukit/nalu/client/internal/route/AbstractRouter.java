@@ -451,31 +451,40 @@ abstract class AbstractRouter
                                                              compositeForController.size());
           compositeForController.forEach(s -> {
             try {
-              CompositeInstance compositeInstance = CompositeFactory.get()
-                                                                    .getComposite(s.getComposite(),
-                                                                                  hashResult.getParameterValues()
-                                                                                            .toArray(new String[0]));
-              if (compositeInstance == null) {
-                RouterLogger.logCompositeNotFound(controllerInstance.getController()
-                                                                    .getClass()
-                                                                    .getCanonicalName(),
-                                                  s.getCompositeName());
-              } else {
-                compositeControllers.add(compositeInstance.getComposite());
-                // inject router into composite
-                compositeInstance.getComposite()
-                                 .setRouter(this);
-                // inject composite into controller
-                controllerInstance.getController()
-                                  .getComposites()
-                                  .put(s.getCompositeName(),
-                                       compositeInstance.getComposite());
-                RouterLogger.logCompositeControllerInjectedInController(compositeInstance.getComposite()
-                                                                                         .getClass()
-                                                                                         .getCanonicalName(),
-                                                                        controllerInstance.getController()
-                                                                                          .getClass()
-                                                                                          .getCanonicalName());
+              // check for composite loader
+              if (ControllerCompositeConditionFactory.get()
+                                                     .loadComposite(controllerInstance.getControllerClassName(),
+                                                                    s.getComposite(),
+                                                                    hashResult.getRoute(),
+                                                                    hashResult.getParameterValues()
+                                                                              .toArray(new String[hashResult.getParameterValues()
+                                                                                                            .size()]))) {
+                CompositeInstance compositeInstance = CompositeFactory.get()
+                                                                      .getComposite(s.getComposite(),
+                                                                                    hashResult.getParameterValues()
+                                                                                              .toArray(new String[0]));
+                if (compositeInstance == null) {
+                  RouterLogger.logCompositeNotFound(controllerInstance.getController()
+                                                                      .getClass()
+                                                                      .getCanonicalName(),
+                                                    s.getCompositeName());
+                } else {
+                  compositeControllers.add(compositeInstance.getComposite());
+                  // inject router into composite
+                  compositeInstance.getComposite()
+                                   .setRouter(this);
+                  // inject composite into controller
+                  controllerInstance.getController()
+                                    .getComposites()
+                                    .put(s.getCompositeName(),
+                                         compositeInstance.getComposite());
+                  RouterLogger.logCompositeControllerInjectedInController(compositeInstance.getComposite()
+                                                                                           .getClass()
+                                                                                           .getCanonicalName(),
+                                                                          controllerInstance.getController()
+                                                                                            .getClass()
+                                                                                            .getCanonicalName());
+                }
               }
             } catch (RoutingInterceptionException e) {
               RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
@@ -977,13 +986,7 @@ abstract class AbstractRouter
                                       .filter("*"::equals)
                                       .count();
     if (parms.length > numberOfPlaceHolders) {
-      String sbExeption = "Warning: route >>" +
-                          route +
-                          "<< has less parameter placeholder >>" +
-                          numberOfPlaceHolders +
-                          "<< than the number of parameters in the list of parameters >>" +
-                          parms.length +
-                          "<< --> adding Prameters add the end of the url";
+      String sbExeption = "Warning: route >>" + route + "<< has less parameter placeholder >>" + numberOfPlaceHolders + "<< than the number of parameters in the list of parameters >>" + parms.length + "<< --> adding Prameters add the end of the url";
       RouterLogger.logSimple(sbExeption,
                              1);
       for (int i = parameterIndex; i < parms.length; i++) {

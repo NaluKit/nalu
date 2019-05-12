@@ -1,4 +1,4 @@
-package com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithLoader;
+package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithoutLoaderAsInnerInterface;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
@@ -9,12 +9,13 @@ import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithoutLoaderAsInnerInterface.ApplicationAnnotationOkWithoutLoaderAsInnerInterface.MyApplication;
 import java.lang.Override;
 import java.lang.StringBuilder;
 import java.util.Arrays;
 
-public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithLoader {
-  public ApplicationAnnotationOkWithLoaderImpl() {
+public final class MyApplicationImpl extends AbstractApplication<MockContext> implements MyApplication {
+  public MyApplicationImpl() {
     super();
     super.context = new com.github.nalukit.nalu.processor.common.MockContext();
   }
@@ -103,7 +104,7 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
 
   @Override
   public IsApplicationLoader<MockContext> getApplicationLoader() {
-    return new MockApplicationLoader();
+    return null;
   }
 
   @Override

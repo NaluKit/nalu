@@ -14,15 +14,20 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithoutLoader;
+package com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01;
 
-import com.github.nalukit.nalu.client.application.IsApplication;
-import com.github.nalukit.nalu.client.application.annotation.Application;
-import com.github.nalukit.nalu.processor.common.MockContext;
+import com.github.nalukit.nalu.client.component.AbstractComponent;
 
-@Application(startRoute = "/mockShell/route01",
-             context = MockContext.class,
-             routeError = "/mockShell/route01")
-public interface ApplicationAnnotationOkWithoutLoader
-    extends IsApplication {
+public class Component01
+    extends AbstractComponent<IComponent01.Controller, String>
+    implements IComponent01 {
+
+  public Component01() {
+  }
+
+  @Override
+  public void render() {
+    initElement("Component01");
+  }
+
 }

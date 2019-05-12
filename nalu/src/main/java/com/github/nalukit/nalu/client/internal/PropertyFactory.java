@@ -51,7 +51,7 @@ public class PropertyFactory {
   }
 
   /**
-   * Do NOT cll this method!
+   * Do NOT call this method!
    *
    * @param hasHistory                   Will Nalu support a histroy toekn?
    * @param usingHash                    Will Nalu use a hash for Navigation?

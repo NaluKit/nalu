@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsPlugin;
@@ -34,15 +35,19 @@ public abstract class AbstractPlugin<C extends IsContext>
 
   protected C context;
 
-  protected SimpleEventBus eventBus;
+  protected SimpleEventBus      eventBus;
+  /* instance of AlwaysLoadComposite-class */
+  protected AlwaysLoadComposite alwaysLoadComposite;
 
   public AbstractPlugin(Router router,
                         C context,
-                        SimpleEventBus eventBus) {
+                        SimpleEventBus eventBus,
+                        AlwaysLoadComposite alwaysLoadComposite) {
     super();
     this.router = router;
     this.context = context;
     this.eventBus = eventBus;
+    this.alwaysLoadComposite = alwaysLoadComposite;
   }
 
   @Override

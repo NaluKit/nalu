@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.client.internal.application;
 
+import com.github.nalukit.nalu.client.component.IsLoadCompositeCondition;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
@@ -28,7 +29,7 @@ public class CompositeFactory {
   /* instance of the controller factory */
   private static CompositeFactory instance;
 
-  /* map of components (key: name of class, Value: CompositeCreatorF */
+  /* map of components (key: name of class, Value: CompositeCreator */
   private Map<String, IsCompositeCreator> compositeFactory;
 
   private CompositeFactory() {
@@ -42,8 +43,8 @@ public class CompositeFactory {
     return instance;
   }
 
-  public void registerComposite(String name,
-                                IsCompositeCreator creator) {
+  public <C extends IsLoadCompositeCondition> void registerComposite(String name,
+                                                                     IsCompositeCreator creator) {
     this.compositeFactory.put(name,
                               creator);
   }
