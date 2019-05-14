@@ -95,6 +95,7 @@ To use Nalu add the following dependencies to your pom:
     <groupId>com.githubnalukit</groupId>
     <artifactId>nalu-processor</artifactId>
     <version>LATEST</version>
+    <scope>provided</scope>
 </dependency>
 ```
 
@@ -123,6 +124,7 @@ If the project uses a widget set based on GWT 2.8.2 or newer, use the **Nalu-Plu
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
       <version>LATEST</version>
+      <scope>provided</sope>
     </dependency>
 ```
 (This plugin will not work with J2CL / GWT 3)
