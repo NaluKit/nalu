@@ -80,13 +80,6 @@ public class ControllerAnnotationValidator {
                                                       this.processingEnvironment.getElementUtils()
                                                                                 .getTypeElement(IsController.class.getCanonicalName())
                                                                                 .asType()))
-      // TODO ... eigentlikch nur an Controller ...
-      //          ||
-      //          this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-      //                                                      typeElement.asType(),
-      //                                                      this.processingEnvironment.getElementUtils()
-      //                                                                                .getTypeElement(IsShell.class.getCanonicalName())
-      //                                                                                .asType()))
     ) {
       throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController or IsShell");
     }
@@ -106,29 +99,17 @@ public class ControllerAnnotationValidator {
         if (!Objects.isNull(element.getAnnotation(AcceptParameter.class))) {
           AcceptParameter annotation = element.getAnnotation(AcceptParameter.class);
           if (!paraemtersFromRoute.contains(annotation.value())) {
-            throw new ProcessorException("Nalu-Processor: controller >>" +
-                                         controllerElement.toString() +
-                                         "<< - @AcceptParameter with value >>" +
-                                         annotation.value() +
-                                         "<< is not represented in the route as parameter");
+            throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString() + "<< - @AcceptParameter with value >>" + annotation.value() + "<< is not represented in the route as parameter");
           }
           ExecutableType executableType = (ExecutableType) element.asType();
           List<? extends TypeMirror> parameters = executableType.getParameterTypes();
           if (parameters.size() != 1) {
-            throw new ProcessorException("Nalu-Processor: controller >>" +
-                                         controllerElement.toString() +
-                                         "<< - @AcceptParameter annotated on >>" +
-                                         executableType.toString() +
-                                         "<< need on parameter of type String");
+            throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString() + "<< - @AcceptParameter annotated on >>" + executableType.toString() + "<< need on parameter of type String");
           }
           if (!String.class.getCanonicalName()
                            .equals(parameters.get(0)
                                              .toString())) {
-            throw new ProcessorException("Nalu-Processor: controller >>" +
-                                         controllerElement.toString() +
-                                         "<< - @AcceptParameter on >>" +
-                                         element.toString() +
-                                         "<< parameter has the wrong type -> must be a String");
+            throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString() + "<< - @AcceptParameter on >>" + element.toString() + "<< parameter has the wrong type -> must be a String");
           }
         }
       }
