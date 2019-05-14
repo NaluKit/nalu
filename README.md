@@ -95,6 +95,7 @@ To use Nalu add the following dependencies to your pom:
     <groupId>com.githubnalukit</groupId>
     <artifactId>nalu-processor</artifactId>
     <version>LATEST</version>
+    <scope>provided</sope>
 </dependency>
 ```
 
