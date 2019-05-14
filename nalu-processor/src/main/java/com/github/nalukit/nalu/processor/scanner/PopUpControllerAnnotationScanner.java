@@ -30,7 +30,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.*;
-import javax.lang.model.util.SimpleTypeVisitor6;
+import javax.lang.model.util.SimpleTypeVisitor8;
 import java.util.List;
 import java.util.Objects;
 
@@ -113,7 +113,7 @@ public class PopUpControllerAnnotationScanner {
       return null;
     }
     // check the generic!
-    type.accept(new SimpleTypeVisitor6<Void, Void>() {
+    type.accept(new SimpleTypeVisitor8<Void, Void>() {
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
@@ -174,7 +174,7 @@ public class PopUpControllerAnnotationScanner {
       return false;
     }
     // check the generic!
-    type.accept(new SimpleTypeVisitor6<Void, Void>() {
+    type.accept(new SimpleTypeVisitor8<Void, Void>() {
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
@@ -226,33 +226,6 @@ public class PopUpControllerAnnotationScanner {
     return true;
   }
 
-  //  private void handleAcceptParameters(RoundEnvironment roundEnvironment,
-  //                                      Element element,
-  //                                      ControllerModel controllerModel)
-  //      throws ProcessorException {
-  //    TypeElement typeElement = (TypeElement) element;
-  //    List<Element> annotatedElements = this.processorUtils.getMethodFromTypeElementAnnotatedWith(this.processingEnvironment,
-  //                                                                                                typeElement,
-  //                                                                                                AcceptParameter.class);
-  //    // validate
-  //    AcceptParameterAnnotationValidator.builder()
-  //                                      .roundEnvironment(roundEnvironment)
-  //                                      .processingEnvironment(processingEnvironment)
-  //                                      .controllerModel(controllerModel)
-  //                                      .listOfAnnotatedElements(annotatedElements)
-  //                                      .build()
-  //                                      .validate();
-  //    // add to ControllerModel ...
-  //    for (Element annotatedElement : annotatedElements) {
-  //      ExecutableElement executableElement = (ExecutableElement) annotatedElement;
-  //      AcceptParameter annotation = executableElement.getAnnotation(AcceptParameter.class);
-  //      controllerModel.getParameterAcceptors()
-  //                     .add(new ParameterAcceptor(annotation.value(),
-  //                                                executableElement.getSimpleName()
-  //                                                                 .toString()));
-  //    }
-  //  }
-
   private TypeElement getComponentTypeElement(PopUpController annotation) {
     try {
       annotation.component();
@@ -272,95 +245,6 @@ public class PopUpControllerAnnotationScanner {
     }
     return null;
   }
-  //
-  //  private TypeMirror getComponentType(final TypeMirror typeMirror) {
-  //    final TypeMirror[] result = { null };
-  //    TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
-  //                                                                typeMirror,
-  //                                                                this.processorUtils.getElements()
-  //                                                                                   .getTypeElement(AbstractPopUpComponentController.class.getCanonicalName())
-  //                                                                                   .asType());
-  //    if (type == null) {
-  //      return result[0];
-  //    }
-  //    type.accept(new SimpleTypeVisitor6<Void, Void>() {
-  //                  @Override
-  //                  protected Void defaultAction(TypeMirror typeMirror,
-  //                                               Void v) {
-  //                    throw new UnsupportedOperationException();
-  //                  }
-  //
-  //                  @Override
-  //                  public Void visitPrimitive(PrimitiveType primitiveType,
-  //                                             Void v) {
-  //                    return null;
-  //                  }
-  //
-  //                  @Override
-  //                  public Void visitArray(ArrayType arrayType,
-  //                                         Void v) {
-  //                    return null;
-  //                  }
-  //
-  //                  @Override
-  //                  public Void visitDeclared(DeclaredType declaredType,
-  //                                            Void v) {
-  //                    List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
-  //                    if (!typeArguments.isEmpty()) {
-  //                      if (typeArguments.size() == 2) {
-  //                        result[0] = typeArguments.get(1);
-  //                      }
-  //                    }
-  //                    return null;
-  //                  }
-  //
-  //                  @Override
-  //                  public Void visitError(ErrorType errorType,
-  //                                         Void v) {
-  //                    return null;
-  //                  }
-  //
-  //                  @Override
-  //                  public Void visitTypeVariable(TypeVariable typeVariable,
-  //                                                Void v) {
-  //                    return null;
-  //                  }
-  //                },
-  //                null);
-  //    return result[0];
-  //  }
-
-  //  private String getRoute(String route) {
-  //    String tmpRoute = route;
-  //    if (tmpRoute.startsWith("/")) {
-  //      tmpRoute = tmpRoute.substring(1);
-  //    }
-  //    if (tmpRoute.length() == 0) {
-  //      return "/";
-  //    }
-  //    StringBuilder sbRoute = new StringBuilder();
-  //    Stream.of(tmpRoute.split("/"))
-  //          .collect(Collectors.toList())
-  //          .forEach(s -> {
-  //            if (s.startsWith(":")) {
-  //              sbRoute.append("/")
-  //                     .append("*");
-  //            } else {
-  //              sbRoute.append("/")
-  //                     .append(s);
-  //            }
-  //          });
-  //    return sbRoute.toString();
-  //  }
-  //
-  //  private List<String> getParametersFromRoute(String route) {
-  //    return Stream.of(route.split("/"))
-  //                 .collect(Collectors.toList())
-  //                 .stream()
-  //                 .filter(s -> s.startsWith(":"))
-  //                 .map(p -> p.substring(1))
-  //                 .collect(Collectors.toList());
-  //  }
 
 
 

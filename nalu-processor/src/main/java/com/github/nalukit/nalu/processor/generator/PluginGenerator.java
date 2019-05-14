@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
+import com.github.nalukit.nalu.client.component.IsLoadCompositeCondition;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.*;
@@ -97,7 +98,10 @@ public class PluginGenerator {
                                        .addParameter(ParameterSpec.builder(ClassName.get(SimpleEventBus.class),
                                                                            "eventBus")
                                                                   .build())
-                                       .addStatement("super(router, context, eventBus)")
+                                       .addParameter(ParameterSpec.builder(ClassName.get(AlwaysLoadComposite.class),
+                                                                           "alwaysLoadComposite")
+                                                                  .build())
+                                       .addStatement("super(router, context, eventBus, alwaysLoadComposite)")
                                        .build();
     typeSpec.addMethod(constructor);
 

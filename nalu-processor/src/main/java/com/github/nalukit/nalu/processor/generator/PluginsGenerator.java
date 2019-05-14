@@ -79,7 +79,7 @@ public class PluginsGenerator {
                                                          pluginModel.getClassName())
                                            .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                          ClassName.get(ClientLogger.class))
-                                           .addStatement("$T $L = new $T(super.router, super.context, super.eventBus)",
+                                           .addStatement("$T $L = new $T(super.router, super.context, super.eventBus, super.alwaysLoadComposite)",
                                                          ClassName.get(pluginModel.getPackage(),
                                                                        pluginModel.getSimpleName()),
                                                          pluginInstanceName,

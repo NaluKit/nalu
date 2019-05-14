@@ -248,11 +248,7 @@ public class ControllerCreatorGenerator {
             finishCreateMethod.beginControlFlow("if (parms.length >= " + (i + 1) + ")")
                               .addStatement("sb01 = new $T()",
                                             ClassName.get(StringBuilder.class))
-                              .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> using method >>" +
-                                            methodName +
-                                            "<< to set value >>\").append(parms[" +
-                                            Integer.toString(i) +
-                                            "]).append(\"<<\")")
+                              .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> using method >>" + methodName + "<< to set value >>\").append(parms[" + Integer.toString(i) + "]).append(\"<<\")")
                               .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                                             ClassName.get(ClientLogger.class))
                               .addStatement("controller." + methodName + "(parms[" + i + "])")

@@ -35,7 +35,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.*;
-import javax.lang.model.util.SimpleTypeVisitor6;
+import javax.lang.model.util.SimpleTypeVisitor8;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -138,7 +138,7 @@ public class ControllerAnnotationScanner {
       return null;
     }
     // check the generic!
-    type.accept(new SimpleTypeVisitor6<Void, Void>() {
+    type.accept(new SimpleTypeVisitor8<Void, Void>() {
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
@@ -199,7 +199,7 @@ public class ControllerAnnotationScanner {
       return false;
     }
     // check the generic!
-    type.accept(new SimpleTypeVisitor6<Void, Void>() {
+    type.accept(new SimpleTypeVisitor8<Void, Void>() {
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
@@ -246,9 +246,7 @@ public class ControllerAnnotationScanner {
     // check generic!
     if (!componentInterfaceTypeElement.toString()
                                       .equals(result[0].toString())) {
-      throw new ProcessorException("Nalu-Processor: controller >>" +
-                                   element.toString() +
-                                   "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
+      throw new ProcessorException("Nalu-Processor: controller >>" + element.toString() + "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
     }
     return true;
   }
@@ -310,7 +308,7 @@ public class ControllerAnnotationScanner {
     if (type == null) {
       return result[0];
     }
-    type.accept(new SimpleTypeVisitor6<Void, Void>() {
+    type.accept(new SimpleTypeVisitor8<Void, Void>() {
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
