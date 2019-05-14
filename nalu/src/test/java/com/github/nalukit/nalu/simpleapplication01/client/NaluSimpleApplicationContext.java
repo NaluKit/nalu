@@ -53,4 +53,5 @@ public class NaluSimpleApplicationContext
   public void setSearchName(String searchName) {
     this.searchName = searchName;
   }
+
 }

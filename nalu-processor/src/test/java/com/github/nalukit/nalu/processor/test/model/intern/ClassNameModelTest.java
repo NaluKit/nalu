@@ -65,4 +65,5 @@ public class ClassNameModelTest {
   public void equals() {
     assertTrue(this.classNameModel.equals(new ClassNameModel(IsApplication.class.getCanonicalName())));
   }
+
 }

@@ -77,8 +77,8 @@ public class ConsistenceTest {
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Component04.java"));
                                        }
                                      });
-        CompilationSubject.assertThat(compilation)
-                          .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
   }
 
   @Test
@@ -93,8 +93,8 @@ public class ConsistenceTest {
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component05/Component05.java"));
                                        }
                                      });
-        CompilationSubject.assertThat(compilation)
-                          .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
   }
 
   @Test

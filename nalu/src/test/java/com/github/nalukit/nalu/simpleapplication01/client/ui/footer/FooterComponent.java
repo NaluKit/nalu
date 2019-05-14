@@ -40,4 +40,5 @@ public class FooterComponent
   public void setStatus(String status) {
     //this.messageInfo.textContent = status;
   }
+
 }

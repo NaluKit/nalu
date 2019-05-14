@@ -27,7 +27,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ RouteConfigTest.class,
-                        //                      RouterHashImplTest.class,
+                      //                      RouterHashImplTest.class,
                       RouterImplTest.class,
                       RouterUtilsTest.class,
                       RoutingTest.class,

@@ -44,4 +44,5 @@ public class FooterController
   public void stop() {
     this.registration.removeHandler();
   }
+
 }

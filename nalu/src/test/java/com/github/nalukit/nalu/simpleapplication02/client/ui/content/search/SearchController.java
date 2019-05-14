@@ -60,4 +60,5 @@ public class SearchController
       this.component.setSearchCity(searchCity);
     }
   }
+
 }

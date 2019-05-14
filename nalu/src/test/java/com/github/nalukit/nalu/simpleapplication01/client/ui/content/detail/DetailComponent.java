@@ -128,4 +128,5 @@ public class DetailComponent
           .setCity(detailCity);
     return person;
   }
+
 }

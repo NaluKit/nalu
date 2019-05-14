@@ -27,7 +27,7 @@ public class RouterUtilsTest {
                              true,
                              false);
     Assert.assertFalse(Nalu.match(route,
-                                 with));
+                                  with));
   }
 
   @Test
@@ -135,7 +135,7 @@ public class RouterUtilsTest {
                              true,
                              true);
     Assert.assertFalse(Nalu.match(route,
-                                 with));
+                                  with));
   }
 
   @Test

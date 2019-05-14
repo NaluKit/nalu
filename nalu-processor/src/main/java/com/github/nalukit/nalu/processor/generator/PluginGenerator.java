@@ -18,7 +18,6 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
-import com.github.nalukit.nalu.client.component.IsLoadCompositeCondition;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.*;

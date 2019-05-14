@@ -259,4 +259,5 @@ public class ApplicationTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationWithComposite03/ApplicationWithComposite03Impl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite03/ApplicationWithComposite03Impl.java"));
   }
+
 }

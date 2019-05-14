@@ -18,19 +18,19 @@ package com.github.nalukit.nalu.processor.test.model.property;
 
 public class PropertiesTest {
 
-//  @Test
-//  public void testApplicationMetaModel() {
-//    Properties properties = new Properties();
-//    try {
-//      properties.load(ClassLoader.getSystemResourceAsStream("META-INF" + File.separator + "mvp4g2" + File.separator + "application.properties"));
-//    } catch (IOException e) {
-//      assert false : "IOException reading application.properties";
-//    }
-//
-//    ApplicationMetaModel metaModel = new ApplicationMetaModel(properties);
-//    Properties newProperties = metaModel.createPropertes();
-//
-//    assertEquals(properties,
-//                 newProperties);
-//  }
+  //  @Test
+  //  public void testApplicationMetaModel() {
+  //    Properties properties = new Properties();
+  //    try {
+  //      properties.load(ClassLoader.getSystemResourceAsStream("META-INF" + File.separator + "mvp4g2" + File.separator + "application.properties"));
+  //    } catch (IOException e) {
+  //      assert false : "IOException reading application.properties";
+  //    }
+  //
+  //    ApplicationMetaModel metaModel = new ApplicationMetaModel(properties);
+  //    Properties newProperties = metaModel.createPropertes();
+  //
+  //    assertEquals(properties,
+  //                 newProperties);
+  //  }
 }

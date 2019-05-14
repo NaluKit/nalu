@@ -216,8 +216,8 @@ public class RouteValidationTest {
                              true,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
-                                                          this.routerConfiguration,
-                                                          "/application/person/detail"));
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail"));
   }
 
   @Test
@@ -227,8 +227,8 @@ public class RouteValidationTest {
                              true,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
-                                                          this.routerConfiguration,
-                                                          "/application/person/detail/parameter01"));
+                                                         this.routerConfiguration,
+                                                         "/application/person/detail/parameter01"));
   }
 
   @Test

@@ -37,7 +37,6 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
     return this.component.asElement();
   }
 
-
   /**
    * Method is called during onAttach.
    * Nalu uses the method to call the onAttach-method of the compoent.

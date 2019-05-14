@@ -57,7 +57,7 @@ public @interface Composite {
   /**
    * Conditional class to load the composite depending on the return result
    * of the loadComposite()-method.
-   *
+   * <p>
    * This parameter is optional.
    * <p>
    * Default is AlwaysLoadComposite.class, which will always load the composite.

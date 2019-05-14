@@ -71,4 +71,5 @@ public class ShellTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: shellCreator >>com.github.nalukit.nalu.processor.shellCreator.shellDoesNotHaveGenericContext.ShellDoesNotHaveGenericContext<< does not have a context generic!");
   }
+
 }

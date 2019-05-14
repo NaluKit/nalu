@@ -18,10 +18,10 @@ package com.github.nalukit.nalu.processor.model.intern;
 
 public class ControllerCompositeModel {
 
-  public ClassNameModel condition;
-  private String name;
+  public  ClassNameModel condition;
+  private String         name;
   private ClassNameModel composite;
-  private String selector;
+  private String         selector;
 
   public ControllerCompositeModel() {
   }

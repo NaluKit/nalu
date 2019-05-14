@@ -68,8 +68,8 @@ class Utils {
   static ShellConfiguration createShellConfiguration() {
     ShellConfiguration shellConfiguration = new ShellConfiguration();
     shellConfiguration.getShells()
-                       .add(new ShellConfig("/MockShell",
-                                            "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.Shell"));
+                      .add(new ShellConfig("/MockShell",
+                                           "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.Shell"));
     return shellConfiguration;
   }
 
@@ -110,4 +110,5 @@ class Utils {
     List<CompositeControllerReference> compositeControllerReferences = new ArrayList<>();
     return compositeControllerReferences;
   }
+
 }

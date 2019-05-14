@@ -50,4 +50,5 @@ public class StatusChangeEvent
     void onStatusChange(StatusChangeEvent event);
 
   }
+
 }

@@ -246,8 +246,6 @@ public class PopUpControllerAnnotationScanner {
     return null;
   }
 
-
-
   public static class Builder {
 
     ProcessingEnvironment processingEnvironment;

@@ -326,4 +326,5 @@ public class ControllerTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite03/ControllerWithComposite03CreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite03/ControllerWithComposite03CreatorImpl.java"));
   }
+
 }
