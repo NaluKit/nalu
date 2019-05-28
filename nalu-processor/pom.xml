@@ -91,19 +91,16 @@
       <artifactId>auto-service</artifactId>
       <version>${autoservice.version}</version>
       <optional>true</optional>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>${gson.version}</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.squareup</groupId>
       <artifactId>javapoet</artifactId>
       <version>${javapoet.version}</version>
-      <scope>provided</scope>
     </dependency>
     <!-- added to fix a bug in truth v0.42 -->
     <dependency>

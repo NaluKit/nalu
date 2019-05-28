@@ -24,7 +24,7 @@ import com.github.nalukit.nalu.client.application.IsContext;
 public abstract class AbstractCompositeCondition<C extends IsContext>
     implements IsLoadCompositeCondition {
 
-  private C context;
+  protected C context;
 
   /**
    * Sets the Nalu application context.
