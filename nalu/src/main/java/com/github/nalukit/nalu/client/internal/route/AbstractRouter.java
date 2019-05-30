@@ -314,72 +314,101 @@ abstract class AbstractRouter
         // add shellCreator to the viewport
         ShellConfig shellConfig = this.shellConfiguration.match(routeResult.getShell());
         if (!Objects.isNull(shellConfig)) {
-          ShellInstance shellInstance = ShellFactory.get()
-                                                    .shell(shellConfig.getClassName());
-          if (!Objects.isNull(shellInstance)) {
-            // in case there is an instance of an shellCreator existing, call the onDetach mehtod inside the shellCreator
-            if (!Objects.isNull(this.shell)) {
-              ClientLogger.get()
-                          .logDetailed("Router: detach shellCreator >>" +
-                                       this.shell.getClass()
-                                                 .getCanonicalName() +
-                                       "<<",
-                                       1);
-              this.shell.detachShell();
-              ClientLogger.get()
-                          .logDetailed("Router: shellCreator >>" +
-                                       this.shell.getClass()
-                                                 .getCanonicalName() +
-                                       "<< detached",
-                                       1);
-            }
-            // set newe shellCreator value
-            this.shell = shellInstance.getShell();
-            // save the last added shellCreator ....
-            this.lastAddedShell = routeResult.getShell();
-            // initialize shellCreator ...
-            ClientLogger.get()
-                        .logDetailed("Router: attach shellCreator >>" + routeResult.getShell() + "<<",
-                                     1);
-            shellInstance.getShell()
-                         .attachShell();
-            ClientLogger.get()
-                        .logDetailed("Router: shellCreator >>" + routeResult.getShell() + "<< attached",
-                                     1);
-            // start the application by calling url + '#'
-            ClientLogger.get()
-                        .logDetailed("Router: initialize shellCreator >>" + routeResult.getShell() + "<< (route to '/')",
-                                     1);
-            // get shellCreator matching root configs ...
-            List<RouteConfig> shellMatchingRouteConfigurations = this.routerConfiguration.match(routeResult.getShell());
-            for (RouteConfig routeConfiguraion : shellMatchingRouteConfigurations) {
-              this.handleRouteConfig(routeConfiguraion,
-                                     routeResult,
-                                     hash);
-            }
-          }
-        } else {
-          RouterLogger.logUseErrorRoute(this.routeError);
-          this.route(this.routeError,
-                     true);
-        }
-      }
-      // routing
-      for (RouteConfig routeConfiguraion : routeConfigurations) {
-        this.handleRouteConfig(routeConfiguraion,
-                               routeResult,
-                               hash);
-      }
-      this.shell.onAttachedComponent();
-      RouterLogger.logShellOnAttachedComponentMethodCalled(this.shell.getClass()
-                                                                     .getCanonicalName());
+          String finalHash = hash;
+          ShellFactory.get()
+                      .shell(shellConfig.getClassName(),
+                             new ShellCallback() {
+                               @Override
+                               public void onFinish(ShellInstance shellInstance) {
+                                 // in case there is an instance of an shellCreator existing, call the onDetach mehtod inside the shellCreator
+                                 if (!Objects.isNull(shell)) {
+                                   detachShell();
+                                 }
+                                 // set newe shellCreator value
+                                 shell = shellInstance.getShell();
+                                 // save the last added shellCreator ....
+                                 lastAddedShell = routeResult.getShell();
+                                 // initialize shellCreator ...
+                                 ClientLogger.get()
+                                             .logDetailed("Router: attach shellCreator >>" + routeResult.getShell() + "<<",
+                                                          1);
+                                 shellInstance.getShell()
+                                              .attachShell();
+                                 ClientLogger.get()
+                                             .logDetailed("Router: shellCreator >>" + routeResult.getShell() + "<< attached",
+                                                          1);
+                                 // start the application by calling url + '#'
+                                 ClientLogger.get()
+                                             .logDetailed("Router: initialize shellCreator >>" + routeResult.getShell() + "<< (route to '/')",
+                                                          1);
+                                 // get shellCreator matching root configs ...
+                                 List<RouteConfig> shellMatchingRouteConfigurations = routerConfiguration.match(routeResult.getShell());
+                                 for (RouteConfig routeConfiguraion : shellMatchingRouteConfigurations) {
+                                   handleRouteConfig(routeConfiguraion,
+                                                     routeResult,
+                                                     finalHash);
+                                 }
+                                 postProcessHandleRouting(finalHash,
+                                                          routeResult,
+                                                          routeConfigurations);
+                               }
 
+                               private void detachShell() {
+                                 ClientLogger.get()
+                                             .logDetailed("Router: detach shellCreator >>" +
+                                                          shell.getClass()
+                                                               .getCanonicalName() +
+                                                          "<<",
+                                                          1);
+                                 shell.detachShell();
+                                 ClientLogger.get()
+                                             .logDetailed("Router: shellCreator >>" +
+                                                          shell.getClass()
+                                                               .getCanonicalName() +
+                                                          "<< detached",
+                                                          1);
+                               }
+
+                               @Override
+                               public void onShellNotFound() {
+                                 RouterLogger.logUseErrorRoute(routeError);
+                                 route(routeError,
+                                       true);
+                               }
+
+                               @Override
+                               public void onRoutingInterceptionException(RoutingInterceptionException e) {
+                                 RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
+                                                                             e.getRoute(),
+                                                                             e.getParameter());
+                               }
+                             });
+        }
+      } else {
+        postProcessHandleRouting(hash,
+                                 routeResult,
+                                 routeConfigurations);
+      }
     } else {
       this.plugin.route("#" + this.lastExecutedHash,
                         false,
                         Nalu.hasHistory(),
                         Nalu.isUsingHash());
     }
+  }
+
+  private void postProcessHandleRouting(String hash,
+                                        RouteResult routeResult,
+                                        List<RouteConfig> routeConfigurations) {
+    // routing
+    for (RouteConfig routeConfiguraion : routeConfigurations) {
+      this.handleRouteConfig(routeConfiguraion,
+                             routeResult,
+                             hash);
+    }
+    this.shell.onAttachedComponent();
+    RouterLogger.logShellOnAttachedComponentMethodCalled(this.shell.getClass()
+                                                                   .getCanonicalName());
   }
 
   private void handleRouteConfig(RouteConfig routeConfiguraion,

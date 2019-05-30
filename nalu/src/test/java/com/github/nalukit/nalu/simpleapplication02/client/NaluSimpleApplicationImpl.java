@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.simpleapplication02.client;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
+import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
@@ -82,7 +83,12 @@ public final class NaluSimpleApplicationImpl
     shell.setEventBus(this.eventBus);
     shell.setContext(this.context);
     super.shell = shell;
-    shell.bind();
+    try {
+      shell.bind(() -> {
+      });
+    } catch (RoutingInterceptionException e) {
+      e.printStackTrace();
+    }
     ClientLogger.get()
                 .logDetailed("AbstractApplicationImpl: shellCreator created",
                              1);

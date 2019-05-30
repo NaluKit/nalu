@@ -250,7 +250,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * continue laoding!
    *
    * @param loader loader to tell Nalu to continue loading the controller
-   * @throws RoutingInterceptionException in case the create contrioller
+   * @throws RoutingInterceptionException in case the bind controller
    *                                      process should be interrupted
    */
   @Override
