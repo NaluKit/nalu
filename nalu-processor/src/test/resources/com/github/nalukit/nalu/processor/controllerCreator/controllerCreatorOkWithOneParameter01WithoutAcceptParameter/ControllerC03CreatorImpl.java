@@ -39,10 +39,6 @@ public final class ControllerC03CreatorImpl extends AbstractControllerCreator<Mo
       sb01 = new StringBuilder();
       sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
-      sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> call bind method");
-      ClientLogger.get().logDetailed(sb01.toString(), 4);
-      sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> bind method called");
-      ClientLogger.get().logDetailed(sb01.toString(), 4);
     } else {
       sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
@@ -80,3 +76,4 @@ public final class ControllerC03CreatorImpl extends AbstractControllerCreator<Mo
     ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithOneParameter01WithoutAcceptParameter.Component03<< created for route >>/mockShell/route01/*<<", 3);
   }
 }
+

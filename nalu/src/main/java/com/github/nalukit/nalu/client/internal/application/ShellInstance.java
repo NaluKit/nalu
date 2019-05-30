@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.client.internal.application;
 
-import com.github.nalukit.nalu.client.component.IsShell;
+import com.github.nalukit.nalu.client.component.AbstractShell;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
@@ -26,7 +26,7 @@ public class ShellInstance {
   private String shellClassName;
 
   /* controller */
-  private IsShell shell;
+  private AbstractShell<?> shell;
 
   public ShellInstance() {
   }
@@ -39,11 +39,11 @@ public class ShellInstance {
     this.shellClassName = shellClassName;
   }
 
-  public IsShell getShell() {
+  public AbstractShell<?> getShell() {
     return shell;
   }
 
-  public void setShell(IsShell shell) {
+  public void setShell(AbstractShell<?> shell) {
     this.shell = shell;
   }
 

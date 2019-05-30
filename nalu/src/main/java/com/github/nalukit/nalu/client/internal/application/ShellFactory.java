@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.client.internal.application;
 
+import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.HashMap;
@@ -47,12 +48,31 @@ public class ShellFactory {
                           creator);
   }
 
-  public ShellInstance shell(String shellName) {
+  public void shell(String shellName,
+                    ShellCallback callback) {
     if (this.shellFactory.containsKey(shellName)) {
-      return this.shellFactory.get(shellName)
-                              .create();
+      IsShellCreator shellCreator = this.shellFactory.get(shellName);
+      ShellInstance shellInstance = shellCreator.create();
+      shellCreator.logBindMethodCallToConsole(shellInstance.getShell(),
+                                              false);
+      try {
+        shellInstance.getShell()
+                     .bind(() -> {
+                       try {
+                         shellCreator.logBindMethodCallToConsole(shellInstance.getShell(),
+                                                                 true);
+                         shellCreator.onFinishCreating(shellInstance.getShell());
+                         callback.onFinish(shellInstance);
+                       } catch (RoutingInterceptionException e) {
+                         callback.onRoutingInterceptionException(e);
+                       }
+                     });
+      } catch (RoutingInterceptionException e) {
+        callback.onRoutingInterceptionException(e);
+      }
+    } else {
+      callback.onShellNotFound();
     }
-    return null;
   }
 
 }

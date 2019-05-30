@@ -40,10 +40,6 @@ public final class ControllerWithComposite03CreatorImpl extends AbstractControll
       sb01 = new StringBuilder();
       sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
-      sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> call bind method");
-      ClientLogger.get().logDetailed(sb01.toString(), 4);
-      sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> bind method called");
-      ClientLogger.get().logDetailed(sb01.toString(), 4);
     } else {
       sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
       ClientLogger.get().logDetailed(sb01.toString(), 4);

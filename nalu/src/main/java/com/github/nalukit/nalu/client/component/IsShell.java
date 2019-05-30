@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
+
 /**
  * <p>Marks an class as a Nalu's shellCreator.</p>
  */
@@ -66,5 +68,38 @@ public interface IsShell {
    * Removes all registered handlers.
    */
   void removeHandlers();
+
+  /**
+   * The bind-method will be called before the shell is added to the viewport.
+   * <p>
+   * This method runs before the component and composites are
+   * created. This is f.e.: a got place to do some
+   * authentification checks.
+   * <p>
+   * Keep in mind, that the method is asynchron. Once you have
+   * done your work, you have to call <b>loader.continueLoading()</b>.
+   * Otherwise Nalu will stop working!
+   * <p>
+   * Inside the method can the routing process gets interrupted
+   * by throwing a RoutingInterceptionException.
+   * <p>
+   * The method will not be called in case a controller is cached!
+   * <p>
+   * Attention:
+   * Do not call super.bind(loader)! Cause this will tell Nalu to
+   * continue laoding!
+   *
+   * @param loader loader to tell Nalu to continue loading the controller
+   * @throws RoutingInterceptionException in case the create contrioller
+   *                                      process should be interrupted
+   */
+  void bind(ShellLoader loader)
+      throws RoutingInterceptionException;
+
+  interface ShellLoader {
+
+    void continueLoading();
+
+  }
 
 }

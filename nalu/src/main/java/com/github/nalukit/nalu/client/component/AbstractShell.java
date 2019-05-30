@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -47,8 +48,29 @@ public abstract class AbstractShell<C extends IsContext>
     this.eventBus = eventBus;
   }
 
-  public void bind() {
-    // override this method if you need to bind something inside the Shell
+  /**
+   * The bind-method will be called before the shell is added to the viewport.
+   * <p>
+   * This method runs before the component and composites are
+   * created. This is f.e.: a got place to do some
+   * authentification checks.
+   * <p>
+   * Keep in mind, that the method is asynchron. Once you have
+   * done your work, you have to call <b>loader.continueLoading()</b>.
+   * Otherwise Nalu will stop working!
+   * <p>
+   * Attention:
+   * Do not call super.bind(loader)! Cause this will tell Nalu to
+   * continue laoding!
+   *
+   * @param loader loader to tell Nalu to continue loading the shell
+   * @throws RoutingInterceptionException in case the bind shell
+   *                                      process should be interrupted
+   */
+  @Override
+  public void bind(ShellLoader loader)
+      throws RoutingInterceptionException {
+    loader.continueLoading();
   }
 
   /**

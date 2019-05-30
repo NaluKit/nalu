@@ -130,15 +130,6 @@ public class ControllerCreatorGenerator {
                                                 .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> created and data injected\")")
                                                 .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                                                               ClassName.get(ClientLogger.class))
-
-                                                .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> call bind method\")")
-                                                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                                              ClassName.get(ClientLogger.class))
-
-                                                .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> bind method called\")")
-                                                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                                              ClassName.get(ClientLogger.class))
-
                                                 .nextControlFlow("else")
                                                 .addStatement("sb01.append(\"controller >>\").append(storedController.getClass().getCanonicalName()).append(\"<< --> found in cache -> REUSE!\")")
                                                 .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
