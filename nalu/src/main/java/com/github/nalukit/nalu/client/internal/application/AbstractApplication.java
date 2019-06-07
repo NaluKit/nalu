@@ -45,26 +45,37 @@ public abstract class AbstractApplication<C extends IsContext>
 
   /* start route */
   protected String                             startRoute;
+
   /* route in case of route error */
   protected String                             errorRoute;
+
   /* Shell */
   protected IsShell                            shell;
+
   /* Shell Configuration */
   protected ShellConfiguration                 shellConfiguration;
+
   /* Router Configuration */
   protected RouterConfiguration                routerConfiguration;
+
   /* Router */
   protected ConfiguratableRouter               router;
+
   /* application context */
   protected C                                  context;
+
   /* the event bus of the application */
   protected SimpleEventBus                     eventBus;
+
   /* plugin */
   protected IsNaluProcessorPlugin              plugin;
+
   /* Tracker instance */
   protected IsTracker                          tracker;
+
   /* instance of AlwaysLoadComposite-class */
   protected AlwaysLoadComposite                alwaysLoadComposite;
+
   /* List of CompositeControllerReferences */
   protected List<CompositeControllerReference> compositeControllerReferences;
 
@@ -107,16 +118,18 @@ public abstract class AbstractApplication<C extends IsContext>
     PopUpControllerFactory.get()
                           .register(this.eventBus);
     // initialize plugin
-    this.plugin.initialize(this.isUsingHash(),
-                           this.shellConfiguration);
+    this.plugin.initialize(this.shellConfiguration);
     // load optional tracker
     this.tracker = this.loadTrackerConfiguration();
+    // load default routes!
+    this.loadDefaultRoutes();
     // create router ...
     this.router = new RouterImpl(this.plugin,
                                  this.shellConfiguration,
                                  this.routerConfiguration,
                                  this.compositeControllerReferences,
                                  this.tracker,
+                                 this.startRoute,
                                  this.hasHistory(),
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl());
@@ -128,7 +141,6 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadShells();
     this.loadRoutes();
     this.loadFilters();
-    this.loadDefaultRoutes();
     this.loadCompositeReferences();
     this.loadPopUpControllerFactory();
     this.router.setRouteError(AbstractApplication.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
@@ -222,7 +234,7 @@ public abstract class AbstractApplication<C extends IsContext>
    */
   private void onFinishLoading() {
     // save the current hash
-    String hashOnStart = this.plugin.getStartRoute(isUsingHash());
+    String hashOnStart = this.plugin.getStartRoute();
     // check if the url contains a hash.
     // in case it has a hash, use this to route otherwise
     // use the startRoute from the annotation

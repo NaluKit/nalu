@@ -11,7 +11,8 @@ public class RouterUtilsTest {
     String route = "/app/person/3/edit";
     String with = "/app/person/*/edit";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              false);
     Assert.assertTrue(Nalu.match(route,
@@ -23,7 +24,8 @@ public class RouterUtilsTest {
     String route = "/app/person/3/edit";
     String with = "/app/person/*";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              false);
     Assert.assertFalse(Nalu.match(route,
@@ -35,7 +37,8 @@ public class RouterUtilsTest {
     String route = "/app/person/3/edit";
     String with = "/app/*/person/edit";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              false);
     Assert.assertFalse(Nalu.match(route,
@@ -47,7 +50,8 @@ public class RouterUtilsTest {
     String route = "/app/person/3/edit";
     String with = "/app/*/person/*";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              false);
     Assert.assertFalse(Nalu.match(route,
@@ -59,7 +63,8 @@ public class RouterUtilsTest {
     String route = "/app/person/3/edit";
     String with = "/app/person/*/*";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              false);
     Assert.assertTrue(Nalu.match(route,
@@ -71,7 +76,8 @@ public class RouterUtilsTest {
     String route = "/";
     String with = "/app/person/*/*";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              false);
     Assert.assertFalse(Nalu.match(route,
@@ -83,7 +89,8 @@ public class RouterUtilsTest {
     String route = "/";
     String with = "/";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              false);
     Assert.assertTrue(Nalu.match(route,
@@ -95,7 +102,8 @@ public class RouterUtilsTest {
     String route = "/";
     String with = "/*";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              false);
     Assert.assertTrue(Nalu.match(route,
@@ -107,7 +115,8 @@ public class RouterUtilsTest {
     String route = "/app/person/search";
     String with = "/app/person/*/edit";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              false);
     Assert.assertFalse(Nalu.match(route,
@@ -119,7 +128,8 @@ public class RouterUtilsTest {
     String route = "/app/person/:3/edit";
     String with = "/app/person/*/edit";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              true);
     Assert.assertTrue(Nalu.match(route,
@@ -131,7 +141,8 @@ public class RouterUtilsTest {
     String route = "/app/person/:3/edit";
     String with = "/app/person/*";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              true);
     Assert.assertFalse(Nalu.match(route,
@@ -143,7 +154,8 @@ public class RouterUtilsTest {
     String route = "/app/person/:3/edit";
     String with = "/app/person/*";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              true);
     Assert.assertFalse(Nalu.match(route,
@@ -156,7 +168,8 @@ public class RouterUtilsTest {
     String route = "/app/person/:3/edit";
     String with = "/app/*/person/edit";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              true);
     Assert.assertFalse(Nalu.match(route,
@@ -168,7 +181,8 @@ public class RouterUtilsTest {
     String route = "/app/person/:3/edit";
     String with = "/app/*/person/*";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              true);
     Assert.assertFalse(Nalu.match(route,
@@ -180,7 +194,8 @@ public class RouterUtilsTest {
     String route = "/app/person/:3/edit";
     String with = "/app/person/*/*";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              true);
     Assert.assertFalse(Nalu.match(route,
@@ -192,7 +207,8 @@ public class RouterUtilsTest {
     String route = "/";
     String with = "/app/person/*/*";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              true);
     Assert.assertFalse(Nalu.match(route,
@@ -204,7 +220,8 @@ public class RouterUtilsTest {
     String route = "/";
     String with = "/";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              true);
     Assert.assertTrue(Nalu.match(route,
@@ -216,7 +233,8 @@ public class RouterUtilsTest {
     String route = "/:";
     String with = "/*";
     PropertyFactory.get()
-                   .register(true,
+                   .register("startShell/startRoute",
+                             true,
                              true,
                              true);
     Assert.assertTrue(Nalu.match(route,
@@ -228,7 +246,8 @@ public class RouterUtilsTest {
     String route = "/app/person/3/edit";
     String with = "/app/person/*/edit";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              false);
     Assert.assertTrue(Nalu.match(route,
@@ -240,7 +259,8 @@ public class RouterUtilsTest {
     String route = "/app/person/3/edit";
     String with = "/app/person/*";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              false);
     Assert.assertFalse(Nalu.match(route,
@@ -252,7 +272,8 @@ public class RouterUtilsTest {
     String route = "/app/person/3/edit";
     String with = "/app/*/person/edit";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              false);
     Assert.assertFalse(Nalu.match(route,
@@ -264,7 +285,8 @@ public class RouterUtilsTest {
     String route = "/app/person/3/edit";
     String with = "/app/*/person/*";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              false);
     Assert.assertFalse(Nalu.match(route,
@@ -276,7 +298,8 @@ public class RouterUtilsTest {
     String route = "/app/person/3/edit";
     String with = "/app/person/*/*";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              false);
     Assert.assertTrue(Nalu.match(route,
@@ -288,7 +311,8 @@ public class RouterUtilsTest {
     String route = "/";
     String with = "/app/person/*/*";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              false);
     Assert.assertFalse(Nalu.match(route,
@@ -300,7 +324,8 @@ public class RouterUtilsTest {
     String route = "/";
     String with = "/";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              false);
     Assert.assertTrue(Nalu.match(route,
@@ -312,7 +337,8 @@ public class RouterUtilsTest {
     String route = "/";
     String with = "/*";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              false);
     Assert.assertTrue(Nalu.match(route,
@@ -324,7 +350,8 @@ public class RouterUtilsTest {
     String route = "/app/person/search";
     String with = "/app/person/*/edit";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              false);
     Assert.assertFalse(Nalu.match(route,
@@ -336,7 +363,8 @@ public class RouterUtilsTest {
     String route = "/app/person/:3/edit";
     String with = "/app/person/*/edit";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              true);
     Assert.assertTrue(Nalu.match(route,
@@ -348,7 +376,8 @@ public class RouterUtilsTest {
     String route = "/app/person/:3/edit";
     String with = "/app/person/*";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              true);
     Assert.assertFalse(Nalu.match(route,
@@ -360,7 +389,8 @@ public class RouterUtilsTest {
     String route = "/app/person/:3/edit";
     String with = "/app/person/*";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              true);
     Assert.assertFalse(Nalu.match(route,
@@ -373,7 +403,8 @@ public class RouterUtilsTest {
     String route = "/app/person/:3/edit";
     String with = "/app/*/person/edit";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              true);
     Assert.assertFalse(Nalu.match(route,
@@ -385,7 +416,8 @@ public class RouterUtilsTest {
     String route = "/app/person/:3/edit";
     String with = "/app/*/person/*";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              true);
     Assert.assertFalse(Nalu.match(route,
@@ -397,7 +429,8 @@ public class RouterUtilsTest {
     String route = "/app/person/:3/edit";
     String with = "/app/person/*/*";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              true);
     Assert.assertFalse(Nalu.match(route,
@@ -409,7 +442,8 @@ public class RouterUtilsTest {
     String route = "/";
     String with = "/app/person/*/*";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              true);
     Assert.assertFalse(Nalu.match(route,
@@ -421,7 +455,8 @@ public class RouterUtilsTest {
     String route = "/";
     String with = "/";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              true);
     Assert.assertTrue(Nalu.match(route,
@@ -433,7 +468,8 @@ public class RouterUtilsTest {
     String route = "/:";
     String with = "/*";
     PropertyFactory.get()
-                   .register(false,
+                   .register("startShell/startRoute",
+                             false,
                              true,
                              true);
     Assert.assertTrue(Nalu.match(route,

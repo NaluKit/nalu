@@ -30,6 +30,7 @@ public final class RouterImpl
                     RouterConfiguration routerConfiguration,
                     List<CompositeControllerReference> compositeControllerReferences,
                     IsTracker tracker,
+                    String startRoute,
                     boolean hasHistory,
                     boolean usingHash,
                     boolean usingColonForParametersInUrl) {
@@ -38,12 +39,11 @@ public final class RouterImpl
           routerConfiguration,
           plugin,
           tracker,
+          startRoute,
           hasHistory,
           usingHash,
           usingColonForParametersInUrl);
-    this.plugin.register(super::handleRouting,
-                         hasHistory,
-                         usingHash);
+    this.plugin.register(super::handleRouting);
   }
 
 }

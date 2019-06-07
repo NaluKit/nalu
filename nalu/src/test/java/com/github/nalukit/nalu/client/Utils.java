@@ -32,7 +32,7 @@ class Utils {
       }
 
       @Override
-      public String getStartRoute(boolean usingHash) {
+      public String getStartRoute() {
         return "/";
       }
 
@@ -42,9 +42,7 @@ class Utils {
       }
 
       @Override
-      public void register(RouteChangeHandler handler,
-                           boolean hasHistory,
-                           boolean usingHash) {
+      public void register(RouteChangeHandler handler) {
       }
 
       @Override
@@ -53,14 +51,11 @@ class Utils {
 
       @Override
       public void route(String newRoute,
-                        boolean replace,
-                        boolean hasHistory,
-                        boolean usingHash) {
+                        boolean replace) {
       }
 
       @Override
-      public void initialize(boolean usingHash,
-                             ShellConfiguration shellConfiguration) {
+      public void initialize(ShellConfiguration shellConfiguration) {
       }
     };
   }

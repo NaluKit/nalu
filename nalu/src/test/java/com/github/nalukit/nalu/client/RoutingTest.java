@@ -58,7 +58,7 @@ public class RoutingTest {
       }
 
       @Override
-      public String getStartRoute(boolean usingHash) {
+      public String getStartRoute() {
         return "/search";
       }
 
@@ -68,9 +68,7 @@ public class RoutingTest {
       }
 
       @Override
-      public void register(RouteChangeHandler handler,
-                           boolean hasHistory,
-                           boolean usingHash) {
+      public void register(RouteChangeHandler handler) {
         this.hashHandler = handler;
       }
 
@@ -81,17 +79,14 @@ public class RoutingTest {
 
       @Override
       public void route(String newRoute,
-                        boolean replace,
-                        boolean hasHistory,
-                        boolean usingHash) {
+                        boolean replace) {
         Assert.assertTrue("route mismatch!",
                           routeHandler.compare(newRoute,
                                                replace));
       }
 
       @Override
-      public void initialize(boolean usingHash,
-                             ShellConfiguration shellConfiguration) {
+      public void initialize(ShellConfiguration shellConfiguration) {
       }
 
       public void addCompareHandler(CompareHandler compareHandler) {

@@ -48,36 +48,49 @@ abstract class AbstractRouter
 
   // the plugin
   IsNaluProcessorPlugin plugin;
+
   // route in case of route error
-  private String                                            routeError;
+  private String routeError;
+
   // the latest error object (set by the application
-  private NaluErrorMessage                                  applicationErrorMessage;
+  private NaluErrorMessage applicationErrorMessage;
+
   // the latest error object
-  private NaluErrorMessage                                  naluErrorMessage;
+  private NaluErrorMessage naluErrorMessage;
+
   // composite configuration
-  private List<CompositeControllerReference>                compositeControllerReferences;
+  private List<CompositeControllerReference> compositeControllerReferences;
+
   // List of the application shells
-  private ShellConfiguration                                shellConfiguration;
+  private ShellConfiguration shellConfiguration;
+
   // List of the routes of the application
-  private RouterConfiguration                               routerConfiguration;
+  private RouterConfiguration routerConfiguration;
+
   // List of active components
   private Map<String, AbstractComponentController<?, ?, ?>> activeComponents;
+
   // hash of last successful routing
-  private String                                            lastExecutedHash = "";
+  private String lastExecutedHash = "";
+
   // last added shell - used, to check if the shell needs an shell replacement
-  private String                                            lastAddedShell;
+  private String lastAddedShell;
+
   // instance of the current shell
-  private IsShell                                           shell;
+  private IsShell shell;
+
   // list of routes used for handling the current route - used to detect loops
-  private List<String>                                      loopDetectionList;
+  private List<String> loopDetectionList;
+
   // the tracker: if not null, track the users routing
-  private IsTracker                                         tracker;
+  private IsTracker tracker;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
                  ShellConfiguration shellConfiguration,
                  RouterConfiguration routerConfiguration,
                  IsNaluProcessorPlugin plugin,
                  IsTracker tracker,
+                 String startRoute,
                  boolean hasHistory,
                  boolean usingHash,
                  boolean usingColonForParametersInUrl) {
@@ -96,7 +109,8 @@ abstract class AbstractRouter
     this.loopDetectionList = new ArrayList<>();
     // set up PropertyFactory
     PropertyFactory.get()
-                   .register(hasHistory,
+                   .register(startRoute,
+                             hasHistory,
                              usingHash,
                              usingColonForParametersInUrl);
   }
@@ -356,16 +370,16 @@ abstract class AbstractRouter
                                private void detachShell() {
                                  ClientLogger.get()
                                              .logDetailed("Router: detach shellCreator >>" +
-                                                          shell.getClass()
-                                                               .getCanonicalName() +
-                                                          "<<",
+                                                              shell.getClass()
+                                                                   .getCanonicalName() +
+                                                              "<<",
                                                           1);
                                  shell.detachShell();
                                  ClientLogger.get()
                                              .logDetailed("Router: shellCreator >>" +
-                                                          shell.getClass()
-                                                               .getCanonicalName() +
-                                                          "<< detached",
+                                                              shell.getClass()
+                                                                   .getCanonicalName() +
+                                                              "<< detached",
                                                           1);
                                }
 
@@ -391,9 +405,7 @@ abstract class AbstractRouter
       }
     } else {
       this.plugin.route("#" + this.lastExecutedHash,
-                        false,
-                        Nalu.hasHistory(),
-                        Nalu.isUsingHash());
+                        false);
     }
   }
 
@@ -630,8 +642,8 @@ abstract class AbstractRouter
     // check, if there are more "/"
     if (routeValue.contains("/")) {
       routeResult.setShell("/" +
-                           routeValue.substring(0,
-                                                routeValue.indexOf("/")));
+                               routeValue.substring(0,
+                                                    routeValue.indexOf("/")));
     } else {
       routeResult.setShell("/" + routeValue);
     }
@@ -745,12 +757,12 @@ abstract class AbstractRouter
                        });
 
     return !isDirtyComposite.get() &&
-           routeConfigurations.stream()
-                              .map(config -> this.activeComponents.get(config.getSelector()))
-                              .filter(Objects::nonNull)
-                              .map(AbstractComponentController::mayStop)
-                              .filter(Objects::nonNull)
-                              .allMatch(message -> this.plugin.confirm(message));
+        routeConfigurations.stream()
+                           .map(config -> this.activeComponents.get(config.getSelector()))
+                           .filter(Objects::nonNull)
+                           .map(AbstractComponentController::mayStop)
+                           .filter(Objects::nonNull)
+                           .allMatch(message -> this.plugin.confirm(message));
   }
 
   private void stopController(List<RouteConfig> routeConfiguraions) {
@@ -962,14 +974,10 @@ abstract class AbstractRouter
                                               parms);
     if (replaceState) {
       this.plugin.route(newRouteWithParams,
-                        true,
-                        Nalu.hasHistory(),
-                        Nalu.isUsingHash());
+                        true);
     } else {
       this.plugin.route(newRouteWithParams,
-                        false,
-                        Nalu.hasHistory(),
-                        Nalu.isUsingHash());
+                        false);
     }
     this.handleRouting(newRouteWithParams);
   }
@@ -1015,7 +1023,13 @@ abstract class AbstractRouter
                                       .filter("*"::equals)
                                       .count();
     if (parms.length > numberOfPlaceHolders) {
-      String sbExeption = "Warning: route >>" + route + "<< has less parameter placeholder >>" + numberOfPlaceHolders + "<< than the number of parameters in the list of parameters >>" + parms.length + "<< --> adding Prameters add the end of the url";
+      String sbExeption = "Warning: route >>" +
+          route +
+          "<< has less parameter placeholder >>" +
+          numberOfPlaceHolders +
+          "<< than the number of parameters in the list of parameters >>" +
+          parms.length +
+          "<< --> adding Prameters add the end of the url";
       RouterLogger.logSimple(sbExeption,
                              1);
       for (int i = parameterIndex; i < parms.length; i++) {

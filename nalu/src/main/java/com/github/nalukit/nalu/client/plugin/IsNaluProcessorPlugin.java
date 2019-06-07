@@ -29,23 +29,18 @@ public interface IsNaluProcessorPlugin {
 
   boolean confirm(String message);
 
-  String getStartRoute(boolean usingHash);
+  String getStartRoute();
 
   Map<String, String> getQueryParameters();
 
-  void register(RouteChangeHandler handler,
-                boolean hasHsitory,
-                boolean usingHash);
+  void register(RouteChangeHandler handler);
 
   void remove(String selector);
 
   void route(String newRoute,
-             boolean replace,
-             boolean hasHistory,
-             boolean usingHash);
+             boolean replace);
 
-  void initialize(boolean usingHash,
-                  ShellConfiguration shellConfiguration);
+  void initialize(ShellConfiguration shellConfiguration);
 
   @FunctionalInterface
   interface RouteChangeHandler {
