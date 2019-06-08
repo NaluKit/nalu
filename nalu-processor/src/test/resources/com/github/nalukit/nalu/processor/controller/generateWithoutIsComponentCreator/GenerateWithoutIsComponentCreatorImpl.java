@@ -132,4 +132,9 @@ public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplica
   public boolean isUsingColonForParametersInUrl() {
     return false;
   }
+
+  @Override
+  public boolean isStayOnSide() {
+    return false;
+  }
 }

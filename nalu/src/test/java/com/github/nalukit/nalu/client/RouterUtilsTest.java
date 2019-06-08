@@ -14,6 +14,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(Nalu.match(route,
                                  with));
@@ -27,6 +28,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
@@ -40,6 +42,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
@@ -53,6 +56,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
@@ -66,6 +70,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(Nalu.match(route,
                                  with));
@@ -79,6 +84,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
@@ -92,6 +98,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(Nalu.match(route,
                                  with));
@@ -105,6 +112,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(Nalu.match(route,
                                  with));
@@ -118,6 +126,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
@@ -131,7 +140,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(Nalu.match(route,
                                  with));
   }
@@ -144,7 +154,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
   }
@@ -157,7 +168,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(Nalu.match(route,
                                   with,
                                   true));
@@ -171,7 +183,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
   }
@@ -184,7 +197,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
   }
@@ -197,7 +211,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
   }
@@ -210,7 +225,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
   }
@@ -223,7 +239,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(Nalu.match(route,
                                  with));
   }
@@ -236,7 +253,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(Nalu.match(route,
                                  with));
   }
@@ -249,6 +267,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
+                             false,
                              false);
     Assert.assertTrue(Nalu.match(route,
                                  with));
@@ -262,6 +281,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
+                             false,
                              false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
@@ -275,6 +295,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
+                             false,
                              false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
@@ -288,6 +309,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
+                             false,
                              false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
@@ -301,6 +323,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
+                             false,
                              false);
     Assert.assertTrue(Nalu.match(route,
                                  with));
@@ -314,6 +337,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
+                             false,
                              false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
@@ -327,6 +351,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
+                             false,
                              false);
     Assert.assertTrue(Nalu.match(route,
                                  with));
@@ -340,6 +365,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
+                             false,
                              false);
     Assert.assertTrue(Nalu.match(route,
                                  with));
@@ -353,6 +379,7 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
+                             false,
                              false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
@@ -366,7 +393,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(Nalu.match(route,
                                  with));
   }
@@ -379,7 +407,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
   }
@@ -392,7 +421,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(Nalu.match(route,
                                   with,
                                   true));
@@ -406,7 +436,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
   }
@@ -419,7 +450,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
   }
@@ -432,7 +464,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
   }
@@ -445,7 +478,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(Nalu.match(route,
                                   with));
   }
@@ -458,7 +492,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(Nalu.match(route,
                                  with));
   }
@@ -471,7 +506,8 @@ public class RouterUtilsTest {
                    .register("startShell/startRoute",
                              false,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(Nalu.match(route,
                                  with));
   }

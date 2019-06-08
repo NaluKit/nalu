@@ -21,6 +21,9 @@ public class PropertyFactory {
   // is the application using colon in url for parameter?
   private boolean usingColonForParametersInUrl;
 
+  // should the application replace history (stay on side) in case of empty hash
+  private boolean stayOnSide;
+
   private PropertyFactory() {
   }
 
@@ -77,6 +80,15 @@ public class PropertyFactory {
   }
 
   /**
+   * should the application replace history (stay on side) in case of empty hash?
+   *
+   * @return true: replace history, else update
+   */
+  public boolean isStayOnSide() {
+    return stayOnSide;
+  }
+
+  /**
    * The start route of the applilcation
    *
    * @return start route of the application
@@ -96,7 +108,8 @@ public class PropertyFactory {
   public void register(String startRoute,
                        boolean hasHistory,
                        boolean usingHash,
-                       boolean usingColonForParametersInUrl) {
+                       boolean usingColonForParametersInUrl,
+                       boolean stayOnSide) {
     if (startRoute.startsWith("/")) {
       this.startRoute = startRoute.substring(1);
     } else {
@@ -105,5 +118,6 @@ public class PropertyFactory {
     this.hasHistory = hasHistory;
     this.usingHash = usingHash;
     this.usingColonForParametersInUrl = usingColonForParametersInUrl;
+    this.stayOnSide = stayOnSide;
   }
 }

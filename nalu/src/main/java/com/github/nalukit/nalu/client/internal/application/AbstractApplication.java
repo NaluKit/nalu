@@ -132,7 +132,8 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.startRoute,
                                  this.hasHistory(),
                                  this.isUsingHash(),
-                                 this.isUsingColonForParametersInUrl());
+                                 this.isUsingColonForParametersInUrl(),
+                                 this.isStayOnSide());
     // load everything you need to start
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load configurations",
@@ -228,6 +229,8 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract boolean isUsingHash();
 
   protected abstract boolean isUsingColonForParametersInUrl();
+
+  protected abstract boolean isStayOnSide();
 
   /**
    * Once the loader did his job, we will continue

@@ -36,6 +36,7 @@ import java.lang.annotation.RetentionPolicy;
  * <li>routeError: in case an error occurs, Nalu will use this route toi display the error</li>
  * <li>useHash: if useHash is true, use a hash based url, otherwise a non hash based url</li>
  * <li>useColonForParametersInUrl: if useColonForParametersInUrl is true, Nalu expects parameters with a leading colon in urls</li>
+ * <li>stayOnSite: if stayOnSite is true, Nalu will replace history with the start-route in case hash is empty, else Nalu will only update it.</li>
  * </ul>
  *
  * @author Frank Hossfeld
@@ -56,5 +57,7 @@ public @interface Application {
   boolean useHash() default true;
 
   boolean useColonForParametersInUrl() default false;
+
+  boolean stayOnSite() default false;
 
 }

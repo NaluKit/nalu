@@ -133,4 +133,10 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
   public boolean isUsingColonForParametersInUrl() {
     return false;
   }
+
+  @Override
+  public boolean isStayOnSide() {
+    return false;
+  }
+
 }

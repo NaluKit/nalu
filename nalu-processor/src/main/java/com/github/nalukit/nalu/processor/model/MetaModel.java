@@ -36,6 +36,8 @@ public class MetaModel {
 
   private boolean usingColonForParametersInUrl;
 
+  private boolean stayOnSide;
+
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
   /* with a a plugin and not with a pplication  */
@@ -255,6 +257,14 @@ public class MetaModel {
 
   public void setUsingColonForParametersInUrl(boolean usingColonForParametersInUrl) {
     this.usingColonForParametersInUrl = usingColonForParametersInUrl;
+  }
+
+  public boolean isStayOnSide() {
+    return stayOnSide;
+  }
+
+  public void setStayOnSide(boolean stayOnSide) {
+    this.stayOnSide = stayOnSide;
   }
 
   public String getShellOfStartRoute() {

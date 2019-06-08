@@ -453,6 +453,11 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
+  protected boolean isStayOnSide() {
+    return false;
+  }
+
+  @Override
   public void loadDefaultRoutes() {
     this.startRoute = "/search";
     this.errorRoute = "WhenShallWeThreeMeetAgainInThunderLightningOrInRain";

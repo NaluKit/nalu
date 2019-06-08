@@ -33,7 +33,8 @@ public final class RouterImpl
                     String startRoute,
                     boolean hasHistory,
                     boolean usingHash,
-                    boolean usingColonForParametersInUrl) {
+                    boolean usingColonForParametersInUrl,
+                    boolean stayOnSide) {
     super(compositeControllerReferences,
           shellConfiguration,
           routerConfiguration,
@@ -42,7 +43,8 @@ public final class RouterImpl
           startRoute,
           hasHistory,
           usingHash,
-          usingColonForParametersInUrl);
+          usingColonForParametersInUrl,
+          stayOnSide);
     this.plugin.register(super::handleRouting);
   }
 

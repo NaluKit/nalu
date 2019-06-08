@@ -94,6 +94,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -106,6 +107,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -118,6 +120,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -130,6 +133,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -142,6 +146,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -154,6 +159,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -166,6 +172,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -178,6 +185,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -190,6 +198,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -202,6 +211,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -214,6 +224,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -226,6 +237,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -238,6 +250,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -250,6 +263,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -262,6 +276,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -274,6 +289,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -286,6 +302,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -300,7 +317,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application"));
@@ -312,7 +330,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/error/show"));
@@ -324,7 +343,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail"));
@@ -336,7 +356,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail/:parameter01"));
@@ -348,7 +369,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
                                                           "/unknownShell"));
@@ -360,7 +382,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail/:parameter01/:parameter02"));
@@ -372,7 +395,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
                                                           "/unknownShell/show"));
@@ -384,7 +408,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
                                                           "/unknownShell/person/detail"));
@@ -396,7 +421,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
                                                           "/unknownShell/person/detail/:parameter01"));
@@ -408,7 +434,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
                                                           "/unknownShell/person/detail/:parameter01/:parameter02"));
@@ -420,7 +447,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
                                                           "/error/showa"));
@@ -432,7 +460,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail"));
@@ -444,7 +473,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail/:parameter01"));
@@ -456,7 +486,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail/:parameter01/:parameter02"));
@@ -468,7 +499,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/"));
@@ -480,7 +512,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail/:parameter01"));
@@ -492,7 +525,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail/:parameter01"));
@@ -504,6 +538,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -516,6 +551,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -528,6 +564,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -540,6 +577,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -552,6 +590,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -564,6 +603,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -576,6 +616,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -588,6 +629,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -600,6 +642,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -612,6 +655,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -624,6 +668,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -636,6 +681,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -648,6 +694,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -660,6 +707,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
@@ -672,6 +720,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -684,6 +733,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -696,6 +746,7 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
+                             false,
                              false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
@@ -710,7 +761,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application"));
@@ -722,7 +774,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/error/show"));
@@ -734,7 +787,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail"));
@@ -746,7 +800,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail/:parameter01"));
@@ -758,7 +813,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
                                                           "/unknownShell"));
@@ -770,7 +826,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail/:parameter01/:parameter02"));
@@ -782,7 +839,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
                                                           "/unknownShell/show"));
@@ -794,7 +852,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
                                                           "/unknownShell/person/detail"));
@@ -806,7 +865,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
                                                           "/unknownShell/person/detail/:parameter01"));
@@ -818,7 +878,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
                                                           "/unknownShell/person/detail/:parameter01/:parameter02"));
@@ -830,7 +891,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                           this.routerConfiguration,
                                                           "/error/showa"));
@@ -842,7 +904,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail"));
@@ -854,7 +917,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail/:parameter01"));
@@ -866,7 +930,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail/:parameter01/:parameter02"));
@@ -878,7 +943,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/"));
@@ -890,7 +956,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail/:parameter01"));
@@ -902,7 +969,8 @@ public class RouteValidationTest {
                    .register("startShell/startRoute",
                              true,
                              true,
-                             true);
+                             true,
+                             false);
     Assert.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                          this.routerConfiguration,
                                                          "/application/person/detail/:parameter01"));

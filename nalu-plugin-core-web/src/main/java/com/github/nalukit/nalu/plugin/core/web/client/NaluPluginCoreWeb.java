@@ -220,14 +220,8 @@ public class NaluPluginCoreWeb {
                                         String contextPath) {
     DomGlobal.window.onpopstate = e -> {
       String newUrl;
-      //      if (NaluPluginCoreWeb.detectIE11()) {
       Location location = Js.uncheckedCast(DomGlobal.location);
       newUrl = location.getHash();
-      //      } else {
-      //        // cast event ...
-      //        PopStateEvent event = (PopStateEvent) e;
-      //        newUrl = (String) event.state;
-      //      }
       // remove leading '/'
       if (newUrl.length() > 1) {
         if (newUrl.startsWith("/")) {
@@ -247,14 +241,8 @@ public class NaluPluginCoreWeb {
   public static void addOnHashChangeHandler(RouteChangeHandler handler) {
     DomGlobal.window.onhashchange = e -> {
       String newUrl;
-      //      if (NaluPluginCoreWeb.detectIE11()) {
       Location location = Js.uncheckedCast(DomGlobal.location);
       newUrl = location.getHash();
-      //      } else {
-      // cast event ...
-      //        HashChangeEvent event = (HashChangeEvent) e;
-      //        newUrl = event.newURL;
-      //      }
       NaluPluginCoreWeb.handleChange(handler,
                                      newUrl);
       return null;
@@ -271,7 +259,8 @@ public class NaluPluginCoreWeb {
       // In case we have an empty newUrl, we have moved back to the start page ==> use startRoute!
       NaluPluginCoreWeb.route(PropertyFactory.get()
                                              .getStartRoute(),
-                              true,
+                              PropertyFactory.get()
+                                             .isStayOnSide(),
                               handler);
     } else {
       NaluPluginCoreWeb.logNewUrl(newUrl);

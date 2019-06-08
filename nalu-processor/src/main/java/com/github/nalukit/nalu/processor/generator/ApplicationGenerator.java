@@ -197,8 +197,11 @@ public class ApplicationGenerator {
     generateIsUsingHashMethod(typeSpec,
                               metaModel);
 
-    generateisUsingColonForParametersInUrl(typeSpec,
+    generateIsUsingColonForParametersInUrl(typeSpec,
                                            metaModel);
+
+    generateIsStayOnSide(typeSpec,
+                         metaModel);
 
     JavaFile javaFile = JavaFile.builder(metaModel.getGenerateToPackage(),
                                          typeSpec.build())
@@ -208,11 +211,11 @@ public class ApplicationGenerator {
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
-                                   metaModel.getApplication()
-                                            .getSimpleName() +
-                                   ApplicationGenerator.IMPL_NAME +
-                                   "<< -> exception: " +
-                                   e.getMessage());
+                                       metaModel.getApplication()
+                                                .getSimpleName() +
+                                       ApplicationGenerator.IMPL_NAME +
+                                       "<< -> exception: " +
+                                       e.getMessage());
     }
   }
 
@@ -238,7 +241,7 @@ public class ApplicationGenerator {
                                  .build());
   }
 
-  private void generateisUsingColonForParametersInUrl(TypeSpec.Builder typeSpec,
+  private void generateIsUsingColonForParametersInUrl(TypeSpec.Builder typeSpec,
                                                       MetaModel metaModel) {
     typeSpec.addMethod(MethodSpec.methodBuilder("isUsingColonForParametersInUrl")
                                  .addAnnotation(Override.class)
@@ -246,6 +249,17 @@ public class ApplicationGenerator {
                                  .returns(boolean.class)
                                  .addStatement("return $L",
                                                metaModel.isUsingColonForParametersInUrl() ? "true" : "false")
+                                 .build());
+  }
+
+  private void generateIsStayOnSide(TypeSpec.Builder typeSpec,
+                                    MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("isStayOnSide")
+                                 .addAnnotation(Override.class)
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .returns(boolean.class)
+                                 .addStatement("return $L",
+                                               metaModel.isStayOnSide() ? "true" : "false")
                                  .build());
   }
 
