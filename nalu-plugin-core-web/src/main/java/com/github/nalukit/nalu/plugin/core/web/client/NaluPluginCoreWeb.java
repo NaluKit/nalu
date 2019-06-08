@@ -259,8 +259,8 @@ public class NaluPluginCoreWeb {
       // In case we have an empty newUrl, we have moved back to the start page ==> use startRoute!
       NaluPluginCoreWeb.route(PropertyFactory.get()
                                              .getStartRoute(),
-                              PropertyFactory.get()
-                                             .isStayOnSide(),
+                              !PropertyFactory.get()
+                                              .isStayOnSide(),
                               handler);
     } else {
       NaluPluginCoreWeb.logNewUrl(newUrl);
