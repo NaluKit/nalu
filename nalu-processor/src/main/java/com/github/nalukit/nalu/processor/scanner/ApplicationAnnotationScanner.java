@@ -77,6 +77,7 @@ public class ApplicationAnnotationScanner {
       metaModel.setRouteError(applicationAnnotation.routeError());
       metaModel.setUsingHash(applicationAnnotation.useHash());
       metaModel.setUsingColonForParametersInUrl(applicationAnnotation.useColonForParametersInUrl());
+      metaModel.setStayOnSide(applicationAnnotation.stayOnSite());
       metaModel.setHistory(applicationAnnotation.history());
     }
   }

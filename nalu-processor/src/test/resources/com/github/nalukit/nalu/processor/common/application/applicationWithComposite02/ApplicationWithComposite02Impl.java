@@ -148,4 +148,10 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
   public boolean isUsingColonForParametersInUrl() {
     return false;
   }
+
+  @Override
+  public boolean isStayOnSide() {
+    return false;
+  }
+
 }

@@ -93,7 +93,8 @@ abstract class AbstractRouter
                  String startRoute,
                  boolean hasHistory,
                  boolean usingHash,
-                 boolean usingColonForParametersInUrl) {
+                 boolean usingColonForParametersInUrl,
+                 boolean stayOnSite) {
     // save the composite configuration reference
     this.compositeControllerReferences = compositeControllerReferences;
     // save the shell configuration reference
@@ -112,7 +113,8 @@ abstract class AbstractRouter
                    .register(startRoute,
                              hasHistory,
                              usingHash,
-                             usingColonForParametersInUrl);
+                             usingColonForParametersInUrl,
+                             stayOnSite);
   }
 
   /**

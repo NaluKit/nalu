@@ -132,4 +132,10 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
   public boolean isUsingColonForParametersInUrl() {
     return false;
   }
+
+  @Override
+  public boolean isStayOnSide() {
+    return false;
+  }
+
 }
