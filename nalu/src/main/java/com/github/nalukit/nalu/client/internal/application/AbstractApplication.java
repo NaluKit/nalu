@@ -95,7 +95,7 @@ public abstract class AbstractApplication<C extends IsContext>
                 .logDetailed("=================================================================================",
                              0);
     ClientLogger.get()
-                .logDetailed("Running Nalu version: v" + Nalu.getVersion(),
+                .logDetailed("Running Nalu version: >>" + Nalu.getVersion() + "<<",
                              0);
     ClientLogger.get()
                 .logDetailed("=================================================================================",
