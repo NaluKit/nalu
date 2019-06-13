@@ -62,7 +62,9 @@ public class ControllerCompositeConditionFactory {
    *
    * @param controllerClassName name of the controller containing the composites
    * @param compositeName       name of the composite which condition is requested
-   * @return true -> load composite; false -> do not load composite
+   * @param route               the route
+   * @param parms               parameter (0 .. n)
+   * @return true: load composite; false:  do not load composite
    */
   public boolean loadComposite(String controllerClassName,
                                String compositeName,
