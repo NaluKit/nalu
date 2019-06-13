@@ -24,6 +24,7 @@ import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.RouteChangeHa
 import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Location;
+import elemental2.dom.PopStateEvent;
 import jsinterop.base.Js;
 
 import java.util.*;
@@ -171,9 +172,9 @@ public class NaluPluginCoreWeb {
                          .getContextPath()
                          .length() > 0) {
         newRouteToken = newRouteToken +
-            PropertyFactory.get()
-                           .getContextPath() +
-            "/";
+                        PropertyFactory.get()
+                                       .getContextPath() +
+                        "/";
       }
       newRouteToken = newRouteToken + newRoute;
     }
@@ -220,8 +221,20 @@ public class NaluPluginCoreWeb {
                                         String contextPath) {
     DomGlobal.window.onpopstate = e -> {
       String newUrl;
-      Location location = Js.uncheckedCast(DomGlobal.location);
-      newUrl = location.getHash();
+      if (PropertyFactory.get()
+                         .isUsingHash()) {
+        Location location = Js.uncheckedCast(DomGlobal.location);
+        newUrl = location.getHash();
+      } else {
+        PopStateEvent event = (PopStateEvent) e;
+        newUrl = (String) event.state;
+        if (Objects.isNull(newUrl) ||
+            newUrl.trim()
+                  .length() == 0) {
+          newUrl = PropertyFactory.get()
+                                  .getStartRoute();
+        }
+      }
       // remove leading '/'
       if (newUrl.length() > 1) {
         if (newUrl.startsWith("/")) {
