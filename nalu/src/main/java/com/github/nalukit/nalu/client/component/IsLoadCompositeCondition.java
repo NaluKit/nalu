@@ -10,6 +10,8 @@ public interface IsLoadCompositeCondition {
    * Dependening on the return value, the composite will be added
    * to the component or not.
    *
+   * @param route the route
+   * @param parms parameter (0 .. n)
    * @return true: load the composite; false: ignore the composite
    */
   boolean loadComposite(String route,
