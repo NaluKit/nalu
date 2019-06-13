@@ -1,4 +1,4 @@
-package com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithLoader;
+package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithLoader;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
@@ -24,7 +24,7 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>1.2.1<< used to generate this source");
+    sb01.append("Nalu processor version  >>1.3.0<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
@@ -78,6 +78,10 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
   }
 
   @Override
+  public void loadPopUpControllerFactory() {
+  }
+
+  @Override
   public void loadFilters() {
   }
 
@@ -128,4 +132,10 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
   public boolean isUsingColonForParametersInUrl() {
     return false;
   }
+
+  @Override
+  public boolean isStayOnSide() {
+    return false;
+  }
+
 }

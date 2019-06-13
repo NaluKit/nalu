@@ -1,8 +1,11 @@
-package com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithoutLoader;
+package com.github.nalukit.nalu.processor.common.application.applicationWithComposite01;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
+import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
+import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
+import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
@@ -13,8 +16,8 @@ import java.lang.Override;
 import java.lang.StringBuilder;
 import java.util.Arrays;
 
-public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithoutLoader {
-  public ApplicationAnnotationOkWithoutLoaderImpl() {
+public final class ApplicationWithComposite01Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite01 {
+  public ApplicationWithComposite01Impl() {
     super();
     super.context = new com.github.nalukit.nalu.processor.common.MockContext();
   }
@@ -24,7 +27,7 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>1.2.1<< used to generate this source");
+    sb01.append("Nalu processor version  >>1.3.0<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
@@ -58,12 +61,18 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
 
   @Override
   public void loadCompositeController() {
+    // create Composite for: com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01
+    CompositeFactory.get().registerComposite("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01", new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01CreatorImpl(router, context, eventBus));
+    // create Composite for: com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01
+    CompositeFactory.get().registerComposite("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01", new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01CreatorImpl(router, context, eventBus));
   }
 
   @Override
   public void loadComponents() {
-    // create ControllerCreator for: com.github.nalukit.nalu.processor.common.ui.component01.Controller01
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01", new com.github.nalukit.nalu.processor.common.ui.component01.Controller01CreatorImpl(router, context, eventBus));
+    // create ControllerCreator for: com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01
+    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01", new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01CreatorImpl(router, context, eventBus));
+    // register conditions of composites for: com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01
+    ControllerCompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01", super.alwaysLoadComposite);
   }
 
   @Override
@@ -71,10 +80,14 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
     StringBuilder sb01 = new StringBuilder();
     sb01.append("load routes");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
-    super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01/*", Arrays.asList(new String[]{"parameter01"}), "selector01", "com.github.nalukit.nalu.processor.common.ui.component01.Controller01"));
+    super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01/*", Arrays.asList(new String[]{"parameter01"}), "selector01", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01"));
     sb01 = new StringBuilder();
-    sb01.append("register route >>/mockShell/route01/*<< with parameter >>parameter01<< for selector >>selector01<< for controller >>com.github.nalukit.nalu.processor.common.ui.component01.Controller01<<");
+    sb01.append("register route >>/mockShell/route01/*<< with parameter >>parameter01<< for selector >>selector01<< for controller >>com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 3);
+  }
+
+  @Override
+  public void loadPopUpControllerFactory() {
   }
 
   @Override
@@ -90,6 +103,10 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
     StringBuilder sb01 = new StringBuilder();
     sb01.append("load composite references");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
+    this.compositeControllerReferences.add(new CompositeControllerReference("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01", "testComposite", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01", "selector"));
+    sb01 = new StringBuilder();
+    sb01.append("register composite >>testComposite<< for controller >>com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01<< in selector >>selector<<");
+    ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
 
   @Override
@@ -128,4 +145,10 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
   public boolean isUsingColonForParametersInUrl() {
     return false;
   }
+
+  @Override
+  public boolean isStayOnSide() {
+    return false;
+  }
+
 }

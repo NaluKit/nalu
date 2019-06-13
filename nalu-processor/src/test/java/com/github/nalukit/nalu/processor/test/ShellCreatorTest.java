@@ -44,4 +44,5 @@ public class ShellCreatorTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/MockShellCreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shellCreator/ok/MockShellCreatorImpl.java"));
   }
+
 }

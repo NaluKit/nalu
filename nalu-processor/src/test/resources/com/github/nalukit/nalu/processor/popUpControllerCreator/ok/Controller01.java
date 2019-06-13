@@ -14,23 +14,20 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithoutLoaderAsInnerInterface;
+package com.github.nalukit.nalu.processor.popUpControllerCreator.ok;
 
-import com.github.nalukit.nalu.client.application.IsApplication;
-import com.github.nalukit.nalu.client.application.annotation.Application;
+import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
-public class ApplicationAnnotationOkWithoutLoaderAsInnerInterface {
+@Controller(route = "/mockShell/route01",
+            selector = "selector01",
+            component = Component01.class,
+            componentInterface = IComponent01.class)
+public class Controller01
+    extends AbstractComponentController<MockContext, IComponent01, String>
+    implements IComponent01.Controller {
 
-  MyApplication myApplication = new MyApplicationImpl();
-
-
-
-  @Application(startRoute = "/mockShell/route01",
-               context = MockContext.class,
-               routeError = "/mockShell/route01")
-  public interface MyApplication
-      extends IsApplication {
+  public Controller01() {
   }
 }
-

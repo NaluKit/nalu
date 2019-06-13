@@ -16,6 +16,7 @@
 package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.AbstractShellCreator;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.IsShellCreator;
@@ -81,6 +82,7 @@ public class ShellCreatorGenerator {
     typeSpec.addMethod(constructor);
     // create Method
     MethodSpec.Builder createMethod = MethodSpec.methodBuilder("create")
+                                                .addAnnotation(ClassName.get(Override.class))
                                                 .addModifiers(Modifier.PUBLIC)
                                                 .returns(ClassName.get(ShellInstance.class))
                                                 .addStatement("$T sb01 = new $T()",
@@ -92,12 +94,12 @@ public class ShellCreatorGenerator {
                                                 .addStatement("shellInstance.setShellClassName($S)",
                                                               this.shellModel.getShell()
                                                                              .getClassName())
-                                                .addStatement("sb01.append(\"compositeModel >>$L<< --> will be created\")",
+                                                .addStatement("sb01.append(\"shell >>$L<< --> will be created\")",
                                                               shellModel.getShell()
                                                                         .getClassName())
                                                 .addStatement("$T.get().logSimple(sb01.toString(), 1)",
                                                               ClassName.get(ClientLogger.class))
-                                                .addStatement("$T compositeModel = new $T()",
+                                                .addStatement("$T shell = new $T()",
                                                               ClassName.get(this.shellModel.getShell()
                                                                                            .getPackage(),
                                                                             this.shellModel.getShell()
@@ -106,35 +108,41 @@ public class ShellCreatorGenerator {
                                                                                            .getPackage(),
                                                                             this.shellModel.getShell()
                                                                                            .getSimpleName()))
-                                                .addStatement("compositeModel.setContext(context)")
-                                                .addStatement("compositeModel.setEventBus(eventBus)")
-                                                .addStatement("compositeModel.setRouter(router)")
+                                                .addStatement("shellInstance.setShell(shell)")
+                                                .addStatement("shell.setContext(context)")
+                                                .addStatement("shell.setEventBus(eventBus)")
+                                                .addStatement("shell.setRouter(router)")
                                                 .addStatement("sb01 = new $T()",
                                                               ClassName.get(StringBuilder.class))
-                                                .addStatement("sb01.append(\"compositeModel >>$L<< --> created and data injected\")",
+                                                .addStatement("sb01.append(\"shell >>$L<< --> created and data injected\")",
                                                               this.shellModel.getShell()
                                                                              .getClassName())
                                                 .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                               ClassName.get(ClientLogger.class))
                                                 .addStatement("sb01 = new $T()",
                                                               ClassName.get(StringBuilder.class))
-                                                .addStatement("sb01.append(\"compositeModel >>$L<< --> call bind()-method\")",
-                                                              this.shellModel.getShell()
-                                                                             .getClassName())
-                                                .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
-                                                              ClassName.get(ClientLogger.class))
-                                                .addStatement("compositeModel.bind()")
-                                                .addStatement("sb01 = new $T()",
-                                                              ClassName.get(StringBuilder.class))
-                                                .addStatement("sb01.append(\"compositeModel >>$L<< --> called bind()-method\")",
-                                                              this.shellModel.getShell()
-                                                                             .getClassName())
-                                                .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
-                                                              ClassName.get(ClientLogger.class))
-                                                .addStatement("shellInstance.setShell(compositeModel)")
                                                 .addStatement("return shellInstance");
-
     typeSpec.addMethod(createMethod.build());
+
+    // create Method
+    MethodSpec.Builder finishCreateMethod = MethodSpec.methodBuilder("onFinishCreating")
+                                                      .addAnnotation(ClassName.get(Override.class))
+                                                      .addModifiers(Modifier.PUBLIC)
+                                                      .addParameter(ParameterSpec.builder(ClassName.get(Object.class),
+                                                                                          "object")
+                                                                                 .build())
+                                                      .addException(ClassName.get(RoutingInterceptionException.class))
+                                                      .addStatement("$T shell = ($T) object",
+                                                                    ClassName.get(this.shellModel.getShell()
+                                                                                                 .getPackage(),
+                                                                                  this.shellModel.getShell()
+                                                                                                 .getSimpleName()),
+                                                                    ClassName.get(this.shellModel.getShell()
+                                                                                                 .getPackage(),
+                                                                                  this.shellModel.getShell()
+                                                                                                 .getSimpleName()));
+
+    typeSpec.addMethod(finishCreateMethod.build());
 
     JavaFile javaFile = JavaFile.builder(this.shellModel.getShell()
                                                         .getPackage(),

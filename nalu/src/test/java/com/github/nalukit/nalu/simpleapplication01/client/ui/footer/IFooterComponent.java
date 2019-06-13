@@ -27,4 +27,5 @@ public interface IFooterComponent
       extends IsComponent.Controller {
 
   }
+
 }

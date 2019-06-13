@@ -43,4 +43,5 @@ public class FiltersTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Filters can only be used on a type (interface)");
   }
+
 }

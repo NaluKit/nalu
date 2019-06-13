@@ -17,12 +17,10 @@
 package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
-import com.github.nalukit.nalu.client.internal.application.AbstractPlugin;
-import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
-import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
-import com.github.nalukit.nalu.client.internal.application.ShellFactory;
+import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
@@ -99,7 +97,10 @@ public class PluginGenerator {
                                        .addParameter(ParameterSpec.builder(ClassName.get(SimpleEventBus.class),
                                                                            "eventBus")
                                                                   .build())
-                                       .addStatement("super(router, context, eventBus)")
+                                       .addParameter(ParameterSpec.builder(ClassName.get(AlwaysLoadComposite.class),
+                                                                           "alwaysLoadComposite")
+                                                                  .build())
+                                       .addStatement("super(router, context, eventBus, alwaysLoadComposite)")
                                        .build();
     typeSpec.addMethod(constructor);
 
@@ -254,7 +255,7 @@ public class PluginGenerator {
     MethodSpec.Builder loadComponentsMethodBuilder = MethodSpec.methodBuilder("loadComponents")
                                                                .addModifiers(Modifier.PUBLIC)
                                                                .addAnnotation(Override.class);
-    this.getAllComponents(this.metaModel.getController())
+    this.getAllComponents(this.metaModel.getControllers())
         .forEach(controllerModel -> {
           loadComponentsMethodBuilder.addComment("create ControllerCreator for: " +
                                                  controllerModel.getProvider()
@@ -273,6 +274,71 @@ public class PluginGenerator {
                                                                                 .getPackage(),
                                                                  controllerModel.getController()
                                                                                 .getSimpleName() + ProcessorConstants.CREATOR_IMPL));
+
+          if (controllerModel.getComposites()
+                             .size() > 0) {
+            List<String> generatedConditionClassNames = new ArrayList<>();
+            loadComponentsMethodBuilder.addComment("register conditions of composites for: " +
+                                                   controllerModel.getProvider()
+                                                                  .getPackage() +
+                                                   "." +
+                                                   controllerModel.getProvider()
+                                                                  .getSimpleName());
+            controllerModel.getComposites()
+                           .forEach(controllerCompositeModel -> {
+                             if (AlwaysLoadComposite.class.getSimpleName()
+                                                          .equals(controllerCompositeModel.getCondition()
+                                                                                          .getSimpleName())) {
+                               loadComponentsMethodBuilder.addStatement("$T.get().registerCondition($S, $S, super.alwaysLoadComposite)",
+                                                                        ClassName.get(ControllerCompositeConditionFactory.class),
+                                                                        controllerModel.getProvider()
+                                                                                       .getPackage() +
+                                                                        "." +
+                                                                        controllerModel.getProvider()
+                                                                                       .getSimpleName(),
+                                                                        controllerCompositeModel.getComposite()
+                                                                                                .getPackage() +
+                                                                        "." +
+                                                                        controllerCompositeModel.getComposite()
+                                                                                                .getSimpleName());
+                             } else {
+                               if (!generatedConditionClassNames.contains(controllerCompositeModel.getCondition()
+                                                                                                  .getClassName())) {
+                                 loadComponentsMethodBuilder.addStatement("$T $L = new $T()",
+                                                                          ClassName.get(controllerCompositeModel.getCondition()
+                                                                                                                .getPackage(),
+                                                                                        controllerCompositeModel.getCondition()
+                                                                                                                .getSimpleName()),
+                                                                          this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
+                                                                                                                                    .getSimpleName()),
+                                                                          ClassName.get(controllerCompositeModel.getCondition()
+                                                                                                                .getPackage(),
+                                                                                        controllerCompositeModel.getCondition()
+                                                                                                                .getSimpleName()))
+                                                            .addStatement("$L.setContext(super.context)",
+                                                                          this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
+                                                                                                                                    .getSimpleName()));
+                                 // remmeber generated condition to avoid creating the smae class again!
+                                 generatedConditionClassNames.add(controllerCompositeModel.getCondition()
+                                                                                          .getClassName());
+                               }
+                               loadComponentsMethodBuilder.addStatement("$T.get().registerCondition($S, $S, $L)",
+                                                                        ClassName.get(ControllerCompositeConditionFactory.class),
+                                                                        controllerModel.getProvider()
+                                                                                       .getPackage() +
+                                                                        "." +
+                                                                        controllerModel.getProvider()
+                                                                                       .getSimpleName(),
+                                                                        controllerCompositeModel.getComposite()
+                                                                                                .getPackage() +
+                                                                        "." +
+                                                                        controllerCompositeModel.getComposite()
+                                                                                                .getSimpleName(),
+                                                                        this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
+                                                                                                                                  .getSimpleName()));
+                             }
+                           });
+          }
         });
     typeSpec.addMethod(loadComponentsMethodBuilder.build());
   }
@@ -309,7 +375,7 @@ public class PluginGenerator {
                                                                               ClassName.get(List.class),
                                                                               ClassName.get(RouteConfig.class),
                                                                               ClassName.get(ArrayList.class));
-    this.metaModel.getController()
+    this.metaModel.getControllers()
                   .forEach(route -> loadRouteConfigMethodBuilder.addStatement("list.add(new $T($S, $T.asList(new String[]{$L}), $S, $S))",
                                                                               ClassName.get(RouteConfig.class),
                                                                               createRoute(route.getRoute()),
@@ -332,7 +398,7 @@ public class PluginGenerator {
                                                                               ClassName.get(List.class),
                                                                               ClassName.get(CompositeControllerReference.class),
                                                                               ClassName.get(ArrayList.class));
-    this.metaModel.getController()
+    this.metaModel.getControllers()
                   .forEach(controllerModel -> controllerModel.getComposites()
                                                              .forEach(controllerCompositeModel -> getCompositeReferencesMethod.addStatement("list.add(new $T($S, $S, $S, $S))",
                                                                                                                                             ClassName.get(CompositeControllerReference.class),
@@ -385,6 +451,12 @@ public class PluginGenerator {
     return models.stream()
                  .anyMatch(model -> model.getProvider()
                                          .equals(controllerModel.getProvider()));
+  }
+
+  private String setFirstCharacterToLowerCase(String className) {
+    return className.substring(0,
+                               1)
+                    .toLowerCase() + className.substring(1);
   }
 
   public static final class Builder {

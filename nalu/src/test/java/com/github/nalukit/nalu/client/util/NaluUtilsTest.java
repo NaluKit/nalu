@@ -219,7 +219,8 @@ public class NaluUtilsTest {
   public void testCompareRoutes01() {
     String routeToCompare01 = null;
     String routeToCompare02 = null;
-    boolean result = NaluUtils.compareRoutes(routeToCompare01, routeToCompare02);
+    boolean result = NaluUtils.compareRoutes(routeToCompare01,
+                                             routeToCompare02);
     Assert.assertTrue(result);
   }
 
@@ -227,7 +228,8 @@ public class NaluUtilsTest {
   public void testCompareRoutes02() {
     String routeToCompare01 = "/";
     String routeToCompare02 = "/";
-    boolean result = NaluUtils.compareRoutes(routeToCompare01, routeToCompare02);
+    boolean result = NaluUtils.compareRoutes(routeToCompare01,
+                                             routeToCompare02);
     Assert.assertTrue(result);
   }
 
@@ -235,7 +237,8 @@ public class NaluUtilsTest {
   public void testCompareRoutes03() {
     String routeToCompare01 = "/shell";
     String routeToCompare02 = "/shell";
-    boolean result = NaluUtils.compareRoutes(routeToCompare01, routeToCompare02);
+    boolean result = NaluUtils.compareRoutes(routeToCompare01,
+                                             routeToCompare02);
     Assert.assertTrue(result);
   }
 
@@ -243,7 +246,8 @@ public class NaluUtilsTest {
   public void testCompareRoutes04() {
     String routeToCompare01 = "/shell/part01";
     String routeToCompare02 = "/shell/part01";
-    boolean result = NaluUtils.compareRoutes(routeToCompare01, routeToCompare02);
+    boolean result = NaluUtils.compareRoutes(routeToCompare01,
+                                             routeToCompare02);
     Assert.assertTrue(result);
   }
 
@@ -318,6 +322,5 @@ public class NaluUtilsTest {
                                              routeToCompare02);
     Assert.assertFalse(result);
   }
-
 
 }

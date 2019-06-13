@@ -47,4 +47,5 @@ public class CompositeCreatorTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/ok/CompositeCreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/ok/CompositeCreatorImpl.java"));
   }
+
 }

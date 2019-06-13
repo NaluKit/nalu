@@ -28,4 +28,5 @@ import com.github.nalukit.nalu.client.application.IsApplication;
  */
 interface NaluSimpleApplication
     extends IsApplication {
+
 }

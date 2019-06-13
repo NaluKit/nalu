@@ -137,4 +137,5 @@ public class ControllerCreatorTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithTwoParameter04/ControllerC07CreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithTwoParameter04/ControllerC07CreatorImpl.java"));
   }
+
 }

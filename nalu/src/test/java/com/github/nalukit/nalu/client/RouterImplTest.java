@@ -27,8 +27,10 @@ public class RouterImplTest {
                                  Utils.createRouterConfiguration(),
                                  Utils.createCompositeConfiguration(),
                                  null,
+                                 "startShell/startRoute",
                                  true,
                                  true,
+                                 false,
                                  false);
   }
 
@@ -114,7 +116,7 @@ public class RouterImplTest {
     Assert.assertEquals("route test with leading '/' and one parameter",
                         "testParameter01",
                         routeResult.getParameterValues()
-                                  .get(0));
+                                   .get(0));
   }
 
   /**
@@ -137,11 +139,11 @@ public class RouterImplTest {
     Assert.assertEquals("route test with leading '/' and two parameters",
                         "testParameter01",
                         routeResult.getParameterValues()
-                                  .get(0));
+                                   .get(0));
     Assert.assertEquals("route test with leading '/' and two parameters",
                         "testParameter02",
                         routeResult.getParameterValues()
-                                  .get(1));
+                                   .get(1));
   }
 
   /**
@@ -164,11 +166,11 @@ public class RouterImplTest {
     Assert.assertEquals("route test with leading '/' and two parameters, first one empty",
                         "",
                         routeResult.getParameterValues()
-                                  .get(0));
+                                   .get(0));
     Assert.assertEquals("route test with leading '/' and two parameters, first one empty",
                         "testParameter02",
                         routeResult.getParameterValues()
-                                  .get(1));
+                                   .get(1));
   }
 
   /**
@@ -191,7 +193,7 @@ public class RouterImplTest {
     Assert.assertEquals("route test with leading '/' and one parameter",
                         "testParameter01",
                         routeResult.getParameterValues()
-                                  .get(0));
+                                   .get(0));
   }
 
   /**
@@ -214,11 +216,11 @@ public class RouterImplTest {
     Assert.assertEquals("route test with leading '/' and two parameters",
                         "testParameter01",
                         routeResult.getParameterValues()
-                                  .get(0));
+                                   .get(0));
     Assert.assertEquals("route test with leading '/' and two parameters",
                         "testParameter02",
                         routeResult.getParameterValues()
-                                  .get(1));
+                                   .get(1));
   }
 
   /**
@@ -241,11 +243,11 @@ public class RouterImplTest {
     Assert.assertEquals("route test without leading '/' and two parameters, first one empty",
                         "",
                         routeResult.getParameterValues()
-                                  .get(0));
+                                   .get(0));
     Assert.assertEquals("route test without leading '/' and two parameters, first one empty",
                         "testParameter02",
                         routeResult.getParameterValues()
-                                  .get(1));
+                                   .get(1));
   }
 
   /**
@@ -322,11 +324,11 @@ public class RouterImplTest {
     Assert.assertEquals("route test with leading '/', complex path and two parameters, both parameters exist",
                         "testParameter01",
                         routeResult.getParameterValues()
-                                  .get(0));
+                                   .get(0));
     Assert.assertEquals("route test without leading '/' and two parameters, first one empty",
                         "testParameter02",
                         routeResult.getParameterValues()
-                                  .get(1));
+                                   .get(1));
   }
 
   /**
@@ -383,8 +385,8 @@ public class RouterImplTest {
       Assert.fail();
     }
     String generateRoute = this.router.generate(routeResult.getRoute(),
-                                               routeResult.getParameterValues()
-                                                             .toArray(new String[0]));
+                                                routeResult.getParameterValues()
+                                                           .toArray(new String[0]));
     Assert.assertEquals("generate route with one parameter",
                         route + "/",
                         generateRoute);
@@ -403,8 +405,8 @@ public class RouterImplTest {
       Assert.fail();
     }
     String generateRoute = this.router.generate(routeResult.getRoute(),
-                                               routeResult.getParameterValues()
-                                                             .toArray(new String[0]));
+                                                routeResult.getParameterValues()
+                                                           .toArray(new String[0]));
     Assert.assertEquals("generate route with two parameters",
                         route,
                         generateRoute);
@@ -423,8 +425,8 @@ public class RouterImplTest {
       Assert.fail();
     }
     String generateRoute = this.router.generate(routeResult.getRoute(),
-                                               routeResult.getParameterValues()
-                                                             .toArray(new String[0]));
+                                                routeResult.getParameterValues()
+                                                           .toArray(new String[0]));
     Assert.assertEquals("generate route with two parameters, first empty",
                         route,
                         generateRoute);

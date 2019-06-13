@@ -29,6 +29,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.MirroredTypeException;
+import java.util.Objects;
 
 public class CompositesAnnotationScanner {
 
@@ -66,8 +67,11 @@ public class CompositesAnnotationScanner {
       for (Composite composite : annotation.value()) {
         controllerModel.getComposites()
                        .add(new ControllerCompositeModel(composite.name(),
-                                                         new ClassNameModel(getCompositeTypeElement(composite).toString()),
-                                                         composite.selector()));
+                                                         new ClassNameModel(Objects.requireNonNull(getCompositeTypeElement(composite))
+                                                                                   .toString()),
+                                                         composite.selector(),
+                                                         new ClassNameModel(Objects.requireNonNull(getCompositeConditionElement(composite))
+                                                                                   .toString())));
       }
     }
     return this.controllerModel;
@@ -76,6 +80,16 @@ public class CompositesAnnotationScanner {
   private TypeElement getCompositeTypeElement(Composite annotation) {
     try {
       annotation.compositeController();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
+  }
+
+  private TypeElement getCompositeConditionElement(Composite annotation) {
+    try {
+      annotation.condition();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());

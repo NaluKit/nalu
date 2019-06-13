@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.plugin.gwt.client;
 
+import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
@@ -31,8 +32,6 @@ import java.util.Map;
 
 public class NaluPluginGWT
     implements IsNaluProcessorPlugin {
-
-  private String contextPath;
 
   private NaluStartModel naluStartModel;
 
@@ -69,7 +68,7 @@ public class NaluPluginGWT
   }
 
   @Override
-  public String getStartRoute(boolean usingHash) {
+  public String getStartRoute() {
     return this.naluStartModel.getStartRoute();
   }
 
@@ -79,15 +78,16 @@ public class NaluPluginGWT
   }
 
   @Override
-  public void register(RouteChangeHandler handler,
-                       boolean hasHistory,
-                       boolean usingHash) {
-    if (hasHistory) {
-      if (usingHash) {
+  public void register(RouteChangeHandler handler) {
+    if (PropertyFactory.get()
+                       .hasHistory()) {
+      if (PropertyFactory.get()
+                         .isUsingHash()) {
         NaluPluginCoreWeb.addOnHashChangeHandler(handler);
       } else {
         NaluPluginCoreWeb.addPopStateHandler(handler,
-                                             this.contextPath);
+                                             PropertyFactory.get()
+                                                            .getContextPath());
       }
     } else {
       this.routeChangeHandler = handler;
@@ -104,25 +104,17 @@ public class NaluPluginGWT
 
   @Override
   public void route(String newRoute,
-                    boolean replace,
-                    boolean hasHistory,
-                    boolean usingHash) {
-    NaluPluginCoreWeb.route(this.contextPath,
-                            newRoute,
+                    boolean replace) {
+    NaluPluginCoreWeb.route(newRoute,
                             replace,
-                            this.routeChangeHandler,
-                            hasHistory,
-                            usingHash);
+                            this.routeChangeHandler);
   }
 
   @Override
-  public void initialize(boolean usingHash,
-                         ShellConfiguration shellConfiguration) {
-    this.contextPath = NaluPluginCoreWeb.getContextPath(usingHash,
-                                                        shellConfiguration);
-
-    this.naluStartModel = NaluPluginCoreWeb.getNaluStartModel(this.contextPath,
-                                                              usingHash);
+  public void initialize(ShellConfiguration shellConfiguration) {
+    // Sets the context path inside the PropertyFactory
+    NaluPluginCoreWeb.getContextPath(shellConfiguration);
+    this.naluStartModel = NaluPluginCoreWeb.getNaluStartModel();
   }
 
 }

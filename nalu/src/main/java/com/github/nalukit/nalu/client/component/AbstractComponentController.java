@@ -30,15 +30,15 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
                IsComponent.Controller {
 
   /* component of the controller */
-  protected V component;
+  protected V                                                 component;
   /* list of registered handlers */
-  protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
+  protected HandlerRegistrations                              handlerRegistrations = new HandlerRegistrations();
   /* list fo compsite controllers */
-  private Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
+  private   Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
   /* the route the controller is related to */
-  private String relatedRoute;
+  private   String                                            relatedRoute;
   /* flag, if the controller is cached or not */
-  private boolean cached;
+  private   boolean                                           cached;
 
   public AbstractComponentController() {
     super();
@@ -250,7 +250,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * continue laoding!
    *
    * @param loader loader to tell Nalu to continue loading the controller
-   * @throws RoutingInterceptionException in case the create contrioller
+   * @throws RoutingInterceptionException in case the bind controller
    *                                      process should be interrupted
    */
   @Override

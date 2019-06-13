@@ -35,7 +35,7 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/startRouteNotBeginWithSlash/StartRouteNotBeginWithSlash.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/startRouteNotBeginWithSlash/StartRouteNotBeginWithSlash.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -49,7 +49,7 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/routeErrorNotBeginWithSlash/RouteErrorNotBeginWithSlash.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/routeErrorNotBeginWithSlash/RouteErrorNotBeginWithSlash.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
@@ -71,7 +71,7 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOnClass/ApplicationAnnotationInterfaceOnAClass.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOnClass/ApplicationAnnotationInterfaceOnAClass.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -85,7 +85,7 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationInterfaceWithoutExtendsIsApplication/ApplicationInterfaceWithoutExtendsIsApplication.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationInterfaceWithoutExtendsIsApplication/ApplicationInterfaceWithoutExtendsIsApplication.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -99,7 +99,7 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOnAMethod/ApplicationAnnotationOnAMethod.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOnAMethod/ApplicationAnnotationOnAMethod.java"));
                                        }
                                      });
     CompilationSubject.assertThat(compilation)
@@ -113,7 +113,7 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoader.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoader.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
@@ -124,8 +124,8 @@ public class ApplicationTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     CompilationSubject.assertThat(compilation)
-                      .generatedSourceFile("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoaderImpl")
-                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoaderImpl.java"));
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoaderImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoaderImpl.java"));
   }
 
   @Test
@@ -133,7 +133,7 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoader.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoader.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
@@ -144,8 +144,8 @@ public class ApplicationTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     CompilationSubject.assertThat(compilation)
-                      .generatedSourceFile("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoaderImpl")
-                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoaderImpl.java"));
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoaderImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoaderImpl.java"));
   }
 
   @Test
@@ -153,7 +153,7 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/ApplicationAnnotationOkWithoutLoaderAsInnerInterface.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/ApplicationAnnotationOkWithoutLoaderAsInnerInterface.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
@@ -164,8 +164,8 @@ public class ApplicationTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     CompilationSubject.assertThat(compilation)
-                      .generatedSourceFile("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/MyApplicationImpl")
-                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/MyApplicationImpl.java"));
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/MyApplicationImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/MyApplicationImpl.java"));
   }
 
   @Test
@@ -173,7 +173,7 @@ public class ApplicationTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterface.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterface.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
@@ -184,7 +184,80 @@ public class ApplicationTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     CompilationSubject.assertThat(compilation)
-                      .generatedSourceFile("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl")
-                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl.java"));
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl.java"));
   }
+
+  @Test
+  public void testApplicationWithComposite01() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite01/ControllerWithComposite01.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite01/IComponent01.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite01/Component01.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite01/composite/CompositeController01.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite01/composite/ICompositeComponent01.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite01/composite/CompositeComponent01.java"));
+
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite01/ApplicationWithComposite01.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationWithComposite01/ApplicationWithComposite01Impl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite01/ApplicationWithComposite01Impl.java"));
+  }
+
+  @Test
+  public void testApplicationWithComposite02() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite02/ControllerWithComposite02.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite02/IComponent02.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite02/Component02.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite02/composite/CompositeController02.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite02/composite/ICompositeComponent02.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite02/composite/CompositeComponent02.java"));
+
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite02/ApplicationWithComposite02.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationWithComposite02/ApplicationWithComposite02Impl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite02/ApplicationWithComposite02Impl.java"));
+  }
+
+  @Test
+  public void testApplicationWithComposite03() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite03/ControllerWithComposite03.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite03/IComponent03.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite03/Component03.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite03/composite/CompositeController03.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite03/composite/ICompositeComponent03.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite03/composite/CompositeComponent03.java"));
+
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite03/ApplicationWithComposite03.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationWithComposite03/ApplicationWithComposite03Impl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite03/ApplicationWithComposite03Impl.java"));
+  }
+
 }

@@ -112,4 +112,5 @@ public class HandlerTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
+
 }

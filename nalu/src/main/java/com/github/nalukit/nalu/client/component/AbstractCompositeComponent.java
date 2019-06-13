@@ -22,7 +22,7 @@ public abstract class AbstractCompositeComponent<C extends IsComponent.Controlle
 
   @Override
   public void remove() {
-    // In caxe you have to remove something on screen change
+    // In case you have to remove something on screen change
     // this is a good place to do so!
   }
 

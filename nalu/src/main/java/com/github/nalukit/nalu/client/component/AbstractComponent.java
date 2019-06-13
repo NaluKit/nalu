@@ -68,7 +68,7 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
   @Override
-  public void removeHandlers() {
+  public final void removeHandlers() {
     this.handlerRegistrations.removeHandler();
     this.handlerRegistrations = new HandlerRegistrations();
   }

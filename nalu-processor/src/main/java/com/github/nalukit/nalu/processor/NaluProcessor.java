@@ -21,6 +21,7 @@ import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.client.application.annotation.Filters;
 import com.github.nalukit.nalu.client.component.annotation.CompositeController;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
+import com.github.nalukit.nalu.client.component.annotation.PopUpController;
 import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.client.plugin.annotation.Plugin;
@@ -83,6 +84,7 @@ public class NaluProcessor
               Debug.class.getCanonicalName(),
               Filters.class.getCanonicalName(),
               Handler.class.getCanonicalName(),
+              PopUpController.class.getCanonicalName(),
               Plugin.class.getCanonicalName(),
               Plugins.class.getCanonicalName(),
               Shell.class.getCanonicalName(),
@@ -135,6 +137,9 @@ public class NaluProcessor
             } else if (Handler.class.getCanonicalName()
                                     .equals(annotation.toString())) {
               handleHandlerAnnotation(roundEnv);
+            } else if (PopUpController.class.getCanonicalName()
+                                            .equals(annotation.toString())) {
+              handlePopUpControllerAnnotation(roundEnv);
             } else if (Plugin.class.getCanonicalName()
                                    .equals(annotation.toString())) {
               handlePluginAnnotation(roundEnv);
@@ -155,6 +160,37 @@ public class NaluProcessor
       return true;
     }
     return true;
+  }
+
+  private void handlePopUpControllerAnnotation(RoundEnvironment roundEnv)
+      throws ProcessorException {
+    List<PopUpControllerModel> popUpControllerModels = new ArrayList<>();
+    for (Element popUpControllerElement : roundEnv.getElementsAnnotatedWith(PopUpController.class)) {
+      // validate
+      PopUpControllerAnnotationValidator.builder()
+                                        .processingEnvironment(processingEnv)
+                                        .popUpControllerElement(popUpControllerElement)
+                                        .build()
+                                        .validate();
+      // create PopUpControllerModel
+      PopUpControllerModel popUpControllerModel = PopUpControllerAnnotationScanner.builder()
+                                                                                  .processingEnvironment(processingEnv)
+                                                                                  .metaModel(this.metaModel)
+                                                                                  .popUpControllerElement(popUpControllerElement)
+                                                                                  .build()
+                                                                                  .scan(roundEnv);
+      // generate PopUpControllerCreator
+      PopUpControllerCreatorGenerator.builder()
+                                     .processingEnvironment(processingEnv)
+                                     .metaModel(this.metaModel)
+                                     .popUpControllerModel(popUpControllerModel)
+                                     .build()
+                                     .generate();
+      popUpControllerModels.add(popUpControllerModel);
+    }
+    // save data in metaModel
+    this.metaModel.getPopUpControllers()
+                  .addAll(popUpControllerModels);
   }
 
   private void handlePluginAnnotation(RoundEnvironment roundEnv)
@@ -312,7 +348,7 @@ public class NaluProcessor
       //
 
       // save controller data in metaModel
-      this.metaModel.getController()
+      this.metaModel.getControllers()
                     .add(controllerModel);
     }
   }

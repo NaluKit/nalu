@@ -103,4 +103,5 @@ public class DetailController
                         this.context.getSearchCity());
     }
   }
+
 }

@@ -38,4 +38,5 @@ public interface IDetailComponent
     void doUpdate();
 
   }
+
 }

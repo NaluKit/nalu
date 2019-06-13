@@ -25,11 +25,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>This annotation is used to annotate an calls in nalu-route. It defines the route and the selector.</p>
+ * <p>This annotation is used to annotate a controller.
+ * It defines the route and the selector.</p>
  * <br><br>
  * The annotation has the following attributes:
  * <ul>
  * <li>route: name of the route which will display the controller in case of calling</li>
+ * <li>selector: id of the node where to insert the element</li>
  * </ul>
  *
  * @author Frank Hossfeld

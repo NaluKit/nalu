@@ -20,6 +20,7 @@ import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
@@ -44,26 +45,39 @@ public abstract class AbstractApplication<C extends IsContext>
 
   /* start route */
   protected String                             startRoute;
+
   /* route in case of route error */
   protected String                             errorRoute;
+
   /* Shell */
   protected IsShell                            shell;
+
   /* Shell Configuration */
   protected ShellConfiguration                 shellConfiguration;
+
   /* Router Configuration */
   protected RouterConfiguration                routerConfiguration;
+
   /* Router */
   protected ConfiguratableRouter               router;
+
   /* application context */
   protected C                                  context;
+
   /* the event bus of the application */
   protected SimpleEventBus                     eventBus;
+
   /* plugin */
   protected IsNaluProcessorPlugin              plugin;
-  /* List of CompositeControllerReferences */
-  protected List<CompositeControllerReference> compositeControllerReferences;
+
   /* Tracker instance */
   protected IsTracker                          tracker;
+
+  /* instance of AlwaysLoadComposite-class */
+  protected AlwaysLoadComposite                alwaysLoadComposite;
+
+  /* List of CompositeControllerReferences */
+  protected List<CompositeControllerReference> compositeControllerReferences;
 
   public AbstractApplication() {
     super();
@@ -81,7 +95,7 @@ public abstract class AbstractApplication<C extends IsContext>
                 .logDetailed("=================================================================================",
                              0);
     ClientLogger.get()
-                .logDetailed("Running Nalu version: v" + Nalu.getVersion(),
+                .logDetailed("Running Nalu version: >>" + Nalu.getVersion() + "<<",
                              0);
     ClientLogger.get()
                 .logDetailed("=================================================================================",
@@ -99,20 +113,27 @@ public abstract class AbstractApplication<C extends IsContext>
     this.eventBus = new SimpleEventBus();
     this.shellConfiguration = new ShellConfiguration();
     this.routerConfiguration = new RouterConfiguration();
+    this.alwaysLoadComposite = new AlwaysLoadComposite();
+    // initialize popup factory
+    PopUpControllerFactory.get()
+                          .register(this.eventBus);
     // initialize plugin
-    this.plugin.initialize(this.isUsingHash(),
-                           this.shellConfiguration);
+    this.plugin.initialize(this.shellConfiguration);
     // load optional tracker
     this.tracker = this.loadTrackerConfiguration();
+    // load default routes!
+    this.loadDefaultRoutes();
     // create router ...
     this.router = new RouterImpl(this.plugin,
                                  this.shellConfiguration,
                                  this.routerConfiguration,
                                  this.compositeControllerReferences,
                                  this.tracker,
+                                 this.startRoute,
                                  this.hasHistory(),
                                  this.isUsingHash(),
-                                 this.isUsingColonForParametersInUrl());
+                                 this.isUsingColonForParametersInUrl(),
+                                 this.isStayOnSide());
     // load everything you need to start
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load configurations",
@@ -121,8 +142,8 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadShells();
     this.loadRoutes();
     this.loadFilters();
-    this.loadDefaultRoutes();
     this.loadCompositeReferences();
+    this.loadPopUpControllerFactory();
     this.router.setRouteError(AbstractApplication.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
     // load the shells of the application
     ClientLogger.get()
@@ -199,6 +220,8 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract void loadHandlers();
 
+  protected abstract void loadPopUpControllerFactory();
+
   protected abstract IsApplicationLoader<C> getApplicationLoader();
 
   protected abstract boolean hasHistory();
@@ -207,12 +230,14 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract boolean isUsingColonForParametersInUrl();
 
+  protected abstract boolean isStayOnSide();
+
   /**
    * Once the loader did his job, we will continue
    */
   private void onFinishLoading() {
     // save the current hash
-    String hashOnStart = this.plugin.getStartRoute(isUsingHash());
+    String hashOnStart = this.plugin.getStartRoute();
     // check if the url contains a hash.
     // in case it has a hash, use this to route otherwise
     // use the startRoute from the annotation

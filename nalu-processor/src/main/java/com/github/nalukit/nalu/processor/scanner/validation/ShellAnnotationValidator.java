@@ -27,7 +27,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.*;
-import javax.lang.model.util.SimpleTypeVisitor6;
+import javax.lang.model.util.SimpleTypeVisitor8;
 import java.util.List;
 import java.util.Optional;
 
@@ -104,7 +104,7 @@ public class ShellAnnotationValidator {
       return null;
     }
     // check the generic!
-    type.accept(new SimpleTypeVisitor6<Void, Void>() {
+    type.accept(new SimpleTypeVisitor8<Void, Void>() {
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {

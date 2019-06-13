@@ -47,18 +47,19 @@ public class NavigationComponent
   @Override
   public void select(String toString) {
     switch (toString) {
-    case "SEARCH":
-      //        this.searchItem.activate();
-      //        this.listItem.deactivate();
-      break;
-    case "LIST":
-      //        this.listItem.activate();
-      //        this.searchItem.deactivate();
-      break;
-    default:
-      //        this.listItem.deactivate();
-      //        this.searchItem.deactivate();
-      break;
+      case "SEARCH":
+        //        this.searchItem.activate();
+        //        this.listItem.deactivate();
+        break;
+      case "LIST":
+        //        this.listItem.activate();
+        //        this.searchItem.deactivate();
+        break;
+      default:
+        //        this.listItem.deactivate();
+        //        this.searchItem.deactivate();
+        break;
     }
   }
+
 }

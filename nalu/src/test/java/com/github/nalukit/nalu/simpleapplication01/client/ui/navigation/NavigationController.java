@@ -47,4 +47,5 @@ public class NavigationController
                       this.context.getSearchName(),
                       this.context.getSearchCity());
   }
+
 }

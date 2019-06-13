@@ -25,7 +25,7 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>1.2.1<< used to generate this source");
+    sb01.append("Nalu processor version  >>1.3.0<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
@@ -76,6 +76,10 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
     sb01 = new StringBuilder();
     sb01.append("register route >>/mockShell/route01/*<< with parameter >>parameter01<< for selector >>selector01<< for controller >>com.github.nalukit.nalu.processor.common.ui.component01.Controller01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 3);
+  }
+
+  @Override
+  public void loadPopUpControllerFactory() {
   }
 
   @Override

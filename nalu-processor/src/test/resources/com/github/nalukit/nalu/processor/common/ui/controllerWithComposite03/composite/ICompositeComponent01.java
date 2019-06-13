@@ -14,16 +14,16 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithLoader;
+package com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.composite;
 
-import com.github.nalukit.nalu.client.application.IsApplication;
-import com.github.nalukit.nalu.client.application.annotation.Application;
-import com.github.nalukit.nalu.processor.common.MockContext;
+import com.github.nalukit.nalu.client.component.IsCompositeComponent;
 
-@Application(loader = MockApplicationLoader.class,
-             startRoute = "/mockShell/route01",
-             context = MockContext.class,
-             routeError = "/mockShell/route01")
-public interface ApplicationAnnotationOkWithLoader
-    extends IsApplication {
+public interface ICompositeComponent01
+    extends IsCompositeComponent<ICompositeComponent01.Controller, String> {
+
+  interface Controller
+      extends IsCompositeComponent.Controller {
+
+  }
+
 }

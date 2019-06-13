@@ -35,7 +35,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.*;
-import javax.lang.model.util.SimpleTypeVisitor6;
+import javax.lang.model.util.SimpleTypeVisitor8;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -139,7 +139,7 @@ public class CompositeControllerAnnotationScanner {
       return null;
     }
     // check the generic!
-    type.accept(new SimpleTypeVisitor6<Void, Void>() {
+    type.accept(new SimpleTypeVisitor8<Void, Void>() {
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
@@ -198,7 +198,7 @@ public class CompositeControllerAnnotationScanner {
       return false;
     }
     // check the generic!
-    type.accept(new SimpleTypeVisitor6<Void, Void>() {
+    type.accept(new SimpleTypeVisitor8<Void, Void>() {
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
@@ -245,9 +245,7 @@ public class CompositeControllerAnnotationScanner {
     // check generic!
     if (!componentInterfaceTypeElement.toString()
                                       .equals(result[0].toString())) {
-      throw new ProcessorException("Nalu-Processor: compositeModel controller >>" +
-                                   element.toString() +
-                                   "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
+      throw new ProcessorException("Nalu-Processor: compositeModel controller >>" + element.toString() + "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
     }
     return true;
   }
@@ -312,7 +310,7 @@ public class CompositeControllerAnnotationScanner {
     if (type == null) {
       return null;
     }
-    type.accept(new SimpleTypeVisitor6<Void, Void>() {
+    type.accept(new SimpleTypeVisitor8<Void, Void>() {
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
@@ -361,7 +359,7 @@ public class CompositeControllerAnnotationScanner {
 
   private List<ControllerModel> getControllerUsingComposite(Element element) {
     List<ControllerModel> models = new ArrayList<>();
-    this.metaModel.getController()
+    this.metaModel.getControllers()
                   .forEach(controllerModel -> models.addAll(controllerModel.getComposites()
                                                                            .stream()
                                                                            .filter(controllerCompositeModel -> element.toString()

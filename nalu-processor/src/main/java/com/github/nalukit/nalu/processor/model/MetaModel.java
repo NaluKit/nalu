@@ -36,6 +36,8 @@ public class MetaModel {
 
   private boolean usingColonForParametersInUrl;
 
+  private boolean stayOnSide;
+
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
   /* with a a plugin and not with a pplication  */
@@ -61,7 +63,9 @@ public class MetaModel {
 
   private ClassNameModel debugLogger;
 
-  private List<ControllerModel> routes;
+  private List<ControllerModel> controllers;
+
+  private List<PopUpControllerModel> popUpControllers;
 
   private List<ClassNameModel> filters;
 
@@ -78,7 +82,8 @@ public class MetaModel {
   public MetaModel() {
     this.plugins = new ArrayList<>();
     this.shells = new ArrayList<>();
-    this.routes = new ArrayList<>();
+    this.controllers = new ArrayList<>();
+    this.popUpControllers = new ArrayList<>();
     this.filters = new ArrayList<>();
     this.handlers = new ArrayList<>();
     this.compositeModels = new ArrayList<>();
@@ -159,14 +164,21 @@ public class MetaModel {
     this.debugLogger = debugLogger;
   }
 
-  public List<ControllerModel> getController() {
-    return routes;
+  public List<ControllerModel> getControllers() {
+    return controllers;
   }
 
-  public void setRoutes(List<ControllerModel> routes) {
-    this.routes = routes;
+  public void setControllers(List<ControllerModel> controllers) {
+    this.controllers = controllers;
   }
 
+  public List<PopUpControllerModel> getPopUpControllers() {
+    return popUpControllers;
+  }
+
+  public void setPopUpControllers(List<PopUpControllerModel> popUpControllers) {
+    this.popUpControllers = popUpControllers;
+  }
   //  public String getHasFiltersAnnotation() {
   //    return hasFiltersAnnotation;
   //  }
@@ -245,6 +257,14 @@ public class MetaModel {
 
   public void setUsingColonForParametersInUrl(boolean usingColonForParametersInUrl) {
     this.usingColonForParametersInUrl = usingColonForParametersInUrl;
+  }
+
+  public boolean isStayOnSide() {
+    return stayOnSide;
+  }
+
+  public void setStayOnSide(boolean stayOnSide) {
+    this.stayOnSide = stayOnSide;
   }
 
   public String getShellOfStartRoute() {

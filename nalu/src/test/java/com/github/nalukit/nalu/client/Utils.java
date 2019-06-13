@@ -32,7 +32,7 @@ class Utils {
       }
 
       @Override
-      public String getStartRoute(boolean usingHash) {
+      public String getStartRoute() {
         return "/";
       }
 
@@ -42,9 +42,7 @@ class Utils {
       }
 
       @Override
-      public void register(RouteChangeHandler handler,
-                           boolean hasHistory,
-                           boolean usingHash) {
+      public void register(RouteChangeHandler handler) {
       }
 
       @Override
@@ -53,14 +51,11 @@ class Utils {
 
       @Override
       public void route(String newRoute,
-                        boolean replace,
-                        boolean hasHistory,
-                        boolean usingHash) {
+                        boolean replace) {
       }
 
       @Override
-      public void initialize(boolean usingHash,
-                             ShellConfiguration shellConfiguration) {
+      public void initialize(ShellConfiguration shellConfiguration) {
       }
     };
   }
@@ -68,8 +63,8 @@ class Utils {
   static ShellConfiguration createShellConfiguration() {
     ShellConfiguration shellConfiguration = new ShellConfiguration();
     shellConfiguration.getShells()
-                       .add(new ShellConfig("/MockShell",
-                                            "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.Shell"));
+                      .add(new ShellConfig("/MockShell",
+                                           "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.Shell"));
     return shellConfiguration;
   }
 
@@ -110,4 +105,5 @@ class Utils {
     List<CompositeControllerReference> compositeControllerReferences = new ArrayList<>();
     return compositeControllerReferences;
   }
+
 }

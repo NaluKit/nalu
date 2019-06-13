@@ -36,4 +36,5 @@ public class NaluSimpleApplicationLoader
   public void load(FinishLoadCommand finishLoadCommand) {
     finishLoadCommand.finishLoading();
   }
+
 }

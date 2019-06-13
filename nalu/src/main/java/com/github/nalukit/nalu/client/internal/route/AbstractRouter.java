@@ -48,39 +48,53 @@ abstract class AbstractRouter
 
   // the plugin
   IsNaluProcessorPlugin plugin;
+
   // route in case of route error
-  private String                                            routeError;
+  private String routeError;
+
   // the latest error object (set by the application
-  private NaluErrorMessage                                  applicationErrorMessage;
+  private NaluErrorMessage applicationErrorMessage;
+
   // the latest error object
-  private NaluErrorMessage                                  naluErrorMessage;
+  private NaluErrorMessage naluErrorMessage;
+
   // composite configuration
-  private List<CompositeControllerReference>                compositeControllerReferences;
+  private List<CompositeControllerReference> compositeControllerReferences;
+
   // List of the application shells
-  private ShellConfiguration                                shellConfiguration;
+  private ShellConfiguration shellConfiguration;
+
   // List of the routes of the application
-  private RouterConfiguration                               routerConfiguration;
+  private RouterConfiguration routerConfiguration;
+
   // List of active components
   private Map<String, AbstractComponentController<?, ?, ?>> activeComponents;
+
   // hash of last successful routing
-  private String                                            lastExecutedHash = "";
+  private String lastExecutedHash = "";
+
   // last added shell - used, to check if the shell needs an shell replacement
-  private String                                            lastAddedShell;
+  private String lastAddedShell;
+
   // instance of the current shell
-  private IsShell                                           shell;
+  private IsShell shell;
+
   // list of routes used for handling the current route - used to detect loops
-  private List<String>                                      loopDetectionList;
+  private List<String> loopDetectionList;
+
   // the tracker: if not null, track the users routing
-  private IsTracker                                         tracker;
+  private IsTracker tracker;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
                  ShellConfiguration shellConfiguration,
                  RouterConfiguration routerConfiguration,
                  IsNaluProcessorPlugin plugin,
                  IsTracker tracker,
+                 String startRoute,
                  boolean hasHistory,
                  boolean usingHash,
-                 boolean usingColonForParametersInUrl) {
+                 boolean usingColonForParametersInUrl,
+                 boolean stayOnSite) {
     // save the composite configuration reference
     this.compositeControllerReferences = compositeControllerReferences;
     // save the shell configuration reference
@@ -96,9 +110,11 @@ abstract class AbstractRouter
     this.loopDetectionList = new ArrayList<>();
     // set up PropertyFactory
     PropertyFactory.get()
-                   .register(hasHistory,
+                   .register(startRoute,
+                             hasHistory,
                              usingHash,
-                             usingColonForParametersInUrl);
+                             usingColonForParametersInUrl,
+                             stayOnSite);
   }
 
   /**
@@ -314,72 +330,99 @@ abstract class AbstractRouter
         // add shellCreator to the viewport
         ShellConfig shellConfig = this.shellConfiguration.match(routeResult.getShell());
         if (!Objects.isNull(shellConfig)) {
-          ShellInstance shellInstance = ShellFactory.get()
-                                                    .shell(shellConfig.getClassName());
-          if (!Objects.isNull(shellInstance)) {
-            // in case there is an instance of an shellCreator existing, call the onDetach mehtod inside the shellCreator
-            if (!Objects.isNull(this.shell)) {
-              ClientLogger.get()
-                          .logDetailed("Router: detach shellCreator >>" +
-                                       this.shell.getClass()
-                                                 .getCanonicalName() +
-                                       "<<",
-                                       1);
-              this.shell.detachShell();
-              ClientLogger.get()
-                          .logDetailed("Router: shellCreator >>" +
-                                       this.shell.getClass()
-                                                 .getCanonicalName() +
-                                       "<< detached",
-                                       1);
-            }
-            // set newe shellCreator value
-            this.shell = shellInstance.getShell();
-            // save the last added shellCreator ....
-            this.lastAddedShell = routeResult.getShell();
-            // initialize shellCreator ...
-            ClientLogger.get()
-                        .logDetailed("Router: attach shellCreator >>" + routeResult.getShell() + "<<",
-                                     1);
-            shellInstance.getShell()
-                         .attachShell();
-            ClientLogger.get()
-                        .logDetailed("Router: shellCreator >>" + routeResult.getShell() + "<< attached",
-                                     1);
-            // start the application by calling url + '#'
-            ClientLogger.get()
-                        .logDetailed("Router: initialize shellCreator >>" + routeResult.getShell() + "<< (route to '/')",
-                                     1);
-            // get shellCreator matching root configs ...
-            List<RouteConfig> shellMatchingRouteConfigurations = this.routerConfiguration.match(routeResult.getShell());
-            for (RouteConfig routeConfiguraion : shellMatchingRouteConfigurations) {
-              this.handleRouteConfig(routeConfiguraion,
-                                     routeResult,
-                                     hash);
-            }
-          }
-        } else {
-          RouterLogger.logUseErrorRoute(this.routeError);
-          this.route(this.routeError,
-                     true);
-        }
-      }
-      // routing
-      for (RouteConfig routeConfiguraion : routeConfigurations) {
-        this.handleRouteConfig(routeConfiguraion,
-                               routeResult,
-                               hash);
-      }
-      this.shell.onAttachedComponent();
-      RouterLogger.logShellOnAttachedComponentMethodCalled(this.shell.getClass()
-                                                                     .getCanonicalName());
+          String finalHash = hash;
+          ShellFactory.get()
+                      .shell(shellConfig.getClassName(),
+                             new ShellCallback() {
+                               @Override
+                               public void onFinish(ShellInstance shellInstance) {
+                                 // in case there is an instance of an shellCreator existing, call the onDetach mehtod inside the shellCreator
+                                 if (!Objects.isNull(shell)) {
+                                   detachShell();
+                                 }
+                                 // set newe shellCreator value
+                                 shell = shellInstance.getShell();
+                                 // save the last added shellCreator ....
+                                 lastAddedShell = routeResult.getShell();
+                                 // initialize shellCreator ...
+                                 ClientLogger.get()
+                                             .logDetailed("Router: attach shellCreator >>" + routeResult.getShell() + "<<",
+                                                          1);
+                                 shellInstance.getShell()
+                                              .attachShell();
+                                 ClientLogger.get()
+                                             .logDetailed("Router: shellCreator >>" + routeResult.getShell() + "<< attached",
+                                                          1);
+                                 // start the application by calling url + '#'
+                                 ClientLogger.get()
+                                             .logDetailed("Router: initialize shellCreator >>" + routeResult.getShell() + "<< (route to '/')",
+                                                          1);
+                                 // get shellCreator matching root configs ...
+                                 List<RouteConfig> shellMatchingRouteConfigurations = routerConfiguration.match(routeResult.getShell());
+                                 for (RouteConfig routeConfiguraion : shellMatchingRouteConfigurations) {
+                                   handleRouteConfig(routeConfiguraion,
+                                                     routeResult,
+                                                     finalHash);
+                                 }
+                                 postProcessHandleRouting(finalHash,
+                                                          routeResult,
+                                                          routeConfigurations);
+                               }
 
+                               private void detachShell() {
+                                 ClientLogger.get()
+                                             .logDetailed("Router: detach shellCreator >>" +
+                                                              shell.getClass()
+                                                                   .getCanonicalName() +
+                                                              "<<",
+                                                          1);
+                                 shell.detachShell();
+                                 ClientLogger.get()
+                                             .logDetailed("Router: shellCreator >>" +
+                                                              shell.getClass()
+                                                                   .getCanonicalName() +
+                                                              "<< detached",
+                                                          1);
+                               }
+
+                               @Override
+                               public void onShellNotFound() {
+                                 RouterLogger.logUseErrorRoute(routeError);
+                                 route(routeError,
+                                       true);
+                               }
+
+                               @Override
+                               public void onRoutingInterceptionException(RoutingInterceptionException e) {
+                                 RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
+                                                                             e.getRoute(),
+                                                                             e.getParameter());
+                               }
+                             });
+        }
+      } else {
+        postProcessHandleRouting(hash,
+                                 routeResult,
+                                 routeConfigurations);
+      }
     } else {
       this.plugin.route("#" + this.lastExecutedHash,
-                        false,
-                        Nalu.hasHistory(),
-                        Nalu.isUsingHash());
+                        false);
     }
+  }
+
+  private void postProcessHandleRouting(String hash,
+                                        RouteResult routeResult,
+                                        List<RouteConfig> routeConfigurations) {
+    // routing
+    for (RouteConfig routeConfiguraion : routeConfigurations) {
+      this.handleRouteConfig(routeConfiguraion,
+                             routeResult,
+                             hash);
+    }
+    this.shell.onAttachedComponent();
+    RouterLogger.logShellOnAttachedComponentMethodCalled(this.shell.getClass()
+                                                                   .getCanonicalName());
   }
 
   private void handleRouteConfig(RouteConfig routeConfiguraion,
@@ -451,31 +494,40 @@ abstract class AbstractRouter
                                                              compositeForController.size());
           compositeForController.forEach(s -> {
             try {
-              CompositeInstance compositeInstance = CompositeFactory.get()
-                                                                    .getComposite(s.getComposite(),
-                                                                                  hashResult.getParameterValues()
-                                                                                            .toArray(new String[0]));
-              if (compositeInstance == null) {
-                RouterLogger.logCompositeNotFound(controllerInstance.getController()
-                                                                    .getClass()
-                                                                    .getCanonicalName(),
-                                                  s.getCompositeName());
-              } else {
-                compositeControllers.add(compositeInstance.getComposite());
-                // inject router into composite
-                compositeInstance.getComposite()
-                                 .setRouter(this);
-                // inject composite into controller
-                controllerInstance.getController()
-                                  .getComposites()
-                                  .put(s.getCompositeName(),
-                                       compositeInstance.getComposite());
-                RouterLogger.logCompositeControllerInjectedInController(compositeInstance.getComposite()
-                                                                                         .getClass()
-                                                                                         .getCanonicalName(),
-                                                                        controllerInstance.getController()
-                                                                                          .getClass()
-                                                                                          .getCanonicalName());
+              // check for composite loader
+              if (ControllerCompositeConditionFactory.get()
+                                                     .loadComposite(controllerInstance.getControllerClassName(),
+                                                                    s.getComposite(),
+                                                                    hashResult.getRoute(),
+                                                                    hashResult.getParameterValues()
+                                                                              .toArray(new String[hashResult.getParameterValues()
+                                                                                                            .size()]))) {
+                CompositeInstance compositeInstance = CompositeFactory.get()
+                                                                      .getComposite(s.getComposite(),
+                                                                                    hashResult.getParameterValues()
+                                                                                              .toArray(new String[0]));
+                if (compositeInstance == null) {
+                  RouterLogger.logCompositeNotFound(controllerInstance.getController()
+                                                                      .getClass()
+                                                                      .getCanonicalName(),
+                                                    s.getCompositeName());
+                } else {
+                  compositeControllers.add(compositeInstance.getComposite());
+                  // inject router into composite
+                  compositeInstance.getComposite()
+                                   .setRouter(this);
+                  // inject composite into controller
+                  controllerInstance.getController()
+                                    .getComposites()
+                                    .put(s.getCompositeName(),
+                                         compositeInstance.getComposite());
+                  RouterLogger.logCompositeControllerInjectedInController(compositeInstance.getComposite()
+                                                                                           .getClass()
+                                                                                           .getCanonicalName(),
+                                                                          controllerInstance.getController()
+                                                                                            .getClass()
+                                                                                            .getCanonicalName());
+                }
               }
             } catch (RoutingInterceptionException e) {
               RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
@@ -525,6 +577,11 @@ abstract class AbstractRouter
       RouterLogger.logControllerOnAttachedMethodCalled(controllerInstance.getController()
                                                                          .getClass()
                                                                          .getCanonicalName());
+      compositeControllers.forEach(s -> {
+        s.onAttach();
+        RouterLogger.logControllerOnAttachedMethodCalled(s.getClass()
+                                                          .getCanonicalName());
+      });
       // in case the controller is cached, we call only activate  ...
       if (controllerInstance.isChached()) {
         compositeControllers.forEach(s -> {
@@ -587,8 +644,8 @@ abstract class AbstractRouter
     // check, if there are more "/"
     if (routeValue.contains("/")) {
       routeResult.setShell("/" +
-                           routeValue.substring(0,
-                                                routeValue.indexOf("/")));
+                               routeValue.substring(0,
+                                                    routeValue.indexOf("/")));
     } else {
       routeResult.setShell("/" + routeValue);
     }
@@ -702,12 +759,12 @@ abstract class AbstractRouter
                        });
 
     return !isDirtyComposite.get() &&
-           routeConfigurations.stream()
-                              .map(config -> this.activeComponents.get(config.getSelector()))
-                              .filter(Objects::nonNull)
-                              .map(AbstractComponentController::mayStop)
-                              .filter(Objects::nonNull)
-                              .allMatch(message -> this.plugin.confirm(message));
+        routeConfigurations.stream()
+                           .map(config -> this.activeComponents.get(config.getSelector()))
+                           .filter(Objects::nonNull)
+                           .map(AbstractComponentController::mayStop)
+                           .filter(Objects::nonNull)
+                           .allMatch(message -> this.plugin.confirm(message));
   }
 
   private void stopController(List<RouteConfig> routeConfiguraions) {
@@ -919,14 +976,10 @@ abstract class AbstractRouter
                                               parms);
     if (replaceState) {
       this.plugin.route(newRouteWithParams,
-                        true,
-                        Nalu.hasHistory(),
-                        Nalu.isUsingHash());
+                        true);
     } else {
       this.plugin.route(newRouteWithParams,
-                        false,
-                        Nalu.hasHistory(),
-                        Nalu.isUsingHash());
+                        false);
     }
     this.handleRouting(newRouteWithParams);
   }
@@ -973,12 +1026,12 @@ abstract class AbstractRouter
                                       .count();
     if (parms.length > numberOfPlaceHolders) {
       String sbExeption = "Warning: route >>" +
-                          route +
-                          "<< has less parameter placeholder >>" +
-                          numberOfPlaceHolders +
-                          "<< than the number of parameters in the list of parameters >>" +
-                          parms.length +
-                          "<< --> adding Prameters add the end of the url";
+          route +
+          "<< has less parameter placeholder >>" +
+          numberOfPlaceHolders +
+          "<< than the number of parameters in the list of parameters >>" +
+          parms.length +
+          "<< --> adding Prameters add the end of the url";
       RouterLogger.logSimple(sbExeption,
                              1);
       for (int i = parameterIndex; i < parms.length; i++) {

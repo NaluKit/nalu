@@ -68,4 +68,5 @@ public class ListController
   public void setCity(String city) {
     this.city = city;
   }
+
 }

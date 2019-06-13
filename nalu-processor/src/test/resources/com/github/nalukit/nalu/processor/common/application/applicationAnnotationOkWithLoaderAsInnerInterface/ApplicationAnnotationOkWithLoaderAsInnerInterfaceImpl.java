@@ -1,4 +1,4 @@
-package com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithoutLoaderAsInnerInterface;
+package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithLoaderAsInnerInterface;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
@@ -8,14 +8,14 @@ import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
-import com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithoutLoaderAsInnerInterface.ApplicationAnnotationOkWithoutLoaderAsInnerInterface.MyApplication;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithLoaderAsInnerInterface.ApplicationAnnotationOkWithLoaderAsInnerInterface.MyApplicationLoader;
 import java.lang.Override;
 import java.lang.StringBuilder;
 import java.util.Arrays;
 
-public final class MyApplicationImpl extends AbstractApplication<MockContext> implements MyApplication {
-  public MyApplicationImpl() {
+public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithLoaderAsInnerInterface {
+  public ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl() {
     super();
     super.context = new com.github.nalukit.nalu.processor.common.MockContext();
   }
@@ -25,7 +25,7 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>1.2.1<< used to generate this source");
+    sb01.append("Nalu processor version  >>1.3.0<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
@@ -79,6 +79,10 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
   }
 
   @Override
+  public void loadPopUpControllerFactory() {
+  }
+
+  @Override
   public void loadFilters() {
   }
 
@@ -100,7 +104,7 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
 
   @Override
   public IsApplicationLoader<MockContext> getApplicationLoader() {
-    return null;
+    return new MyApplicationLoader();
   }
 
   @Override
@@ -129,4 +133,10 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
   public boolean isUsingColonForParametersInUrl() {
     return false;
   }
+
+  @Override
+  public boolean isStayOnSide() {
+    return false;
+  }
+
 }
