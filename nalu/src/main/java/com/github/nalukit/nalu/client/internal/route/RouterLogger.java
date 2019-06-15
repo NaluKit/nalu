@@ -248,7 +248,7 @@ class RouterLogger {
   }
 
   static void logControllerHandlingStop(String canonicalName) {
-    String sb = "controller >>" + canonicalName + "<< --> handlling stop request";
+    String sb = "controller >>" + canonicalName + "<< --> handling stop request";
     logSimple(sb,
               3);
   }
