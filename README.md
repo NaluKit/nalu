@@ -12,7 +12,7 @@ Nalu offers the following features:
 
 * Supports HTML links and programmatically routing thanks to a router.
 
-* Full support of the browser's back- forward- and reload-button (In case the hasHistory-attribute of the `Application`-annotation is set to **true**.
+* Full support of the browser's back- forward- and reload-button (In case the hasHistory-attribute of the `Application`-annotation is set to **true**)
 
 * An optional loader that will be executed at application start to load data from the server.
 
