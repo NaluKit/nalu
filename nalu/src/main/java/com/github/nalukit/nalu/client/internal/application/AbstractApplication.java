@@ -114,15 +114,23 @@ public abstract class AbstractApplication<C extends IsContext>
     this.shellConfiguration = new ShellConfiguration();
     this.routerConfiguration = new RouterConfiguration();
     this.alwaysLoadComposite = new AlwaysLoadComposite();
+    // load default routes!
+    this.loadDefaultRoutes();
+    // load everything you need to start
+    ClientLogger.get()
+                .logDetailed("AbstractApplication: load configurations",
+                             1);
+    this.loadPlugins();
+    this.loadShells();
+    this.loadRoutes();
+    this.loadFilters();
+    this.loadCompositeReferences();
+    this.loadPopUpControllerFactory();
+    // load optional tracker
+    this.tracker = this.loadTrackerConfiguration();
     // initialize popup factory
     PopUpControllerFactory.get()
                           .register(this.eventBus);
-    // initialize plugin
-    this.plugin.initialize(this.shellConfiguration);
-    // load optional tracker
-    this.tracker = this.loadTrackerConfiguration();
-    // load default routes!
-    this.loadDefaultRoutes();
     // create router ...
     this.router = new RouterImpl(this.plugin,
                                  this.shellConfiguration,
@@ -134,17 +142,9 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl(),
                                  this.isStayOnSide());
-    // load everything you need to start
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: load configurations",
-                             1);
-    this.loadPlugins();
-    this.loadShells();
-    this.loadRoutes();
-    this.loadFilters();
-    this.loadCompositeReferences();
-    this.loadPopUpControllerFactory();
     this.router.setRouteError(AbstractApplication.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
+    // initialize plugin
+    this.plugin.initialize(this.shellConfiguration);
     // load the shells of the application
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load shells",
