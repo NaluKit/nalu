@@ -124,6 +124,14 @@ public interface Router {
   <C extends AbstractComponentController<?, ?, ?>> void removeFromCache(C controller);
 
   /**
+   * Removes a controller from the chache
+   *
+   * @param controller controller to be removed
+   * @param <C>        controller type
+   */
+  <C extends AbstractCompositeController<?, ?, ?>> void removeFromCache(C controller);
+
+  /**
    * Stores the instance of the controller in the cache, so that it can be reused the next time
    * the route is called.
    *

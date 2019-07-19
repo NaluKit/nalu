@@ -234,6 +234,18 @@ abstract class AbstractRouter
   }
 
   /**
+   * Removes a controller from the chache
+   *
+   * @param compositeController controller to be removed
+   * @param <C>                 controller type
+   */
+  public <C extends AbstractCompositeController<?, ?, ?>> void removeFromCache(C compositeController) {
+    CompositeFactory.get()
+                    .removeFromCache(compositeController);
+    compositeController.setCached(false);
+  }
+
+  /**
    * clears the chache
    */
   public void clearCache() {
@@ -591,9 +603,11 @@ abstract class AbstractRouter
                                                                          .getCanonicalName());
       } else {
         compositeControllers.forEach(s -> {
-          s.start();
-          RouterLogger.logCompositeComntrollerStartMethodCalled(s.getClass()
-                                                                 .getCanonicalName());
+          if (!s.isCached()) {
+            s.start();
+            RouterLogger.logCompositeComntrollerStartMethodCalled(s.getClass()
+                                                                   .getCanonicalName());
+          }
           s.activate();
           RouterLogger.logCompositeComntrollerActivateMethodCalled(s.getClass()
                                                                     .getCanonicalName());
@@ -785,9 +799,11 @@ abstract class AbstractRouter
                                                                                  .getCanonicalName());
     RouterLogger.logCompositeControllerStopMethodWillBeCalled(compositeController.getClass()
                                                                                  .getCanonicalName());
-    compositeController.stop();
-    RouterLogger.logCompositeControllerRemoveMethodCalled(compositeController.getClass()
-                                                                             .getCanonicalName());
+    if (!compositeController.isCached()) {
+      compositeController.stop();
+      RouterLogger.logCompositeControllerRemoveMethodCalled(compositeController.getClass()
+                                                                               .getCanonicalName());
+    }
     compositeController.remove();
     RouterLogger.logCompositeControllerStopMethodCalled(compositeController.getClass()
                                                                            .getCanonicalName());

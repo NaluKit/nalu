@@ -75,7 +75,7 @@ public class CompositeFactory {
                                       controller);
   }
 
-  public <C extends AbstractComponentController<?, ?, ?>> void removeFromCache(C controller) {
+  public <C extends AbstractCompositeController<?, ?, ?>> void removeFromCache(C controller) {
     String key = this.classFormatter(controller.getClass()
                                                .getCanonicalName());
     this.compositeControllerStore.remove(key);

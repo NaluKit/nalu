@@ -105,38 +105,4 @@ public interface IsComposite<W> {
   @NaluInternalUse
   void remove();
 
-  /**
-   * The bind-method will be called before the component of the
-   * controller is created.
-   * <p>
-   * This method runs before the component and composites are
-   * created. This is f.e.: a got place to do some
-   * authentification checks.
-   * <p>
-   * Keep in mind, that the method is asynchron. Once you have
-   * done your work, you have to call <b>loader.continueLoading()</b>.
-   * Otherwise Nalu will stop working!
-   * <p>
-   * Inside the method can the routing process gets interrupted
-   * by throwing a RoutingInterceptionException.
-   * <p>
-   * The method will not be called in case a controller is cached!
-   * <p>
-   * Attention:
-   * Do not call super.bind(loader)! Cause this will tell Nalu to
-   * continue laoding!
-   *
-   * @param loader loader to tell Nalu to continue loading the controller
-   * @throws com.github.nalukit.nalu.client.exception.RoutingInterceptionException in case the create contrioller
-   *                                                                               process should be interrupted
-   */
-  void bind(CompositeLoader loader)
-      throws RoutingInterceptionException;
-
-  interface CompositeLoader {
-
-    void continueLoading();
-
-  }
-
 }
