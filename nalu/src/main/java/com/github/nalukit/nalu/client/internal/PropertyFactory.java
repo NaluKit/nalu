@@ -120,4 +120,5 @@ public class PropertyFactory {
     this.usingColonForParametersInUrl = usingColonForParametersInUrl;
     this.stayOnSide = stayOnSide;
   }
+
 }

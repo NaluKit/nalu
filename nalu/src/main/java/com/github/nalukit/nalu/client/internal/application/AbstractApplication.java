@@ -45,37 +45,26 @@ public abstract class AbstractApplication<C extends IsContext>
 
   /* start route */
   protected String                             startRoute;
-
   /* route in case of route error */
   protected String                             errorRoute;
-
   /* Shell */
   protected IsShell                            shell;
-
   /* Shell Configuration */
   protected ShellConfiguration                 shellConfiguration;
-
   /* Router Configuration */
   protected RouterConfiguration                routerConfiguration;
-
   /* Router */
   protected ConfiguratableRouter               router;
-
   /* application context */
   protected C                                  context;
-
   /* the event bus of the application */
   protected SimpleEventBus                     eventBus;
-
   /* plugin */
   protected IsNaluProcessorPlugin              plugin;
-
   /* Tracker instance */
   protected IsTracker                          tracker;
-
   /* instance of AlwaysLoadComposite-class */
   protected AlwaysLoadComposite                alwaysLoadComposite;
-
   /* List of CompositeControllerReferences */
   protected List<CompositeControllerReference> compositeControllerReferences;
 

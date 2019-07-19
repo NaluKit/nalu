@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client;
 
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 
 import java.util.Map;
@@ -130,6 +131,15 @@ public interface Router {
    * @param <C>        controller type
    */
   <C extends AbstractComponentController<?, ?, ?>> void storeInCache(C controller);
+
+  /**
+   * Stores the instance of the composite controller in the cache, so that it can be reused the next time
+   * the route is called.
+   *
+   * @param controller composite controller to store
+   * @param <C>        composite controller type
+   */
+  <C extends AbstractCompositeController<?, ?, ?>> void storeInCache(C controller);
 
   /**
    * Get a map of parameters contained in the url at application start

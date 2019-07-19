@@ -23,13 +23,11 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 public class ControllerInstance {
 
   /* controller's class name */
-  private String controllerClassName;
-
+  private String                               controllerClassName;
   /* controller */
   private AbstractComponentController<?, ?, ?> controller;
-
   /* flag, that indicates weather the controller is reused or not */
-  private boolean chached;
+  private boolean                              chached;
 
   public ControllerInstance() {
   }

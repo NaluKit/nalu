@@ -16,7 +16,6 @@
 
 package com.github.nalukit.nalu.client.internal.route;
 
-import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.IsShell;
@@ -33,57 +32,40 @@ import com.github.nalukit.nalu.client.tracker.IsTracker;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 abstract class AbstractRouter
     implements ConfiguratableRouter {
 
-  private final static String NALU_SLASH_REPLACEMENT = "--U972--";
-
   private static final String NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE = "NoControllerInstance";
-
-  private static final String NALU_ERROR_TYPE_NO_SELECTOR_FOUND = "NoSelectorFound";
-
-  private static final String NALU_ERROR_TYPE_LOOP_DETECTED = "RoutingLoopDetected";
+  private static final String NALU_ERROR_TYPE_NO_SELECTOR_FOUND      = "NoSelectorFound";
+  private static final String NALU_ERROR_TYPE_LOOP_DETECTED          = "RoutingLoopDetected";
 
   // the plugin
   IsNaluProcessorPlugin plugin;
-
   // route in case of route error
-  private String routeError;
-
+  private String                                            routeError;
   // the latest error object (set by the application
-  private NaluErrorMessage applicationErrorMessage;
-
+  private NaluErrorMessage                                  applicationErrorMessage;
   // the latest error object
-  private NaluErrorMessage naluErrorMessage;
-
+  private NaluErrorMessage                                  naluErrorMessage;
   // composite configuration
-  private List<CompositeControllerReference> compositeControllerReferences;
-
+  private List<CompositeControllerReference>                compositeControllerReferences;
   // List of the application shells
-  private ShellConfiguration shellConfiguration;
-
+  private ShellConfiguration                                shellConfiguration;
   // List of the routes of the application
-  private RouterConfiguration routerConfiguration;
-
+  private RouterConfiguration                               routerConfiguration;
   // List of active components
   private Map<String, AbstractComponentController<?, ?, ?>> activeComponents;
-
   // hash of last successful routing
-  private String lastExecutedHash = "";
-
+  private String                                            lastExecutedHash = "";
   // last added shell - used, to check if the shell needs an shell replacement
-  private String lastAddedShell;
-
+  private String                                            lastAddedShell;
   // instance of the current shell
-  private IsShell shell;
-
+  private IsShell                                           shell;
   // list of routes used for handling the current route - used to detect loops
-  private List<String> loopDetectionList;
-
+  private List<String>                                      loopDetectionList;
   // the tracker: if not null, track the users routing
-  private IsTracker tracker;
+  private IsTracker                                         tracker;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
                  ShellConfiguration shellConfiguration,
@@ -227,6 +209,19 @@ abstract class AbstractRouter
   }
 
   /**
+   * Stores the instance of the controller in the cache, so that it can be reused the next time
+   * the route is called.
+   *
+   * @param compositeController compositeController to store
+   * @param <C>                 controller type
+   */
+  public <C extends AbstractCompositeController<?, ?, ?>> void storeInCache(C compositeController) {
+    CompositeFactory.get()
+                    .storeInCache(compositeController);
+    compositeController.setCached(true);
+  }
+
+  /**
    * Removes a controller from the chache
    *
    * @param controller controller to be removed
@@ -253,7 +248,7 @@ abstract class AbstractRouter
     }
     // logg hash
     RouterLogger.logHandleHash(hash);
-    // save have to loo detector list ...
+    // save hash to loop detector list ...
     if (this.loopDetectionList.contains(pimpUpHashForLoopDetection(hash))) {
       // loop discovered .... -> show message
       String message = RouterLogger.logLoopDetected(this.loopDetectionList.get(0));
@@ -372,16 +367,16 @@ abstract class AbstractRouter
                                private void detachShell() {
                                  ClientLogger.get()
                                              .logDetailed("Router: detach shellCreator >>" +
-                                                              shell.getClass()
-                                                                   .getCanonicalName() +
-                                                              "<<",
+                                                          shell.getClass()
+                                                               .getCanonicalName() +
+                                                          "<<",
                                                           1);
                                  shell.detachShell();
                                  ClientLogger.get()
                                              .logDetailed("Router: shellCreator >>" +
-                                                              shell.getClass()
-                                                                   .getCanonicalName() +
-                                                              "<< detached",
+                                                          shell.getClass()
+                                                               .getCanonicalName() +
+                                                          "<< detached",
                                                           1);
                                }
 
@@ -619,7 +614,6 @@ abstract class AbstractRouter
       // clear loo detection list ...
       this.loopDetectionList.clear();
     }
-
   }
 
   /**
@@ -631,106 +625,10 @@ abstract class AbstractRouter
    */
   public RouteResult parse(String route)
       throws RouterException {
-    RouteResult routeResult = new RouteResult();
-    String routeValue = route;
-    // only the part after the first # is intresting:
-    if (routeValue.contains("#")) {
-      routeValue = routeValue.substring(routeValue.indexOf("#") + 1);
-    }
-    // extract shellCreator first:
-    if (routeValue.startsWith("/")) {
-      routeValue = routeValue.substring(1);
-    }
-    // check, if there are more "/"
-    if (routeValue.contains("/")) {
-      routeResult.setShell("/" +
-                               routeValue.substring(0,
-                                                    routeValue.indexOf("/")));
-    } else {
-      routeResult.setShell("/" + routeValue);
-    }
-    // check, if the shellCreator exists ....
-    Optional<String> optional = this.shellConfiguration.getShells()
-                                                       .stream()
-                                                       .map(ShellConfig::getRoute)
-                                                       .filter(f -> f.equals(routeResult.getShell()))
-                                                       .findAny();
-    if (optional.isPresent()) {
-      routeResult.setShell(optional.get());
-    } else {
-      StringBuilder sb = new StringBuilder();
-      sb.append("no matching shellCreator found for route >>")
-        .append(route)
-        .append("<< --> Routing aborted!");
-      RouterLogger.logSimple(sb.toString(),
-                             1);
-      throw new RouterException(sb.toString());
-    }
-    // extract route first:
-    routeValue = route;
-    if (routeValue.startsWith("/")) {
-      routeValue = routeValue.substring(1);
-    }
-    if (routeValue.contains("/")) {
-      String searchRoute = routeValue;
-      Optional<RouteConfig> optionalRouterConfig = this.routerConfiguration.getRouters()
-                                                                           .stream()
-                                                                           .filter(rc -> Nalu.match(searchRoute,
-                                                                                                    rc.getRoute()))
-                                                                           .findFirst();
-      if (optionalRouterConfig.isPresent()) {
-        routeResult.setRoute(optionalRouterConfig.get()
-                                                 .getRoute());
-        if (routeResult.getRoute()
-                       .contains("*")) {
-          String[] partsOfRoute = routeValue.split("/");
-          String compareRoute = optionalRouterConfig.get()
-                                                    .getRoute();
-          if (compareRoute.startsWith("/")) {
-            compareRoute = compareRoute.substring(1);
-          }
-          String[] partsOfRouteFromConfiguration = compareRoute.split("/");
-          for (int i = 0; i < partsOfRouteFromConfiguration.length; i++) {
-            if (partsOfRouteFromConfiguration[i].equals("*")) {
-              if (partsOfRoute.length - 1 >= i) {
-                String parameterValue = partsOfRoute[i].replace(AbstractRouter.NALU_SLASH_REPLACEMENT,
-                                                                "/");
-                if (Nalu.isUsingColonForParametersInUrl()) {
-                  if (parameterValue.length() > 0) {
-                    if (parameterValue.startsWith(":")) {
-                      parameterValue = parameterValue.substring(1);
-                    }
-                  }
-                }
-                routeResult.getParameterValues()
-                           .add(parameterValue);
-              } else {
-                routeResult.getParameterValues()
-                           .add("");
-              }
-            }
-          }
-        }
-      } else {
-        StringBuilder sb = new StringBuilder();
-        sb.append("no matching route found for route >>")
-          .append(route)
-          .append("<< --> Routing aborted!");
-        RouterLogger.logSimple(sb.toString(),
-                               1);
-        throw new RouterException(sb.toString());
-      }
-    } else {
-      String finalSearchPart = "/" + routeValue;
-      if (this.routerConfiguration.getRouters()
-                                  .stream()
-                                  .anyMatch(f -> f.match(finalSearchPart))) {
-        routeResult.setRoute("/" + routeValue);
-      } else {
-        throw new RouterException(RouterLogger.logNoMatchingRoute(route));
-      }
-    }
-    return routeResult;
+    return RouteParser.get()
+                      .parse(route,
+                             this.shellConfiguration,
+                             this.routerConfiguration);
   }
 
   private String addLeadindgSlash(String value) {
@@ -759,12 +657,12 @@ abstract class AbstractRouter
                        });
 
     return !isDirtyComposite.get() &&
-        routeConfigurations.stream()
-                           .map(config -> this.activeComponents.get(config.getSelector()))
-                           .filter(Objects::nonNull)
-                           .map(AbstractComponentController::mayStop)
-                           .filter(Objects::nonNull)
-                           .allMatch(message -> this.plugin.confirm(message));
+           routeConfigurations.stream()
+                              .map(config -> this.activeComponents.get(config.getSelector()))
+                              .filter(Objects::nonNull)
+                              .map(AbstractComponentController::mayStop)
+                              .filter(Objects::nonNull)
+                              .allMatch(message -> this.plugin.confirm(message));
   }
 
   private void stopController(List<RouteConfig> routeConfiguraions) {
@@ -996,75 +894,9 @@ abstract class AbstractRouter
    */
   public String generate(String route,
                          String... parms) {
-    StringBuilder sb = new StringBuilder();
-    String routeValue = route;
-    if (routeValue.startsWith("/")) {
-      routeValue = routeValue.substring(1);
-    }
-    String[] partsOfRoute = routeValue.split("/");
-
-    int parameterIndex = 0;
-    for (String s : partsOfRoute) {
-      sb.append("/");
-      if ("*".equals(s) || s.startsWith(":")) {
-        if (Nalu.isUsingColonForParametersInUrl()) {
-          sb.append(":");
-        }
-        if (parms.length - 1 >= parameterIndex) {
-          sb.append(parms[parameterIndex].replace("/",
-                                                  AbstractRouter.NALU_SLASH_REPLACEMENT));
-          parameterIndex++;
-        }
-      } else {
-        sb.append(s);
-      }
-    }
-
-    // in case there are more paraemters then placesholders, we add them add the end!
-    long numberOfPlaceHolders = Stream.of(partsOfRoute)
-                                      .filter("*"::equals)
-                                      .count();
-    if (parms.length > numberOfPlaceHolders) {
-      String sbExeption = "Warning: route >>" +
-          route +
-          "<< has less parameter placeholder >>" +
-          numberOfPlaceHolders +
-          "<< than the number of parameters in the list of parameters >>" +
-          parms.length +
-          "<< --> adding Prameters add the end of the url";
-      RouterLogger.logSimple(sbExeption,
-                             1);
-      for (int i = parameterIndex; i < parms.length; i++) {
-        sb.append("/");
-        if (Nalu.isUsingColonForParametersInUrl()) {
-          sb.append(":");
-        }
-        if (!Objects.isNull(parms[parameterIndex])) {
-          sb.append(parms[parameterIndex].replace("/",
-                                                  AbstractRouter.NALU_SLASH_REPLACEMENT));
-        } else {
-          sb.append("null");
-        }
-        parameterIndex++;
-      }
-    }
-
-    // remove leading '/'
-    String generatedRoute = sb.toString();
-    if (generatedRoute.startsWith("/")) {
-      generatedRoute = generatedRoute.substring(1);
-    }
-    StringBuilder parameters = new StringBuilder();
-    for (int i = 0; i < parms.length; i++) {
-      parameters.append(parms[i]);
-      if (parms.length - 1 < i) {
-        parameters.append(",");
-      }
-    }
-    String sblog = "generated route >>" + generatedRoute + "<< -> created from >>" + route + "<< with parameters >>" + parameters + "<<";
-    RouterLogger.logSimple(sblog,
-                           1);
-    return generatedRoute;
+    return RouteParser.get()
+                      .generate(route,
+                                parms);
   }
 
   private String pimpUpHashForLoopDetection(String hash) {

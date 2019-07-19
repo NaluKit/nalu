@@ -18,6 +18,8 @@ package com.github.nalukit.nalu.client.internal;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.application.IsCompositeCreator;
 import org.gwtproject.event.shared.SimpleEventBus;

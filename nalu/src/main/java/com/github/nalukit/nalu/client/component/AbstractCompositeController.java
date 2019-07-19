@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
 
 public abstract class AbstractCompositeController<C extends IsContext, V extends IsCompositeComponent<?, W>, W>
@@ -24,9 +25,12 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
     implements IsComposite<W>,
                IsCompositeComponent.Controller {
 
-  protected V component;
-
+  /* component of the controller */
+  protected V                    component;
+  /* list of registered handlers */
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
+  /* flag, if the controller is cached or not */
+  private   boolean              cached;
 
   public AbstractCompositeController() {
     super();
@@ -134,10 +138,59 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   /**
    * Removes all composite from the DOM by calling
    * the remove method of the composite component!
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
   @Override
   public void remove() {
     this.component.remove();
+  }
+
+  /**
+   * Indicates, if the controller is newly created or not
+   *
+   * @return true: the controller is reused, false: the controller is newly created
+   */
+  public boolean isCached() {
+    return cached;
+  }
+
+  /**
+   * Sets the value, if the controller is newly created or cached!
+   * <b>This field is used by Nalu! Setting the value can lead to unexpected behavior!</b>
+   *
+   * @param cached true: the controller is reused, false: the controller is newly created
+   */
+  public void setCached(boolean cached) {
+    this.cached = cached;
+  }
+
+  /**
+   * The bind-method will be called before the component of the
+   * controller is created.
+   * <p>
+   * This method runs before the component and composites are
+   * created. This is f.e.: a got place to do some
+   * authentification checks.
+   * <p>
+   * Keep in mind, that the method is asynchron. Once you have
+   * done your work, you have to call <b>loader.continueLoading()</b>.
+   * Otherwise Nalu will stop working!
+   * <p>
+   * The method will not be called in case a controller is cached!
+   * <p>
+   * Attention:
+   * Do not call super.bind(loader)! Cause this will tell Nalu to
+   * continue laoding!
+   *
+   * @param loader loader to tell Nalu to continue loading the controller
+   * @throws com.github.nalukit.nalu.client.exception.RoutingInterceptionException in case the bind controller
+   *                                                                               process should be interrupted
+   */
+  @Override
+  public void bind(CompositeLoader loader)
+      throws RoutingInterceptionException {
+    loader.continueLoading();
   }
 
 }
