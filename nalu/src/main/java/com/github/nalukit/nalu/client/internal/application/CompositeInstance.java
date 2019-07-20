@@ -23,10 +23,11 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 public class CompositeInstance {
 
   /* controller's class name */
-  private String compositeClassName;
-
+  private String                               compositeClassName;
   /* controller */
   private AbstractCompositeController<?, ?, ?> composite;
+  /* flag, that indicates weather the controller is reused or not */
+  private boolean                              chached;
 
   public CompositeInstance() {
   }
@@ -45,6 +46,14 @@ public class CompositeInstance {
 
   public void setComposite(AbstractCompositeController<?, ?, ?> composite) {
     this.composite = composite;
+  }
+
+  public boolean isChached() {
+    return chached;
+  }
+
+  public void setChached(boolean chached) {
+    this.chached = chached;
   }
 
 }

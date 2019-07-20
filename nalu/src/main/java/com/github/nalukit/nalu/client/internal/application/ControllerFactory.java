@@ -105,9 +105,9 @@ public class ControllerFactory {
     this.controllerStore.clear();
   }
 
-  private String classFormatter(String route) {
-    return route.replace(".",
-                         "_");
+  private String classFormatter(String className) {
+    return className.replace(".",
+                             "_");
   }
 
 }
