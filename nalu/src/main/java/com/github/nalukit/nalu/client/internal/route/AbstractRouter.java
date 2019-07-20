@@ -697,8 +697,13 @@ abstract class AbstractRouter
                                       deactivateCompositeController(controller,
                                                                     s);
                                     } else {
-                                      stopCompositeController(controller,
-                                                              s);
+                                      if (s.isCached()) {
+                                        deactivateCompositeController(controller,
+                                                                      s);
+                                      } else {
+                                        stopCompositeController(controller,
+                                                                s);
+                                      }
                                     }
                                   });
 
