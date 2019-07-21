@@ -157,4 +157,4 @@ Here are some notes about the project generator: [Nalu Project Generator](https:
 
 
 ## Notes
-Nalu is still in progress. Validation and documentation are not finished yet. In case you find a bug, please open an issue or post it inside the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
+Nalu is still in progress. In case you find a bug, please open an issue or post it inside the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
