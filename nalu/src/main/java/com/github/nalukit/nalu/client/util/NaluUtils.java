@@ -2,7 +2,7 @@ package com.github.nalukit.nalu.client.util;
 
 import java.util.Objects;
 
-class NaluUtils {
+public class NaluUtils {
 
   /**
    * Converts the parameter parts with '*'
