@@ -12,7 +12,7 @@ class NaluUtils {
    * @param route route to convert
    * @return converted route
    */
-  static String convertRoute(String route) {
+  public static String convertRoute(String route) {
     if (Objects.isNull(route)) {
       return "";
     }
@@ -46,8 +46,8 @@ class NaluUtils {
    * @param route02 second route of the compare
    * @return true in case the non parameter parts are equal otherwise false
    */
-  static boolean compareRoutes(String route01,
-                               String route02) {
+  public static boolean compareRoutes(String route01,
+                                      String route02) {
     String convertedRoute01 = NaluUtils.convertRoute(route01);
     String convertedRoute02 = NaluUtils.convertRoute(route02);
     return convertedRoute01.equals(convertedRoute02);
