@@ -23,7 +23,7 @@ package com.github.nalukit.nalu.client.application;
 public interface IsLogger {
 
   /**
-   * Add a log
+   * Writes a log message to the brwoser console durnge development
    *
    * @param message message to log
    * @param depth   depth of the log

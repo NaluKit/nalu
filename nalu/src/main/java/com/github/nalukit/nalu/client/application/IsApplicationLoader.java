@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client.application;
 
 import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
@@ -29,12 +30,28 @@ import org.gwtproject.event.shared.SimpleEventBus;
  */
 public interface IsApplicationLoader<C extends IsContext> {
 
+  /**
+   * Calls the application loader.
+   * <br>
+   * Implement here the code you want to execute durng application start.
+   * <br>
+   * Once yiou are doine, call: <b>finishLoadCommand.finishLoading();</b>
+   * <br>
+   * <b>Attention:</b>
+   * <br>
+   * Do not call the method directly!
+   *
+   * @param finishLoadCommand
+   */
   void load(FinishLoadCommand finishLoadCommand);
 
+  @NaluInternalUse
   void setContext(C context);
 
+  @NaluInternalUse
   void setEventBus(SimpleEventBus eventBus);
 
+  @NaluInternalUse
   void setRouter(Router router);
 
   interface FinishLoadCommand {
