@@ -307,9 +307,6 @@ public class NaluProcessor
                                .compositeModel(compositeModel)
                                .build()
                                .generate();
-      // save controller data in metaModel
-      this.metaModel.getCompositeModels()
-                    .add(compositeModel);
     }
   }
 

@@ -63,8 +63,6 @@ public final class ApplicationWithComposite01Impl extends AbstractApplication<Mo
   public void loadCompositeController() {
     // create Composite for: com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01
     CompositeFactory.get().registerComposite("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01", new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01CreatorImpl(router, context, eventBus));
-    // create Composite for: com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01
-    CompositeFactory.get().registerComposite("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01", new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01CreatorImpl(router, context, eventBus));
   }
 
   @Override
