@@ -104,6 +104,7 @@ public class PropertyFactory {
    * @param hasHistory                   Will Nalu support a history token?
    * @param usingHash                    Will Nalu use a hash for Navigation?
    * @param usingColonForParametersInUrl Will Nalu use colons to mark parameters inside the url?
+   * @param stayOnSide                   tells Nalu how do ahndle empty hash
    */
   public void register(String startRoute,
                        boolean hasHistory,

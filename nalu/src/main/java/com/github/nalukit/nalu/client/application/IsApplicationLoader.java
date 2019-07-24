@@ -41,7 +41,7 @@ public interface IsApplicationLoader<C extends IsContext> {
    * <br>
    * Do not call the method directly!
    *
-   * @param finishLoadCommand
+   * @param finishLoadCommand use this command to give the con trol back to Nalu
    */
   void load(FinishLoadCommand finishLoadCommand);
 
