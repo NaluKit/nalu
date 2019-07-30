@@ -441,7 +441,7 @@ public class NaluProcessor
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(processingEnv)
                                         .build();
-    // get stored MEta Model and use it, if there is one!
+    // get stored Meta Model and use it, if there is one!
     MetaModel restoredModel = this.restore();
     if (!Objects.isNull(restoredModel)) {
       this.metaModel = restoredModel;
