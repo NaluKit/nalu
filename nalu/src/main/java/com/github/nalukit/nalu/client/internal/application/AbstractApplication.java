@@ -114,7 +114,6 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadRoutes();
     this.loadFilters();
     this.loadCompositeReferences();
-    this.loadPopUpControllerFactory();
     // load optional tracker
     this.tracker = this.loadTrackerConfiguration();
     // initialize popup factory
@@ -139,6 +138,11 @@ public abstract class AbstractApplication<C extends IsContext>
                 .logDetailed("AbstractApplication: load shells",
                              1);
     this.loadShellFactory();
+    // load popup factory
+    ClientLogger.get()
+                .logDetailed("AbstractApplication: load popupcontroller factory",
+                             1);
+    this.loadPopUpControllerFactory();
     // load the composite of the application
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load compositeControllers",
