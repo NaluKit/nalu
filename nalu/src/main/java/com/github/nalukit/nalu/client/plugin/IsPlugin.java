@@ -24,6 +24,7 @@ import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 
 import java.util.List;
 
+@Deprecated
 public interface IsPlugin<C extends IsContext> {
 
   void loadPlugin(RouterConfiguration routeConfiguration);
