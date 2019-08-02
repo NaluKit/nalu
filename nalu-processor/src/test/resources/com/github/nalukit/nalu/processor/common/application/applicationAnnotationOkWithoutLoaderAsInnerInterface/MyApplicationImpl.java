@@ -25,7 +25,7 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>1.3.1-SNAPSHOT<< used to generate this source");
+    sb01.append("Nalu processor version  >>2.0.0-SNAPSHOT<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
