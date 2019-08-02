@@ -17,7 +17,7 @@
 package com.github.nalukit.nalu.client.application;
 
 /**
- * Marks a class as Nalu applicaiton context.
+ * Marks a class as Nalu application context.
  */
 public interface IsContext {
 

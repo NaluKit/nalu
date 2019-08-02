@@ -22,6 +22,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * @author Frank Hossfeld
  */
+@Deprecated
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Plugin {
 
