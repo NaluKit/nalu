@@ -27,7 +27,10 @@ import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import com.github.nalukit.nalu.client.router.event.RouterStateEvent;
+import com.github.nalukit.nalu.client.router.event.RouterStateEvent.RouterState;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
+import org.gwtproject.event.shared.SimpleEventBus;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -59,13 +62,15 @@ abstract class AbstractRouter
   // hash of last successful routing
   private String                                            lastExecutedHash = "";
   // last added shell - used, to check if the shell needs an shell replacement
-  private String                                            lastAddedShell;
+  private String         lastAddedShell;
   // instance of the current shell
-  private IsShell                                           shell;
+  private IsShell        shell;
   // list of routes used for handling the current route - used to detect loops
-  private List<String>                                      loopDetectionList;
+  private List<String>   loopDetectionList;
   // the tracker: if not null, track the users routing
-  private IsTracker                                         tracker;
+  private IsTracker      tracker;
+  // teh applicaiton eventbus
+  private SimpleEventBus eventBus;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
                  ShellConfiguration shellConfiguration,
@@ -262,6 +267,9 @@ abstract class AbstractRouter
     RouterLogger.logHandleHash(hash);
     // save hash to loop detector list ...
     if (this.loopDetectionList.contains(pimpUpHashForLoopDetection(hash))) {
+      // fire Router StateEvent
+      this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
+                                hash);
       // loop discovered .... -> show message
       String message = RouterLogger.logLoopDetected(this.loopDetectionList.get(0));
       // check, if there is a loop containing the error route
@@ -289,6 +297,9 @@ abstract class AbstractRouter
                                                    RouterLogger.logNoMatchingRoute(hash,
                                                                                    this.routeError));
       if (!Objects.isNull(this.routeError)) {
+        // fire Router StateEvent
+        this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
+                                  hash);
         // loop discovered .... -> show message
         String message = RouterLogger.logLoopDetected(this.loopDetectionList.get(0));
         // check, if there is a loop containing the error route
@@ -320,6 +331,9 @@ abstract class AbstractRouter
         this.route(filter.redirectTo(),
                    true,
                    filter.parameters());
+        // fire Router StateEvent
+        this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
+                                  hash);
         return;
       }
     }
@@ -430,6 +444,9 @@ abstract class AbstractRouter
     this.shell.onAttachedComponent();
     RouterLogger.logShellOnAttachedComponentMethodCalled(this.shell.getClass()
                                                                    .getCanonicalName());
+    // fire Router StateEvent
+    this.fireRouterStateEvent(RouterState.ROUTING_DONE,
+                              hash);
   }
 
   private void handleRouteConfig(RouteConfig routeConfiguraion,
@@ -877,6 +894,9 @@ abstract class AbstractRouter
    */
   public void route(String newRoute,
                     String... parms) {
+    // fire souring event ...
+    this.fireRouterStateEvent(RouterState.START_ROUTING,
+                              newRoute);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -929,6 +949,29 @@ abstract class AbstractRouter
       value = value.substring(1);
     }
     return value;
+  }
+
+  /**
+   * sets the eventbus inside the router
+   *
+   * @param eventBus Nalu applicaiton eventbus
+   */
+  public void setEventBus(SimpleEventBus eventBus) {
+    this.eventBus = eventBus;
+  }
+
+  /**
+   * Fires a router state event to inform the application about the state
+   * of routing.
+   *
+   * @param state routing state
+   */
+  private void fireRouterStateEvent(RouterState state,
+                                    String route) {
+    String sb = "fire RouterEvent for route >>" + route + "<< with state >>" + state.name() + "<<";
+    RouterLogger.logSimple(sb,
+                           1);
+    this.eventBus.fireEvent(new RouterStateEvent(state));
   }
 
   /**

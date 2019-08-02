@@ -131,6 +131,7 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.isUsingColonForParametersInUrl(),
                                  this.isStayOnSide());
     this.router.setRouteError(AbstractApplication.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
+    this.router.setEventBus(this.eventBus);
     // initialize plugin
     this.plugin.initialize(this.shellConfiguration);
     // load the shells of the application
