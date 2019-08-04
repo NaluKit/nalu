@@ -1,8 +1,14 @@
+dist: trusty
+
 language: java
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
 
 jdk:
   - oraclejdk8
-  - oraclejdk9
   - oraclejdk11
   - openjdk8
   - openjdk9
