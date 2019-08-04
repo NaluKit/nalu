@@ -17,7 +17,7 @@
 package com.github.nalukit.nalu.client.filter;
 
 import com.github.nalukit.nalu.client.Router;
-import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 

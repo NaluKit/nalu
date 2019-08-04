@@ -17,7 +17,7 @@
 package com.github.nalukit.nalu.client.application.annotation;
 
 import com.github.nalukit.nalu.client.application.AbstractApplicationLoader;
-import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.application.NoApplicationLoader;
 
 import java.lang.annotation.Retention;

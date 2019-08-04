@@ -14,27 +14,19 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.component;
+package com.github.nalukit.nalu.client.module.annotation;
 
-import com.github.nalukit.nalu.client.context.IsContext;
+import com.github.nalukit.nalu.client.module.IsModule;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
- * Composite condition to tell Nalu weather a composite should be added to a component or not
+ * @author Frank Hossfeld
  */
-public abstract class AbstractCompositeCondition<C extends IsContext>
-    implements IsLoadCompositeCondition {
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Modules {
 
-  protected C context;
-
-  /**
-   * Sets the Nalu application context.
-   *
-   * <b>Do not use this method. This will lead to unexpected results</b>
-   *
-   * @param context Nalu application context
-   */
-  public void setContext(C context) {
-    this.context = context;
-  }
+  Class<? extends IsModule>[] value();
 
 }

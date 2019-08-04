@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client.application;
 
 import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.context.IsContext;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractApplicationLoader<C extends IsContext>

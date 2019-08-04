@@ -14,11 +14,23 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.application;
+package com.github.nalukit.nalu.client.module;
 
-/**
- * Marks a class as Nalu application context.
- */
-public interface IsContext {
+import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
+import com.github.nalukit.nalu.client.internal.route.RouteConfig;
+import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
+import com.github.nalukit.nalu.client.internal.route.ShellConfig;
+
+import java.util.List;
+
+public interface IsModule {
+
+  void loadPlugin(RouterConfiguration routeConfiguration);
+
+  List<ShellConfig> getShellConfigs();
+
+  List<RouteConfig> getRouteConfigs();
+
+  List<CompositeControllerReference> getCompositeReferences();
 
 }

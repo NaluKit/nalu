@@ -17,7 +17,7 @@
 
 package com.github.nalukit.nalu.processor.common;
 
-import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.context.IsContext;
 
 public class MockContext
     implements IsContext {

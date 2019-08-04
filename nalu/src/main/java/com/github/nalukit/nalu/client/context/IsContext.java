@@ -14,27 +14,11 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.component;
-
-import com.github.nalukit.nalu.client.context.IsContext;
+package com.github.nalukit.nalu.client.context;
 
 /**
- * Composite condition to tell Nalu weather a composite should be added to a component or not
+ * Marks a class as Nalu application context.
  */
-public abstract class AbstractCompositeCondition<C extends IsContext>
-    implements IsLoadCompositeCondition {
-
-  protected C context;
-
-  /**
-   * Sets the Nalu application context.
-   *
-   * <b>Do not use this method. This will lead to unexpected results</b>
-   *
-   * @param context Nalu application context
-   */
-  public void setContext(C context) {
-    this.context = context;
-  }
+public interface IsContext {
 
 }

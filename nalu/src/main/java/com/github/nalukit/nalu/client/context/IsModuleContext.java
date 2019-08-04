@@ -14,25 +14,25 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.plugin;
+package com.github.nalukit.nalu.client.context;
 
 import com.github.nalukit.nalu.client.context.IsContext;
-import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
-import com.github.nalukit.nalu.client.internal.route.RouteConfig;
-import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
-import com.github.nalukit.nalu.client.internal.route.ShellConfig;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
-import java.util.List;
+import java.util.Map;
 
-@Deprecated
-public interface IsPlugin<C extends IsContext> {
+/**
+ * Marks a class as Nalu application context.
+ */
+public interface IsModuleContext
+    extends IsContext {
 
-  void loadPlugin(RouterConfiguration routeConfiguration);
-
-  List<ShellConfig> getShellConfigs();
-
-  List<RouteConfig> getRouteConfigs();
-
-  List<CompositeControllerReference> getCompositeReferences();
+  /**
+   * Sets the application context
+   *
+   * @param context application context
+   */
+  @NaluInternalUse
+  void setApplicationContext(Context context);
 
 }

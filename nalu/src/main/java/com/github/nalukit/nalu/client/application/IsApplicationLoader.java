@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client.application;
 
 import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.SimpleEventBus;
 

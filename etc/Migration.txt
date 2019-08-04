@@ -1,0 +1,1 @@
+* IsContext: com.github.nalukit.nalu.client.application -> com.github.nalukit.nalu.client.context

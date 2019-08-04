@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.client.component;
 
-import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
 
 public abstract class AbstractCompositeController<C extends IsContext, V extends IsCompositeComponent<?, W>, W>

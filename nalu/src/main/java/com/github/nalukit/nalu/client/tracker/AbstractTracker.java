@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.client.tracker;
 
-import com.github.nalukit.nalu.client.application.IsContext;
+import com.github.nalukit.nalu.client.context.IsContext;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractTracker<C extends IsContext>
