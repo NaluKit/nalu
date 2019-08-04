@@ -2,6 +2,11 @@ dist: xenial
 
 language: java
 
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
 jdk:
   - oraclejdk8
   - oraclejdk9
