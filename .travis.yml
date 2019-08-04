@@ -1,4 +1,4 @@
-dist: xenial
+dist: trusty
 
 language: java
 
@@ -9,7 +9,6 @@ addons:
 
 jdk:
   - oraclejdk8
-  - oraclejdk9
   - oraclejdk11
   - openjdk8
   - openjdk9
