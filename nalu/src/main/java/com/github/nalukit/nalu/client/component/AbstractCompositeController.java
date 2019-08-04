@@ -24,9 +24,12 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
     implements IsComposite<W>,
                IsCompositeComponent.Controller {
 
-  protected V component;
-
+  /* component of the controller */
+  protected V                    component;
+  /* list of registered handlers */
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
+  /* flag, if the controller is cached or not */
+  private   boolean              cached;
 
   public AbstractCompositeController() {
     super();
@@ -134,10 +137,31 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   /**
    * Removes all composite from the DOM by calling
    * the remove method of the composite component!
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
   @Override
   public void remove() {
     this.component.remove();
+  }
+
+  /**
+   * Indicates, if the controller is newly created or not
+   *
+   * @return true: the controller is reused, false: the controller is newly created
+   */
+  public boolean isCached() {
+    return cached;
+  }
+
+  /**
+   * Sets the value, if the controller is newly created or cached!
+   * <b>This field is used by Nalu! Setting the value can lead to unexpected behavior!</b>
+   *
+   * @param cached true: the controller is reused, false: the controller is newly created
+   */
+  public void setCached(boolean cached) {
+    this.cached = cached;
   }
 
 }

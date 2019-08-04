@@ -31,12 +31,19 @@ import java.lang.annotation.RetentionPolicy;
  * <ul>
  * <li>filterClasses: classes of the filter to use.</li>
  * </ul>
+ * <br>
+ * The annotation is optional.
  *
  * @author Frank Hossfeld
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Filters {
 
+  /**
+   * List of the applicaiton filters.
+   *
+   * @return applicaiton filters
+   */
   Class<? extends IsFilter>[] filterClasses();
 
 }

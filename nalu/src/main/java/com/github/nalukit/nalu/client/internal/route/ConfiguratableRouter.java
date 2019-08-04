@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.Router;
+import org.gwtproject.event.shared.SimpleEventBus;
 
 public interface ConfiguratableRouter
     extends Router {
@@ -37,5 +38,12 @@ public interface ConfiguratableRouter
    * @param routeError the route to be executed in case of error!
    */
   void setRouteError(String routeError);
+
+  /**
+   * sets the eventbus inside the router
+   *
+   * @param eventBus Nalu applicaiton eventbus
+   */
+  void setEventBus(SimpleEventBus eventBus);
 
 }

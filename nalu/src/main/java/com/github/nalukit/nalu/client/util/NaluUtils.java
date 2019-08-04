@@ -12,7 +12,7 @@ public class NaluUtils {
    * @param route route to convert
    * @return converted route
    */
-  public final static String convertRoute(String route) {
+  public static String convertRoute(String route) {
     if (Objects.isNull(route)) {
       return "";
     }
@@ -20,20 +20,21 @@ public class NaluUtils {
       return route;
     }
     String[] splits = route.split("/");
-    String newRoute = "";
+    StringBuilder newRoute = new StringBuilder();
     for (int i = 1; i < splits.length; i++) {
       String s = splits[i];
       if (!Objects.isNull(s)) {
         if ("*".equals(s)) {
-          newRoute += "/*";
+          newRoute.append("/*");
         } else if (s.startsWith(":")) {
-          newRoute += "/*";
+          newRoute.append("/*");
         } else {
-          newRoute += "/" + s;
+          newRoute.append("/")
+                  .append(s);
         }
       }
     }
-    return newRoute;
+    return newRoute.toString();
   }
 
   /**
@@ -45,8 +46,8 @@ public class NaluUtils {
    * @param route02 second route of the compare
    * @return true in case the non parameter parts are equal otherwise false
    */
-  public final static boolean compareRoutes(String route01,
-                                            String route02) {
+  public static boolean compareRoutes(String route01,
+                                      String route02) {
     String convertedRoute01 = NaluUtils.convertRoute(route01);
     String convertedRoute02 = NaluUtils.convertRoute(route02);
     return convertedRoute01.equals(convertedRoute02);

@@ -67,6 +67,27 @@ public class PopUpControllerFactory {
   }
 
   private void onShowPopUp(ShowPopUpEvent e) {
+    StringBuilder sb = new StringBuilder();
+    sb.append("PopUpControllerFactory: handle PopUpEvent for popup >>")
+      .append(e.getName())
+      .append("<<");
+    if (!Objects.isNull(e.getDataStore())) {
+      if (!e.getDataStore()
+            .isEmpty()) {
+        sb.append(" using: ");
+        e.getDataStore()
+         .keySet()
+         .forEach(k -> sb.append(">>")
+                         .append(k)
+                         .append(": ")
+                         .append(e.getDataStore()
+                                  .get(k))
+                         .append("<<   "));
+        ClientLogger.get()
+                    .logDetailed(sb.toString(),
+                                 2);
+      }
+    }
     PopUpControllerInstance popUpComponentController = this.popUpControllerStore.get(e.getName());
     if (Objects.isNull(popUpComponentController)) {
       PopUpControllerInstance instance = this.popUpControllerStore.get(e.getName());

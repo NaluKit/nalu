@@ -242,8 +242,10 @@ public class NaluPluginCoreWeb {
         }
       }
       // remove contextPath
-      if (newUrl.length() > contextPath.length()) {
-        newUrl = newUrl.substring(contextPath.length());
+      if (!Objects.isNull(contextPath)) {
+        if (newUrl.length() > contextPath.length()) {
+          newUrl = newUrl.substring(contextPath.length());
+        }
       }
       NaluPluginCoreWeb.handleChange(handler,
                                      newUrl);

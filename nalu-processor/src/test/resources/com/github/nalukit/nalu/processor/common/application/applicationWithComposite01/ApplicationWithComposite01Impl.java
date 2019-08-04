@@ -27,7 +27,7 @@ public final class ApplicationWithComposite01Impl extends AbstractApplication<Mo
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>1.3.0<< used to generate this source");
+    sb01.append("Nalu processor version  >>1.3.1<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
@@ -61,8 +61,6 @@ public final class ApplicationWithComposite01Impl extends AbstractApplication<Mo
 
   @Override
   public void loadCompositeController() {
-    // create Composite for: com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01
-    CompositeFactory.get().registerComposite("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01", new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01CreatorImpl(router, context, eventBus));
     // create Composite for: com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01
     CompositeFactory.get().registerComposite("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01", new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01CreatorImpl(router, context, eventBus));
   }

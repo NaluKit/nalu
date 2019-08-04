@@ -44,20 +44,77 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Application {
 
+  /**
+   * the applicaiton loader of the applicaiton. Will be executed in case the
+   * application is started. This is a good place to laod apllication data.
+   * F.e.: Meta-data, store values, etc.
+   * <br>
+   * The applicaition loader is optional.
+   *
+   * @return the applicaiton loader
+   */
   Class<? extends AbstractApplicationLoader<?>> loader() default NoApplicationLoader.class;
 
+  /**
+   * Start route used by Nalu in case the applicaiton is started
+   *
+   * @return return the start route
+   */
   String startRoute();
 
+  /**
+   * The context of the application. it can be compared to the session of the server side.
+   * Use the context to store applicaiton wide data.
+   *
+   * @return applicaiton context
+   */
   Class<? extends IsContext> context();
 
+  /**
+   * Error route used by Nalu to display errors (detected by Nalu - normally routing errors)
+   *
+   * @return return the error route
+   */
   String routeError();
 
+  /**
+   * This attribute - if <b>true</b> will tell Nalu to use history.
+   * <br>
+   * Default is <b>true</b>.
+   *
+   * @return the configuration value for history
+   */
   boolean history() default true;
 
+  /**
+   * This attribute will tell Nalu to:
+   * <ul>
+   * <li>use a hash, if <b>true</b></li>
+   * <li>use a hashless url, if <b>false</b></li>
+   * </ul>
+   *
+   * @return the configuration value for using hash
+   */
   boolean useHash() default true;
 
+  /**
+   * This attribute - if <b>true</b> will tell Nalu to add a ':' before
+   * a variable value inside the url.
+   * <br>
+   * Default is <b>false</b>.
+   *
+   * @return the configuration value for useColonForParametersInUrl
+   */
   boolean useColonForParametersInUrl() default false;
 
+  /**
+   * This attribute will tell Nalu, to use the start route in case
+   * an empty hash is found (if <p>true</p>).
+   * <br>
+   * Default is <b>false</b>
+   *
+   * @return the configuration value for stayOnSite
+   */
   boolean stayOnSite() default false;
 
 }

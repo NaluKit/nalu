@@ -16,9 +16,11 @@
 package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.AbstractCompositeCreator;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
+import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
 import com.github.nalukit.nalu.client.internal.application.IsCompositeCreator;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
@@ -92,39 +94,54 @@ public class CompositeCreatorGenerator {
                                                 .addStatement("$T sb01 = new $T()",
                                                               ClassName.get(StringBuilder.class),
                                                               ClassName.get(StringBuilder.class))
-                                                .addStatement("sb01.append(\"compositeModel >>$L<< --> will be created\")",
+                                                .addStatement("$T compositeInstance = new $T()",
+                                                              ClassName.get(CompositeInstance.class),
+                                                              ClassName.get(CompositeInstance.class))
+                                                .addStatement("compositeInstance.setCompositeClassName($S)",
                                                               compositeModel.getProvider()
                                                                             .getClassName())
-                                                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                                              ClassName.get(ClientLogger.class))
-                                                .addStatement("$T compositeModel = new $T()",
-                                                              ClassName.get(compositeModel.getProvider()
-                                                                                          .getPackage(),
-                                                                            compositeModel.getProvider()
-                                                                                          .getSimpleName()),
-                                                              ClassName.get(compositeModel.getProvider()
-                                                                                          .getPackage(),
-                                                                            compositeModel.getProvider()
-                                                                                          .getSimpleName()))
-                                                .addStatement("compositeModel.setContext(context)")
-                                                .addStatement("compositeModel.setEventBus(eventBus)")
-                                                .addStatement("compositeModel.setRouter(router)")
-                                                .addStatement("sb01 = new $T()",
-                                                              ClassName.get(StringBuilder.class))
-                                                .addStatement("sb01.append(\"compositeModel >>$L<< --> created and data injected\")",
+                                                .addStatement("$T<?, ?, ?> storedComposite = $T.get().getCompositeFormStore($S)",
+                                                              ClassName.get(AbstractCompositeController.class),
+                                                              ClassName.get(CompositeFactory.class),
                                                               compositeModel.getProvider()
-                                                                            .getClassName())
-                                                .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
-                                                              ClassName.get(ClientLogger.class));
+                                                                            .getClassName());
+    createMethod.beginControlFlow("if (storedComposite == null)")
+                .addStatement("sb01.append(\"composite >>$L<< --> will be created\")",
+                              compositeModel.getProvider()
+                                            .getClassName())
+                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
+                              ClassName.get(ClientLogger.class))
+                .addStatement("$T composite = new $T()",
+                              ClassName.get(compositeModel.getProvider()
+                                                          .getPackage(),
+                                            compositeModel.getProvider()
+                                                          .getSimpleName()),
+                              ClassName.get(compositeModel.getProvider()
+                                                          .getPackage(),
+                                            compositeModel.getProvider()
+                                                          .getSimpleName()))
+                .addStatement("compositeInstance.setComposite(composite)")
+                .addStatement("composite.setCached(false)")
+                .addStatement("composite.setContext(context)")
+                .addStatement("composite.setEventBus(eventBus)")
+                .addStatement("composite.setRouter(router)")
+                .addStatement("composite.setCached(false)")
+                .addStatement("sb01 = new $T()",
+                              ClassName.get(StringBuilder.class))
+                .addStatement("sb01.append(\"composite >>$L<< --> created and data injected\")",
+                              compositeModel.getProvider()
+                                            .getClassName())
+                .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
+                              ClassName.get(ClientLogger.class));
     if (compositeModel.isComponentCreator()) {
-      createMethod.addStatement("$T component = compositeModel.createComponent()",
+      createMethod.addStatement("$T component = composite.createComponent()",
                                 ClassName.get(compositeModel.getComponentInterface()
                                                             .getPackage(),
                                               compositeModel.getComponentInterface()
                                                             .getSimpleName()))
                   .addStatement("sb01 = new $T()",
                                 ClassName.get(StringBuilder.class))
-                  .addStatement("sb01.append(\"component >>$L<< --> created using createComponent-Method of compositeModel controller\")",
+                  .addStatement("sb01.append(\"component >>$L<< --> created using createComponent-Method of composite controller\")",
                                 compositeModel.getComponent()
                                               .getClassName())
                   .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
@@ -147,16 +164,16 @@ public class CompositeCreatorGenerator {
                   .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                                 ClassName.get(ClientLogger.class));
     }
-    createMethod.addStatement("component.setController(compositeModel)")
+    createMethod.addStatement("component.setController(composite)")
                 .addStatement("sb01 = new $T()",
                               ClassName.get(StringBuilder.class))
                 .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
                 .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
                               ClassName.get(ClientLogger.class))
-                .addStatement("compositeModel.setComponent(component)")
+                .addStatement("composite.setComponent(component)")
                 .addStatement("sb01 = new $T()",
                               ClassName.get(StringBuilder.class))
-                .addStatement("sb01.append(\"compositeModel >>\").append(compositeModel.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
+                .addStatement("sb01.append(\"composite >>\").append(composite.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
                 .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
                               ClassName.get(ClientLogger.class))
                 .addStatement("component.render()")
@@ -188,7 +205,7 @@ public class CompositeCreatorGenerator {
           createMethod.beginControlFlow("if (parms.length >= " + Integer.toString(i + 1) + ")")
                       .addStatement("sb01 = new $T()",
                                     ClassName.get(StringBuilder.class))
-                      .addStatement("sb01.append(\"compositeModel >>\").append(compositeModel.getClass().getCanonicalName()).append(\"<< --> using method >>" +
+                      .addStatement("sb01.append(\"composite >>\").append(composite.getClass().getCanonicalName()).append(\"<< --> using method >>" +
                                     compositeModel.getParameterAcceptors()
                                                   .get(i)
                                                   .getMethodName() +
@@ -197,7 +214,7 @@ public class CompositeCreatorGenerator {
                                     "]).append(\"<<\")")
                       .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                                     ClassName.get(ClientLogger.class))
-                      .addStatement("compositeModel." +
+                      .addStatement("composite." +
                                     compositeModel.getParameterAcceptors()
                                                   .get(i)
                                                   .getMethodName() +
@@ -209,12 +226,139 @@ public class CompositeCreatorGenerator {
         createMethod.endControlFlow();
       }
     }
-    createMethod.addStatement("$T compositeInstance = new $T()",
-                              ClassName.get(CompositeInstance.class),
-                              ClassName.get(CompositeInstance.class))
-                .addStatement("compositeInstance.setCompositeClassName(compositeModel.getClass().getCanonicalName())")
-                .addStatement("compositeInstance.setComposite(compositeModel)")
-                .addStatement("return compositeInstance");
+    createMethod.nextControlFlow("else")
+                .addStatement("sb01.append(\"composite >>\").append(storedComposite.getClass().getCanonicalName()).append(\"<< --> found in cache -> REUSE!\")")
+                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
+                              ClassName.get(ClientLogger.class))
+                .addStatement("compositeInstance.setComposite(storedComposite)")
+                .addStatement("compositeInstance.setChached(true)")
+                .addStatement("compositeInstance.getComposite().setCached(true)")
+                .endControlFlow();
+    createMethod.addStatement("return compositeInstance");
+
+    //                                                .addStatement("sb01.append(\"compositeModel >>$L<< --> will be created\")",
+    //                                                              compositeModel.getProvider()
+    //                                                                            .getClassName())
+    //                                                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
+    //                                                              ClassName.get(ClientLogger.class))
+    //                                                .addStatement("$T compositeModel = new $T()",
+    //                                                              ClassName.get(compositeModel.getProvider()
+    //                                                                                          .getPackage(),
+    //                                                                            compositeModel.getProvider()
+    //                                                                                          .getSimpleName()),
+    //                                                              ClassName.get(compositeModel.getProvider()
+    //                                                                                          .getPackage(),
+    //                                                                            compositeModel.getProvider()
+    //                                                                                          .getSimpleName()))
+    //                                                .addStatement("compositeModel.setContext(context)")
+    //                                                .addStatement("compositeModel.setEventBus(eventBus)")
+    //                                                .addStatement("compositeModel.setRouter(router)")
+    //                                                .addStatement("sb01 = new $T()",
+    //                                                              ClassName.get(StringBuilder.class))
+    //                                                .addStatement("sb01.append(\"compositeModel >>$L<< --> created and data injected\")",
+    //                                                              compositeModel.getProvider()
+    //                                                                            .getClassName())
+    //                                                .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
+    //                                                              ClassName.get(ClientLogger.class));
+    //    if (compositeModel.isComponentCreator()) {
+    //      createMethod.addStatement("$T component = compositeModel.createComponent()",
+    //                                ClassName.get(compositeModel.getComponentInterface()
+    //                                                            .getPackage(),
+    //                                              compositeModel.getComponentInterface()
+    //                                                            .getSimpleName()))
+    //                  .addStatement("sb01 = new $T()",
+    //                                ClassName.get(StringBuilder.class))
+    //                  .addStatement("sb01.append(\"component >>$L<< --> created using createComponent-Method of compositeModel controller\")",
+    //                                compositeModel.getComponent()
+    //                                              .getClassName())
+    //                  .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
+    //                                ClassName.get(ClientLogger.class));
+    //    } else {
+    //      createMethod.addStatement("$T component = new $T()",
+    //                                ClassName.get(compositeModel.getComponentInterface()
+    //                                                            .getPackage(),
+    //                                              compositeModel.getComponentInterface()
+    //                                                            .getSimpleName()),
+    //                                ClassName.get(compositeModel.getComponent()
+    //                                                            .getPackage(),
+    //                                              compositeModel.getComponent()
+    //                                                            .getSimpleName()))
+    //                  .addStatement("sb01 = new $T()",
+    //                                ClassName.get(StringBuilder.class))
+    //                  .addStatement("sb01.append(\"component >>$L<< --> created using new\")",
+    //                                compositeModel.getComponent()
+    //                                              .getClassName())
+    //                  .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
+    //                                ClassName.get(ClientLogger.class));
+    //    }
+    //    createMethod.addStatement("component.setController(compositeModel)")
+    //                .addStatement("sb01 = new $T()",
+    //                              ClassName.get(StringBuilder.class))
+    //                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
+    //                .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
+    //                              ClassName.get(ClientLogger.class))
+    //                .addStatement("compositeModel.setComponent(component)")
+    //                .addStatement("sb01 = new $T()",
+    //                              ClassName.get(StringBuilder.class))
+    //                .addStatement("sb01.append(\"compositeModel >>\").append(compositeModel.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
+    //                .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
+    //                              ClassName.get(ClientLogger.class))
+    //                .addStatement("component.render()")
+    //                .addStatement("sb01 = new $T()",
+    //                              ClassName.get(StringBuilder.class))
+    //                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> rendered\")")
+    //                .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
+    //                              ClassName.get(ClientLogger.class))
+    //                .addStatement("component.bind()")
+    //                .addStatement("sb01 = new $T()",
+    //                              ClassName.get(StringBuilder.class))
+    //                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> bound\")")
+    //                .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
+    //                              ClassName.get(ClientLogger.class))
+    //                .addStatement("$T.get().logSimple(\"compositeModel >>$L<< created\", 4)",
+    //                              ClassName.get(ClientLogger.class),
+    //                              compositeModel.getComponent()
+    //                                            .getClassName());
+    //    // compositeModel has parameters?
+    //    if (compositeModel.getParameterAcceptors()
+    //                      .size() > 0) {
+    //      // has the model AccpetParameter ?
+    //      if (compositeModel.getParameterAcceptors()
+    //                        .size() > 0) {
+    //        createMethod.beginControlFlow("if (parms != null)");
+    //        for (int i = 0; i <
+    //                        compositeModel.getParameterAcceptors()
+    //                                      .size(); i++) {
+    //          createMethod.beginControlFlow("if (parms.length >= " + Integer.toString(i + 1) + ")")
+    //                      .addStatement("sb01 = new $T()",
+    //                                    ClassName.get(StringBuilder.class))
+    //                      .addStatement("sb01.append(\"compositeModel >>\").append(compositeModel.getClass().getCanonicalName()).append(\"<< --> using method >>" +
+    //                                    compositeModel.getParameterAcceptors()
+    //                                                  .get(i)
+    //                                                  .getMethodName() +
+    //                                    "<< to set value >>\").append(parms[" +
+    //                                    Integer.toString(i) +
+    //                                    "]).append(\"<<\")")
+    //                      .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
+    //                                    ClassName.get(ClientLogger.class))
+    //                      .addStatement("compositeModel." +
+    //                                    compositeModel.getParameterAcceptors()
+    //                                                  .get(i)
+    //                                                  .getMethodName() +
+    //                                    "(parms[" +
+    //                                    Integer.toString(i) +
+    //                                    "])")
+    //                      .endControlFlow();
+    //        }
+    //        createMethod.endControlFlow();
+    //      }
+    //    }
+    //    createMethod.addStatement("$T compositeInstance = new $T()",
+    //                              ClassName.get(CompositeInstance.class),
+    //                              ClassName.get(CompositeInstance.class))
+    //                .addStatement("compositeInstance.setCompositeClassName(compositeModel.getClass().getCanonicalName())")
+    //                .addStatement("compositeInstance.setComposite(compositeModel)")
+    //                .addStatement("return compositeInstance");
 
     typeSpec.addMethod(createMethod.build());
 

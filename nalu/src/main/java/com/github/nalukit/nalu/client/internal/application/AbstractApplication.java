@@ -45,37 +45,26 @@ public abstract class AbstractApplication<C extends IsContext>
 
   /* start route */
   protected String                             startRoute;
-
   /* route in case of route error */
   protected String                             errorRoute;
-
   /* Shell */
   protected IsShell                            shell;
-
   /* Shell Configuration */
   protected ShellConfiguration                 shellConfiguration;
-
   /* Router Configuration */
   protected RouterConfiguration                routerConfiguration;
-
   /* Router */
   protected ConfiguratableRouter               router;
-
   /* application context */
   protected C                                  context;
-
   /* the event bus of the application */
   protected SimpleEventBus                     eventBus;
-
   /* plugin */
   protected IsNaluProcessorPlugin              plugin;
-
   /* Tracker instance */
   protected IsTracker                          tracker;
-
   /* instance of AlwaysLoadComposite-class */
   protected AlwaysLoadComposite                alwaysLoadComposite;
-
   /* List of CompositeControllerReferences */
   protected List<CompositeControllerReference> compositeControllerReferences;
 
@@ -114,15 +103,22 @@ public abstract class AbstractApplication<C extends IsContext>
     this.shellConfiguration = new ShellConfiguration();
     this.routerConfiguration = new RouterConfiguration();
     this.alwaysLoadComposite = new AlwaysLoadComposite();
+    // load default routes!
+    this.loadDefaultRoutes();
+    // load everything you need to start
+    ClientLogger.get()
+                .logDetailed("AbstractApplication: load configurations",
+                             1);
+    this.loadPlugins();
+    this.loadShells();
+    this.loadRoutes();
+    this.loadFilters();
+    this.loadCompositeReferences();
+    // load optional tracker
+    this.tracker = this.loadTrackerConfiguration();
     // initialize popup factory
     PopUpControllerFactory.get()
                           .register(this.eventBus);
-    // initialize plugin
-    this.plugin.initialize(this.shellConfiguration);
-    // load optional tracker
-    this.tracker = this.loadTrackerConfiguration();
-    // load default routes!
-    this.loadDefaultRoutes();
     // create router ...
     this.router = new RouterImpl(this.plugin,
                                  this.shellConfiguration,
@@ -134,22 +130,20 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl(),
                                  this.isStayOnSide());
-    // load everything you need to start
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: load configurations",
-                             1);
-    this.loadPlugins();
-    this.loadShells();
-    this.loadRoutes();
-    this.loadFilters();
-    this.loadCompositeReferences();
-    this.loadPopUpControllerFactory();
     this.router.setRouteError(AbstractApplication.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
+    this.router.setEventBus(this.eventBus);
+    // initialize plugin
+    this.plugin.initialize(this.shellConfiguration);
     // load the shells of the application
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load shells",
                              1);
     this.loadShellFactory();
+    // load popup factory
+    ClientLogger.get()
+                .logDetailed("AbstractApplication: load popupcontroller factory",
+                             1);
+    this.loadPopUpControllerFactory();
     // load the composite of the application
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load compositeControllers",
