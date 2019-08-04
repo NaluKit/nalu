@@ -2,6 +2,6 @@ package com.github.nalukit.nalu.processor;
 
 public class ProcessorVersion {
 
-  public final static String PROCESSOR_VERSION = "1.3.1-SNAPSHOT";
+  public final static String PROCESSOR_VERSION = "1.3.1";
 
 }
