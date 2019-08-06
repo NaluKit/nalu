@@ -34,4 +34,6 @@ public class ProcessorConstants {
 
   public final static String PLUGIN_IMPL = "PluginImpl";
 
+  public static final String MODULE_IMPL = "ModuleImpl";
+
 }

@@ -16,12 +16,12 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
-import com.github.nalukit.nalu.client.plugin.IsPlugin;
-import com.github.nalukit.nalu.client.plugin.annotation.Plugin;
+import com.github.nalukit.nalu.client.module.IsModule;
+import com.github.nalukit.nalu.client.module.annotation.Module;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
-import com.github.nalukit.nalu.processor.model.intern.PluginModel;
+import com.github.nalukit.nalu.processor.model.intern.ModuleModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -31,20 +31,19 @@ import javax.lang.model.util.SimpleTypeVisitor8;
 import java.util.List;
 import java.util.Objects;
 
-@Deprecated
-public class PluginAnnotationScanner {
+public class ModuleAnnotationScanner {
 
   private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
-  private Element pluginElement;
+  private Element moduleElement;
 
   @SuppressWarnings("unused")
-  private PluginAnnotationScanner(Builder builder) {
+  private ModuleAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.pluginElement = builder.pluginElement;
+    this.moduleElement = builder.moduleElement;
     setUp();
   }
 
@@ -58,17 +57,16 @@ public class PluginAnnotationScanner {
                                         .build();
   }
 
-  public PluginModel scan(RoundEnvironment roundEnvironment)
+  public ModuleModel scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
-    Plugin pluginAnnotation = this.pluginElement.getAnnotation(Plugin.class);
+    Module moduleAnnotation = this.moduleElement.getAnnotation(Module.class);
     // get context!
-    String context = this.getContextType(pluginElement);
+    String context = this.getContextType(moduleElement);
     if (Objects.isNull(context)) {
-      throw new ProcessorException("Nalu-Processor: plugin >>" + pluginElement.toString() + "<< does not have a context generic!");
+      throw new ProcessorException("Nalu-Processor: module >>" + moduleElement.toString() + "<< does not have a context generic!");
     }
-
-    return new PluginModel(pluginAnnotation.name(),
-                           new ClassNameModel(pluginElement.toString()),
+    return new ModuleModel(moduleAnnotation.name(),
+                           new ClassNameModel(moduleElement.toString()),
                            new ClassNameModel(context));
   }
 
@@ -78,7 +76,7 @@ public class PluginAnnotationScanner {
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
                                                                 element.asType(),
                                                                 this.processorUtils.getElements()
-                                                                                   .getTypeElement(IsPlugin.class.getCanonicalName())
+                                                                                   .getTypeElement(IsModule.class.getCanonicalName())
                                                                                    .asType());
     // on case type is null, no IsComponentCreator interface found!
     if (type == null) {
@@ -136,20 +134,20 @@ public class PluginAnnotationScanner {
 
     ProcessingEnvironment processingEnvironment;
 
-    Element pluginElement;
+    Element moduleElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
 
-    public Builder pluginElement(Element pluginElement) {
-      this.pluginElement = pluginElement;
+    public Builder moduleElement(Element moduleElement) {
+      this.moduleElement = moduleElement;
       return this;
     }
 
-    public PluginAnnotationScanner build() {
-      return new PluginAnnotationScanner(this);
+    public ModuleAnnotationScanner build() {
+      return new ModuleAnnotationScanner(this);
     }
 
   }

@@ -17,22 +17,21 @@
 package com.github.nalukit.nalu.processor.model.intern;
 
 /**
- * Model of the Plugin annotation.
+ * Model of the Module annotation.
  */
-@Deprecated
-public class PluginModel {
+public class ModuleModel {
 
   private String name;
 
-  private ClassNameModel plugin;
+  private ClassNameModel module;
 
   private ClassNameModel context;
 
-  public PluginModel(String name,
-                     ClassNameModel plugin,
+  public ModuleModel(String name,
+                     ClassNameModel module,
                      ClassNameModel context) {
     this.name = name;
-    this.plugin = plugin;
+    this.module = module;
     this.context = context;
   }
 
@@ -44,12 +43,12 @@ public class PluginModel {
     this.name = name;
   }
 
-  public ClassNameModel getPlugin() {
-    return plugin;
+  public ClassNameModel getModule() {
+    return module;
   }
 
-  public void setPlugin(ClassNameModel plugin) {
-    this.plugin = plugin;
+  public void setModule(ClassNameModel module) {
+    this.module = module;
   }
 
   public ClassNameModel getContext() {

@@ -20,10 +20,14 @@ import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
-import com.github.nalukit.nalu.client.internal.application.*;
+import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
+import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
+import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
+import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
+import com.github.nalukit.nalu.client.module.AbstractModule;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
@@ -41,8 +45,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
-@Deprecated
-public class PluginGenerator {
+public class ModuleGenerator {
 
   private MetaModel metaModel;
 
@@ -51,7 +54,7 @@ public class PluginGenerator {
   private ProcessorUtils processorUtils;
 
   @SuppressWarnings("unused")
-  private PluginGenerator(Builder builder) {
+  private ModuleGenerator(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
     this.metaModel = builder.metaModel;
@@ -71,17 +74,17 @@ public class PluginGenerator {
   public void generate()
       throws ProcessorException {
     // generate code
-    TypeSpec.Builder typeSpec = TypeSpec.classBuilder(this.metaModel.getPluginModel()
-                                                                    .getPlugin()
-                                                                    .getSimpleName() + ProcessorConstants.PLUGIN_IMPL)
-                                        .superclass(ParameterizedTypeName.get(ClassName.get(AbstractPlugin.class),
-                                                                              this.metaModel.getPluginModel()
+    TypeSpec.Builder typeSpec = TypeSpec.classBuilder(this.metaModel.getModuleModel()
+                                                                    .getModule()
+                                                                    .getSimpleName() + ProcessorConstants.MODULE_IMPL)
+                                        .superclass(ParameterizedTypeName.get(ClassName.get(AbstractModule.class),
+                                                                              this.metaModel.getModuleModel()
                                                                                             .getContext()
                                                                                             .getTypeName()))
                                         .addModifiers(Modifier.PUBLIC,
                                                       Modifier.FINAL)
-                                        .addSuperinterface(this.metaModel.getPluginModel()
-                                                                         .getPlugin()
+                                        .addSuperinterface(this.metaModel.getModuleModel()
+                                                                         .getModule()
                                                                          .getTypeName());
 
     // constructor ...
@@ -90,7 +93,7 @@ public class PluginGenerator {
                                        .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
                                                                            "router")
                                                                   .build())
-                                       .addParameter(ParameterSpec.builder(this.metaModel.getPluginModel()
+                                       .addParameter(ParameterSpec.builder(this.metaModel.getModuleModel()
                                                                                          .getContext()
                                                                                          .getTypeName(),
                                                                            "context")
@@ -115,8 +118,8 @@ public class PluginGenerator {
     this.generateGetRouteConfigs(typeSpec);
     this.generateGetCompositeReferences(typeSpec);
 
-    JavaFile javaFile = JavaFile.builder(this.metaModel.getPluginModel()
-                                                       .getPlugin()
+    JavaFile javaFile = JavaFile.builder(this.metaModel.getModuleModel()
+                                                       .getModule()
                                                        .getPackage(),
                                          typeSpec.build())
                                 .build();
@@ -125,10 +128,10 @@ public class PluginGenerator {
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
-                                   this.metaModel.getPluginModel()
-                                                 .getPlugin()
+                                   this.metaModel.getModuleModel()
+                                                 .getModule()
                                                  .getClassName() +
-                                   ProcessorConstants.PLUGIN_IMPL +
+                                   ProcessorConstants.MODULE_IMPL +
                                    "<< -> exception: " +
                                    e.getMessage());
     }
@@ -482,8 +485,8 @@ public class PluginGenerator {
       return this;
     }
 
-    public PluginGenerator build() {
-      return new PluginGenerator(this);
+    public ModuleGenerator build() {
+      return new ModuleGenerator(this);
     }
 
   }

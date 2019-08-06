@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
-import com.github.nalukit.nalu.client.plugin.annotation.Plugins;
+import com.github.nalukit.nalu.client.module.annotation.Modules;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
@@ -31,8 +31,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Deprecated
-public class PluginsAnnotationScanner {
+public class ModulesAnnotationScanner {
 
   private ProcessorUtils processorUtils;
 
@@ -40,14 +39,14 @@ public class PluginsAnnotationScanner {
 
   private MetaModel metaModel;
 
-  private Element pluginsElement;
+  private Element modulesElement;
 
   @SuppressWarnings("unused")
-  private PluginsAnnotationScanner(Builder builder) {
+  private ModulesAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
     this.metaModel = builder.metaModel;
-    this.pluginsElement = builder.pluginsElement;
+    this.modulesElement = builder.modulesElement;
     setUp();
   }
 
@@ -63,14 +62,14 @@ public class PluginsAnnotationScanner {
 
   public void scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
-    TypeMirror pluginsTypeMirror = this.processingEnvironment.getElementUtils()
-                                                             .getTypeElement(Plugins.class.getName())
+    TypeMirror modulesTypeMirror = this.processingEnvironment.getElementUtils()
+                                                             .getTypeElement(Modules.class.getName())
                                                              .asType();
 
-    List<String> pluginClasses = this.pluginsElement.getAnnotationMirrors()
+    List<String> moduleClasses = this.modulesElement.getAnnotationMirrors()
                                                     .stream()
                                                     .filter(annotationMirror -> annotationMirror.getAnnotationType()
-                                                                                                .equals(pluginsTypeMirror))
+                                                                                                .equals(modulesTypeMirror))
                                                     .flatMap(annotationMirror -> annotationMirror.getElementValues()
                                                                                                  .entrySet()
                                                                                                  .stream())
@@ -89,11 +88,11 @@ public class PluginsAnnotationScanner {
                                                                                                 v.indexOf(".class")))
                                                                         .collect(Collectors.toList()))
                                                     .orElse(null);
-    this.metaModel.getPlugins()
+    this.metaModel.getModules()
                   .clear();
-    if (!Objects.isNull(pluginClasses)) {
-      this.metaModel.getPlugins()
-                    .addAll(pluginClasses.stream()
+    if (!Objects.isNull(moduleClasses)) {
+      this.metaModel.getModules()
+                    .addAll(moduleClasses.stream()
                                          .map(ClassNameModel::new)
                                          .collect(Collectors.toList()));
     }
@@ -105,7 +104,7 @@ public class PluginsAnnotationScanner {
 
     MetaModel metaModel;
 
-    Element pluginsElement;
+    Element modulesElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
@@ -117,13 +116,13 @@ public class PluginsAnnotationScanner {
       return this;
     }
 
-    public Builder pluginsElement(Element pluginsElement) {
-      this.pluginsElement = pluginsElement;
+    public Builder modulesElement(Element modulesElement) {
+      this.modulesElement = modulesElement;
       return this;
     }
 
-    public PluginsAnnotationScanner build() {
-      return new PluginsAnnotationScanner(this);
+    public ModulesAnnotationScanner build() {
+      return new ModulesAnnotationScanner(this);
     }
 
   }

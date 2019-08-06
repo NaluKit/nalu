@@ -30,6 +30,8 @@ public class MetaModel {
 
   private ClassNameModel loader;
 
+  private List<ClassNameModel> modules;
+
   private List<ClassNameModel> plugins;
 
   private boolean usingHash;
@@ -37,6 +39,11 @@ public class MetaModel {
   private boolean usingColonForParametersInUrl;
 
   private boolean stayOnSide;
+
+  /* this model represents the plugin interface */
+  /* is the model not null, we have to deal     */
+  /* with a a plugin and not with a pplication  */
+  private ModuleModel moduleModel;
 
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
@@ -80,6 +87,7 @@ public class MetaModel {
   private boolean history;
 
   public MetaModel() {
+    this.modules = new ArrayList<>();
     this.plugins = new ArrayList<>();
     this.shells = new ArrayList<>();
     this.controllers = new ArrayList<>();
@@ -87,6 +95,14 @@ public class MetaModel {
     this.filters = new ArrayList<>();
     this.handlers = new ArrayList<>();
     this.compositeModels = new ArrayList<>();
+  }
+
+  public ModuleModel getModuleModel() {
+    return moduleModel;
+  }
+
+  public void setModuleModel(ModuleModel moduleModel) {
+    this.moduleModel = moduleModel;
   }
 
   public PluginModel getPluginModel() {
@@ -233,6 +249,14 @@ public class MetaModel {
 
   public void setHasPluginsAnnotation(boolean hasPluginsAnnotation) {
     this.hasPluginsAnnotation = hasPluginsAnnotation;
+  }
+
+  public List<ClassNameModel> getModules() {
+    return modules;
+  }
+
+  public void setModules(List<ClassNameModel> modules) {
+    this.modules = modules;
   }
 
   public List<ClassNameModel> getPlugins() {

@@ -23,22 +23,21 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
-@Deprecated
-public class PluginsAnnotationValidator {
+public class ModulesAnnotationValidator {
 
   private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
-  private Element pluginsElement;
+  private Element modulesElement;
 
   @SuppressWarnings("unused")
-  private PluginsAnnotationValidator() {
+  private ModulesAnnotationValidator() {
   }
 
-  private PluginsAnnotationValidator(Builder builder) {
+  private ModulesAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
-    this.pluginsElement = builder.pluginsElement;
+    this.modulesElement = builder.modulesElement;
     setUp();
   }
 
@@ -84,7 +83,7 @@ public class PluginsAnnotationValidator {
       // annotated element has to be a interface
       if (!typeElement.getKind()
                       .isInterface()) {
-        throw new ProcessorException("Nalu-Processor: @Plugins annotated must be used with an interface");
+        throw new ProcessorException("Nalu-Processor: @Modules annotated must be used with an interface");
       }
       // check, that the typeElement implements IsApplication
       if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
@@ -95,10 +94,10 @@ public class PluginsAnnotationValidator {
         throw new ProcessorException("Nalu-Processor: " +
                                      typeElement.getSimpleName()
                                                 .toString() +
-                                     ": @Plugins must implement IsApplication interface");
+                                     ": @Modules must implement IsApplication interface");
       }
     } else {
-      throw new ProcessorException("Nalu-Processor:" + "@Plugins can only be used on a type (interface)");
+      throw new ProcessorException("Nalu-Processor:" + "@Modules can only be used on a type (interface)");
     }
   }
 
@@ -106,20 +105,20 @@ public class PluginsAnnotationValidator {
 
     ProcessingEnvironment processingEnvironment;
 
-    Element pluginsElement;
+    Element modulesElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
 
-    public Builder pluginsElement(Element pluginsElement) {
-      this.pluginsElement = pluginsElement;
+    public Builder modulesElement(Element modulesElement) {
+      this.modulesElement = modulesElement;
       return this;
     }
 
-    public PluginsAnnotationValidator build() {
-      return new PluginsAnnotationValidator(this);
+    public ModulesAnnotationValidator build() {
+      return new ModulesAnnotationValidator(this);
     }
 
   }

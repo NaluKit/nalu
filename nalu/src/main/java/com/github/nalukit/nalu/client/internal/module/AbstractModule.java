@@ -14,26 +14,25 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.internal.plugin;
+package com.github.nalukit.nalu.client.internal.module;
 
-import com.github.nalukit.nalu.client.context.IsContext;
+import com.github.nalukit.nalu.client.context.IsModuleContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
-import com.github.nalukit.nalu.client.plugin.IsPlugin;
+import com.github.nalukit.nalu.client.module.IsModule;
 
 /**
  * generator of the eventBus
  */
 @NaluInternalUse
-@Deprecated
-public abstract class AbstractPlugin<C extends IsContext>
-    implements IsPlugin<C> {
+public abstract class AbstractModule<C extends IsModuleContext>
+    implements IsModule<C> {
 
-  public AbstractPlugin() {
+  public AbstractModule() {
   }
 
   @Override
-  public void loadPlugin(RouterConfiguration routeConfiguration) {
+  public void loadModule(RouterConfiguration routeConfiguration) {
     this.loadShellFactory();
     this.loadCompositeController();
     this.loadComponents();

@@ -19,9 +19,9 @@ package com.github.nalukit.nalu.client.internal.application;
 import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
-import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.component.IsShell;
+import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
@@ -109,6 +109,8 @@ public abstract class AbstractApplication<C extends IsContext>
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load configurations",
                              1);
+    this.loadModules();
+    // TODO El Hoss: remove
     this.loadPlugins();
     this.loadShells();
     this.loadRoutes();
@@ -190,6 +192,10 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract void logProcessorVersion();
 
+  protected abstract void loadModules();
+
+  // TODO El Hoss: remove
+  @Deprecated
   protected abstract void loadPlugins();
 
   protected abstract void loadShellFactory();

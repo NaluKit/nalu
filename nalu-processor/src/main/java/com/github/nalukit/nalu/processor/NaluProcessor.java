@@ -24,6 +24,8 @@ import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.client.component.annotation.PopUpController;
 import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
+import com.github.nalukit.nalu.client.module.annotation.Module;
+import com.github.nalukit.nalu.client.module.annotation.Modules;
 import com.github.nalukit.nalu.client.plugin.annotation.Plugin;
 import com.github.nalukit.nalu.client.plugin.annotation.Plugins;
 import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
@@ -84,6 +86,8 @@ public class NaluProcessor
               Debug.class.getCanonicalName(),
               Filters.class.getCanonicalName(),
               Handler.class.getCanonicalName(),
+              Modules.class.getCanonicalName(),
+              Module.class.getCanonicalName(),
               PopUpController.class.getCanonicalName(),
               Plugin.class.getCanonicalName(),
               Plugins.class.getCanonicalName(),
@@ -137,6 +141,12 @@ public class NaluProcessor
             } else if (Handler.class.getCanonicalName()
                                     .equals(annotation.toString())) {
               handleHandlerAnnotation(roundEnv);
+            } else if (Module.class.getCanonicalName()
+                                   .equals(annotation.toString())) {
+              handleModuleAnnotation(roundEnv);
+            } else if (Modules.class.getCanonicalName()
+                                    .equals(annotation.toString())) {
+              handleModulesAnnotation(roundEnv);
             } else if (PopUpController.class.getCanonicalName()
                                             .equals(annotation.toString())) {
               handlePopUpControllerAnnotation(roundEnv);
@@ -153,7 +163,6 @@ public class NaluProcessor
           }
         }
       }
-      //      return true;
     } catch (ProcessorException e) {
       this.processorUtils.createErrorMessage(e.getMessage());
       //    }/
@@ -193,6 +202,46 @@ public class NaluProcessor
                   .addAll(popUpControllerModels);
   }
 
+  private void handleModuleAnnotation(RoundEnvironment roundEnv)
+      throws ProcessorException {
+    for (Element moduleElement : roundEnv.getElementsAnnotatedWith(Module.class)) {
+      // validate application element
+      ModuleAnnotationValidator.builder()
+                               .processingEnvironment(processingEnv)
+                               .moduleElement(moduleElement)
+                               .build()
+                               .validate();
+      // scan application element
+      ModuleModel moduleModel = ModuleAnnotationScanner.builder()
+                                                       .processingEnvironment(processingEnv)
+                                                       .moduleElement(moduleElement)
+                                                       .build()
+                                                       .scan(roundEnv);
+      // store model
+      this.metaModel.setModuleModel(moduleModel);
+    }
+  }
+
+  private void handleModulesAnnotation(RoundEnvironment roundEnv)
+      throws ProcessorException {
+    for (Element modulesElement : roundEnv.getElementsAnnotatedWith(Modules.class)) {
+      // validate application element
+      ModulesAnnotationValidator.builder()
+                                .processingEnvironment(processingEnv)
+                                .modulesElement(modulesElement)
+                                .build()
+                                .validate();
+      // scan application element
+      ModulesAnnotationScanner.builder()
+                              .processingEnvironment(processingEnv)
+                              .modulesElement(modulesElement)
+                              .metaModel(metaModel)
+                              .build()
+                              .scan(roundEnv);
+    }
+  }
+
+  @Deprecated
   private void handlePluginAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     for (Element pluginElement : roundEnv.getElementsAnnotatedWith(Plugin.class)) {
@@ -213,6 +262,7 @@ public class NaluProcessor
     }
   }
 
+  @Deprecated
   private void handlePluginsAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     for (Element pluginsElement : roundEnv.getElementsAnnotatedWith(Plugins.class)) {
@@ -455,6 +505,17 @@ public class NaluProcessor
                           .processingEnvironment(this.processingEnv)
                           .build()
                           .generate(this.metaModel);
+      // check if moduleModel is not null!
+      // if moduleModel is null, we have nothing to do here,
+      // otherwise we nead to generate a module-Impl class
+      if (!Objects.isNull(metaModel.getModuleModel())) {
+        ModuleGenerator.builder()
+                       .processingEnvironment(processingEnv)
+                       .metaModel(this.metaModel)
+                       .build()
+                       .generate();
+      }
+      // TODO EL Hoss ... remove!
       // check if pluginModel is not null!
       // if pluginModel is null, we have nothing to do here,
       // otherwise we nead to generate a plugin-Impl class

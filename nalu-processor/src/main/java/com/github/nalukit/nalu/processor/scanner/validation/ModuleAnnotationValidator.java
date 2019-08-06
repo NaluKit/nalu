@@ -15,30 +15,27 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
-import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
 
-@Deprecated
-public class PluginsAnnotationValidator {
+public class ModuleAnnotationValidator {
 
   private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
-  private Element pluginsElement;
+  private Element moduleElement;
 
   @SuppressWarnings("unused")
-  private PluginsAnnotationValidator() {
+  private ModuleAnnotationValidator() {
   }
 
-  private PluginsAnnotationValidator(Builder builder) {
+  private ModuleAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
-    this.pluginsElement = builder.pluginsElement;
+    this.moduleElement = builder.moduleElement;
     setUp();
   }
 
@@ -79,47 +76,47 @@ public class PluginsAnnotationValidator {
 
   public void validate(Element element)
       throws ProcessorException {
-    if (element instanceof TypeElement) {
-      TypeElement typeElement = (TypeElement) element;
-      // annotated element has to be a interface
-      if (!typeElement.getKind()
-                      .isInterface()) {
-        throw new ProcessorException("Nalu-Processor: @Plugins annotated must be used with an interface");
-      }
-      // check, that the typeElement implements IsApplication
-      if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                       typeElement.asType(),
-                                                       this.processingEnvironment.getElementUtils()
-                                                                                 .getTypeElement(IsApplication.class.getCanonicalName())
-                                                                                 .asType())) {
-        throw new ProcessorException("Nalu-Processor: " +
-                                     typeElement.getSimpleName()
-                                                .toString() +
-                                     ": @Plugins must implement IsApplication interface");
-      }
-    } else {
-      throw new ProcessorException("Nalu-Processor:" + "@Plugins can only be used on a type (interface)");
-    }
+    //    if (element instanceof TypeElement) {
+    //      TypeElement typeElement = (TypeElement) element;
+    //      // annotated element has to be a interface
+    //      if (!typeElement.getKind()
+    //                      .isInterface()) {
+    //        throw new ProcessorException("Nalu-Processor: @Application annotated must be used with an interface");
+    //      }
+    //      // check, that the typeElement implements IsApplication
+    //      if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+    //                                                       typeElement.asType(),
+    //                                                       this.processingEnvironment.getElementUtils()
+    //                                                                                 .getTypeElement(IsApplication.class.getCanonicalName())
+    //                                                                                 .asType())) {
+    //        throw new ProcessorException("Nalu-Processor: " +
+    //                                     typeElement.getSimpleName()
+    //                                                .toString() +
+    //                                     ": @Application must implement IsApplication interface");
+    //      }
+    //    } else {
+    //      throw new ProcessorException("Nalu-Processor:" + "@Application can only be used on a type (interface)");
+    //    }
   }
 
   public static final class Builder {
 
     ProcessingEnvironment processingEnvironment;
 
-    Element pluginsElement;
+    Element moduleElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
 
-    public Builder pluginsElement(Element pluginsElement) {
-      this.pluginsElement = pluginsElement;
+    public Builder moduleElement(Element moduleElement) {
+      this.moduleElement = moduleElement;
       return this;
     }
 
-    public PluginsAnnotationValidator build() {
-      return new PluginsAnnotationValidator(this);
+    public ModuleAnnotationValidator build() {
+      return new ModuleAnnotationValidator(this);
     }
 
   }

@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.client.module.annotation;
 
+import com.github.nalukit.nalu.client.context.IsModuleContext;
 import com.github.nalukit.nalu.client.module.IsModule;
 
 import java.lang.annotation.Retention;
@@ -27,6 +28,6 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Modules {
 
-  Class<? extends IsModule>[] value();
+  Class<? extends IsModule<IsModuleContext>>[] value();
 
 }

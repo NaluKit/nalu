@@ -162,6 +162,15 @@ public class ApplicationGenerator {
                        .build()
                        .generate();
     // need to be called!
+    // even if the app has no modules,
+    // a empty method has to be created!
+    ModulesGenerator.builder()
+                    .metaModel(metaModel)
+                    .typeSpec(typeSpec)
+                    .build()
+                    .generate();
+    // TODO El Hoss: Remove ....
+    // need to be called!
     // even if the app has no plugins,
     // a empty method has to be created!
     PluginsGenerator.builder()
@@ -211,11 +220,11 @@ public class ApplicationGenerator {
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
-                                       metaModel.getApplication()
-                                                .getSimpleName() +
-                                       ApplicationGenerator.IMPL_NAME +
-                                       "<< -> exception: " +
-                                       e.getMessage());
+                                   metaModel.getApplication()
+                                            .getSimpleName() +
+                                   ApplicationGenerator.IMPL_NAME +
+                                   "<< -> exception: " +
+                                   e.getMessage());
     }
   }
 

@@ -21,6 +21,7 @@ import com.github.nalukit.nalu.processor.ProcessorUtils;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 
+@Deprecated
 public class PluginAnnotationValidator {
 
   private ProcessorUtils processorUtils;
