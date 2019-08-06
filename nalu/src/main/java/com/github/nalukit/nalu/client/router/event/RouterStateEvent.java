@@ -8,10 +8,13 @@ public class RouterStateEvent
   public static Type<RouterStateEvent.RouterStateHandler> TYPE = new Type<>();
 
   private RouterState state;
+  private String      route;
 
-  public RouterStateEvent(RouterState state) {
+  public RouterStateEvent(RouterState state,
+                          String route) {
     super();
     this.state = state;
+    this.route = route;
   }
 
   public RouterState getState() {

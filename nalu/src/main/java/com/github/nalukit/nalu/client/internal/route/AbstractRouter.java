@@ -62,15 +62,15 @@ abstract class AbstractRouter
   // hash of last successful routing
   private String                                            lastExecutedHash = "";
   // last added shell - used, to check if the shell needs an shell replacement
-  private String         lastAddedShell;
+  private String                                            lastAddedShell;
   // instance of the current shell
-  private IsShell        shell;
+  private IsShell                                           shell;
   // list of routes used for handling the current route - used to detect loops
-  private List<String>   loopDetectionList;
+  private List<String>                                      loopDetectionList;
   // the tracker: if not null, track the users routing
-  private IsTracker      tracker;
+  private IsTracker                                         tracker;
   // teh applicaiton eventbus
-  private SimpleEventBus eventBus;
+  private SimpleEventBus                                    eventBus;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
                  ShellConfiguration shellConfiguration,
@@ -446,7 +446,7 @@ abstract class AbstractRouter
                                                                    .getCanonicalName());
     // fire Router StateEvent
     this.fireRouterStateEvent(RouterState.ROUTING_DONE,
-                              hash);
+                              routeResult.getRoute());
   }
 
   private void handleRouteConfig(RouteConfig routeConfiguraion,
@@ -971,7 +971,8 @@ abstract class AbstractRouter
     String sb = "fire RouterEvent for route >>" + route + "<< with state >>" + state.name() + "<<";
     RouterLogger.logSimple(sb,
                            1);
-    this.eventBus.fireEvent(new RouterStateEvent(state));
+    this.eventBus.fireEvent(new RouterStateEvent(state,
+                                                 route));
   }
 
   /**
