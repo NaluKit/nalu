@@ -21,6 +21,10 @@ public class RouterStateEvent
     return state;
   }
 
+  public String getRoute() {
+    return route;
+  }
+
   @Override
   public Type<RouterStateEvent.RouterStateHandler> getAssociatedType() {
     return TYPE;
