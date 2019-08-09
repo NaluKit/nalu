@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.client.internal.application;
 
+import com.github.nalukit.nalu.client.context.AbstractContext;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
@@ -24,6 +25,7 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
  */
 @NaluInternalUse
 public class DefaultContext
+    extends AbstractContext
     implements IsContext {
 
 }

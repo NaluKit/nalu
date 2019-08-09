@@ -17,8 +17,8 @@
 package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.Router;
-import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
+import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsPlugin;
@@ -28,13 +28,12 @@ import org.gwtproject.event.shared.SimpleEventBus;
  * generator of the eventBus
  */
 @NaluInternalUse
+@Deprecated
 public abstract class AbstractPlugin<C extends IsContext>
     implements IsPlugin<C> {
 
-  protected Router router;
-
-  protected C context;
-
+  protected Router              router;
+  protected C                   context;
   protected SimpleEventBus      eventBus;
   /* instance of AlwaysLoadComposite-class */
   protected AlwaysLoadComposite alwaysLoadComposite;

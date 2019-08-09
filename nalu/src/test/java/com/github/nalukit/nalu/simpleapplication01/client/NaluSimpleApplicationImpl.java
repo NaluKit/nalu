@@ -44,6 +44,11 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
+  protected void loadModules() {
+
+  }
+
+  @Override
   protected void loadPlugins() {
 
   }

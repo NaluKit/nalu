@@ -32,6 +32,7 @@ public class MetaModel {
 
   private List<ClassNameModel> modules;
 
+  @Deprecated
   private List<ClassNameModel> plugins;
 
   private boolean usingHash;
@@ -48,6 +49,7 @@ public class MetaModel {
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
   /* with a a plugin and not with a pplication  */
+  @Deprecated
   private PluginModel pluginModel;
 
   private List<ShellModel> shells;
@@ -259,10 +261,12 @@ public class MetaModel {
     this.modules = modules;
   }
 
+  @Deprecated
   public List<ClassNameModel> getPlugins() {
     return plugins;
   }
 
+  @Deprecated
   public void setPlugins(List<ClassNameModel> plugins) {
     this.plugins = plugins;
   }

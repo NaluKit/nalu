@@ -26,6 +26,7 @@ public abstract class AbstractModuleContext
    *
    * @return applicaitopn context
    */
+  @Override
   public Context getContext() {
     return this.context;
   }
@@ -35,6 +36,7 @@ public abstract class AbstractModuleContext
    *
    * @return application context
    */
+  @Override
   public Context getLocalContext() {
     return this.localContext;
   }

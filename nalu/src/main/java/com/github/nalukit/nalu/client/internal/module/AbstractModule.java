@@ -16,10 +16,14 @@
 
 package com.github.nalukit.nalu.client.internal.module;
 
+import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
+import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.context.IsModuleContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.module.IsModule;
+import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
  * generator of the eventBus
@@ -28,17 +32,39 @@ import com.github.nalukit.nalu.client.module.IsModule;
 public abstract class AbstractModule<C extends IsModuleContext>
     implements IsModule<C> {
 
-  public AbstractModule() {
+  protected Router              router;
+  protected IsContext           applicationContext;
+  protected C                   moduleContext;
+  protected SimpleEventBus      eventBus;
+  protected AlwaysLoadComposite alwaysLoadComposite;
+
+  public AbstractModule(Router router,
+                        IsContext applicationContext,
+                        SimpleEventBus eventBus,
+                        AlwaysLoadComposite alwaysLoadComposite) {
+    super();
+    this.router = router;
+    this.applicationContext = applicationContext;
+    this.eventBus = eventBus;
+    this.alwaysLoadComposite = alwaysLoadComposite;
+  }
+
+  private void setUpContext() {
+    this.moduleContext = createModuleContext();
+    this.moduleContext.setApplicationContext(applicationContext.getContext());
   }
 
   @Override
   public void loadModule(RouterConfiguration routeConfiguration) {
+    this.setUpContext();
     this.loadShellFactory();
     this.loadCompositeController();
     this.loadComponents();
     this.loadFilters(routeConfiguration);
     this.loadHandlers();
   }
+
+  protected abstract C createModuleContext();
 
   protected abstract void loadHandlers();
 

@@ -102,6 +102,8 @@ public class ConsistenceValidator {
                                                      .findFirst();
       if (!optionalShell.isPresent()) {
         if (this.metaModel.getPlugins()
+                          .size() > 0 ||
+            this.metaModel.getModules()
                           .size() > 0) {
           this.processingEnvironment.getMessager()
                                     .printMessage(Diagnostic.Kind.NOTE,
@@ -117,6 +119,8 @@ public class ConsistenceValidator {
                                                               .findAny();
       if (!optionalRoute.isPresent()) {
         if (this.metaModel.getPlugins()
+                          .size() > 0 ||
+            this.metaModel.getModules()
                           .size() > 0) {
           this.processingEnvironment.getMessager()
                                     .printMessage(Diagnostic.Kind.NOTE,
@@ -200,6 +204,8 @@ public class ConsistenceValidator {
                                                      .findFirst();
       if (!optionalShell.isPresent()) {
         if (this.metaModel.getPlugins()
+                          .size() > 0 ||
+            this.metaModel.getModules()
                           .size() > 0) {
           this.processingEnvironment.getMessager()
                                     .printMessage(Diagnostic.Kind.NOTE,
@@ -215,6 +221,8 @@ public class ConsistenceValidator {
                                                               .findAny();
       if (!optionalRoute.isPresent()) {
         if (this.metaModel.getPlugins()
+                          .size() > 0 ||
+            this.metaModel.getModules()
                           .size() > 0) {
           this.processingEnvironment.getMessager()
                                     .printMessage(Diagnostic.Kind.NOTE,

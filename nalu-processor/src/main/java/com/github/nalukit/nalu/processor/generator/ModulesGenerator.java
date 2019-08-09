@@ -84,7 +84,7 @@ public class ModulesGenerator {
                                                                        moduleModel.getSimpleName()),
                                                          moduleInstanceName,
                                                          ClassName.get(moduleModel.getPackage(),
-                                                                       moduleModel.getSimpleName() + ProcessorConstants.PLUGIN_IMPL))
+                                                                       moduleModel.getSimpleName() + ProcessorConstants.MODULE_IMPL))
                                            .addStatement("sb01 = new $T()",
                                                          ClassName.get(StringBuilder.class))
                                            .addStatement("sb01.append(\"module >>$L<< created\")",

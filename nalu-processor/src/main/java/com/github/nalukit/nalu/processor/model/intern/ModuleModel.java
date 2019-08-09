@@ -25,14 +25,14 @@ public class ModuleModel {
 
   private ClassNameModel module;
 
-  private ClassNameModel context;
+  private ClassNameModel moduleContext;
 
   public ModuleModel(String name,
                      ClassNameModel module,
-                     ClassNameModel context) {
+                     ClassNameModel moduleContext) {
     this.name = name;
     this.module = module;
-    this.context = context;
+    this.moduleContext = moduleContext;
   }
 
   public String getName() {
@@ -51,12 +51,12 @@ public class ModuleModel {
     this.module = module;
   }
 
-  public ClassNameModel getContext() {
-    return context;
+  public ClassNameModel getModuleContext() {
+    return moduleContext;
   }
 
-  public void setContext(ClassNameModel context) {
-    this.context = context;
+  public void setModuleContext(ClassNameModel moduleContext) {
+    this.moduleContext = moduleContext;
   }
 
 }

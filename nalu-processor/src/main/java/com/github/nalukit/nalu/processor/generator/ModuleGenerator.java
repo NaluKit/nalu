@@ -18,16 +18,17 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
+import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
+import com.github.nalukit.nalu.client.internal.module.AbstractModule;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
-import com.github.nalukit.nalu.client.module.AbstractModule;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
@@ -79,7 +80,7 @@ public class ModuleGenerator {
                                                                     .getSimpleName() + ProcessorConstants.MODULE_IMPL)
                                         .superclass(ParameterizedTypeName.get(ClassName.get(AbstractModule.class),
                                                                               this.metaModel.getModuleModel()
-                                                                                            .getContext()
+                                                                                            .getModuleContext()
                                                                                             .getTypeName()))
                                         .addModifiers(Modifier.PUBLIC,
                                                       Modifier.FINAL)
@@ -93,9 +94,7 @@ public class ModuleGenerator {
                                        .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
                                                                            "router")
                                                                   .build())
-                                       .addParameter(ParameterSpec.builder(this.metaModel.getModuleModel()
-                                                                                         .getContext()
-                                                                                         .getTypeName(),
+                                       .addParameter(ParameterSpec.builder(ClassName.get(IsContext.class),
                                                                            "context")
                                                                   .build())
                                        .addParameter(ParameterSpec.builder(ClassName.get(SimpleEventBus.class),
@@ -107,6 +106,8 @@ public class ModuleGenerator {
                                        .addStatement("super(router, context, eventBus, alwaysLoadComposite)")
                                        .build();
     typeSpec.addMethod(constructor);
+
+    this.generateCreateModuleContext(typeSpec);
 
     this.generateLoadShellFactory(typeSpec);
     this.generateLoadComposites(typeSpec);
@@ -137,6 +138,26 @@ public class ModuleGenerator {
     }
   }
 
+  private void generateCreateModuleContext(TypeSpec.Builder typeSpec) {
+    MethodSpec.Builder createModuleContextMethod = MethodSpec.methodBuilder("createModuleContext")
+                                                             .addAnnotation(Override.class)
+                                                             .addModifiers(Modifier.PUBLIC)
+                                                             .returns(ClassName.get(this.metaModel.getModuleModel()
+                                                                                                  .getModuleContext()
+                                                                                                  .getPackage(),
+                                                                                    this.metaModel.getModuleModel()
+                                                                                                  .getModuleContext()
+                                                                                                  .getSimpleName()))
+                                                             .addStatement("return new $T()",
+                                                                           ClassName.get(this.metaModel.getModuleModel()
+                                                                                                       .getModuleContext()
+                                                                                                       .getPackage(),
+                                                                                         this.metaModel.getModuleModel()
+                                                                                                       .getModuleContext()
+                                                                                                       .getSimpleName()));
+    typeSpec.addMethod(createModuleContextMethod.build());
+  }
+
   private void generateLoadHandlers(TypeSpec.Builder typeSpec) {
     // method must always be created!
     MethodSpec.Builder loadHandlersMethod = MethodSpec.methodBuilder("loadHandlers")
@@ -154,7 +175,7 @@ public class ModuleGenerator {
                                                     variableName,
                                                     ClassName.get(handler.getPackage(),
                                                                   handler.getSimpleName()))
-                                      .addStatement("$L.setContext(super.context)",
+                                      .addStatement("$L.setContext(super.moduleContext)",
                                                     variableName)
                                       .addStatement("$L.setEventBus(super.eventBus)",
                                                     variableName)
@@ -162,7 +183,7 @@ public class ModuleGenerator {
                                                     variableName)
                                       .addStatement("$L.bind()",
                                                     variableName)
-                                      .addStatement("$T.get().logDetailed(\"AbstractController: handler >>$L<< created\", 0)",
+                                      .addStatement("$T.get().logDetailed(\"ModuleCreator: handler >>$L<< created\", 0)",
                                                     ClassName.get(ClientLogger.class),
                                                     handler.getClassName());
                   });
@@ -186,7 +207,7 @@ public class ModuleGenerator {
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName()),
                                                                             ClassName.get(classNameModel.getPackage(),
                                                                                           classNameModel.getSimpleName()))
-                                                              .addStatement("$L.setContext(super.context)",
+                                                              .addStatement("$L.setContext(super.moduleContext)",
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName()))
                                                               .addStatement("routerConfiguration.getFilters().add($L)",
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName()))
@@ -211,7 +232,7 @@ public class ModuleGenerator {
                                                              "." +
                                                              shellModel.getShell()
                                                                        .getSimpleName())
-                                                 .addStatement("$T.get().registerShell($S, new $L(router, context, eventBus))",
+                                                 .addStatement("$T.get().registerShell($S, new $L(router, moduleContext, eventBus))",
                                                                ClassName.get(ShellFactory.class),
                                                                shellModel.getShell()
                                                                          .getPackage() +
@@ -239,7 +260,7 @@ public class ModuleGenerator {
                                              "." +
                                              compositeModel.getProvider()
                                                            .getSimpleName())
-                                 .addStatement("$T.get().registerComposite($S, new $L(router, context, eventBus))",
+                                 .addStatement("$T.get().registerComposite($S, new $L(router, moduleContext, eventBus))",
                                                ClassName.get(CompositeFactory.class),
                                                compositeModel.getProvider()
                                                              .getPackage() +
@@ -267,7 +288,7 @@ public class ModuleGenerator {
                                                  "." +
                                                  controllerModel.getProvider()
                                                                 .getSimpleName())
-                                     .addStatement("$T.get().registerController($S, new $L(router, context, eventBus))",
+                                     .addStatement("$T.get().registerController($S, new $L(router, moduleContext, eventBus))",
                                                    ClassName.get(ControllerFactory.class),
                                                    controllerModel.getProvider()
                                                                   .getPackage() +
@@ -319,7 +340,7 @@ public class ModuleGenerator {
                                                                                                                 .getPackage(),
                                                                                         controllerCompositeModel.getCondition()
                                                                                                                 .getSimpleName()))
-                                                            .addStatement("$L.setContext(super.context)",
+                                                            .addStatement("$L.setContext(super.moduleContext)",
                                                                           this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
                                                                                                                                     .getSimpleName()));
                                  // remmeber generated condition to avoid creating the smae class again!

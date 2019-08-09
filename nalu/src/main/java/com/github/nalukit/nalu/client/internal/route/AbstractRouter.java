@@ -283,6 +283,8 @@ abstract class AbstractRouter
         this.loopDetectionList.add(pimpUpHashForLoopDetection(this.routeError));
         this.route(this.routeError);
       }
+      // clear loop detection list ...
+      this.loopDetectionList.clear();
       // abort handling!
       return;
     } else {
