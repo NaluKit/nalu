@@ -57,7 +57,7 @@ public @interface Module {
    * The context of the module. it can be compared to the session of the server side.
    * Use the context to store application and module data.
    *
-   * @return applicaiton context
+   * @return application context
    */
   Class<? extends IsModuleContext> context();
 

@@ -43,7 +43,7 @@ public interface Router {
    * Sets the application error message.
    * <p>
    *
-   * @param applicationErrorMessage the new applicaiton error message
+   * @param applicationErrorMessage the new application error message
    */
   void setApplicationErrorMessage(NaluErrorMessage applicationErrorMessage);
 

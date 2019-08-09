@@ -45,18 +45,18 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Application {
 
   /**
-   * the applicaiton loader of the applicaiton. Will be executed in case the
+   * the application loader of the application. Will be executed in case the
    * application is started. This is a good place to laod apllication data.
    * F.e.: Meta-data, store values, etc.
    * <br>
    * The applicaition loader is optional.
    *
-   * @return the applicaiton loader
+   * @return the application loader
    */
   Class<? extends AbstractApplicationLoader<?>> loader() default NoApplicationLoader.class;
 
   /**
-   * Start route used by Nalu in case the applicaiton is started
+   * Start route used by Nalu in case the application is started
    *
    * @return return the start route
    */
@@ -64,9 +64,9 @@ public @interface Application {
 
   /**
    * The context of the application. it can be compared to the session of the server side.
-   * Use the context to store applicaiton wide data.
+   * Use the context to store application wide data.
    *
-   * @return applicaiton context
+   * @return application context
    */
   Class<? extends IsContext> context();
 

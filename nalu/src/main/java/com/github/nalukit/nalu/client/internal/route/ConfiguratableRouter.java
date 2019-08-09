@@ -42,7 +42,7 @@ public interface ConfiguratableRouter
   /**
    * sets the eventbus inside the router
    *
-   * @param eventBus Nalu applicaiton eventbus
+   * @param eventBus Nalu application eventbus
    */
   void setEventBus(SimpleEventBus eventBus);
 

@@ -19,6 +19,8 @@ package com.github.nalukit.nalu.client.internal.route;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.IsShell;
+import com.github.nalukit.nalu.client.event.RouterStateEvent;
+import com.github.nalukit.nalu.client.event.RouterStateEvent.RouterState;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.filter.IsFilter;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
@@ -27,8 +29,6 @@ import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
-import com.github.nalukit.nalu.client.router.event.RouterStateEvent;
-import com.github.nalukit.nalu.client.router.event.RouterStateEvent.RouterState;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -69,7 +69,7 @@ abstract class AbstractRouter
   private List<String>                                      loopDetectionList;
   // the tracker: if not null, track the users routing
   private IsTracker                                         tracker;
-  // teh applicaiton eventbus
+  // the application eventbus
   private SimpleEventBus                                    eventBus;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
@@ -120,7 +120,7 @@ abstract class AbstractRouter
    * Sets the application error message.
    * <p>
    *
-   * @param applicationErrorMessage the new applicaiton error message
+   * @param applicationErrorMessage the new application error message
    */
   public void setApplicationErrorMessage(NaluErrorMessage applicationErrorMessage) {
     this.applicationErrorMessage = applicationErrorMessage;
@@ -956,7 +956,7 @@ abstract class AbstractRouter
   /**
    * sets the eventbus inside the router
    *
-   * @param eventBus Nalu applicaiton eventbus
+   * @param eventBus Nalu application eventbus
    */
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
