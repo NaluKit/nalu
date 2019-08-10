@@ -342,7 +342,9 @@ abstract class AbstractRouter
     // check whether or not the routing is possible ...
     if (this.confirmRouting(routeConfigurations)) {
       // call stop for all elements
-      this.stopController(routeConfigurations);
+      this.stopController(routeConfigurations,
+                          !routeResult.getShell()
+                                      .equals(this.lastAddedShell));
       // handle shellCreator
       //
       // in case shellCreator changed or is not set, use the actual shellCreator!
@@ -696,47 +698,52 @@ abstract class AbstractRouter
                               .allMatch(message -> this.plugin.confirm(message));
   }
 
-  private void stopController(List<RouteConfig> routeConfiguraions) {
-    routeConfiguraions.stream()
-                      .map(config -> this.activeComponents.get(config.getSelector()))
-                      .filter(Objects::nonNull)
-                      .forEach(controller -> {
-                        // stop controller
-                        RouterLogger.logControllerHandlingStop(controller.getClass()
-                                                                         .getCanonicalName());
-                        RouterLogger.logControllerHandlingStopComposites(controller.getClass()
-                                                                                   .getCanonicalName());
-                        // stop compositeComntrollers
-                        controller.getComposites()
-                                  .values()
-                                  .forEach(s -> {
-                                    if (controller.isCached()) {
-                                      deactivateCompositeController(controller,
-                                                                    s);
-                                    } else {
-                                      if (s.isCached()) {
-                                        deactivateCompositeController(controller,
-                                                                      s);
-                                      } else {
-                                        stopCompositeController(controller,
-                                                                s);
-                                      }
-                                    }
-                                  });
+  private void stopController(List<RouteConfig> routeConfiguraions,
+                              boolean replaceShell) {
+    List<AbstractComponentController<?, ?, ?>> controllerList = new ArrayList<>();
+    if (replaceShell) {
+      controllerList.addAll(this.activeComponents.values());
+    } else {
+      controllerList.addAll(routeConfiguraions.stream()
+                                              .map(config -> this.activeComponents.get(config.getSelector()))
+                                              .filter(Objects::nonNull)
+                                              .collect(Collectors.toList()));
 
-                        RouterLogger.logControllerCompositesStopped(controller.getClass()
-                                                                              .getCanonicalName());
-                        if (controller.isCached()) {
-                          deactivateController(controller);
-                        } else {
-                          stopController(controller);
-                        }
-                      });
+    }
+    controllerList.forEach(controller -> {
+      // stop controller
+      RouterLogger.logControllerHandlingStop(controller.getClass()
+                                                       .getCanonicalName());
+      RouterLogger.logControllerHandlingStopComposites(controller.getClass()
+                                                                 .getCanonicalName());
+      // stop compositeComntrollers
+      controller.getComposites()
+                .values()
+                .forEach(s -> {
+                  if (controller.isCached()) {
+                    deactivateCompositeController(controller,
+                                                  s);
+                  } else {
+                    if (s.isCached()) {
+                      deactivateCompositeController(controller,
+                                                    s);
+                    } else {
+                      stopCompositeController(controller,
+                                              s);
+                    }
+                  }
+                });
+
+      RouterLogger.logControllerCompositesStopped(controller.getClass()
+                                                            .getCanonicalName());
+      if (controller.isCached()) {
+        deactivateController(controller);
+      } else {
+        stopController(controller);
+      }
+    });
     routeConfiguraions.forEach(routeConfiguraion -> this.plugin.remove(routeConfiguraion.getSelector()));
-    routeConfiguraions.stream()
-                      .map(config -> this.activeComponents.get(config.getSelector()))
-                      .filter(Objects::nonNull)
-                      .forEach(c -> this.activeComponents.remove(c));
+    controllerList.forEach(c -> this.activeComponents.remove(c));
   }
 
   private void deactivateController(AbstractComponentController<?, ?, ?> controller) {
