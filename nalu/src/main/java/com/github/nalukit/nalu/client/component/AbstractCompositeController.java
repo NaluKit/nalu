@@ -18,12 +18,15 @@ package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.application.IsContext;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public abstract class AbstractCompositeController<C extends IsContext, V extends IsCompositeComponent<?, W>, W>
     extends AbstractController<C>
     implements IsComposite<W>,
                IsCompositeComponent.Controller {
 
+  /* component of the controller */
+  private String                    parentClassName;
   /* component of the controller */
   protected V                    component;
   /* list of registered handlers */
@@ -35,9 +38,43 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
     super();
   }
 
+  /**
+   * Returns the root element which will be attached to the DOM
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   *
+   * @return root element
+   */
+  @NaluInternalUse
   @Override
   public W asElement() {
     return this.component.asElement();
+  }
+
+  /**
+   * Gets the parent controller associated with this instance of the composite
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   *
+   * @return the name of the class using this composite
+   */
+  @NaluInternalUse
+  @Override
+  public String getParentClassName() {
+    return this.parentClassName;
+  }
+
+  /**
+   * Sets the parent controller associated with this instance of the composite
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   *
+   * @param parentClassName the name of the class using this composite
+   */
+  @NaluInternalUse
+  @Override
+  public void setParentClassName(String parentClassName) {
+    this.parentClassName = parentClassName;
   }
 
   /**

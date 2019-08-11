@@ -32,6 +32,26 @@ public interface IsComposite<W> {
   W asElement();
 
   /**
+   * Gets the parent controller associated with this instance of the composite
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   *
+   * @return the name of the class using this composite
+   */
+  @NaluInternalUse
+  String getParentClassName();
+
+  /**
+   * Sets the parent controller associated with this instance of the composite
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   *
+   * @param parentClassName the name of the class using this composite
+   */
+  @NaluInternalUse
+  void setParentClassName(String parentClassName);
+
+  /**
    * Method is called during onAttach.
    * Nalu uses the method to call the onAttach-method of the compoent.
    *

@@ -18,16 +18,18 @@ public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockCon
     super(router, context, eventBus);
   }
 
-  public CompositeInstance create(String... parms) throws RoutingInterceptionException {
+  public CompositeInstance create(String parentControllerClassName, String... parms) throws
+                                                                                     RoutingInterceptionException {
     StringBuilder sb01 = new StringBuilder();
     CompositeInstance compositeInstance = new CompositeInstance();
     compositeInstance.setCompositeClassName("com.github.nalukit.nalu.processor.compositeCreator.ok.Composite");
-    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.get().getCompositeFormStore("com.github.nalukit.nalu.processor.compositeCreator.ok.Composite");
+    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.get().getCompositeFormStore(parentControllerClassName, "com.github.nalukit.nalu.processor.compositeCreator.ok.Composite");
     if (storedComposite == null) {
       sb01.append("composite >>com.github.nalukit.nalu.processor.compositeCreator.ok.Composite<< --> will be created");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
       Composite composite = new Composite();
       compositeInstance.setComposite(composite);
+      composite.setParentClassName(parentControllerClassName);
       composite.setCached(false);
       composite.setContext(context);
       composite.setEventBus(eventBus);

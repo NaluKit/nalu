@@ -529,7 +529,8 @@ abstract class AbstractRouter
                                                                               .toArray(new String[hashResult.getParameterValues()
                                                                                                             .size()]))) {
                 CompositeInstance compositeInstance = CompositeFactory.get()
-                                                                      .getComposite(s.getComposite(),
+                                                                      .getComposite(controllerInstance.getControllerClassName(),
+                                                                                    s.getComposite(),
                                                                                     hashResult.getParameterValues()
                                                                                               .toArray(new String[0]));
                 if (compositeInstance == null) {

@@ -16,7 +16,6 @@
 
 package com.github.nalukit.nalu.client.internal.application;
 
-import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
@@ -26,6 +25,8 @@ import java.util.Map;
 
 @NaluInternalUse
 public class CompositeFactory {
+
+  private final static String DELIMITER = "<<||>>";
 
   /* instance of the controller factory */
   private static CompositeFactory instance;
@@ -49,40 +50,52 @@ public class CompositeFactory {
   }
 
   public void registerComposite(String controller,
-                                 IsCompositeCreator creator) {
+                                IsCompositeCreator creator) {
     this.compositeCreatorFactory.put(controller,
                                      creator);
   }
 
-  public CompositeInstance getComposite(String controller,
-                           String... parms)
+  public CompositeInstance getComposite(String parentControllerClassName,
+                                        String compositeControllerClassName,
+                                        String... parms)
       throws RoutingInterceptionException {
-    if (this.compositeCreatorFactory.containsKey(controller)) {
-      IsCompositeCreator compositeCreator = this.compositeCreatorFactory.get(controller);
-      return compositeCreator.create(parms);
+    if (this.compositeCreatorFactory.containsKey(compositeControllerClassName)) {
+      IsCompositeCreator compositeCreator = this.compositeCreatorFactory.get(compositeControllerClassName);
+      return compositeCreator.create(parentControllerClassName,
+                                     parms);
     }
     return null;
   }
 
-  public AbstractCompositeController<?, ?, ?> getCompositeFormStore(String controllerClassName) {
-    return this.compositeControllerStore.get(this.classFormatter(controllerClassName));
+  public AbstractCompositeController<?, ?, ?> getCompositeFormStore(String parentControllerClassName,
+                                                                    String controllerClassName) {
+    String key = this.createKey(parentControllerClassName,
+                                controllerClassName);
+    return this.compositeControllerStore.get(key);
   }
 
   public <C extends AbstractCompositeController<?, ?, ?>> void storeInCache(C controller) {
-    String key = this.classFormatter(controller.getClass()
-                                               .getCanonicalName());
+    String key = this.createKey(controller.getParentClassName(),
+                                controller.getClass()
+                                          .getCanonicalName());
     this.compositeControllerStore.put(key,
                                       controller);
   }
 
   public <C extends AbstractCompositeController<?, ?, ?>> void removeFromCache(C controller) {
-    String key = this.classFormatter(controller.getClass()
-                                               .getCanonicalName());
+    String key = this.createKey(controller.getParentClassName(),
+                                controller.getClass()
+                                          .getCanonicalName());
     this.compositeControllerStore.remove(key);
   }
 
   public void clearControllerCache() {
     this.compositeControllerStore.clear();
+  }
+
+  private String createKey(String parentClassName,
+                           String compositeClassName) {
+    return this.classFormatter(parentClassName) + CompositeFactory.DELIMITER + this.classFormatter(compositeClassName);
   }
 
   private String classFormatter(String className) {

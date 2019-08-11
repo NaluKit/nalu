@@ -85,6 +85,9 @@ public class CompositeCreatorGenerator {
     // create Method
     MethodSpec.Builder createMethod = MethodSpec.methodBuilder("create")
                                                 .addModifiers(Modifier.PUBLIC)
+                                                .addParameter(ParameterSpec.builder(String.class,
+                                                                                    "parentControllerClassName")
+                                                                           .build())
                                                 .addParameter(ParameterSpec.builder(String[].class,
                                                                                     "parms")
                                                                            .build())
@@ -100,7 +103,7 @@ public class CompositeCreatorGenerator {
                                                 .addStatement("compositeInstance.setCompositeClassName($S)",
                                                               compositeModel.getProvider()
                                                                             .getClassName())
-                                                .addStatement("$T<?, ?, ?> storedComposite = $T.get().getCompositeFormStore($S)",
+                                                .addStatement("$T<?, ?, ?> storedComposite = $T.get().getCompositeFormStore(parentControllerClassName, $S)",
                                                               ClassName.get(AbstractCompositeController.class),
                                                               ClassName.get(CompositeFactory.class),
                                                               compositeModel.getProvider()
@@ -121,6 +124,7 @@ public class CompositeCreatorGenerator {
                                             compositeModel.getProvider()
                                                           .getSimpleName()))
                 .addStatement("compositeInstance.setComposite(composite)")
+                .addStatement("composite.setParentClassName(parentControllerClassName)")
                 .addStatement("composite.setCached(false)")
                 .addStatement("composite.setContext(context)")
                 .addStatement("composite.setEventBus(eventBus)")
