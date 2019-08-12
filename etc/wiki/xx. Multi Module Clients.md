@@ -11,8 +11,7 @@ Regarding j2cl, which will prefer smaller compile units, Nalu needs an improveme
 
 With v2, Nalu will avoid using a common client module to share the context class and common event classes. 
 
-
-
+**The plugin feature of Nalu v1.x will be removed in v2.x**
 
 ## Creating a module
 A module is now marked wirh the `@Module`-annotation. It takes a name and the module context class as parameter.
