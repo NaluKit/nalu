@@ -26,7 +26,7 @@ A module is now marked wirh the `@Module`-annotation. It takes a name and the mo
 ## Context
 
 ## Event
-To fire events that are available in all client sided modules, Nalu provides an event class called `NaluEvent`. This event takes a String, which should be used to describe the event type and accepts a variable numbers of data - which will be stored inside a map. The map is implemented as a `Map<String, Object`. Using the key, you can access the map. The map will always return an `Object` which must be casted before using it.
+To fire events that are available in all client sided modules, Nalu provides an event class called `NaluEvent`. This event takes a String, which should be used to describe the event type and accepts a variable numbers of data - which will be stored inside a map. The map is implemented as a `Map<String, Object`. Using the key, you can access the map. The map will always return an `Object` which needs to be casted before using it.
 
 F.e.: If you want to update the selected navigation item in the main module (assuming that the main model will provide navigation) from a client sub module, fire a `NaluEvent`, set the event string to 'selectNavigationItem' and add the identifier what item inside the navigation is to select as data insiede the event store.
 
