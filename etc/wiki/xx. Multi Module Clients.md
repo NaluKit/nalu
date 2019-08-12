@@ -1,11 +1,13 @@
 # Multi Module Client
-Starting with version 2 Nalu improves the multi module support on the client side. In a client side multi module environment it is not possible to shared classes without having a common module. That was the way how client sided mutile modules was implementated in version 1.x using he plugin feature. 
+Starting with version 2 Nalu improves the multi module support on the client side. In a client side multi module environment it is not possible to shared classes without having a common module.
+
+That was the way how client sided mutile modules was implementated in version 1.x using the plugin feature. 
 
 The plugin implementation has two drawbacks:
 * It is necessary to have a common module for common events
 * It is necessary to have a common context
 
-Because of those two requirements in Nalu v1.x it is necessary to have a common client module. This common client module needs to be added to every client module. This will reduce the chance to reuse a client module.
+Because of those two requirements in Nalu v1.x it is necessary to have a common client module. This common client module needs to be added to every client module. This will reduce the chance to reuse a client module and icreases the complexity.
 
 Regarding j2cl, which will prefer smaller compile units, Nalu needs an improvement.
 
