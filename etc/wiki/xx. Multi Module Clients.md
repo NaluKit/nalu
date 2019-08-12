@@ -40,7 +40,7 @@ this.eventBus.fireEvent(NaluEvent.create()
 ```
 
 
-To catch the event, just add a handler to the event bus:
+To catch the event, just add a handler to the event bus. Once catching the event, it is necessary to check if the event is the one you are looking for by comparing the event name with the name of the event you want to catch!
 ```java
 this.eventBus.adddHandler(NaluEvent.TYPE,
                           e -> {
