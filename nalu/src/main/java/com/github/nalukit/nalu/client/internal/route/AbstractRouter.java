@@ -19,8 +19,6 @@ package com.github.nalukit.nalu.client.internal.route;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.IsShell;
-import com.github.nalukit.nalu.client.event.RouterStateEvent;
-import com.github.nalukit.nalu.client.event.RouterStateEvent.RouterState;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.filter.IsFilter;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
@@ -29,6 +27,8 @@ import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import com.github.nalukit.nalu.client.router.event.RouterStateEvent;
+import com.github.nalukit.nalu.client.router.event.RouterStateEvent.RouterState;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import org.gwtproject.event.shared.SimpleEventBus;
 

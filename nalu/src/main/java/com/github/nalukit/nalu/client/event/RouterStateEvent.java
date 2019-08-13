@@ -1,4 +1,4 @@
-package com.github.nalukit.nalu.client.event;
+package com.github.nalukit.nalu.client.router.event;
 
 import org.gwtproject.event.shared.Event;
 
@@ -19,6 +19,10 @@ public class RouterStateEvent
 
   public RouterState getState() {
     return state;
+  }
+
+  public String getRoute() {
+    return route;
   }
 
   @Override
