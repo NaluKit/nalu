@@ -22,6 +22,7 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @NaluInternalUse
 public class CompositeFactory {
@@ -29,17 +30,18 @@ public class CompositeFactory {
   private final static String DELIMITER = "<<||>>";
 
   /* instance of the controller factory */
-  private static CompositeFactory instance;
-
+  private static CompositeFactory                                  instance;
   /* map of components (key: name of class, Value: ControllerCreator */
-  private Map<String, IsCompositeCreator> compositeCreatorFactory;
-
+  private        Map<String, IsCompositeCreator>                   compositeCreatorFactory;
   /* map of stored components (key: name of class, Value: instance of controller */
-  private Map<String, AbstractCompositeController<?, ?, ?>> compositeControllerStore;
+  private        Map<String, AbstractCompositeController<?, ?, ?>> compositeControllerStore;
+  /* list of global cached composites */
+  private        Map<String, CompositeInstance>                    cachedGlobalCompositeInstances;
 
   private CompositeFactory() {
     this.compositeCreatorFactory = new HashMap<>();
     this.compositeControllerStore = new HashMap<>();
+    this.cachedGlobalCompositeInstances = new HashMap<>();
   }
 
   public static CompositeFactory get() {
@@ -57,12 +59,28 @@ public class CompositeFactory {
 
   public CompositeInstance getComposite(String parentControllerClassName,
                                         String compositeControllerClassName,
+                                        boolean scopeGlobal,
                                         String... parms)
       throws RoutingInterceptionException {
+    // in case scopeGlobal is true ,check if the instance already exists
+    if (scopeGlobal) {
+      if (!Objects.isNull(this.cachedGlobalCompositeInstances.get(compositeControllerClassName))) {
+        return this.cachedGlobalCompositeInstances.get(compositeControllerClassName);
+      }
+    }
+    // ok, global chache is empty ... create it!
     if (this.compositeCreatorFactory.containsKey(compositeControllerClassName)) {
       IsCompositeCreator compositeCreator = this.compositeCreatorFactory.get(compositeControllerClassName);
-      return compositeCreator.create(parentControllerClassName,
-                                     parms);
+      CompositeInstance compositeInstance = compositeCreator.create(parentControllerClassName,
+                                                                    parms);
+      if (scopeGlobal) {
+        // oh ... global scope! store the compositeInstance
+        compositeInstance.setChached(true);
+        compositeInstance.getComposite().setCachedGlobal(true);
+        this.cachedGlobalCompositeInstances.put(compositeControllerClassName,
+                                                compositeInstance);
+      }
+      return compositeInstance;
     }
     return null;
   }

@@ -531,6 +531,7 @@ abstract class AbstractRouter
                 CompositeInstance compositeInstance = CompositeFactory.get()
                                                                       .getComposite(controllerInstance.getControllerClassName(),
                                                                                     s.getComposite(),
+                                                                                    s.isScopeGlobal(),
                                                                                     hashResult.getParameterValues()
                                                                                               .toArray(new String[0]));
                 if (compositeInstance == null) {
@@ -627,6 +628,12 @@ abstract class AbstractRouter
             s.start();
             RouterLogger.logCompositeComntrollerStartMethodCalled(s.getClass()
                                                                    .getCanonicalName());
+            // in case we are cached globally we need to set cached
+            // to true after the first time the
+            // composite is created
+            if (s.isCachedGlobal()) {
+              s.setCached(true);
+            }
           }
           s.activate();
           RouterLogger.logCompositeComntrollerActivateMethodCalled(s.getClass()

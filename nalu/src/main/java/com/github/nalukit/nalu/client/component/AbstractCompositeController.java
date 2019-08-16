@@ -33,6 +33,8 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
   /* flag, if the controller is cached or not */
   private   boolean              cached;
+  /* flag, if the controller is cached or not in Scope GLOBAL! */
+  private   boolean                                           cachedGlobal;
 
   public AbstractCompositeController() {
     super();
@@ -199,6 +201,25 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
    */
   public void setCached(boolean cached) {
     this.cached = cached;
+  }
+
+  /**
+   * Indicates, if the controller is newly created or not
+   *
+   * @return true: the controller is reused, false: the controller is newly created
+   */
+  public boolean isCachedGlobal() {
+    return cachedGlobal;
+  }
+
+  /**
+   * Sets the value, if the controller is newly created or cached!
+   * <b>This field is used by Nalu! Setting the value can lead to unexpected behavior!</b>
+   *
+   * @param cachedGlobal true: the controller is reused, false: the controller is newly created
+   */
+  public void setCachedGlobal(boolean cachedGlobal) {
+    this.cachedGlobal = cachedGlobal;
   }
 
 }

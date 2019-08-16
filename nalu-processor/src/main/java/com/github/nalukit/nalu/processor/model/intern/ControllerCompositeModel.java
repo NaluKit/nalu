@@ -22,18 +22,18 @@ public class ControllerCompositeModel {
   private String         name;
   private ClassNameModel composite;
   private String         selector;
-
-  public ControllerCompositeModel() {
-  }
+  private boolean        scopeGlobal;
 
   public ControllerCompositeModel(String name,
                                   ClassNameModel composite,
                                   String selector,
-                                  ClassNameModel condition) {
+                                  ClassNameModel condition,
+                                  boolean scopeGlobal) {
     this.name = name;
     this.composite = composite;
     this.selector = selector;
     this.condition = condition;
+    this.scopeGlobal = scopeGlobal;
   }
 
   public String getName() {
@@ -50,6 +50,10 @@ public class ControllerCompositeModel {
 
   public ClassNameModel getCondition() {
     return condition;
+  }
+
+  public boolean isScopeGlobal() {
+    return scopeGlobal;
   }
 
 }
