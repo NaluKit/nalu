@@ -71,15 +71,17 @@ public class CompositeFactory {
     // ok, global chache is empty ... create it!
     if (this.compositeCreatorFactory.containsKey(compositeControllerClassName)) {
       IsCompositeCreator compositeCreator = this.compositeCreatorFactory.get(compositeControllerClassName);
-      CompositeInstance compositeInstance = compositeCreator.create(parentControllerClassName,
-                                                                    parms);
+      CompositeInstance compositeInstance = compositeCreator.create(parentControllerClassName);
       if (scopeGlobal) {
         // oh ... global scope! store the compositeInstance
         compositeInstance.setChached(true);
-        compositeInstance.getComposite().setCachedGlobal(true);
+        compositeInstance.getComposite()
+                         .setCachedGlobal(true);
         this.cachedGlobalCompositeInstances.put(compositeControllerClassName,
                                                 compositeInstance);
       }
+      compositeCreator.setParameter(compositeInstance.getComposite(),
+                                    parms);
       return compositeInstance;
     }
     return null;

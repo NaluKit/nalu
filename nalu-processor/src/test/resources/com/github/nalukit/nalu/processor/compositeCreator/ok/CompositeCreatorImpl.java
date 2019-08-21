@@ -9,6 +9,7 @@ import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
 import com.github.nalukit.nalu.client.internal.application.IsCompositeCreator;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import java.lang.Object;
 import java.lang.String;
 import java.lang.StringBuilder;
 import org.gwtproject.event.shared.SimpleEventBus;
@@ -18,8 +19,8 @@ public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockCon
     super(router, context, eventBus);
   }
 
-  public CompositeInstance create(String parentControllerClassName, String... parms) throws
-                                                                                     RoutingInterceptionException {
+  public CompositeInstance create(String parentControllerClassName) throws
+                                                                    RoutingInterceptionException {
     StringBuilder sb01 = new StringBuilder();
     CompositeInstance compositeInstance = new CompositeInstance();
     compositeInstance.setCompositeClassName("com.github.nalukit.nalu.processor.compositeCreator.ok.Composite");
@@ -67,5 +68,10 @@ public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockCon
       compositeInstance.getComposite().setCached(true);
     }
     return compositeInstance;
+  }
+
+  public void setParameter(Object object, String... parms) {
+    Composite composite = (Composite) object;
+    StringBuilder sb01 = new StringBuilder();
   }
 }

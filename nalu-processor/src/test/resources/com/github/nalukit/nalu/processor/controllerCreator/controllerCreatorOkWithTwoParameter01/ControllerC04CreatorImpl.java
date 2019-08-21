@@ -50,7 +50,7 @@ public final class ControllerC04CreatorImpl extends AbstractControllerCreator<Mo
   }
 
   @Override
-  public void onFinishCreating(Object object, String... parms) throws RoutingInterceptionException {
+  public void onFinishCreating(Object object) throws RoutingInterceptionException {
     ControllerC04 controller = (ControllerC04) object;
     StringBuilder sb01 = new StringBuilder();
     IComponent04 component = new Component04();
@@ -74,6 +74,12 @@ public final class ControllerC04CreatorImpl extends AbstractControllerCreator<Mo
     sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
     ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter01.Component04<< created for route >>/mockShell/route01/*/*<<", 3);
+  }
+
+  @Override
+  public void setParameter(Object object, String... parms) {
+    ControllerC04 controller = (ControllerC04) object;
+    StringBuilder sb01 = new StringBuilder();
     if (parms != null) {
       if (parms.length >= 1) {
         sb01 = new StringBuilder();

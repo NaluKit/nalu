@@ -60,6 +60,8 @@ public class ControllerFactory {
       IsControllerCreator controllerCreator = this.controllerFactory.get(controller);
       ControllerInstance controllerInstance = controllerCreator.create();
       if (controllerInstance.isChached()) {
+        controllerCreator.setParameter(controllerInstance.getController(),
+                                       parms);
         callback.onFinish(controllerInstance);
       } else {
         controllerCreator.logBindMethodCallToConsole(controllerInstance.getController(),
@@ -70,8 +72,9 @@ public class ControllerFactory {
                               try {
                                 controllerCreator.logBindMethodCallToConsole(controllerInstance.getController(),
                                                                              true);
-                                controllerCreator.onFinishCreating(controllerInstance.getController(),
-                                                                   parms);
+                                controllerCreator.onFinishCreating(controllerInstance.getController());
+                                controllerCreator.setParameter(controllerInstance.getController(),
+                                                               parms);
                                 callback.onFinish(controllerInstance);
                               } catch (RoutingInterceptionException e) {
                                 callback.onRoutingInterceptionException(e);

@@ -50,7 +50,7 @@ public final class ControllerC03CreatorImpl extends AbstractControllerCreator<Mo
   }
 
   @Override
-  public void onFinishCreating(Object object, String... parms) throws RoutingInterceptionException {
+  public void onFinishCreating(Object object) throws RoutingInterceptionException {
     ControllerC03 controller = (ControllerC03) object;
     StringBuilder sb01 = new StringBuilder();
     IComponent03 component = new Component03();
@@ -75,5 +75,10 @@ public final class ControllerC03CreatorImpl extends AbstractControllerCreator<Mo
     ClientLogger.get().logDetailed(sb01.toString(), 4);
     ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithOneParameter01WithoutAcceptParameter.Component03<< created for route >>/mockShell/route01/*<<", 3);
   }
-}
 
+  @Override
+  public void setParameter(Object object, String... parms) {
+    ControllerC03 controller = (ControllerC03) object;
+    StringBuilder sb01 = new StringBuilder();
+  }
+}

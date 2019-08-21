@@ -25,11 +25,13 @@ public interface IsControllerCreator {
 
   ControllerInstance create();
 
-  void onFinishCreating(Object object,
-                        String... parms)
+  void onFinishCreating(Object object)
       throws RoutingInterceptionException;
 
   void logBindMethodCallToConsole(AbstractComponentController<?, ?, ?> controller,
                                   boolean isFinished);
+
+  void setParameter(Object object,
+                    String... parms);
 
 }
