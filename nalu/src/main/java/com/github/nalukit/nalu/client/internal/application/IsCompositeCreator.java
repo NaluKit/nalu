@@ -25,8 +25,8 @@ public interface IsCompositeCreator {
   CompositeInstance create(String parentControllerClassName)
       throws RoutingInterceptionException;
 
-
   void setParameter(Object object,
-                    String... parms);
+                    String... parms)
+      throws RoutingInterceptionException;
 
 }

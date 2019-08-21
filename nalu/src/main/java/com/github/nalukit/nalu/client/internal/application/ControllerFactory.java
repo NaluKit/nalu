@@ -60,8 +60,12 @@ public class ControllerFactory {
       IsControllerCreator controllerCreator = this.controllerFactory.get(controller);
       ControllerInstance controllerInstance = controllerCreator.create();
       if (controllerInstance.isChached()) {
-        controllerCreator.setParameter(controllerInstance.getController(),
-                                       parms);
+        try {
+          controllerCreator.setParameter(controllerInstance.getController(),
+                                         parms);
+        } catch (RoutingInterceptionException e) {
+          callback.onRoutingInterceptionException(e);
+        }
         callback.onFinish(controllerInstance);
       } else {
         controllerCreator.logBindMethodCallToConsole(controllerInstance.getController(),

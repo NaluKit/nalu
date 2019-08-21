@@ -220,7 +220,7 @@ public class CompositeCreatorGenerator {
                                                                      .build())
                                           .varargs()
                                           //                                                .returns(ClassName.get(CompositeInstance.class))
-                                          //                                                .addException(ClassName.get(RoutingInterceptionException.class))
+                                          .addException(ClassName.get(RoutingInterceptionException.class))
                                           .addStatement("$T composite = ($T) object",
                                                         ClassName.get(compositeModel.getProvider()
                                                                                     .getPackage(),

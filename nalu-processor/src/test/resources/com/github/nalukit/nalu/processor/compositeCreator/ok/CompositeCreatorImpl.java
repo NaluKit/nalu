@@ -70,7 +70,7 @@ public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockCon
     return compositeInstance;
   }
 
-  public void setParameter(Object object, String... parms) {
+  public void setParameter(Object object, String... parms) throws RoutingInterceptionException {
     Composite composite = (Composite) object;
     StringBuilder sb01 = new StringBuilder();
   }

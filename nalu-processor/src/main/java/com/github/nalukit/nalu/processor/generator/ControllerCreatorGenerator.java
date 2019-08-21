@@ -99,6 +99,7 @@ public class ControllerCreatorGenerator {
                                                                               "parms")
                                                                      .build())
                                           .varargs()
+                                          .addException(ClassName.get(RoutingInterceptionException.class))
                                           .addStatement("$T controller = ($T) object",
                                                         ClassName.get(controllerModel.getProvider()
                                                                                      .getPackage(),

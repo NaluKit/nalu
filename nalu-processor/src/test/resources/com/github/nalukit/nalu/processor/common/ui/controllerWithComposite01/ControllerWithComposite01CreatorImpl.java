@@ -78,7 +78,7 @@ public final class ControllerWithComposite01CreatorImpl extends AbstractControll
   }
 
   @Override
-  public void setParameter(Object object, String... parms) {
+  public void setParameter(Object object, String... parms) throws RoutingInterceptionException {
     ControllerWithComposite01 controller = (ControllerWithComposite01) object;
     StringBuilder sb01 = new StringBuilder();
     if (parms != null) {

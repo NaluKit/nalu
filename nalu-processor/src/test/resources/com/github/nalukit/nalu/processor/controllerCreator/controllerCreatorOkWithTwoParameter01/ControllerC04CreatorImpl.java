@@ -77,7 +77,7 @@ public final class ControllerC04CreatorImpl extends AbstractControllerCreator<Mo
   }
 
   @Override
-  public void setParameter(Object object, String... parms) {
+  public void setParameter(Object object, String... parms) throws RoutingInterceptionException {
     ControllerC04 controller = (ControllerC04) object;
     StringBuilder sb01 = new StringBuilder();
     if (parms != null) {
