@@ -66,32 +66,33 @@ public class CompositeCreatorGenerator {
                                         .addModifiers(Modifier.PUBLIC,
                                                       Modifier.FINAL)
                                         .addSuperinterface(ClassName.get(IsCompositeCreator.class));
-    // constructor ...
-    MethodSpec constructor = MethodSpec.constructorBuilder()
-                                       .addModifiers(Modifier.PUBLIC)
-                                       .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
-                                                                           "router")
-                                                                  .build())
-                                       .addParameter(ParameterSpec.builder(compositeModel.getContext()
-                                                                                         .getTypeName(),
-                                                                           "context")
-                                                                  .build())
-                                       .addParameter(ParameterSpec.builder(ClassName.get(SimpleEventBus.class),
-                                                                           "eventBus")
-                                                                  .build())
-                                       .addStatement("super(router, context, eventBus)")
-                                       .build();
-    typeSpec.addMethod(constructor);
-    // create Method
+    typeSpec.addMethod(createConstructor());
+    typeSpec.addMethod(createCreateMethod());
+    typeSpec.addMethod(createSetParameterMethod());
+
+    JavaFile javaFile = JavaFile.builder(this.compositeModel.getProvider()
+                                                            .getPackage(),
+                                         typeSpec.build())
+                                .build();
+    try {
+      //      System.out.println(javaFile.toString());
+      javaFile.writeTo(this.processingEnvironment.getFiler());
+    } catch (IOException e) {
+      throw new ProcessorException("Unable to write generated file: >>" +
+                                       this.compositeModel.getProvider()
+                                                          .getClassName() +
+                                       ProcessorConstants.CREATOR_IMPL +
+                                       "<< -> exception: " +
+                                       e.getMessage());
+    }
+  }
+
+  private MethodSpec createCreateMethod() {
     MethodSpec.Builder createMethod = MethodSpec.methodBuilder("create")
                                                 .addModifiers(Modifier.PUBLIC)
                                                 .addParameter(ParameterSpec.builder(String.class,
                                                                                     "parentControllerClassName")
                                                                            .build())
-                                                .addParameter(ParameterSpec.builder(String[].class,
-                                                                                    "parms")
-                                                                           .build())
-                                                .varargs()
                                                 .returns(ClassName.get(CompositeInstance.class))
                                                 .addException(ClassName.get(RoutingInterceptionException.class))
                                                 .addStatement("$T sb01 = new $T()",
@@ -196,40 +197,6 @@ public class CompositeCreatorGenerator {
                               ClassName.get(ClientLogger.class),
                               compositeModel.getComponent()
                                             .getClassName());
-    // compositeModel has parameters?
-    if (compositeModel.getParameterAcceptors()
-                      .size() > 0) {
-      // has the model AccpetParameter ?
-      if (compositeModel.getParameterAcceptors()
-                        .size() > 0) {
-        createMethod.beginControlFlow("if (parms != null)");
-        for (int i = 0; i <
-                        compositeModel.getParameterAcceptors()
-                                      .size(); i++) {
-          createMethod.beginControlFlow("if (parms.length >= " + Integer.toString(i + 1) + ")")
-                      .addStatement("sb01 = new $T()",
-                                    ClassName.get(StringBuilder.class))
-                      .addStatement("sb01.append(\"composite >>\").append(composite.getClass().getCanonicalName()).append(\"<< --> using method >>" +
-                                    compositeModel.getParameterAcceptors()
-                                                  .get(i)
-                                                  .getMethodName() +
-                                    "<< to set value >>\").append(parms[" +
-                                    Integer.toString(i) +
-                                    "]).append(\"<<\")")
-                      .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                    ClassName.get(ClientLogger.class))
-                      .addStatement("composite." +
-                                    compositeModel.getParameterAcceptors()
-                                                  .get(i)
-                                                  .getMethodName() +
-                                    "(parms[" +
-                                    Integer.toString(i) +
-                                    "])")
-                      .endControlFlow();
-        }
-        createMethod.endControlFlow();
-      }
-    }
     createMethod.nextControlFlow("else")
                 .addStatement("sb01.append(\"composite >>\").append(storedComposite.getClass().getCanonicalName()).append(\"<< --> found in cache -> REUSE!\")")
                 .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
@@ -239,148 +206,85 @@ public class CompositeCreatorGenerator {
                 .addStatement("compositeInstance.getComposite().setCached(true)")
                 .endControlFlow();
     createMethod.addStatement("return compositeInstance");
+    return createMethod.build();
+  }
 
-    //                                                .addStatement("sb01.append(\"compositeModel >>$L<< --> will be created\")",
-    //                                                              compositeModel.getProvider()
-    //                                                                            .getClassName())
-    //                                                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-    //                                                              ClassName.get(ClientLogger.class))
-    //                                                .addStatement("$T compositeModel = new $T()",
-    //                                                              ClassName.get(compositeModel.getProvider()
-    //                                                                                          .getPackage(),
-    //                                                                            compositeModel.getProvider()
-    //                                                                                          .getSimpleName()),
-    //                                                              ClassName.get(compositeModel.getProvider()
-    //                                                                                          .getPackage(),
-    //                                                                            compositeModel.getProvider()
-    //                                                                                          .getSimpleName()))
-    //                                                .addStatement("compositeModel.setContext(context)")
-    //                                                .addStatement("compositeModel.setEventBus(eventBus)")
-    //                                                .addStatement("compositeModel.setRouter(router)")
-    //                                                .addStatement("sb01 = new $T()",
-    //                                                              ClassName.get(StringBuilder.class))
-    //                                                .addStatement("sb01.append(\"compositeModel >>$L<< --> created and data injected\")",
-    //                                                              compositeModel.getProvider()
-    //                                                                            .getClassName())
-    //                                                .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
-    //                                                              ClassName.get(ClientLogger.class));
-    //    if (compositeModel.isComponentCreator()) {
-    //      createMethod.addStatement("$T component = compositeModel.createComponent()",
-    //                                ClassName.get(compositeModel.getComponentInterface()
-    //                                                            .getPackage(),
-    //                                              compositeModel.getComponentInterface()
-    //                                                            .getSimpleName()))
-    //                  .addStatement("sb01 = new $T()",
-    //                                ClassName.get(StringBuilder.class))
-    //                  .addStatement("sb01.append(\"component >>$L<< --> created using createComponent-Method of compositeModel controller\")",
-    //                                compositeModel.getComponent()
-    //                                              .getClassName())
-    //                  .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-    //                                ClassName.get(ClientLogger.class));
-    //    } else {
-    //      createMethod.addStatement("$T component = new $T()",
-    //                                ClassName.get(compositeModel.getComponentInterface()
-    //                                                            .getPackage(),
-    //                                              compositeModel.getComponentInterface()
-    //                                                            .getSimpleName()),
-    //                                ClassName.get(compositeModel.getComponent()
-    //                                                            .getPackage(),
-    //                                              compositeModel.getComponent()
-    //                                                            .getSimpleName()))
-    //                  .addStatement("sb01 = new $T()",
-    //                                ClassName.get(StringBuilder.class))
-    //                  .addStatement("sb01.append(\"component >>$L<< --> created using new\")",
-    //                                compositeModel.getComponent()
-    //                                              .getClassName())
-    //                  .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-    //                                ClassName.get(ClientLogger.class));
-    //    }
-    //    createMethod.addStatement("component.setController(compositeModel)")
-    //                .addStatement("sb01 = new $T()",
-    //                              ClassName.get(StringBuilder.class))
-    //                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
-    //                .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
-    //                              ClassName.get(ClientLogger.class))
-    //                .addStatement("compositeModel.setComponent(component)")
-    //                .addStatement("sb01 = new $T()",
-    //                              ClassName.get(StringBuilder.class))
-    //                .addStatement("sb01.append(\"compositeModel >>\").append(compositeModel.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
-    //                .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
-    //                              ClassName.get(ClientLogger.class))
-    //                .addStatement("component.render()")
-    //                .addStatement("sb01 = new $T()",
-    //                              ClassName.get(StringBuilder.class))
-    //                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> rendered\")")
-    //                .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
-    //                              ClassName.get(ClientLogger.class))
-    //                .addStatement("component.bind()")
-    //                .addStatement("sb01 = new $T()",
-    //                              ClassName.get(StringBuilder.class))
-    //                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> bound\")")
-    //                .addStatement("$T.get().logDetailed(sb01.toString(), 5)",
-    //                              ClassName.get(ClientLogger.class))
-    //                .addStatement("$T.get().logSimple(\"compositeModel >>$L<< created\", 4)",
-    //                              ClassName.get(ClientLogger.class),
-    //                              compositeModel.getComponent()
-    //                                            .getClassName());
-    //    // compositeModel has parameters?
-    //    if (compositeModel.getParameterAcceptors()
-    //                      .size() > 0) {
-    //      // has the model AccpetParameter ?
-    //      if (compositeModel.getParameterAcceptors()
-    //                        .size() > 0) {
-    //        createMethod.beginControlFlow("if (parms != null)");
-    //        for (int i = 0; i <
-    //                        compositeModel.getParameterAcceptors()
-    //                                      .size(); i++) {
-    //          createMethod.beginControlFlow("if (parms.length >= " + Integer.toString(i + 1) + ")")
-    //                      .addStatement("sb01 = new $T()",
-    //                                    ClassName.get(StringBuilder.class))
-    //                      .addStatement("sb01.append(\"compositeModel >>\").append(compositeModel.getClass().getCanonicalName()).append(\"<< --> using method >>" +
-    //                                    compositeModel.getParameterAcceptors()
-    //                                                  .get(i)
-    //                                                  .getMethodName() +
-    //                                    "<< to set value >>\").append(parms[" +
-    //                                    Integer.toString(i) +
-    //                                    "]).append(\"<<\")")
-    //                      .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-    //                                    ClassName.get(ClientLogger.class))
-    //                      .addStatement("compositeModel." +
-    //                                    compositeModel.getParameterAcceptors()
-    //                                                  .get(i)
-    //                                                  .getMethodName() +
-    //                                    "(parms[" +
-    //                                    Integer.toString(i) +
-    //                                    "])")
-    //                      .endControlFlow();
-    //        }
-    //        createMethod.endControlFlow();
-    //      }
-    //    }
-    //    createMethod.addStatement("$T compositeInstance = new $T()",
-    //                              ClassName.get(CompositeInstance.class),
-    //                              ClassName.get(CompositeInstance.class))
-    //                .addStatement("compositeInstance.setCompositeClassName(compositeModel.getClass().getCanonicalName())")
-    //                .addStatement("compositeInstance.setComposite(compositeModel)")
-    //                .addStatement("return compositeInstance");
-
-    typeSpec.addMethod(createMethod.build());
-
-    JavaFile javaFile = JavaFile.builder(this.compositeModel.getProvider()
-                                                            .getPackage(),
-                                         typeSpec.build())
-                                .build();
-    try {
-      //      System.out.println(javaFile.toString());
-      javaFile.writeTo(this.processingEnvironment.getFiler());
-    } catch (IOException e) {
-      throw new ProcessorException("Unable to write generated file: >>" +
-                                   this.compositeModel.getProvider()
-                                                      .getClassName() +
-                                   ProcessorConstants.CREATOR_IMPL +
-                                   "<< -> exception: " +
-                                   e.getMessage());
+  private MethodSpec createSetParameterMethod() {
+    MethodSpec.Builder method = MethodSpec.methodBuilder("setParameter")
+                                          .addModifiers(Modifier.PUBLIC)
+                                          .addParameter(ParameterSpec.builder(Object.class,
+                                                                              "object")
+                                                                     .build())
+                                          .addParameter(ParameterSpec.builder(String[].class,
+                                                                              "parms")
+                                                                     .build())
+                                          .varargs()
+                                          //                                                .returns(ClassName.get(CompositeInstance.class))
+                                          .addException(ClassName.get(RoutingInterceptionException.class))
+                                          .addStatement("$T composite = ($T) object",
+                                                        ClassName.get(compositeModel.getProvider()
+                                                                                    .getPackage(),
+                                                                      compositeModel.getProvider()
+                                                                                    .getSimpleName()),
+                                                        ClassName.get(compositeModel.getProvider()
+                                                                                    .getPackage(),
+                                                                      compositeModel.getProvider()
+                                                                                    .getSimpleName()))
+                                          .addStatement("$T sb01 = new $T()",
+                                                        ClassName.get(StringBuilder.class),
+                                                        ClassName.get(StringBuilder.class));
+    // compositeModel has parameters?
+    if (compositeModel.getParameterAcceptors()
+                      .size() > 0) {
+      // has the model AccpetParameter ?
+      if (compositeModel.getParameterAcceptors()
+                        .size() > 0) {
+        method.beginControlFlow("if (parms != null)");
+        for (int i = 0; i <
+            compositeModel.getParameterAcceptors()
+                          .size(); i++) {
+          method.beginControlFlow("if (parms.length >= " + (i + 1) + ")")
+                .addStatement("sb01 = new $T()",
+                              ClassName.get(StringBuilder.class))
+                .addStatement("sb01.append(\"composite >>\").append(composite.getClass().getCanonicalName()).append(\"<< --> using method >>" +
+                                  compositeModel.getParameterAcceptors()
+                                                .get(i)
+                                                .getMethodName() +
+                                  "<< to set value >>\").append(parms[" +
+                                  i +
+                                  "]).append(\"<<\")")
+                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
+                              ClassName.get(ClientLogger.class))
+                .addStatement("composite." +
+                                  compositeModel.getParameterAcceptors()
+                                                .get(i)
+                                                .getMethodName() +
+                                  "(parms[" +
+                                  i +
+                                  "])")
+                .endControlFlow();
+        }
+        method.endControlFlow();
+      }
     }
+    return method.build();
+  }
+
+  private MethodSpec createConstructor() {
+    return MethodSpec.constructorBuilder()
+                     .addModifiers(Modifier.PUBLIC)
+                     .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
+                                                         "router")
+                                                .build())
+                     .addParameter(ParameterSpec.builder(compositeModel.getContext()
+                                                                       .getTypeName(),
+                                                         "context")
+                                                .build())
+                     .addParameter(ParameterSpec.builder(ClassName.get(SimpleEventBus.class),
+                                                         "eventBus")
+                                                .build())
+                     .addStatement("super(router, context, eventBus)")
+                     .build();
   }
 
   public static final class Builder {

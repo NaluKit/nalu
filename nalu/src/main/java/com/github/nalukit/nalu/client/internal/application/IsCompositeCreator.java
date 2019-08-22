@@ -20,11 +20,13 @@ import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
-@FunctionalInterface
 public interface IsCompositeCreator {
 
-  CompositeInstance create(String parentControllerClassName,
-                           String... params)
+  CompositeInstance create(String parentControllerClassName)
+      throws RoutingInterceptionException;
+
+  void setParameter(Object object,
+                    String... parms)
       throws RoutingInterceptionException;
 
 }
