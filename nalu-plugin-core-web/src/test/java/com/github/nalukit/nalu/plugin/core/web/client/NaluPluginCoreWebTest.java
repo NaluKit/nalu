@@ -1,28 +1,22 @@
 package com.github.nalukit.nalu.plugin.core.web.client;
 
-import com.github.nalukit.nalu.client.internal.route.ShellConfig;
-import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-
-public class NaluPluginCoreWebTest {
+class NaluPluginCoreWebTest {
 
   @Test
-  public void isSuperDevMode() {
+  void isSuperDevMode() {
     System.setProperty("superdevmode",
                        "on");
-    Assert.assertThat(NaluPluginCoreWeb.isSuperDevMode(),
-                      is(true));
+    Assertions.assertTrue(NaluPluginCoreWeb.isSuperDevMode());
   }
 
   @Test
-  public void isNotSuperDevMode() {
+  void isNotSuperDevMode() {
     System.setProperty("superdevmode",
                        "off");
-    Assert.assertThat(NaluPluginCoreWeb.isSuperDevMode(),
-                      is(false));
+    Assertions.assertFalse(NaluPluginCoreWeb.isSuperDevMode());
   }
 
 }

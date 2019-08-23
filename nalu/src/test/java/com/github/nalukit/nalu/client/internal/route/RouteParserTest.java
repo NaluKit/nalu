@@ -1,18 +1,16 @@
 package com.github.nalukit.nalu.client.internal.route;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
 // TODO ...
 public class RouteParserTest {
 
   @Test
-  public void parse() {
+  void parse() {
   }
 
   @Test
-  public void generate() {
+  void generate() {
   }
 
 }

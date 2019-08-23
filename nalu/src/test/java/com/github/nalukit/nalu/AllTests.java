@@ -22,15 +22,16 @@ import com.github.nalukit.nalu.client.RouterUtilsTest;
 import com.github.nalukit.nalu.client.RoutingTest;
 import com.github.nalukit.nalu.client.internal.route.RouteConfigTest;
 import com.github.nalukit.nalu.client.internal.validation.RouteValidationTest;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.platform.suite.api.SelectClasses;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ RouteConfigTest.class,
-                      RouterImplTest.class,
-                      RouterUtilsTest.class,
-                      RoutingTest.class,
-                      RouteValidationTest.class })
+@RunWith(JUnitPlatform.class)
+@SelectClasses({ RouteConfigTest.class,
+                 RouterImplTest.class,
+                 RouterUtilsTest.class,
+                 RoutingTest.class,
+                 RouteValidationTest.class })
 public class AllTests {
 
 }

@@ -16,60 +16,53 @@
 
 package com.github.nalukit.nalu.client.internal.route;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 public class RouteConfigTest {
 
   @Test
-  public void testRouteConfigCreation01() {
+  void testRouteConfigCreation01() {
     RouteConfig routeConfig = new RouteConfig("/*/testroute01",
                                               new ArrayList<>(),
                                               "selector",
                                               "className");
-    Assert.assertEquals("RouteConfig test '/*/testroute01'",
-                        "/*",
-                        routeConfig.getShell()
-                                   .get(0));
-    Assert.assertEquals("RouteConfig test '/*/testroute01'",
-                        "/testroute01",
-                        routeConfig.getRouteWithoutShell());
+    Assertions.assertEquals("/*",
+                            routeConfig.getShell()
+                                       .get(0));
+    Assertions.assertEquals("/testroute01",
+                            routeConfig.getRouteWithoutShell());
   }
 
   @Test
-  public void testRouteConfigCreation02() {
+  void testRouteConfigCreation02() {
     RouteConfig routeConfig = new RouteConfig("/loginShell/testroute01",
                                               new ArrayList<>(),
                                               "selector",
                                               "className");
-    Assert.assertEquals("RouteConfig test '/loginShell/testroute01'",
-                        "/loginShell",
-                        routeConfig.getShell()
-                                   .get(0));
-    Assert.assertEquals("RouteConfig test '/*/testroute01'",
-                        "/testroute01",
-                        routeConfig.getRouteWithoutShell());
+    Assertions.assertEquals("/loginShell",
+                            routeConfig.getShell()
+                                       .get(0));
+    Assertions.assertEquals("/testroute01",
+                            routeConfig.getRouteWithoutShell());
   }
 
   @Test
-  public void testRouteConfigCreation03() {
+  void testRouteConfigCreation03() {
     RouteConfig routeConfig = new RouteConfig("/[loginShell|applicationShell]/testroute01",
                                               new ArrayList<>(),
                                               "selector",
                                               "className");
-    Assert.assertEquals("RouteConfig test '/[loginShell|applicationShell]/testroute01'",
-                        "/loginShell",
-                        routeConfig.getShell()
-                                   .get(0));
-    Assert.assertEquals("RouteConfig test '/[loginShell|applicationShell]/testroute01'",
-                        "/applicationShell",
-                        routeConfig.getShell()
-                                   .get(1));
-    Assert.assertEquals("RouteConfig test '/[loginShell|applicationShell]/testroute01'",
-                        "/testroute01",
-                        routeConfig.getRouteWithoutShell());
+    Assertions.assertEquals("/loginShell",
+                            routeConfig.getShell()
+                                       .get(0));
+    Assertions.assertEquals("/applicationShell",
+                            routeConfig.getShell()
+                                       .get(1));
+    Assertions.assertEquals("/testroute01",
+                            routeConfig.getRouteWithoutShell());
   }
 
 }

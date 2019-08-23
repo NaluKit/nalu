@@ -21,6 +21,8 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 /**
  * Default context used by the NoApplicationLoader class
+ *
+ * <b>DO NOT USE THIS CLASS</b>
  */
 @NaluInternalUse
 public class DefaultContext
