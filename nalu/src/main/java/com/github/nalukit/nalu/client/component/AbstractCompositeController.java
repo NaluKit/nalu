@@ -26,7 +26,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
                IsCompositeComponent.Controller {
 
   /* component of the controller */
-  private String                    parentClassName;
+  private   String               parentClassName;
   /* component of the controller */
   protected V                    component;
   /* list of registered handlers */
@@ -34,7 +34,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   /* flag, if the controller is cached or not */
   private   boolean              cached;
   /* flag, if the controller is cached or not in Scope GLOBAL! */
-  private   boolean                                           cachedGlobal;
+  private   boolean              cachedGlobal;
 
   public AbstractCompositeController() {
     super();
