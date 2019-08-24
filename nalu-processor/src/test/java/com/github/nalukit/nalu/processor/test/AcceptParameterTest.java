@@ -16,24 +16,22 @@
 
 package com.github.nalukit.nalu.processor.test;
 
-import org.junit.Test;
-
 @SuppressWarnings("serial")
 public class AcceptParameterTest {
 
-  @Test
-  public void testAcceptParameterAnnotationOnAClass() {
-    //    Compilation compilation = javac().withProcessors(new NaluProcessor())
-    //                                     .compile(new ArrayList<JavaFileObject>() {
-    //                                       {
-    //                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOnClass/AcceptParameterAnnotationInterfaceOnAClass.java"));
-    //                                       }
-    //                                     });
-    //    CompilationSubject.assertThat(compilation)
-    //                      .failed();
-    //    CompilationSubject.assertThat(compilation)
-    //                      .hadErrorContaining("@Application annotated must be used with an interface");
-  }
+  //@Test
+  //public void testAcceptParameterAnnotationOnAClass() {
+  //    Compilation compilation = javac().withProcessors(new NaluProcessor())
+  //                                     .compile(new ArrayList<JavaFileObject>() {
+  //                                       {
+  //                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/application/applicationAnnotationOnClass/AcceptParameterAnnotationInterfaceOnAClass.java"));
+  //                                       }
+  //                                     });
+  //    CompilationSubject.assertThat(compilation)
+  //                      .failed();
+  //    CompilationSubject.assertThat(compilation)
+  //                      .hadErrorContaining("@Application annotated must be used with an interface");
+  //}
   //
   //  @Test
   //  public void testApplicationInterfaceWithoutExtendsIsApplication() {

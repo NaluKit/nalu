@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.processor.NaluProcessor;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.tools.JavaFileObject;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import static com.google.testing.compile.Compiler.javac;
 public class DebugTest {
 
   @Test
-  public void testDebugAnnotationOnAMethod() {
+  void testDebugAnnotationOnAMethod() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -45,7 +45,7 @@ public class DebugTest {
   }
 
   @Test
-  public void testDebugAnnotationOnAClass() {
+  void testDebugAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -59,7 +59,7 @@ public class DebugTest {
   }
 
   @Test
-  public void testDebugAnnotationWithoutExtendsIsApplication() {
+  void testDebugAnnotationWithoutExtendsIsApplication() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -73,7 +73,7 @@ public class DebugTest {
   }
 
   @Test
-  public void testDebugAnnotationOnClassWithoutApplicationAnnotation() {
+  void testDebugAnnotationOnClassWithoutApplicationAnnotation() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {

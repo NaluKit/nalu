@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.processor.NaluProcessor;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.tools.JavaFileObject;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import static com.google.testing.compile.Compiler.javac;
 public class ControllerCreatorTest {
 
   @Test
-  public void testControllerCreatorOkWithoutParament() {
+  void testControllerCreatorOkWithoutParament() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -49,7 +49,7 @@ public class ControllerCreatorTest {
   }
 
   @Test
-  public void testControllerCreatorOkWithOneParameter() {
+  void testControllerCreatorOkWithOneParameter() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -67,7 +67,7 @@ public class ControllerCreatorTest {
   }
 
   @Test
-  public void testControllerCreatorOkWithOneParameterWithoutAcceptParameter() {
+  void testControllerCreatorOkWithOneParameterWithoutAcceptParameter() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -85,7 +85,7 @@ public class ControllerCreatorTest {
   }
 
   @Test
-  public void testControllerCreatorOkWithTwoParameter() {
+  void testControllerCreatorOkWithTwoParameter() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -103,7 +103,7 @@ public class ControllerCreatorTest {
   }
 
   @Test
-  public void testControllerCreatorOkWithTwoParameterWithoutParameterOne() {
+  void testControllerCreatorOkWithTwoParameterWithoutParameterOne() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -121,7 +121,7 @@ public class ControllerCreatorTest {
   }
 
   @Test
-  public void testControllerCreatorOkWithTwoParameterWithoutParameterOneAndTwo() {
+  void testControllerCreatorOkWithTwoParameterWithoutParameterOneAndTwo() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {

@@ -24,6 +24,7 @@ import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
+import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
 import com.squareup.javapoet.*;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -57,6 +58,8 @@ public class PopUpControllerCreatorGenerator {
       throws ProcessorException {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(popUpControllerModel.getController()
                                                                           .getSimpleName() + ProcessorConstants.CREATOR_IMPL)
+                                        .addJavadoc(BuildWithNaluCommentProvider.get()
+                                                                                .getGeneratedComment())
                                         .superclass(ParameterizedTypeName.get(ClassName.get(AbstractPopUpControllerCreator.class),
                                                                               popUpControllerModel.getContext()
                                                                                                   .getTypeName()))

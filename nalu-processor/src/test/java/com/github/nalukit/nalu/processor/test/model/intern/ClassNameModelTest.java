@@ -19,51 +19,49 @@ package com.github.nalukit.nalu.processor.test.model.intern;
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.squareup.javapoet.ClassName;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ClassNameModelTest {
 
   private ClassNameModel classNameModel;
 
-  @Before
-  public void before() {
+  @BeforeEach
+  void before() {
     classNameModel = new ClassNameModel(IsApplication.class.getCanonicalName());
   }
 
   @Test
-  public void getClassName() {
-    assertEquals(IsApplication.class.getCanonicalName(),
-                 this.classNameModel.getClassName());
+  void getClassName() {
+    Assertions.assertEquals(IsApplication.class.getCanonicalName(),
+                            this.classNameModel.getClassName());
   }
 
   @Test
-  public void getTypeName() {
+  void getTypeName() {
     ClassName expectedtypeName = ClassName.get(IsApplication.class);
-    assertEquals(expectedtypeName,
-                 this.classNameModel.getTypeName());
+    Assertions.assertEquals(expectedtypeName,
+                            this.classNameModel.getTypeName());
   }
 
   @Test
-  public void getPackage() {
-    assertEquals(IsApplication.class.getPackage()
-                                    .getName(),
-                 this.classNameModel.getPackage());
+  void getPackage() {
+    Assertions.assertEquals(IsApplication.class.getPackage()
+                                               .getName(),
+                            this.classNameModel.getPackage());
   }
 
   @Test
-  public void getSimpleName() {
-    assertEquals(IsApplication.class.getPackage()
-                                    .getName(),
-                 this.classNameModel.getPackage());
+  void getSimpleName() {
+    Assertions.assertEquals(IsApplication.class.getPackage()
+                                               .getName(),
+                            this.classNameModel.getPackage());
   }
 
   @Test
-  public void equals() {
-    assertTrue(this.classNameModel.equals(new ClassNameModel(IsApplication.class.getCanonicalName())));
+  void equals() {
+    Assertions.assertTrue(this.classNameModel.equals(new ClassNameModel(IsApplication.class.getCanonicalName())));
   }
 
 }

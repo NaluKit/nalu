@@ -14,6 +14,8 @@ import java.lang.Override;
 import java.lang.StringBuilder;
 import java.util.Arrays;
 
+/**
+ * Build with Nalu version >>1.3.2-SNAPSHOT<< at >>2019.08.24-11:32:39<< */
 public final class ApplicationWithTrackerImpl extends AbstractApplication<MockContext> implements ApplicationWithTracker {
   public ApplicationWithTrackerImpl() {
     super();
@@ -142,4 +144,3 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   public boolean isStayOnSide() {
     return false;
   }
-}

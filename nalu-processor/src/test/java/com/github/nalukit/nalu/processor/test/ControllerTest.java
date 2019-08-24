@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.processor.NaluProcessor;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.tools.JavaFileObject;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import static com.google.testing.compile.Compiler.javac;
 public class ControllerTest {
 
   @Test
-  public void testAcceptAnnotation01() {
+  void testAcceptAnnotation01() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -48,7 +48,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testAcceptAnnotation02() {
+  void testAcceptAnnotation02() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -65,7 +65,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testAcceptAnnotation03() {
+  void testAcceptAnnotation03() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -82,7 +82,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testAcceptAnnotation04() {
+  void testAcceptAnnotation04() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -99,7 +99,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testAcceptAnnotation05() {
+  void testAcceptAnnotation05() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -114,7 +114,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testControllerAnnotationRouteDoesNotBeginWithSlash() {
+  void testControllerAnnotationRouteDoesNotBeginWithSlash() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -128,7 +128,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testControllerAnnotationWithoutParameterOK() {
+  void testControllerAnnotationWithoutParameterOK() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -145,7 +145,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testControllerAnnotationWithParameterNotOK() {
+  void testControllerAnnotationWithParameterNotOK() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -162,7 +162,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testControllerAnnotationWithParameterOK() {
+  void testControllerAnnotationWithParameterOK() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -179,7 +179,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testControllerWithIsComponentCreatorOK() {
+  void testControllerWithIsComponentCreatorOK() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -196,7 +196,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testControllerWithIsComponentCreatorNotOK() {
+  void testControllerWithIsComponentCreatorNotOK() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -217,7 +217,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testGenerateWithoutIsComponentCreator() {
+  void testGenerateWithoutIsComponentCreator() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -237,7 +237,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testGenerateWithIsComponentCreator() {
+  void testGenerateWithIsComponentCreator() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -257,7 +257,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testControllerWithComposite01() {
+  void testControllerWithComposite01() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -279,7 +279,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testControllerWithComposite02() {
+  void testControllerWithComposite02() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -302,7 +302,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testControllerWithComposite03() {
+  void testControllerWithComposite03() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {

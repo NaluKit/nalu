@@ -25,6 +25,7 @@ import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ShellModel;
+import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
 import com.squareup.javapoet.*;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -58,6 +59,8 @@ public class ShellCreatorGenerator {
       throws ProcessorException {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(shellModel.getShell()
                                                                 .getSimpleName() + ProcessorConstants.CREATOR_IMPL)
+                                        .addJavadoc(BuildWithNaluCommentProvider.get()
+                                                                                .getGeneratedComment())
                                         .superclass(ParameterizedTypeName.get(ClassName.get(AbstractShellCreator.class),
                                                                               shellModel.getContext()
                                                                                         .getTypeName()))
