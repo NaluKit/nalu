@@ -30,6 +30,7 @@ import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
+import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
 import com.squareup.javapoet.*;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -73,6 +74,8 @@ public class PluginGenerator {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(this.metaModel.getPluginModel()
                                                                     .getPlugin()
                                                                     .getSimpleName() + ProcessorConstants.PLUGIN_IMPL)
+                                        .addJavadoc(BuildWithNaluCommentProvider.get()
+                                                                                .getGeneratedComment())
                                         .superclass(ParameterizedTypeName.get(ClassName.get(AbstractPlugin.class),
                                                                               this.metaModel.getPluginModel()
                                                                                             .getContext()

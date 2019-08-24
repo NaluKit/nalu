@@ -27,6 +27,7 @@ import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
+import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
 import com.squareup.javapoet.*;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -60,6 +61,8 @@ public class CompositeCreatorGenerator {
       throws ProcessorException {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(compositeModel.getProvider()
                                                                     .getSimpleName() + ProcessorConstants.CREATOR_IMPL)
+                                        .addJavadoc(BuildWithNaluCommentProvider.get()
+                                                                                .getGeneratedComment())
                                         .superclass(ParameterizedTypeName.get(ClassName.get(AbstractCompositeCreator.class),
                                                                               compositeModel.getContext()
                                                                                             .getTypeName()))

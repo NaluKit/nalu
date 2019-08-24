@@ -16,49 +16,45 @@
 
 package com.github.nalukit.nalu.processor.model;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class MetaModelTest {
 
   private MetaModel metaModel;
 
-  @Before
-  public void before() {
+  @BeforeEach
+  void before() {
     this.metaModel = new MetaModel();
   }
 
   @Test
-  public void getShellOfStartRoute01() {
+  void getShellOfStartRoute01() {
     this.metaModel.setStartRoute("/MockShell/route01");
-    Assert.assertEquals("start route test with leading '/'",
-                        "MockShell",
-                        this.metaModel.getShellOfStartRoute());
+    Assertions.assertEquals("MockShell",
+                            this.metaModel.getShellOfStartRoute());
   }
 
   @Test
-  public void getShellOfStartRoute02() {
+  void getShellOfStartRoute02() {
     this.metaModel.setStartRoute("MockShell/route01");
-    Assert.assertEquals("start route test without leading '/'",
-                        "MockShell",
-                        this.metaModel.getShellOfStartRoute());
+    Assertions.assertEquals("MockShell",
+                            this.metaModel.getShellOfStartRoute());
   }
 
   @Test
-  public void getShellOfErrorRoute01() {
+  void getShellOfErrorRoute01() {
     this.metaModel.setRouteError("/ErrorShell/error");
-    Assert.assertEquals("error route test without leading '/'",
-                        "ErrorShell",
-                        this.metaModel.getShellOfErrorRoute());
+    Assertions.assertEquals("ErrorShell",
+                            this.metaModel.getShellOfErrorRoute());
   }
 
   @Test
-  public void getShellOfErrorRoute02() {
+  void getShellOfErrorRoute02() {
     this.metaModel.setRouteError("ErrorShell/error");
-    Assert.assertEquals("error route test without leading '/'",
-                        "ErrorShell",
-                        this.metaModel.getShellOfErrorRoute());
+    Assertions.assertEquals("ErrorShell",
+                            this.metaModel.getShellOfErrorRoute());
   }
 
 }

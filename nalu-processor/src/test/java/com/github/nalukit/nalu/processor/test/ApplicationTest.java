@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.processor.NaluProcessor;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.tools.JavaFileObject;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import static com.google.testing.compile.Compiler.javac;
 public class ApplicationTest {
 
   @Test
-  public void testApplicationAnnotationStartRouteDoesNotBeginWithSlash() {
+  void testApplicationAnnotationStartRouteDoesNotBeginWithSlash() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -45,7 +45,7 @@ public class ApplicationTest {
   }
 
   @Test
-  public void testApplicationAnnotationRouteErrorDoesNotBeginWithSlash() {
+  void testApplicationAnnotationRouteErrorDoesNotBeginWithSlash() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -67,7 +67,7 @@ public class ApplicationTest {
   }
 
   @Test
-  public void testApplicationAnnotationOnAClass() {
+  void testApplicationAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -81,7 +81,7 @@ public class ApplicationTest {
   }
 
   @Test
-  public void testApplicationInterfaceWithoutExtendsIsApplication() {
+  void testApplicationInterfaceWithoutExtendsIsApplication() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -95,7 +95,7 @@ public class ApplicationTest {
   }
 
   @Test
-  public void testApplictionAnnotationOnAMethod() {
+  void testApplictionAnnotationOnAMethod() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -109,7 +109,7 @@ public class ApplicationTest {
   }
 
   @Test
-  public void testApplicationAnnotationOkWithLoader() {
+  void testApplicationAnnotationOkWithLoader() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -129,7 +129,7 @@ public class ApplicationTest {
   }
 
   @Test
-  public void testApplicationAnnotationOkWithoutLoader() {
+  void testApplicationAnnotationOkWithoutLoader() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -149,7 +149,7 @@ public class ApplicationTest {
   }
 
   @Test
-  public void testApplicationAnnotationOkWithoutLoaderAsInnerInterface() {
+  void testApplicationAnnotationOkWithoutLoaderAsInnerInterface() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -169,7 +169,7 @@ public class ApplicationTest {
   }
 
   @Test
-  public void testApplicationAnnotationOkWithLoaderAsInnerInterface() {
+  void testApplicationAnnotationOkWithLoaderAsInnerInterface() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -189,7 +189,7 @@ public class ApplicationTest {
   }
 
   @Test
-  public void testApplicationWithComposite01() {
+  void testApplicationWithComposite01() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -213,7 +213,7 @@ public class ApplicationTest {
   }
 
   @Test
-  public void testApplicationWithComposite02() {
+  void testApplicationWithComposite02() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -237,7 +237,7 @@ public class ApplicationTest {
   }
 
   @Test
-  public void testApplicationWithComposite03() {
+  void testApplicationWithComposite03() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
