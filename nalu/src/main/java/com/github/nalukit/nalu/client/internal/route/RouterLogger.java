@@ -339,6 +339,13 @@ class RouterLogger {
                 5);
   }
 
+  static void logCachedControllerOnAttachedGlobalCompositeController(String controller,
+                                                                     String compositeController) {
+    String sb = "cached controller >>" + controller + "<< --> attach global cached compositeController >>" + compositeController + "<<";
+    logDetailed(sb,
+                5);
+  }
+
   static void logCompositeComntrollerActivateMethodCalled(String compositeController) {
     String sb = "Router: create compositeController >>" + compositeController + "<< - calls method activate()";
     logDetailed(sb,
