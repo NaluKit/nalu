@@ -1,4 +1,4 @@
-# Multi Module Client
+# Multi Module Envirement
 Starting with version 2 Nalu improves the multi module support on the client side. In a client side multi module environment it is not possible to shared classes without having a common module.
 
 That was the way how client sided mutile modules was implementated in version 1.x using the plugin feature. 
@@ -7,11 +7,11 @@ The plugin implementation has two drawbacks:
 * It is necessary to have a common module for common events
 * It is necessary to have a common context
 
-Because of those two requirements in Nalu v1.x it is necessary to have a common client module. This common client module needs to be added to every client module. This will reduce the chance to reuse a client module and icreases the complexity.
+Because of those two requirements in Nalu v1.x it is necessary to have a common client module. This common module needs to be added to every client module. This will reduce the chance to reuse a client module and icreases the complexity.
 
 Regarding j2cl, which will prefer smaller compile units, Nalu needs an improvement.
 
-With v2, Nalu will avoid using a common client module to share the context class and common event classes. 
+With version 2, Nalu will help you to avoid a common client module to share the context class and common event classes.
 
 **The plugin feature of Nalu v1.x will be removed in v2.x**
 
@@ -50,5 +50,8 @@ this.eventBus.adddHandler(NaluEvent.TYPE,
                             }
                           });
 ```
-Keep in mind, that you have to cast the stored object to the right type before using it.
+**Note: Keep in mind, that you have to cast the stored object to the right type before using it.**
+
+**Important Note: When working with `NaluEvent`-class, you need to check the event type before handling the event, cause this event will be used for all events!**
+
 

@@ -36,7 +36,7 @@ public class NaluEvent
    *
    * @return new Message event
    */
-  public NaluEvent create() {
+  public static NaluEvent create() {
     return new NaluEvent();
   }
 
