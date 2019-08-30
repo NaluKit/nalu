@@ -46,12 +46,6 @@ public class MetaModel {
   /* with a a plugin and not with a pplication  */
   private ModuleModel moduleModel;
 
-  /* this model represents the plugin interface */
-  /* is the model not null, we have to deal     */
-  /* with a a plugin and not with a pplication  */
-  @Deprecated
-  private PluginModel pluginModel;
-
   private List<ShellModel> shells;
 
   private ClassNameModel context;
@@ -105,14 +99,6 @@ public class MetaModel {
 
   public void setModuleModel(ModuleModel moduleModel) {
     this.moduleModel = moduleModel;
-  }
-
-  public PluginModel getPluginModel() {
-    return pluginModel;
-  }
-
-  public void setPluginModel(PluginModel pluginModel) {
-    this.pluginModel = pluginModel;
   }
 
   public ClassNameModel getApplication() {

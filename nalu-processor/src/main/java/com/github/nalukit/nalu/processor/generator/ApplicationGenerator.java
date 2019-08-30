@@ -172,15 +172,6 @@ public class ApplicationGenerator {
                     .typeSpec(typeSpec)
                     .build()
                     .generate();
-    // TODO El Hoss: Remove ....
-    // need to be called!
-    // even if the app has no plugins,
-    // a empty method has to be created!
-    PluginsGenerator.builder()
-                    .metaModel(metaModel)
-                    .typeSpec(typeSpec)
-                    .build()
-                    .generate();
 
     // method "getApplicationLoader"
     MethodSpec.Builder getApplicationLoaderMethod = MethodSpec.methodBuilder("getApplicationLoader")

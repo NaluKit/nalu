@@ -26,8 +26,6 @@ import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.client.module.annotation.Module;
 import com.github.nalukit.nalu.client.module.annotation.Modules;
-import com.github.nalukit.nalu.client.plugin.annotation.Plugin;
-import com.github.nalukit.nalu.client.plugin.annotation.Plugins;
 import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
 import com.github.nalukit.nalu.processor.generator.*;
 import com.github.nalukit.nalu.processor.model.MetaModel;
@@ -89,8 +87,6 @@ public class NaluProcessor
               Module.class.getCanonicalName(),
               Modules.class.getCanonicalName(),
               PopUpController.class.getCanonicalName(),
-              Plugin.class.getCanonicalName(),
-              Plugins.class.getCanonicalName(),
               Shell.class.getCanonicalName(),
               Tracker.class.getCanonicalName()).collect(toSet());
   }
@@ -150,12 +146,6 @@ public class NaluProcessor
             } else if (PopUpController.class.getCanonicalName()
                                             .equals(annotation.toString())) {
               handlePopUpControllerAnnotation(roundEnv);
-            } else if (Plugin.class.getCanonicalName()
-                                   .equals(annotation.toString())) {
-              handlePluginAnnotation(roundEnv);
-            } else if (Plugins.class.getCanonicalName()
-                                    .equals(annotation.toString())) {
-              handlePluginsAnnotation(roundEnv);
             } else if (Shell.class.getCanonicalName()
                                   .equals(annotation.toString())) {
               handleShellAnnotation(roundEnv);
@@ -235,47 +225,6 @@ public class NaluProcessor
       ModulesAnnotationScanner.builder()
                               .processingEnvironment(processingEnv)
                               .modulesElement(modulesElement)
-                              .metaModel(metaModel)
-                              .build()
-                              .scan(roundEnv);
-    }
-  }
-
-  @Deprecated
-  private void handlePluginAnnotation(RoundEnvironment roundEnv)
-      throws ProcessorException {
-    for (Element pluginElement : roundEnv.getElementsAnnotatedWith(Plugin.class)) {
-      // validate application element
-      PluginAnnotationValidator.builder()
-                               .processingEnvironment(processingEnv)
-                               .pluginElement(pluginElement)
-                               .build()
-                               .validate();
-      // scan application element
-      PluginModel pluginModel = PluginAnnotationScanner.builder()
-                                                       .processingEnvironment(processingEnv)
-                                                       .pluginElement(pluginElement)
-                                                       .build()
-                                                       .scan(roundEnv);
-      // store model
-      this.metaModel.setPluginModel(pluginModel);
-    }
-  }
-
-  @Deprecated
-  private void handlePluginsAnnotation(RoundEnvironment roundEnv)
-      throws ProcessorException {
-    for (Element pluginsElement : roundEnv.getElementsAnnotatedWith(Plugins.class)) {
-      // validate application element
-      PluginsAnnotationValidator.builder()
-                                .processingEnvironment(processingEnv)
-                                .pluginsElement(pluginsElement)
-                                .build()
-                                .validate();
-      // scan application element
-      PluginsAnnotationScanner.builder()
-                              .processingEnvironment(processingEnv)
-                              .pluginsElement(pluginsElement)
                               .metaModel(metaModel)
                               .build()
                               .scan(roundEnv);
@@ -510,17 +459,6 @@ public class NaluProcessor
       // otherwise we nead to generate a module-Impl class
       if (!Objects.isNull(metaModel.getModuleModel())) {
         ModuleGenerator.builder()
-                       .processingEnvironment(processingEnv)
-                       .metaModel(this.metaModel)
-                       .build()
-                       .generate();
-      }
-      // TODO EL Hoss ... remove!
-      // check if pluginModel is not null!
-      // if pluginModel is null, we have nothing to do here,
-      // otherwise we nead to generate a plugin-Impl class
-      if (!Objects.isNull(metaModel.getPluginModel())) {
-        PluginGenerator.builder()
                        .processingEnvironment(processingEnv)
                        .metaModel(this.metaModel)
                        .build()

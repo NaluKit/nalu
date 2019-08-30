@@ -50,10 +50,6 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
-  protected void loadPlugins() {
-  }
-
-  @Override
   protected void loadShellFactory() {
 
   }

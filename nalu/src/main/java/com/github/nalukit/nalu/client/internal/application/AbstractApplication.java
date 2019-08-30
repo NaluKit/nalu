@@ -110,8 +110,6 @@ public abstract class AbstractApplication<C extends IsContext>
                 .logDetailed("AbstractApplication: load configurations",
                              1);
     this.loadModules();
-    // TODO El Hoss: remove
-    this.loadPlugins();
     this.loadShells();
     this.loadRoutes();
     this.loadFilters();
@@ -193,10 +191,6 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract void logProcessorVersion();
 
   protected abstract void loadModules();
-
-  // TODO El Hoss: remove
-  @Deprecated
-  protected abstract void loadPlugins();
 
   protected abstract void loadShellFactory();
 
