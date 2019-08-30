@@ -18,15 +18,15 @@ import java.util.Map;
  * responsibility of the developer to cast the parameters to the
  * correct class when reading teh parameters.
  */
-public class NaluEvent
-    extends Event<NaluEvent.NaluMessageHandler> {
+public class NaluApplicationEvent
+    extends Event<NaluApplicationEvent.NaluMessageHandler> {
 
-  public static Type<NaluEvent.NaluMessageHandler> TYPE = new Type<>();
+  public static Type<NaluApplicationEvent.NaluMessageHandler> TYPE = new Type<>();
 
   private String              event;
   private Map<String, Object> store;
 
-  private NaluEvent() {
+  private NaluApplicationEvent() {
     super();
     this.store = new HashMap<>();
   }
@@ -36,8 +36,8 @@ public class NaluEvent
    *
    * @return new Message event
    */
-  public static NaluEvent create() {
-    return new NaluEvent();
+  public static NaluApplicationEvent create() {
+    return new NaluApplicationEvent();
   }
 
   /**
@@ -46,7 +46,7 @@ public class NaluEvent
    * @param event message type of the event
    * @return instance of the event
    */
-  public NaluEvent event(String event) {
+  public NaluApplicationEvent event(String event) {
     this.event = event;
     return this;
   }
@@ -60,8 +60,8 @@ public class NaluEvent
    * @param value value of the parameter
    * @return instance of the event
    */
-  public NaluEvent data(String key,
-                        Object value) {
+  public NaluApplicationEvent data(String key,
+                                   Object value) {
     this.store.put(key,
                    value);
     return this;
@@ -89,18 +89,18 @@ public class NaluEvent
   }
 
   @Override
-  public Type<NaluEvent.NaluMessageHandler> getAssociatedType() {
+  public Type<NaluApplicationEvent.NaluMessageHandler> getAssociatedType() {
     return TYPE;
   }
 
   @Override
-  protected void dispatch(NaluEvent.NaluMessageHandler handler) {
+  protected void dispatch(NaluApplicationEvent.NaluMessageHandler handler) {
     handler.onNaluMessage(this);
   }
 
   public interface NaluMessageHandler {
 
-    void onNaluMessage(NaluEvent event);
+    void onNaluMessage(NaluApplicationEvent event);
 
   }
 

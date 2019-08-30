@@ -26,23 +26,23 @@ A module is now marked wirh the `@Module`-annotation. It takes a name and the mo
 ## Context
 
 ## Event
-To fire events that are available in all client sided modules, Nalu provides an event class called `NaluEvent`. This event takes a String, which should be used to describe the event type and accepts a variable numbers of data - which will be stored inside a map. The map is implemented as a `Map<String, Object`. Using the key, you can access the map. The map will always return an `Object` which needs to be casted before using it.
+To fire events that are available in all client sided modules, Nalu provides an event class called `NaluApplicationEvent`. This event takes a String, which should be used to describe the event type and accepts a variable numbers of data - which will be stored inside a map. The map is implemented as a `Map<String, Object`. Using the key, you can access the map. The map will always return an `Object` which needs to be casted before using it.
 
-F.e.: If you want to update the selected navigation item in the main module (assuming that the main model will provide navigation) from a client sub module, fire a `NaluEvent`, set the event string to 'selectNavigationItem' and add the identifier what item inside the navigation is to select as data insiede the event store.
+F.e.: If you want to update the selected navigation item in the main module (assuming that the main model will provide navigation) from a client sub module, fire a `NaluApplicationEvent`, set the event string to 'selectNavigationItem' and add the identifier what item inside the navigation is to select as data insiede the event store.
 
-The `NaluEvent`-class uses a builder pattern to at the event name and the data. 
+The `NaluApplicationEvent`-class uses a builder pattern to at the event name and the data.
 
 To do so, use this code:
 ```java
-this.eventBus.fireEvent(NaluEvent.create()
-                                 .event("selectNavigationItem")
-                                 .data("navigationItem", "home"));
+this.eventBus.fireEvent(NaluApplicationEvent.create()
+                                            .event("selectNavigationItem")
+                                            .data("navigationItem", "home"));
 ```
 
 
 To catch the event, just add a handler to the event bus. Once catching the event, it is necessary to check if the event is the one you are looking for by comparing the event name with the name of the event you want to catch!
 ```java
-this.eventBus.adddHandler(NaluEvent.TYPE,
+this.eventBus.adddHandler(NaluApplicationEvent.TYPE,
                           e -> {
                             if ("selectNavigationItem".equals(e.getEvent())) {
                               String selectedItem = (String) e.getData("navigationItem");
@@ -52,6 +52,6 @@ this.eventBus.adddHandler(NaluEvent.TYPE,
 ```
 **Note: Keep in mind, that you have to cast the stored object to the right type before using it.**
 
-**Important Note: When working with `NaluEvent`-class, you need to check the event type before handling the event, cause this event will be used for all events!**
+**Important Note: When working with `NaluApplicationEvent`-class, you need to check the event type before handling the event, cause this event will be used for all events!**
 
 
