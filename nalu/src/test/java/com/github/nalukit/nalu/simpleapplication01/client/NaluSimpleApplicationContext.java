@@ -16,14 +16,12 @@
 
 package com.github.nalukit.nalu.simpleapplication01.client;
 
-import com.github.nalukit.nalu.client.context.AbstractContext;
 import com.github.nalukit.nalu.client.context.IsContext;
 
 /**
  * A application context of the NaluMailApplication
  */
 public class NaluSimpleApplicationContext
-    extends AbstractContext
     implements IsContext {
 
   private String version;

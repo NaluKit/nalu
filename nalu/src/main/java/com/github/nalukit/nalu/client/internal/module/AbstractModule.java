@@ -18,8 +18,8 @@ package com.github.nalukit.nalu.client.internal.module;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
-import com.github.nalukit.nalu.client.context.IsContext;
-import com.github.nalukit.nalu.client.context.IsModuleContext;
+import com.github.nalukit.nalu.client.context.module.IsMainContext;
+import com.github.nalukit.nalu.client.context.module.IsModuleContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.module.IsModule;
@@ -32,14 +32,15 @@ import org.gwtproject.event.shared.SimpleEventBus;
 public abstract class AbstractModule<C extends IsModuleContext>
     implements IsModule<C> {
 
-  protected Router              router;
-  protected IsContext           applicationContext;
-  protected C                   moduleContext;
-  protected SimpleEventBus      eventBus;
+  protected Router         router;
+  protected IsMainContext  applicationContext;
+  protected C              moduleContext;
+  protected SimpleEventBus eventBus;
+
   protected AlwaysLoadComposite alwaysLoadComposite;
 
   public AbstractModule(Router router,
-                        IsContext applicationContext,
+                        IsMainContext applicationContext,
                         SimpleEventBus eventBus,
                         AlwaysLoadComposite alwaysLoadComposite) {
     super();
@@ -51,7 +52,7 @@ public abstract class AbstractModule<C extends IsModuleContext>
 
   private void setUpContext() {
     this.moduleContext = createModuleContext();
-    this.moduleContext.setApplicationContext(applicationContext.getContext());
+    this.moduleContext.setApplicationContext(this.applicationContext.getContext());
   }
 
   @Override

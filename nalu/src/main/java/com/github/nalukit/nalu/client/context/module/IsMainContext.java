@@ -14,36 +14,22 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.context;
+package com.github.nalukit.nalu.client.context.module;
 
-import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+import com.github.nalukit.nalu.client.context.Context;
+import com.github.nalukit.nalu.client.context.IsContext;
 
 /**
- * Marks a class as Nalu module context.
+ * Marks a class as Nalu application context used inside a multi module project.
  */
-public interface IsModuleContext
+public interface IsMainContext
     extends IsContext {
-
-  /**
-   * Gets the application context
-   *
-   * @return applicaitopn context
-   */
-  Context getContext();
 
   /**
    * Gets the application context
    *
    * @return application context
    */
-  Context getLocalContext();
-
-  /**
-   * Sets the application context
-   *
-   * @param context application context
-   */
-  @NaluInternalUse
-  void setApplicationContext(Context context);
+  Context getContext();
 
 }

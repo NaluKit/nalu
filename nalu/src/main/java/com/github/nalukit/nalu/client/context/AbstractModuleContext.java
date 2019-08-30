@@ -1,5 +1,6 @@
 package com.github.nalukit.nalu.client.context;
 
+import com.github.nalukit.nalu.client.context.module.IsModuleContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 /**
@@ -12,9 +13,9 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 public abstract class AbstractModuleContext
     implements IsModuleContext {
 
-  /* application context - available in main- and sub-modules */
+  /* context - available in main- and sub-modules */
   private Context context;
-  /* application context - available only in sub-module */
+  /* context - available only in sub-module */
   private Context localContext;
 
   public AbstractModuleContext() {

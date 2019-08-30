@@ -18,7 +18,7 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
-import com.github.nalukit.nalu.client.context.IsContext;
+import com.github.nalukit.nalu.client.context.module.IsMainContext;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
@@ -94,7 +94,7 @@ public class ModuleGenerator {
                                        .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
                                                                            "router")
                                                                   .build())
-                                       .addParameter(ParameterSpec.builder(ClassName.get(IsContext.class),
+                                       .addParameter(ParameterSpec.builder(ClassName.get(IsMainContext.class),
                                                                            "context")
                                                                   .build())
                                        .addParameter(ParameterSpec.builder(ClassName.get(SimpleEventBus.class),
