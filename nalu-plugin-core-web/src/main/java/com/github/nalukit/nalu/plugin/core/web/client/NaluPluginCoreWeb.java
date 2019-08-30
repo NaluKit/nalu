@@ -41,13 +41,10 @@ public class NaluPluginCoreWeb {
    *
    * @param newUrl new url to log
    */
-  public static void logNewUrl(String newUrl) {
-    StringBuilder sb = new StringBuilder();
-    sb.append("Router: new url ->>")
-      .append(newUrl)
-      .append("<<");
+  private static void logNewUrl(String newUrl) {
+    String sb = "Router: new url ->>" + newUrl + "<<";
     ClientLogger.get()
-                .logSimple(sb.toString(),
+                .logSimple(sb,
                            0);
   }
 
@@ -172,9 +169,9 @@ public class NaluPluginCoreWeb {
                          .getContextPath()
                          .length() > 0) {
         newRouteToken = newRouteToken +
-                        PropertyFactory.get()
-                                       .getContextPath() +
-                        "/";
+            PropertyFactory.get()
+                           .getContextPath() +
+            "/";
       }
       newRouteToken = newRouteToken + newRoute;
     }
@@ -190,31 +187,6 @@ public class NaluPluginCoreWeb {
                                            newRouteToken);
       }
     }
-  }
-
-  /**
-   * checks weather the current browser is IE or not.
-   * <p>
-   * IE 10
-   * ua = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)';
-   * <p>
-   * IE 11
-   * ua = 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
-   * <p>
-   * Edge 12 (Spartan)
-   * ua = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0';
-   * <p>
-   * Edge 13
-   * ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586';
-   *
-   * @return true: is IE
-   */
-  public static boolean detectIE11() {
-    String ua = DomGlobal.window.navigator.userAgent;
-    if (ua.indexOf("MSIE ") > 0) {
-      return true;
-    }
-    return ua.indexOf("Trident/") > 0;
   }
 
   public static void addPopStateHandler(RouteChangeHandler handler,

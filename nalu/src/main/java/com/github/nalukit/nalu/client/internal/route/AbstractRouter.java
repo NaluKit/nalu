@@ -531,7 +531,9 @@ abstract class AbstractRouter
                                                                               .toArray(new String[hashResult.getParameterValues()
                                                                                                             .size()]))) {
                 CompositeInstance compositeInstance = CompositeFactory.get()
-                                                                      .getComposite(s.getComposite(),
+                                                                      .getComposite(controllerInstance.getControllerClassName(),
+                                                                                    s.getComposite(),
+                                                                                    s.isScopeGlobal(),
                                                                                     hashResult.getParameterValues()
                                                                                               .toArray(new String[0]));
                 if (compositeInstance == null) {
@@ -597,6 +599,44 @@ abstract class AbstractRouter
                                                                                        .getCanonicalName());
           }
         }
+      } else {
+        // in case we have a cached controller, we need to look for global composites
+        // and append them!
+        List<CompositeControllerReference> globalComposite = compositeForController.stream()
+                                                                                   .filter(CompositeControllerReference::isScopeGlobal)
+                                                                                   .collect(Collectors.toList());
+        for (CompositeControllerReference compositeControllerReference : globalComposite) {
+          if (ControllerCompositeConditionFactory.get()
+                                                 .loadComposite(controllerInstance.getControllerClassName(),
+                                                                compositeControllerReference.getComposite(),
+                                                                hashResult.getRoute(),
+                                                                hashResult.getParameterValues()
+                                                                          .toArray(new String[hashResult.getParameterValues()
+                                                                                                        .size()]))) {
+            try {
+              CompositeInstance compositeInstance = CompositeFactory.get()
+                                                                    .getComposite(controllerInstance.getControllerClassName(),
+                                                                                  compositeControllerReference.getComposite(),
+                                                                                  true,
+                                                                                  hashResult.getParameterValues()
+                                                                                            .toArray(new String[0]));
+              this.append(compositeControllerReference.getSelector(),
+                          compositeInstance.getComposite());
+              RouterLogger.logCachedControllerOnAttachedGlobalCompositeController(controllerInstance.getController()
+                                                                                                    .getClass()
+                                                                                                    .getCanonicalName(),
+                                                                                  compositeControllerReference.getComposite());
+            } catch (RoutingInterceptionException e) {
+              RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
+                                                          e.getRoute(),
+                                                          e.getParameter());
+              this.route(e.getRoute(),
+                         true,
+                         e.getParameter());
+              return;
+            }
+          }
+        }
       }
       // call the onAttach method (for the component).
       // we will do it in both cases, cached and not cached!
@@ -612,6 +652,7 @@ abstract class AbstractRouter
       });
       // in case the controller is cached, we call only activate  ...
       if (controllerInstance.isChached()) {
+        // let's call active for all related composite
         compositeControllers.forEach(s -> {
           s.activate();
           RouterLogger.logCompositeComntrollerActivateMethodCalled(s.getClass()
@@ -628,6 +669,12 @@ abstract class AbstractRouter
             s.start();
             RouterLogger.logCompositeComntrollerStartMethodCalled(s.getClass()
                                                                    .getCanonicalName());
+            // in case we are cached globally we need to set cached
+            // to true after the first time the
+            // composite is created
+            if (s.isCachedGlobal()) {
+              s.setCached(true);
+            }
           }
           s.activate();
           RouterLogger.logCompositeComntrollerActivateMethodCalled(s.getClass()

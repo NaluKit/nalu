@@ -26,14 +26,18 @@ public class CompositeControllerReference {
 
   private String selector;
 
+  private boolean scopeGlobal;
+
   public CompositeControllerReference(String controller,
                                       String compositeName,
                                       String composite,
-                                      String selector) {
+                                      String selector,
+                                      boolean scopeGlobal) {
     this.controller = controller;
     this.compositeName = compositeName;
     this.composite = composite;
     this.selector = selector;
+    this.scopeGlobal = scopeGlobal;
   }
 
   public String getController() {
@@ -50,6 +54,10 @@ public class CompositeControllerReference {
 
   public String getSelector() {
     return selector;
+  }
+
+  public boolean isScopeGlobal() {
+    return scopeGlobal;
   }
 
 }

@@ -101,7 +101,7 @@ public class NaluProcessor
     this.stopwatch = Stopwatch.createStarted();
     setUp();
     this.processorUtils.createNoteMessage("Nalu-Processor started ...");
-    this.processorUtils.createNoteMessage("Nalu-Processor version >>" + ProcessorVersion.PROCESSOR_VERSION + "<<");
+    this.processorUtils.createNoteMessage("Nalu-Processor version >>" + ProcessorConstants.PROCESSOR_VERSION + "<<");
   }
 
   @Override

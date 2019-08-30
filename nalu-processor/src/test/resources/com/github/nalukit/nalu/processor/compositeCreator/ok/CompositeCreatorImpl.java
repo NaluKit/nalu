@@ -9,6 +9,7 @@ import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
 import com.github.nalukit.nalu.client.internal.application.IsCompositeCreator;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import java.lang.Object;
 import java.lang.String;
 import java.lang.StringBuilder;
 import org.gwtproject.event.shared.SimpleEventBus;
@@ -18,16 +19,18 @@ public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockCon
     super(router, context, eventBus);
   }
 
-  public CompositeInstance create(String... parms) throws RoutingInterceptionException {
+  public CompositeInstance create(String parentControllerClassName) throws
+                                                                    RoutingInterceptionException {
     StringBuilder sb01 = new StringBuilder();
     CompositeInstance compositeInstance = new CompositeInstance();
     compositeInstance.setCompositeClassName("com.github.nalukit.nalu.processor.compositeCreator.ok.Composite");
-    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.get().getCompositeFormStore("com.github.nalukit.nalu.processor.compositeCreator.ok.Composite");
+    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.get().getCompositeFormStore(parentControllerClassName, "com.github.nalukit.nalu.processor.compositeCreator.ok.Composite");
     if (storedComposite == null) {
       sb01.append("composite >>com.github.nalukit.nalu.processor.compositeCreator.ok.Composite<< --> will be created");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
       Composite composite = new Composite();
       compositeInstance.setComposite(composite);
+      composite.setParentClassName(parentControllerClassName);
       composite.setCached(false);
       composite.setContext(context);
       composite.setEventBus(eventBus);
@@ -65,5 +68,10 @@ public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockCon
       compositeInstance.getComposite().setCached(true);
     }
     return compositeInstance;
+  }
+
+  public void setParameter(Object object, String... parms) throws RoutingInterceptionException {
+    Composite composite = (Composite) object;
+    StringBuilder sb01 = new StringBuilder();
   }
 }

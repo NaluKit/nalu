@@ -20,10 +20,11 @@ import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.NoApplicationLoader;
+import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
-import com.github.nalukit.nalu.processor.ProcessorVersion;
 import com.github.nalukit.nalu.processor.model.MetaModel;
+import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
 import com.squareup.javapoet.*;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -66,6 +67,8 @@ public class ApplicationGenerator {
     // generate code
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(metaModel.getApplication()
                                                                .getSimpleName() + ApplicationGenerator.IMPL_NAME)
+                                        .addJavadoc(BuildWithNaluCommentProvider.get()
+                                                                                .getGeneratedComment())
                                         .superclass(ParameterizedTypeName.get(ClassName.get(AbstractApplication.class),
                                                                               metaModel.getContext()
                                                                                        .getTypeName()))
@@ -97,7 +100,7 @@ public class ApplicationGenerator {
                                                ClassName.get(StringBuilder.class),
                                                ClassName.get(StringBuilder.class))
                                  .addStatement("sb01.append(\"Nalu processor version  >>$L<< used to generate this source\")",
-                                               ProcessorVersion.PROCESSOR_VERSION)
+                                               ProcessorConstants.PROCESSOR_VERSION)
                                  .addStatement("$T.get().logDetailed(sb01.toString(), 0)",
                                                ClassName.get(ClientLogger.class))
                                  .addStatement("$T.get().logDetailed(\"=================================================================================\", 0)",

@@ -14,18 +14,24 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.internal.application;
+package com.github.nalukit.nalu.client.internal.annotation;
 
-import com.github.nalukit.nalu.client.context.IsContext;
-import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
- * Default context used by the NoApplicationLoader class
+ * Annotation to mark classes, which will used by the framework.
+ * <br>
+ * <p>Do not use classes annotated with NaluInternalUse! This
+ * classes can change without any announcement.</p>
  *
- * <b>DO NOT USE THIS CLASS</b>
+ * @author Frank Hossfeld
  */
-@NaluInternalUse
-public class DefaultContext
-    implements IsContext {
+@Retention(RetentionPolicy.RUNTIME)
+public @interface BuildWithNalu {
+
+  String version();
+
+  String buildTime();
 
 }
