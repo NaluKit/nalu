@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.application.annotation;
 
 import com.github.nalukit.nalu.client.application.AbstractApplicationLoader;
 import com.github.nalukit.nalu.client.context.IsContext;
+import com.github.nalukit.nalu.client.internal.NaluConstants;
 import com.github.nalukit.nalu.client.internal.application.NoApplicationLoader;
 
 import java.lang.annotation.Retention;
@@ -72,10 +73,13 @@ public @interface Application {
 
   /**
    * Error route used by Nalu to display errors (detected by Nalu - normally routing errors)
+   * <b>This attribute is optional. In case it is not set, Nalu will fire an error event.
+   * In this case, it is up to the develpoer to display error messages. Nalu will only fire the
+   * {@link com.github.nalukit.nalu.client.event.NaluErrorEvent}</b>-event.
    *
-   * @return return the error route
+   * @return return the error route or a value to indicate, that the error route is not used.
    */
-  String routeError();
+  String routeError() default NaluConstants.NO_ROUTE;
 
   /**
    * This attribute - if <b>true</b> will tell Nalu to use history.

@@ -24,6 +24,7 @@ import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
+import com.github.nalukit.nalu.client.internal.NaluConstants;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.*;
 import com.github.nalukit.nalu.client.internal.validation.RouteValidation;
@@ -40,8 +41,6 @@ import java.util.List;
 @NaluInternalUse
 public abstract class AbstractApplication<C extends IsContext>
     implements IsApplication {
-
-  private final static String NO_ROUTE = "WhenShallWeThreeMeetAgainInThunderLightningOrInRain";
 
   /* start route */
   protected String                             startRoute;
@@ -130,7 +129,7 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl(),
                                  this.isStayOnSide());
-    this.router.setRouteError(AbstractApplication.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
+    this.router.setRouteError(NaluConstants.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
     this.router.setEventBus(this.eventBus);
     // initialize plugin
     this.plugin.initialize(this.shellConfiguration);
@@ -170,11 +169,13 @@ public abstract class AbstractApplication<C extends IsContext>
       this.plugin.alert("startRoute not valid - application stopped!");
       return;
     }
-    if (!RouteValidation.validateRouteError(this.shellConfiguration,
-                                            this.routerConfiguration,
-                                            this.errorRoute)) {
-      this.plugin.alert("routeError not valid - application stopped!");
-      return;
+    if (!NaluConstants.NO_ROUTE.equals(this.errorRoute)) {
+      if (!RouteValidation.validateRouteError(this.shellConfiguration,
+                                              this.routerConfiguration,
+                                              this.errorRoute)) {
+        this.plugin.alert("routeError not valid - application stopped!");
+        return;
+      }
     }
     // handling application loading
     IsApplicationLoader<C> applicationLoader = getApplicationLoader();
@@ -245,6 +246,8 @@ public abstract class AbstractApplication<C extends IsContext>
       try {
         routeResult = this.router.parse(hashOnStart);
       } catch (RouterException e) {
+        this.router.handleRouterException(hashOnStart,
+                                          e);
         return;
       }
       this.router.route(routeResult.getRoute(),

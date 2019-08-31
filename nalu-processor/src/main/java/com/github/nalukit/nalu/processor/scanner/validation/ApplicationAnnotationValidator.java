@@ -17,6 +17,7 @@ package com.github.nalukit.nalu.processor.scanner.validation;
 
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
+import com.github.nalukit.nalu.client.internal.NaluConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 
@@ -103,9 +104,11 @@ public class ApplicationAnnotationValidator {
                                 .startsWith("/")) {
         throw new ProcessorException("Nalu-Processor:" + "@Application - startRoute attribute muss begin with a '/'");
       }
-      if (!applicationAnnotation.routeError()
-                                .startsWith("/")) {
-        throw new ProcessorException("Nalu-Processor:" + "@Application - routeError attribute muss begin with a '/'");
+      if (!NaluConstants.NO_ROUTE.equals(applicationAnnotation.routeError())) {
+        if (!applicationAnnotation.routeError()
+                                  .startsWith("/")) {
+          throw new ProcessorException("Nalu-Processor:" + "@Application - routeError attribute muss begin with a '/'");
+        }
       }
     } else {
       throw new ProcessorException("Nalu-Processor:" + "@Application can only be used on a type (interface)");

@@ -19,6 +19,7 @@ package com.github.nalukit.nalu.client.internal.route;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 class RouterLogger {
@@ -41,7 +42,10 @@ class RouterLogger {
 
   static String logNoMatchingRoute(String route,
                                    String routeError) {
-    String sb = "no matching controller for route >>" + route + "<< found --> use configurated route: >" + routeError + "<<";
+    String sb = "no matching controller for route >>" + route + "<< found ";
+    if (!Objects.isNull(routeError)) {
+      sb += "--> use configurated route: >" + routeError + "<<";
+    }
     logSimple(sb,
               3);
     return sb;

@@ -15,6 +15,7 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
+import com.github.nalukit.nalu.client.internal.NaluConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
@@ -94,6 +95,10 @@ public class ConsistenceValidator {
 
   private void validateErrorRoute()
       throws ProcessorException {
+    // no operation, in case error route is not used!
+    if (NaluConstants.NO_ROUTE.equals(metaModel.getRouteError())) {
+      return;
+    }
     if (!Objects.isNull(metaModel.getApplication())) {
       Optional<String> optionalShell = this.metaModel.getShells()
                                                      .stream()
@@ -101,9 +106,7 @@ public class ConsistenceValidator {
                                                      .filter(s -> s.equals(this.metaModel.getShellOfErrorRoute()))
                                                      .findFirst();
       if (!optionalShell.isPresent()) {
-        if (this.metaModel.getPlugins()
-                          .size() > 0 ||
-            this.metaModel.getModules()
+        if (this.metaModel.getModules()
                           .size() > 0) {
           this.processingEnvironment.getMessager()
                                     .printMessage(Diagnostic.Kind.NOTE,
@@ -118,9 +121,7 @@ public class ConsistenceValidator {
                                                               .filter(m -> m.match(this.metaModel.getRouteError()))
                                                               .findAny();
       if (!optionalRoute.isPresent()) {
-        if (this.metaModel.getPlugins()
-                          .size() > 0 ||
-            this.metaModel.getModules()
+        if (this.metaModel.getModules()
                           .size() > 0) {
           this.processingEnvironment.getMessager()
                                     .printMessage(Diagnostic.Kind.NOTE,
@@ -203,9 +204,7 @@ public class ConsistenceValidator {
                                                      .filter(s -> s.equals(this.metaModel.getShellOfStartRoute()))
                                                      .findFirst();
       if (!optionalShell.isPresent()) {
-        if (this.metaModel.getPlugins()
-                          .size() > 0 ||
-            this.metaModel.getModules()
+        if (this.metaModel.getModules()
                           .size() > 0) {
           this.processingEnvironment.getMessager()
                                     .printMessage(Diagnostic.Kind.NOTE,
@@ -220,9 +219,7 @@ public class ConsistenceValidator {
                                                               .filter(m -> m.match(this.metaModel.getStartRoute()))
                                                               .findAny();
       if (!optionalRoute.isPresent()) {
-        if (this.metaModel.getPlugins()
-                          .size() > 0 ||
-            this.metaModel.getModules()
+        if (this.metaModel.getModules()
                           .size() > 0) {
           this.processingEnvironment.getMessager()
                                     .printMessage(Diagnostic.Kind.NOTE,

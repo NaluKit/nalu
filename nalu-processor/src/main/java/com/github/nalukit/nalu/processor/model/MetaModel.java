@@ -32,9 +32,6 @@ public class MetaModel {
 
   private List<ClassNameModel> modules;
 
-  @Deprecated
-  private List<ClassNameModel> plugins;
-
   private boolean usingHash;
 
   private boolean usingColonForParametersInUrl;
@@ -84,7 +81,6 @@ public class MetaModel {
 
   public MetaModel() {
     this.modules = new ArrayList<>();
-    this.plugins = new ArrayList<>();
     this.shells = new ArrayList<>();
     this.controllers = new ArrayList<>();
     this.popUpControllers = new ArrayList<>();
@@ -245,16 +241,6 @@ public class MetaModel {
 
   public void setModules(List<ClassNameModel> modules) {
     this.modules = modules;
-  }
-
-  @Deprecated
-  public List<ClassNameModel> getPlugins() {
-    return plugins;
-  }
-
-  @Deprecated
-  public void setPlugins(List<ClassNameModel> plugins) {
-    this.plugins = plugins;
   }
 
   public boolean isUsingHash() {

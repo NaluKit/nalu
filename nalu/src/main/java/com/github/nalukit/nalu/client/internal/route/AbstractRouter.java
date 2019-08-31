@@ -19,6 +19,9 @@ package com.github.nalukit.nalu.client.internal.route;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.IsShell;
+import com.github.nalukit.nalu.client.event.NaluErrorEvent;
+import com.github.nalukit.nalu.client.event.RouterStateEvent;
+import com.github.nalukit.nalu.client.event.RouterStateEvent.RouterState;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.filter.IsFilter;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
@@ -27,8 +30,6 @@ import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
-import com.github.nalukit.nalu.client.event.RouterStateEvent;
-import com.github.nalukit.nalu.client.event.RouterStateEvent.RouterState;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -192,6 +193,15 @@ abstract class AbstractRouter
   }
 
   /**
+   * returns whether a routeError should be used or not!
+   *
+   * @return true routeError is used otherwise fire error event!
+   */
+  private boolean isUsingRouteError() {
+    return !Objects.isNull(this.routeError);
+  }
+
+  /**
    * Sets the error route. (Mostly done by the framework)
    *
    * @param routeError route used by Nalu in case of a routing error
@@ -270,18 +280,25 @@ abstract class AbstractRouter
       // fire Router StateEvent
       this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
                                 hash);
-      // loop discovered .... -> show message
+      // loop discovered .... -> create message
       String message = RouterLogger.logLoopDetected(this.loopDetectionList.get(0));
       // check, if there is a loop containing the error route
-      if (this.loopDetectionList.contains(pimpUpHashForLoopDetection(this.routeError))) {
+      if (this.isUsingRouteError() && this.loopDetectionList.contains(pimpUpHashForLoopDetection(this.routeError))) {
         // YES!! -> just use the alert feature of the plugin
         this.plugin.alert(message);
       } else {
-        // NO!! -> route to error site ....
-        this.naluErrorMessage = new NaluErrorMessage(AbstractRouter.NALU_ERROR_TYPE_LOOP_DETECTED,
-                                                     message);
-        this.loopDetectionList.add(pimpUpHashForLoopDetection(this.routeError));
-        this.route(this.routeError);
+        if (this.isUsingRouteError()) {
+          // NO!! -> route to error site ....
+          this.naluErrorMessage = new NaluErrorMessage(AbstractRouter.NALU_ERROR_TYPE_LOOP_DETECTED,
+                                                       message);
+          this.loopDetectionList.add(pimpUpHashForLoopDetection(this.routeError));
+          this.route(this.routeError);
+        } else {
+          // Fire error event ....
+          this.eventBus.fireEvent(NaluErrorEvent.create()
+                                                .message(message)
+                                                .route(this.loopDetectionList.get(0)));
+        }
       }
       // clear loop detection list ...
       this.loopDetectionList.clear();
@@ -295,29 +312,8 @@ abstract class AbstractRouter
     try {
       routeResult = this.parse(hash);
     } catch (RouterException e) {
-      this.naluErrorMessage = new NaluErrorMessage(AbstractRouter.NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE,
-                                                   RouterLogger.logNoMatchingRoute(hash,
-                                                                                   this.routeError));
-      if (!Objects.isNull(this.routeError)) {
-        // fire Router StateEvent
-        this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
-                                  hash);
-        // loop discovered .... -> show message
-        String message = RouterLogger.logLoopDetected(this.loopDetectionList.get(0));
-        // check, if there is a loop containing the error route
-        if (this.loopDetectionList.contains(pimpUpHashForLoopDetection(this.routeError))) {
-          // YES!! -> just use the alert feature of the plugin
-          this.plugin.alert(message);
-          return;
-        }
-        RouterLogger.logUseErrorRoute(this.routeError);
-        this.loopDetectionList.add(pimpUpHashForLoopDetection(hash));
-        this.route(this.routeError,
-                   true);
-      } else {
-        // should never be seen!
-        this.plugin.alert("No error Route defeined");
-      }
+      this.handleRouterException(hash,
+                                 e);
       return;
     }
     // First we have to check if there is a filter
@@ -412,9 +408,15 @@ abstract class AbstractRouter
 
                                @Override
                                public void onShellNotFound() {
-                                 RouterLogger.logUseErrorRoute(routeError);
-                                 route(routeError,
-                                       true);
+                                 if (isUsingRouteError()) {
+                                   RouterLogger.logUseErrorRoute(routeError);
+                                   route(routeError,
+                                         true);
+                                 } else {
+                                   eventBus.fireEvent(NaluErrorEvent.create()
+                                                                    .message("no shell found for route: >>" + shellConfig.getRoute() + "<<")
+                                                                    .route(shellConfig.getRoute()));
+                                 }
                                }
 
                                @Override
@@ -433,6 +435,39 @@ abstract class AbstractRouter
     } else {
       this.plugin.route("#" + this.lastExecutedHash,
                         false);
+    }
+  }
+
+  public void handleRouterException(String hash,
+                                    RouterException e) {
+    // fire Router StateEvent
+    this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
+                              hash);
+    // handle router exception ...
+    this.naluErrorMessage = new NaluErrorMessage(AbstractRouter.NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE,
+                                                 RouterLogger.logNoMatchingRoute(hash,
+                                                                                 this.routeError));
+    if (this.isUsingRouteError()) {
+      // fire Router StateEvent
+      this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
+                                hash);
+      // loop discovered .... -> show message
+      String message = RouterLogger.logLoopDetected(this.loopDetectionList.get(0));
+      // check, if there is a loop containing the error route
+      if (this.loopDetectionList.contains(pimpUpHashForLoopDetection(this.routeError))) {
+        // YES!! -> just use the alert feature of the plugin
+        this.plugin.alert(message);
+        return;
+      }
+      RouterLogger.logUseErrorRoute(this.routeError);
+      this.loopDetectionList.add(pimpUpHashForLoopDetection(hash));
+      this.route(this.routeError,
+                 true);
+    } else {
+      // Fire error event ....
+      this.eventBus.fireEvent(NaluErrorEvent.create()
+                                            .message(this.naluErrorMessage.getErrorMessage())
+                                            .route(hash));
     }
   }
 
@@ -488,13 +523,14 @@ abstract class AbstractRouter
     if (Objects.isNull(controllerInstance.getController())) {
       this.naluErrorMessage = new NaluErrorMessage(AbstractRouter.NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE,
                                                    RouterLogger.logNoControllerFoundForHash(hash));
-      if (!Objects.isNull(this.routeError)) {
+      if (isUsingRouteError()) {
         RouterLogger.logUseErrorRoute(this.routeError);
         this.route(this.routeError,
                    true);
       } else {
-        // should never be seen!
-        this.plugin.alert("Nalu: ups ... not found!");
+        eventBus.fireEvent(NaluErrorEvent.create()
+                                         .message("no controller instance found for route >>" + hashResult.getRoute() + "<<")
+                                         .route(hashResult.getRoute()));
       }
     } else {
       // inject the router instance into the controller!

@@ -19,9 +19,9 @@ import java.util.Map;
  * correct class when reading teh parameters.
  */
 public class NaluApplicationEvent
-    extends Event<NaluApplicationEvent.NaluMessageHandler> {
+    extends Event<NaluApplicationEvent.NaluApplicationEventHandler> {
 
-  public static Type<NaluApplicationEvent.NaluMessageHandler> TYPE = new Type<>();
+  public static Type<NaluApplicationEvent.NaluApplicationEventHandler> TYPE = new Type<>();
 
   private String              event;
   private Map<String, Object> store;
@@ -89,18 +89,18 @@ public class NaluApplicationEvent
   }
 
   @Override
-  public Type<NaluApplicationEvent.NaluMessageHandler> getAssociatedType() {
+  public Type<NaluApplicationEvent.NaluApplicationEventHandler> getAssociatedType() {
     return TYPE;
   }
 
   @Override
-  protected void dispatch(NaluApplicationEvent.NaluMessageHandler handler) {
-    handler.onNaluMessage(this);
+  protected void dispatch(NaluApplicationEvent.NaluApplicationEventHandler handler) {
+    handler.onNaluApplicationEvent(this);
   }
 
-  public interface NaluMessageHandler {
+  public interface NaluApplicationEventHandler {
 
-    void onNaluMessage(NaluApplicationEvent event);
+    void onNaluApplicationEvent(NaluApplicationEvent event);
 
   }
 

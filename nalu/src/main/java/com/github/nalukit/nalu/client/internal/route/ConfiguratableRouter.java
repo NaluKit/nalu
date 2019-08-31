@@ -23,6 +23,15 @@ public interface ConfiguratableRouter
     extends Router {
 
   /**
+   * handle router exception.
+   *
+   * @param hash hash on start
+   * @param e the RouterException
+   */
+  void handleRouterException(String hash,
+                             RouterException e);
+
+  /**
    * Parse the route!
    *
    * @param route the route to be parsed ...
