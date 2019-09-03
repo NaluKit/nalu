@@ -28,7 +28,7 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>1.3.1<< used to generate this source");
+    sb01.append("Nalu processor version  >>1.3.2<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
@@ -104,7 +104,7 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
     StringBuilder sb01 = new StringBuilder();
     sb01.append("load composite references");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
-    this.compositeControllerReferences.add(new CompositeControllerReference("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02", "testComposite", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite.CompositeController02", "selector"));
+    this.compositeControllerReferences.add(new CompositeControllerReference("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02", "testComposite", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite.CompositeController02", "selector", false));
     sb01 = new StringBuilder();
     sb01.append("register composite >>testComposite<< for controller >>com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02<< in selector >>selector<<");
     ClientLogger.get().logDetailed(sb01.toString(), 3);
@@ -151,5 +151,4 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
   public boolean isStayOnSide() {
     return false;
   }
-
 }

@@ -3,10 +3,10 @@ package com.github.nalukit.nalu.client;
 import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.simpleapplication01.client.Application;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,8 +23,8 @@ public class RoutingTest {
 
   private IsPluginJUnit plugin;
 
-  @Before
-  public void before() {
+  @BeforeEach
+  void before() {
     // create plugin
     this.plugin = new IsPluginJUnit() {
 
@@ -46,9 +46,9 @@ public class RoutingTest {
       @Override
       public boolean attach(String selector,
                             Object asElement) {
-        Assert.assertTrue("attach-method: Selector or object mismatch!",
-                          compareHandler.compare(selector,
-                                                 (String) asElement));
+        Assertions.assertTrue(compareHandler.compare(selector,
+                                                     (String) asElement),
+                              "attach-method: Selector or object mismatch!");
         return this.attached;
       }
 
@@ -80,9 +80,9 @@ public class RoutingTest {
       @Override
       public void route(String newRoute,
                         boolean replace) {
-        Assert.assertTrue("route mismatch!",
-                          routeHandler.compare(newRoute,
-                                               replace));
+        Assertions.assertTrue(routeHandler.compare(newRoute,
+                                                   replace),
+                              "route mismatch!");
       }
 
       @Override
@@ -107,8 +107,8 @@ public class RoutingTest {
     };
   }
 
-  @After
-  public void after() {
+  @AfterEach
+  void after() {
     this.application = null;
     this.plugin = null;
   }
@@ -117,18 +117,18 @@ public class RoutingTest {
    * Test application start with no book mark
    */
   @Test
-  public void testStartWithoutBookmark() {
+  void testStartWithoutBookmark() {
     this.plugin.addCompareHandler(this::compare);
     this.plugin.addRouteHandler((newRoute, replace) -> {
       switch (newRoute) {
-        case "":
-          return !replace;
-        case "footer":
-          return !replace;
-        case "search":
-          return !replace;
-        default:
-          return false;
+      case "":
+        return !replace;
+      case "footer":
+        return !replace;
+      case "search":
+        return !replace;
+      default:
+        return false;
       }
     });
     this.application = new Application();
@@ -138,14 +138,14 @@ public class RoutingTest {
   private boolean compare(String selector,
                           String object) {
     switch (selector) {
-      case "content":
-        return "DetailForm".equals(object) || "ListView".equals(object) || "SearchForm".equals(object);
-      case "navigation":
-        return "navigation".equals(object);
-      case "footer":
-        return "footer".equals(object);
-      default:
-        return false;
+    case "content":
+      return "DetailForm".equals(object) || "ListView".equals(object) || "SearchForm".equals(object);
+    case "navigation":
+      return "navigation".equals(object);
+    case "footer":
+      return "footer".equals(object);
+    default:
+      return false;
     }
   }
 

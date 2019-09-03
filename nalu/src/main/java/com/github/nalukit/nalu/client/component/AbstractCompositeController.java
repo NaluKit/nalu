@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.application.IsContext;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public abstract class AbstractCompositeController<C extends IsContext, V extends IsCompositeComponent<?, W>, W>
     extends AbstractController<C>
@@ -25,19 +26,57 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
                IsCompositeComponent.Controller {
 
   /* component of the controller */
+  private   String               parentClassName;
+  /* component of the controller */
   protected V                    component;
   /* list of registered handlers */
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
   /* flag, if the controller is cached or not */
   private   boolean              cached;
+  /* flag, if the controller is cached or not in Scope GLOBAL! */
+  private   boolean              cachedGlobal;
 
   public AbstractCompositeController() {
     super();
   }
 
+  /**
+   * Returns the root element which will be attached to the DOM
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   *
+   * @return root element
+   */
+  @NaluInternalUse
   @Override
   public W asElement() {
     return this.component.asElement();
+  }
+
+  /**
+   * Gets the parent controller associated with this instance of the composite
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   *
+   * @return the name of the class using this composite
+   */
+  @NaluInternalUse
+  @Override
+  public String getParentClassName() {
+    return this.parentClassName;
+  }
+
+  /**
+   * Sets the parent controller associated with this instance of the composite
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   *
+   * @param parentClassName the name of the class using this composite
+   */
+  @NaluInternalUse
+  @Override
+  public void setParentClassName(String parentClassName) {
+    this.parentClassName = parentClassName;
   }
 
   /**
@@ -162,6 +201,25 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
    */
   public void setCached(boolean cached) {
     this.cached = cached;
+  }
+
+  /**
+   * Indicates, if the controller is newly created or not
+   *
+   * @return true: the controller is reused, false: the controller is newly created
+   */
+  public boolean isCachedGlobal() {
+    return cachedGlobal;
+  }
+
+  /**
+   * Sets the value, if the controller is newly created or cached!
+   * <b>This field is used by Nalu! Setting the value can lead to unexpected behavior!</b>
+   *
+   * @param cachedGlobal true: the controller is reused, false: the controller is newly created
+   */
+  public void setCachedGlobal(boolean cachedGlobal) {
+    this.cachedGlobal = cachedGlobal;
   }
 
 }

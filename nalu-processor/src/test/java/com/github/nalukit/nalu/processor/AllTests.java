@@ -20,25 +20,26 @@ import com.github.nalukit.nalu.processor.model.MetaModelTest;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModelTest;
 import com.github.nalukit.nalu.processor.test.*;
 import com.github.nalukit.nalu.processor.test.model.intern.ClassNameModelTest;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.platform.suite.api.SelectClasses;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ ApplicationTest.class,
-                      ClassNameModelTest.class,
-                      CompositeCreatorTest.class,
-                      CompositeTest.class,
-                      ConsistenceTest.class,
-                      ControllerCreatorTest.class,
-                      ControllerModelTest.class,
-                      ControllerTest.class,
-                      DebugTest.class,
-                      FiltersTest.class,
-                      HandlerTest.class,
-                      MetaModelTest.class,
-                      PopUpControllerCreatorTest.class,
-                      ShellCreatorTest.class,
-                      TrackerTest.class })
+@RunWith(JUnitPlatform.class)
+@SelectClasses({ ApplicationTest.class,
+                 ClassNameModelTest.class,
+                 CompositeCreatorTest.class,
+                 CompositeTest.class,
+                 ConsistenceTest.class,
+                 ControllerCreatorTest.class,
+                 ControllerModelTest.class,
+                 ControllerTest.class,
+                 DebugTest.class,
+                 FiltersTest.class,
+                 HandlerTest.class,
+                 MetaModelTest.class,
+                 PopUpControllerCreatorTest.class,
+                 ShellCreatorTest.class,
+                 TrackerTest.class })
 public class AllTests {
-
 }

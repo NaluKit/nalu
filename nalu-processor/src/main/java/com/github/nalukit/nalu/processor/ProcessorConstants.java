@@ -16,22 +16,19 @@
 
 package com.github.nalukit.nalu.processor;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ProcessorConstants {
 
-  public final static String META_DATA = "MetaData";
-
-  public final static String META_INF = "META-INF";
-
+  public final static String META_DATA              = "MetaData";
+  public final static String META_INF               = "META-INF";
   public final static String NALU_REACT_FOLDER_NAME = "nalu-route";
-
-  public final static String PARAMETER_DELIMITER = "_pPp_";
-
-  public final static String TYPE_DELIMITER = "_tTt_";
-
-  public final static String PROPERTIES_POSTFIX = ".properties";
-
-  public final static String CREATOR_IMPL = "CreatorImpl";
-
-  public final static String PLUGIN_IMPL = "PluginImpl";
-
+  public final static String PARAMETER_DELIMITER    = "_pPp_";
+  public final static String TYPE_DELIMITER         = "_tTt_";
+  public final static String PROPERTIES_POSTFIX     = ".properties";
+  public final static String CREATOR_IMPL           = "CreatorImpl";
+  public final static String PLUGIN_IMPL            = "PluginImpl";
+  public final static String PROCESSOR_VERSION      = "1.3.2";
+  public final static String BUILD_TIME             = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(new Date(System.currentTimeMillis()));
 }

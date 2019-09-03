@@ -62,15 +62,15 @@ abstract class AbstractRouter
   // hash of last successful routing
   private String                                            lastExecutedHash = "";
   // last added shell - used, to check if the shell needs an shell replacement
-  private String         lastAddedShell;
+  private String                                            lastAddedShell;
   // instance of the current shell
-  private IsShell        shell;
+  private IsShell                                           shell;
   // list of routes used for handling the current route - used to detect loops
-  private List<String>   loopDetectionList;
+  private List<String>                                      loopDetectionList;
   // the tracker: if not null, track the users routing
-  private IsTracker      tracker;
+  private IsTracker                                         tracker;
   // teh applicaiton eventbus
-  private SimpleEventBus eventBus;
+  private SimpleEventBus                                    eventBus;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
                  ShellConfiguration shellConfiguration,
@@ -342,7 +342,9 @@ abstract class AbstractRouter
     // check whether or not the routing is possible ...
     if (this.confirmRouting(routeConfigurations)) {
       // call stop for all elements
-      this.stopController(routeConfigurations);
+      this.stopController(routeConfigurations,
+                          !routeResult.getShell()
+                                      .equals(this.lastAddedShell));
       // handle shellCreator
       //
       // in case shellCreator changed or is not set, use the actual shellCreator!
@@ -393,16 +395,16 @@ abstract class AbstractRouter
                                private void detachShell() {
                                  ClientLogger.get()
                                              .logDetailed("Router: detach shellCreator >>" +
-                                                          shell.getClass()
-                                                               .getCanonicalName() +
-                                                          "<<",
+                                                              shell.getClass()
+                                                                   .getCanonicalName() +
+                                                              "<<",
                                                           1);
                                  shell.detachShell();
                                  ClientLogger.get()
                                              .logDetailed("Router: shellCreator >>" +
-                                                          shell.getClass()
-                                                               .getCanonicalName() +
-                                                          "<< detached",
+                                                              shell.getClass()
+                                                                   .getCanonicalName() +
+                                                              "<< detached",
                                                           1);
                                }
 
@@ -446,7 +448,7 @@ abstract class AbstractRouter
                                                                    .getCanonicalName());
     // fire Router StateEvent
     this.fireRouterStateEvent(RouterState.ROUTING_DONE,
-                              hash);
+                              routeResult.getRoute());
   }
 
   private void handleRouteConfig(RouteConfig routeConfiguraion,
@@ -527,7 +529,9 @@ abstract class AbstractRouter
                                                                               .toArray(new String[hashResult.getParameterValues()
                                                                                                             .size()]))) {
                 CompositeInstance compositeInstance = CompositeFactory.get()
-                                                                      .getComposite(s.getComposite(),
+                                                                      .getComposite(controllerInstance.getControllerClassName(),
+                                                                                    s.getComposite(),
+                                                                                    s.isScopeGlobal(),
                                                                                     hashResult.getParameterValues()
                                                                                               .toArray(new String[0]));
                 if (compositeInstance == null) {
@@ -593,6 +597,44 @@ abstract class AbstractRouter
                                                                                        .getCanonicalName());
           }
         }
+      } else {
+        // in case we have a cached controller, we need to look for global composites
+        // and append them!
+        List<CompositeControllerReference> globalComposite = compositeForController.stream()
+                                                                                   .filter(CompositeControllerReference::isScopeGlobal)
+                                                                                   .collect(Collectors.toList());
+        for (CompositeControllerReference compositeControllerReference : globalComposite) {
+          if (ControllerCompositeConditionFactory.get()
+                                                 .loadComposite(controllerInstance.getControllerClassName(),
+                                                                compositeControllerReference.getComposite(),
+                                                                hashResult.getRoute(),
+                                                                hashResult.getParameterValues()
+                                                                          .toArray(new String[hashResult.getParameterValues()
+                                                                                                        .size()]))) {
+            try {
+              CompositeInstance compositeInstance = CompositeFactory.get()
+                                                                    .getComposite(controllerInstance.getControllerClassName(),
+                                                                                  compositeControllerReference.getComposite(),
+                                                                                  true,
+                                                                                  hashResult.getParameterValues()
+                                                                                            .toArray(new String[0]));
+              this.append(compositeControllerReference.getSelector(),
+                          compositeInstance.getComposite());
+              RouterLogger.logCachedControllerOnAttachedGlobalCompositeController(controllerInstance.getController()
+                                                                                                    .getClass()
+                                                                                                    .getCanonicalName(),
+                                                                                  compositeControllerReference.getComposite());
+            } catch (RoutingInterceptionException e) {
+              RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
+                                                          e.getRoute(),
+                                                          e.getParameter());
+              this.route(e.getRoute(),
+                         true,
+                         e.getParameter());
+              return;
+            }
+          }
+        }
       }
       // call the onAttach method (for the component).
       // we will do it in both cases, cached and not cached!
@@ -608,6 +650,7 @@ abstract class AbstractRouter
       });
       // in case the controller is cached, we call only activate  ...
       if (controllerInstance.isChached()) {
+        // let's call active for all related composite
         compositeControllers.forEach(s -> {
           s.activate();
           RouterLogger.logCompositeComntrollerActivateMethodCalled(s.getClass()
@@ -624,6 +667,12 @@ abstract class AbstractRouter
             s.start();
             RouterLogger.logCompositeComntrollerStartMethodCalled(s.getClass()
                                                                    .getCanonicalName());
+            // in case we are cached globally we need to set cached
+            // to true after the first time the
+            // composite is created
+            if (s.isCachedGlobal()) {
+              s.setCached(true);
+            }
           }
           s.activate();
           RouterLogger.logCompositeComntrollerActivateMethodCalled(s.getClass()
@@ -688,55 +737,60 @@ abstract class AbstractRouter
                        });
 
     return !isDirtyComposite.get() &&
-           routeConfigurations.stream()
-                              .map(config -> this.activeComponents.get(config.getSelector()))
-                              .filter(Objects::nonNull)
-                              .map(AbstractComponentController::mayStop)
-                              .filter(Objects::nonNull)
-                              .allMatch(message -> this.plugin.confirm(message));
+        routeConfigurations.stream()
+                           .map(config -> this.activeComponents.get(config.getSelector()))
+                           .filter(Objects::nonNull)
+                           .map(AbstractComponentController::mayStop)
+                           .filter(Objects::nonNull)
+                           .allMatch(message -> this.plugin.confirm(message));
   }
 
-  private void stopController(List<RouteConfig> routeConfiguraions) {
-    routeConfiguraions.stream()
-                      .map(config -> this.activeComponents.get(config.getSelector()))
-                      .filter(Objects::nonNull)
-                      .forEach(controller -> {
-                        // stop controller
-                        RouterLogger.logControllerHandlingStop(controller.getClass()
-                                                                         .getCanonicalName());
-                        RouterLogger.logControllerHandlingStopComposites(controller.getClass()
-                                                                                   .getCanonicalName());
-                        // stop compositeComntrollers
-                        controller.getComposites()
-                                  .values()
-                                  .forEach(s -> {
-                                    if (controller.isCached()) {
-                                      deactivateCompositeController(controller,
-                                                                    s);
-                                    } else {
-                                      if (s.isCached()) {
-                                        deactivateCompositeController(controller,
-                                                                      s);
-                                      } else {
-                                        stopCompositeController(controller,
-                                                                s);
-                                      }
-                                    }
-                                  });
+  private void stopController(List<RouteConfig> routeConfiguraions,
+                              boolean replaceShell) {
+    List<AbstractComponentController<?, ?, ?>> controllerList = new ArrayList<>();
+    if (replaceShell) {
+      controllerList.addAll(this.activeComponents.values());
+    } else {
+      controllerList.addAll(routeConfiguraions.stream()
+                                              .map(config -> this.activeComponents.get(config.getSelector()))
+                                              .filter(Objects::nonNull)
+                                              .collect(Collectors.toList()));
 
-                        RouterLogger.logControllerCompositesStopped(controller.getClass()
-                                                                              .getCanonicalName());
-                        if (controller.isCached()) {
-                          deactivateController(controller);
-                        } else {
-                          stopController(controller);
-                        }
-                      });
+    }
+    controllerList.forEach(controller -> {
+      // stop controller
+      RouterLogger.logControllerHandlingStop(controller.getClass()
+                                                       .getCanonicalName());
+      RouterLogger.logControllerHandlingStopComposites(controller.getClass()
+                                                                 .getCanonicalName());
+      // stop compositeComntrollers
+      controller.getComposites()
+                .values()
+                .forEach(s -> {
+                  if (controller.isCached()) {
+                    deactivateCompositeController(controller,
+                                                  s);
+                  } else {
+                    if (s.isCached()) {
+                      deactivateCompositeController(controller,
+                                                    s);
+                    } else {
+                      stopCompositeController(controller,
+                                              s);
+                    }
+                  }
+                });
+
+      RouterLogger.logControllerCompositesStopped(controller.getClass()
+                                                            .getCanonicalName());
+      if (controller.isCached()) {
+        deactivateController(controller);
+      } else {
+        stopController(controller);
+      }
+    });
     routeConfiguraions.forEach(routeConfiguraion -> this.plugin.remove(routeConfiguraion.getSelector()));
-    routeConfiguraions.stream()
-                      .map(config -> this.activeComponents.get(config.getSelector()))
-                      .filter(Objects::nonNull)
-                      .forEach(c -> this.activeComponents.remove(c));
+    controllerList.forEach(c -> this.activeComponents.remove(c));
   }
 
   private void deactivateController(AbstractComponentController<?, ?, ?> controller) {
@@ -971,7 +1025,8 @@ abstract class AbstractRouter
     String sb = "fire RouterEvent for route >>" + route + "<< with state >>" + state.name() + "<<";
     RouterLogger.logSimple(sb,
                            1);
-    this.eventBus.fireEvent(new RouterStateEvent(state));
+    this.eventBus.fireEvent(new RouterStateEvent(state,
+                                                 route));
   }
 
   /**

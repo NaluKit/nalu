@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.processor.NaluProcessor;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.tools.JavaFileObject;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import static com.google.testing.compile.Compiler.javac;
 public class ConsistenceTest {
 
   @Test
-  public void testStarRouteShellDoesNotExists() {
+  void testStarRouteShellDoesNotExists() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -48,7 +48,7 @@ public class ConsistenceTest {
   }
 
   @Test
-  public void testStarRouteDoesNotExists() {
+  void testStarRouteDoesNotExists() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -65,7 +65,7 @@ public class ConsistenceTest {
   }
 
   @Test
-  public void testShellOfSelection() {
+  void testShellOfSelection() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -82,7 +82,7 @@ public class ConsistenceTest {
   }
 
   @Test
-  public void testShellOfSelectionWildCard() {
+  void testShellOfSelectionWildCard() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -98,7 +98,7 @@ public class ConsistenceTest {
   }
 
   @Test
-  public void testDuplicateShellName() {
+  void testDuplicateShellName() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -121,7 +121,7 @@ public class ConsistenceTest {
   }
 
   @Test
-  public void testNoDuplicateShellName() {
+  void testNoDuplicateShellName() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -143,7 +143,7 @@ public class ConsistenceTest {
   }
 
   @Test
-  public void testMultipleShells() {
+  void testMultipleShells() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -159,7 +159,7 @@ public class ConsistenceTest {
   }
 
   @Test
-  public void testIllegalErrorRoute01() {
+  void testIllegalErrorRoute01() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -181,7 +181,7 @@ public class ConsistenceTest {
   }
 
   @Test
-  public void testIllegalErrorRoute02() {
+  void testIllegalErrorRoute02() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {

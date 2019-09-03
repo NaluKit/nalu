@@ -63,24 +63,6 @@ public class ProcessorUtils {
     return new Builder();
   }
 
-  //  public void store(IsMetaModel metaModel,
-  //                    String fileName)
-  //    throws ProcessorException {
-  //    try {
-  //      FileObject fileObject = processingEnvironment.getFiler()
-  //                                                   .createResource(StandardLocation.CLASS_OUTPUT,
-  //                                                                   "",
-  //                                                                   fileName);
-  //      PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(fileObject.openOutputStream()));
-  //      metaModel.createPropertes()
-  //               .store(printWriter,
-  //                      "");
-  //      printWriter.close();
-  //    } catch (IOException ex) {
-  //      throw new ProcessorException("NaluPluginGwtProcessor: Unable to write file: >>" + fileName + "<< -> exception: " + ex.getMessage());
-  //    }
-  //  }
-
   public boolean implementsInterface(ProcessingEnvironment processingEnvironment,
                                      TypeElement typeElement,
                                      TypeMirror implementedInterface) {
@@ -88,12 +70,6 @@ public class ProcessorUtils {
                                 .isAssignable(typeElement.asType(),
                                               implementedInterface);
   }
-
-  //  public String getCanonicalClassName(Element element) {
-  //    return this.getPackageAsString(element) +
-  //           "." + element.getSimpleName()
-  //                        .toString();
-  //  }
 
   public String getPackageAsString(Element type) {
     return this.getPackage(type)
@@ -234,63 +210,6 @@ public class ProcessorUtils {
                           sw.toString());
   }
 
-  //  public <T> boolean isSuperClass(Types typeUtils,
-  //                                  TypeElement typeElement,
-  //                                  Class<T> superClazz) {
-  //    for (TypeMirror tm : typeUtils.directSupertypes(typeElement.asType())) {
-  //      String canonicalNameTM = this.getCanonicalClassName((TypeElement) typeUtils.asElement(tm));
-  //      if (superClazz.getCanonicalName()
-  //                    .equals(canonicalNameTM)) {
-  //        return true;
-  //      } else {
-  //        return this.isSuperClass(typeUtils,
-  //                                 (TypeElement) typeUtils.asElement(tm),
-  //                                 superClazz);
-  //      }
-  //    }
-  //    return false;
-  //  }
-  //
-  //  public List<TypeElement> getListOfSuperClasses(TypeElement typeElement,
-  //                                                 Class<?> implementingSuperClass) {
-  //    List<TypeElement> listOfTypeMirror = new ArrayList<>();
-  //    TypeMirror implementingSuperClassTypeMirror = this.getTypeMirror(implementingSuperClass.getCanonicalName());
-  //    Set<TypeMirror> list = this.getFlattenedSupertypeHierarchy(this.processingEnvironment.getTypeUtils(),
-  //                                                               typeElement.asType());
-  //    list.stream()
-  //        .filter(mirror -> !implementingSuperClassTypeMirror.toString()
-  //                                                           .equals(mirror.toString()))
-  //        .filter(mirror -> !typeElement.asType()
-  //                                      .toString()
-  //                                      .equals(mirror.toString()))
-  //        .filter(mirror -> this.processingEnvironment.getTypeUtils()
-  //                                                    .isAssignable(mirror,
-  //                                                                  implementingSuperClassTypeMirror))
-  //        .forEachOrdered(mirror -> {
-  //          listOfTypeMirror.add(this.getTypeElement(mirror));
-  //        });
-  //    return listOfTypeMirror;
-  //  }
-  //
-  //  public TypeMirror getTypeMirror(String className) {
-  //    return this.getTypeElement(className)
-  //               .asType();
-  //  }
-  //
-  //  public TypeElement getTypeElement(TypeMirror mirror) {
-  //    return (TypeElement) this.processingEnvironment.getTypeUtils()
-  //                                                   .asElement(mirror);
-  //  }
-  //
-  //  public TypeElement getTypeElement(String className) {
-  //    return this.processingEnvironment.getElementUtils()
-  //                                     .getTypeElement(className);
-  //  }
-  //
-  //  public String getEventBusResourcePath() {
-  //    return StandardLocation.CLASS_OUTPUT + "/" + "META-INF/" + ProcessorConstants.NALU_REACT_FOLDER_NAME + "/" + ProcessorConstants.EVENT_BUS_FOLDER_NAME + "/EventBus";
-  //  }
-
   public <A extends Annotation> List<Element> getMethodFromTypeElementAnnotatedWith(ProcessingEnvironment processingEnvironment,
                                                                                     TypeElement element,
                                                                                     Class<A> annotation) {
@@ -341,10 +260,10 @@ public class ProcessorUtils {
 
   public String createEventHandlingMethodName(String eventName) {
     return "on" +
-           eventName.substring(0,
-                               1)
-                    .toUpperCase() +
-           eventName.substring(1);
+        eventName.substring(0,
+                            1)
+                 .toUpperCase() +
+        eventName.substring(1);
   }
 
   public String createEventNameFromHandlingMethod(String event) {

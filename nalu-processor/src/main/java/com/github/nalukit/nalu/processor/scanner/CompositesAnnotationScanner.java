@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.component.annotation.Composite;
+import com.github.nalukit.nalu.client.component.annotation.Composite.Scope;
 import com.github.nalukit.nalu.client.component.annotation.Composites;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
@@ -71,7 +72,8 @@ public class CompositesAnnotationScanner {
                                                                                    .toString()),
                                                          composite.selector(),
                                                          new ClassNameModel(Objects.requireNonNull(getCompositeConditionElement(composite))
-                                                                                   .toString())));
+                                                                                   .toString()),
+                                                         Scope.GLOBAL == composite.scope()));
       }
     }
     return this.controllerModel;

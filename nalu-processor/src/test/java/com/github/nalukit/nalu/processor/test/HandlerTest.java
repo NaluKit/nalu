@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.processor.NaluProcessor;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.tools.JavaFileObject;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import static com.google.testing.compile.Compiler.javac;
 public class HandlerTest {
 
   @Test
-  public void testHandlerAnnotationOnAClass() {
+  void testHandlerAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -44,7 +44,7 @@ public class HandlerTest {
   }
 
   @Test
-  public void testHandlerAnnotationOnAInterface() {
+  void testHandlerAnnotationOnAInterface() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -58,7 +58,7 @@ public class HandlerTest {
   }
 
   @Test
-  public void testHandlerAnnotationOnAClassThatDoesNotExtendIsHandler() {
+  void testHandlerAnnotationOnAClassThatDoesNotExtendIsHandler() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -73,7 +73,7 @@ public class HandlerTest {
   }
 
   @Test
-  public void testHandlerAnnotationOnAClassThatDoesExtendIsHandler() {
+  void testHandlerAnnotationOnAClassThatDoesExtendIsHandler() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -86,7 +86,7 @@ public class HandlerTest {
   }
 
   @Test
-  public void testHandlerAnnotationOnAClassThatDoesNotExtendAbstractHandler() {
+  void testHandlerAnnotationOnAClassThatDoesNotExtendAbstractHandler() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -101,7 +101,7 @@ public class HandlerTest {
   }
 
   @Test
-  public void testHandlerAnnotationOnAClassThatDoesExtendAbstractHandler() {
+  void testHandlerAnnotationOnAClassThatDoesExtendAbstractHandler() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {

@@ -23,7 +23,7 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
  * Default application loader
  * <p>does nothing</p>
  * <p>Used by the framework</p>
- * <p><b>DO NOT USE!</b></p>
+ * <p><b>DO NOT USE THIS CLASS</b></p>
  */
 @NaluInternalUse
 public final class NoApplicationLoader

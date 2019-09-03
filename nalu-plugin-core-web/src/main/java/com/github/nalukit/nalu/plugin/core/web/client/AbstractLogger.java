@@ -24,7 +24,7 @@ import java.util.stream.IntStream;
 public abstract class AbstractLogger
     implements IsLogger {
 
-  static final String INDENT = "..";
+  protected static final String INDENT = "..";
 
   protected String createLog(String message,
                              int depth) {

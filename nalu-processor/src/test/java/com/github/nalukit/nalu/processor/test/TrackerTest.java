@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.processor.NaluProcessor;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.tools.JavaFileObject;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import static com.google.testing.compile.Compiler.javac;
 public class TrackerTest {
 
   @Test
-  public void testTrackerAnnotationOnAMethod() {
+  void testTrackerAnnotationOnAMethod() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -45,7 +45,7 @@ public class TrackerTest {
   }
 
   @Test
-  public void testTrackerAnnotationOnAClass() {
+  void testTrackerAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -59,7 +59,7 @@ public class TrackerTest {
   }
 
   @Test
-  public void testTrackerAnnotationWithoutExtendsIsApplication() {
+  void testTrackerAnnotationWithoutExtendsIsApplication() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -87,7 +87,7 @@ public class TrackerTest {
   }
 
   @Test
-  public void testApplicationWithTracker() {
+  void testApplicationWithTracker() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
@@ -108,7 +108,7 @@ public class TrackerTest {
   }
 
   @Test
-  public void testApplicationWithTrackerThatDoesNotExtendsAbstractracker() {
+  void testApplicationWithTrackerThatDoesNotExtendsAbstractracker() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {

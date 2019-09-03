@@ -62,14 +62,15 @@ public class CompositesGenerator {
                                                                              ClassName.get(ClientLogger.class));
     for (ControllerModel controllerModel : this.metaModel.getControllers()) {
       for (ControllerCompositeModel controllerCompositeModel : controllerModel.getComposites()) {
-        loadCompositesMethodBuilder.addStatement("this.compositeControllerReferences.add(new $T($S, $S, $S, $S))",
+        loadCompositesMethodBuilder.addStatement("this.compositeControllerReferences.add(new $T($S, $S, $S, $S, $L))",
                                                  ClassName.get(CompositeControllerReference.class),
                                                  controllerModel.getProvider()
                                                                 .getClassName(),
                                                  controllerCompositeModel.getName(),
                                                  controllerCompositeModel.getComposite()
                                                                          .getClassName(),
-                                                 controllerCompositeModel.getSelector())
+                                                 controllerCompositeModel.getSelector(),
+                                                 controllerCompositeModel.isScopeGlobal())
                                    .addStatement("sb01 = new $T()",
                                                  ClassName.get(StringBuilder.class))
                                    .addStatement("sb01.append(\"register composite >>$L<< for controller >>$L<< in selector >>$L<<\")",
