@@ -17,6 +17,8 @@ import java.lang.Override;
 import java.lang.StringBuilder;
 import java.util.Arrays;
 
+/**
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.05-21:21:30<< */
 public final class ApplicationWithComposite03Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite03 {
   public ApplicationWithComposite03Impl() {
     super();
@@ -105,18 +107,18 @@ public final class ApplicationWithComposite03Impl extends AbstractApplication<Mo
     StringBuilder sb01 = new StringBuilder();
     sb01.append("load composite references");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
-    this.compositeControllerReferences.add(new CompositeControllerReference("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.ControllerWithComposite03", "testComposite01", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.composite.CompositeController01", "selector"));
+    this.compositeControllerReferences.add(new CompositeControllerReference("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.ControllerWithComposite03", "testComposite01", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.composite.CompositeController01", "selector", false));
     sb01 = new StringBuilder();
     sb01.append("register composite >>testComposite01<< for controller >>com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.ControllerWithComposite03<< in selector >>selector<<");
     ClientLogger.get().logDetailed(sb01.toString(), 3);
-    this.compositeControllerReferences.add(new CompositeControllerReference("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.ControllerWithComposite03", "testComposite03", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.composite.CompositeController03", "selector"));
+    this.compositeControllerReferences.add(new CompositeControllerReference("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.ControllerWithComposite03", "testComposite03", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.composite.CompositeController03", "selector", false));
     sb01 = new StringBuilder();
     sb01.append("register composite >>testComposite03<< for controller >>com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.ControllerWithComposite03<< in selector >>selector<<");
     ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
 
   @Override
-  public void loadPlugins() {
+  public void loadModules() {
     StringBuilder sb01 = new StringBuilder();
   }
 
@@ -156,5 +158,4 @@ public final class ApplicationWithComposite03Impl extends AbstractApplication<Mo
   public boolean isStayOnSide() {
     return false;
   }
-
 }

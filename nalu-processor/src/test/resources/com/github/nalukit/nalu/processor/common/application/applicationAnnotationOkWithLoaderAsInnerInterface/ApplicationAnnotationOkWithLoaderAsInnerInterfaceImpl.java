@@ -14,6 +14,8 @@ import java.lang.Override;
 import java.lang.StringBuilder;
 import java.util.Arrays;
 
+/**
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.05-21:19:42<< */
 public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithLoaderAsInnerInterface {
   public ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl() {
     super();
@@ -98,7 +100,7 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   }
 
   @Override
-  public void loadPlugins() {
+  public void loadModules() {
     StringBuilder sb01 = new StringBuilder();
   }
 
@@ -138,5 +140,4 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   public boolean isStayOnSide() {
     return false;
   }
-
 }

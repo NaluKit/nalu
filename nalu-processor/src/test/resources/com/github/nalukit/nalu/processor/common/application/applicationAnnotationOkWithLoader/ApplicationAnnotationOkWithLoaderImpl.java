@@ -13,6 +13,8 @@ import java.lang.Override;
 import java.lang.StringBuilder;
 import java.util.Arrays;
 
+/**
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.05-21:15:52<< */
 public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithLoader {
   public ApplicationAnnotationOkWithLoaderImpl() {
     super();
@@ -97,7 +99,7 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
   }
 
   @Override
-  public void loadPlugins() {
+  public void loadModules() {
     StringBuilder sb01 = new StringBuilder();
   }
 
@@ -137,5 +139,4 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
   public boolean isStayOnSide() {
     return false;
   }
-
 }

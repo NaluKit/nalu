@@ -102,25 +102,25 @@ public class ControllerCreatorGenerator {
                                                                               "parms")
                                                                      .build())
                                           .varargs()
-                                          .addException(ClassName.get(RoutingInterceptionException.class))
-                                          .addStatement("$T controller = ($T) object",
-                                                        ClassName.get(controllerModel.getProvider()
-                                                                                     .getPackage(),
-                                                                      controllerModel.getProvider()
-                                                                                     .getSimpleName()),
-                                                        ClassName.get(controllerModel.getProvider()
-                                                                                     .getPackage(),
-                                                                      controllerModel.getProvider()
-                                                                                     .getSimpleName()))
-                                          .addStatement("$T sb01 = new $T()",
-                                                        ClassName.get(StringBuilder.class),
-                                                        ClassName.get(StringBuilder.class));
+                                          .addException(ClassName.get(RoutingInterceptionException.class));
     if (controllerModel.getParameters()
                        .size() > 0) {
       // has the model AccpetParameter ?
       if (controllerModel.getParameterAcceptors()
                          .size() > 0) {
-        method.beginControlFlow("if (parms != null)");
+        method.addStatement("$T controller = ($T) object",
+                            ClassName.get(controllerModel.getProvider()
+                                                         .getPackage(),
+                                          controllerModel.getProvider()
+                                                         .getSimpleName()),
+                            ClassName.get(controllerModel.getProvider()
+                                                         .getPackage(),
+                                          controllerModel.getProvider()
+                                                         .getSimpleName()))
+              .addStatement("$T sb01 = new $T()",
+                            ClassName.get(StringBuilder.class),
+                            ClassName.get(StringBuilder.class))
+              .beginControlFlow("if (parms != null)");
         for (int i = 0; i <
             controllerModel.getParameters()
                            .size(); i++) {

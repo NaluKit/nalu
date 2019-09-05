@@ -14,6 +14,8 @@ import java.lang.Override;
 import java.lang.StringBuilder;
 import java.util.Arrays;
 
+/**
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.05-21:00:46<< */
 public final class ApplicationWithTrackerImpl extends AbstractApplication<MockContext> implements ApplicationWithTracker {
   public ApplicationWithTrackerImpl() {
     super();
@@ -102,7 +104,7 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   }
 
   @Override
-  public void loadPlugins() {
+  public void loadModules() {
     StringBuilder sb01 = new StringBuilder();
   }
 

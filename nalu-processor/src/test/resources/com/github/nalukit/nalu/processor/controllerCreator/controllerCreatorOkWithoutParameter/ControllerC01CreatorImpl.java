@@ -15,6 +15,8 @@ import java.lang.String;
 import java.lang.StringBuilder;
 import org.gwtproject.event.shared.SimpleEventBus;
 
+/**
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.05-21:13:38<< */
 public final class ControllerC01CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
   public ControllerC01CreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
     super(router, context, eventBus);
@@ -78,7 +80,5 @@ public final class ControllerC01CreatorImpl extends AbstractControllerCreator<Mo
 
   @Override
   public void setParameter(Object object, String... parms) throws RoutingInterceptionException {
-    ControllerC01 controller = (ControllerC01) object;
-    StringBuilder sb01 = new StringBuilder();
   }
 }

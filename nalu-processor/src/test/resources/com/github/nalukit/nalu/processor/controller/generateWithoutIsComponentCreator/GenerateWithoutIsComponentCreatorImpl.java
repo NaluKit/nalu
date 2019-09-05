@@ -13,6 +13,8 @@ import java.lang.Override;
 import java.lang.StringBuilder;
 import java.util.Arrays;
 
+/**
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.05-21:05:39<< */
 public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplication<MockContext> implements GenerateWithoutIsComponentCreator {
   public GenerateWithoutIsComponentCreatorImpl() {
     super();
@@ -97,7 +99,7 @@ public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplica
   }
 
   @Override
-  public void loadPlugins() {
+  public void loadModules() {
     StringBuilder sb01 = new StringBuilder();
   }
 
