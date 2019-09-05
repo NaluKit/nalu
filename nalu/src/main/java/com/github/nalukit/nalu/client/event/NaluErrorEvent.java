@@ -93,8 +93,8 @@ public class NaluErrorEvent
   /**
    * Returns the event type of the error event.
    * <br>
-   * <b>A value of 'NaluError' indicates that it os an error event
-   * produces by the framework!</b>>
+   * <b>A value of 'NaluError' indicates that it is an error event
+   * produces by the framework!</b>
    *
    * @return the errorEventType
    */
