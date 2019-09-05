@@ -87,7 +87,7 @@
   <properties>
     <github.global.server>github</github.global.server>
 
-    <compile-testing.version>0.15</compile-testing.version>
+    <compile-testing.version>0.18</compile-testing.version>
     <guava.version>27.0.1-jre</guava.version>
     <hamcrest-core.version>2.1</hamcrest-core.version>
     <junit.version>4.12</junit.version>
