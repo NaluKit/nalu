@@ -1,28 +1,8 @@
 # Application
-To create a Nalu application it is necessary to create an interface that extends IsApplication first. This interface needs the ```@Application```- and `Shells`-annotation. (The ```@Application```-and `Shells`-annotation can only be used on interfaces which extends ```IsApplication```.)
+Every Nalku application needs one application interface. The application interface defines the basic behavoir of Nalu.
 
-The attributes of the Application annotation are:
-
-* **loader**: the application loader will be executed at application start. (see: [Application Loader](https://github.com/nalukit/nalu-parent/wiki/03.-Application-Loader). This attribute is optional.
-
-* **startRoute**: The start route is the initial route that is called in case the application is called without a bookmark. If the application is called with a bookmark, the startRoute-attribute has no effect.
-
-* **context**: the application context is a singleton that will be injected in every filter, controller and handler of the application (see: [Context](https://github.com/nalukit/nalu-parent/wiki/03.-Application-Context)).
-
-* **routeError**: the error route is used to show an error page if Nalu detects some issues
-
-* **history**: if **true** Nalu supports history, so the application can reload. Otherwise no history will be created and the url stays untouched. This might be useful, in case the application should never reload or will be used embedded inside another web side. (default: **true**) - since v1.2.0
-
-* **useHash**: if **true** Nalu uses a hash token, otherwise a hashless token. (default: **true**) - since v1.1.0
-
-* **useColonForParametersInUrl**: if **true** Nalu uses a ':' before a parameter inside the url (default: **false**) - since v1.1.0
-
-* **stayOnSide**: if **true** Nalu will in case of an empty hash will add an new history entry using the hash of the start route - since v1.3.0
-
-In case **useHash** is used with the value **false**, you need to create a filter or something else to handle a bookmark correct. This filter should evaluate the relaticve path of the application and return a parameter named **url** with this value.
-
-This is an example of an application class:
-
+## Application interface
+To implement Nalu in your application, first create an application interface:
 ```Java
 @Application(loader = MyLoader.class,
              startRoute = "/application/search",
@@ -32,12 +12,54 @@ interface MyApplication
     extends IsApplication {
 }
 ```
+The application interface must extends `IsApplication` and needs the `@Application` annotation.
 
+The attributes of the Application annotation are:
+
+* **loader**: the application loader will be executed at application start. (see: [Application Loader](xxx). This attribute is optional.
+
+* **startRoute**: The start route is the initial route that is called in case the application is called without a hash. If the application is called with a hash, the startRoute-attribute has no effect.
+
+* **context**: the application context is a singleton that will be injected in every filter, controller and handler of the application (see: [Context](xxx)).
+
+* **routeError**: the error route is used to show an error page if Nalu detects some issues. This attribute is optional. (see: [Error handling](xxx))
+
+* **history**: if **true** Nalu supports history, so the application can reload. Otherwise no hash will be created and the url stays untouched. This might be useful, in case the application should never reload or will be used embedded inside another web side. (default: **true**)
+
+* **useHash**: if **true** Nalu uses a hash token, otherwise a hashless token. (default: **true**)
+
+* **useColonForParametersInUrl**: if **true** Nalu uses a ':' before a parameter inside the url (default: **false**)
+
+* **stayOnSide**: if **true** Nalu will - in case of an empty hash -  add an new history entry using the hash of the start route
+
+In case **useHash** is used with the value **false**, you need to create a filter or something else to handle a bookmark correct. This filter should evaluate the relative path of the application and return a parameter named **url** with this value.
 
 ## Start Route
-The start route is the route, that will be used in case the application is called without a bookmark.
+The start route is the route, that will be used in case the application is called without a hash.
+
+Minimal requirements for a start route are:
+
+* needs a shell
+* needs a part to identify a controller
 
 **Important note: a start route can not have a parameter!**
+
+
+
+
+
+
+
+
+
+==> ab hier nach application
+
+
+
+
+
+
+
 
 ## Error Route
 In case Nalu

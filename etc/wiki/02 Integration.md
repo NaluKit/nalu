@@ -1,0 +1,70 @@
+# Integration
+To integrate Nalu into your project, the following steps need to be done:
+
+* for GWT 2.x:
+  * Add needed library to your project or add a Maven dependency
+  * Modify the module Descriptor (*.gwt.xml) and
+  * Set up the entry point
+  * Create application-, controller- and component-classes
+
+* for GWT 3.0:
+  * **Once GWT 3 / J2Cl is available, we will update this section.**
+
+## Dependencies
+Nalu has dependencies to the following projects:
+* JavaPoet ([Download here](https://github.com/square/javapoet/releases))
+* gwt-events  ([Download here](https://github.com/gwtproject/gwt-events))
+
+See [#9](https://github.com/NaluKit/nalu/issues/9) for current status before downloading the dependencies.
+
+## Maven
+Working with MAven, you need to add the following maven dependency:
+```XML
+    <dependency>
+      <groupId>com.github.nalukit</groupId>
+      <artifactId>nalu</artifactId>
+      <version>LATEST</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.nalukit</groupId>
+      <artifactId>nalu-processor</artifactId>
+      <version>LATEST</version>
+      <scope>provided</scope>
+    </dependency>
+```
+Depending on the widget library your project is using, you have to add another dependency.
+
+### Elemental2 based widget libriries
+In case the project is using a widget library based on elemental2 or elemento or the project is using a library like [Domino-UI](https://github.com/DominoKit/domino-ui), add the following dependency to your pom:
+```XML
+    <dependency>
+      <groupId>com.github.nalukit</groupId>
+      <artifactId>nalu-plugin-elemental2</artifactId>
+      <version>LATEST</version>
+    </dependency>
+```
+
+### Using GWT Widget
+In case the project is based on GWT widgets, add the following plugin to your pom:
+```XML
+   <dependency>
+      <groupId>com.github.nalukit</groupId>
+      <artifactId>nalu-plugin-gwt</artifactId>
+      <version>LATEST</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.nalukit</groupId>
+      <artifactId>nalu-plugin-gwt-processor</artifactId>
+      <version>LATEST</version>
+      <scope>provided</scope>
+    </dependency>
+```
+
+**Nalu is available on Maven central.**
+
+## Requirements
+At the moment Nalu requires at least Java 8 and GWT 2.8.x. We recommend to use always the latest version GWT.
+
+
+## Important Note: com.github.nalukit.nalu.internal.*
+All code inside the ```com.github.nalukit.nalu.internal.*``` packages is considered private API and should not be relied upon at all. It can change at any time and with no announcement.

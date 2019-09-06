@@ -1,4 +1,22 @@
 # Components
+Befor we dig deeper into Nalu some basics you need to know when working with Nalu.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Application Interface
 The application interface provides basic information about the application. It has to extend ```IsApplication``` and be annotated with ```Application```.

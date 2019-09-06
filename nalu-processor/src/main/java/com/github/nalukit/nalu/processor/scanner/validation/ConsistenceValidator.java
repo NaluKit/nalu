@@ -67,7 +67,7 @@ public class ConsistenceValidator {
     this.validateErrorRoute();
     // check, if there is at least one shell
     this.validateNoShellsDefined();
-    // check, is there is at least one shell
+    // check, is there are duplicate shell names
     this.validateDuplicateShellName();
   }
 
@@ -95,7 +95,7 @@ public class ConsistenceValidator {
 
   private void validateErrorRoute()
       throws ProcessorException {
-    // no operation, in case error route is not used!
+    // no operation, in case error route is not defined!
     if (NaluConstants.NO_ROUTE.equals(metaModel.getRouteError())) {
       return;
     }
@@ -198,6 +198,7 @@ public class ConsistenceValidator {
   private void validateStartRoute()
       throws ProcessorException {
     if (!Objects.isNull(metaModel.getApplication())) {
+      // Does the shell of the start route exist?
       Optional<String> optionalShell = this.metaModel.getShells()
                                                      .stream()
                                                      .map(m -> m.getName())
@@ -214,6 +215,7 @@ public class ConsistenceValidator {
         }
       }
 
+      // Does at least one controller exist for the start route?
       Optional<ControllerModel> optionalRoute = this.metaModel.getControllers()
                                                               .stream()
                                                               .filter(m -> m.match(this.metaModel.getStartRoute()))
@@ -228,7 +230,21 @@ public class ConsistenceValidator {
           throw new ProcessorException("Nalu-Processor: The route of the startRoute >>" + this.metaModel.getStartRoute() + "<< does not exist!");
         }
       }
+
+      // check, that the start route is not only a route cantaining at least only the shell
+      String[] routeParts = this.splitRoute(this.metaModel.getStartRoute());
+      if (routeParts.length < 2) {
+        throw new ProcessorException("Nalu-Processor: The startRoute >>" + this.metaModel.getStartRoute() + "<< can not contain only a shell");
+      }
     }
+  }
+
+  private String[] splitRoute(String route) {
+    String tmpRoute = route;
+    if (tmpRoute.startsWith("/")) {
+      tmpRoute = tmpRoute.substring(1);
+    }
+    return tmpRoute.split("/");
   }
 
   public static final class Builder {

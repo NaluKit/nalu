@@ -31,6 +31,41 @@ import static com.google.testing.compile.Compiler.javac;
 public class ApplicationTest {
 
   @Test
+  void testApplicationAnnotationStartRouteOK() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/startRouteOK/StartRouteOK.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/application/startRouteOK/StartRouteOKImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/startRouteOK/StartRouteOKImpl.java"));
+  }
+
+  @Test
+  void testApplicationAnnotationStartRouteNotOK() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(new ArrayList<JavaFileObject>() {
+                                       {
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/startRouteNotOK/StartRouteNotOK.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component06/Controller06.java"));
+                                       }
+                                     });
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("Nalu-Processor: The startRoute >>/mockShell<< can not contain only a shell");
+  }
+
+  @Test
   void testApplicationAnnotationStartRouteDoesNotBeginWithSlash() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {

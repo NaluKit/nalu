@@ -199,12 +199,12 @@ Nalu will, after a component is created, call the `render` method. So the applic
 ### Execution Order
 The following image shows the execution order in case a new controller is created:
 
-![Execution Order](https://github.com/NaluKit/nalu/blob/master/etc/images/controllerFlow.png)
+![Execution Order](https://github.com/NaluKit/nalu/raw/master/etc/images/controllerFlow.png)
 
 ## Composite
 Imagine, you have a view, that looks like that:
 
-![Route Flow](https://github.com/NaluKit/nalu/blob/master/etc/images/view-mock-up.png)
+![Route Flow](https://github.com/NaluKit/nalu/raw/master/etc/images/view-mock-up.png)
 
 Of course it is possible to render this view inside one component. In some cases, where your controller and component will have to much code or you want to reuse composite01 component, composite02 component and composite03 component, you can extract them in separate controller and component pairs. But this would not be handled but Nalu.
 
