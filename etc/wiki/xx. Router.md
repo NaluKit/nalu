@@ -1,4 +1,17 @@
 
+
+
+
+
+#TBD
+
+
+
+
+
+
+
+
 # Router
 The router is the main component inside a Nalu application. It is used to navigate inside the application, generate a url, get the start parameter and cache a controller.
 

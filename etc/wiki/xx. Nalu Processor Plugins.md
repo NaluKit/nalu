@@ -1,3 +1,16 @@
+
+
+
+
+#TBD
+
+
+
+
+
+
+
+
 # Nalu Processor Plugins
 To support `Widget`-class based libraries (like GWT itself, GXT, etc.)  and `HTMLElement`- based libraries (f.e.: Elemento, Domino-UI, etc.), Nalu has a plugin mechanism. The code, that is platform or widget library specific, is separated into a plugin.
 

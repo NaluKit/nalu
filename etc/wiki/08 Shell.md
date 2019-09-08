@@ -1,24 +1,21 @@
-
 # Shell
-
-The shell is the root view of the application. It divides the screen in several areas, which can be used to add components. A Nalu application supports more then one shell. To define which shell should currently be used, add the name of the shell as first part of the route.
+The shell is the root view of the application. It divides the screen in several areas, which can be used to add components. A Nalu application supports more then one shell. The definition, which shell is currently to use, the shell is added to the route. The first part of the route is always a shell.
 
 A route in Nalu will look like that:
-
 ```
 /loginShell/login
 ```
+This route tells Nalu to use a shell with the name `loginShell` and a controller that uses `loginShell/login` as route. In case the current shell is not named `loginShell`, Nalu will remove the current shell and add the new shell to the viewport.
 
-This route tells Nalu to use the shell with the name `loginShell` and use a controller that uses `loginShell/login` as route. In case another route has a different first part, Nalu will remove the current shell and add the new shell to the viewport.
-
-If there is a need to attach handlers to DOM elements, you have to override the ```bind```-method.
+If there is a need to attach handlers to DOM elements, you can use the `bind`-method of the shell to add the handlers to the DOM.
 
 Depending on the plugin you are using, you have to tell Nalu the extension points in different ways.
 
 ## Defining a shell in Nalu
-To define a shell in Nalu, you have to use the `@Shell`-annotation inside a shell class.
+To define a shell in Nalu, you have to use the `@Shell`-annotation with your shell class and extend the `AbstractShell`-class. THe annotation takes one attribute. That's the name of the shell. This name will be used to identify the shell of the route.
 
-```Java
+Example of a shell class:
+```java
 @Shell("applicationShell")
 public class MyApplicationShell
     extends AbstractShell<MyApplicationContext> {
@@ -27,23 +24,21 @@ public class MyApplicationShell
   
 }
 ```
+The code above will define a shell which can be referenced by a route using 'applicationShell'.
 
-The code above will define a shell which can be referenced by the name 'applicationShell'.
-
-To tell Nalu, which shell is to be used, the name of the shell must be the first part of the route:
+To tell Nalu to use this shell, set the first part of the route to 'applicationShell':
 
 `/applicationShell/detail`
 
-Nalu will look for a shell defined with the name 'applicationShell' and add it to the viewport. In case that a shell is already added to the viewport, Nalu will remove the current shell, call the `onDetach`-method and add the new shell to the viewport.
+Nalu will look for a shell defined with the name 'applicationShell' and add it to the viewport (in case it is not the current shell). In case that a shell is already added to the viewport, Nalu will remove the current shell, call the `onDetach`-method and add the new shell to the viewport.
 
-Depending on the Nalu processor plugin that is used, a shell implementation may look like this:
+Depending on the Nalu processor plugin that is used, a shell implementation may look different. See the next paragraphs for more informations.
 
 ## Nalu Elemental2 plugin
-In case the **nalu-plugin-elemental2** is used, Nalu uses the id to look for nodes inside the dom.
+In case you are working with the **nalu-plugin-elemental2**, Nalu uses the id to look for nodes inside the DOM.
 
-An implementation using the nalu-plugin-elemental2 looks like this:
-
-```Java
+An implementation using the nalu-plugin-elemental2 (using Elemento) looks like this:
+```java
 @Shell("applicationShell")
 public class ApplicationShell
     extends AbstractShell<MyApplicationContext> {
@@ -88,21 +83,26 @@ public class ApplicationShell
   }
 }
 ```
+The shell of the example will divide the viewport in several slots with identifiers like:
+* header
+* footer
+* navigation
+* content.
 
+This identifiers can be now used as selectors inside the `@Controller`-annotation to define the slot the component of the controller gets visible.
 
 ## Nalu GWT plugin
-In case the **nalu-plugin-gwt** is used, Nalu uses the ```add```-method to add a widget to an panel. The code for the add is generated via a processor. Therefore it is necessary to have package protected instance variables which are annotated with ```@Selector("[name of the selector]")```. The processor will generate the code to attach a widget.
+In case you are working with the **nalu-plugin-gwt**, Nalu uses the `add`-method to add a widget to a panel. The code for the add is generated via a processor. Therefore it is necessary to have package protected instance variables which are annotated with `@Selector("[name of the selector]")`. The processor will generate the code to attach a widget.
 
-**Important: you need to create a provider in your source.**
+**Important: you need to create a provider to make your selectors available for Nalu.**
 
-To do so, implement these two lines inside the ```bind```-method:
-
-```Java
+To do so, implement these two lines inside the `bind`-method:
+```java
     IsSelectorProvider<Shell> provider = new ShellSelectorProviderImpl();
     provider.initialize(this);
 ```
 
-Here is an example of a Shell implementation using the nalu-plugin-gwt:
+An implementation using the nalu-plugin-gwt looks like this:
 ```Java
 @Shell("applicationShell")
 public class ApplicationShell
@@ -132,7 +132,6 @@ public class ApplicationShell
     shell = new ResizeLayoutPanel();
     shell.setSize("100%",
                   "100%");
-    //shell.addResizeHandler(event -> forceLayout());
 
     DockLayoutPanel panel = new DockLayoutPanel(Style.Unit.PX);
     panel.setSize("100%",
@@ -222,13 +221,18 @@ public class ApplicationShell
   }
 }
 ```
+The shell of the example will divide the viewport in several slots with identifiers like:
+* header
+* footer
+* navigation
+* content.
 
+This identifiers can be now used as selectors inside the `@Controller`-annotation to define the slot the component of the controller gets visible.
 
 ## Async bind Method (since v1.3.0)
-Nalu will call the `bind` method before the shell is added to the viewport. This is an internal method, that can be overwritten. That's a good place to do some preparing actions. The method is asynchron. This makes it possible to do a server call before Nalu will continue. To tell Nalu to continue, call `loader.continueLoading()`. In case you want to interrupt the loading, just do not call `loader.continueLoading()` and use the router to route to another place.
+Nalu will call the `bind`-method before the shell is added to the viewport. This is an internal method, that can be overwritten. This is a good place to do some preparing actions. The method is asynchron. This makes it possible to do a server call before Nalu will continue. To tell Nalu to continue, call `loader.continueLoading()`. In case you want to interrupt the loading, just do not call `loader.continueLoading()` and use the router to route to another place.
 
-Example of a bind mehtod inside the shell.
-
+Example of a bind method inside the shell.
 ```java
   @Override
   public void bind(ShellLoader loader)
@@ -242,7 +246,6 @@ Example of a bind mehtod inside the shell.
 
 ## Post Attach
 Nalu will call the `onAttachedComponent`-method after a new component is attached. If you need to do something after a new component is attached to the dom, this is good place to do so. F.e.: in case you are using GXT and want to do a `forceLayout` after a component is attached, use the following code:
-
 ```Java
   @Override
   public void onAttachedComponent() {

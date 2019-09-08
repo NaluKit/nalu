@@ -32,3 +32,18 @@ These are all legal routes:
 /myShell/routePart01/parameter01/routePart02/parametr02
 /myShell/routePart01/parameter01/routePart02/parametr02/routePart03
 ```
+
+
+## Parameters
+In case a route has parameters, they have to be added to the route of the `@Controller`-annotaton:
+```java
+@Controller(route = "/application/myRoute/:parameterName",
+            selector = 'content',
+            componentInterface = IMyComponent.class,
+            component = MyComponent.class)
+```
+To enable parameters, just add: **/:parameterName** to the route. Parameters can be at every where, except as first part of a route!  It is possible to have more than one parameter. If a route contains a parameter, it is necessary, that the controller implements a method called: `set[ParameterName](String value)` and annotate this method with `@AcceptParameter("parameterName")`-annotation.
+
+**The type of the parameter is always String.**
+
+You can add as much parameters as you like. Every parameter has to Start with '/:'.

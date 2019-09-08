@@ -14,5 +14,5 @@ Press the generate-button, unzip the downloaded file and import it to your prefe
 ### Examples
 Take a look at the [nalu-example repository](https://github.com/nalukit/nalu-examples).
 
-A really nice demo application based on Nalu & Domino-UI is online and can be found [here](http://www.mvp4g.org/dominodo).
+A DiminoDo demo application based on Nalu & Domino-UI is online and can be found [here](http://www.mvp4g.org/dominodo).
 
