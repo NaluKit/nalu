@@ -15,7 +15,7 @@ In case your are using a GWT based widget library, add this module to the depend
       <version>LATEST</version>
     </dependency>
 ```
-Keep in mind, when using this plugin, you have to add also the processor module:
+Keep in mind, when using this plugin, you have to add also the processor dependency:
 ```xml
     <dependency>
       <groupId>com.github.nalukit</groupId>
