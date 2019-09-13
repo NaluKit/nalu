@@ -29,7 +29,7 @@ public interface IsModuleContext
   /**
    * Gets the application context
    *
-   * @return applicaitopn context
+   * @return application context
    */
   Context getContext();
 

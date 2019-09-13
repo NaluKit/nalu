@@ -73,7 +73,7 @@ To create a filter, you need to:
 Nalu will inject the context into a filter.
 
 Example of a filter:
-```java
+```java_holder_method_tree
 public class MyFilter
     extends AbstractFilterMyContext> {
 

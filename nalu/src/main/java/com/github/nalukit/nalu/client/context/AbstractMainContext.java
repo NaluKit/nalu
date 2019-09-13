@@ -23,7 +23,7 @@ public abstract class AbstractMainContext
   /**
    * Gets the application context
    *
-   * @return applicaitopn context
+   * @return application context
    */
   public Context getContext() {
     return this.context;

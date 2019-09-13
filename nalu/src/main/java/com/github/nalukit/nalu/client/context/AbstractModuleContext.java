@@ -25,7 +25,7 @@ public abstract class AbstractModuleContext
   /**
    * Gets the application context
    *
-   * @return applicaitopn context
+   * @return application context
    */
   @Override
   public Context getContext() {
