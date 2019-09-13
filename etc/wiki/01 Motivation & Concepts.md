@@ -31,6 +31,10 @@ The main goal was to create a tiny and simple to use application framework with 
 
 * Multi Shell Support
 
+* Tracking Support
+
+* Multi Module Support
+
 Keeping these requirements in mind the implementation of Nalu was started.
 
 ## Basic Idea
