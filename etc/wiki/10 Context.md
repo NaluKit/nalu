@@ -159,7 +159,7 @@ Of course you can save the code for the getter- and setter-methods and access di
 ```java_holder_method_tree
 String attribute = (String) myApplicationContext.getContext().get(MyApplicationContext.ATTRIBUTE_KEY);
 ```
-every where in your module, but in this case you need to do a cast every you access the variable!
+every where in your module, but in this case you need to do a cast every time you access the variable!
 
 ### Local (only inside the main module) Used Data
 Data, which should not be shared with the sub modules, can be stored in normal instance variables. These variables will not be shared with the context of a sub module.

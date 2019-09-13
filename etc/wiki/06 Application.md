@@ -73,17 +73,27 @@ To create a filter, you need to:
 Nalu will inject the context into a filter.
 
 Example of a filter:
-```java_holder_method_tree
-public class MyFilter
-    extends AbstractFilterMyContext> {
+```java
+import java.util.Objects;public class MyFilter
+    extends AbstractFilter<MyContext> {
 
   @Override
   public boolean filter(String route,
                         String... parms) {
-    if ([condition]) {
+    // checking f.e. a route
+    if ("/myShell/myRoute01".equals(route)) {
+      // interrupt routing
       return false;
     }
-    return true;
+    // checking for example a parameter
+    if (parmslength > 0) {
+      if ("Bart".equals(parms[0])) {
+        // interrupt routing
+        return false;
+      }
+    }
+    // routing ok!
+   return true;
   }
 
   @Override
