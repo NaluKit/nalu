@@ -47,7 +47,7 @@ Minimal requirements for a start route are:
 Using only a shell as start route will produce an error.
 
 ### Error Route
-There are several validations ins Nalu, that can cause an error. For example:
+There are several validations inside Nalu, that can cause an error. For example:
 
 * a routing loop
 * an illegal route

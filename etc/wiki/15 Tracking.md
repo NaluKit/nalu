@@ -1,16 +1,3 @@
-
-
-
-
-#TBD
-
-
-
-
-
-
-
-
 # Tracking (since v1.2.0)
 
 ## Important Note!
@@ -79,7 +66,7 @@ public class ApplicationTracker
 }
 ```
 
-Next, you need to inform Nalu that there is a tracker. To do so, add the `@Tracker` annotatin to the application interface:
+Next, you need to inform Nalu that there is a tracker. To do so, add the `@Tracker` annotation to the application interface:
 
 ```Java
 @Application(loader = NaluLoginApplicationLoader.class,

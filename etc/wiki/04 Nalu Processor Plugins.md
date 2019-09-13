@@ -1,36 +1,72 @@
-
-
-
-
-#TBD
-
-
-
-
-
-
-
-
 # Nalu Processor Plugins
-To support `Widget`-class based libraries (like GWT itself, GXT, etc.)  and `HTMLElement`- based libraries (f.e.: Elemento, Domino-UI, etc.), Nalu has a plugin mechanism. The code, that is platform or widget library specific, is separated into a plugin.
+At the moment we see two different types of widget sets in the GWT world. On the one side we have widgets based on GWT's `Widget`-class (like GWT itself, GXT, SmartGWT, etc.). To add a widget to another the well know `add`-method is used.
+
+ On the other side we have widgets based on the `HTMLElement`-class (f.e.: Elemento, Domino-UI, etc.). `HTMLElement`-widgets adds another widget by calling the `appendChild`-method.
+
+The differences in the way how widgets are added to the DOM forces Nalu to use different implementations. To avoid that Nalu delivers both implementations (and therefore will add a dependency to GWT), Nalu provides a plugin mechanism, that separate these classes.
+
+Currently available are plugins for:
+
+* `Widget`-based libraries
+
+* `HTMLElement`-based libraries
+
+
 
 ## Plugin Interface
-To avoid creating a dependency to GWT or Elemento, Nalu outsourced the depending into a plugin. The plugin interface provides a set of methods, that needed to be outsourced.
+To avoid creating a dependency to GWT `Widget`-class or to Elemental2 `HTMLElement`, Nalu outsourced the depending classes into a plugin.
+
+The plugin interface provides a set of methods, that needed to be outsourced (cause they are plattform dependent).
 
 The plugin interface:
 
-```Jave
+```java
+public interface IsNaluProcessorPlugin {
+
+  void alert(String message);
+
+  boolean attach(String selector,
+                 Object asElement);
+
+  boolean confirm(String message);
+
+  String getStartRoute();
+
+  Map<String, String> getQueryParameters();
+
+  void register(RouteChangeHandler handler);
+
+  void remove(String selector);
+
+  void route(String newRoute,
+             boolean replace);
+
+  void initialize(ShellConfiguration shellConfiguration);
+
+  @FunctionalInterface
+  interface RouteChangeHandler {
+
+    void onRouteChange(String newRoute);
+
+  }
+
+}
+
 ```
 
 The methods of the `ÌsPlugin`-interface are:
 
-* **alert(String message)**:  display the message text inside a popup
+* **alert(String message)**: display the message text inside a popup
 
 * **attach(String selector, Object asElement)**: this methods add the asElement-object to the DOM using the selector
 
 * **confirm(String message)**: open a popup with the message and requests a yes-no-decision
 
 * **getStartRoute()**: returns the start route which will be used in cased the application is started without a bookmark
+
+* **getQueryParameters()**: returns a map containing the url parameters at application start
+
+* **initialize(ShellConfiguration shellConfiguration)**: rsetting the context inside the plugin
 
 * **register(HashHandler handler)**: register a hash handler. will be called in case the hash changes
 
@@ -74,7 +110,7 @@ public class Application
 }
 ```
 
-To define a node of the DOM as extension point where child nodes can be added, by just setting an id using the `id`-attribute. The selector attribute inside the `@Controller`-annotation will be used to look for a node inside the DOM with the selector value as id. Once the node is found, all children of the node will be removed and the new child added.
+To define a node of the DOM as an extension point where childs can be added, just set an id using the `id`-attribute. The selector attribute inside the `@Controller`-annotation will be used to look for a node inside the DOM with the selector value as id. Once the node is found, all children of the node will be removed and the new child added.
 
 
 ## GWT based Widget Sets
@@ -125,8 +161,8 @@ The last thing, the application has to do, is trigger the processor by calling:
 ```
 
 **Nalu will use the simple name of the class and add the string 'SelectorProviderImpl'. In case you want to set a provider for a class which is called 'contentCompoent', the genereated provider wil be named: 'ContentComponentSelectorProviderImpl'!**
-In case you are not sure, what's the name of the generated class is, take a look at 'target/generated-sources/annotations'.
 
+In case you are not sure, what's the name of the generated class is, take a look at 'target/generated-sources/annotations'.
 
 A good place to trigger the processor is the component `bind`-method.
 
