@@ -16,10 +16,9 @@
 
 package com.github.nalukit.nalu.client.filter;
 
-import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.context.IsContext;
+import com.github.nalukit.nalu.client.event.NaluErrorEvent;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractFilter<C extends IsContext>
@@ -27,7 +26,6 @@ public abstract class AbstractFilter<C extends IsContext>
 
   protected C              context;
   private   SimpleEventBus eventBus;
-  private   Router         router;
 
   public AbstractFilter() {
     super();
@@ -58,48 +56,14 @@ public abstract class AbstractFilter<C extends IsContext>
   }
 
   /**
-   * Sets the router instance (used to set application error message)
-   * <p>
-   * <b>DO NOT USE!</b>
+   * Fires a NaluError event.
    *
-   * @param router the application router
-   */
-  @NaluInternalUse
-  public void setRouter(Router router) {
-    this.router = router;
-  }
-
-  /**
-   * Clears the application error message.
-   * <p>
-   * Should be called after the error message is displayed!
-   */
-  protected void clearApplicationErrorMessage() {
-    this.router.clearApplicationErrorMessage();
-  }
-
-  /**
-   * Sets the application error message.
-   * <p>
+   * Use this method to communicate an error inside a filter.
    *
-   * @param errorType    a String that indicates the type of the error
-   *                     (value is to set by the developer)
-   * @param errorMessage the error message that should be displayed
+   * @param event the error event
    */
-  protected void setApplicationErrorMessage(String errorType,
-                                            String errorMessage) {
-    this.router.setApplicationErrorMessage(errorType,
-                                           errorMessage);
-  }
-
-  /**
-   * Sets the application error message.
-   * <p>
-   *
-   * @param applicationErrorMessage the new application error message
-   */
-  protected void setApplicationErrorMessage(NaluErrorMessage applicationErrorMessage) {
-    this.router.setApplicationErrorMessage(applicationErrorMessage);
+  public void fireNaluErrorEvent(NaluErrorEvent event) {
+    this.eventBus.fireEvent(event);
   }
 
 }

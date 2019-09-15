@@ -21,8 +21,7 @@ package com.github.nalukit.nalu.processor.common.application.applicationWithComp
     import com.github.nalukit.nalu.processor.common.MockContext;
 
 @Application(startRoute = "/mockShell/route02",
-             context = MockContext.class,
-             routeError = "/mockShell/route02")
+             context = MockContext.class)
 public interface ApplicationWithComposite02
     extends IsApplication {
 }

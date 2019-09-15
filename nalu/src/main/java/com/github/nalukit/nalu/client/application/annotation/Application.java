@@ -18,7 +18,6 @@ package com.github.nalukit.nalu.client.application.annotation;
 
 import com.github.nalukit.nalu.client.application.AbstractApplicationLoader;
 import com.github.nalukit.nalu.client.context.IsContext;
-import com.github.nalukit.nalu.client.internal.NaluConstants;
 import com.github.nalukit.nalu.client.internal.application.NoApplicationLoader;
 
 import java.lang.annotation.Retention;
@@ -34,7 +33,6 @@ import java.lang.annotation.RetentionPolicy;
  * <li>startRoute: in case the application is called without a bookmark, is this the initial route.</li>
  * <li>context: the context of the class. Nalu will create an instance of this class and inject
  * the instance into all controllers, filters, handlers and the application loader.</li>
- * <li>routeError: in case an error occurs, Nalu will use this route toi display the error</li>
  * <li>useHash: if useHash is true, use a hash based url, otherwise a non hash based url</li>
  * <li>useColonForParametersInUrl: if useColonForParametersInUrl is true, Nalu expects parameters with a leading colon in urls</li>
  * <li>stayOnSite: if stayOnSite is true, Nalu will replace history with the start-route in case hash is empty, else Nalu will only update it.</li>
@@ -70,16 +68,6 @@ public @interface Application {
    * @return application context
    */
   Class<? extends IsContext> context();
-
-  /**
-   * Error route used by Nalu to display errors (detected by Nalu - normally routing errors)
-   * <b>This attribute is optional. In case it is not set, Nalu will fire an error event.
-   * In this case, it is up to the develpoer to display error messages. Nalu will only fire the
-   * {@link com.github.nalukit.nalu.client.event.NaluErrorEvent}</b>-event.
-   *
-   * @return return the error route or a value to indicate, that the error route is not used.
-   */
-  String routeError() default NaluConstants.NO_ROUTE;
 
   /**
    * This attribute - if <b>true</b> will tell Nalu to use history.

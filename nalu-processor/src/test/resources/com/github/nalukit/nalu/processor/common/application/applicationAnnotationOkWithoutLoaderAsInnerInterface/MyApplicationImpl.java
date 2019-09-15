@@ -16,7 +16,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.15-09:43:11<< */
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.15-15:56:11<< */
 public final class MyApplicationImpl extends AbstractApplication<MockContext> implements MyApplication {
   public MyApplicationImpl() {
     super();
@@ -123,8 +123,6 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
     sb01.append("found startRoute >>/mockShell/route01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
     sb01.setLength(0);
-    this.errorRoute = "/mockShell/route01";
-    sb01.append("found errorRoute >>/mockShell/route01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
   }
 

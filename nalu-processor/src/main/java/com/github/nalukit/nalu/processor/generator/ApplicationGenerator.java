@@ -293,10 +293,6 @@ public class ApplicationGenerator {
                                  .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                ClassName.get(ClientLogger.class))
                                  .addStatement("sb01.setLength(0)")
-                                 .addStatement("this.errorRoute = $S",
-                                               metaModel.getRouteError())
-                                 .addStatement("sb01.append(\"found errorRoute >>$L<<\")",
-                                               metaModel.getRouteError())
                                  .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                ClassName.get(ClientLogger.class))
                                  .build());

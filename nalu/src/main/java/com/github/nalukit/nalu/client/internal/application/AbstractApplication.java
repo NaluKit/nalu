@@ -24,7 +24,6 @@ import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
-import com.github.nalukit.nalu.client.internal.NaluConstants;
 import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.*;
@@ -45,8 +44,6 @@ public abstract class AbstractApplication<C extends IsContext>
 
   /* start route */
   protected String                             startRoute;
-  /* route in case of route error */
-  protected String                             errorRoute;
   /* Shell */
   protected IsShell                            shell;
   /* Shell Configuration */
@@ -131,7 +128,6 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.isUsingColonForParametersInUrl(),
                                  this.isStayOnSide(),
                                  this.getErrorHandlingMethod());
-    this.router.setRouteError(NaluConstants.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
     this.router.setEventBus(this.eventBus);
     // initialize plugin
     this.plugin.initialize(this.shellConfiguration);
@@ -175,14 +171,6 @@ public abstract class AbstractApplication<C extends IsContext>
                                             this.startRoute)) {
       this.plugin.alert("startRoute not valid - application stopped!");
       return;
-    }
-    if (!NaluConstants.NO_ROUTE.equals(this.errorRoute)) {
-      if (!RouteValidation.validateRouteError(this.shellConfiguration,
-                                              this.routerConfiguration,
-                                              this.errorRoute)) {
-        this.plugin.alert("routeError not valid - application stopped!");
-        return;
-      }
     }
     // handling application loading
     IsApplicationLoader<C> applicationLoader = getApplicationLoader();

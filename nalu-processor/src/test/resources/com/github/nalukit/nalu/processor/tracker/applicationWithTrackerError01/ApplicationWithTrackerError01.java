@@ -22,8 +22,7 @@ import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
 @Application(startRoute = "/mockShell/route01",
-             context = MockContext.class,
-             routeError = "/mockShell/route01")
+             context = MockContext.class)
 @Tracker(TrackerError01.class)
 public interface ApplicationWithTrackerError01
     extends IsApplication {

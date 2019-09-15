@@ -75,8 +75,6 @@ public class FiltersGenerator {
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName()))
                                                               .addStatement("$L.setEventBus(super.eventBus)",
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName()))
-                                                              .addStatement("$L.setRouter(super.router)",
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()))
                                                               .addStatement("super.routerConfiguration.getFilters().add($L)",
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName()))
                                                               .addStatement("$T.get().logDetailed(\"AbstractApplication: filter >> $L << created\", 0)",

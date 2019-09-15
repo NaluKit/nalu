@@ -15,7 +15,6 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
-import com.github.nalukit.nalu.client.internal.NaluConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
@@ -63,8 +62,6 @@ public class ConsistenceValidator {
       throws ProcessorException {
     // check startroute parameter
     this.validateStartRoute();
-    // check, that the error route exists!
-    this.validateErrorRoute();
     // check, if there is at least one shell
     this.validateNoShellsDefined();
     // check, is there are duplicate shell names
@@ -90,56 +87,6 @@ public class ConsistenceValidator {
         return;
       }
       throw new ProcessorException("Nalu-Processor: No shells defined! Please define (at least) one shell.");
-    }
-  }
-
-  private void validateErrorRoute()
-      throws ProcessorException {
-    // no operation, in case error route is not defined!
-    if (NaluConstants.NO_ROUTE.equals(metaModel.getRouteError())) {
-      return;
-    }
-    if (!Objects.isNull(metaModel.getApplication())) {
-      Optional<String> optionalShell = this.metaModel.getShells()
-                                                     .stream()
-                                                     .map(m -> m.getName())
-                                                     .filter(s -> s.equals(this.metaModel.getShellOfErrorRoute()))
-                                                     .findFirst();
-      if (!optionalShell.isPresent()) {
-        if (this.metaModel.getModules()
-                          .size() > 0) {
-          this.processingEnvironment.getMessager()
-                                    .printMessage(Diagnostic.Kind.NOTE,
-                                                  "Nalu-Processor: The shell of the errorRoute >>" + this.metaModel.getShellOfErrorRoute() + "<< does not exist in this project");
-        } else {
-          throw new ProcessorException("Nalu-Processor: The shell of the errorRoute >>" + this.metaModel.getShellOfErrorRoute() + "<< does not exist!");
-        }
-      }
-
-      Optional<ControllerModel> optionalRoute = this.metaModel.getControllers()
-                                                              .stream()
-                                                              .filter(m -> m.match(this.metaModel.getRouteError()))
-                                                              .findAny();
-      if (!optionalRoute.isPresent()) {
-        if (this.metaModel.getModules()
-                          .size() > 0) {
-          this.processingEnvironment.getMessager()
-                                    .printMessage(Diagnostic.Kind.NOTE,
-                                                  "Nalu-Processor: The route of the errorRoute >>" + this.metaModel.getRouteError() + "<< does not exist in this project");
-        } else {
-          throw new ProcessorException("Nalu-Processor: The route of the errorRoute >>" + this.metaModel.getRouteError() + "<< does not exist!");
-        }
-      }
-
-      if (!Objects.isNull(this.metaModel.getErrorPopUpController())) {
-        throw new ProcessorException("Nalu-Processor: errorRoute >>" +
-                                     this.metaModel.getRouteError() +
-                                     "<< and ErroroPopUpController >>" +
-                                     this.metaModel.getErrorPopUpController()
-                                                   .getController()
-                                                   .getClassName() +
-                                     "<< can not be used togehter!");
-      }
     }
   }
 

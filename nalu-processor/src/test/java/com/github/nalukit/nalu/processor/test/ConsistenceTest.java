@@ -158,49 +158,4 @@ public class ConsistenceTest {
                       .succeeded();
   }
 
-  @Test
-  void testIllegalErrorRoute01() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell02.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/illegalError/IllegalErrorRouteApplication.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Controller04.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/IComponent04.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Component04.java"));
-                                       }
-                                     });
-    CompilationSubject.assertThat(compilation)
-                      .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: The shell of the errorRoute >>errorShellIllegal<< does not exist!");
-  }
-
-  @Test
-  void testIllegalErrorRoute02() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell02.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShellIllegal.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/illegalError/IllegalErrorRouteApplication.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Controller04.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/IComponent04.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component04/Component04.java"));
-                                       }
-                                     });
-    CompilationSubject.assertThat(compilation)
-                      .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: The route of the errorRoute >>/errorShellIllegal/error<< does not exist!");
-  }
-
 }

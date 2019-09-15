@@ -22,8 +22,7 @@ import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
 @Application(startRoute = "/mockShell/search",
-             context = MockContext.class,
-             routeError = "/errorShell/error")
+             context = MockContext.class)
 public class ApplicationAnnotationInterfaceOnAClass
     implements IsApplication {
 

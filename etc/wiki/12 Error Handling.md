@@ -9,11 +9,12 @@ There are several validations inside Nalu, that can cause an error:
 
 In addition, the error handling can be used to display application errors.
 
-Nalu supports two ways of error handling.
+Nalu will reports errors  by firing the `NaluErrorEvent`.
 
-1. based on an error route
 
-2. based on an error event.
+
+TBD
+
 
 To use the error route feature, define an error route inside the `@Application`-annotation:
 ```Java

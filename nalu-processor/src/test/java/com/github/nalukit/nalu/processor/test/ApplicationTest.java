@@ -80,28 +80,6 @@ public class ApplicationTest {
   }
 
   @Test
-  void testApplicationAnnotationRouteErrorDoesNotBeginWithSlash() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/routeErrorNotBeginWithSlash/RouteErrorNotBeginWithSlash.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/error/ErrorController.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/error/IErrorComponent.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/error/ErrorComponent.java"));
-                                       }
-                                     });
-    CompilationSubject.assertThat(compilation)
-                      .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor:@Application - routeError attribute muss begin with a '/'");
-  }
-
-  @Test
   void testApplicationAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
@@ -236,7 +214,6 @@ public class ApplicationTest {
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite01/composite/CompositeController01.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite01/composite/ICompositeComponent01.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite01/composite/CompositeComponent01.java"));
-
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite01/ApplicationWithComposite01.java"));
                                        }
                                      });

@@ -27,8 +27,7 @@ public class ApplicationAnnotationOkWithoutLoaderAsInnerInterface {
 
 
   @Application(startRoute = "/mockShell/route01",
-               context = MockContext.class,
-               routeError = "/mockShell/route01")
+               context = MockContext.class)
   public interface MyApplication
       extends IsApplication {
   }

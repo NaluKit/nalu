@@ -21,8 +21,7 @@ import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
 @Application(startRoute = "/mockShell02/route04",
-             context = MockContext.class,
-             routeError = "/mockShell02/route04")
+             context = MockContext.class)
 public interface ShellOfSelectionApplication
     extends IsApplication {
 }

@@ -21,7 +21,6 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 
 @Application(startShell = "mockShell",
              startRoute = "/search",
-             context = MockContext.class,
-             routeError = "/errorShell/error")
+             context = MockContext.class)
 public interface ApplicationInterfaceWithoutExtendsIsApplication {
 }

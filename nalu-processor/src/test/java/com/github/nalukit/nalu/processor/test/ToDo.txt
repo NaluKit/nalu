@@ -1,1 +1,0 @@
-* Router tests: parse hash, Filter, mayStop

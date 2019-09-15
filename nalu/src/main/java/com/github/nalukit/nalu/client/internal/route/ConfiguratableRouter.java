@@ -42,13 +42,6 @@ public interface ConfiguratableRouter
       throws RouterException;
 
   /**
-   * Set's the error route inside the router.
-   *
-   * @param routeError the route to be executed in case of error!
-   */
-  void setRouteError(String routeError);
-
-  /**
    * sets the eventbus inside the router
    *
    * @param eventBus Nalu application eventbus

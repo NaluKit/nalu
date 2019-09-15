@@ -21,8 +21,7 @@ import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
 @Application(startRoute = "/MockShell/ropute03",
-             context = MockContext.class,
-             routeError = "/errorShell/error")
+             context = MockContext.class)
 public interface StartRouteShellDoesNotExistApplication
     extends IsApplication {
 }

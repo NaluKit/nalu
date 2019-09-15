@@ -29,7 +29,6 @@ import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
 import com.github.nalukit.nalu.client.internal.application.*;
-import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import org.gwtproject.event.shared.SimpleEventBus;
@@ -41,18 +40,8 @@ import java.util.stream.Collectors;
 abstract class AbstractRouter
     implements ConfiguratableRouter {
 
-  private static final String NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE = "NoControllerInstance";
-  private static final String NALU_ERROR_TYPE_NO_SELECTOR_FOUND      = "NoSelectorFound";
-  private static final String NALU_ERROR_TYPE_LOOP_DETECTED          = "RoutingLoopDetected";
-
   // the plugin
   IsNaluProcessorPlugin plugin;
-  // route in case of route error
-  private String                                            routeError;
-  // the latest error object (set by the application
-  private NaluErrorMessage                                  applicationErrorMessage;
-  // the latest error object
-  private NaluErrorMessage                                  naluErrorMessage;
   // composite configuration
   private List<CompositeControllerReference>                compositeControllerReferences;
   // List of the application shells
@@ -106,111 +95,6 @@ abstract class AbstractRouter
                              usingColonForParametersInUrl,
                              stayOnSite,
                              errorHandlingMethod);
-  }
-
-  /**
-   * Returns the last error message set by the application.
-   * <p>
-   * Once the error message is consumed, it should be reseted by the developer.
-   * (after displayed on the error site!)
-   *
-   * @return the last set error message or null, if there is none
-   */
-  public NaluErrorMessage getApplicationErrorMessage() {
-    return applicationErrorMessage;
-  }
-
-  /**
-   * Sets the application error message.
-   * <p>
-   *
-   * @param applicationErrorMessage the new application error message
-   */
-  public void setApplicationErrorMessage(NaluErrorMessage applicationErrorMessage) {
-    this.applicationErrorMessage = applicationErrorMessage;
-  }
-
-  /**
-   * Clears the application error message.
-   * <p>
-   * Should be called after the error message is displayed!
-   */
-  public void clearApplicationErrorMessage() {
-    this.applicationErrorMessage = null;
-  }
-
-  /**
-   * Sets the application error message.
-   * <p>
-   *
-   * @param errorType    a String that indicates the type of the error (value is to set by the developer)
-   * @param errorMessage the error message that should be displayed
-   */
-  public void setApplicationErrorMessage(String errorType,
-                                         String errorMessage) {
-    this.applicationErrorMessage = new NaluErrorMessage(errorType,
-                                                        errorMessage);
-  }
-
-  /**
-   * Returns the last error message set by Nalu.
-   * <p>
-   * Once the error message is consumed, it should be reseted by the developer.
-   * (after displayed on the error site!)
-   *
-   * @return the last set error message or null, if there is none
-   */
-  public NaluErrorMessage getNaluErrorMessage() {
-    return naluErrorMessage;
-  }
-
-  /**
-   * Clears the Nalu error message.
-   * <p>
-   * Should be called after the error message is displayed!
-   */
-  public void clearNaluErrorMessage() {
-    this.naluErrorMessage = null;
-  }
-
-  /**
-   * Returns the last error message set by Nalu or application.
-   * <p>
-   * In case a error message is set by Nalu and by the application,
-   * this method will return the error message set by Nalu.
-   * <p>
-   * Once the error message is consumed, it should be reseted by the developer.
-   * (after displayed on the error site!)
-   *
-   * @return the last set error message set by thel application
-   * or null, if there is none
-   */
-  public NaluErrorMessage getErrorMessageByPriority() {
-    if (!Objects.isNull(this.naluErrorMessage)) {
-      return this.naluErrorMessage;
-    } else if (!Objects.isNull(this.applicationErrorMessage)) {
-      return this.applicationErrorMessage;
-    } else {
-      return null;
-    }
-  }
-
-  /**
-   * returns whether a routeError should be used or not!
-   *
-   * @return true routeError is used otherwise fire error event!
-   */
-  private boolean isUsingRouteError() {
-    return !Objects.isNull(this.routeError);
-  }
-
-  /**
-   * Sets the error route. (Mostly done by the framework)
-   *
-   * @param routeError route used by Nalu in case of a routing error
-   */
-  public void setRouteError(String routeError) {
-    this.routeError = routeError;
   }
 
   /**
@@ -285,24 +169,10 @@ abstract class AbstractRouter
                                 hash);
       // loop discovered .... -> create message
       String message = RouterLogger.logLoopDetected(this.loopDetectionList.get(0));
-      // check, if there is a loop containing the error route
-      if (this.isUsingRouteError() && this.loopDetectionList.contains(pimpUpHashForLoopDetection(this.routeError))) {
-        // YES!! -> just use the alert feature of the plugin
-        this.plugin.alert(message);
-      } else {
-        if (this.isUsingRouteError()) {
-          // NO!! -> route to error site ....
-          this.naluErrorMessage = new NaluErrorMessage(AbstractRouter.NALU_ERROR_TYPE_LOOP_DETECTED,
-                                                       message);
-          this.loopDetectionList.add(pimpUpHashForLoopDetection(this.routeError));
-          this.route(this.routeError);
-        } else {
-          // Fire error event ....
-          this.eventBus.fireEvent(NaluErrorEvent.create()
-                                                .message(message)
-                                                .route(this.loopDetectionList.get(0)));
-        }
-      }
+      // Fire error event ....
+      this.eventBus.fireEvent(NaluErrorEvent.create()
+                                            .message(message)
+                                            .route(this.loopDetectionList.get(0)));
       // clear loop detection list ...
       this.loopDetectionList.clear();
       // abort handling!
@@ -411,15 +281,9 @@ abstract class AbstractRouter
 
                                @Override
                                public void onShellNotFound() {
-                                 if (isUsingRouteError()) {
-                                   RouterLogger.logUseErrorRoute(routeError);
-                                   route(routeError,
-                                         true);
-                                 } else {
-                                   eventBus.fireEvent(NaluErrorEvent.create()
-                                                                    .message("no shell found for route: >>" + shellConfig.getRoute() + "<<")
-                                                                    .route(shellConfig.getRoute()));
-                                 }
+                                 eventBus.fireEvent(NaluErrorEvent.create()
+                                                                  .message("no shell found for route: >>" + shellConfig.getRoute() + "<<")
+                                                                  .route(shellConfig.getRoute()));
                                }
 
                                @Override
@@ -446,32 +310,10 @@ abstract class AbstractRouter
     // fire Router StateEvent
     this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
                               hash);
-    // handle router exception ...
-    this.naluErrorMessage = new NaluErrorMessage(AbstractRouter.NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE,
-                                                 RouterLogger.logNoMatchingRoute(hash,
-                                                                                 this.routeError));
-    if (this.isUsingRouteError()) {
-      // fire Router StateEvent
-      this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
-                                hash);
-      // loop discovered .... -> show message
-      String message = RouterLogger.logLoopDetected(this.loopDetectionList.get(0));
-      // check, if there is a loop containing the error route
-      if (this.loopDetectionList.contains(pimpUpHashForLoopDetection(this.routeError))) {
-        // YES!! -> just use the alert feature of the plugin
-        this.plugin.alert(message);
-        return;
-      }
-      RouterLogger.logUseErrorRoute(this.routeError);
-      this.loopDetectionList.add(pimpUpHashForLoopDetection(hash));
-      this.route(this.routeError,
-                 true);
-    } else {
-      // Fire error event ....
-      this.eventBus.fireEvent(NaluErrorEvent.create()
-                                            .message(this.naluErrorMessage.getErrorMessage())
-                                            .route(hash));
-    }
+    // Fire error event ....
+    this.eventBus.fireEvent(NaluErrorEvent.create()
+                                          .message(RouterLogger.logNoMatchingRoute(hash))
+                                          .route(hash));
   }
 
   private void postProcessHandleRouting(String hash,
@@ -524,17 +366,9 @@ abstract class AbstractRouter
                          RouteConfig routeConfiguration,
                          ControllerInstance controllerInstance) {
     if (Objects.isNull(controllerInstance.getController())) {
-      this.naluErrorMessage = new NaluErrorMessage(AbstractRouter.NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE,
-                                                   RouterLogger.logNoControllerFoundForHash(hash));
-      if (isUsingRouteError()) {
-        RouterLogger.logUseErrorRoute(this.routeError);
-        this.route(this.routeError,
-                   true);
-      } else {
-        eventBus.fireEvent(NaluErrorEvent.create()
-                                         .message("no controller instance found for route >>" + hashResult.getRoute() + "<<")
-                                         .route(hashResult.getRoute()));
-      }
+      eventBus.fireEvent(NaluErrorEvent.create()
+                                       .message(RouterLogger.logNoControllerFoundForHash(hash))
+                                       .route(hashResult.getRoute()));
     } else {
       // inject the router instance into the controller!
       // (we do it for cahced and non cached controllers,
@@ -961,11 +795,9 @@ abstract class AbstractRouter
       String sb = "no element found, that matches selector >>" + selector + "<< --> Routing aborted!";
       RouterLogger.logSimple(sb,
                              1);
-      this.naluErrorMessage = new NaluErrorMessage(AbstractRouter.NALU_ERROR_TYPE_NO_SELECTOR_FOUND,
-                                                   sb);
-      RouterLogger.logUseErrorRoute(this.routeError);
-      this.route(this.routeError,
-                 true);
+      eventBus.fireEvent(NaluErrorEvent.create()
+                                       .message(sb)
+                                       .route("NoRouteAvailable"));
     }
   }
 

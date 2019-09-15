@@ -18,7 +18,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.15-09:40:13<< */
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.15-14:52:40<< */
 public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockContext> implements ErrorPopUpAnnotationOk {
   public ErrorPopUpAnnotationOkImpl() {
     super();
@@ -161,8 +161,6 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
     sb01.append("found startRoute >>/mockShell/route01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
     sb01.setLength(0);
-    this.errorRoute = "WhenShallWeThreeMeetAgainInThunderLightningOrInRain";
-    sb01.append("found errorRoute >>WhenShallWeThreeMeetAgainInThunderLightningOrInRain<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
   }
 

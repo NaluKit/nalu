@@ -21,8 +21,7 @@ import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
 @Application(startRoute = "/mockShell/badRoute",
-             context = MockContext.class,
-             routeError = "/mockShell/badRoute")
+             context = MockContext.class)
 public interface ControllerAnnotationWithParameterNotOK
     extends IsApplication {
 }

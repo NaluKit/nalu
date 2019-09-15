@@ -19,7 +19,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.15-09:43:11<< */
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.15-15:54:42<< */
 public final class ApplicationWithComposite02Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite02 {
   public ApplicationWithComposite02Impl() {
     super();
@@ -136,8 +136,6 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
     sb01.append("found startRoute >>/mockShell/route02<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
     sb01.setLength(0);
-    this.errorRoute = "/mockShell/route02";
-    sb01.append("found errorRoute >>/mockShell/route02<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
   }
 

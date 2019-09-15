@@ -6,8 +6,7 @@ To implement Nalu in your application, first create an application interface:
 ```Java
 @Application(loader = MyLoader.class,
              startRoute = "/application/search",
-             context = MyApplicationContext.class,
-             routeError = "/errorShell/error")
+             context = MyApplicationContext.class)
 interface MyApplication
     extends IsApplication {
 }
@@ -17,8 +16,6 @@ The application interface must extends `IsApplication` and needs the `@Applicati
 The attributes of the Application annotation are:
 
 * **startRoute**: The start route is the initial route that is called in case the application is called without a hash. If the application is called with a hash, the startRoute-attribute has no effect.
-
-* **routeError**: the error route is used to show an error page if Nalu detects some issues. This attribute is optional. (see: [Error handling](xxx))
 
 * **loader**: the application loader will be executed at application start. (see: [Application Loader](xxx). This attribute is optional.
 
@@ -45,15 +42,6 @@ Minimal requirements for a start route are:
 **Important note: a start route can not have a parameter!**
 
 Using only a shell as start route will produce an error.
-
-### Error Route
-There are several validations inside Nalu, that can cause an error. For example:
-
-* a routing loop
-* an illegal route
-* using an non existing selector
-
-In such cases Nalu will show an error. To display an error Nalu uses the error route (if it is defined) or fires an error event. For more informations about error handling, take a look [here](xxx).
 
 ## Filter Annotation
 Nalu allows you to use filters to stop routings in order to interrupt a route before it is handled. In case a route is interrupted, you can redirect to another route.

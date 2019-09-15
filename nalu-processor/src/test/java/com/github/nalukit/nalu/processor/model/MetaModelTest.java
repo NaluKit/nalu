@@ -43,18 +43,4 @@ public class MetaModelTest {
                             this.metaModel.getShellOfStartRoute());
   }
 
-  @Test
-  void getShellOfErrorRoute01() {
-    this.metaModel.setRouteError("/ErrorShell/error");
-    Assertions.assertEquals("ErrorShell",
-                            this.metaModel.getShellOfErrorRoute());
-  }
-
-  @Test
-  void getShellOfErrorRoute02() {
-    this.metaModel.setRouteError("ErrorShell/error");
-    Assertions.assertEquals("ErrorShell",
-                            this.metaModel.getShellOfErrorRoute());
-  }
-
 }

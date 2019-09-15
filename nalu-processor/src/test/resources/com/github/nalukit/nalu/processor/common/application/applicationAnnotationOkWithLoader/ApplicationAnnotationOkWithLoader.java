@@ -22,8 +22,7 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 
 @Application(loader = MockApplicationLoader.class,
              startRoute = "/mockShell/route01",
-             context = MockContext.class,
-             routeError = "/mockShell/route01")
+             context = MockContext.class)
 public interface ApplicationAnnotationOkWithLoader
     extends IsApplication {
 }

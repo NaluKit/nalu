@@ -49,8 +49,6 @@ public class MetaModel {
 
   private String startRoute;
 
-  private String routeError;
-
   private ErrorPopUpControllerModel errorPopUpController;
 
   private boolean hasPluginsAnnotation;
@@ -214,14 +212,6 @@ public class MetaModel {
     this.componentType = componentType;
   }
 
-  public String getRouteError() {
-    return routeError;
-  }
-
-  public void setRouteError(String routeError) {
-    this.routeError = routeError;
-  }
-
   public ErrorPopUpControllerModel getErrorPopUpController() {
     return errorPopUpController;
   }
@@ -283,13 +273,6 @@ public class MetaModel {
       return "";
     }
     return getShellFromRoute(this.startRoute);
-  }
-
-  public String getShellOfErrorRoute() {
-    if (Objects.isNull(this.routeError)) {
-      return "";
-    }
-    return getShellFromRoute(this.routeError);
   }
 
   private String getShellFromRoute(String route) {

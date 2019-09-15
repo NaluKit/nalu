@@ -120,29 +120,4 @@ public class ErrorPopUpControllerTest {
                       .hadErrorContaining("Nalu-Processor: more than one class is annotated with @ErrorPopUpController");
   }
 
-  @Test
-  void testApplicationAnnotationRouteErrorAndErrorPopUp() {
-    Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/errorPopUpController/errorRouteWithPopUp/RouteErrorAndErrorPopUp.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/error/ErrorController.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/error/IErrorComponent.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/error/ErrorComponent.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/errorPopUp01/ErrorEventController01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/errorPopUp01/IErrorEventComponent01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/errorPopUp01/ErrorEventComponent01.java"));
-                                       }
-                                     });
-    CompilationSubject.assertThat(compilation)
-                      .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: errorRoute >>/errorShell/error<< and ErroroPopUpController >>com.github.nalukit.nalu.processor.common.ui.errorPopUp01.ErrorEventController01<< can not be used togehter!");
-  }
-
 }

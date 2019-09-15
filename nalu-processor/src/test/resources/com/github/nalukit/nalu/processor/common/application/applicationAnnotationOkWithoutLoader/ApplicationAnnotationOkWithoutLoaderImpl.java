@@ -15,7 +15,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.15-09:43:11<< */
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.15-15:07:08<< */
 public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithoutLoader {
   public ApplicationAnnotationOkWithoutLoaderImpl() {
     super();
@@ -122,8 +122,6 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
     sb01.append("found startRoute >>/mockShell/route01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
     sb01.setLength(0);
-    this.errorRoute = "/mockShell/route01";
-    sb01.append("found errorRoute >>/mockShell/route01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
   }
 
