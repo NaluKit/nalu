@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
+import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 
@@ -34,7 +35,8 @@ public final class RouterImpl
                     boolean hasHistory,
                     boolean usingHash,
                     boolean usingColonForParametersInUrl,
-                    boolean stayOnSide) {
+                    boolean stayOnSide,
+                    ErrorHandlingMethod errorHandlingMethod) {
     super(compositeControllerReferences,
           shellConfiguration,
           routerConfiguration,
@@ -44,7 +46,8 @@ public final class RouterImpl
           hasHistory,
           usingHash,
           usingColonForParametersInUrl,
-          stayOnSide);
+          stayOnSide,
+          errorHandlingMethod);
     this.plugin.register(super::handleRouting);
   }
 

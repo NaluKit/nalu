@@ -15,6 +15,8 @@ import java.lang.String;
 import java.lang.StringBuilder;
 import org.gwtproject.event.shared.SimpleEventBus;
 
+/**
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.14-21:09:22<< */
 public final class ControllerWithComposite02CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
   public ControllerWithComposite02CreatorImpl(Router router, MockContext context,
                                               SimpleEventBus eventBus) {
@@ -37,7 +39,7 @@ public final class ControllerWithComposite02CreatorImpl extends AbstractControll
       controller.setEventBus(eventBus);
       controller.setRouter(router);
       controller.setCached(false);
-      sb01 = new StringBuilder();
+      sb01.setLength(0);
       sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
     } else {
@@ -55,23 +57,23 @@ public final class ControllerWithComposite02CreatorImpl extends AbstractControll
     ControllerWithComposite02 controller = (ControllerWithComposite02) object;
     StringBuilder sb01 = new StringBuilder();
     IComponent02 component = new Component02();
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("component >>com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.Component02<< --> created using new");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
     component.setController(controller);
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> created and controller instance injected");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
     controller.setComponent(component);
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> instance of >>").append(component.getClass().getCanonicalName()).append("<< injected");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
     component.render();
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> rendered");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
     component.bind();
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
     ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.Component02<< created for route >>/mockShell/route02/*<<", 3);
@@ -83,7 +85,7 @@ public final class ControllerWithComposite02CreatorImpl extends AbstractControll
     StringBuilder sb01 = new StringBuilder();
     if (parms != null) {
       if (parms.length >= 1) {
-        sb01 = new StringBuilder();
+        sb01.setLength(0);
         sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setParameter02<< to set value >>").append(parms[0]).append("<<");
         ClientLogger.get().logDetailed(sb01.toString(), 4);
         controller.setParameter02(parms[0]);

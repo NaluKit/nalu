@@ -3,6 +3,7 @@ package com.github.nalukit.nalu.processor.common.application.applicationWithComp
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
+import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
@@ -18,7 +19,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.05-21:20:39<< */
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.15-09:43:11<< */
 public final class ApplicationWithComposite02Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite02 {
   public ApplicationWithComposite02Impl() {
     super();
@@ -51,7 +52,7 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
     sb01.append("load shell references");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
     super.shellConfiguration.getShells().add(new ShellConfig("/mockShell", "com.github.nalukit.nalu.processor.common.MockShell"));
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("register shell >>/mockShell<< with class >>com.github.nalukit.nalu.processor.common.MockShell<<");
     ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
@@ -84,13 +85,19 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
     sb01.append("load routes");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
     super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route02/*", Arrays.asList(new String[]{"parameter02"}), "selector02", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02"));
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("register route >>/mockShell/route02/*<< with parameter >>parameter02<< for selector >>selector02<< for controller >>com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02<<");
     ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
 
   @Override
   public void loadPopUpControllerFactory() {
+  }
+
+  @Override
+  public void loadErrorPopUpController() {
+    StringBuilder sb01 = new StringBuilder();
+    sb01.append("no ErrorPopUpController found!°");
   }
 
   @Override
@@ -107,7 +114,7 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
     sb01.append("load composite references");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
     this.compositeControllerReferences.add(new CompositeControllerReference("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02", "testComposite", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite.CompositeController02", "selector", false));
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("register composite >>testComposite<< for controller >>com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02<< in selector >>selector<<");
     ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
@@ -128,7 +135,7 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
     this.startRoute = "/mockShell/route02";
     sb01.append("found startRoute >>/mockShell/route02<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     this.errorRoute = "/mockShell/route02";
     sb01.append("found errorRoute >>/mockShell/route02<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
@@ -152,5 +159,10 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
   @Override
   public boolean isStayOnSide() {
     return false;
+  }
+
+  @Override
+  public PropertyFactory.ErrorHandlingMethod getErrorHandlingMethod() {
+    return PropertyFactory.ErrorHandlingMethod.ROUTING;
   }
 }

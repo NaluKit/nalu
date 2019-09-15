@@ -46,18 +46,6 @@ public abstract class AbstractPopUpComponent<C extends IsPopUpComponent.Controll
     // just override this method.
   }
 
-  //  /**
-  //   * internal framework method! Will be called by the framdework after the
-  //   * stop-method f the controller is called
-  //   *
-  //   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
-  //   */
-  //  @Override
-  //  public void removeHandlers() {
-  //    this.handlerRegistrations.removeHandler();
-  //    this.handlerRegistrations = new HandlerRegistrations();
-  //  }
-
   @Override
   public C getController() {
     return this.controller;

@@ -18,6 +18,8 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
+import com.github.nalukit.nalu.client.internal.PropertyFactory;
+import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.NoApplicationLoader;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
@@ -30,6 +32,7 @@ import com.squareup.javapoet.*;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
+import java.util.Objects;
 
 public class ApplicationGenerator {
 
@@ -145,6 +148,12 @@ public class ApplicationGenerator {
                             .build()
                             .generate();
 
+    ErrorPopUpControllerGenerator.builder()
+                                 .metaModel(metaModel)
+                                 .typeSpec(typeSpec)
+                                 .build()
+                                 .generate();
+
     FiltersGenerator.builder()
                     .processingEnvironment(this.processingEnvironment)
                     .metaModel(metaModel)
@@ -205,6 +214,9 @@ public class ApplicationGenerator {
 
     generateIsStayOnSide(typeSpec,
                          metaModel);
+
+    generateGetErrorHandlinghMethod(typeSpec,
+                                    metaModel);
 
     JavaFile javaFile = JavaFile.builder(metaModel.getGenerateToPackage(),
                                          typeSpec.build())
@@ -280,8 +292,7 @@ public class ApplicationGenerator {
                                                metaModel.getStartRoute())
                                  .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                ClassName.get(ClientLogger.class))
-                                 .addStatement("sb01 = new $T()",
-                                               ClassName.get(StringBuilder.class))
+                                 .addStatement("sb01.setLength(0)")
                                  .addStatement("this.errorRoute = $S",
                                                metaModel.getRouteError())
                                  .addStatement("sb01.append(\"found errorRoute >>$L<<\")",
@@ -289,6 +300,24 @@ public class ApplicationGenerator {
                                  .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                ClassName.get(ClientLogger.class))
                                  .build());
+  }
+
+  private void generateGetErrorHandlinghMethod(TypeSpec.Builder typeSpec,
+                                               MetaModel metaModel) {
+    MethodSpec.Builder method = MethodSpec.methodBuilder("getErrorHandlingMethod")
+                                          .addAnnotation(Override.class)
+                                          .addModifiers(Modifier.PUBLIC)
+                                          .returns(ClassName.get(ErrorHandlingMethod.class));
+    if (Objects.isNull(metaModel.getErrorPopUpController())) {
+      method.addStatement("return $T.$L",
+                          ClassName.get(PropertyFactory.ErrorHandlingMethod.class),
+                          ErrorHandlingMethod.ROUTING);
+    } else {
+      method.addStatement("return $T.$L",
+                          ClassName.get(PropertyFactory.ErrorHandlingMethod.class),
+                          ErrorHandlingMethod.EVENT);
+    }
+    typeSpec.addMethod(method.build());
   }
 
   public static class Builder {

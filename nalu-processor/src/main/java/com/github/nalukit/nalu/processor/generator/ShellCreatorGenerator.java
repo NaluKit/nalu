@@ -115,15 +115,13 @@ public class ShellCreatorGenerator {
                                                 .addStatement("shell.setContext(context)")
                                                 .addStatement("shell.setEventBus(eventBus)")
                                                 .addStatement("shell.setRouter(router)")
-                                                .addStatement("sb01 = new $T()",
-                                                              ClassName.get(StringBuilder.class))
+                                                .addStatement("sb01.setLength(0)")
                                                 .addStatement("sb01.append(\"shell >>$L<< --> created and data injected\")",
                                                               this.shellModel.getShell()
                                                                              .getClassName())
                                                 .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                               ClassName.get(ClientLogger.class))
-                                                .addStatement("sb01 = new $T()",
-                                                              ClassName.get(StringBuilder.class))
+                                                .addStatement("sb01.setLength(0)")
                                                 .addStatement("return shellInstance");
     typeSpec.addMethod(createMethod.build());
 

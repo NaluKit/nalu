@@ -11,6 +11,8 @@ import java.lang.Override;
 import java.lang.StringBuilder;
 import org.gwtproject.event.shared.SimpleEventBus;
 
+/**
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.14-14:18:30<< */
 public final class MockShellCreatorImpl extends AbstractShellCreator<MockContext> implements IsShellCreator {
     public MockShellCreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
         super(router, context, eventBus);
@@ -28,10 +30,10 @@ public final class MockShellCreatorImpl extends AbstractShellCreator<MockContext
         shell.setContext(context);
         shell.setEventBus(eventBus);
         shell.setRouter(router);
-        sb01 = new StringBuilder();
+        sb01.setLength(0);
         sb01.append("shell >>com.github.nalukit.nalu.processor.common.MockShell<< --> created and data injected");
         ClientLogger.get().logDetailed(sb01.toString(), 2);
-        sb01 = new StringBuilder();
+        sb01.setLength(0);
         return shellInstance;
     }
 

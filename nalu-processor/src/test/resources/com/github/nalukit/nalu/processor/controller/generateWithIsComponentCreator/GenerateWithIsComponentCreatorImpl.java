@@ -2,6 +2,7 @@ package com.github.nalukit.nalu.processor.controller.generateWithIsComponentCrea
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
+import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
@@ -14,7 +15,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.05-21:05:39<< */
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.15-09:40:13<< */
 public final class GenerateWithIsComponentCreatorImpl extends AbstractApplication<MockContext> implements GenerateWithIsComponentCreator {
   public GenerateWithIsComponentCreatorImpl() {
     super();
@@ -47,7 +48,7 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
     sb01.append("load shell references");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
     super.shellConfiguration.getShells().add(new ShellConfig("/mockShell", "com.github.nalukit.nalu.processor.common.MockShell"));
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("register shell >>/mockShell<< with class >>com.github.nalukit.nalu.processor.common.MockShell<<");
     ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
@@ -74,13 +75,19 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
     sb01.append("load routes");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
     super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01", Arrays.asList(new String[]{}), "selector01", "com.github.nalukit.nalu.processor.controller.generateWithIsComponentCreator.ui.content01.Content01Controller"));
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("register route >>/mockShell/route01<< with parameter >><< for selector >>selector01<< for controller >>com.github.nalukit.nalu.processor.controller.generateWithIsComponentCreator.ui.content01.Content01Controller<<");
     ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
 
   @Override
   public void loadPopUpControllerFactory() {
+  }
+
+  @Override
+  public void loadErrorPopUpController() {
+    StringBuilder sb01 = new StringBuilder();
+    sb01.append("no ErrorPopUpController found!°");
   }
 
   @Override
@@ -114,7 +121,7 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
     this.startRoute = "/mockShell/route01";
     sb01.append("found startRoute >>/mockShell/route01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     this.errorRoute = "/mockShell/route01";
     sb01.append("found errorRoute >>/mockShell/route01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
@@ -138,5 +145,10 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
   @Override
   public boolean isStayOnSide() {
     return false;
+  }
+
+  @Override
+  public PropertyFactory.ErrorHandlingMethod getErrorHandlingMethod() {
+    return PropertyFactory.ErrorHandlingMethod.ROUTING;
   }
 }

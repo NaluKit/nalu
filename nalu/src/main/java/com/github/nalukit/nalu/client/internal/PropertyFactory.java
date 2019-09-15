@@ -24,6 +24,9 @@ public class PropertyFactory {
   // should the application replace history (stay on side) in case of empty hash
   private boolean stayOnSide;
 
+  // type of error handling used
+  private ErrorHandlingMethod errorHandlingMethod;
+
   private PropertyFactory() {
   }
 
@@ -98,6 +101,15 @@ public class PropertyFactory {
   }
 
   /**
+   * The type of error handling used in this application
+   *
+   * @return type of error handling
+   */
+  public ErrorHandlingMethod getErrorHandlingMethod() {
+    return errorHandlingMethod;
+  }
+
+  /**
    * Do NOT call this method!
    *
    * @param startRoute                   Start route of the application
@@ -110,7 +122,8 @@ public class PropertyFactory {
                        boolean hasHistory,
                        boolean usingHash,
                        boolean usingColonForParametersInUrl,
-                       boolean stayOnSide) {
+                       boolean stayOnSide,
+                       ErrorHandlingMethod errorHandlingMethod) {
     if (startRoute.startsWith("/")) {
       this.startRoute = startRoute.substring(1);
     } else {
@@ -120,6 +133,12 @@ public class PropertyFactory {
     this.usingHash = usingHash;
     this.usingColonForParametersInUrl = usingColonForParametersInUrl;
     this.stayOnSide = stayOnSide;
+    this.errorHandlingMethod = errorHandlingMethod;
+  }
+
+  public enum ErrorHandlingMethod {
+    ROUTING,
+    EVENT;
   }
 
 }

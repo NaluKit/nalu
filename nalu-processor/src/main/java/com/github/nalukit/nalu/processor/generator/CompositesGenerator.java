@@ -71,8 +71,7 @@ public class CompositesGenerator {
                                                                          .getClassName(),
                                                  controllerCompositeModel.getSelector(),
                                                  controllerCompositeModel.isScopeGlobal())
-                                   .addStatement("sb01 = new $T()",
-                                                 ClassName.get(StringBuilder.class))
+                                   .addStatement("sb01.setLength(0)")
                                    .addStatement("sb01.append(\"register composite >>$L<< for controller >>$L<< in selector >>$L<<\")",
                                                  controllerCompositeModel.getName(),
                                                  controllerModel.getProvider()

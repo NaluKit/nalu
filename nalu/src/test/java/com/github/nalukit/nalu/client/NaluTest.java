@@ -1,6 +1,7 @@
 package com.github.nalukit.nalu.client;
 
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
+import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,8 @@ public class NaluTest {
                              true,
                              true,
                              true,
-                             false);
+                             false,
+                             ErrorHandlingMethod.ROUTING);
     Assertions.assertTrue(Nalu.hasHistory());
   }
 
@@ -30,7 +32,8 @@ public class NaluTest {
                              false,
                              true,
                              true,
-                             false);
+                             false,
+                             ErrorHandlingMethod.ROUTING);
     Assertions.assertFalse(Nalu.hasHistory());
   }
 
@@ -41,7 +44,8 @@ public class NaluTest {
                              true,
                              true,
                              true,
-                             false);
+                             false,
+                             ErrorHandlingMethod.ROUTING);
     Assertions.assertTrue(Nalu.isUsingHash());
   }
 
@@ -52,7 +56,8 @@ public class NaluTest {
                              true,
                              false,
                              true,
-                             false);
+                             false,
+                             ErrorHandlingMethod.ROUTING);
     Assertions.assertFalse(Nalu.isUsingHash());
   }
 
@@ -63,7 +68,8 @@ public class NaluTest {
                              true,
                              true,
                              true,
-                             false);
+                             false,
+                             ErrorHandlingMethod.ROUTING);
     Assertions.assertTrue(Nalu.isUsingColonForParametersInUrl());
   }
 
@@ -74,7 +80,8 @@ public class NaluTest {
                              true,
                              true,
                              false,
-                             false);
+                             false,
+                             ErrorHandlingMethod.ROUTING);
     Assertions.assertFalse(Nalu.isUsingColonForParametersInUrl());
   }
 

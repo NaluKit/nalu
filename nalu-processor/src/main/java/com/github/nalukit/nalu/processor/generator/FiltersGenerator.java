@@ -73,6 +73,8 @@ public class FiltersGenerator {
                                                                                           classNameModel.getSimpleName()))
                                                               .addStatement("$L.setContext(super.context)",
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName()))
+                                                              .addStatement("$L.setEventBus(super.eventBus)",
+                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()))
                                                               .addStatement("$L.setRouter(super.router)",
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName()))
                                                               .addStatement("super.routerConfiguration.getFilters().add($L)",

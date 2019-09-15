@@ -128,8 +128,7 @@ public class ControllerCreatorGenerator {
                                                                                    .get(i));
           if (methodName != null) {
             method.beginControlFlow("if (parms.length >= " + (i + 1) + ")")
-                  .addStatement("sb01 = new $T()",
-                                ClassName.get(StringBuilder.class))
+                  .addStatement("sb01.setLength(0)")
                   .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> using method >>" +
                                     methodName +
                                     "<< to set value >>\").append(parms[" + i +
@@ -187,8 +186,7 @@ public class ControllerCreatorGenerator {
                                                        .getPackage(),
                                         controllerModel.getComponent()
                                                        .getSimpleName()))
-            .addStatement("sb01 = new $T()",
-                          ClassName.get(StringBuilder.class))
+            .addStatement("sb01.setLength(0)")
             .addStatement("sb01.append(\"component >>$L<< --> created using new\")",
                           controllerModel.getComponent()
                                          .getClassName())
@@ -196,26 +194,22 @@ public class ControllerCreatorGenerator {
                           ClassName.get(ClientLogger.class));
     }
     method.addStatement("component.setController(controller)")
-          .addStatement("sb01 = new $T()",
-                        ClassName.get(StringBuilder.class))
+          .addStatement("sb01.setLength(0)")
           .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
           .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                         ClassName.get(ClientLogger.class))
           .addStatement("controller.setComponent(component)")
-          .addStatement("sb01 = new $T()",
-                        ClassName.get(StringBuilder.class))
+          .addStatement("sb01.setLength(0)")
           .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
           .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                         ClassName.get(ClientLogger.class))
           .addStatement("component.render()")
-          .addStatement("sb01 = new $T()",
-                        ClassName.get(StringBuilder.class))
+          .addStatement("sb01.setLength(0)")
           .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> rendered\")")
           .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                         ClassName.get(ClientLogger.class))
           .addStatement("component.bind()")
-          .addStatement("sb01 = new $T()",
-                        ClassName.get(StringBuilder.class))
+          .addStatement("sb01.setLength(0)")
           .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> bound\")")
           .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                         ClassName.get(ClientLogger.class))
@@ -270,8 +264,7 @@ public class ControllerCreatorGenerator {
                                           .addStatement("controller.setEventBus(eventBus)")
                                           .addStatement("controller.setRouter(router)")
                                           .addStatement("controller.setCached(false)")
-                                          .addStatement("sb01 = new $T()",
-                                                        ClassName.get(StringBuilder.class))
+                                          .addStatement("sb01.setLength(0)")
                                           .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> created and data injected\")")
                                           .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                                                         ClassName.get(ClientLogger.class))

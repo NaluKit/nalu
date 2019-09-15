@@ -40,7 +40,7 @@ public class MetaModel {
 
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
-  /* with a a plugin and not with a pplication  */
+  /* with a a plugin and not with application  */
   private ModuleModel moduleModel;
 
   private List<ShellModel> shells;
@@ -50,6 +50,8 @@ public class MetaModel {
   private String startRoute;
 
   private String routeError;
+
+  private ErrorPopUpControllerModel errorPopUpController;
 
   private boolean hasPluginsAnnotation;
 
@@ -179,6 +181,7 @@ public class MetaModel {
   public void setPopUpControllers(List<PopUpControllerModel> popUpControllers) {
     this.popUpControllers = popUpControllers;
   }
+
   //  public String getHasFiltersAnnotation() {
   //    return hasFiltersAnnotation;
   //  }
@@ -217,6 +220,14 @@ public class MetaModel {
 
   public void setRouteError(String routeError) {
     this.routeError = routeError;
+  }
+
+  public ErrorPopUpControllerModel getErrorPopUpController() {
+    return errorPopUpController;
+  }
+
+  public void setErrorPopUpController(ErrorPopUpControllerModel errorPopUpController) {
+    this.errorPopUpController = errorPopUpController;
   }
 
   public List<CompositeModel> getCompositeModels() {

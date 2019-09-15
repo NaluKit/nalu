@@ -119,33 +119,17 @@ public class PopUpControllerCreatorGenerator {
                                                 .addStatement("controller.setRouter(router)")
                                                 .addStatement("controller.setName($S)",
                                                               popUpControllerModel.getName())
-                                                .addStatement("sb01 = new $T()",
-                                                              ClassName.get(StringBuilder.class))
+                                                .addStatement("sb01.setLength(0)")
                                                 .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> created and data injected\")")
                                                 .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                                                               ClassName.get(ClientLogger.class));
-
-    //
-    //                                                .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> call bind method\")")
-    //                                                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-    //                                                              ClassName.get(ClientLogger.class))
-    //
-    //                                                .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> bind method called\")")
-    //                                                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-    //                                                              ClassName.get(ClientLogger.class))
-    //
-
-    //                                                .addStatement("$T sb01 = new $T()",
-    //                                                              ClassName.get(StringBuilder.class),
-    //                                                              ClassName.get(StringBuilder.class));
     if (popUpControllerModel.isComponentCreator()) {
       createMethod.addStatement("$T component = controller.createPopUpComponent()",
                                 ClassName.get(popUpControllerModel.getComponentInterface()
                                                                   .getPackage(),
                                               popUpControllerModel.getComponentInterface()
                                                                   .getSimpleName()))
-                  .addStatement("sb01 = new $T()",
-                                ClassName.get(StringBuilder.class))
+                  .addStatement("sb01.setLength(0)")
                   .addStatement("sb01.append(\"component >>$L<< --> created using createComponent-Method of controller\")",
                                 popUpControllerModel.getComponent()
                                                     .getClassName())
@@ -161,8 +145,7 @@ public class PopUpControllerCreatorGenerator {
                                                                   .getPackage(),
                                               popUpControllerModel.getComponent()
                                                                   .getSimpleName()))
-                  .addStatement("sb01 = new $T()",
-                                ClassName.get(StringBuilder.class))
+                  .addStatement("sb01.setLength(0)")
                   .addStatement("sb01.append(\"component >>$L<< --> created using new\")",
                                 popUpControllerModel.getComponent()
                                                     .getClassName())
@@ -170,26 +153,22 @@ public class PopUpControllerCreatorGenerator {
                                 ClassName.get(ClientLogger.class));
     }
     createMethod.addStatement("component.setController(controller)")
-                .addStatement("sb01 = new $T()",
-                              ClassName.get(StringBuilder.class))
+                .addStatement("sb01.setLength(0)")
                 .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
                 .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                               ClassName.get(ClientLogger.class))
                 .addStatement("controller.setComponent(component)")
-                .addStatement("sb01 = new $T()",
-                              ClassName.get(StringBuilder.class))
+                .addStatement("sb01.setLength(0)")
                 .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
                 .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                               ClassName.get(ClientLogger.class))
                 .addStatement("component.render()")
-                .addStatement("sb01 = new $T()",
-                              ClassName.get(StringBuilder.class))
+                .addStatement("sb01.setLength(0)")
                 .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> rendered\")")
                 .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                               ClassName.get(ClientLogger.class))
                 .addStatement("component.bind()")
-                .addStatement("sb01 = new $T()",
-                              ClassName.get(StringBuilder.class))
+                .addStatement("sb01.setLength(0)")
                 .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> bound\")")
                 .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                               ClassName.get(ClientLogger.class))

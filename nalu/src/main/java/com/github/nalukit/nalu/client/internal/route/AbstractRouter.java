@@ -27,6 +27,7 @@ import com.github.nalukit.nalu.client.filter.IsFilter;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
+import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
@@ -82,7 +83,8 @@ abstract class AbstractRouter
                  boolean hasHistory,
                  boolean usingHash,
                  boolean usingColonForParametersInUrl,
-                 boolean stayOnSite) {
+                 boolean stayOnSite,
+                 ErrorHandlingMethod errorHandlingMethod) {
     // save the composite configuration reference
     this.compositeControllerReferences = compositeControllerReferences;
     // save the shell configuration reference
@@ -102,7 +104,8 @@ abstract class AbstractRouter
                              hasHistory,
                              usingHash,
                              usingColonForParametersInUrl,
-                             stayOnSite);
+                             stayOnSite,
+                             errorHandlingMethod);
   }
 
   /**

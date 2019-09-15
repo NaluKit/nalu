@@ -19,10 +19,7 @@ package com.github.nalukit.nalu.processor;
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.client.application.annotation.Filters;
-import com.github.nalukit.nalu.client.component.annotation.CompositeController;
-import com.github.nalukit.nalu.client.component.annotation.Controller;
-import com.github.nalukit.nalu.client.component.annotation.PopUpController;
-import com.github.nalukit.nalu.client.component.annotation.Shell;
+import com.github.nalukit.nalu.client.component.annotation.*;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.client.module.annotation.Module;
 import com.github.nalukit.nalu.client.module.annotation.Modules;
@@ -82,6 +79,7 @@ public class NaluProcessor
               CompositeController.class.getCanonicalName(),
               Controller.class.getCanonicalName(),
               Debug.class.getCanonicalName(),
+              ErrorPopUpController.class.getCanonicalName(),
               Filters.class.getCanonicalName(),
               Handler.class.getCanonicalName(),
               Module.class.getCanonicalName(),
@@ -128,9 +126,9 @@ public class NaluProcessor
             } else if (Debug.class.getCanonicalName()
                                   .equals(annotation.toString())) {
               handleDebugAnnotation(roundEnv);
-            } else if (Tracker.class.getCanonicalName()
-                                    .equals(annotation.toString())) {
-              handleTrackerAnnotation(roundEnv);
+            } else if (ErrorPopUpController.class.getCanonicalName()
+                                                 .equals(annotation.toString())) {
+              handleErrorPopUpControllerAnnotation(roundEnv);
             } else if (Filters.class.getCanonicalName()
                                     .equals(annotation.toString())) {
               handleFiltersAnnotation(roundEnv);
@@ -149,6 +147,9 @@ public class NaluProcessor
             } else if (Shell.class.getCanonicalName()
                                   .equals(annotation.toString())) {
               handleShellAnnotation(roundEnv);
+            } else if (Tracker.class.getCanonicalName()
+                                    .equals(annotation.toString())) {
+              handleTrackerAnnotation(roundEnv);
             }
           }
         }
@@ -159,6 +160,35 @@ public class NaluProcessor
       return true;
     }
     return true;
+  }
+
+  private void handleErrorPopUpControllerAnnotation(RoundEnvironment roundEnv)
+      throws ProcessorException {
+    Set<? extends Element> listOfAnnotatedElements = roundEnv.getElementsAnnotatedWith(ErrorPopUpController.class);
+    if (listOfAnnotatedElements.size() > 1) {
+      throw new ProcessorException("Nalu-Processor: more than one class is annotated with @ErrorPopUpController");
+    }
+    List<ErrorPopUpControllerModel> errorPopUpControllerModels = new ArrayList<>();
+    for (Element errorPopUpControllerElement : roundEnv.getElementsAnnotatedWith(ErrorPopUpController.class)) {
+      // validate
+      ErrorPopUpControllerAnnotationValidator.builder()
+                                             .processingEnvironment(processingEnv)
+                                             .errorPopUpControllerElement(errorPopUpControllerElement)
+                                             .build()
+                                             .validate();
+      // create PopUpControllerModel
+      ErrorPopUpControllerModel errorPopUpControllerModel = ErrorPopUpControllerAnnotationScanner.builder()
+                                                                                                 .processingEnvironment(processingEnv)
+                                                                                                 .metaModel(this.metaModel)
+                                                                                                 .popUpControllerElement(errorPopUpControllerElement)
+                                                                                                 .build()
+                                                                                                 .scan(roundEnv);
+      errorPopUpControllerModels.add(errorPopUpControllerModel);
+    }
+    // save data in metaModel
+    if (errorPopUpControllerModels.size() > 0) {
+      this.metaModel.setErrorPopUpController(errorPopUpControllerModels.get(0));
+    }
   }
 
   private void handlePopUpControllerAnnotation(RoundEnvironment roundEnv)

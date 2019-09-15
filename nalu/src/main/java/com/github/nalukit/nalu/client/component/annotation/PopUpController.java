@@ -25,12 +25,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>This annotation is used to annotate a controller.
- * It defines the route and the selector.</p>
+ * <p>This annotation is used to annotate a popup-controller</p>
  * <br><br>
  * The annotation has the following attributes:
  * <ul>
- * <li>route: name of the route which will display the controller in case of calling</li>
+ * <li>name:               name of the popup used to identifiy the conroller in case an event is fired.</li>
+ * <li>componentInterface: interface of the component</li>
+ * <li>component:          class of the component</li>
  * </ul>
  *
  * @author Frank Hossfeld

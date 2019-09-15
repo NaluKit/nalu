@@ -20,13 +20,14 @@ import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.model.NaluErrorMessage;
+import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractFilter<C extends IsContext>
     implements IsFilter {
 
-  protected C context;
-
-  private Router router;
+  protected C              context;
+  private   SimpleEventBus eventBus;
+  private   Router         router;
 
   public AbstractFilter() {
     super();
@@ -42,6 +43,18 @@ public abstract class AbstractFilter<C extends IsContext>
   @NaluInternalUse
   public void setContext(C context) {
     this.context = context;
+  }
+
+  /**
+   * Sets the eventbus instance (used to set application error message)
+   * <p>
+   * <b>DO NOT USE!</b>
+   *
+   * @param eventBus the application event bus
+   */
+  @NaluInternalUse
+  public void setEventBus(SimpleEventBus eventBus) {
+    this.eventBus = eventBus;
   }
 
   /**

@@ -171,8 +171,7 @@ public class ControllerGenerator {
                                                                      route.getSelector(),
                                                                      route.getProvider()
                                                                           .getClassName())
-                                                       .addStatement("sb01 = new $T()",
-                                                                     ClassName.get(StringBuilder.class))
+                                                       .addStatement("sb01.setLength(0)")
                                                        .addStatement("sb01.append(\"register route >>$L<< with parameter >>$L<< for selector >>$L<< for controller >>$L<<\")",
                                                                      createRoute(route.getRoute()),
                                                                      createParaemter(route.getParameters(),

@@ -30,8 +30,10 @@ import java.lang.annotation.Target;
  * <br><br>
  * The annotation has the following attributes:
  * <ul>
- * <li>route: name of the route which will display the controller in case of calling</li>
- * <li>selector: id of the node where to insert the element</li>
+ * <li>route:              name of the route which will display the controller in case of calling</li>
+ * <li>selector:           id of the node where to insert the element</li>
+ * <li>componentInterface: interface of the component</li>
+ * <li>component:          class of the component</li>
  * </ul>
  *
  * @author Frank Hossfeld

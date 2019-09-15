@@ -68,8 +68,7 @@ public class ShellGenerator {
                                                                               "/" + shellModel.getName(),
                                                                               shellModel.getShell()
                                                                                         .getClassName())
-                                                                .addStatement("sb01 = new $T()",
-                                                                              ClassName.get(StringBuilder.class))
+                                                                .addStatement("sb01.setLength(0)")
                                                                 .addStatement("sb01.append(\"register shell >>$L<< with class >>$L<<\")",
                                                                               "/" + shellModel.getName(),
                                                                               shellModel.getShell()

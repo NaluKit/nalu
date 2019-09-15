@@ -130,6 +130,16 @@ public class ConsistenceValidator {
           throw new ProcessorException("Nalu-Processor: The route of the errorRoute >>" + this.metaModel.getRouteError() + "<< does not exist!");
         }
       }
+
+      if (!Objects.isNull(this.metaModel.getErrorPopUpController())) {
+        throw new ProcessorException("Nalu-Processor: errorRoute >>" +
+                                     this.metaModel.getRouteError() +
+                                     "<< and ErroroPopUpController >>" +
+                                     this.metaModel.getErrorPopUpController()
+                                                   .getController()
+                                                   .getClassName() +
+                                     "<< can not be used togehter!");
+      }
     }
   }
 

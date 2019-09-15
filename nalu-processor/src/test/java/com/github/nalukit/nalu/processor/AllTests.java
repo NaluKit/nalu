@@ -23,7 +23,6 @@ import com.github.nalukit.nalu.processor.test.model.intern.ClassNameModelTest;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
 
 @RunWith(JUnitPlatform.class)
 @SelectClasses({ ApplicationTest.class,
@@ -35,6 +34,7 @@ import org.junit.runners.Suite;
                  ControllerModelTest.class,
                  ControllerTest.class,
                  DebugTest.class,
+                 ErrorPopUpControllerTest.class,
                  FiltersTest.class,
                  HandlerTest.class,
                  MetaModelTest.class,

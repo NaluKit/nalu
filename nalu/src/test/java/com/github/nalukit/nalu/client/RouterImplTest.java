@@ -1,5 +1,6 @@
 package com.github.nalukit.nalu.client;
 
+import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
 import com.github.nalukit.nalu.client.internal.route.RouteResult;
 import com.github.nalukit.nalu.client.internal.route.RouterException;
 import com.github.nalukit.nalu.client.internal.route.RouterImpl;
@@ -30,7 +31,8 @@ public class RouterImplTest {
                                  true,
                                  true,
                                  false,
-                                 false);
+                                 false,
+                                 ErrorHandlingMethod.ROUTING);
   }
 
   @AfterEach

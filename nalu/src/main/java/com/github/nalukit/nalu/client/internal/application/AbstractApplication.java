@@ -25,6 +25,7 @@ import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.NaluConstants;
+import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.*;
 import com.github.nalukit.nalu.client.internal.validation.RouteValidation;
@@ -128,7 +129,8 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.hasHistory(),
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl(),
-                                 this.isStayOnSide());
+                                 this.isStayOnSide(),
+                                 this.getErrorHandlingMethod());
     this.router.setRouteError(NaluConstants.NO_ROUTE.equals(this.errorRoute) ? null : this.errorRoute);
     this.router.setEventBus(this.eventBus);
     // initialize plugin
@@ -143,6 +145,11 @@ public abstract class AbstractApplication<C extends IsContext>
                 .logDetailed("AbstractApplication: load popupcontroller factory",
                              1);
     this.loadPopUpControllerFactory();
+    // load popup factory
+    ClientLogger.get()
+                .logDetailed("AbstractApplication: try to load error popup controller (if one is defined)",
+                             1);
+    this.loadErrorPopUpController();
     // load the composite of the application
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load compositeControllers",
@@ -189,6 +196,8 @@ public abstract class AbstractApplication<C extends IsContext>
     }
   }
 
+  protected abstract ErrorHandlingMethod getErrorHandlingMethod();
+
   protected abstract void logProcessorVersion();
 
   protected abstract void loadModules();
@@ -216,6 +225,8 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract void loadHandlers();
 
   protected abstract void loadPopUpControllerFactory();
+
+  protected abstract void loadErrorPopUpController();
 
   protected abstract IsApplicationLoader<C> getApplicationLoader();
 

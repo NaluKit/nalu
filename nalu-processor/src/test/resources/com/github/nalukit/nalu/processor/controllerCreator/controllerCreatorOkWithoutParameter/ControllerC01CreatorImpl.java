@@ -16,7 +16,7 @@ import java.lang.StringBuilder;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.05-21:13:38<< */
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.14-21:12:32<< */
 public final class ControllerC01CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
   public ControllerC01CreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
     super(router, context, eventBus);
@@ -38,7 +38,7 @@ public final class ControllerC01CreatorImpl extends AbstractControllerCreator<Mo
       controller.setEventBus(eventBus);
       controller.setRouter(router);
       controller.setCached(false);
-      sb01 = new StringBuilder();
+      sb01.setLength(0);
       sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
     } else {
@@ -56,23 +56,23 @@ public final class ControllerC01CreatorImpl extends AbstractControllerCreator<Mo
     ControllerC01 controller = (ControllerC01) object;
     StringBuilder sb01 = new StringBuilder();
     IComponent01 component = new Component01();
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("component >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithoutParameter.Component01<< --> created using new");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
     component.setController(controller);
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> created and controller instance injected");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
     controller.setComponent(component);
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> instance of >>").append(component.getClass().getCanonicalName()).append("<< injected");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
     component.render();
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> rendered");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
     component.bind();
-    sb01 = new StringBuilder();
+    sb01.setLength(0);
     sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
     ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithoutParameter.Component01<< created for route >>/mockShell/route01<<", 3);
