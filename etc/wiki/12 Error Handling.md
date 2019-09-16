@@ -128,6 +128,27 @@ public class ErrorHandler
 
 }
 ```
+The context looks like that:
+```java
+public class ApplicationContext
+    implements IsContext {
+
+  private ErrorInfo errorInfo;
+
+  public ApplicationContext() {
+  }
+
+  public ErrorInfo getErrorInfo() {
+    return errorInfo;
+  }
+
+  public void setErrorInfo(ErrorInfo errorInfo) {
+    this.errorInfo = errorInfo;
+  }
+
+}
+```
+
 
 See the 'xxx'-exammple:
 
