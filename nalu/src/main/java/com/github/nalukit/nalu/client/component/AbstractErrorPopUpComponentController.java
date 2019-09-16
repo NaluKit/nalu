@@ -18,7 +18,7 @@ package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.event.NaluErrorEvent;
-import com.github.nalukit.nalu.client.event.NaluErrorEvent.ErrorType;
+import com.github.nalukit.nalu.client.event.model.ErrorInfo.ErrorType;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 

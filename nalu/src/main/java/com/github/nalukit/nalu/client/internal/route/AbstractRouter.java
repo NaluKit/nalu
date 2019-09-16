@@ -16,11 +16,11 @@
 
 package com.github.nalukit.nalu.client.internal.route;
 
+import com.github.nalukit.nalu.client.NaluConstants;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.event.NaluErrorEvent;
-import com.github.nalukit.nalu.client.event.NaluErrorEvent.ErrorType;
 import com.github.nalukit.nalu.client.event.RouterStateEvent;
 import com.github.nalukit.nalu.client.event.RouterStateEvent.RouterState;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
@@ -171,7 +171,8 @@ abstract class AbstractRouter
       // loop discovered .... -> create message
       String message = RouterLogger.logLoopDetected(this.loopDetectionList.get(0));
       // Fire error event ....
-      this.eventBus.fireEvent(NaluErrorEvent.create(ErrorType.NALU_INTERNAL_ERROR)
+      this.eventBus.fireEvent(NaluErrorEvent.createNaluError()
+                                            .errorId(NaluConstants.NALU_ERROR_LOOP_DETECTED)
                                             .message(message)
                                             .route(this.loopDetectionList.get(0)));
       // clear loop detection list ...
@@ -282,7 +283,8 @@ abstract class AbstractRouter
 
                                @Override
                                public void onShellNotFound() {
-                                 eventBus.fireEvent(NaluErrorEvent.create(ErrorType.NALU_INTERNAL_ERROR)
+                                 eventBus.fireEvent(NaluErrorEvent.createNaluError()
+                                                                  .errorId(NaluConstants.NALU_ERROR_SHELL_NOT_FOUND)
                                                                   .message("no shell found for route: >>" + shellConfig.getRoute() + "<<")
                                                                   .route(shellConfig.getRoute()));
                                }
@@ -312,7 +314,8 @@ abstract class AbstractRouter
     this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
                               hash);
     // Fire error event ....
-    this.eventBus.fireEvent(NaluErrorEvent.create(ErrorType.NALU_INTERNAL_ERROR)
+    this.eventBus.fireEvent(NaluErrorEvent.createNaluError()
+                                          .errorId(NaluConstants.NALU_ERROR_ROUTING_EXCEPTION)
                                           .message(RouterLogger.logNoMatchingRoute(hash))
                                           .route(hash));
   }
@@ -367,7 +370,8 @@ abstract class AbstractRouter
                          RouteConfig routeConfiguration,
                          ControllerInstance controllerInstance) {
     if (Objects.isNull(controllerInstance.getController())) {
-      eventBus.fireEvent(NaluErrorEvent.create(ErrorType.NALU_INTERNAL_ERROR)
+      eventBus.fireEvent(NaluErrorEvent.createNaluError()
+                                       .errorId(NaluConstants.NALU_ERROR_NO_CONTROLLER_INSTANCE_FOUND)
                                        .message(RouterLogger.logNoControllerFoundForHash(hash))
                                        .route(hashResult.getRoute()));
     } else {
@@ -796,7 +800,8 @@ abstract class AbstractRouter
       String sb = "no element found, that matches selector >>" + selector + "<< --> Routing aborted!";
       RouterLogger.logSimple(sb,
                              1);
-      eventBus.fireEvent(NaluErrorEvent.create(ErrorType.NALU_INTERNAL_ERROR)
+      eventBus.fireEvent(NaluErrorEvent.createNaluError()
+                                       .errorId(NaluConstants.NALU_ERROR_SELECOR_NOT_FOUND)
                                        .message(sb)
                                        .route("NoRouteAvailable"));
     }

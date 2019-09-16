@@ -1,8 +1,10 @@
 package com.github.nalukit.nalu.client.event;
 
+import com.github.nalukit.nalu.client.event.model.ErrorInfo;
+import com.github.nalukit.nalu.client.event.model.ErrorInfo.ErrorType;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.Event;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,36 +20,44 @@ public class NaluErrorEvent
 
   public static Type<NaluErrorEvent.NaluErrorEventHandler> TYPE = new Type<>();
 
-  private ErrorType           errorEventType;
-  private String              route;
-  private String              message;
-  private Map<String, String> dataStore;
+  /* the error info object */
+  private ErrorInfo errorInfo;
 
   private NaluErrorEvent(ErrorType errorEventType) {
     super();
-    this.errorEventType = errorEventType;
-    this.dataStore = new HashMap<>();
+    this.errorInfo = new ErrorInfo();
   }
 
   /**
    * Creates a new NaluErrorEvent.
    *
-   * <b>Used by the framework to fire error events caused by the framework</b>
+   * <b>Used by the framework to fire error events caused by the framework. DO NOT USE THIS METHOD!</b>
    *
    * @return new Nalu error event
    */
-  public static NaluErrorEvent create() {
-    return new NaluErrorEvent(ErrorType.APPLICAITON_ERROR);
+  @NaluInternalUse
+  public static NaluErrorEvent createNaluError() {
+    return new NaluErrorEvent(ErrorInfo.ErrorType.APPLICAITON_ERROR);
   }
 
   /**
    * Creates a new NaluErrorEvent for a specific type.
    *
-   * @param type the error event type
    * @return new Nalu error event
    */
-  public static NaluErrorEvent create(ErrorType type) {
-    return new NaluErrorEvent(type);
+  public static NaluErrorEvent createApplicationError() {
+    return new NaluErrorEvent(ErrorType.APPLICAITON_ERROR);
+  }
+
+  /**
+   * Adds a error id to the event.
+   *
+   * @param errorId error id
+   * @return instance of the event
+   */
+  public NaluErrorEvent errorId(String errorId) {
+    this.errorInfo.setErrorId(errorId);
+    return this;
   }
 
   /**
@@ -57,7 +67,7 @@ public class NaluErrorEvent
    * @return instance of the event
    */
   public NaluErrorEvent message(String message) {
-    this.message = message;
+    this.errorInfo.setMessage(message);
     return this;
   }
 
@@ -68,7 +78,7 @@ public class NaluErrorEvent
    * @return instance of the event
    */
   public NaluErrorEvent route(String route) {
-    this.route = route;
+    this.errorInfo.setRoute(route);
     return this;
   }
 
@@ -83,7 +93,8 @@ public class NaluErrorEvent
    */
   public NaluErrorEvent data(String key,
                              String value) {
-    this.dataStore.put(key,
+    this.errorInfo.getDataStore()
+                  .put(key,
                        value);
     return this;
   }
@@ -97,7 +108,16 @@ public class NaluErrorEvent
    * @return the errorEventType
    */
   public ErrorType getErrorEventType() {
-    return this.errorEventType;
+    return this.errorInfo.getErrorEventType();
+  }
+
+  /**
+   * Returns the id of the error.
+   *
+   * @return the error id
+   */
+  public String getErrorId() {
+    return this.errorInfo.getErrorId();
   }
 
   /**
@@ -106,7 +126,7 @@ public class NaluErrorEvent
    * @return the message or null
    */
   public String getMessage() {
-    return this.message;
+    return this.errorInfo.getMessage();
   }
 
   /**
@@ -115,7 +135,7 @@ public class NaluErrorEvent
    * @return the route or null
    */
   public String getRoute() {
-    return this.route;
+    return this.errorInfo.getRoute();
   }
 
   /**
@@ -124,7 +144,16 @@ public class NaluErrorEvent
    * @return the data store
    */
   public Map<String, String> getDataStore() {
-    return this.dataStore;
+    return this.errorInfo.getDataStore();
+  }
+
+  /**
+   * Gets the error info.
+   *
+   * @return the error info
+   */
+  public ErrorInfo getErrorInfo() {
+    return this.errorInfo;
   }
 
   /**
@@ -134,7 +163,8 @@ public class NaluErrorEvent
    * @return the value of the stored parameter using the key or null
    */
   public String get(String key) {
-    return this.dataStore.get(key);
+    return this.errorInfo.getDataStore()
+                         .get(key);
   }
 
   @Override
@@ -146,13 +176,6 @@ public class NaluErrorEvent
   protected void dispatch(NaluErrorEvent.NaluErrorEventHandler handler) {
     handler.onNaluError(this);
   }
-
-  public enum ErrorType {
-    NALU_INTERNAL_ERROR,
-    APPLICAITON_ERROR;
-  }
-
-
 
   public interface NaluErrorEventHandler {
 
