@@ -9,7 +9,50 @@ There are several validations inside Nalu, that can cause an error:
 
 In addition, the error handling can be used to display application errors.
 
-Nalu will reports errors  by firing the `NaluErrorEvent`.
+Nalu will reports errors by firing the `NaluErrorEvent`.
+
+**Important Note:** Starting with version 2.0.0 the error route has been removed!
+
+## Creating Nalu Error Event
+In case you want to show an (application-) error using the Nalu error mechanism, you need to define a Nalu error event.
+
+Creating a Nalu error event:
+```java
+NaluErrorEvent.create()
+              .route("/application/person/search")
+              .message("Oh, nothing wrong ... only wonna show a nice error dialog!")
+              .data("key01",
+                    "first parameter")
+              .data("key02",
+                    "second parameter");
+```
+
+To create a Nalu error event, call `NaluErrorEvent.create()`. This will create a Nalue error event with a error type of `APPLICAITON_ERROR`. (Nalu internal error events will have the error type `NALU_INTERNAL_ERROR`.
+
+You can add a route to the event using the `route("myRoute")`-method. The message can be added using the `message("myErrorMessage")`-method. Also, you can add as much informations as you like. To add an information call the `data("key", "value")` -method.
+
+To retrieve informations from the Nalu error event, you will have several getter-methods:
+
+* **getErrorEventType:** will return the error type
+* **getMessage:** will return the error message
+* **getRoute:** will return the route
+* **get(String key):** will return the value for a defined key
+
+In case of a Nalu error the store does not contain additional infomrations.
+
+## Using the ErrorPopUpController
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
