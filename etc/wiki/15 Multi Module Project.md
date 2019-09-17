@@ -81,5 +81,3 @@ this.eventBus.adddHandler(NaluApplicationEvent.TYPE,
 **Note: Keep in mind, that you have to cast the stored object to the right type before using it.**
 
 **Important Note: When working with `NaluApplicationEvent`-class, you need to check the event type before handling the event, cause this event will be used for all events!**
-
-
