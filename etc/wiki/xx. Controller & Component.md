@@ -1,25 +1,11 @@
-
-
-
-
-#TBD
-
-
-
-
-
-
-
-
 # Controllers and Components
-
 Nalu mainly helps you to define three types of elements:
 
 * Handler (a class, without visual components see [Handler](https://github.com/NaluKit/nalu/wiki/10.-Handler))
 * Controller
 * Components
 
-This page will help you to understand how to build Controllers and Components.
+This page will show you how to build Controllers and Components.
 
 If you are familiar with the MVP pattern:
 In Nalu a controller can be compared with the presenter and the component with the view of the MVP pattern.
@@ -44,7 +30,7 @@ By extending AbstractComponentController you will have access to the allowing in
 * eventbus: instance of the application wide event bus
 * router: instance of the router
 
-To tell Nalu, that this class is a controller, you to annotate the class with `Controller`. Nalu will automatically create an instance for each class annotated with `@Controller` in case the route of the controller gets triggered. (except in cases where the controller is cached.)
+To tell Nalu, that this class is a controller, you have to annotate the class with `Controller`. Nalu will automatically create an instance for each class annotated with `@Controller` in case the route of the controller gets triggered. (except in cases where the controller is cached.)
 
 A controller requires a
 
@@ -83,10 +69,10 @@ The `@Controller` annotation has four required attributes:
 * componentInterface: the type of the interface for your component
 * component: the type of the component
 
-The 'componentInterface'-attribute will be used inside the controller as reference of the component interface, where as the 'component'-attribute will be used to instantiate the component. By default Nalu uses the `new` to create an instance of an component. (`GWT-create()` will no longer be available in J2CL / GWT 3! And, to be ready for J2CL / GWT 3 Nalu has to avoid using `GWT.create`).
+The 'componentInterface'-attribute will be used inside the controller as reference of the component interface, where as the 'component'-attribute will be used to instantiate the component. By default Nalu uses `new` to create an instance of a component. (`GWT-create()` will no longer be available in J2CL / GWT 3! And, to be ready for J2CL / GWT 3 Nalu has to avoid using `GWT.create`.).
 
 ### Parameters
-In case a controller accepts parameters, you have to add the parameters to the route attribute after the route part. Parameters are defined by using '/:parameterName'.
+In case a controller accepts parameters, you have to add the parameters to the route attribute. Parameters are defined by using '/:parameterName'.
 
 To let Nalu inject a parameter from the route into the controller, you have to create a method, which accepts a String parameter and annotate the method using the `@AcceptParameter("parameterName")` annotation.
 
@@ -127,17 +113,19 @@ public class MyController
 ### Life Cycle
 A Nalu controller has a life cycle. Nalu supports the methods:
 
-* `start`: will be called after the component is created
-* `mayStop`: will be called before a new routing occurs. In case the method return a String and not a null value, Nalu will display the String and abort the routing
-* `stop`: in case of a successful routing (not interrupted by a filter or the `mayStop` method) this method will be called.
+* `start`: will be called after the component is created. This method will not be called in case a controller is cached.
+* `active`: will be called after the `start`-method. This method will be called in case a ontroller is cached.
+* `mayStop`: will be called before a new routing occurs. In case the method return a String and not a null value, Nalu will display the String and abort the routing.
+* `deactive`: will be called before the `stop`-method. This method will be called in case a ontroller is cached.
+* `stop`: in case of a successful routing (not interrupted by a filter or the `mayStop` method) this method will be called. This method will not be called in case a ontroller is cached.
 
-Every time the application gets a new route, Nalu will create a new instance of the controller (and of course of the component).
+Every time the application gets a new route, Nalu will create a new instance of the controller (and of course of the component). In case a controller is cached Nalu will use the cached instance of the controller.
 
 #### onAttach Method
-Nalu will call the `onAttach` method, after the component is added to the DOM. This is an internal method, that should not be overwirtten. Use the `active`-method inside the controller instead.
+Nalu will call the `onAttach` method, after the component is added to the DOM. **This is an internal method, that should not be overwirtten. Use the `active`-method inside the controller instead.**
 
 #### onDetach Method
-Nalu will call the `onDetach` method, after the component is removed to the DOM. This is an internal method, that should not be overwirtten. Use the `deactive`-method inside the controller instead.
+Nalu will call the `onDetach` method, after the component is removed to the DOM. **This is an internal method, that should not be overwirtten. Use the `deactive`-method inside the controller instead.**
 
 
 #### bind Method (since v1.2.1)
@@ -145,7 +133,7 @@ Nalu will call the `bind` method before the component is created. This is an int
 
 
 #### Event Bus
-A controller has access to the application event bus. Nalu uses the the events of the module `org.gwtproject.events`. This artifact is ready for GWT 3/J2CL and works similar like the event bus from GWT. You can add handler to the event bus and fire events. A good place to register a handler on the event bus is the `start` method.
+A controller has access to the application event bus. Nalu uses the classes of the module `org.gwtproject.events`. This artifact is ready for GWT 3/J2CL and works similar like the event bus from GWT. You can add handler to the event bus and fire events. A good place to register a handler on the event bus is the `bind`-method or `start` method.
 
 #### Handler Management
 Nalu supports automatic handler removing.
@@ -209,6 +197,8 @@ A component requires a
 
 Nalu will, after a component is created, call the `render` method. So the application is able to create the visible parts. Once you are ready with your layout, call the `initElement` method and use the root element as parameter. Once, it is done, Nalu will use the element of the component and add it to the DOM.
 
+It is possible to call the `getController`-method inside the `render`-method to obtain values from the controller.
+
 ### Execution Order
 The following image shows the execution order in case a new controller is created:
 
@@ -219,11 +209,11 @@ Imagine, you have a view, that looks like that:
 
 ![Route Flow](https://github.com/NaluKit/nalu/raw/master/etc/images/view-mock-up.png)
 
-Of course it is possible to render this view inside one component. In some cases, where your controller and component will have to much code or you want to reuse composite01 component, composite02 component and composite03 component, you can extract them in separate controller and component pairs. But this would not be handled but Nalu.
+Of course it is possible to render this view inside one component. In some cases, where your controller and component will have to much code or you want to reuse one od the composite01 component, composite02 component and composite03 component, you can extract them in separate controller and component pairs. But this would not be handled but Nalu.
 
 Nalu offers - with the support for Composites - a feature to help you creating such things.
 
-Composites in Nalu are treated like controllers, but can not be used by a route. That's the different between a composite and a controller. Composites will have access to the event bus, router and context. A Composite controller behave like a normal controller. Except, that it can be activated from a controller and not from a router!
+Composites in Nalu are treated like controllers, but can **not** be used by a route. That's the different between a composite and a controller. Composites will have access to the event bus, router and context. A Composite controller behave like a normal controller. Except, that it can be only activated from a controller and not from the router!
 
 ### Creating a Composite
 To create a composite, you have to:
@@ -280,7 +270,7 @@ A Nalu composite controller has a life cycle similar the life cycle of a control
 
 * `activate`: this will be called every time a controller gets active independent from the fact, if the controller is newly created or cached.
 
-* `mayStop`: will be called before a new routing occurs. In case the method return a String and not a null value, Nalu will display the String and abort the routing
+* `mayStop`: will be called before a new routing occurs. In case the method return a String and not a null value, Nalu will display the String and abort the routing.
 
 * `deactivate`: this will be called every time a controller gets deactive independent from the fact, if the controller is newly created or cached.
 
@@ -289,14 +279,14 @@ A Nalu composite controller has a life cycle similar the life cycle of a control
 Every time the application composite is required by a controller, Nalu will create a new instance of the composite controller (and of course of the component).
 
 #### onAttach Method
-Nalu will call the `onAttach` method, after the component is added to the DOM. This is an internal method, that should not be overwirtten. Use the active-method inside the controller instead.
+Nalu will call the `onAttach` method, after the component is added to the DOM. **This is an internal method, that should not be overwirtten. Use the active-method inside the controller instead.**
 
 
 #### onDetach Method
-Nalu will call the `onDetach` method, after the component is removed to the DOM. This is an internal method, that should not be overwirtten. Use the deactive-method inside the controller instead.
+Nalu will call the `onDetach` method, after the component is removed to the DOM. **This is an internal method, that should not be overwirtten. Use the deactive-method inside the controller instead.**
 
 #### Event Bus
-A controller has access to the application event bus. Nalu uses the the events of the module `org.gwtproject.events`. This artifact is ready for GWT 3/J2CL and works similar like the event bus from GWT. You can add handler to the event bus and fire events. A good place to register a handler on the event bus is the `start` method.
+A controller has access to the application event bus. Nalu uses the the events of the module `org.gwtproject.events`. This artifact is ready for GWT 3/J2CL and works similar like the event bus from GWT. You can add handler to the event bus and fire events. A good place to register a handler on the event bus is the  `bind`-method or `start`-method.
 
 #### Handler Management
 Nalu supports automatic handler removing.
@@ -334,7 +324,7 @@ Nalu will, after a composite component is created, call the `render` method. So 
 It is possible to call the `getController`-method inside the `render`-method to obtain values from the controller.
 
 ### Adding Composites to a Controller
-In order to use composite controllers in Nalu, you have to add the `Composite` annotation to a controller. THe `Composites` annotation will have another `Composite` annotation for each composite.
+In order to use composite controllers in Nalu, you have to add the `Composite` annotation to a controller. The `Composites` annotation will have another `Composite` annotation for each composite.
 
 Here an example of how to use composites in a controller. This example shows a controller, which uses two composites:
 
@@ -503,7 +493,7 @@ into the controller.
 ### Trigger a PopUpController
 A PopUpController is not bound to a route. To trigger a PopUpController fire the `ShowPopUpEvent`. The `ShowPopUpEvent` takes the name of the pop-up (will be used to identify the pop-up inside the `PopUpControllerFactory`) and add the necessary parameters. The `name` value is mandantory where as the parameters are optional.
 
-The following code shows how to  trigger a PopUpController in Nalu:
+The following code shows how to trigger a PopUpController in Nalu:
 
 ```java
 this.eventBus.fireEvent(ShowPopUpEvent.show("PopUpEditor")
@@ -526,7 +516,7 @@ Nalu will call two methods inside the `PopUpController`:
 * `onBeforeShow`: will be called before the `show`-method. (A good place to initialize the controller and component)
 * `show`: to show the controller.
 
-It is up to the controller to show the pop-up and hide it.
+**It is up to the controller to show the pop-up and hide it.**
 
 ### Component Creation
 Nalu will automatically create a component using the Java 'new'-command and inject the component into the controller. Therefore the component needs to have a zero argument constructor.
@@ -555,31 +545,28 @@ public class MyController
 
 Note: At the time Nalu calls the `createPopUpComponent`-method, the context is already injected.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Caching
 Nalu provides a caching mechanism. This allows to store a controller/component for a route. Next the route will be used, Nalu restores the cached controller/component instead of creating a new controller and component.
 
 To tell Nalu to cache a controller/component, use the `router.storeInCache(this)`-command inside the controller. Now, caching for this route is active. To stop caching, call `router.removeFromCache(this)`. To remove everyt a hash, so, that it can be used with anchors.
 
-## Caching
-Nalu provides a caching mechanism. This allows to store a controller/component for a route. Next the route will be used, Nalu restores the cached controller/component instead of creating a new controller and component.
+You can also cache composites.
 
-To tell Nalu to cache a controller/component, use the `router.storeInCache(this)`-command inside the controller. Now, caching for this route is active. To stop caching, call `router.removeFromCache(this)`. To remove everything from cache, call `router.clearCache()`.
-hing from cache, call `router.clearCache()`.
+Since 1.3.2 there is also a possibility to cache a composite as a singleton, so different sites can share a composite with the same state. You can configure this with the attribute scope in the annotation @Composites of the controllers which contain the composites:
+
+```java
+  @Composites({ @Composite(
+       name = "myComposite",
+       compositeController = MyComposite.class,
+       selector = "my-composite",
+       scope = Scope.GLOBAL) })
+  public class MyCompositeContainerController {
+    
+    ...
+  }
+```
+
+There are two kind of scopes:
+
+* Scope.GLOBAL to cache the composite as a singleton (share between components / sites)
+* Scope.LOCAL to cache the composite only for this component / site (default)
