@@ -134,10 +134,10 @@ A Nalu controller has a life cycle. Nalu supports the methods:
 Every time the application gets a new route, Nalu will create a new instance of the controller (and of course of the component).
 
 #### onAttach Method
-Nalu will call the `onAttach` method, after the component is added to the DOM. This is an internal method, that can not be overwirtten. Use the `active`-method inside the controller instead.
+Nalu will call the `onAttach` method, after the component is added to the DOM. This is an internal method, that should not be overwirtten. Use the `active`-method inside the controller instead.
 
 #### onDetach Method
-Nalu will call the `onDetach` method, after the component is removed to the DOM. This is an internal method, that can not be overwirtten. Use the `deactive`-method inside the controller instead.
+Nalu will call the `onDetach` method, after the component is removed to the DOM. This is an internal method, that should not be overwirtten. Use the `deactive`-method inside the controller instead.
 
 
 #### bind Method (since v1.2.1)
@@ -289,11 +289,11 @@ A Nalu composite controller has a life cycle similar the life cycle of a control
 Every time the application composite is required by a controller, Nalu will create a new instance of the composite controller (and of course of the component).
 
 #### onAttach Method
-Nalu will call the `onAttach` method, after the component is added to the DOM.
+Nalu will call the `onAttach` method, after the component is added to the DOM. This is an internal method, that should not be overwirtten. Use the active-method inside the controller instead.
 
 
 #### onDetach Method
-Nalu will call the `onDetach` method, after the component is removed to the DOM.
+Nalu will call the `onDetach` method, after the component is removed to the DOM. This is an internal method, that should not be overwirtten. Use the deactive-method inside the controller instead.
 
 #### Event Bus
 A controller has access to the application event bus. Nalu uses the the events of the module `org.gwtproject.events`. This artifact is ready for GWT 3/J2CL and works similar like the event bus from GWT. You can add handler to the event bus and fire events. A good place to register a handler on the event bus is the `start` method.
