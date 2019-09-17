@@ -9,7 +9,7 @@ There are several validations inside Nalu, that can cause an error:
 
 In addition, the error handling can be used to display application errors.
 
-Nalu will reports errors by firing the `NaluErrorEvent`.
+Nalu will report errors by firing the `NaluErrorEvent`.
 
 **Important Note:** Starting with version 2.0.0 the error route has been removed!
 
@@ -37,12 +37,12 @@ You can add an error id using `id`, a route using the `route("myRoute")`-method.
 To retrieve informations from the Nalu error event, you will have several getter-methods:
 
 * **getErrorEventType:** will return the error type
-* **getErrorId:** will return the error message
+* **getErrorId:** will return the error id
 * **getMessage:** will return the error message
 * **getRoute:** will return the route
 * **get(String key):** will return the value for a defined key
 
-In case of a Nalu error the store does not contain additional infomrations.
+In case of a Nalu error the store does not contain additional informations.
 
 ## Handling Nalu Error event
 To handle a Nalu error event there are two ways to go:
@@ -89,7 +89,7 @@ A ErrorPopUpController must extend the `AbstractErrorPopUpComponentController<C,
 1. the component interface class
 2. the component class.
 
-To handle the Nalu error event, the `show()`-method needs to be overwritten. Inside this method, set up the data inside the component and call the `show()`-method. In case you would like to do something before the  `show()`-method, you can overwrite the  `onBeforeShow()`-method.
+To handle the Nalu error event, the `show()`-method needs to be overwritten. Inside this method, set up the data inside the component and call the `show()`-method. In case you would like to do something before the `show()`-method, you can overwrite the  `onBeforeShow()`-method.
 
 **You can only define one ErrorPopUpController per application!**
 
