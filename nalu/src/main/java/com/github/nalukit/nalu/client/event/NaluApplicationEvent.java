@@ -12,7 +12,7 @@ import java.util.Map;
  * <p>
  * Use the message type to handle different event types.
  * <p>
- * In case parameter vales need to be send with the event, use the store.
+ * In case parameter values need to be send with the event, use the store.
  * <p>
  * The store will save the parameters as objects. It is the
  * responsibility of the developer to cast the parameters to the
@@ -24,11 +24,11 @@ public class NaluApplicationEvent
   public static Type<NaluApplicationEvent.NaluApplicationEventHandler> TYPE = new Type<>();
 
   private String              event;
-  private Map<String, Object> store;
+  private Map<String, Object> dataStore;
 
   private NaluApplicationEvent() {
     super();
-    this.store = new HashMap<>();
+    this.dataStore = new HashMap<>();
   }
 
   /**
@@ -62,8 +62,8 @@ public class NaluApplicationEvent
    */
   public NaluApplicationEvent data(String key,
                                    Object value) {
-    this.store.put(key,
-                   value);
+    this.dataStore.put(key,
+                       value);
     return this;
   }
 
@@ -85,7 +85,7 @@ public class NaluApplicationEvent
    * @return the value of the stored parameter using the key or null
    */
   public Object get(String key) {
-    return this.store.get(key);
+    return this.dataStore.get(key);
   }
 
   @Override
