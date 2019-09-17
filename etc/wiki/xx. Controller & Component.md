@@ -554,3 +554,32 @@ public class MyController
 ```
 
 Note: At the time Nalu calls the `createPopUpComponent`-method, the context is already injected.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Caching
+Nalu provides a caching mechanism. This allows to store a controller/component for a route. Next the route will be used, Nalu restores the cached controller/component instead of creating a new controller and component.
+
+To tell Nalu to cache a controller/component, use the `router.storeInCache(this)`-command inside the controller. Now, caching for this route is active. To stop caching, call `router.removeFromCache(this)`. To remove everyt a hash, so, that it can be used with anchors.
+
+## Caching
+Nalu provides a caching mechanism. This allows to store a controller/component for a route. Next the route will be used, Nalu restores the cached controller/component instead of creating a new controller and component.
+
+To tell Nalu to cache a controller/component, use the `router.storeInCache(this)`-command inside the controller. Now, caching for this route is active. To stop caching, call `router.removeFromCache(this)`. To remove everything from cache, call `router.clearCache()`.
+hing from cache, call `router.clearCache()`.
