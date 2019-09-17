@@ -570,3 +570,4 @@ There are two kind of scopes:
 
 * Scope.GLOBAL to cache the composite as a singleton (share between components / sites)
 * Scope.LOCAL to cache the composite only for this component / site (default)
+
