@@ -1,18 +1,6 @@
 
-
-
-
-#TBD
-
-
-
-
-
-
-
-
 # Multi Module Envirement
-Starting with version 2 Nalu improves the multi module support on the client side. In a client side multi module environment it is not possible to shared classes without having a common module.
+Starting with version 2 Nalu improves the multi module support on the client side. In a client side multi module environment it is not possible to share classes without having a common module.
 
 That was the way how client sided mutile modules was implementated in version 1.x using the plugin feature. 
 
@@ -29,14 +17,41 @@ With version 2, Nalu will help you to avoid a common client module to share the 
 **The plugin feature of Nalu v1.x will be removed in v2.x**
 
 ## Creating a module
-A module is marked with the `@Module`-annotation. It takes a name and the module context class as attributes. The context should be part of the current module.
+A sub module does not implement the `IsApplication`-interface. Intead it implements the `IsModule`-interface. This interface neeeds a `@Module`-annotation. the `@Module`-annotation takes two atributes:
 
+1. **name**: the name of the module.
+2. **context**: the contest of the module (see next chapter for more informations.
 
+The context is be part of the current module.
 
-## Adding a module
-A module is now marked wirh the `@Module`-annotation. It takes a name and the module context class as parameter.
+Example:
+```java
+@Module(name = "myModule",
+        context = MyModuleContext.class)
+public interface MyModule
+    extends IsModule<MyModuleContext> {
+}
+```
 
 ## Context
+To share data betwenn modules, it is necessary to use the context super classes for the main- and the sub-modules.
+
+For more informations about the context look [here](xxx).
+
+## Adding a module
+To use Nalu sub modules, you need to add the `@Modules`-annotation to the `IsApplication`-interface.
+
+Example:
+```java
+@Application(startRoute = "/loginShell/login",
+             context = MyApplicationContext.class)
+@Modules({ MyErrorModule.class,
+           MyLoginModule.class })
+interface MyApplication
+    extends IsApplication {
+
+}
+```
 
 ## Event
 To fire events that are available in all client sided modules, Nalu provides an event class called `NaluApplicationEvent`. This event takes a String, which should be used to describe the event type and accepts a variable numbers of data - which will be stored inside a map. The map is implemented as a `Map<String, Object`. Using the key, you can access the map. The map will always return an `Object` which needs to be casted before using it.
