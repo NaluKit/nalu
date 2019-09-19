@@ -12,4 +12,4 @@ The following classes have been moved:
 ## Removed features
 The following from version 1.x have been removed: 
 
-1. **errorRoute**: See error handling doc for more informations on how to migratge (ToDo: here add link)
+1. **errorRoute**: See error handling doc for more informations on how to migrate (ToDo: here add link)
