@@ -117,4 +117,9 @@ public class NaluPluginGWT
     this.naluStartModel = NaluPluginCoreWeb.getNaluStartModel();
   }
 
+  @Override
+  public void updateTitle(String title) {
+    Window.setTitle(title);
+  }
+
 }

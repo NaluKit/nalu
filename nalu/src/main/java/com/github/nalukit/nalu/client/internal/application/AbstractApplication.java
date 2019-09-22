@@ -29,6 +29,7 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.*;
 import com.github.nalukit.nalu.client.internal.validation.RouteValidation;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import com.github.nalukit.nalu.client.seo.SeoFactory;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -102,6 +103,12 @@ public abstract class AbstractApplication<C extends IsContext>
     this.alwaysLoadComposite = new AlwaysLoadComposite();
     // load default routes!
     this.loadDefaultRoutes();
+    // set up seo factory
+    ClientLogger.get()
+                .logDetailed("AbstractApplication: set SeoFactory",
+                             1);
+    SeoFactory.get()
+              .register(this.plugin);
     // load everything you need to start
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load configurations",

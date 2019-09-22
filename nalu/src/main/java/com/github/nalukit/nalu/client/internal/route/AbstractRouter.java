@@ -31,6 +31,7 @@ import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import com.github.nalukit.nalu.client.seo.SeoFactory;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -332,6 +333,8 @@ abstract class AbstractRouter
     this.shell.onAttachedComponent();
     RouterLogger.logShellOnAttachedComponentMethodCalled(this.shell.getClass()
                                                                    .getCanonicalName());
+    // update seo-meta-data
+    SeoFactory.get().update();
     // fire Router StateEvent
     this.fireRouterStateEvent(RouterState.ROUTING_DONE,
                               routeResult.getRoute());

@@ -118,4 +118,9 @@ public class NaluPluginElemental2
     this.naluStartModel = NaluPluginCoreWeb.getNaluStartModel();
   }
 
+  @Override
+  public void updateTitle(String title) {
+    DomGlobal.document.title = title;
+  }
+
 }
