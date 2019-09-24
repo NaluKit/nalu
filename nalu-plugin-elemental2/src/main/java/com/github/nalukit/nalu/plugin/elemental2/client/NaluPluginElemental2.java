@@ -25,6 +25,7 @@ import elemental2.core.Global;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLMetaElement;
 
 import java.util.Map;
 
@@ -127,13 +128,19 @@ public class NaluPluginElemental2
   @Override
   public void updateMetaNameContent(String name,
                                     String content) {
-    // TODO
+    HTMLMetaElement metaElement = (HTMLMetaElement) DomGlobal.document.createElement("meta");
+    metaElement.name = name;
+    metaElement.content = content;
+    DomGlobal.document.head.appendChild(metaElement);
   }
 
   @Override
   public void updateMetaPropertyContent(String property,
                                         String content) {
-    // TODO
+    HTMLMetaElement metaElement = (HTMLMetaElement) DomGlobal.document.createElement("meta");
+    metaElement.setAttribute("property", property);
+    metaElement.content = content;
+    DomGlobal.document.head.appendChild(metaElement);
   }
 
   @Override

@@ -16,6 +16,7 @@ public class SeoFactory {
   private        SeoData               seoData;
 
   private SeoFactory() {
+    this.seoData = new SeoData();
   }
 
   public static SeoFactory get() {

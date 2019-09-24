@@ -23,13 +23,17 @@ import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
 import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorCommand;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorProvider;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.MetaElement;
+import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.IsWidget;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class NaluPluginGWT
     implements IsNaluProcessorPlugin {
@@ -126,12 +130,25 @@ public class NaluPluginGWT
   @Override
   public void updateMetaNameContent(String name,
                                     String content) {
+    MetaElement metaElement = Document.get()
+                                      .createMetaElement();
+    metaElement.setName("name");
+    metaElement.setContent("content");
+    Element headerElement = getHeaderNode();
+    if (!Objects.isNull(headerElement)) {
+      headerElement.appendChild(metaElement);
+    }
     // TODO
   }
 
   @Override
   public void updateMetaPropertyContent(String property,
                                         String content) {
+    MetaElement metaElement = Document.get()
+                                      .createMetaElement();
+    metaElement.setAttribute("property",
+                             property);
+    metaElement.setContent("content");
     // TODO
   }
 
@@ -140,4 +157,15 @@ public class NaluPluginGWT
     return URL.decode(route);
   }
 
+  private Element addOrUpdate(MetaElement metaElement) {
+    NodeList<Element> node = Document.get()
+                                     .getElementsByTagName("head");
+    return node.getItem(0);
+  }
+
+  private Element getHeaderNode() {
+    NodeList<Element> node = Document.get()
+                                     .getElementsByTagName("head");
+    return node.getItem(0);
+  }
 }
