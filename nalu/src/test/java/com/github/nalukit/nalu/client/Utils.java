@@ -57,6 +57,11 @@ class Utils {
       @Override
       public void initialize(ShellConfiguration shellConfiguration) {
       }
+
+      @Override
+      public String decode(String route) {
+        return route;
+      }
     };
   }
 
