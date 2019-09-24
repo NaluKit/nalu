@@ -22,12 +22,10 @@ import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
 import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import elemental2.core.Global;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLMetaElement;
+import elemental2.dom.*;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class NaluPluginElemental2
     implements IsNaluProcessorPlugin {
@@ -128,17 +126,43 @@ public class NaluPluginElemental2
   @Override
   public void updateMetaNameContent(String name,
                                     String content) {
-    HTMLMetaElement metaElement = (HTMLMetaElement) DomGlobal.document.createElement("meta");
-    metaElement.name = name;
-    metaElement.content = content;
-    DomGlobal.document.head.appendChild(metaElement);
+    NodeList<Element> metaTagList = DomGlobal.document.getElementsByTagName("meta");
+    for (int i = 0; i < metaTagList.length; i++) {
+      if (metaTagList.item(i) instanceof HTMLMetaElement) {
+        HTMLMetaElement nodeListElement = (HTMLMetaElement) metaTagList.item(i);
+        if (!Objects.isNull(nodeListElement.name)) {
+          if (nodeListElement.name.equals(name)) {
+            nodeListElement.remove();
+            break;
+          }
+        }
+      }
+    }
+    HTMLMetaElement metaTagElement = (HTMLMetaElement) DomGlobal.document.createElement("meta");
+    metaTagElement.name = name;
+    metaTagElement.content = content;
+    DomGlobal.document.head.appendChild(metaTagElement);
   }
 
   @Override
   public void updateMetaPropertyContent(String property,
                                         String content) {
+    NodeList<Element> metaTagList = DomGlobal.document.getElementsByTagName("meta");
+    for (int i = 0; i < metaTagList.length; i++) {
+      if (metaTagList.item(i) instanceof HTMLMetaElement) {
+        HTMLMetaElement nodeListElement = (HTMLMetaElement) metaTagList.item(i);
+        if (!Objects.isNull(nodeListElement.getAttribute("property"))) {
+          if (nodeListElement.getAttribute("property")
+                             .equals(property)) {
+            nodeListElement.remove();
+            break;
+          }
+        }
+      }
+    }
     HTMLMetaElement metaElement = (HTMLMetaElement) DomGlobal.document.createElement("meta");
-    metaElement.setAttribute("property", property);
+    metaElement.setAttribute("property",
+                             property);
     metaElement.content = content;
     DomGlobal.document.head.appendChild(metaElement);
   }

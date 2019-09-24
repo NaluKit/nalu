@@ -10,8 +10,6 @@ public class SeoFactory {
   private static SeoFactory            instance;
   /* Nalu plugin */
   private        IsNaluProcessorPlugin plugin;
-  /* last used */
-  private        SeoData               lastUsedSeoData;
   /* data dor next update */
   private        SeoData               seoData;
 
@@ -290,10 +288,6 @@ public class SeoFactory {
    * Updates the meta data of the page.
    */
   public void update() {
-    // reset first ...
-    this.remove();
-    // create copy
-    this.lastUsedSeoData = new SeoData(this.seoData);
     // update ...
     if (!Objects.isNull(this.seoData.getTitle())) {
       this.plugin.updateTitle(this.seoData.getTitle());
@@ -359,12 +353,6 @@ public class SeoFactory {
 
     // clear model
     this.seoData = new SeoData();
-  }
-
-  private void remove() {
-
-    // reset last used data
-    this.lastUsedSeoData = new SeoData();
   }
 
 }

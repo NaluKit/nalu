@@ -23,6 +23,7 @@ import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
 import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorCommand;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorProvider;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.MetaElement;
@@ -144,6 +145,17 @@ public class NaluPluginGWT
   @Override
   public void updateMetaPropertyContent(String property,
                                         String content) {
+    NodeList<Element> nodeList = Document.get()
+                                         .getElementsByTagName("meta");
+    for (int i = 0; i < nodeList.getLength(); i++) {
+      Element node = nodeList.getItem(i);
+      GWT.debugger();
+
+    }
+
+
+
+
     MetaElement metaElement = Document.get()
                                       .createMetaElement();
     metaElement.setAttribute("property",
@@ -168,4 +180,21 @@ public class NaluPluginGWT
                                      .getElementsByTagName("head");
     return node.getItem(0);
   }
+
+  private void addOUpdateNameMetaTag(MetaElement metaElement,
+                                     String firstParameter,
+                                     String secondParameter) {
+    NodeList<Element> nodeList = Document.get()
+                                         .getElementsByTagName("meta");
+    for (int i = 0; i < nodeList.getLength(); i++) {
+      Element node = nodeList.getItem(i);
+      GWT.debugger();
+
+    }
+
+    //    Element element2 = (Element) node.getItem(0);
+    //    String name = element2.getAttribute(name);
+
+  }
+
 }
