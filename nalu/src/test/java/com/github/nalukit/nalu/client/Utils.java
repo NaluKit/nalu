@@ -61,6 +61,21 @@ class Utils {
       @Override
       public void updateTitle(String title) {
       }
+
+      @Override
+      public void updateMetaNameContent(String name,
+                                        String content) {
+      }
+
+      @Override
+      public void updateMetaPropertyContent(String property,
+                                            String content) {
+      }
+
+      @Override
+      public String decode(String route) {
+        return route;
+      }
     };
   }
 

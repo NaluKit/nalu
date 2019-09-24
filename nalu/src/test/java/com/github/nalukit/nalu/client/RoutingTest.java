@@ -93,6 +93,21 @@ public class RoutingTest {
       public void updateTitle(String title) {
       }
 
+      @Override
+      public void updateMetaNameContent(String name,
+                                        String content) {
+      }
+
+      @Override
+      public void updateMetaPropertyContent(String property,
+                                            String content) {
+      }
+
+      @Override
+      public String decode(String route) {
+        return route;
+      }
+
       public void addCompareHandler(CompareHandler compareHandler) {
         this.compareHandler = compareHandler;
       }
@@ -108,6 +123,7 @@ public class RoutingTest {
       public void setConfirm(boolean confirm) {
         this.confirm = confirm;
       }
+
     };
   }
 

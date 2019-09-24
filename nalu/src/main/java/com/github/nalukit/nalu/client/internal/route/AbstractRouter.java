@@ -588,8 +588,9 @@ abstract class AbstractRouter
    */
   public RouteResult parse(String route)
       throws RouterException {
+    String decodedUrl = this.plugin.decode(route);
     return RouteParser.get()
-                      .parse(route,
+                      .parse(decodedUrl,
                              this.shellConfiguration,
                              this.routerConfiguration);
   }

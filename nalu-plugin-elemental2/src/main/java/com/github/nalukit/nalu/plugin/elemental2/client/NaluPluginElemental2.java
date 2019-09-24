@@ -21,6 +21,7 @@ import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
 import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
+import elemental2.core.Global;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
@@ -121,6 +122,23 @@ public class NaluPluginElemental2
   @Override
   public void updateTitle(String title) {
     DomGlobal.document.title = title;
+  }
+
+  @Override
+  public void updateMetaNameContent(String name,
+                                    String content) {
+    // TODO
+  }
+
+  @Override
+  public void updateMetaPropertyContent(String property,
+                                        String content) {
+    // TODO
+  }
+
+  @Override
+  public String decode(String route) {
+    return Global.decodeURI(route);
   }
 
 }

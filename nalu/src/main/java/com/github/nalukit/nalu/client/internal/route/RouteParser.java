@@ -29,7 +29,8 @@ public class RouteParser {
                     RouterConfiguration routerConfiguration)
       throws RouterException {
     RouteResult routeResult = new RouteResult();
-    String routeValue = route;
+    String routeValue = null;
+    routeValue = route;
     // only the part after the first # is intresting:
     if (routeValue.contains("#")) {
       routeValue = routeValue.substring(routeValue.indexOf("#") + 1);
