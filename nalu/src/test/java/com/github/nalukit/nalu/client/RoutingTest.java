@@ -89,6 +89,11 @@ public class RoutingTest {
       public void initialize(ShellConfiguration shellConfiguration) {
       }
 
+      @Override
+      public String decode(String route) {
+        return route;
+      }
+
       public void addCompareHandler(CompareHandler compareHandler) {
         this.compareHandler = compareHandler;
       }
