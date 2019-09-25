@@ -23,7 +23,6 @@ import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
 import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorCommand;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorProvider;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.MetaElement;
@@ -131,6 +130,20 @@ public class NaluPluginGWT
   @Override
   public void updateMetaNameContent(String name,
                                     String content) {
+    NodeList<Element> metaTagList = Document.get()
+                                            .getElementsByTagName("meta");
+    for (int i = 0; i < metaTagList.getLength(); i++) {
+      if (metaTagList.getItem(i) instanceof MetaElement) {
+        MetaElement nodeListElement = (MetaElement) metaTagList.getItem(i);
+        if (!Objects.isNull(nodeListElement.getName())) {
+          if (nodeListElement.getName()
+                             .equals(name)) {
+            nodeListElement.removeFromParent();
+            break;
+          }
+        }
+      }
+    }
     MetaElement metaElement = Document.get()
                                       .createMetaElement();
     metaElement.setName("name");
@@ -139,29 +152,34 @@ public class NaluPluginGWT
     if (!Objects.isNull(headerElement)) {
       headerElement.appendChild(metaElement);
     }
-    // TODO
   }
 
   @Override
   public void updateMetaPropertyContent(String property,
                                         String content) {
-    NodeList<Element> nodeList = Document.get()
-                                         .getElementsByTagName("meta");
-    for (int i = 0; i < nodeList.getLength(); i++) {
-      Element node = nodeList.getItem(i);
-      GWT.debugger();
-
+    NodeList<Element> metaTagList = Document.get()
+                                            .getElementsByTagName("meta");
+    for (int i = 0; i < metaTagList.getLength(); i++) {
+      if (metaTagList.getItem(i) instanceof MetaElement) {
+        MetaElement nodeListElement = (MetaElement) metaTagList.getItem(i);
+        if (!Objects.isNull(nodeListElement.getAttribute("property"))) {
+          if (nodeListElement.getAttribute("property")
+                             .equals(property)) {
+            nodeListElement.removeFromParent();
+            break;
+          }
+        }
+      }
     }
-
-
-
-
     MetaElement metaElement = Document.get()
                                       .createMetaElement();
     metaElement.setAttribute("property",
                              property);
     metaElement.setContent("content");
-    // TODO
+    Element headerElement = getHeaderNode();
+    if (!Objects.isNull(headerElement)) {
+      headerElement.appendChild(metaElement);
+    }
   }
 
   @Override
@@ -169,32 +187,10 @@ public class NaluPluginGWT
     return URL.decode(route);
   }
 
-  private Element addOrUpdate(MetaElement metaElement) {
-    NodeList<Element> node = Document.get()
-                                     .getElementsByTagName("head");
-    return node.getItem(0);
-  }
-
   private Element getHeaderNode() {
     NodeList<Element> node = Document.get()
                                      .getElementsByTagName("head");
     return node.getItem(0);
-  }
-
-  private void addOUpdateNameMetaTag(MetaElement metaElement,
-                                     String firstParameter,
-                                     String secondParameter) {
-    NodeList<Element> nodeList = Document.get()
-                                         .getElementsByTagName("meta");
-    for (int i = 0; i < nodeList.getLength(); i++) {
-      Element node = nodeList.getItem(i);
-      GWT.debugger();
-
-    }
-
-    //    Element element2 = (Element) node.getItem(0);
-    //    String name = element2.getAttribute(name);
-
   }
 
 }
