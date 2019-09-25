@@ -71,7 +71,7 @@ To set these values use the following code:
                      .setTwitterTitle("Twitter Tittle");
 ```
 
-In case a routing is handled by more than one controller and two controllers will update the SEO data, Nalu will use the data the first controller has set!
+In case a routing is handled by more than one controller and the second controllers also tries to update the SEO data, Nalu will use the data the first controller has set!
 
 In case a controller wants to make sure that the value is used, call: ` SeoDataProvider.get().setTwitterTitle("Twitter Tittle", true);`-method. In this case the value will be set even there is already a value.
 
