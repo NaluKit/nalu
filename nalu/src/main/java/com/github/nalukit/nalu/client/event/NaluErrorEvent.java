@@ -26,6 +26,7 @@ public class NaluErrorEvent
   private NaluErrorEvent(ErrorType errorEventType) {
     super();
     this.errorInfo = new ErrorInfo();
+    this.errorInfo.setErrorEventType(errorEventType);
   }
 
   /**

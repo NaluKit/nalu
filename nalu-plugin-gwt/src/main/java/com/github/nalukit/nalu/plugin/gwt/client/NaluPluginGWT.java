@@ -23,12 +23,17 @@ import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
 import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorCommand;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorProvider;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.MetaElement;
+import com.google.gwt.dom.client.NodeList;
+import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.IsWidget;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class NaluPluginGWT
     implements IsNaluProcessorPlugin {
@@ -115,6 +120,77 @@ public class NaluPluginGWT
     // Sets the context path inside the PropertyFactory
     NaluPluginCoreWeb.getContextPath(shellConfiguration);
     this.naluStartModel = NaluPluginCoreWeb.getNaluStartModel();
+  }
+
+  @Override
+  public void updateTitle(String title) {
+    Window.setTitle(title);
+  }
+
+  @Override
+  public void updateMetaNameContent(String name,
+                                    String content) {
+    NodeList<Element> metaTagList = Document.get()
+                                            .getElementsByTagName("meta");
+    for (int i = 0; i < metaTagList.getLength(); i++) {
+      if (metaTagList.getItem(i) instanceof MetaElement) {
+        MetaElement nodeListElement = (MetaElement) metaTagList.getItem(i);
+        if (!Objects.isNull(nodeListElement.getName())) {
+          if (nodeListElement.getName()
+                             .equals(name)) {
+            nodeListElement.removeFromParent();
+            break;
+          }
+        }
+      }
+    }
+    MetaElement metaElement = Document.get()
+                                      .createMetaElement();
+    metaElement.setName("name");
+    metaElement.setContent("content");
+    Element headerElement = getHeaderNode();
+    if (!Objects.isNull(headerElement)) {
+      headerElement.appendChild(metaElement);
+    }
+  }
+
+  @Override
+  public void updateMetaPropertyContent(String property,
+                                        String content) {
+    NodeList<Element> metaTagList = Document.get()
+                                            .getElementsByTagName("meta");
+    for (int i = 0; i < metaTagList.getLength(); i++) {
+      if (metaTagList.getItem(i) instanceof MetaElement) {
+        MetaElement nodeListElement = (MetaElement) metaTagList.getItem(i);
+        if (!Objects.isNull(nodeListElement.getAttribute("property"))) {
+          if (nodeListElement.getAttribute("property")
+                             .equals(property)) {
+            nodeListElement.removeFromParent();
+            break;
+          }
+        }
+      }
+    }
+    MetaElement metaElement = Document.get()
+                                      .createMetaElement();
+    metaElement.setAttribute("property",
+                             property);
+    metaElement.setContent("content");
+    Element headerElement = getHeaderNode();
+    if (!Objects.isNull(headerElement)) {
+      headerElement.appendChild(metaElement);
+    }
+  }
+
+  @Override
+  public String decode(String route) {
+    return URL.decode(route);
+  }
+
+  private Element getHeaderNode() {
+    NodeList<Element> node = Document.get()
+                                     .getElementsByTagName("head");
+    return node.getItem(0);
   }
 
 }
