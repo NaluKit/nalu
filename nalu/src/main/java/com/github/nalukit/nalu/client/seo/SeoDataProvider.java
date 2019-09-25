@@ -4,22 +4,22 @@ import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 
 import java.util.Objects;
 
-public class SeoFactory {
+public class SeoDataProvider {
 
   /* instance of the factory */
-  private static SeoFactory            instance;
+  private static SeoDataProvider       instance;
   /* Nalu plugin */
   private        IsNaluProcessorPlugin plugin;
   /* data dor next update */
   private        SeoData               seoData;
 
-  private SeoFactory() {
+  private SeoDataProvider() {
     this.seoData = new SeoData();
   }
 
-  public static SeoFactory get() {
+  public static SeoDataProvider get() {
     if (Objects.isNull(instance)) {
-      instance = new SeoFactory();
+      instance = new SeoDataProvider();
     }
     return instance;
   }
@@ -28,257 +28,257 @@ public class SeoFactory {
     this.plugin = plugin;
   }
 
-  public void updateDescription(String description) {
-    this.updateDescription(description,
-                           false);
+  public void setDescription(String description) {
+    this.setDescription(description,
+                        false);
   }
 
-  public void updateDescription(String description,
-                                boolean replaceExisting) {
+  public void setDescription(String description,
+                             boolean important) {
     if (Objects.isNull(this.seoData.getDescription())) {
       this.seoData.setDescription(description);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setDescription(description);
       }
     }
   }
 
-  public void updateRobots(String robots) {
-    this.updateRobots(robots,
-                      false);
+  public void setRobots(String robots) {
+    this.setRobots(robots,
+                   false);
   }
 
-  public void updateRobots(String robots,
-                           boolean replaceExisting) {
+  public void setRobots(String robots,
+                        boolean important) {
     if (Objects.isNull(this.seoData.getRobots())) {
       this.seoData.setRobots(robots);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setRobots(robots);
       }
     }
   }
 
-  public void updateKeywords(String keywords) {
-    this.updateKeywords(keywords,
-                        false);
+  public void setKeywords(String keywords) {
+    this.setKeywords(keywords,
+                     false);
   }
 
-  public void updateKeywords(String keywords,
-                             boolean replaceExisting) {
+  public void setKeywords(String keywords,
+                          boolean important) {
     if (Objects.isNull(this.seoData.getKeywords())) {
       this.seoData.setKeywords(keywords);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setKeywords(keywords);
       }
     }
   }
 
-  public void updateTitle(String title) {
-    this.updateTitle(title,
-                     false);
+  public void setTitle(String title) {
+    this.setTitle(title,
+                  false);
   }
 
-  public void updateTitle(String title,
-                          boolean replaceExisting) {
+  public void setTitle(String title,
+                       boolean important) {
     if (Objects.isNull(this.seoData.getTitle())) {
       this.seoData.setTitle(title);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setTitle(title);
       }
     }
   }
 
-  public void updateOgTitle(String ogTitle) {
-    this.updateOgTitle(ogTitle,
-                       false);
+  public void setOgTitle(String ogTitle) {
+    this.setOgTitle(ogTitle,
+                    false);
   }
 
-  public void updateOgTitle(String ogTitle,
-                            boolean replaceExisting) {
+  public void setOgTitle(String ogTitle,
+                         boolean important) {
     if (Objects.isNull(this.seoData.getOgTitle())) {
       this.seoData.setOgTitle(ogTitle);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setOgTitle(ogTitle);
       }
     }
   }
 
-  public void updateOgImage(String ogImage) {
-    this.updateOgImage(ogImage,
-                       false);
+  public void setOgImage(String ogImage) {
+    this.setOgImage(ogImage,
+                    false);
   }
 
-  public void updateOgImage(String ogImage,
-                            boolean replaceExisting) {
+  public void setOgImage(String ogImage,
+                         boolean important) {
     if (Objects.isNull(this.seoData.getOgImage())) {
       this.seoData.setOgImage(ogImage);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setOgImage(ogImage);
       }
     }
   }
 
-  public void updateOgType(String ogType) {
-    this.updateOgType(ogType,
-                      false);
+  public void setOgType(String ogType) {
+    this.setOgType(ogType,
+                   false);
   }
 
-  public void updateOgType(String ogType,
-                           boolean replaceExisting) {
+  public void setOgType(String ogType,
+                        boolean important) {
     if (Objects.isNull(this.seoData.getOgType())) {
       this.seoData.setOgType(ogType);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setOgType(ogType);
       }
     }
   }
 
-  public void updateOgUrl(String ogUrl) {
-    this.updateOgUrl(ogUrl,
-                     false);
+  public void setOgUrl(String ogUrl) {
+    this.setOgUrl(ogUrl,
+                  false);
   }
 
-  public void updateOgUrl(String ogUrl,
-                          boolean replaceExisting) {
+  public void setOgUrl(String ogUrl,
+                       boolean important) {
     if (Objects.isNull(this.seoData.getOgUrl())) {
       this.seoData.setOgUrl(ogUrl);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setOgUrl(ogUrl);
       }
     }
   }
 
-  public void updateOgSiteName(String ogSiteName) {
-    this.updateOgSiteName(ogSiteName,
-                          false);
+  public void setOgSiteName(String ogSiteName) {
+    this.setOgSiteName(ogSiteName,
+                       false);
   }
 
-  public void updateOgSiteName(String ogSiteName,
-                               boolean replaceExisting) {
+  public void setOgSiteName(String ogSiteName,
+                            boolean important) {
     if (Objects.isNull(this.seoData.getOgSiteName())) {
       this.seoData.setOgSiteName(ogSiteName);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setOgSiteName(ogSiteName);
       }
     }
   }
 
-  public void updateOgDescription(String ogDescription) {
-    this.updateOgDescription(ogDescription,
-                             false);
+  public void setOgDescription(String ogDescription) {
+    this.setOgDescription(ogDescription,
+                          false);
   }
 
-  public void updateOgDescription(String ogDescription,
-                                  boolean replaceExisting) {
+  public void setOgDescription(String ogDescription,
+                               boolean important) {
     if (Objects.isNull(this.seoData.getOgDescription())) {
       this.seoData.setOgDescription(ogDescription);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setOgDescription(ogDescription);
       }
     }
   }
 
-  public void updateTwitterCard(String twitterCard) {
-    this.updateTwitterCard(twitterCard,
-                           false);
+  public void setTwitterCard(String twitterCard) {
+    this.setTwitterCard(twitterCard,
+                        false);
   }
 
-  public void updateTwitterCard(String twitterCard,
-                                boolean replaceExisting) {
+  public void setTwitterCard(String twitterCard,
+                             boolean important) {
     if (Objects.isNull(this.seoData.getTwitterCard())) {
       this.seoData.setTwitterCard(twitterCard);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setTwitterCard(twitterCard);
       }
     }
   }
 
-  public void updateTwitterTitle(String twitterTitle) {
-    this.updateTwitterTitle(twitterTitle,
-                            false);
+  public void setTwitterTitle(String twitterTitle) {
+    this.setTwitterTitle(twitterTitle,
+                         false);
   }
 
-  public void updateTwitterTitle(String twitterTitle,
-                                 boolean replaceExisting) {
+  public void setTwitterTitle(String twitterTitle,
+                              boolean important) {
     if (Objects.isNull(this.seoData.getTwitterTitle())) {
       this.seoData.setTwitterTitle(twitterTitle);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setTwitterTitle(twitterTitle);
       }
     }
   }
 
-  public void updateTwitterDescription(String twitterDescription) {
-    this.updateTwitterDescription(twitterDescription,
-                                  false);
+  public void setTwitterDescription(String twitterDescription) {
+    this.setTwitterDescription(twitterDescription,
+                               false);
   }
 
-  public void updateTwitterDescription(String twitterDescription,
-                                       boolean replaceExisting) {
+  public void setTwitterDescription(String twitterDescription,
+                                    boolean important) {
     if (Objects.isNull(this.seoData.getTwitterDescription())) {
       this.seoData.setTwitterDescription(twitterDescription);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setTwitterDescription(twitterDescription);
       }
     }
   }
 
-  public void updateTwitterImage(String twitterImage) {
-    this.updateTwitterImage(twitterImage,
-                            false);
+  public void setTwitterImage(String twitterImage) {
+    this.setTwitterImage(twitterImage,
+                         false);
   }
 
-  public void updateTwitterImage(String twitterImage,
-                                 boolean replaceExisting) {
+  public void setTwitterImage(String twitterImage,
+                              boolean important) {
     if (Objects.isNull(this.seoData.getTwitterImage())) {
       this.seoData.setTwitterImage(twitterImage);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setTwitterImage(twitterImage);
       }
     }
   }
 
-  public void updateTwitterSite(String twitterSite) {
-    this.updateTwitterSite(twitterSite,
-                           false);
+  public void setTwitterSite(String twitterSite) {
+    this.setTwitterSite(twitterSite,
+                        false);
   }
 
-  public void updateTwitterSite(String twitterSite,
-                                boolean replaceExisting) {
+  public void setTwitterSite(String twitterSite,
+                             boolean important) {
     if (Objects.isNull(this.seoData.getTwitterSite())) {
       this.seoData.setTwitterSite(twitterSite);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setTwitterSite(twitterSite);
       }
     }
   }
 
-  public void updateTwitterCreator(String twitterCreator) {
-    this.updateTwitterCreator(twitterCreator,
-                              false);
+  public void setTwitterCreator(String twitterCreator) {
+    this.setTwitterCreator(twitterCreator,
+                           false);
   }
 
-  public void updateTwitterCreator(String twitterCreator,
-                                   boolean replaceExisting) {
+  public void setTwitterCreator(String twitterCreator,
+                                boolean important) {
     if (Objects.isNull(this.seoData.getTwitterCreator())) {
       this.seoData.setTwitterCreator(twitterCreator);
     } else {
-      if (replaceExisting) {
+      if (important) {
         this.seoData.setTwitterCreator(twitterCreator);
       }
     }
