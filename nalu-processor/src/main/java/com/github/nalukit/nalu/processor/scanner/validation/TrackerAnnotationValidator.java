@@ -68,7 +68,7 @@ public class TrackerAnnotationValidator {
     Set<? extends Element> elementsWithTrackerAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Tracker.class);
     // at least there should only one Application annotation!
     if (elementsWithTrackerAnnotation.size() > 1) {
-      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Tracke");
+      throw new ProcessorException("Nalu-Processor: There should be at least only one interface, that is annotated with @Tracker");
     }
     for (Element element : elementsWithTrackerAnnotation) {
       if (element instanceof TypeElement) {
@@ -86,7 +86,7 @@ public class TrackerAnnotationValidator {
                                                                                    .asType())) {
           throw new ProcessorException("Nalu-Processor: @Tracker can only be used on interfaces that extends IsApplication");
         }
-        // @Tracker can only be used on a interface that has a @Application annoatation
+        // @Tracker can only be used on a interface that has a @Application annotation
         if (trackerElement.getAnnotation(Application.class) == null) {
           throw new ProcessorException("Nalu-Processor: @Tracker can only be used with an interfaces annotated with @Annotation");
         }

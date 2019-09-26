@@ -45,7 +45,7 @@ public abstract class AbstractFilter<C extends IsContext>
   }
 
   /**
-   * Sets the router instance (used to set applicaiton error message)
+   * Sets the router instance (used to set application error message)
    * <p>
    * <b>DO NOT USE!</b>
    *
@@ -83,7 +83,7 @@ public abstract class AbstractFilter<C extends IsContext>
    * Sets the application error message.
    * <p>
    *
-   * @param applicationErrorMessage the new applicaiton error message
+   * @param applicationErrorMessage the new application error message
    */
   protected void setApplicationErrorMessage(NaluErrorMessage applicationErrorMessage) {
     this.router.setApplicationErrorMessage(applicationErrorMessage);

@@ -23,6 +23,6 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 @Application(startRoute = "/mockShell02/route03",
              context = MockContext.class,
              routeError = "/errorShell/error")
-public interface DubplicateShellNameApplication
+public interface DuplicateShellNameApplication
     extends IsApplication {
 }

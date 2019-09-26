@@ -9,7 +9,7 @@ public class CompositeCondition03
 
   @Override
   public boolean loadComposite(String route,
-                               String... parms) {
+                               String... params) {
     return true;
   }
 

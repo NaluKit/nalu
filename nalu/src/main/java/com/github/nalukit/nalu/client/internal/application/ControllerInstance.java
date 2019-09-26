@@ -27,7 +27,7 @@ public class ControllerInstance {
   /* controller */
   private AbstractComponentController<?, ?, ?> controller;
   /* flag, that indicates weather the controller is reused or not */
-  private boolean                              chached;
+  private boolean                              cached;
 
   public ControllerInstance() {
   }
@@ -48,12 +48,12 @@ public class ControllerInstance {
     this.controller = controller;
   }
 
-  public boolean isChached() {
-    return chached;
+  public boolean isCached() {
+    return cached;
   }
 
-  public void setChached(boolean chached) {
-    this.chached = chached;
+  public void setCached(boolean cached) {
+    this.cached = cached;
   }
 
 }

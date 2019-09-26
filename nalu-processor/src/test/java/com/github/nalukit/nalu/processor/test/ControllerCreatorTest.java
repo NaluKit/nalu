@@ -31,7 +31,7 @@ import static com.google.testing.compile.Compiler.javac;
 public class ControllerCreatorTest {
 
   @Test
-  void testControllerCreatorOkWithoutParament() {
+  void testControllerCreatorOkWithoutParameter() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {

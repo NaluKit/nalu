@@ -118,7 +118,7 @@ public class ShellGenerator {
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param metaModel meta data model of the eventbus
+     * @param metaModel meta data model of the event bus
      * @return the Builder
      */
     public Builder metaModel(MetaModel metaModel) {
@@ -129,7 +129,7 @@ public class ShellGenerator {
     /**
      * Set the typeSpec of the currently generated eventBus
      *
-     * @param typeSpec ttype spec of the crruent eventbus
+     * @param typeSpec type spec of the current event bus
      * @return the Builder
      */
     Builder typeSpec(TypeSpec.Builder typeSpec) {

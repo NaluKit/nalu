@@ -283,7 +283,7 @@ public class ControllerModelTest {
                                routeWithoutShell,
                                "selector,",
                                new ArrayList<String>() {{
-                                 add("parametr01");
+                                 add("parameter01");
                                  add("parameter02");
                                }},
                                new ClassNameModel("com.github.nalukit.nalu.processor.common.ui.component01,Controller01"),

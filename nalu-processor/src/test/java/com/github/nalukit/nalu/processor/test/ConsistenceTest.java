@@ -52,7 +52,7 @@ public class ConsistenceTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/startRouteDeosNotExist/StartRouteDoesNotExistApplication.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/startRouteDoesNotExist/StartRouteDoesNotExistApplication.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Controller03.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/IComponent03.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component03/Component03.java"));
@@ -102,7 +102,7 @@ public class ConsistenceTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/dubplicateShellName/DubplicateShellNameApplication.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/duplicateShellName/DuplicateShellNameApplication.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell02.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShellDuplicateName.java"));
@@ -125,7 +125,7 @@ public class ConsistenceTest {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/dubplicateShellName/DubplicateShellNameApplication.java"));
+                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/consistence/duplicateShellName/DuplicateShellNameApplication.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell02.java"));
                                          add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java"));
