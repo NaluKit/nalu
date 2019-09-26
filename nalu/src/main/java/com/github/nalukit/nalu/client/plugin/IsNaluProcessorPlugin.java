@@ -42,6 +42,8 @@ public interface IsNaluProcessorPlugin {
 
   void initialize(ShellConfiguration shellConfiguration);
 
+  String decode(String route);
+
   @FunctionalInterface
   interface RouteChangeHandler {
 

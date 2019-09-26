@@ -24,6 +24,7 @@ import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorCommand;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorProvider;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -115,6 +116,11 @@ public class NaluPluginGWT
     // Sets the context path inside the PropertyFactory
     NaluPluginCoreWeb.getContextPath(shellConfiguration);
     this.naluStartModel = NaluPluginCoreWeb.getNaluStartModel();
+  }
+
+  @Override
+  public String decode(String route) {
+    return URL.decode(route);
   }
 
 }
