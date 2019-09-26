@@ -29,6 +29,6 @@ public class ProcessorConstants {
   public final static String PROPERTIES_POSTFIX     = ".properties";
   public final static String CREATOR_IMPL           = "CreatorImpl";
   public final static String PLUGIN_IMPL            = "PluginImpl";
-  public final static String PROCESSOR_VERSION      = "1.3.3-SNAPSHOT";
+  public final static String PROCESSOR_VERSION      = "1.3.3";
   public final static String BUILD_TIME             = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(new Date(System.currentTimeMillis()));
 }
