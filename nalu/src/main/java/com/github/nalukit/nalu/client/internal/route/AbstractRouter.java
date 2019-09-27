@@ -61,6 +61,8 @@ abstract class AbstractRouter
   private Map<String, AbstractComponentController<?, ?, ?>> activeComponents;
   // hash of last successful routing
   private String                                            lastExecutedHash = "";
+  // current route
+  private String                                            currentRoute = "";
   // last added shell - used, to check if the shell needs an shell replacement
   private String                                            lastAddedShell;
   // instance of the current shell
@@ -253,9 +255,26 @@ abstract class AbstractRouter
   /**
    * clears the cache
    */
+  @Override
   public void clearCache() {
     ControllerFactory.get()
                      .clearControllerCache();
+  }
+
+  /**
+   * Returns the current route.
+   * <br>
+   * The method will return a route with a '*' as placeholder for parameters.
+   *<br>
+   * Keep in mind:
+   * This is the current route. The route might be changed by other processes,
+   * f.e.: a RoutingException or something else!
+   *
+   * @return the current route
+   */
+  @Override
+  public String getCurrentRoute() {
+    return this.currentRoute;
   }
 
   void handleRouting(String hash) {
@@ -292,6 +311,8 @@ abstract class AbstractRouter
     RouteResult routeResult;
     try {
       routeResult = this.parse(hash);
+      // once the hash is parsed, we save the route as currentRoute!
+      this.currentRoute = routeResult.getRoute();
     } catch (RouterException e) {
       this.naluErrorMessage = new NaluErrorMessage(AbstractRouter.NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE,
                                                    RouterLogger.logNoMatchingRoute(hash,
