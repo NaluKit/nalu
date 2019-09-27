@@ -19,8 +19,6 @@ package com.github.nalukit.nalu.client.component;
 public abstract class AbstractPopUpComponent<C extends IsPopUpComponent.Controller>
     implements IsPopUpComponent<C> {
 
-  //  protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
-
   private C controller;
 
   public AbstractPopUpComponent() {

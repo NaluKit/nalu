@@ -47,10 +47,14 @@ public class ModulesGenerator {
     // generate method 'generateLoadModules()'
     MethodSpec.Builder loadModuleMethodBuilder = MethodSpec.methodBuilder("loadModules")
                                                            .addModifiers(Modifier.PUBLIC)
-                                                           .addAnnotation(Override.class)
-                                                           .addStatement("$T sb01 = new $T()",
-                                                                         ClassName.get(StringBuilder.class),
-                                                                         ClassName.get(StringBuilder.class));
+                                                           .addAnnotation(Override.class);
+    if (this.metaModel.getModules()
+                      .size() > 0) {
+
+      loadModuleMethodBuilder.addStatement("$T sb01 = new $T()",
+                                           ClassName.get(StringBuilder.class),
+                                           ClassName.get(StringBuilder.class));
+    }
     // are there any modules?
     this.metaModel.getModules()
                   .forEach(moduleModel -> {
@@ -154,7 +158,7 @@ public class ModulesGenerator {
     TypeSpec.Builder typeSpec;
 
     /**
-     * Set the EventBusMetaModel of the currently generated eventBus
+     * Set the MetaModel of the currently generated eventBus
      *
      * @param metaModel meta data model of the event bus
      * @return the Builder

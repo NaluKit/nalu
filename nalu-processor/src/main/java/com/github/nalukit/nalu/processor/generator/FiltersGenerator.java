@@ -93,7 +93,7 @@ public class FiltersGenerator {
     TypeSpec.Builder typeSpec;
 
     /**
-     * Set the EventBusMetaModel of the currently generated eventBus
+     * Set the MetaModel of the currently generated eventBus
      *
      * @param metaModel meta data model of the event bus
      * @return the Builder

@@ -142,6 +142,12 @@ public class ApplicationGenerator {
                        .build()
                        .generate();
 
+    BlockControllerGenerator.builder()
+                            .metaModel(metaModel)
+                            .typeSpec(typeSpec)
+                            .build()
+                            .generate();
+
     PopUpControllerGenerator.builder()
                             .metaModel(metaModel)
                             .typeSpec(typeSpec)

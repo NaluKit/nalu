@@ -134,9 +134,7 @@ public class PopUpControllerAnnotationScanner {
                                             Void v) {
                     List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
                     if (!typeArguments.isEmpty()) {
-                      if (typeArguments.size() > 0) {
-                        result[0] = typeArguments.get(0);
-                      }
+                      result[0] = typeArguments.get(0);
                     }
                     return null;
                   }

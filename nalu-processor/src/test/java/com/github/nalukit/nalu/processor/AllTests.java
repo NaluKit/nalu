@@ -26,6 +26,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(JUnitPlatform.class)
 @SelectClasses({ ApplicationTest.class,
+                 BlockControllerTest.class,
                  ClassNameModelTest.class,
                  CompositeCreatorTest.class,
                  CompositeTest.class,

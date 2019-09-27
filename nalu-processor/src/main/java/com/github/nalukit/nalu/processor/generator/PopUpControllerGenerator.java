@@ -48,22 +48,19 @@ public class PopUpControllerGenerator {
                                                                            .addModifiers(Modifier.PUBLIC)
                                                                            .addAnnotation(Override.class);
     this.metaModel.getPopUpControllers()
-                  .forEach(popUpControllerModel -> {
-                    loadPopUpControllerFactoryMethodBuilder.addComment("create popUpControllerCreator for: " +
-                                                                       popUpControllerModel.getProvider()
-                                                                                           .getPackage() +
-                                                                       "." +
-                                                                       popUpControllerModel.getProvider()
-                                                                                           .getSimpleName())
-                                                           .addStatement("$T.get().registerPopUpController($S, new $L(router, context, eventBus))",
-                                                                         ClassName.get(PopUpControllerFactory.class),
-                                                                         popUpControllerModel.getName(),
-                                                                         ClassName.get(popUpControllerModel.getController()
-                                                                                                           .getPackage(),
-                                                                                       popUpControllerModel.getController()
-                                                                                                           .getSimpleName() + ProcessorConstants.CREATOR_IMPL));
-
-                  });
+                  .forEach(popUpControllerModel -> loadPopUpControllerFactoryMethodBuilder.addComment("create popUpControllerCreator for: " +
+                                                                                                    popUpControllerModel.getProvider()
+                                                                                         .getPackage() +
+                                                                                                    "." +
+                                                                                                    popUpControllerModel.getProvider()
+                                                                                         .getSimpleName())
+                                                                                        .addStatement("$T.get().registerPopUpController($S, new $L(router, context, eventBus))",
+                                                                       ClassName.get(PopUpControllerFactory.class),
+                                                                       popUpControllerModel.getName(),
+                                                                       ClassName.get(popUpControllerModel.getController()
+                                                                                                         .getPackage(),
+                                                                                     popUpControllerModel.getController()
+                                                                                                         .getSimpleName() + ProcessorConstants.CREATOR_IMPL)));
     typeSpec.addMethod(loadPopUpControllerFactoryMethodBuilder.build());
   }
 
@@ -74,7 +71,7 @@ public class PopUpControllerGenerator {
     TypeSpec.Builder typeSpec;
 
     /**
-     * Set the EventBusMetaModel of the currently generated eventBus
+     * Set the MetaModel of the currently generated eventBus
      *
      * @param metaModel meta data model of the event bus
      * @return the Builder
