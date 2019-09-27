@@ -93,7 +93,7 @@ To use Nalu add the following dependencies to your pom:
     <version>LATEST</version>
 </dependency>
 <dependency>
-    <groupId>com.githubnalukit</groupId>
+    <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
     <version>LATEST</version>
     <scope>provided</scope>
