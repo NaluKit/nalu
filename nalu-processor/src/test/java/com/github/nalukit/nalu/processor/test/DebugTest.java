@@ -22,8 +22,7 @@ import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.jupiter.api.Test;
 
-import javax.tools.JavaFileObject;
-import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.google.testing.compile.Compiler.javac;
 
@@ -33,11 +32,7 @@ public class DebugTest {
   @Test
   void testDebugAnnotationOnAMethod() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationOnAMethod/DebugAnnotationOnAMethod.java"));
-                                       }
-                                     });
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationOnAMethod/DebugAnnotationOnAMethod.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -47,11 +42,7 @@ public class DebugTest {
   @Test
   void testDebugAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationOnAClass/DebugAnnotationOnAClass.java"));
-                                       }
-                                     });
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationOnAClass/DebugAnnotationOnAClass.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -61,11 +52,7 @@ public class DebugTest {
   @Test
   void testDebugAnnotationWithoutExtendsIsApplication() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationWithoutExtendsIsApplication/DebugAnnotationWithoutExtendsIsApplication.java"));
-                                       }
-                                     });
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationWithoutExtendsIsApplication/DebugAnnotationWithoutExtendsIsApplication.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -75,11 +62,7 @@ public class DebugTest {
   @Test
   void testDebugAnnotationOnClassWithoutApplicationAnnotation() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationOnClassWithoutApplicationAnnotation/DebugAnnotationOnClassWithoutApplicationAnnotation.java"));
-                                       }
-                                     });
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/debug/debugAnnotationOnClassWithoutApplicationAnnotation/DebugAnnotationOnClassWithoutApplicationAnnotation.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)

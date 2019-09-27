@@ -40,8 +40,6 @@ public class ErrorPopUpControllerAnnotationScanner {
 
   private ProcessingEnvironment processingEnvironment;
 
-  private MetaModel metaModel;
-
   private Element errorPopUpControllerElement;
 
   @SuppressWarnings("unused")
@@ -52,7 +50,6 @@ public class ErrorPopUpControllerAnnotationScanner {
   private ErrorPopUpControllerAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.metaModel = builder.metaModel;
     this.errorPopUpControllerElement = builder.popUpControllerElement;
     setUp();
   }

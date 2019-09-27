@@ -26,6 +26,7 @@ public class DefaultLogger
 
   private static final String INDENT = "    ";
 
+  @Override
   public void log(String message,
                   int depth) {
     if ("on".equals(System.getProperty("superdevmode",

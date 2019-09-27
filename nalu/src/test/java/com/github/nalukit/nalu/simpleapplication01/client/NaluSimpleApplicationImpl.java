@@ -82,6 +82,7 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
+  @SuppressWarnings("CatchAndPrintStackTrace")
   public void loadComponents() {
     // shellCreator ...
     Shell shell = new Shell();

@@ -30,6 +30,7 @@ import com.github.nalukit.nalu.simpleapplication02.client.logger.DefaultLogger;
 import com.github.nalukit.nalu.simpleapplication02.client.ui.shell.Shell;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public final class NaluSimpleApplicationImpl
     extends AbstractApplication<NaluSimpleApplicationContext>
@@ -83,6 +84,7 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
+  @SuppressWarnings("CatchAndPrintStackTrace")
   public void loadComponents() {
     // shellCreator ...
     Shell shell = new Shell();
@@ -105,29 +107,29 @@ public final class NaluSimpleApplicationImpl
   public void loadRoutes() {
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/",
-                                                  Arrays.asList(new String[] {}),
+                                                  Collections.emptyList(),
                                                   "navigation",
                                                   "NavigationController"));
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/detail",
-                                                  Arrays.asList(new String[] { "id" }),
+                                                  Collections.singletonList("id"),
                                                   "content",
                                                   "DetailController"));
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/list",
-                                                  Arrays.asList(new String[] { "name",
-                                                                               "city" }),
+                                                  Arrays.asList("name",
+                                                                "city"),
                                                   "content",
                                                   "ListController"));
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/",
-                                                  Arrays.asList(new String[] {}),
+                                                  Collections.emptyList(),
                                                   "footer",
                                                   "FooterController"));
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/search",
-                                                  Arrays.asList(new String[] { "searchName",
-                                                                               "searchCity" }),
+                                                  Arrays.asList("searchName",
+                                                                "searchCity"),
                                                   "content",
                                                   "SearchController"));
   }

@@ -24,6 +24,7 @@ public class DefaultElemental2Logger
 
   static final String INDENT = "..";
 
+  @Override
   public void log(String message,
                   int depth) {
     if (NaluPluginCoreWeb.isSuperDevMode()) {

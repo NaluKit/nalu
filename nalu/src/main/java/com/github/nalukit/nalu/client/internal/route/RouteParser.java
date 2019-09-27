@@ -24,6 +24,7 @@ public class RouteParser {
    * @return parse result
    * @throws com.github.nalukit.nalu.client.internal.route.RouterException in case no controller is found for the routing
    */
+  @SuppressWarnings("StringSplitter")
   RouteResult parse(String route,
                     ShellConfiguration shellConfiguration,
                     RouterConfiguration routerConfiguration)

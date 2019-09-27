@@ -16,37 +16,23 @@
 package com.github.nalukit.nalu.processor.scanner.validation;
 
 import com.github.nalukit.nalu.processor.ProcessorException;
-import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AcceptParameterAnnotationValidator {
 
   List<Element> annotatedElements;
 
-  private ProcessorUtils processorUtils;
-
-  private ProcessingEnvironment processingEnvironment;
-
-  private RoundEnvironment roundEnvironment;
-
-  private ControllerModel controllerModel;
-
   @SuppressWarnings("unused")
   private AcceptParameterAnnotationValidator() {
   }
 
   private AcceptParameterAnnotationValidator(Builder builder) {
-    this.processingEnvironment = builder.processingEnvironment;
-    this.roundEnvironment = builder.roundEnvironment;
     this.annotatedElements = builder.annotatedElements;
-    this.controllerModel = builder.controllerModel;
     setUp();
   }
 
@@ -55,9 +41,6 @@ public class AcceptParameterAnnotationValidator {
   }
 
   private void setUp() {
-    this.processorUtils = ProcessorUtils.builder()
-                                        .processingEnvironment(this.processingEnvironment)
-                                        .build();
   }
 
   public void validate()
@@ -87,13 +70,13 @@ public class AcceptParameterAnnotationValidator {
     //    }
   }
 
-  private List<String> getParameterFromRoute(String route) {
-    if (!route.contains("/:")) {
-      return new ArrayList<>();
-    }
-    return Arrays.asList(route.substring(route.indexOf("/:") + 2)
-                              .split("/:"));
-  }
+  //  private List<String> getParameterFromRoute(String route) {
+  //    if (!route.contains("/:")) {
+  //      return new ArrayList<>();
+  //    }
+  //    return Arrays.asList(route.substring(route.indexOf("/:") + 2)
+  //                              .split("/:"));
+  //  }
 
   public static final class Builder {
 

@@ -36,9 +36,9 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
-import static java.util.stream.Stream.of;
 
 @AutoService(Processor.class)
 public class NaluPluginGwtProcessor
@@ -70,9 +70,11 @@ public class NaluPluginGwtProcessor
 
   @Override
   public Set<String> getSupportedAnnotationTypes() {
-    return of(Selector.class.getCanonicalName()).collect(toSet());
+    return Stream.of(Selector.class.getCanonicalName())
+                 .collect(toSet());
   }
 
+  @SuppressWarnings("unused")
   @Override
   public boolean process(Set<? extends TypeElement> annotations,
                          RoundEnvironment roundEnv) {
@@ -215,7 +217,7 @@ public class NaluPluginGwtProcessor
     }
   }
 
-  class SelectorMetaModel {
+  static class SelectorMetaModel {
 
     private String selector;
 

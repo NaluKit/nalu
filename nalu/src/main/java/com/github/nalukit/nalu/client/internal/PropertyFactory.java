@@ -117,6 +117,7 @@ public class PropertyFactory {
    * @param usingHash                    Will Nalu use a hash for Navigation?
    * @param usingColonForParametersInUrl Will Nalu use colons to mark parameters inside the url?
    * @param stayOnSide                   tells Nalu how do ahndle empty hash
+   * @param errorHandlingMethod          defines weather an error events gets fired or the error route is used
    */
   public void register(String startRoute,
                        boolean hasHistory,

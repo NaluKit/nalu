@@ -16,26 +16,18 @@
 package com.github.nalukit.nalu.processor.scanner.validation;
 
 import com.github.nalukit.nalu.processor.ProcessorException;
-import com.github.nalukit.nalu.processor.ProcessorUtils;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 
 public class ModuleAnnotationValidator {
 
-  private ProcessorUtils processorUtils;
-
-  private ProcessingEnvironment processingEnvironment;
-
-  private Element moduleElement;
-
   @SuppressWarnings("unused")
   private ModuleAnnotationValidator() {
   }
 
+  @SuppressWarnings("unused")
   private ModuleAnnotationValidator(Builder builder) {
-    this.processingEnvironment = builder.processingEnvironment;
-    this.moduleElement = builder.moduleElement;
     setUp();
   }
 
@@ -44,9 +36,6 @@ public class ModuleAnnotationValidator {
   }
 
   private void setUp() {
-    this.processorUtils = ProcessorUtils.builder()
-                                        .processingEnvironment(this.processingEnvironment)
-                                        .build();
   }
 
   public void validate()

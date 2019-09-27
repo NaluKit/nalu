@@ -48,6 +48,7 @@ public class NaluPluginCoreWeb {
                            0);
   }
 
+  @SuppressWarnings("StringSplitter")
   public static void getContextPath(ShellConfiguration shellConfiguration) {
     if (PropertyFactory.get()
                        .isUsingHash()) {
@@ -89,6 +90,7 @@ public class NaluPluginCoreWeb {
                    .setContextPath("");
   }
 
+  @SuppressWarnings("StringSplitter")
   public static NaluStartModel getNaluStartModel() {
     Location location = Js.uncheckedCast(DomGlobal.location);
     Map<String, String> queryParameters = new HashMap<>();

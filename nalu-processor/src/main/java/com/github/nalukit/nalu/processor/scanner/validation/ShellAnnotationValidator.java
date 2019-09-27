@@ -37,8 +37,6 @@ public class ShellAnnotationValidator {
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment roundEnvironment;
-
   private MetaModel metaModel;
 
   @SuppressWarnings("unused")
@@ -47,7 +45,6 @@ public class ShellAnnotationValidator {
 
   private ShellAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
-    this.roundEnvironment = builder.roundEnvironment;
     this.metaModel = builder.metaModel;
 
     setUp();

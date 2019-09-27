@@ -65,8 +65,9 @@ public class FiltersAnnotationScanner {
     TypeMirror filterAnnotationAsTypeMirror = filterAnnotation.asType();
     return this.filtersElement.getAnnotationMirrors()
                               .stream()
-                              .filter(annotationMirror -> annotationMirror.getAnnotationType()
-                                                                          .equals(filterAnnotationAsTypeMirror))
+                              .filter(annotationMirror -> this.processingEnvironment.getTypeUtils()
+                                                                                    .isSameType(annotationMirror.getAnnotationType(),
+                                                                                                filterAnnotationAsTypeMirror))
                               .flatMap(annotationMirror -> annotationMirror.getElementValues()
                                                                            .entrySet()
                                                                            .stream())

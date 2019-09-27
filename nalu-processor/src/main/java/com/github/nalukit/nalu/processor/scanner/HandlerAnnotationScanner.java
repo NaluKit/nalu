@@ -26,20 +26,11 @@ import javax.lang.model.element.Element;
 
 public class HandlerAnnotationScanner {
 
-  private ProcessingEnvironment processingEnvironment;
-
-  private RoundEnvironment roundEnvironment;
-
-  private MetaModel metaModel;
-
   private Element handlerElement;
 
   @SuppressWarnings("unused")
   private HandlerAnnotationScanner(Builder builder) {
     super();
-    this.processingEnvironment = builder.processingEnvironment;
-    this.roundEnvironment = builder.roundEnvironment;
-    this.metaModel = builder.metaModel;
     this.handlerElement = builder.handlerElement;
     setUp();
   }

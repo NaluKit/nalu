@@ -85,7 +85,8 @@ public class RouteParserTest {
                                    .get(1),
                         is(""));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -108,7 +109,8 @@ public class RouteParserTest {
                                    .get(1),
                         is(""));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -131,7 +133,8 @@ public class RouteParserTest {
                                    .get(1),
                         is(""));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -154,7 +157,8 @@ public class RouteParserTest {
                                    .get(1),
                         is(""));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -177,7 +181,8 @@ public class RouteParserTest {
                                    .get(1),
                         is("T"));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -200,7 +205,8 @@ public class RouteParserTest {
                                    .get(1),
                         is("T"));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -223,7 +229,8 @@ public class RouteParserTest {
                                    .get(1),
                         is(""));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -246,7 +253,8 @@ public class RouteParserTest {
                                    .get(1),
                         is(""));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -269,7 +277,8 @@ public class RouteParserTest {
                                    .get(1),
                         is(""));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -292,7 +301,8 @@ public class RouteParserTest {
                                    .get(1),
                         is(""));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -315,7 +325,8 @@ public class RouteParserTest {
                                    .get(1),
                         is("T"));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -338,7 +349,8 @@ public class RouteParserTest {
                                    .get(1),
                         is("T"));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -358,7 +370,8 @@ public class RouteParserTest {
                                    .get(0),
                         is(""));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -378,7 +391,8 @@ public class RouteParserTest {
                                    .get(0),
                         is(""));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -398,7 +412,8 @@ public class RouteParserTest {
                                    .get(0),
                         is("1"));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -418,7 +433,8 @@ public class RouteParserTest {
                                    .get(0),
                         is("1"));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -438,7 +454,8 @@ public class RouteParserTest {
                                    .get(0),
                         is(""));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -458,7 +475,8 @@ public class RouteParserTest {
                                    .get(0),
                         is(""));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -478,7 +496,8 @@ public class RouteParserTest {
                                    .get(0),
                         is("1"));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -498,7 +517,8 @@ public class RouteParserTest {
                                    .get(0),
                         is("1"));
     } catch (RouterException e) {
-      Assert.fail("no exception expected here!");
+      throw new AssertionError("no exception expected here!",
+                               e);
     }
   }
 
@@ -507,7 +527,8 @@ public class RouteParserTest {
     String hash = RouteParser.get()
                              .generate("/application/person/detail",
                                        "1");
-    Assert.assertThat(hash, is("application/person/detail/1"));
+    Assert.assertThat(hash,
+                      is("application/person/detail/1"));
   }
 
   @Test
@@ -515,7 +536,8 @@ public class RouteParserTest {
     String hash = RouteParser.get()
                              .generate("/application/person/*/detail",
                                        "1");
-    Assert.assertThat(hash, is("application/person/1/detail"));
+    Assert.assertThat(hash,
+                      is("application/person/1/detail"));
   }
 
 }

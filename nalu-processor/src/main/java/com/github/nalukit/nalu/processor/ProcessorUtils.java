@@ -18,7 +18,6 @@ package com.github.nalukit.nalu.processor;
 
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 
-import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.*;
@@ -36,11 +35,7 @@ public class ProcessorUtils {
 
   private ProcessingEnvironment processingEnvironment;
 
-  private Types types;
-
   private Messager messager;
-
-  private Filer filer;
 
   private Elements elements;
 
@@ -50,9 +45,7 @@ public class ProcessorUtils {
 
     this.processingEnvironment = builder.processingEnvironment;
 
-    this.types = this.processingEnvironment.getTypeUtils();
     this.messager = this.processingEnvironment.getMessager();
-    this.filer = this.processingEnvironment.getFiler();
     this.elements = this.processingEnvironment.getElementUtils();
   }
 
@@ -78,13 +71,13 @@ public class ProcessorUtils {
   //    }
   //  }
 
-  public boolean implementsInterface(ProcessingEnvironment processingEnvironment,
-                                     TypeElement typeElement,
-                                     TypeMirror implementedInterface) {
-    return processingEnvironment.getTypeUtils()
-                                .isAssignable(typeElement.asType(),
-                                              implementedInterface);
-  }
+  //  public boolean implementsInterface(ProcessingEnvironment processingEnvironment,
+  //                                     TypeElement typeElement,
+  //                                     TypeMirror implementedInterface) {
+  //    return processingEnvironment.getTypeUtils()
+  //                                .isAssignable(typeElement.asType(),
+  //                                              implementedInterface);
+  //  }
 
   //  public String getCanonicalClassName(Element element) {
   //    return this.getPackageAsString(element) +

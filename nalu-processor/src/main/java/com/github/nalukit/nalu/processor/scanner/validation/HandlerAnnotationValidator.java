@@ -31,8 +31,6 @@ public class HandlerAnnotationValidator {
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment roundEnvironment;
-
   private Element handlerElement;
 
   @SuppressWarnings("unused")
@@ -41,7 +39,6 @@ public class HandlerAnnotationValidator {
 
   private HandlerAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
-    this.roundEnvironment = builder.roundEnvironment;
     this.handlerElement = builder.handlerElement;
     setUp();
   }
@@ -65,19 +62,19 @@ public class HandlerAnnotationValidator {
       throw new ProcessorException("Nalu-Processor: @Handler can only be used with an class");
     }
     // @Handler can only be used on a interface that extends IsHandler
-    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                      typeElement.asType(),
-                                                      this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(IsHandler.class.getCanonicalName())
-                                                                                .asType()))) {
+    if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+                                                     typeElement.asType(),
+                                                     this.processingEnvironment.getElementUtils()
+                                                                               .getTypeElement(IsHandler.class.getCanonicalName())
+                                                                               .asType())) {
       throw new ProcessorException("Nalu-Processor: @Handler can only be used on a class that implements IsHandler");
     }
     // @Handler can only be used on a interface that extends IsApplication
-    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                      typeElement.asType(),
-                                                      this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(AbstractHandler.class.getCanonicalName())
-                                                                                .asType()))) {
+    if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+                                                     typeElement.asType(),
+                                                     this.processingEnvironment.getElementUtils()
+                                                                               .getTypeElement(AbstractHandler.class.getCanonicalName())
+                                                                               .asType())) {
       throw new ProcessorException("Nalu-Processor: @Handler can only be used on a class that extends AbstractHandler");
     }
   }

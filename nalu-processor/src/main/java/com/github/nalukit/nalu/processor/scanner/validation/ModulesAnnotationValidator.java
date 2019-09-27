@@ -29,15 +29,12 @@ public class ModulesAnnotationValidator {
 
   private ProcessingEnvironment processingEnvironment;
 
-  private Element modulesElement;
-
   @SuppressWarnings("unused")
   private ModulesAnnotationValidator() {
   }
 
   private ModulesAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
-    this.modulesElement = builder.modulesElement;
     setUp();
   }
 

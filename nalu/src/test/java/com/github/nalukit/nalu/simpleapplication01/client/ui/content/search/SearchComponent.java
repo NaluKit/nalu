@@ -22,8 +22,10 @@ public class SearchComponent
     extends AbstractComponent<ISearchComponent.Controller, String>
     implements ISearchComponent {
 
+  @SuppressWarnings("unused")
   private String searchName;
 
+  @SuppressWarnings("unused")
   private String searchCity;
 
   public SearchComponent() {

@@ -22,8 +22,7 @@ import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.jupiter.api.Test;
 
-import javax.tools.JavaFileObject;
-import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.google.testing.compile.Compiler.javac;
 
@@ -33,12 +32,7 @@ public class HandlerTest {
   @Test
   void testHandlerAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/handlerAnnotationOnAClass/HandlerAnnotationOnAClass.java"));
-                                       }
-                                     });
-
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/handlerAnnotationOnAClass/HandlerAnnotationOnAClass.java")));
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
@@ -46,11 +40,7 @@ public class HandlerTest {
   @Test
   void testHandlerAnnotationOnAInterface() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/handlerAnnotationOnAInterface/HandlerAnnotationOnAInterface.java"));
-                                       }
-                                     });
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/handlerAnnotationOnAInterface/HandlerAnnotationOnAInterface.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -60,12 +50,7 @@ public class HandlerTest {
   @Test
   void testHandlerAnnotationOnAClassThatDoesNotExtendIsHandler() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/handlerAnnotationOnAClassThatDoesNotExtendIsHandler/HandlerAnnotationOnAClassThatDoesNotExtendIsHandler.java"));
-                                       }
-                                     });
-
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/handlerAnnotationOnAClassThatDoesNotExtendIsHandler/HandlerAnnotationOnAClassThatDoesNotExtendIsHandler.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -75,11 +60,7 @@ public class HandlerTest {
   @Test
   void testHandlerAnnotationOnAClassThatDoesExtendIsHandler() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/handlerAnnotationOnAClassThatExtendIsHandler/HandlerAnnotationOnAClassThatDoesExtendIsHandler.java"));
-                                       }
-                                     });
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/handlerAnnotationOnAClassThatExtendIsHandler/HandlerAnnotationOnAClassThatDoesExtendIsHandler.java")));
 
     CompilationSubject.assertThat(compilation)
                       .succeeded();
@@ -88,12 +69,7 @@ public class HandlerTest {
   @Test
   void testHandlerAnnotationOnAClassThatDoesNotExtendAbstractHandler() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/handlerAnnotationOnAClassThatDoesNotExtendAbstractHandler/HandlerAnnotationOnAClassThatDoesNotExtendAbstractHandler.java"));
-                                       }
-                                     });
-
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/handlerAnnotationOnAClassThatDoesNotExtendAbstractHandler/HandlerAnnotationOnAClassThatDoesNotExtendAbstractHandler.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -103,12 +79,7 @@ public class HandlerTest {
   @Test
   void testHandlerAnnotationOnAClassThatDoesExtendAbstractHandler() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/handlerAnnotationOnAClassThatExtendAbstractHandler/HandlerAnnotationOnAClass.java"));
-                                       }
-                                     });
-
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/handlerAnnotationOnAClassThatExtendAbstractHandler/HandlerAnnotationOnAClass.java")));
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }

@@ -22,8 +22,7 @@ import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.jupiter.api.Test;
 
-import javax.tools.JavaFileObject;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 import static com.google.testing.compile.Compiler.javac;
 
@@ -33,17 +32,13 @@ public class PopUpControllerCreatorTest {
   @Test
   void testControllerCreatorOk() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/ok/Controller01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/ok/IComponent01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/ok/Component01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/ok/PopUpController01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/ok/IPopUpComponent01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/ok/PopUpComponent01.java"));
-                                       }
-                                     });
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/ok/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/ok/IComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/ok/Component01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/ok/PopUpController01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/ok/IPopUpComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/ok/PopUpComponent01.java")));
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     CompilationSubject.assertThat(compilation)

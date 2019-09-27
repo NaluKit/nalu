@@ -63,7 +63,8 @@ public class Nalu {
    */
   public static boolean match(String route,
                               String withRoute) {
-    return RouterUtils.match(route,
+    return RouterUtils.get()
+                      .match(route,
                              withRoute);
   }
 
@@ -92,7 +93,8 @@ public class Nalu {
   public static boolean match(String route,
                               String withRoute,
                               boolean exact) {
-    return RouterUtils.match(route,
+    return RouterUtils.get()
+                      .match(route,
                              withRoute,
                              exact);
   }

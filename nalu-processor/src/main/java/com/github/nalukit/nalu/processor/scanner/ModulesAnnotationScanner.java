@@ -18,7 +18,6 @@ package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.module.annotation.Modules;
 import com.github.nalukit.nalu.processor.ProcessorException;
-import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 
@@ -32,8 +31,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ModulesAnnotationScanner {
-
-  private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
@@ -55,9 +52,6 @@ public class ModulesAnnotationScanner {
   }
 
   private void setUp() {
-    this.processorUtils = ProcessorUtils.builder()
-                                        .processingEnvironment(this.processingEnvironment)
-                                        .build();
   }
 
   public void scan(RoundEnvironment roundEnvironment)
@@ -68,8 +62,9 @@ public class ModulesAnnotationScanner {
 
     List<String> moduleClasses = this.modulesElement.getAnnotationMirrors()
                                                     .stream()
-                                                    .filter(annotationMirror -> annotationMirror.getAnnotationType()
-                                                                                                .equals(modulesTypeMirror))
+                                                    .filter(annotationMirror -> this.processingEnvironment.getTypeUtils()
+                                                                                                          .isSameType(annotationMirror.getAnnotationType(),
+                                                                                                                      modulesTypeMirror))
                                                     .flatMap(annotationMirror -> annotationMirror.getElementValues()
                                                                                                  .entrySet()
                                                                                                  .stream())

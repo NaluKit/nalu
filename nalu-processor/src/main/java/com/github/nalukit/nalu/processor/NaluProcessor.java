@@ -49,10 +49,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Stream;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toSet;
-import static java.util.stream.Stream.of;
 
 @AutoService(Processor.class)
 public class NaluProcessor
@@ -75,18 +76,19 @@ public class NaluProcessor
 
   @Override
   public Set<String> getSupportedAnnotationTypes() {
-    return of(Application.class.getCanonicalName(),
-              CompositeController.class.getCanonicalName(),
-              Controller.class.getCanonicalName(),
-              Debug.class.getCanonicalName(),
-              ErrorPopUpController.class.getCanonicalName(),
-              Filters.class.getCanonicalName(),
-              Handler.class.getCanonicalName(),
-              Module.class.getCanonicalName(),
-              Modules.class.getCanonicalName(),
-              PopUpController.class.getCanonicalName(),
-              Shell.class.getCanonicalName(),
-              Tracker.class.getCanonicalName()).collect(toSet());
+    return Stream.of(Application.class.getCanonicalName(),
+                     CompositeController.class.getCanonicalName(),
+                     Controller.class.getCanonicalName(),
+                     Debug.class.getCanonicalName(),
+                     ErrorPopUpController.class.getCanonicalName(),
+                     Filters.class.getCanonicalName(),
+                     Handler.class.getCanonicalName(),
+                     Module.class.getCanonicalName(),
+                     Modules.class.getCanonicalName(),
+                     PopUpController.class.getCanonicalName(),
+                     Shell.class.getCanonicalName(),
+                     Tracker.class.getCanonicalName())
+                 .collect(toSet());
   }
 
   @Override
@@ -533,7 +535,8 @@ public class NaluProcessor
                                            .createResource(StandardLocation.CLASS_OUTPUT,
                                                            "",
                                                            this.createRelativeFileName());
-      PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(fileObject.openOutputStream()));
+      PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(fileObject.openOutputStream(),
+                                                                       UTF_8));
       printWriter.print(gson.toJson(model));
       printWriter.flush();
       printWriter.close();

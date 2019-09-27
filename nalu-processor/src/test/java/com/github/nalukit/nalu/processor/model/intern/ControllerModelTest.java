@@ -16,11 +16,10 @@
 
 package com.github.nalukit.nalu.processor.model.intern;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ControllerModelTest {
 
@@ -282,10 +281,8 @@ public class ControllerModelTest {
     return new ControllerModel(route,
                                routeWithoutShell,
                                "selector,",
-                               new ArrayList<String>() {{
-                                 add("parameter01");
-                                 add("parameter02");
-                               }},
+                               Arrays.asList("parameter01",
+                                             "parameter02"),
                                new ClassNameModel("com.github.nalukit.nalu.processor.common.ui.component01,Controller01"),
                                new ClassNameModel("com.github.nalukit.nalu.processor.common.ui.component01,IComponent01"),
                                new ClassNameModel("com.github.nalukit.nalu.processor.common.ui.component01,Component01"),

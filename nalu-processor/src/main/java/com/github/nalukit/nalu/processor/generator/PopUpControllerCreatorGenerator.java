@@ -34,8 +34,6 @@ import java.io.IOException;
 
 public class PopUpControllerCreatorGenerator {
 
-  private MetaModel metaModel;
-
   private ProcessingEnvironment processingEnvironment;
 
   private PopUpControllerModel popUpControllerModel;
@@ -45,7 +43,6 @@ public class PopUpControllerCreatorGenerator {
   }
 
   private PopUpControllerCreatorGenerator(Builder builder) {
-    this.metaModel = builder.metaModel;
     this.processingEnvironment = builder.processingEnvironment;
     this.popUpControllerModel = builder.popUpControllerModel;
   }

@@ -18,7 +18,6 @@ package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.processor.ProcessorException;
-import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 
@@ -27,12 +26,11 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.MirroredTypeException;
+import java.util.Objects;
 
 import static java.util.Objects.isNull;
 
 public class DebugAnnotationScanner {
-
-  private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
@@ -54,9 +52,6 @@ public class DebugAnnotationScanner {
   }
 
   private void setUp() {
-    this.processorUtils = ProcessorUtils.builder()
-                                        .processingEnvironment(this.processingEnvironment)
-                                        .build();
   }
 
   public MetaModel scan(RoundEnvironment roundEnvironment)
@@ -68,8 +63,11 @@ public class DebugAnnotationScanner {
       this.metaModel.setDebugLogLevel(debugAnnotation.logLevel()
                                                      .toString());
       if (!isNull(getLogger(debugAnnotation))) {
-        this.metaModel.setDebugLogger(new ClassNameModel(getLogger(debugAnnotation).getQualifiedName()
-                                                                                   .toString()));
+        TypeElement typeElement = getLogger(debugAnnotation);
+        if (!Objects.isNull(typeElement)) {
+          this.metaModel.setDebugLogger(new ClassNameModel(typeElement.getQualifiedName()
+                                                                      .toString()));
+        }
       }
     } else {
       this.metaModel.setHasDebugAnnotation(false);

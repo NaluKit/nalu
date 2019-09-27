@@ -34,8 +34,6 @@ public class RoutingTest {
 
       private CompareHandler compareHandler;
 
-      private RouteChangeHandler hashHandler;
-
       private RouteHandler routeHandler;
 
       @Override
@@ -69,7 +67,6 @@ public class RoutingTest {
 
       @Override
       public void register(RouteChangeHandler handler) {
-        this.hashHandler = handler;
       }
 
       @Override
@@ -108,18 +105,22 @@ public class RoutingTest {
         return route;
       }
 
+      @Override
       public void addCompareHandler(CompareHandler compareHandler) {
         this.compareHandler = compareHandler;
       }
 
+      @Override
       public void addRouteHandler(RouteHandler routeHandler) {
         this.routeHandler = routeHandler;
       }
 
+      @Override
       public void setAttached(boolean attached) {
         this.attached = attached;
       }
 
+      @Override
       public void setConfirm(boolean confirm) {
         this.confirm = confirm;
       }
@@ -141,14 +142,14 @@ public class RoutingTest {
     this.plugin.addCompareHandler(this::compare);
     this.plugin.addRouteHandler((newRoute, replace) -> {
       switch (newRoute) {
-      case "":
-        return !replace;
-      case "footer":
-        return !replace;
-      case "search":
-        return !replace;
-      default:
-        return false;
+        case "":
+          return !replace;
+        case "footer":
+          return !replace;
+        case "search":
+          return !replace;
+        default:
+          return false;
       }
     });
     this.application = new Application();
@@ -158,14 +159,14 @@ public class RoutingTest {
   private boolean compare(String selector,
                           String object) {
     switch (selector) {
-    case "content":
-      return "DetailForm".equals(object) || "ListView".equals(object) || "SearchForm".equals(object);
-    case "navigation":
-      return "navigation".equals(object);
-    case "footer":
-      return "footer".equals(object);
-    default:
-      return false;
+      case "content":
+        return "DetailForm".equals(object) || "ListView".equals(object) || "SearchForm".equals(object);
+      case "navigation":
+        return "navigation".equals(object);
+      case "footer":
+        return "footer".equals(object);
+      default:
+        return false;
     }
   }
 
