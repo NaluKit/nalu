@@ -63,13 +63,13 @@ public class ControllerCompositeConditionFactory {
    * @param controllerClassName name of the controller containing the composites
    * @param compositeName       name of the composite which condition is requested
    * @param route               the route
-   * @param parms               parameter (0 .. n)
+   * @param params               parameter (0 .. n)
    * @return true: load composite; false:  do not load composite
    */
   public boolean loadComposite(String controllerClassName,
                                String compositeName,
                                String route,
-                               String... parms) {
+                               String... params) {
     StringBuilder sb;
     List<ConditionContainer> conditionContainers = this.conditionContainerMap.get(controllerClassName);
     if (Objects.isNull(conditionContainers)) {
@@ -87,7 +87,7 @@ public class ControllerCompositeConditionFactory {
     for (ConditionContainer conditionContainer : conditionContainers) {
       if (conditionContainer.compositeName.equals(compositeName)) {
         boolean toLoad = conditionContainer.condition.loadComposite(route,
-                                                                    parms);
+                                                                    params);
         sb = new StringBuilder();
         if (toLoad) {
           sb.append("ControllerCompositeConditionFactory: composite condition for controller class name >>")

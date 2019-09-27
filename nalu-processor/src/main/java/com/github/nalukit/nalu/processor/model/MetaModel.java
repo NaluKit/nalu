@@ -40,7 +40,7 @@ public class MetaModel {
 
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
-  /* with a a plugin and not with a pplication  */
+  /* with a a plugin and not with a application  */
   private PluginModel pluginModel;
 
   private List<ShellModel> shells;

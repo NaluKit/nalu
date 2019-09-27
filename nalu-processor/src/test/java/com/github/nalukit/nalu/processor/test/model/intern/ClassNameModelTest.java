@@ -40,8 +40,8 @@ public class ClassNameModelTest {
 
   @Test
   void getTypeName() {
-    ClassName expectedtypeName = ClassName.get(IsApplication.class);
-    Assertions.assertEquals(expectedtypeName,
+    ClassName expectedTypeName = ClassName.get(IsApplication.class);
+    Assertions.assertEquals(expectedTypeName,
                             this.classNameModel.getTypeName());
   }
 

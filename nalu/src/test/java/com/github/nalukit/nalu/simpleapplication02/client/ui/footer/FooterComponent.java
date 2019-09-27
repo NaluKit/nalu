@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.client.component.AbstractComponent;
 
 /**
  * this is the presenter of the shellCreator. The shellCreator divides the browser in
- * severeal areas.
+ * several areas.
  */
 public class FooterComponent
     extends AbstractComponent<IFooterComponent.Controller, String>

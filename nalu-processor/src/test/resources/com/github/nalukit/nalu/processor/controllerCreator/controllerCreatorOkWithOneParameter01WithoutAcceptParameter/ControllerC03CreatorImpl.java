@@ -31,7 +31,7 @@ public final class ControllerC03CreatorImpl extends AbstractControllerCreator<Mo
       ClientLogger.get().logSimple(sb01.toString(), 3);
       ControllerC03 controller = new ControllerC03();
       controllerInstance.setController(controller);
-      controllerInstance.setChached(false);
+      controllerInstance.setCached(false);
       controller.setContext(context);
       controller.setEventBus(eventBus);
       controller.setRouter(router);
@@ -43,7 +43,7 @@ public final class ControllerC03CreatorImpl extends AbstractControllerCreator<Mo
       sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
       controllerInstance.setController(storedController);
-      controllerInstance.setChached(true);
+      controllerInstance.setCached(true);
       controllerInstance.getController().setCached(true);
     }
     return controllerInstance;
@@ -77,7 +77,7 @@ public final class ControllerC03CreatorImpl extends AbstractControllerCreator<Mo
   }
 
   @Override
-  public void setParameter(Object object, String... parms) throws RoutingInterceptionException {
+  public void setParameter(Object object, String... params) throws RoutingInterceptionException {
     ControllerC03 controller = (ControllerC03) object;
     StringBuilder sb01 = new StringBuilder();
   }

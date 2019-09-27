@@ -82,7 +82,7 @@ public class AcceptParameterAnnotationValidator {
     //      AcceptParameter annotation = annotatedElement.getAnnotation(AcceptParameter.class);
     //      if (!this.controllerModel.getParameters()
     //                               .contains(annotation.value())) {
-    //        throw new ProcessorException("Nalu-Processor: @AcceptParameter refering a variable which is not in the controller's route");
+    //        throw new ProcessorException("Nalu-Processor: @AcceptParameter referring a variable which is not in the controller's route");
     //      }
     //    }
   }

@@ -41,13 +41,13 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
   }
 
   public void bind() {
-    // if you need to bind some handlers and would like to do this in a seperate method
+    // if you need to bind some handlers and would like to do this in a separate method
     // just override this method.
   }
 
   @Override
   public W asElement() {
-    assert element != null : "no alement set!";
+    assert element != null : "no element set!";
     return this.element;
   }
 
@@ -62,7 +62,7 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
   }
 
   /**
-   * internal framework method! Will be called by the framdework after the
+   * internal framework method! Will be called by the framework after the
    * stop-method f the controller is called
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>

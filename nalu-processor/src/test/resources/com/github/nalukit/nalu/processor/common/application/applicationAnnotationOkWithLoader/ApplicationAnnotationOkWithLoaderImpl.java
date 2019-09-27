@@ -14,7 +14,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>1.3.3<< at >>2019.08.24-11:05:47<< */
+ * Build with Nalu version >>1.3.4-SNAPSHOT<< at >>2019.08.24-11:05:47<< */
 public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithLoader {
   public ApplicationAnnotationOkWithLoaderImpl() {
     super();
@@ -26,7 +26,7 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>1.3.3<< used to generate this source");
+    sb01.append("Nalu processor version  >>1.3.4-SNAPSHOT<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);

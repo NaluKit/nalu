@@ -35,7 +35,7 @@ public interface IsController<V, W> {
 
   /**
    * Method is called during onAttach.
-   * Nalu uses the method to call the onAttach-method of the compoent.
+   * Nalu uses the method to call the onAttach-method of the component.
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
@@ -44,7 +44,7 @@ public interface IsController<V, W> {
 
   /**
    * Method is called during onDetach.
-   * Nalu uses the method to call the onDetach-method of the compoent.
+   * Nalu uses the method to call the onDetach-method of the component.
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
@@ -54,7 +54,7 @@ public interface IsController<V, W> {
   String mayStop();
 
   /**
-   * internal framework method! Will be called by the framdework after the
+   * internal framework method! Will be called by the framework after the
    * stop-method of the controller is called
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
@@ -93,7 +93,7 @@ public interface IsController<V, W> {
    * The stop-method will be called in case a controller is stopped.
    * the method will not be called in case a controller is cached.
    * <p>
-   * If you have to do something in case controller gets stoppped,
+   * If you have to do something in case controller gets stopped,
    * that's the right place.
    */
   void stop();
@@ -104,9 +104,9 @@ public interface IsController<V, W> {
    * <p>
    * This method runs before the component and composites are
    * created. This is f.e.: a got place to do some
-   * authentification checks.
+   * authentication checks.
    * <p>
-   * Keep in mind, that the method is asynchron. Once you have
+   * Keep in mind, that the method is asynchronous. Once you have
    * done your work, you have to call <b>loader.continueLoading()</b>.
    * Otherwise Nalu will stop working!
    * <p>
@@ -117,10 +117,10 @@ public interface IsController<V, W> {
    * <p>
    * <b>Attention:</b>
    * Do not call super.bind(loader)! Cause this will tell Nalu to
-   * continue laoding!
+   * continue loading!
    *
    * @param loader loader to tell Nalu to continue loading the controller
-   * @throws RoutingInterceptionException in case the create contrioller
+   * @throws RoutingInterceptionException in case the create controller
    *                                      process should be interrupted
    */
   void bind(ControllerLoader loader)

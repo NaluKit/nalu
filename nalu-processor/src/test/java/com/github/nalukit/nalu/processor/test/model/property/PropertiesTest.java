@@ -28,7 +28,7 @@ public class PropertiesTest {
   //    }
   //
   //    ApplicationMetaModel metaModel = new ApplicationMetaModel(properties);
-  //    Properties newProperties = metaModel.createPropertes();
+  //    Properties newProperties = metaModel.createProperties();
   //
   //    assertEquals(properties,
   //                 newProperties);

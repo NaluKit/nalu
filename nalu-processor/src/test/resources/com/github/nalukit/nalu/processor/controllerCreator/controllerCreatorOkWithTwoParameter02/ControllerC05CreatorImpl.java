@@ -17,7 +17,7 @@ public final class ControllerC05CreatorImpl extends AbstractControllerCreator<Mo
     super(router, context, eventBus);
   }
 
-  public ControllerInstance create(String... parms) throws RoutingInterceptionException {
+  public ControllerInstance create(String... params) throws RoutingInterceptionException {
     StringBuilder sb01 = new StringBuilder();
     ControllerInstance controllerInstance = new ControllerInstance();
     controllerInstance.setControllerClassName("com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter02.ControllerC05");
@@ -27,7 +27,7 @@ public final class ControllerC05CreatorImpl extends AbstractControllerCreator<Mo
       ClientLogger.get().logSimple(sb01.toString(), 3);
       ControllerC05 controller = new ControllerC05();
       controllerInstance.setController(controller);
-      controllerInstance.setChached(false);
+      controllerInstance.setCached(false);
       controller.setContext(context);
       controller.setEventBus(eventBus);
       controller.setRouter(router);
@@ -56,19 +56,19 @@ public final class ControllerC05CreatorImpl extends AbstractControllerCreator<Mo
       sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
       ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter02.Component05<< created for route >>/mockShell/route01<<", 3);
-      if (parms != null) {
-        if (parms.length >= 1) {
+      if (params != null) {
+        if (params.length >= 1) {
           sb01 = new StringBuilder();
-          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setParameter01<< to set value >>").append(parms[0]).append("<<");
+          sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setParameter01<< to set value >>").append(params[0]).append("<<");
           ClientLogger.get().logDetailed(sb01.toString(), 4);
-          controller.setParameter01(parms[0]);
+          controller.setParameter01(params[0]);
         }
       }
     } else {
       sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
       controllerInstance.setController(storedController);
-      controllerInstance.setChached(true);
+      controllerInstance.setCached(true);
       controllerInstance.getController().setCached(true);
     }
     return controllerInstance;

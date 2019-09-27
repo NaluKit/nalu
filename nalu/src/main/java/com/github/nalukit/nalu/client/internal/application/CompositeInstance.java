@@ -27,7 +27,7 @@ public class CompositeInstance {
   /* controller */
   private AbstractCompositeController<?, ?, ?> composite;
   /* flag, that indicates weather the controller is reused or not */
-  private boolean                              chached;
+  private boolean                              cached;
 
   public CompositeInstance() {
   }
@@ -48,12 +48,12 @@ public class CompositeInstance {
     this.composite = composite;
   }
 
-  public boolean isChached() {
-    return chached;
+  public boolean isCached() {
+    return cached;
   }
 
-  public void setChached(boolean chached) {
-    this.chached = chached;
+  public void setCached(boolean cached) {
+    this.cached = cached;
   }
 
 }

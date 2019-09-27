@@ -25,12 +25,12 @@ public class NaluSimpleApplicationLoader
     extends AbstractApplicationLoader<NaluSimpleApplicationContext> {
 
   /**
-   * The laoder of the application.
+   * The loader of the application.
    * <p>
    * Will be executed at the start of the application
    * and before the first event is executed.
    *
-   * @param finishLoadCommand has to be called after the application has finieshed loading
+   * @param finishLoadCommand has to be called after the application has finished loading
    */
   @Override
   public void load(FinishLoadCommand finishLoadCommand) {

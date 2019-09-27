@@ -209,7 +209,7 @@ public class PopUpControllerCreatorGenerator {
     //                                                                                          "object")
     //                                                                                 .build())
     //                                                      .addParameter(ParameterSpec.builder(String[].class,
-    //                                                                                          "parms")
+    //                                                                                          "params")
     //                                                                                 .build())
     //                                                      .varargs()
     //                                                      .addException(ClassName.get(RoutingInterceptionException.class))
@@ -287,27 +287,27 @@ public class PopUpControllerCreatorGenerator {
     //                                    popUpControllerModel.getRoute());
     //    if (popUpControllerModel.getParameters()
     //                       .size() > 0) {
-    //      // has the model AccpetParameter ?
+    //      // has the model AcceptParameter ?
     //      if (popUpControllerModel.getParameterAcceptors()
     //                         .size() > 0) {
-    //        finishCreateMethod.beginControlFlow("if (parms != null)");
+    //        finishCreateMethod.beginControlFlow("if (params != null)");
     //        for (int i = 0; i <
     //                        popUpControllerModel.getParameters()
     //                                       .size(); i++) {
     //          String methodName = popUpControllerModel.getParameterAcceptors(popUpControllerModel.getParameters()
     //                                                                                   .get(i));
     //          if (methodName != null) {
-    //            finishCreateMethod.beginControlFlow("if (parms.length >= " + (i + 1) + ")")
+    //            finishCreateMethod.beginControlFlow("if (params.length >= " + (i + 1) + ")")
     //                              .addStatement("sb01 = new $T()",
     //                                            ClassName.get(StringBuilder.class))
     //                              .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> using method >>" +
     //                                            methodName +
-    //                                            "<< to set value >>\").append(parms[" +
+    //                                            "<< to set value >>\").append(params[" +
     //                                            Integer.toString(i) +
     //                                            "]).append(\"<<\")")
     //                              .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
     //                                            ClassName.get(ClientLogger.class))
-    //                              .addStatement("controller." + methodName + "(parms[" + i + "])")
+    //                              .addStatement("controller." + methodName + "(params[" + i + "])")
     //                              .endControlFlow();
     //          }
     //        }
@@ -344,7 +344,7 @@ public class PopUpControllerCreatorGenerator {
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param metaModel meta data model of the eventbus
+     * @param metaModel meta data model of the event bus
      * @return the Builder
      */
     public Builder metaModel(MetaModel metaModel) {

@@ -31,7 +31,7 @@ public @interface NaluProcessorPlugin {
    * Tells the calling app, which Nalu plugin is required to use
    * this plugin.
    *
-   * @return the required plugin: ELEMENTAL2 needs Plugin-ELemantal2, GWT nedds Plugin-GWT
+   * @return the required plugin: ELEMENTAL2 needs Plugin-Elemental2, GWT needs Plugin-GWT
    */
   NaluPlugin requiredPlugin();
 

@@ -53,7 +53,7 @@ public interface IsComposite<W> {
 
   /**
    * Method is called during onAttach.
-   * Nalu uses the method to call the onAttach-method of the compoent.
+   * Nalu uses the method to call the onAttach-method of the component.
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
@@ -62,7 +62,7 @@ public interface IsComposite<W> {
 
   /**
    * Method is called during onDetach.
-   * Nalu uses the method to call the onDetach-method of the compoent.
+   * Nalu uses the method to call the onDetach-method of the component.
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
@@ -72,7 +72,7 @@ public interface IsComposite<W> {
   String mayStop();
 
   /**
-   * internal framework method! Will be called by the framdework after the
+   * internal framework method! Will be called by the framework after the
    * stop-method of the controller is called
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
@@ -111,7 +111,7 @@ public interface IsComposite<W> {
    * The stop-method will be called in case a controller is stopped.
    * the method will not be called in case a controller is cached.
    * <p>
-   * If you have to do something in case controller gets stoppped,
+   * If you have to do something in case controller gets stopped,
    * that's the right place.
    */
   void stop();

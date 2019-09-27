@@ -55,7 +55,7 @@ public class PropertyFactory {
   /**
    * Will Nalu use a ahs for Navigation?
    *
-   * @return true: Nalus uses a hash
+   * @return true: Nalu uses a hash
    */
   public boolean hasHistory() {
     return this.hasHistory;
@@ -64,7 +64,7 @@ public class PropertyFactory {
   /**
    * Will Nalu use a ahs for Navigation?
    *
-   * @return true: Nalus uses a hash
+   * @return true: Nalu uses a hash
    */
   public boolean isUsingHash() {
     return this.usingHash;
@@ -89,7 +89,7 @@ public class PropertyFactory {
   }
 
   /**
-   * The start route of the applilcation
+   * The start route of the application
    *
    * @return start route of the application
    */
@@ -104,7 +104,7 @@ public class PropertyFactory {
    * @param hasHistory                   Will Nalu support a history token?
    * @param usingHash                    Will Nalu use a hash for Navigation?
    * @param usingColonForParametersInUrl Will Nalu use colons to mark parameters inside the url?
-   * @param stayOnSide                   tells Nalu how do ahndle empty hash
+   * @param stayOnSide                   tells Nalu how do handle empty hash
    */
   public void register(String startRoute,
                        boolean hasHistory,

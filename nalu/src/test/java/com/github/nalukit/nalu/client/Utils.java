@@ -22,7 +22,7 @@ class Utils {
       @Override
       public boolean attach(String selector,
                             Object asElement) {
-        // retrun the attached default value
+        // rerun the attached default value
         return attached;
       }
 
@@ -87,7 +87,7 @@ class Utils {
                                             "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     routerConfiguration.getRouters()
                        .add(new RouteConfig("/MockShell/testRoute02/*/*",
-                                            Arrays.asList("testParaemter01",
+                                            Arrays.asList("testParameter01",
                                                           "testParameter02"),
                                             "content",
                                             "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
