@@ -156,4 +156,17 @@ public interface Router {
    */
   Map<String, String> getStartQueryParameters();
 
+  /**
+   * Returns the current route.
+   * <br>
+   * The method will return a route with a '*' as placeholder for parameters.
+   *<br>
+   * Keep in mind:
+   * This is the current route. The route might be changed by other processes,
+   * f.e.: a RoutingException or something else!
+   *
+   * @return the current route
+   */
+  String getCurrentRoute();
+
 }
