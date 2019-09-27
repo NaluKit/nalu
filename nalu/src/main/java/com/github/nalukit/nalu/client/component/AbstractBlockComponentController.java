@@ -19,9 +19,9 @@ package com.github.nalukit.nalu.client.component;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
-public abstract class AbstractBlockComponentController<C extends IsContext, V extends IsBlockComponent<?, W>, W>
+public abstract class AbstractBlockComponentController<C extends IsContext, V extends IsBlockComponent<?>>
     extends AbstractController<C>
-    implements IsBlockComponentController<V, W>,
+    implements IsBlockComponentController<V>,
                IsComponent.Controller {
 
   /* name of the popup controller */
@@ -34,14 +34,10 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   }
 
   /**
-   * Returns the element of the component. Will be used by Nalu
-   * to add it to the DOM.
-   *
-   * @return the element of the component
+   * append the element
    */
-  @Override
-  public W asElement() {
-    return this.component.asElement();
+  public void append() {
+    component.append();
   }
 
   /**

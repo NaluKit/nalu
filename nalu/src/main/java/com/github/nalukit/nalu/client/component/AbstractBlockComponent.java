@@ -16,12 +16,10 @@
 
 package com.github.nalukit.nalu.client.component;
 
-public abstract class AbstractBlockComponent<C extends IsBlockComponent.Controller, W>
-    implements IsBlockComponent<C, W> {
+public abstract class AbstractBlockComponent<C extends IsBlockComponent.Controller>
+    implements IsBlockComponent<C> {
 
   private C controller;
-
-  private W element;
 
   public AbstractBlockComponent() {
   }
@@ -31,16 +29,6 @@ public abstract class AbstractBlockComponent<C extends IsBlockComponent.Controll
    */
   @Override
   public abstract void render();
-
-  @Override
-  public W asElement() {
-    assert element != null : "no element set!";
-    return this.element;
-  }
-
-  protected void initElement(W element) {
-    this.element = element;
-  }
 
   /**
    * call to show the block

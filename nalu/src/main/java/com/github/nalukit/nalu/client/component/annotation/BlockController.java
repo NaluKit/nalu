@@ -42,9 +42,9 @@ public @interface BlockController {
 
   String name();
 
-  Class<? extends IsBlockComponent<?, ?>> componentInterface();
+  Class<? extends IsBlockComponent<?>> componentInterface();
 
-  Class<? extends AbstractBlockComponent<?, ?>> component();
+  Class<? extends AbstractBlockComponent<?>> component();
 
   /**
    * Conditional class to show the block depending on the return result

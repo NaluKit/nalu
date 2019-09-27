@@ -21,7 +21,7 @@ import com.github.nalukit.nalu.client.component.IsBlockComponent;
 import elemental2.dom.HTMLElement;
 
 public interface IBlockComponent01
-    extends IsBlockComponent<IBlockComponent01.Controller, HTMLElement> {
+    extends IsBlockComponent<IBlockComponent01.Controller> {
 
   interface Controller
       extends IsBlockComponent.Controller {
