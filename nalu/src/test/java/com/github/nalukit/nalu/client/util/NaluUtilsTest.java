@@ -27,7 +27,6 @@ public class NaluUtilsTest {
   void testConvertRoute03() {
     String routeToConvert = "/shell/part01";
     String convertedRoute = NaluUtils.get()
-                                     .get()
                                      .convertRoute(routeToConvert);
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);

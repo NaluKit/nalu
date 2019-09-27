@@ -18,17 +18,7 @@ package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
-public interface IsBlockComponentController<V, W> {
-
-  /**
-   * Returns the root element which will be attached to root of the DOM
-   *
-   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
-   *
-   * @return root element
-   */
-  @NaluInternalUse
-  W asElement();
+public interface IsBlockComponentController<V> {
 
   void setComponent(V component);
 
@@ -50,6 +40,10 @@ public interface IsBlockComponentController<V, W> {
 
   void onBeforeShow();
 
+  /**
+   * Add the element to the root element
+   */
+  void append();
 
   //  /**
   //   * Method is called during onAttach.

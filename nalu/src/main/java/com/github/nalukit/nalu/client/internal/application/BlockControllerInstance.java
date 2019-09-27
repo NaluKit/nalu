@@ -27,7 +27,7 @@ public class BlockControllerInstance {
   private String blockControllerClassName;
 
   /* controller */
-  private AbstractBlockComponentController<?, ?, ?> controller;
+  private AbstractBlockComponentController<?, ?> controller;
 
   public BlockControllerInstance() {
   }
@@ -40,11 +40,11 @@ public class BlockControllerInstance {
     this.blockControllerClassName = blockControllerClassName;
   }
 
-  public AbstractBlockComponentController<?, ?, ?> getController() {
+  public AbstractBlockComponentController<?, ?> getController() {
     return controller;
   }
 
-  public void setController(AbstractBlockComponentController<?, ?, ?> controller) {
+  public void setController(AbstractBlockComponentController<?, ?> controller) {
     this.controller = controller;
   }
 

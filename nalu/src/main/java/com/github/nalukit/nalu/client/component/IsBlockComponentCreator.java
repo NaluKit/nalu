@@ -30,7 +30,7 @@ package com.github.nalukit.nalu.client.component;
  *
  * @param <V> type of the component's interface
  */
-public interface IsBlockComponentCreator<V extends IsBlockComponent<?, ?>> {
+public interface IsBlockComponentCreator<V extends IsBlockComponent<?>> {
 
   V createBlockComponent();
 

@@ -16,9 +16,9 @@
 
 package com.github.nalukit.nalu.client.component;
 
-public interface IsBlockComponent<C extends IsBlockComponent.Controller, W> {
+public interface IsBlockComponent<C extends IsBlockComponent.Controller> {
 
-  W asElement();
+  void append();
 
   void render();
 

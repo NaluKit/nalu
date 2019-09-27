@@ -19,41 +19,44 @@ package com.github.nalukit.nalu.processor.blockController.common.block01;
 
 import com.github.nalukit.nalu.client.component.AbstractBlockComponent;
 import com.github.nalukit.nalu.processor.blockController.common.block01.IBlockComponent01.Controller;
-import elemental2.dom.HTMLElement;
 
 public class BlockComponent01
-    extends AbstractBlockComponent<Controller, HTMLElement>
+    extends AbstractBlockComponent<Controller>
     implements IBlockComponent01 {
 
   public BlockComponent01() {
   }
 
   @Override
+  public void append() {
+  }
+
+  @Override
   public void render() {
-//    HTMLDivElement divElemet = Elements.div()
-//                                       .asElement();
-//    divElemet.appendChild(Elements.div()
-//                                  .id("compositePerson")
-//                                  .asElement());
-//    divElemet.appendChild(Elements.div()
-//                                  .id("compositeAddress")
-//                                  .asElement());
-//    divElemet.appendChild(Card.create()
-//                              .appendChild(Row.create()
-//                                              .addColumn(Column.span12()
-//                                                               .appendChild(Button.createPrimary("Save")
-//                                                                                  .style()
-//                                                                                  .setMarginRight("20px")
-//                                                                                  .get()
-//                                                                                  .addClickListener(e -> getController().doUpdate()))
-//                                                               .appendChild(Button.create("Reset")
-//                                                                                  .addClickListener(e -> getController().doRevert())))
-//                                              .style()
-//                                              .setTextAlign("right")
-//                                              .setMarginTop("20px"))
-//                              .asElement());
-//
-//    initElement(divElemet);
+    //    HTMLDivElement divElemet = Elements.div()
+    //                                       .asElement();
+    //    divElemet.appendChild(Elements.div()
+    //                                  .id("compositePerson")
+    //                                  .asElement());
+    //    divElemet.appendChild(Elements.div()
+    //                                  .id("compositeAddress")
+    //                                  .asElement());
+    //    divElemet.appendChild(Card.create()
+    //                              .appendChild(Row.create()
+    //                                              .addColumn(Column.span12()
+    //                                                               .appendChild(Button.createPrimary("Save")
+    //                                                                                  .style()
+    //                                                                                  .setMarginRight("20px")
+    //                                                                                  .get()
+    //                                                                                  .addClickListener(e -> getController().doUpdate()))
+    //                                                               .appendChild(Button.create("Reset")
+    //                                                                                  .addClickListener(e -> getController().doRevert())))
+    //                                              .style()
+    //                                              .setTextAlign("right")
+    //                                              .setMarginTop("20px"))
+    //                              .asElement());
+    //
+    //    initElement(divElemet);
   }
 
   @Override

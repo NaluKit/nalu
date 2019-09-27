@@ -103,6 +103,14 @@ public class BlockControllerFactory {
                                      .logSimple("block controller >>" + instance.getBlockControllerClassName() + "<< --> onBeforeShow called",
                                                 3);
                          ClientLogger.get()
+                                     .logSimple("block controller >>" + instance.getBlockControllerClassName() + "<< --> append to root",
+                                                3);
+                         instance.getController()
+                                    .append();
+                         ClientLogger.get()
+                                     .logSimple("controller >>" + instance.getBlockControllerClassName() + "<< --> appended to root",
+                                                3);
+                         ClientLogger.get()
                                      .logSimple("block controller >>" + instance.getBlockControllerClassName() + "<< --> call show",
                                                 3);
                          instance.getController()
@@ -110,16 +118,6 @@ public class BlockControllerFactory {
                          ClientLogger.get()
                                      .logSimple("controller >>" + instance.getBlockControllerClassName() + "<< --> show called",
                                                 3);
-                         ClientLogger.get()
-                                     .logSimple("block controller >>" + instance.getBlockControllerClassName() + "<< --> append to root",
-                                                3);
-//                         this.plu
-                         instance.getController()
-                                 .show();
-                         ClientLogger.get()
-                                     .logSimple("controller >>" + instance.getBlockControllerClassName() + "<< --> show called",
-                                                3);
-
                        }
                        instance = this.blockControllerStore.get(k);
                        if (!Objects.isNull(instance)) {
