@@ -32,7 +32,7 @@ To tell Nalu to use this shell, set the first part of the route to 'applicationS
 
 Nalu will look for a shell defined with the name 'applicationShell' and add it to the viewport (in case it is not the current shell). In case that a shell is already added to the viewport, Nalu will remove the current shell, call the `onDetach`-method and add the new shell to the viewport.
 
-Depending on the Nalu processor plugin that is used, a shell implementation may look different. See the next paragraphs for more informations.
+Depending on the Nalu processor plugin that is used, a shell implementation may look different. See the next paragraphs for more information.
 
 ## Nalu Elemental2 plugin
 In case you are working with the **nalu-plugin-elemental2**, Nalu uses the id to look for nodes inside the DOM.
@@ -191,7 +191,7 @@ public class ApplicationShell
     throws RoutingInterceptionException {
     IsSelectorProvider<Shell> provider = new ShellSelectorProviderImpl();
     provider.initialize(this);
-    DomGlobal.window.alert("Stop inside bind-methode of Login-Shell");
+    DomGlobal.window.alert("Stop inside bind-method of Login-Shell");
     // call loader.continueLoading() to tell Nalu to continue
     loader.continueLoading();
   }
@@ -230,7 +230,7 @@ The shell of the example will divide the viewport in several slots with identifi
 This identifiers can be now used as selectors inside the `@Controller`-annotation to define the slot the component of the controller gets visible.
 
 ## Async bind Method (since v1.3.0)
-Nalu will call the `bind`-method before the shell is added to the viewport. This is an internal method, that can be overwritten. This is a good place to do some preparing actions. The method is asynchron. This makes it possible to do a server call before Nalu will continue. To tell Nalu to continue, call `loader.continueLoading()`. In case you want to interrupt the loading, just do not call `loader.continueLoading()` and use the router to route to another place.
+Nalu will call the `bind`-method before the shell is added to the viewport. This is an internal method, that can be overwritten. This is a good place to do some preparing actions. The method is asynchronous. This makes it possible to do a server call before Nalu will continue. To tell Nalu to continue, call `loader.continueLoading()`. In case you want to interrupt the loading, just do not call `loader.continueLoading()` and use the router to route to another place.
 
 Example of a bind method inside the shell.
 ```java

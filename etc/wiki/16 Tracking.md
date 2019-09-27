@@ -6,11 +6,11 @@ Tracking user behavior is regulated by law in some countries!
 Respect the privacy of your users. In case you want to track user behavior, you have to inform the user. In many cases you need a permission from the user! **Check the local laws!**
 
 ## Creating a Tracker
-To create a tracker in Nalu, you have to create a class that `extends AbstractTracker<C>`. The class needs to implement two methods:
+To create a tracker in Nalu, you have to create a class that `extend AbstractTracker<C>`. The class needs to implement two methods:
 
 * **bind()**: This method will be called, once the tracker gets created.
 
-* **track(String route, String... parms)**: this method will be called by the framework to track the routes, the user selects.
+* **track(String route, String... params)**: this method will be called by the framework to track the routes, the user selects.
 
 A simple tracker that only tracks the routes looks like this:
 
@@ -80,12 +80,12 @@ interface NaluLoginApplication
 }
 ```
 
-Now, Nalu will call the `track`-method everytime a routing occurs. All you have to do is to code the server call and define the data to send to the server.
+Now, Nalu will call the `track`-method every time a routing occurs. All you have to do is to code the server call and define the data to send to the server.
 
 Inside the tracker you will have access to the application context and to the event bus.
 
 ## Tracking none Routing Actions
-In many cases the routing informations are not enough to track. To track these things:
+In many cases the routing information is not enough to track. To track these things:
 
 * create an event
 

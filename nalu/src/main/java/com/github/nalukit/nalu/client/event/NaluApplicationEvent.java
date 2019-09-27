@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * This event can be used to communicate between client side modules
  * in a client side multi module implementation. Using this event will
- * avoid using a common module to share applicaiton wide events.
+ * avoid using a common module to share application wide events.
  * <p>
  * Use the message type to handle different event types.
  * <p>
@@ -56,7 +56,7 @@ public class NaluApplicationEvent
    *
    * <b>Keep in mind, all parameters will be stored as objects!</b>
    *
-   * @param key   key of the paraemter
+   * @param key   key of the parameter
    * @param value value of the parameter
    * @return instance of the event
    */

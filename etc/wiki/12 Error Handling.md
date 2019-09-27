@@ -32,9 +32,9 @@ To create a Nalu error event, call `NaluErrorEvent.createApplicationError()`. Th
 
 **Do not use the `NaluErrorEvent.createNaluError()`-method!**
 
-You can add an error id using `id`, a route using the `route("myRoute")`-method. The message can be added using the `message("myErrorMessage")`-method. Also, you can add as much informations as you like. To add an information call the `data("key", "value")` -method.
+You can add an error id using `id`, a route using the `route("myRoute")`-method. The message can be added using the `message("myErrorMessage")`-method. Also, you can add as much information as you like. To add an information call the `data("key", "value")` -method.
 
-To retrieve informations from the Nalu error event, you will have several getter-methods:
+To retrieve information from the Nalu error event, you will have several getter-methods:
 
 * **getErrorEventType:** will return the error type
 * **getErrorId:** will return the error id
@@ -42,7 +42,7 @@ To retrieve informations from the Nalu error event, you will have several getter
 * **getRoute:** will return the route
 * **get(String key):** will return the value for a defined key
 
-In case of a Nalu error the store does not contain additional informations.
+In case of a Nalu error the store does not contain additional information.
 
 ## Handling Nalu Error event
 To handle a Nalu error event there are two ways to go:

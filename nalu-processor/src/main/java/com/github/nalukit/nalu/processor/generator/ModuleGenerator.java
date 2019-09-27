@@ -343,7 +343,7 @@ public class ModuleGenerator {
                                                             .addStatement("$L.setContext(super.moduleContext)",
                                                                           this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
                                                                                                                                     .getSimpleName()));
-                                 // remmeber generated condition to avoid creating the smae class again!
+                                 // remember generated condition to avoid creating the same class again!
                                  generatedConditionClassNames.add(controllerCompositeModel.getCondition()
                                                                                           .getClassName());
                                }
@@ -493,7 +493,7 @@ public class ModuleGenerator {
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param metaModel meta data model of the eventbus
+     * @param metaModel meta data model of the event bus
      * @return the Builder
      */
     public Builder metaModel(MetaModel metaModel) {

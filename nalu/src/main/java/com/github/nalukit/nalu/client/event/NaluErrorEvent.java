@@ -88,7 +88,7 @@ public class NaluErrorEvent
    *
    * <b>Keep in mind, all parameters will be stored as objects!</b>
    *
-   * @param key   key of the paraemter
+   * @param key   key of the parameter
    * @param value value of the parameter
    * @return instance of the event
    */
@@ -140,7 +140,7 @@ public class NaluErrorEvent
   }
 
   /**
-   * Returns the the datastore.
+   * Returns the the data store.
    *
    * @return the data store
    */

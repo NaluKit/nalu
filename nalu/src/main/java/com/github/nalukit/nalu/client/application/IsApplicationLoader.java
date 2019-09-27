@@ -25,9 +25,9 @@ import org.gwtproject.event.shared.SimpleEventBus;
  * Nalu application loader
  * <br>
  * <p>The Loader is executed during the start sequence of the application.
- * The loader can be used to load meta-informations at the start of the application</p>
+ * The loader can be used to load meta-information at the start of the application</p>
  * <p>Once the work is done call finishLoadCommand.finishLoad() to resume with the normal processing.</p>
- * <p><b>Coution: Do not use the router to route inside the loader!Just use it only to inject it!</b></p>
+ * <p><b>Caution: Do not use the router to route inside the loader!Just use it only to inject it!</b></p>
  */
 public interface IsApplicationLoader<C extends IsContext> {
 

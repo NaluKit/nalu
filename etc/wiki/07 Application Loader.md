@@ -10,7 +10,7 @@ This is a good place, to
 Once all asynchronous action(s) are executed, the control will be return to Nalu by calling `finishLoadCommand.finishLoading();`.
 
 ## Creating an Application Loader
-To create an application loader, just create a class, that extends `AbstractApplicationLoader`. Extending `AbstractApplicationLoader` will force the implementation to add a `load`-method.
+To create an application loader, just create a class, that extend `AbstractApplicationLoader`. Extending `AbstractApplicationLoader` will force the implementation to add a `load`-method.
 
 * **load**: this method will be called during application start and before the initial route is called. When all loadings are done, the method `finishLoadCommand.finishLoading();` has to be called to return the control to Nalu. After returning the control to Nalu, Nalu will continue the start process of tge application.
 

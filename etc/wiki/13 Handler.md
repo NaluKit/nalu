@@ -1,5 +1,5 @@
 # Handler
-Nalu supports handlers. A handler behaves like a controller, but has no visiual component. A Handler can only be triggered by an event. The following instances will be injected in a handler:
+Nalu supports handlers. A handler behaves like a controller, but has no visual component. A Handler can only be triggered by an event. The following instances will be injected in a handler:
 
 * context
 * event bus
@@ -16,7 +16,7 @@ To create a handler, you have to:
 By extending AbstractHandler you will have access to the allowing instances:
 
 * C context: instance of the application context (Singleton)
-* eventbus: instance of the application wide event bus
+* event bus: instance of the application wide event bus
 * router: instance fo the router
 
 To tell Nalu, that this class is a handler, you have to annotate the class with `Handler`. Nalu will automatically create an instance for each class annotated with `@Handler` at application start.

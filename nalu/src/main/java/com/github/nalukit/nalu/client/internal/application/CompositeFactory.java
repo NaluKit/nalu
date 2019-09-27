@@ -60,7 +60,7 @@ public class CompositeFactory {
   public CompositeInstance getComposite(String parentControllerClassName,
                                         String compositeControllerClassName,
                                         boolean scopeGlobal,
-                                        String... parms)
+                                        String... params)
       throws RoutingInterceptionException {
     // in case scopeGlobal is true ,check if the instance already exists
     if (scopeGlobal) {
@@ -68,20 +68,20 @@ public class CompositeFactory {
         return this.cachedGlobalCompositeInstances.get(compositeControllerClassName);
       }
     }
-    // ok, global chache is empty ... create it!
+    // ok, global cache is empty ... create it!
     if (this.compositeCreatorFactory.containsKey(compositeControllerClassName)) {
       IsCompositeCreator compositeCreator = this.compositeCreatorFactory.get(compositeControllerClassName);
       CompositeInstance compositeInstance = compositeCreator.create(parentControllerClassName);
       if (scopeGlobal) {
         // oh ... global scope! store the compositeInstance
-        compositeInstance.setChached(true);
+        compositeInstance.setCached(true);
         compositeInstance.getComposite()
                          .setCachedGlobal(true);
         this.cachedGlobalCompositeInstances.put(compositeControllerClassName,
                                                 compositeInstance);
       }
       compositeCreator.setParameter(compositeInstance.getComposite(),
-                                    parms);
+                                    params);
       return compositeInstance;
     }
     return null;

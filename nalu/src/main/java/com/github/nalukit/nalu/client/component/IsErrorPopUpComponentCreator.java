@@ -23,7 +23,7 @@ package com.github.nalukit.nalu.client.component;
  * <br><br>
  * In case using this interface, there must be createPopUpComponent method, that looks like that:
  * <code>
- * public IMyCompenent createPopUpComponent() {
+ * public IMyComponent createPopUpComponent() {
  * return new MyComponent();
  * }
  * </code>

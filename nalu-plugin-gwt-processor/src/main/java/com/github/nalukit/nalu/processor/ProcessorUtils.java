@@ -158,12 +158,12 @@ public class ProcessorUtils {
   public TypeMirror getFlattenedSupertype(Types types,
                                           TypeMirror typeMirror,
                                           TypeMirror implementsMirror) {
-    String implementsMirrorWihoutGeneric = this.removeGenericsFromClassName(implementsMirror.toString());
+    String implementsMirrorWithoutGeneric = this.removeGenericsFromClassName(implementsMirror.toString());
     Set<TypeMirror> implementedSuperTypes = this.getFlattenedSupertypeHierarchy(types,
                                                                                 typeMirror);
     for (TypeMirror typeMirrorSuperType : implementedSuperTypes) {
       String tn1WithoutGenric = this.removeGenericsFromClassName(typeMirrorSuperType.toString());
-      if (implementsMirrorWihoutGeneric.equals(tn1WithoutGenric)) {
+      if (implementsMirrorWithoutGeneric.equals(tn1WithoutGenric)) {
         return typeMirrorSuperType;
       }
     }
@@ -222,16 +222,16 @@ public class ProcessorUtils {
   }
 
   public String createInternalEventName(ExecutableElement executableElement) {
-    String internalEventname = executableElement.getSimpleName()
+    String internalEventName = executableElement.getSimpleName()
                                                 .toString();
     for (VariableElement variableElement : executableElement.getParameters()) {
-      internalEventname += ProcessorConstants.PARAMETER_DELIMITER;
-      internalEventname += variableElement.asType()
+      internalEventName += ProcessorConstants.PARAMETER_DELIMITER;
+      internalEventName += variableElement.asType()
                                           .toString()
                                           .replace(".",
                                                    "_");
     }
-    return internalEventname;
+    return internalEventName;
   }
 
   public boolean doesExist(ClassNameModel typeElementClassName) {

@@ -63,7 +63,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   /**
    * Returns the data store.
    * <p>
-   * The datastore contains the parameters set inside the ShowPopUp-event.
+   * The data store contains the parameters set inside the ShowPopUp-event.
    * Nalu will set the data store with the entries from the event. Values
    * can be obtained by using a key. Keep in mind, the return values need
    * to be casted.
@@ -87,7 +87,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   /**
    * Get the component
    *
-   * @return the compoment of the controller
+   * @return the component of the controller
    */
   public V getComponent() {
     return this.component;

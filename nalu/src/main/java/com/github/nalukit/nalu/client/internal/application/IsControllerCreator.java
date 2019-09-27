@@ -32,7 +32,7 @@ public interface IsControllerCreator {
                                   boolean isFinished);
 
   void setParameter(Object object,
-                    String... parms)
+                    String... params)
       throws RoutingInterceptionException;
 
 }

@@ -25,7 +25,7 @@ public class NaluSimpleApplicationLoader
     extends AbstractApplicationLoader<NaluSimpleApplicationContext> {
 
   /**
-   * The laoder of the application.
+   * The loader of the application.
    * <p>
    * Will be executed at the start of the application
    * and before the first event is executed.

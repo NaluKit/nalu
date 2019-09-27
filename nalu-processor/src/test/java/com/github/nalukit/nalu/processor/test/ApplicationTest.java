@@ -108,7 +108,7 @@ public class ApplicationTest {
   }
 
   @Test
-  void testApplictionAnnotationOnAMethod() {
+  void testApplicationAnnotationOnAMethod() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {

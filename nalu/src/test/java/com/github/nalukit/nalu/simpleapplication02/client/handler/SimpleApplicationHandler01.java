@@ -32,7 +32,7 @@ public class SimpleApplicationHandler01
   public void bind() {
     this.eventBus.addHandler(StatusChangeEvent.TYPE,
                              e -> {
-                               // Stupid idea! It should only show, that the event was catched by the handler!
+                               // Stupid idea! It should only show, that the event was caught by the handler!
                                System.out.print("new Status:" + e.getStatus());
                              });
   }

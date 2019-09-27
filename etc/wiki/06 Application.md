@@ -11,7 +11,7 @@ interface MyApplication
     extends IsApplication {
 }
 ```
-The application interface must extends `IsApplication` and needs the `@Application` annotation.
+The application interface must extend `IsApplication` and needs the `@Application` annotation.
 
 The attributes of the Application annotation are:
 
@@ -67,15 +67,15 @@ import java.util.Objects;public class MyFilter
 
   @Override
   public boolean filter(String route,
-                        String... parms) {
+                        String... params) {
     // checking f.e. a route
     if ("/myShell/myRoute01".equals(route)) {
       // interrupt routing
       return false;
     }
     // checking for example a parameter
-    if (parmslength > 0) {
-      if ("Bart".equals(parms[0])) {
+    if (paramslength > 0) {
+      if ("Bart".equals(params[0])) {
         // interrupt routing
         return false;
       }
@@ -140,5 +140,5 @@ interface MyApplication
 Every plugin provides a default logger. In case you do not want to create an own logger, use:
 
 * **gwt-plugin-elemental2**: `DefaultElemental2Logger`.class
-* **gwt-plguin-gwt**: `DefaultGWTLogger`.class
+* **gwt-plugin-gwt**: `DefaultGWTLogger`.class
 

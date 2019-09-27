@@ -58,7 +58,7 @@ public class PropertyFactory {
   /**
    * Will Nalu use a ahs for Navigation?
    *
-   * @return true: Nalus uses a hash
+   * @return true: Nalu uses a hash
    */
   public boolean hasHistory() {
     return this.hasHistory;
@@ -67,7 +67,7 @@ public class PropertyFactory {
   /**
    * Will Nalu use a ahs for Navigation?
    *
-   * @return true: Nalus uses a hash
+   * @return true: Nalu uses a hash
    */
   public boolean isUsingHash() {
     return this.usingHash;

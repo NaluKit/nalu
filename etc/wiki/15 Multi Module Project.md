@@ -20,7 +20,7 @@ With version 2, Nalu will help you to avoid a common client module to share the 
 A sub module does not implement the `IsApplication`-interface. Intead it implements the `IsModule`-interface. This interface neeeds a `@Module`-annotation. the `@Module`-annotation takes two atributes:
 
 1. **name**: the name of the module.
-2. **context**: the contest of the module (see next chapter for more informations.
+2. **context**: the contest of the module (see next chapter for more information.
 
 The context is be part of the current module.
 
@@ -36,7 +36,7 @@ public interface MyModule
 ## Context
 To share data betwenn modules, it is necessary to use the context super classes for the main- and the sub-modules.
 
-For more informations about the context look [here](xxx).
+For more information about the context look [here](xxx).
 
 ## Adding a module
 To use Nalu sub modules, you need to add the `@Modules`-annotation to the `IsApplication`-interface.

@@ -62,7 +62,7 @@ The following flow shows the steps, once a routing is initiated. The flow will e
 
 ![Route Flow](https://github.com/NaluKit/nalu/blob/master/etc/images/routeFlow.png)
 
-To connect a component to a route, just create a controller class which extends
+To connect a component to a route, just create a controller class which extend
 `AbstractComponentController` and add the controller annotation `@Controller`.
 ```JAVA
 @Controller(route = "/shell/route",
@@ -125,7 +125,7 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
 ```
 **(This plugin will not work with J2CL / GWT 3)**
 
-See the wiki for more informations about Nalu and how to use it.
+See the wiki for more information about Nalu and how to use it.
 
 ## Wiki
 More useful information about Nalu and how to use it, can be found inside the [Wiki](https://github.com/nalukit/nalu/wiki).
@@ -150,7 +150,7 @@ To speed up creating a Nalu project, the [Nalu Boot Starter Project Generator](h
 
 Just run **mvn clean install** and **mvn gwt:devmode** to start the project.
 
-More informations about the generator and the source code can be found here: [Nalu Project Generator](https://github.com/nalukit/gwt-boot-starter-nalu).
+More information about the generator and the source code can be found here: [Nalu Project Generator](https://github.com/nalukit/gwt-boot-starter-nalu).
 
 ## Notes
 In case you find a bug, please open an issue or post it inside the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).

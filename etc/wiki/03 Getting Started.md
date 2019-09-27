@@ -29,7 +29,7 @@ Last but not least, we need to set up the entry point of opur application:
 **To Be done**
 
 
-## Entrypoint
+## Implement the entry point
 ### GWT 2
 First we need to implement the `EntryPoint`. A entry point in Nalu looks like that:
 ```Java

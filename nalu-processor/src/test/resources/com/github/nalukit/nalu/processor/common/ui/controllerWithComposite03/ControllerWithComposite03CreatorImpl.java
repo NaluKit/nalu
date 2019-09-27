@@ -34,7 +34,7 @@ public final class ControllerWithComposite03CreatorImpl extends AbstractControll
       ClientLogger.get().logSimple(sb01.toString(), 3);
       ControllerWithComposite03 controller = new ControllerWithComposite03();
       controllerInstance.setController(controller);
-      controllerInstance.setChached(false);
+      controllerInstance.setCached(false);
       controller.setContext(context);
       controller.setEventBus(eventBus);
       controller.setRouter(router);
@@ -46,7 +46,7 @@ public final class ControllerWithComposite03CreatorImpl extends AbstractControll
       sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
       controllerInstance.setController(storedController);
-      controllerInstance.setChached(true);
+      controllerInstance.setCached(true);
       controllerInstance.getController().setCached(true);
     }
     return controllerInstance;
@@ -80,15 +80,15 @@ public final class ControllerWithComposite03CreatorImpl extends AbstractControll
   }
 
   @Override
-  public void setParameter(Object object, String... parms) throws RoutingInterceptionException {
+  public void setParameter(Object object, String... params) throws RoutingInterceptionException {
     ControllerWithComposite03 controller = (ControllerWithComposite03) object;
     StringBuilder sb01 = new StringBuilder();
-    if (parms != null) {
-      if (parms.length >= 1) {
+    if (params != null) {
+      if (params.length >= 1) {
         sb01.setLength(0);
-        sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setParameter03<< to set value >>").append(parms[0]).append("<<");
+        sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setParameter03<< to set value >>").append(params[0]).append("<<");
         ClientLogger.get().logDetailed(sb01.toString(), 4);
-        controller.setParameter03(parms[0]);
+        controller.setParameter03(params[0]);
       }
     }
   }

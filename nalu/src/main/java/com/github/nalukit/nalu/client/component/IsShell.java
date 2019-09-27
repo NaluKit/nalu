@@ -34,7 +34,7 @@ public interface IsShell {
    * RootLayoutPanel.get().add(view.asWidget());
    * }
    * </code>
-   * <p>This will make the framework indepent of GWT or user implemantations!</p>
+   * <p>This will make the framework independent of GWT or user implemantations!</p>
    */
   void attachShell();
 
@@ -52,7 +52,7 @@ public interface IsShell {
    * view.removeFromParent();
    * }
    * </code>
-   * <p>This will make the framework indepent of GWT or user implemantations!</p>
+   * <p>This will make the framework independent of GWT or user implemantations!</p>
    */
   void detachShell();
 
@@ -74,9 +74,9 @@ public interface IsShell {
    * <p>
    * This method runs before the component and composites are
    * created. This is f.e.: a got place to do some
-   * authentification checks.
+   * authentication checks.
    * <p>
-   * Keep in mind, that the method is asynchron. Once you have
+   * Keep in mind, that the method is asynchronous. Once you have
    * done your work, you have to call <b>loader.continueLoading()</b>.
    * Otherwise Nalu will stop working!
    * <p>
@@ -87,10 +87,10 @@ public interface IsShell {
    * <p>
    * Attention:
    * Do not call super.bind(loader)! Cause this will tell Nalu to
-   * continue laoding!
+   * continue loading!
    *
    * @param loader loader to tell Nalu to continue loading the controller
-   * @throws RoutingInterceptionException in case the create contrioller
+   * @throws RoutingInterceptionException in case the create controller
    *                                      process should be interrupted
    */
   void bind(ShellLoader loader)

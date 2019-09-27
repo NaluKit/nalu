@@ -53,15 +53,15 @@ public abstract class AbstractShell<C extends IsContext>
    * <p>
    * This method runs before the component and composites are
    * created. This is f.e.: a got place to do some
-   * authentification checks.
+   * authentication checks.
    * <p>
-   * Keep in mind, that the method is asynchron. Once you have
+   * Keep in mind, that the method is asynchronous. Once you have
    * done your work, you have to call <b>loader.continueLoading()</b>.
    * Otherwise Nalu will stop working!
    * <p>
    * Attention:
    * Do not call super.bind(loader)! Cause this will tell Nalu to
-   * continue laoding!
+   * continue loading!
    *
    * @param loader loader to tell Nalu to continue loading the shell
    * @throws RoutingInterceptionException in case the bind shell
@@ -74,7 +74,7 @@ public abstract class AbstractShell<C extends IsContext>
   }
 
   /**
-   * internal framework method! Will be called by the framdework after the
+   * internal framework method! Will be called by the framework after the
    * stop-method f the controller is called
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
@@ -91,9 +91,9 @@ public abstract class AbstractShell<C extends IsContext>
   }
 
   /**
-   * Will be called in case a shellCreator ist detachred.
+   * Will be called in case a shellCreator ist detached.
    * <p>
-   * In case you have something to do if a shellCreator is detached, override this mehtod.
+   * In case you have something to do if a shellCreator is detached, override this method.
    */
   @Override
   public void detachShell() {

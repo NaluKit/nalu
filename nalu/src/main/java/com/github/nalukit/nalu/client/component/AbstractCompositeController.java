@@ -81,7 +81,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
 
   /**
    * Method is called during onAttach.
-   * Nalu uses the method to call the onAttach-method of the compoent.
+   * Nalu uses the method to call the onAttach-method of the component.
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
@@ -92,7 +92,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
 
   /**
    * Method is called during onDetach.
-   * Nalu uses the method to call the onDetach-method of the compoent.
+   * Nalu uses the method to call the onDetach-method of the component.
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
@@ -102,7 +102,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   }
 
   /**
-   * internal framework method! Will be called by the framdework after the
+   * internal framework method! Will be called by the framework after the
    * stop-method of the controller is called
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
@@ -163,7 +163,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   /**
    * Get the component
    *
-   * @return the compoment of the controller
+   * @return the component of the controller
    */
   public V getComponent() {
     return this.component;

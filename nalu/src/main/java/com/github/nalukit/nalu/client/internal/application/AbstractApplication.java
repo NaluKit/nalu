@@ -52,7 +52,7 @@ public abstract class AbstractApplication<C extends IsContext>
   /* Router Configuration */
   protected RouterConfiguration                routerConfiguration;
   /* Router */
-  protected ConfiguratableRouter               router;
+  protected ConfigurableRouter                 router;
   /* application context */
   protected C                                  context;
   /* the event bus of the application */
@@ -87,7 +87,7 @@ public abstract class AbstractApplication<C extends IsContext>
     ClientLogger.get()
                 .logDetailed("=================================================================================",
                              0);
-    // log processsor version
+    // log processor version
     this.logProcessorVersion();
     ClientLogger.get()
                 .logDetailed("",
@@ -145,7 +145,7 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadShellFactory();
     // load popup factory
     ClientLogger.get()
-                .logDetailed("AbstractApplication: load popupcontroller factory",
+                .logDetailed("AbstractApplication: load popupController factory",
                              1);
     this.loadPopUpControllerFactory();
     // load popup factory

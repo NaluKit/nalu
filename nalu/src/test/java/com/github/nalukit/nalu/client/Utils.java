@@ -22,7 +22,7 @@ class Utils {
       @Override
       public boolean attach(String selector,
                             Object asElement) {
-        // retrun the attached default value
+        // rerun the attached default value
         return attached;
       }
 

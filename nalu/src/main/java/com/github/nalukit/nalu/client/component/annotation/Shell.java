@@ -22,10 +22,10 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * This annotation defines a viewport/shell of a Nalu application.
  * <p>
- * A viewport/shell is defined by two informations:
+ * A viewport/shell is defined by two information:
  * <ul>
  * <li>name: the name of the viewport/shell (will be used as reference and inside the route as first parameter)</li>
- * <li>shell: the shell class that is used for this viewpor</li>
+ * <li>shell: the shell class that is used for this viewport</li>
  * </ul>
  *
  * @author Frank Hossfeld

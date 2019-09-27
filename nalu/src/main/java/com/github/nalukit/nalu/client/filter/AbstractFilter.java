@@ -44,7 +44,7 @@ public abstract class AbstractFilter<C extends IsContext>
   }
 
   /**
-   * Sets the eventbus instance (used to set application error message)
+   * Sets the event bus instance (used to set application error message)
    * <p>
    * <b>DO NOT USE!</b>
    *

@@ -49,7 +49,7 @@ public class NaluApplicationEvent
    *
    * <b>Keep in mind, all parameters will be stored as objects!</b>
    *
-   * @param key   key of the paraemter
+   * @param key   key of the parameter
    * @param value value of the parameter
    * @return instance of the event
    */

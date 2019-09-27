@@ -24,7 +24,7 @@ import java.util.Map;
 public interface Router {
 
   /**
-   * clears the chache
+   * clears the cache
    */
   void clearCache();
 
@@ -32,11 +32,11 @@ public interface Router {
    * Generates the url using the given input ..
    *
    * @param route route to navigate to
-   * @param parms parameters of the route
+   * @param params parameters of the route
    * @return generated hash
    */
   String generate(String route,
-                  String... parms);
+                  String... params);
 
   /**
    * Route to a new page.
@@ -48,7 +48,7 @@ public interface Router {
              String... parameter);
 
   /**
-   * Removes a controller from the chache
+   * Removes a controller from the cache
    *
    * @param controller controller to be removed
    * @param <C>        controller type
@@ -56,7 +56,7 @@ public interface Router {
   <C extends AbstractComponentController<?, ?, ?>> void removeFromCache(C controller);
 
   /**
-   * Removes a controller from the chache
+   * Removes a controller from the cache
    *
    * @param controller controller to be removed
    * @param <C>        controller type
@@ -87,5 +87,18 @@ public interface Router {
    * @return list of parameters at application start
    */
   Map<String, String> getStartQueryParameters();
+
+  /**
+   * Returns the current route.
+   * <br>
+   * The method will return a route with a '*' as placeholder for parameters.
+   * <br>
+   * Keep in mind:
+   * This is the current route. The route might be changed by other processes,
+   * f.e.: a RoutingException or something else!
+   *
+   * @return the current route
+   */
+  String getCurrentRoute();
 
 }

@@ -53,7 +53,7 @@ public class ModuleAnnotationValidator {
       throws ProcessorException {
     //    // get elements annotated with Application annotation
     //    Set<? extends Element> elementsWithApplicationAnnotation = this.roundEnvironment.getElementsAnnotatedWith(Application.class);
-    //    // at least there should exatly one Application annotation!
+    //    // at least there should excactly one Application annotation!
     //    if (elementsWithApplicationAnnotation.size() == 0) {
     //      throw new ProcessorException("Nalu-Processor: Missing Nalu Application interface");
     //    }

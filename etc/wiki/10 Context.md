@@ -3,7 +3,7 @@ Inside a Nalu application the context is the store of all shared application inf
 
 The context will be instantiated by the framework and injected in every controller, filter, handler and the loader. All controllers, handlers, filters and the loader will have access to the same instance.
 
-This is a good place to store informations that should be application wide available.
+This is a good place to store information that should be application wide available.
 
 The context is a required attribute of the `@Application`- and (in case of a multi module project) `@Module`-annotation.
 
@@ -71,7 +71,7 @@ The `AbstractMainContext`-class looks like that:
 public abstract class AbstractMainContext
     implements IsMainContext {
 
-  /* application datastore - available in main- and sub-modules */
+  /* application data store - available in main- and sub-modules */
   private Context context;
 
   public AbstractMainContext() {
@@ -93,7 +93,7 @@ The `Context`-class is at least nothing else than a wrapper for a `Map`:
 ```java
 public class Context {
 
-  /* datastore */
+  /* data store */
   private Map<String, Object> dataStore;
 
   public Context() {

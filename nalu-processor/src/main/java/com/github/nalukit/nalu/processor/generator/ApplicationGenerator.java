@@ -203,8 +203,8 @@ public class ApplicationGenerator {
     generateLoadDefaultsRoutes(typeSpec,
                                metaModel);
 
-    generatHasHistoryMethod(typeSpec,
-                            metaModel);
+    generateHasHistoryMethod(typeSpec,
+                             metaModel);
 
     generateIsUsingHashMethod(typeSpec,
                               metaModel);
@@ -234,8 +234,8 @@ public class ApplicationGenerator {
     }
   }
 
-  private void generatHasHistoryMethod(TypeSpec.Builder typeSpec,
-                                       MetaModel metaModel) {
+  private void generateHasHistoryMethod(TypeSpec.Builder typeSpec,
+                                        MetaModel metaModel) {
     typeSpec.addMethod(MethodSpec.methodBuilder("hasHistory")
                                  .addAnnotation(Override.class)
                                  .addModifiers(Modifier.PUBLIC)

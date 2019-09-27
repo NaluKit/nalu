@@ -87,10 +87,10 @@ To remove the controller from the cache, so that it will be created again, use: 
 
 You can also cache composites.
 
-For more informations about caching, take a look [here](xxx).
+For more information about caching, take a look [here](xxx).
 
 ## RouterStateEvent (since 1.3.1)
-Nalu will fire a `RouterStateEvent` in case a routing occurs. The `RouterStateEvent` provides two information:
+Nalu will fire a `RouterStateEvent` in case a routing occurs. The `RouterStateEvent` provides two pieces of information:
 
 1. state of routing
 

@@ -42,7 +42,7 @@ public abstract class AbstractPopUpComponent<C extends IsPopUpComponent.Controll
   public abstract void hide();
 
   public void bind() {
-    // if you need to bind some handlers and would like to do this in a seperate method
+    // if you need to bind some handlers and would like to do this in a separate method
     // just override this method.
   }
 

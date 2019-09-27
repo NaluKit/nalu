@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public class Context {
 
-  /* datastore */
+  /* data store */
   private Map<String, Object> dataStore;
 
   public Context() {

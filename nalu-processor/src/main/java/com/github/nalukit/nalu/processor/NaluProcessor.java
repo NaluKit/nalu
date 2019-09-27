@@ -486,7 +486,7 @@ public class NaluProcessor
                           .generate(this.metaModel);
       // check if moduleModel is not null!
       // if moduleModel is null, we have nothing to do here,
-      // otherwise we nead to generate a module-Impl class
+      // otherwise we need to generate a module-Impl class
       if (!Objects.isNull(metaModel.getModuleModel())) {
         ModuleGenerator.builder()
                        .processingEnvironment(processingEnv)

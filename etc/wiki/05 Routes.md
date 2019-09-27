@@ -29,8 +29,8 @@ These are all legal routes:
 ```
 /myShell/routePart01/parameter01
 /myShell/routePart01/routePart02/parameter01
-/myShell/routePart01/parameter01/routePart02/parametr02
-/myShell/routePart01/parameter01/routePart02/parametr02/routePart03
+/myShell/routePart01/parameter01/routePart02/parameter02
+/myShell/routePart01/parameter01/routePart02/parameter02/routePart03
 ```
 
 

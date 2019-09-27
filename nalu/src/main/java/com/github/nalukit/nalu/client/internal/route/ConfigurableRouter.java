@@ -19,7 +19,7 @@ package com.github.nalukit.nalu.client.internal.route;
 import com.github.nalukit.nalu.client.Router;
 import org.gwtproject.event.shared.SimpleEventBus;
 
-public interface ConfiguratableRouter
+public interface ConfigurableRouter
     extends Router {
 
   /**
@@ -42,9 +42,9 @@ public interface ConfiguratableRouter
       throws RouterException;
 
   /**
-   * sets the eventbus inside the router
+   * sets the event bus inside the router
    *
-   * @param eventBus Nalu application eventbus
+   * @param eventBus Nalu application event bus
    */
   void setEventBus(SimpleEventBus eventBus);
 

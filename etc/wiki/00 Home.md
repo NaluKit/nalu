@@ -1,6 +1,6 @@
 # Welcome to the Nalu wiki!
 
-Here you will find a lot of useful informations about Nalu.
+Here you will find a lot of useful information about Nalu.
 
 If you have any questions regarding the framework, please use the [Nalu Gitter room](https://gitter.im/NaluKit42/lobby).
 
