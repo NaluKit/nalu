@@ -34,7 +34,7 @@ public class PopUpControllerFactory {
   /* map of components (key: name of class, Value: ControllerCreator */
   private Map<String, IsPopUpControllerCreator> creatorStore;
 
-  /* map of components (key: name of class, Value: ControllerCreator */
+  /* map of components (key: name of class, Value: controller instance */
   private Map<String, PopUpControllerInstance> popUpControllerStore;
 
   /* Nalu event bus to catch the ShowPopUpEvents */

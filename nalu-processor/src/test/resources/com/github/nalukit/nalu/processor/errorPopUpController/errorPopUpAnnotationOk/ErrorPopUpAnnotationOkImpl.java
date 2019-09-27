@@ -18,7 +18,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.15-14:52:40<< */
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.27-18:17:30<< */
 public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockContext> implements ErrorPopUpAnnotationOk {
   public ErrorPopUpAnnotationOkImpl() {
     super();
@@ -90,6 +90,10 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
   }
 
   @Override
+  public void loadBlockControllerFactory() {
+  }
+
+  @Override
   public void loadPopUpControllerFactory() {
   }
 
@@ -146,7 +150,6 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
 
   @Override
   public void loadModules() {
-    StringBuilder sb01 = new StringBuilder();
   }
 
   @Override

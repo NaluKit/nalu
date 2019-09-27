@@ -65,6 +65,8 @@ public class MetaModel {
 
   private List<ControllerModel> controllers;
 
+  private List<BlockControllerModel> blockControllers;
+
   private List<PopUpControllerModel> popUpControllers;
 
   private List<ClassNameModel> filters;
@@ -83,6 +85,7 @@ public class MetaModel {
     this.modules = new ArrayList<>();
     this.shells = new ArrayList<>();
     this.controllers = new ArrayList<>();
+    this.blockControllers = new ArrayList<>();
     this.popUpControllers = new ArrayList<>();
     this.filters = new ArrayList<>();
     this.handlers = new ArrayList<>();
@@ -172,6 +175,14 @@ public class MetaModel {
     this.controllers = controllers;
   }
 
+  public List<BlockControllerModel> getBlockControllers() {
+    return blockControllers;
+  }
+
+  public void setBlockControllers(List<BlockControllerModel> blockControllers) {
+    this.blockControllers = blockControllers;
+  }
+
   public List<PopUpControllerModel> getPopUpControllers() {
     return popUpControllers;
   }
@@ -179,14 +190,6 @@ public class MetaModel {
   public void setPopUpControllers(List<PopUpControllerModel> popUpControllers) {
     this.popUpControllers = popUpControllers;
   }
-
-  //  public String getHasFiltersAnnotation() {
-  //    return hasFiltersAnnotation;
-  //  }
-  //
-  //  public void setHasFiltersAnnotation(String hasFiltersAnnotation) {
-  //    this.hasFiltersAnnotation = hasFiltersAnnotation;
-  //  }
 
   public List<ClassNameModel> getFilters() {
     return filters;

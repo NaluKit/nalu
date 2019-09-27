@@ -77,6 +77,7 @@ public class NaluProcessor
   @Override
   public Set<String> getSupportedAnnotationTypes() {
     return Stream.of(Application.class.getCanonicalName(),
+                     BlockController.class.getCanonicalName(),
                      CompositeController.class.getCanonicalName(),
                      Controller.class.getCanonicalName(),
                      Debug.class.getCanonicalName(),
@@ -119,6 +120,9 @@ public class NaluProcessor
             if (Application.class.getCanonicalName()
                                  .equals(annotation.toString())) {
               handleApplicationAnnotation(roundEnv);
+            } else if (BlockController.class.getCanonicalName()
+                                                .equals(annotation.toString())) {
+              handleBlockControllerAnnotation(roundEnv);
             } else if (CompositeController.class.getCanonicalName()
                                                 .equals(annotation.toString())) {
               handleCompositeControllerAnnotation(roundEnv);
@@ -162,6 +166,37 @@ public class NaluProcessor
       return true;
     }
     return true;
+  }
+
+  private void handleBlockControllerAnnotation(RoundEnvironment roundEnv)
+      throws ProcessorException {
+    List<BlockControllerModel> blockControllerModels = new ArrayList<>();
+    for (Element blockControllerElement : roundEnv.getElementsAnnotatedWith(BlockController.class)) {
+      // validate
+      BlockControllerAnnotationValidator.builder()
+                                        .processingEnvironment(processingEnv)
+                                        .blockControllerElement(blockControllerElement)
+                                        .build()
+                                        .validate();
+      // create PopUpControllerModel
+      BlockControllerModel blockControllerModel = BlockControllerAnnotationScanner.builder()
+                                                                                  .processingEnvironment(processingEnv)
+                                                                                  .metaModel(this.metaModel)
+                                                                                  .blockControllerElement(blockControllerElement)
+                                                                                  .build()
+                                                                                  .scan(roundEnv);
+      // generate BlockControllerCreator
+      BlockControllerCreatorGenerator.builder()
+                                     .processingEnvironment(processingEnv)
+                                     .metaModel(this.metaModel)
+                                     .blockControllerModel(blockControllerModel)
+                                     .build()
+                                     .generate();
+      blockControllerModels.add(blockControllerModel);
+    }
+    // save data in metaModel
+    this.metaModel.getBlockControllers()
+                  .addAll(blockControllerModels);
   }
 
   private void handleErrorPopUpControllerAnnotation(RoundEnvironment roundEnv)

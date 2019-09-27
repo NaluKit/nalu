@@ -120,6 +120,10 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadCompositeReferences();
     // load optional tracker
     this.tracker = this.loadTrackerConfiguration();
+    // initialize block factory
+    BlockControllerFactory.get()
+                          .register(this.plugin,
+                                    this.eventBus);
     // initialize popup factory
     PopUpControllerFactory.get()
                           .register(this.eventBus);
@@ -143,6 +147,11 @@ public abstract class AbstractApplication<C extends IsContext>
                 .logDetailed("AbstractApplication: load shells",
                              1);
     this.loadShellFactory();
+    // load block factory
+    ClientLogger.get()
+                .logDetailed("AbstractApplication: load blockController factory",
+                             1);
+    this.loadBlockControllerFactory();
     // load popup factory
     ClientLogger.get()
                 .logDetailed("AbstractApplication: load popupController factory",
@@ -218,6 +227,8 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract void loadComponents();
 
   protected abstract void loadHandlers();
+
+  protected abstract void loadBlockControllerFactory();
 
   protected abstract void loadPopUpControllerFactory();
 

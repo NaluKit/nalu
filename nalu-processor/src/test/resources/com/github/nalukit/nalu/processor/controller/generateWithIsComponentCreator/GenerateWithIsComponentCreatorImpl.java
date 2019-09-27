@@ -15,7 +15,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.15-14:55:02<< */
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.27-18:18:49<< */
 public final class GenerateWithIsComponentCreatorImpl extends AbstractApplication<MockContext> implements GenerateWithIsComponentCreator {
   public GenerateWithIsComponentCreatorImpl() {
     super();
@@ -81,6 +81,10 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
   }
 
   @Override
+  public void loadBlockControllerFactory() {
+  }
+
+  @Override
   public void loadPopUpControllerFactory() {
   }
 
@@ -107,7 +111,6 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
 
   @Override
   public void loadModules() {
-    StringBuilder sb01 = new StringBuilder();
   }
 
   @Override

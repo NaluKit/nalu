@@ -159,6 +159,10 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
+  protected void loadBlockControllerFactory() {
+  }
+
+  @Override
   protected void loadPopUpControllerFactory() {
   }
 

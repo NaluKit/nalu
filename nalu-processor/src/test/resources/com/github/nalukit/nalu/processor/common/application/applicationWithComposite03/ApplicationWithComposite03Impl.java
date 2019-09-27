@@ -19,7 +19,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.15-15:56:11<< */
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.27-18:20:23<< */
 public final class ApplicationWithComposite03Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite03 {
   public ApplicationWithComposite03Impl() {
     super();
@@ -92,6 +92,10 @@ public final class ApplicationWithComposite03Impl extends AbstractApplication<Mo
   }
 
   @Override
+  public void loadBlockControllerFactory() {
+  }
+
+  @Override
   public void loadPopUpControllerFactory() {
   }
 
@@ -126,7 +130,6 @@ public final class ApplicationWithComposite03Impl extends AbstractApplication<Mo
 
   @Override
   public void loadModules() {
-    StringBuilder sb01 = new StringBuilder();
   }
 
   @Override

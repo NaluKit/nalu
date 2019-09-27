@@ -15,7 +15,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.15-15:58:06<< */
+ * Build with Nalu version >>2.0.0-SNAPSHOT<< at >>2019.09.27-18:20:23<< */
 public final class StartRouteOKImpl extends AbstractApplication<MockContext> implements StartRouteOK {
   public StartRouteOKImpl() {
     super();
@@ -87,6 +87,10 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
   }
 
   @Override
+  public void loadBlockControllerFactory() {
+  }
+
+  @Override
   public void loadPopUpControllerFactory() {
   }
 
@@ -113,7 +117,6 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
 
   @Override
   public void loadModules() {
-    StringBuilder sb01 = new StringBuilder();
   }
 
   @Override
