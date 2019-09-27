@@ -24,7 +24,7 @@ public class ErrorInfo {
   }
 
   /**
-   * Get error type {@see ErrorType}
+   * Get error type {@link ErrorType}
    *
    * @return get error type
    */

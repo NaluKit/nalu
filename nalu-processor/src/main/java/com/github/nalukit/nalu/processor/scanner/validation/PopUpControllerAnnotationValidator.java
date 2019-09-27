@@ -31,8 +31,6 @@ public class PopUpControllerAnnotationValidator {
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment roundEnvironment;
-
   private Element popUpControllerElement;
 
   @SuppressWarnings("unused")
@@ -41,7 +39,6 @@ public class PopUpControllerAnnotationValidator {
 
   private PopUpControllerAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
-    this.roundEnvironment = builder.roundEnvironment;
     this.popUpControllerElement = builder.popUpControllerElement;
     setUp();
   }
@@ -65,11 +62,11 @@ public class PopUpControllerAnnotationValidator {
       throw new ProcessorException("Nalu-Processor: @PopUpController can only be used with an class");
     }
     // @PopUpController can only be used on a interface that extends IsApplication
-    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                      typeElement.asType(),
-                                                      this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(IsPopUpController.class.getCanonicalName())
-                                                                                .asType()))) {
+    if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+                                                     typeElement.asType(),
+                                                     this.processingEnvironment.getElementUtils()
+                                                                               .getTypeElement(IsPopUpController.class.getCanonicalName())
+                                                                               .asType())) {
       throw new ProcessorException("Nalu-Processor: @PopUpController can only be used on a class that extends IsPopUpController");
     }
     // check if name is not empty

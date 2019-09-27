@@ -4,6 +4,18 @@ import java.util.Objects;
 
 public class NaluUtils {
 
+  private static NaluUtils instance;
+
+  private NaluUtils() {
+  }
+
+  public static NaluUtils get() {
+    if (Objects.isNull(instance)) {
+      instance = new NaluUtils();
+    }
+    return instance;
+  }
+
   /**
    * Converts the parameter parts with '*'
    * <p>
@@ -12,7 +24,8 @@ public class NaluUtils {
    * @param route route to convert
    * @return converted route
    */
-  public static String convertRoute(String route) {
+  @SuppressWarnings("StringSplitter")
+  public String convertRoute(String route) {
     if (Objects.isNull(route)) {
       return "";
     }
@@ -46,10 +59,12 @@ public class NaluUtils {
    * @param route02 second route of the compare
    * @return true in case the non parameter parts are equal otherwise false
    */
-  public static boolean compareRoutes(String route01,
-                                      String route02) {
-    String convertedRoute01 = NaluUtils.convertRoute(route01);
-    String convertedRoute02 = NaluUtils.convertRoute(route02);
+  public boolean compareRoutes(String route01,
+                               String route02) {
+    String convertedRoute01 = NaluUtils.get()
+                                       .convertRoute(route01);
+    String convertedRoute02 = NaluUtils.get()
+                                       .convertRoute(route02);
     return convertedRoute01.equals(convertedRoute02);
   }
 

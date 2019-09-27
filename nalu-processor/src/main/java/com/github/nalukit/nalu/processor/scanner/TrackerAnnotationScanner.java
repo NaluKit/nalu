@@ -18,7 +18,6 @@ package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
 import com.github.nalukit.nalu.processor.ProcessorException;
-import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 
@@ -27,12 +26,11 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.MirroredTypeException;
+import java.util.Objects;
 
 import static java.util.Objects.isNull;
 
 public class TrackerAnnotationScanner {
-
-  private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
@@ -54,9 +52,6 @@ public class TrackerAnnotationScanner {
   }
 
   private void setUp() {
-    this.processorUtils = ProcessorUtils.builder()
-                                        .processingEnvironment(this.processingEnvironment)
-                                        .build();
   }
 
   public MetaModel scan(RoundEnvironment roundEnvironment)
@@ -66,8 +61,11 @@ public class TrackerAnnotationScanner {
     if (!isNull(trackerAnnotation)) {
       this.metaModel.setHasTrackerAnnotation(true);
       if (!isNull(getTracker(trackerAnnotation))) {
-        this.metaModel.setTracker(new ClassNameModel(getTracker(trackerAnnotation).getQualifiedName()
-                                                                                  .toString()));
+        TypeElement typeElement = getTracker(trackerAnnotation);
+        if (!Objects.isNull(typeElement)) {
+          this.metaModel.setTracker(new ClassNameModel(typeElement.getQualifiedName()
+                                                                  .toString()));
+        }
       }
     } else {
       this.metaModel.setHasTrackerAnnotation(false);

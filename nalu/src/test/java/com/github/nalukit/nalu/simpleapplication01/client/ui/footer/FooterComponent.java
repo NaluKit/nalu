@@ -26,6 +26,7 @@ public class FooterComponent
     extends AbstractComponent<IFooterComponent.Controller, String>
     implements IFooterComponent {
 
+  @SuppressWarnings("unused")
   private String messageInfo;
 
   public FooterComponent() {

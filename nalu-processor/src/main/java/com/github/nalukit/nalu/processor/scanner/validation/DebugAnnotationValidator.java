@@ -32,7 +32,7 @@ import java.util.Set;
 
 public class DebugAnnotationValidator {
 
-  Element debugElement;
+  private Element debugElement;
 
   private ProcessorUtils processorUtils;
 
@@ -71,7 +71,6 @@ public class DebugAnnotationValidator {
     }
     for (Element element : elementsWithDebugAnnotation) {
       if (element instanceof TypeElement) {
-        TypeElement typeElement = (TypeElement) element;
         // @Debug can only be used on a interface
         if (!debugElement.getKind()
                          .isInterface()) {

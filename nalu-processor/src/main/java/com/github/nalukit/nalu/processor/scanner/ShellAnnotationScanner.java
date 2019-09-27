@@ -37,15 +37,12 @@ public class ShellAnnotationScanner {
 
   private ProcessingEnvironment processingEnvironment;
 
-  private MetaModel metaModel;
-
   private Element shellElement;
 
   @SuppressWarnings("unused")
   private ShellAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.metaModel = builder.metaModel;
     this.shellElement = builder.shellElement;
     setUp();
   }
@@ -60,6 +57,7 @@ public class ShellAnnotationScanner {
                                         .build();
   }
 
+  @SuppressWarnings("unused")
   public ShellModel scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
     // handle Shells-annotation
@@ -108,9 +106,7 @@ public class ShellAnnotationScanner {
                                             Void v) {
                     List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
                     if (!typeArguments.isEmpty()) {
-                      if (typeArguments.size() > 0) {
-                        result[0] = typeArguments.get(0);
-                      }
+                      result[0] = typeArguments.get(0);
                     }
                     return null;
                   }

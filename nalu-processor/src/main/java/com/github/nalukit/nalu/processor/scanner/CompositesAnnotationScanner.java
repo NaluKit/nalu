@@ -20,7 +20,6 @@ import com.github.nalukit.nalu.client.component.annotation.Composite;
 import com.github.nalukit.nalu.client.component.annotation.Composite.Scope;
 import com.github.nalukit.nalu.client.component.annotation.Composites;
 import com.github.nalukit.nalu.processor.ProcessorException;
-import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerCompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
@@ -33,8 +32,6 @@ import javax.lang.model.type.MirroredTypeException;
 import java.util.Objects;
 
 public class CompositesAnnotationScanner {
-
-  private ProcessorUtils processorUtils;
 
   private ProcessingEnvironment processingEnvironment;
 
@@ -56,11 +53,9 @@ public class CompositesAnnotationScanner {
   }
 
   private void setUp() {
-    this.processorUtils = ProcessorUtils.builder()
-                                        .processingEnvironment(this.processingEnvironment)
-                                        .build();
   }
 
+  @SuppressWarnings("unused")
   public ControllerModel scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
     Composites annotation = this.controllerElement.getAnnotation(Composites.class);

@@ -31,8 +31,6 @@ public class ErrorPopUpControllerAnnotationValidator {
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment roundEnvironment;
-
   private Element errorPopUpControllerElement;
 
   @SuppressWarnings("unused")
@@ -41,7 +39,6 @@ public class ErrorPopUpControllerAnnotationValidator {
 
   private ErrorPopUpControllerAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
-    this.roundEnvironment = builder.roundEnvironment;
     this.errorPopUpControllerElement = builder.errorPopUpControllerElement;
     setUp();
   }
@@ -65,19 +62,19 @@ public class ErrorPopUpControllerAnnotationValidator {
       throw new ProcessorException("Nalu-Processor: @ErrorPopUpController can only be used with an class");
     }
     // @ErrorPopUpController can only be used on a interface that extends IsErrorPopUpController
-    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                      typeElement.asType(),
-                                                      this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(IsErrorPopUpController.class.getCanonicalName())
-                                                                                .asType()))) {
+    if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+                                                     typeElement.asType(),
+                                                     this.processingEnvironment.getElementUtils()
+                                                                               .getTypeElement(IsErrorPopUpController.class.getCanonicalName())
+                                                                               .asType())) {
       throw new ProcessorException("Nalu-Processor: @ErrorPopUpController can only be used on a class that implements IsErrorPopUpController");
     }
     // @ErrorPopUpController can only be used on a interface that extends AbstractErrorPopUpComponentController
-    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                      typeElement.asType(),
-                                                      this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(AbstractErrorPopUpComponentController.class.getCanonicalName())
-                                                                                .asType()))) {
+    if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+                                                     typeElement.asType(),
+                                                     this.processingEnvironment.getElementUtils()
+                                                                               .getTypeElement(AbstractErrorPopUpComponentController.class.getCanonicalName())
+                                                                               .asType())) {
       throw new ProcessorException("Nalu-Processor: @ErrorPopUpController can only be used on a class that extends AbstractErrorPopUpComponentController");
     }
   }

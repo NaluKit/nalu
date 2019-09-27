@@ -37,8 +37,6 @@ import java.io.IOException;
 
 public class CompositeCreatorGenerator {
 
-  private MetaModel metaModel;
-
   private ProcessingEnvironment processingEnvironment;
 
   private CompositeModel compositeModel;
@@ -48,7 +46,6 @@ public class CompositeCreatorGenerator {
   }
 
   private CompositeCreatorGenerator(Builder builder) {
-    this.metaModel = builder.metaModel;
     this.processingEnvironment = builder.processingEnvironment;
     this.compositeModel = builder.compositeModel;
   }

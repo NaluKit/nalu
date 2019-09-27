@@ -35,10 +35,6 @@ public class ShellConfig {
     this.className = className;
   }
 
-  private void parse(String route) {
-    this.route = route;
-  }
-
   public String getRoute() {
     return route;
   }

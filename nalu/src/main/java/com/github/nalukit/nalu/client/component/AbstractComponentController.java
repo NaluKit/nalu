@@ -167,7 +167,8 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * @param <S>  type of the composite
    * @return instance of the composite
    */
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "unchecked",
+                      "TypeParameterUnusedInFormals" })
   public <S extends AbstractCompositeController<?, ?, ?>> S getComposite(String name) {
     return (S) this.getComposites()
                    .get(name);

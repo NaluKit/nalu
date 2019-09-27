@@ -31,8 +31,6 @@ public class CompositeControllerAnnotationValidator {
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment roundEnvironment;
-
   private Element compositeElement;
 
   @SuppressWarnings("unused")
@@ -41,7 +39,6 @@ public class CompositeControllerAnnotationValidator {
 
   private CompositeControllerAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
-    this.roundEnvironment = builder.roundEnvironment;
     this.compositeElement = builder.compositeElement;
     setUp();
   }
@@ -65,11 +62,11 @@ public class CompositeControllerAnnotationValidator {
       throw new ProcessorException("Nalu-Processor: @CompositeController can only be used with an class");
     }
     // @CompositeController can only be used on a interface that extends IsSplitter
-    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                      typeElement.asType(),
-                                                      this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(IsComposite.class.getCanonicalName())
-                                                                                .asType()))) {
+    if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+                                                     typeElement.asType(),
+                                                     this.processingEnvironment.getElementUtils()
+                                                                               .getTypeElement(IsComposite.class.getCanonicalName())
+                                                                               .asType())) {
       throw new ProcessorException("Nalu-Processor: @CompositeController can only be used on a class that extends IsComposite");
     }
   }

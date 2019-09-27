@@ -35,8 +35,6 @@ import java.io.IOException;
 
 public class ShellCreatorGenerator {
 
-  private MetaModel metaModel;
-
   private ProcessingEnvironment processingEnvironment;
 
   private ShellModel shellModel;
@@ -46,7 +44,6 @@ public class ShellCreatorGenerator {
   }
 
   private ShellCreatorGenerator(Builder builder) {
-    this.metaModel = builder.metaModel;
     this.processingEnvironment = builder.processingEnvironment;
     this.shellModel = builder.shellModel;
   }

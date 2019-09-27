@@ -28,8 +28,6 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -41,8 +39,6 @@ public class ControllerAnnotationValidator {
 
   private ProcessingEnvironment processingEnvironment;
 
-  private RoundEnvironment roundEnvironment;
-
   private Element controllerElement;
 
   @SuppressWarnings("unused")
@@ -51,7 +47,6 @@ public class ControllerAnnotationValidator {
 
   private ControllerAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
-    this.roundEnvironment = builder.roundEnvironment;
     this.controllerElement = builder.controllerElement;
     setUp();
   }
@@ -75,11 +70,11 @@ public class ControllerAnnotationValidator {
       throw new ProcessorException("Nalu-Processor: @Controller can only be used with an class");
     }
     // @Controller can only be used on a interface that extends IsController
-    if (!(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-                                                      typeElement.asType(),
-                                                      this.processingEnvironment.getElementUtils()
-                                                                                .getTypeElement(IsController.class.getCanonicalName())
-                                                                                .asType()))) {
+    if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+                                                     typeElement.asType(),
+                                                     this.processingEnvironment.getElementUtils()
+                                                                               .getTypeElement(IsController.class.getCanonicalName())
+                                                                               .asType())) {
       throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController or IsShell");
     }
     // check if route start with "/"
@@ -122,6 +117,7 @@ public class ControllerAnnotationValidator {
                  .collect(Collectors.toList());
   }
 
+  @SuppressWarnings("StringSplitter")
   private void validateRoute()
       throws ProcessorException {
     Controller controllerAnnotation = this.controllerElement.getAnnotation(Controller.class);
@@ -134,7 +130,6 @@ public class ControllerAnnotationValidator {
     if (route.length() == 0) {
       return;
     }
-    boolean handlingParameter = false;
     String[] splits = route.split("/");
     for (String s : splits) {
       // handle "//" -> not allowed
@@ -148,7 +143,6 @@ public class ControllerAnnotationValidator {
       }
       // check if it is a parameter definition (starting with ':' at first position)
       if (s.startsWith(":")) {
-        handlingParameter = true;
         // starts with a parameter ==> error
         if (route.length() == 0) {
           throw new ProcessorException("Nalu-Processor: controller >>" +
@@ -179,13 +173,15 @@ public class ControllerAnnotationValidator {
     }
   }
 
-  private List<String> getParameterFromRoute(String route) {
-    if (!route.contains("/:")) {
-      return new ArrayList<>();
-    }
-    return Arrays.asList(route.substring(route.indexOf("/:") + 2)
-                              .split("/:"));
-  }
+  //  private List<String> getParameterFromRoute(String route) {
+  //    if (!route.contains("/:")) {
+  //      return new ArrayList<>();
+  //    }
+  //    return Arrays.asList(route.substring(route.indexOf("/:") + 2)
+  //                              .split("/:"));
+  //  }
+
+
 
   public static final class Builder {
 

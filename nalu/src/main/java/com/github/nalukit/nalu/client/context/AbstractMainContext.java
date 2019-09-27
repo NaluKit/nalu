@@ -25,6 +25,7 @@ public abstract class AbstractMainContext
    *
    * @return application context
    */
+  @Override
   public Context getContext() {
     return this.context;
   }

@@ -22,8 +22,7 @@ import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.jupiter.api.Test;
 
-import javax.tools.JavaFileObject;
-import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.google.testing.compile.Compiler.javac;
 
@@ -33,11 +32,7 @@ public class FiltersTest {
   @Test
   void testFiltersAnnotationOnAMethod() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/filter/filterAnnotationOnAMethod/FilterAnnotationOnAMethod.java"));
-                                       }
-                                     });
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/filter/filterAnnotationOnAMethod/FilterAnnotationOnAMethod.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)

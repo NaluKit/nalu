@@ -34,12 +34,14 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
    * <b>Important:<br>
    * Inside the render-method, you have to call the initElement-method!</b>
    */
+  @Override
   public abstract void render();
 
   protected void initElement(W element) {
     this.element = element;
   }
 
+  @Override
   public void bind() {
     // if you need to bind some handlers and would like to do this in a separate method
     // just override this method.

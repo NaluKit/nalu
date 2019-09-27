@@ -2,7 +2,21 @@ package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.Nalu;
 
+import java.util.Objects;
+
 public class RouterUtils {
+
+  private static RouterUtils instance;
+
+  private RouterUtils() {
+  }
+
+  public static RouterUtils get() {
+    if (Objects.isNull(instance)) {
+      instance = new RouterUtils();
+    }
+    return instance;
+  }
 
   /**
    * This method compares the route with the value of withRoute respecting parameters.
@@ -25,9 +39,10 @@ public class RouterUtils {
    * @param withRoute the compare route which has no parameter values and uses '*' instead
    * @return true the routes matches or false in case not
    */
-  public static boolean match(String route,
-                              String withRoute) {
-    return RouterUtils.match(route,
+  public boolean match(String route,
+                       String withRoute) {
+    return RouterUtils.get()
+                      .match(route,
                              withRoute,
                              false);
   }
@@ -54,11 +69,13 @@ public class RouterUtils {
    * @param exact     if true, routes must match exactly
    * @return true the routes matches or false in case not
    */
-  public static boolean match(String route,
-                              String withRoute,
-                              boolean exact) {
-    String[] partsOfRoute = RouterUtils.split(route);
-    String[] partsOfWithRoute = RouterUtils.split(withRoute);
+  public boolean match(String route,
+                       String withRoute,
+                       boolean exact) {
+    String[] partsOfRoute = RouterUtils.get()
+                                       .split(route);
+    String[] partsOfWithRoute = RouterUtils.get()
+                                           .split(withRoute);
 
     // in case route has more parts than withRoute, return false
     if (partsOfRoute.length > partsOfWithRoute.length) {
@@ -92,7 +109,8 @@ public class RouterUtils {
         }
         if (partsOfRoute.length - 1 == i) {
           if (partsOfWithRoute.length > partsOfRoute.length) {
-            return RouterUtils.onlyParameterAddEnd(partsOfWithRoute,
+            return RouterUtils.get()
+                              .onlyParameterAddEnd(partsOfWithRoute,
                                                    i + 1);
           }
         }
@@ -131,7 +149,8 @@ public class RouterUtils {
         }
         if (partsOfRoute.length - 1 == i) {
           if (partsOfWithRoute.length > partsOfRoute.length) {
-            return RouterUtils.onlyParameterAddEnd(partsOfWithRoute,
+            return RouterUtils.get()
+                              .onlyParameterAddEnd(partsOfWithRoute,
                                                    i + 1);
           }
         }
@@ -159,7 +178,7 @@ public class RouterUtils {
     return true;
   }
 
-  private static String[] split(String route) {
+  private String[] split(String route) {
     if (route.startsWith("/")) {
       if (route.length() > 1) {
         return route.substring(1)
@@ -171,22 +190,14 @@ public class RouterUtils {
     }
   }
 
-  private static boolean onlyParameterAddEnd(String[] partsOfRoute,
-                                             int index) {
+  private boolean onlyParameterAddEnd(String[] partsOfRoute,
+                                      int index) {
     for (int i = index; i < partsOfRoute.length; i++) {
       if (!"*".equals(partsOfRoute[i])) {
         return false;
       }
     }
     return true;
-  }
-
-  private static boolean parameterOnPosition(String[] partsOfRoute,
-                                             int index) {
-    if (partsOfRoute.length - 1 < index) {
-      return false;
-    }
-    return "*".equals(partsOfRoute[index]);
   }
 
 }

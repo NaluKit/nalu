@@ -120,7 +120,7 @@ public class ControllerCompositeConditionFactory {
     return false;
   }
 
-  class ConditionContainer {
+  static class ConditionContainer {
 
     private String                   compositeName;
     private IsLoadCompositeCondition condition;

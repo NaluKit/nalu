@@ -22,8 +22,7 @@ import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.jupiter.api.Test;
 
-import javax.tools.JavaFileObject;
-import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.google.testing.compile.Compiler.javac;
 
@@ -33,11 +32,7 @@ public class ShellTest {
   @Test
   void testShellOnAInterface() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/shellOnAInterface/ShellOnAInterface.java"));
-                                       }
-                                     });
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/shellOnAInterface/ShellOnAInterface.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -47,11 +42,7 @@ public class ShellTest {
   @Test
   void testShellDoesNotExtendAbstractShell() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/shellDoesNotExtendAbstractShell01/ShellDoesNotExtendAbstractShell.java"));
-                                       }
-                                     });
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/shellDoesNotExtendAbstractShell01/ShellDoesNotExtendAbstractShell.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -61,11 +52,7 @@ public class ShellTest {
   @Test
   void testShellDoesNotHaveGenericContext() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/shellDoesNotHaveGenericContext/ShellDoesNotHaveGenericContext.java"));
-                                       }
-                                     });
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shell/shellDoesNotHaveGenericContext/ShellDoesNotHaveGenericContext.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)

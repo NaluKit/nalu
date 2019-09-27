@@ -15,35 +15,20 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
-import com.github.nalukit.nalu.client.application.annotation.Filters;
 import com.github.nalukit.nalu.processor.ProcessorException;
-import com.github.nalukit.nalu.processor.ProcessorUtils;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class FiltersAnnotationValidator {
-
-  private ProcessorUtils processorUtils;
-
-  private ProcessingEnvironment processingEnvironment;
-
-  private RoundEnvironment roundEnvironment;
 
   @SuppressWarnings("unused")
   private FiltersAnnotationValidator() {
   }
 
+  @SuppressWarnings("unused")
   private FiltersAnnotationValidator(Builder builder) {
-    this.processingEnvironment = builder.processingEnvironment;
-    this.roundEnvironment = builder.roundEnvironment;
 
     setUp();
   }
@@ -53,9 +38,6 @@ public class FiltersAnnotationValidator {
   }
 
   private void setUp() {
-    this.processorUtils = ProcessorUtils.builder()
-                                        .processingEnvironment(this.processingEnvironment)
-                                        .build();
   }
 
   public void validate(Element filterElement)
@@ -101,30 +83,32 @@ public class FiltersAnnotationValidator {
     //    }
   }
 
-  private List<String> getFilterClassesAsList(TypeElement typeElement) {
-    Element filtersAnnotation = this.processingEnvironment.getElementUtils()
-                                                          .getTypeElement(Filters.class.getName());
-    TypeMirror filtersAnnotationAsTypeMirror = filtersAnnotation.asType();
-    return typeElement.getAnnotationMirrors()
-                      .stream()
-                      .filter(annotationMirror -> annotationMirror.getAnnotationType()
-                                                                  .equals(filtersAnnotationAsTypeMirror))
-                      .flatMap(annotationMirror -> annotationMirror.getElementValues()
-                                                                   .entrySet()
-                                                                   .stream())
-                      .findFirst().<List<String>>map(entry -> Arrays.stream(entry.getValue()
-                                                                                 .toString()
-                                                                                 .replace("{",
-                                                                                          "")
-                                                                                 .replace("}",
-                                                                                          "")
-                                                                                 .replace(" ",
-                                                                                          "")
-                                                                                 .split(","))
-                                                                    .map((v) -> v.substring(0,
-                                                                                            v.indexOf(".class")))
-                                                                    .collect(Collectors.toList())).orElse(new ArrayList<>());
-  }
+  //  private List<String> getFilterClassesAsList(TypeElement typeElement) {
+  //    Element filtersAnnotation = this.processingEnvironment.getElementUtils()
+  //                                                          .getTypeElement(Filters.class.getName());
+  //    TypeMirror filtersAnnotationAsTypeMirror = filtersAnnotation.asType();
+  //    return typeElement.getAnnotationMirrors()
+  //                      .stream()
+  //                      .filter(annotationMirror -> annotationMirror.getAnnotationType()
+  //                                                                  .equals(filtersAnnotationAsTypeMirror))
+  //                      .flatMap(annotationMirror -> annotationMirror.getElementValues()
+  //                                                                   .entrySet()
+  //                                                                   .stream())
+  //                      .findFirst().<List<String>>map(entry -> Arrays.stream(entry.getValue()
+  //                                                                                 .toString()
+  //                                                                                 .replace("{",
+  //                                                                                          "")
+  //                                                                                 .replace("}",
+  //                                                                                          "")
+  //                                                                                 .replace(" ",
+  //                                                                                          "")
+  //                                                                                 .split(","))
+  //                                                                    .map((v) -> v.substring(0,
+  //                                                                                            v.indexOf(".class")))
+  //                                                                    .collect(Collectors.toList())).orElse(new ArrayList<>());
+  //  }
+
+
 
   public static final class Builder {
 

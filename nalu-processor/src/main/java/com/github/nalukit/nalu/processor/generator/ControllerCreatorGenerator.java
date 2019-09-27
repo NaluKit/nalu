@@ -37,8 +37,6 @@ import java.io.IOException;
 
 public class ControllerCreatorGenerator {
 
-  private MetaModel metaModel;
-
   private ProcessingEnvironment processingEnvironment;
 
   private ControllerModel controllerModel;
@@ -48,7 +46,6 @@ public class ControllerCreatorGenerator {
   }
 
   private ControllerCreatorGenerator(Builder builder) {
-    this.metaModel = builder.metaModel;
     this.processingEnvironment = builder.processingEnvironment;
     this.controllerModel = builder.controllerModel;
   }

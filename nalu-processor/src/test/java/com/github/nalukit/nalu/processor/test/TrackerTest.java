@@ -22,8 +22,8 @@ import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.jupiter.api.Test;
 
-import javax.tools.JavaFileObject;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static com.google.testing.compile.Compiler.javac;
 
@@ -33,11 +33,7 @@ public class TrackerTest {
   @Test
   void testTrackerAnnotationOnAMethod() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/trackerAnnotationOnAMethod/TrackerAnnotationOnAMethod.java"));
-                                       }
-                                     });
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/trackerAnnotationOnAMethod/TrackerAnnotationOnAMethod.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -47,11 +43,7 @@ public class TrackerTest {
   @Test
   void testTrackerAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/trackerAnnotationOnAClass/TrackerAnnotationOnAClass.java"));
-                                       }
-                                     });
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/trackerAnnotationOnAClass/TrackerAnnotationOnAClass.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -61,11 +53,7 @@ public class TrackerTest {
   @Test
   void testTrackerAnnotationWithoutExtendsIsApplication() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/trackerAnnotationWithoutExtendsIsApplication/TrackerAnnotationWithoutExtendsIsApplication.java"));
-                                       }
-                                     });
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/trackerAnnotationWithoutExtendsIsApplication/TrackerAnnotationWithoutExtendsIsApplication.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -75,11 +63,7 @@ public class TrackerTest {
   @Test
   public void testTrackerAnnotationOnClassWithoutApplicationAnnotation() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/trackerAnnotationOnClassWithoutApplicationAnnotation/TrackerAnnotationOnClassWithoutApplicationAnnotation.java"));
-                                       }
-                                     });
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/trackerAnnotationOnClassWithoutApplicationAnnotation/TrackerAnnotationOnClassWithoutApplicationAnnotation.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -89,17 +73,13 @@ public class TrackerTest {
   @Test
   void testApplicationWithTracker() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/applicationWithTracker/ApplicationWithTracker.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockTracker.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java"));
-                                       }
-                                     });
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/applicationWithTracker/ApplicationWithTracker.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockTracker.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     CompilationSubject.assertThat(compilation)
@@ -110,16 +90,12 @@ public class TrackerTest {
   @Test
   void testApplicationWithTrackerThatDoesNotExtendsAbstractracker() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(new ArrayList<JavaFileObject>() {
-                                       {
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/applicationWithTrackerError01/ApplicationWithTrackerError01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/applicationWithTrackerError01/TrackerError01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"));
-                                         add(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java"));
-                                       }
-                                     });
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/applicationWithTrackerError01/ApplicationWithTrackerError01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/applicationWithTrackerError01/TrackerError01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)

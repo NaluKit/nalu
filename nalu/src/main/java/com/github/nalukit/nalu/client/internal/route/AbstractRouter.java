@@ -108,6 +108,7 @@ abstract class AbstractRouter
    * @param controller controller to store
    * @param <C>        controller type
    */
+  @Override
   public <C extends AbstractComponentController<?, ?, ?>> void storeInCache(C controller) {
     ControllerFactory.get()
                      .storeInCache(controller);
@@ -121,6 +122,7 @@ abstract class AbstractRouter
    * @param compositeController compositeController to store
    * @param <C>                 controller type
    */
+  @Override
   public <C extends AbstractCompositeController<?, ?, ?>> void storeInCache(C compositeController) {
     CompositeFactory.get()
                     .storeInCache(compositeController);
@@ -133,6 +135,7 @@ abstract class AbstractRouter
    * @param controller controller to be removed
    * @param <C>        controller type
    */
+  @Override
   public <C extends AbstractComponentController<?, ?, ?>> void removeFromCache(C controller) {
     ControllerFactory.get()
                      .removeFromCache(controller);
@@ -145,6 +148,7 @@ abstract class AbstractRouter
    * @param compositeController controller to be removed
    * @param <C>                 controller type
    */
+  @Override
   public <C extends AbstractCompositeController<?, ?, ?>> void removeFromCache(C compositeController) {
     CompositeFactory.get()
                     .removeFromCache(compositeController);
@@ -330,6 +334,7 @@ abstract class AbstractRouter
     }
   }
 
+  @Override
   public void handleRouterException(String hash,
                                     RouterException e) {
     // fire Router StateEvent
@@ -608,6 +613,7 @@ abstract class AbstractRouter
    * @return parse result
    * @throws com.github.nalukit.nalu.client.internal.route.RouterException in case no controller is found for the routing
    */
+  @Override
   public RouteResult parse(String route)
       throws RouterException {
     String decodedUrl = this.plugin.decode(route);
@@ -695,8 +701,9 @@ abstract class AbstractRouter
         stopController(controller);
       }
     });
-    routeConfigurations.forEach(routeConfiguraion -> this.plugin.remove(routeConfiguraion.getSelector()));
-    controllerList.forEach(c -> this.activeComponents.remove(c));
+    routeConfigurations.forEach(routeConfiguration -> this.plugin.remove(routeConfiguration.getSelector()));
+    controllerList.forEach(c -> this.activeComponents.remove(c.getClass()
+                                                              .getCanonicalName()));
   }
 
   private void deactivateController(AbstractComponentController<?, ?, ?> controller) {
@@ -851,6 +858,7 @@ abstract class AbstractRouter
    * @param newRoute routing goal
    * @param params    list of parameters [0 - n]
    */
+  @Override
   public void route(String newRoute,
                     String... params) {
     // fire souring event ...
@@ -892,6 +900,7 @@ abstract class AbstractRouter
    * @param params parameters of the route
    * @return generate String of new route
    */
+  @Override
   public String generate(String route,
                          String... params) {
     return RouteParser.get()
@@ -915,6 +924,7 @@ abstract class AbstractRouter
    *
    * @param eventBus Nalu application event bus
    */
+  @Override
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
@@ -939,6 +949,7 @@ abstract class AbstractRouter
    *
    * @return list of query parameters at application start
    */
+  @Override
   public Map<String, String> getStartQueryParameters() {
     return this.plugin.getQueryParameters();
   }
