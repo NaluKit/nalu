@@ -205,7 +205,7 @@ public class CompositeCreatorGenerator {
                 .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                               ClassName.get(ClientLogger.class))
                 .addStatement("compositeInstance.setComposite(storedComposite)")
-                .addStatement("compositeInstance.setChached(true)")
+                .addStatement("compositeInstance.setCached(true)")
                 .addStatement("compositeInstance.getComposite().setCached(true)")
                 .endControlFlow();
     createMethod.addStatement("return compositeInstance");
@@ -219,7 +219,7 @@ public class CompositeCreatorGenerator {
                                                                               "object")
                                                                      .build())
                                           .addParameter(ParameterSpec.builder(String[].class,
-                                                                              "parms")
+                                                                              "params")
                                                                      .build())
                                           .varargs()
                                           //                                                .returns(ClassName.get(CompositeInstance.class))
@@ -239,21 +239,21 @@ public class CompositeCreatorGenerator {
     // compositeModel has parameters?
     if (compositeModel.getParameterAcceptors()
                       .size() > 0) {
-      // has the model AccpetParameter ?
+      // has the model AcceptParameter ?
       if (compositeModel.getParameterAcceptors()
                         .size() > 0) {
-        method.beginControlFlow("if (parms != null)");
+        method.beginControlFlow("if (params != null)");
         for (int i = 0; i <
             compositeModel.getParameterAcceptors()
                           .size(); i++) {
-          method.beginControlFlow("if (parms.length >= " + (i + 1) + ")")
+          method.beginControlFlow("if (params.length >= " + (i + 1) + ")")
                 .addStatement("sb01 = new $T()",
                               ClassName.get(StringBuilder.class))
                 .addStatement("sb01.append(\"composite >>\").append(composite.getClass().getCanonicalName()).append(\"<< --> using method >>" +
                                   compositeModel.getParameterAcceptors()
                                                 .get(i)
                                                 .getMethodName() +
-                                  "<< to set value >>\").append(parms[" +
+                                  "<< to set value >>\").append(params[" +
                                   i +
                                   "]).append(\"<<\")")
                 .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
@@ -262,7 +262,7 @@ public class CompositeCreatorGenerator {
                                   compositeModel.getParameterAcceptors()
                                                 .get(i)
                                                 .getMethodName() +
-                                  "(parms[" +
+                                  "(params[" +
                                   i +
                                   "])")
                 .endControlFlow();
@@ -301,7 +301,7 @@ public class CompositeCreatorGenerator {
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param metaModel meta data model of the eventbus
+     * @param metaModel meta data model of the event bus
      * @return the Builder
      */
     public Builder metaModel(MetaModel metaModel) {

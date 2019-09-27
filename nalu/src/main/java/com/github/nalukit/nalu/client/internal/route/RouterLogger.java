@@ -41,7 +41,7 @@ class RouterLogger {
 
   static String logNoMatchingRoute(String route,
                                    String routeError) {
-    String sb = "no matching controller for route >>" + route + "<< found --> use configurated route: >" + routeError + "<<";
+    String sb = "no matching controller for route >>" + route + "<< found --> use configured route: >" + routeError + "<<";
     logSimple(sb,
               3);
     return sb;
@@ -104,7 +104,7 @@ class RouterLogger {
   }
 
   static void logUseErrorRoute(String routeError) {
-    String sb = "use configurated default route >>" + routeError + "<<";
+    String sb = "use configured default route >>" + routeError + "<<";
     logSimple(sb,
               3);
   }
@@ -133,7 +133,7 @@ class RouterLogger {
                 4);
   }
 
-  static void logControllerdeactivateMethodWillBeCalled(String canonicalName) {
+  static void logControllerDeactivateMethodWillBeCalled(String canonicalName) {
     String sb = "controller >>" + canonicalName + "<< --> will be deactivated";
     logSimple(sb,
               3);
@@ -319,8 +319,8 @@ class RouterLogger {
   }
 
   static void logControllerCompositeControllerFound(String controller,
-                                                    int numberofCompositeControllerFound) {
-    String sb = "controller >>" + controller + "<< --> composites found >>" + numberofCompositeControllerFound + "<<";
+                                                    int numberOfCompositeControllerFound) {
+    String sb = "controller >>" + controller + "<< --> composites found >>" + numberOfCompositeControllerFound + "<<";
     logDetailed(sb,
                 5);
   }
@@ -346,13 +346,13 @@ class RouterLogger {
                 5);
   }
 
-  static void logCompositeComntrollerActivateMethodCalled(String compositeController) {
+  static void logCompositeControllerActivateMethodCalled(String compositeController) {
     String sb = "Router: create compositeController >>" + compositeController + "<< - calls method activate()";
     logDetailed(sb,
                 5);
   }
 
-  static void logCompositeComntrollerStartMethodCalled(String compositeController) {
+  static void logCompositeControllerStartMethodCalled(String compositeController) {
     String sb = "Router: create compositeController >>" + compositeController + "<< - calls method start()";
     logDetailed(sb,
                 5);

@@ -91,13 +91,13 @@ public class ControllerAnnotationValidator {
     // validate route
     validateRoute();
     // AcceptParameter annotation
-    List<String> paraemtersFromRoute = this.getParaemtersFromRoute(controllerAnnotation.route());
+    List<String> parametersFromRoute = this.getParametersFromRoute(controllerAnnotation.route());
     for (Element element : this.processingEnvironment.getElementUtils()
                                                      .getAllMembers((TypeElement) this.controllerElement)) {
       if (ElementKind.METHOD.equals(element.getKind())) {
         if (!Objects.isNull(element.getAnnotation(AcceptParameter.class))) {
           AcceptParameter annotation = element.getAnnotation(AcceptParameter.class);
-          if (!paraemtersFromRoute.contains(annotation.value())) {
+          if (!parametersFromRoute.contains(annotation.value())) {
             throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString() + "<< - @AcceptParameter with value >>" + annotation.value() + "<< is not represented in the route as parameter");
           }
           ExecutableType executableType = (ExecutableType) element.asType();
@@ -115,7 +115,7 @@ public class ControllerAnnotationValidator {
     }
   }
 
-  private List<String> getParaemtersFromRoute(String route) {
+  private List<String> getParametersFromRoute(String route) {
     return Stream.of(route.split("/"))
                  .filter(s -> s.startsWith(":"))
                  .map(s -> s.substring(1))

@@ -24,10 +24,10 @@ public class BartSimpsonFilter
 
   @Override
   public boolean filter(String route,
-                        String... parms) {
+                        String... params) {
     if ("/detail".equals(route)) {
-      if ("3".equals(parms[0])) {
-        System.out.print("Bart Simpsons is not selecteable -> redirecting to search!");
+      if ("3".equals(params[0])) {
+        System.out.print("Bart Simpson is not selectable -> redirecting to search!");
         return false;
       }
     }

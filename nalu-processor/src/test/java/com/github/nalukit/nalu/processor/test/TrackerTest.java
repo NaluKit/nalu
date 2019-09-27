@@ -108,7 +108,7 @@ public class TrackerTest {
   }
 
   @Test
-  void testApplicationWithTrackerThatDoesNotExtendsAbstractracker() {
+  void testApplicationWithTrackerThatDoesNotExtendsAbstractTracker() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(new ArrayList<JavaFileObject>() {
                                        {

@@ -48,7 +48,7 @@ public class AcceptParameterTest {
   //  }
   //
   //  @Test
-  //  public void testApplictionAnnotationOnAMethod() {
+  //  public void testApplicationAnnotationOnAMethod() {
   //    Compilation compilation = javac().withProcessors(new NaluProcessor())
   //                                     .compile(new ArrayList<JavaFileObject>() {
   //                                       {

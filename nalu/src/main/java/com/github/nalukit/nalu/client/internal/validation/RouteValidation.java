@@ -68,13 +68,13 @@ public class RouteValidation {
     String shellOfRoute = getShellFromRoute(route);
     String routeWithoutShell = getRouteWithoutShellAndParameter(route);
     // check shell
-    Optional<ShellConfig> optinalShell = shellConfiguration.getShells()
+    Optional<ShellConfig> optionalShell = shellConfiguration.getShells()
                                                            .stream()
                                                            .filter(s -> s.getRoute()
                                                                          .equals("/" + shellOfRoute))
                                                            .findFirst();
-    if (!optinalShell.isPresent()) {
-      logRouteNotFoud(route,
+    if (!optionalShell.isPresent()) {
+      logRouteNotFound(route,
                       startRoute,
                       routeError);
       return false;
@@ -92,7 +92,7 @@ public class RouteValidation {
                                                                                      r.getRoute()))
                                                              .findFirst();
     if (!optionalRoute.isPresent()) {
-      logRouteNotFoud(route,
+      logRouteNotFound(route,
                       startRoute,
                       routeError);
       return false;
@@ -100,9 +100,9 @@ public class RouteValidation {
     return true;
   }
 
-  private static void logRouteNotFoud(String route,
-                                      boolean startRoute,
-                                      boolean routeError) {
+  private static void logRouteNotFound(String route,
+                                       boolean startRoute,
+                                       boolean routeError) {
     String sb = "value of ";
     if (startRoute) {
       sb += "start route ";

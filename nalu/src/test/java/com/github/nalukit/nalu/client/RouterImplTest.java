@@ -313,7 +313,7 @@ public class RouterImplTest {
   }
 
   /**
-   * Method: generate(String route, String... parms)
+   * Method: generate(String route, String... params)
    */
   @Test
   void testGenerateRoute01() {
@@ -330,7 +330,7 @@ public class RouterImplTest {
   }
 
   /**
-   * Method: generate(String route, String... parms)
+   * Method: generate(String route, String... params)
    */
   @Test
   void testGenerateRoute02() {
@@ -349,7 +349,7 @@ public class RouterImplTest {
   }
 
   /**
-   * Method: generate(String route, String... parms)
+   * Method: generate(String route, String... params)
    */
   @Test
   void testGenerateRoute03() {
@@ -368,7 +368,7 @@ public class RouterImplTest {
   }
 
   /**
-   * Method: generate(String route, String... parms)
+   * Method: generate(String route, String... params)
    */
   @Test
   void testGenerateRoute04() {

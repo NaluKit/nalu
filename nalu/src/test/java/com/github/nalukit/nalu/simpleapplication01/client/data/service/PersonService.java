@@ -57,27 +57,27 @@ public class PersonService {
                                     "Springfield");
     persons.put(1L,
                 new Person(1,
-                           "Simpsons",
+                           "Simpson",
                            "Homer",
                            address01));
     persons.put(2L,
                 new Person(2,
-                           "Simpsons",
+                           "Simpson",
                            "Marge",
                            address01));
     persons.put(3L,
                 new Person(3,
-                           "Simpsons",
+                           "Simpson",
                            "Bart",
                            address01));
     persons.put(4L,
                 new Person(4,
-                           "Simpsons",
+                           "Simpson",
                            "Maggie",
                            address01));
     persons.put(5L,
                 new Person(5,
-                           "Simpsons",
+                           "Simpson",
                            "Lisa",
                            address01));
     Address address02 = new Address(2,

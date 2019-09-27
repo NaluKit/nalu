@@ -36,7 +36,7 @@ public @interface Composite {
    * <p>
    * Can be used to get access to the instance of the CompositeController.
    *
-   * @return referenz of the composite controller
+   * @return reference of the composite controller
    */
   String name();
 
@@ -62,7 +62,7 @@ public @interface Composite {
    * <p>
    * Default is AlwaysLoadComposite.class, which will always load the composite.
    *
-   * @return the composite laoder condtion class
+   * @return the composite loader condition class
    */
   Class<? extends IsLoadCompositeCondition> condition() default AlwaysLoadComposite.class;
 
@@ -72,7 +72,7 @@ public @interface Composite {
    *   <li>LOCAL: use this in case you do not wish to cache the composite, or, you wish to stored the instance of the composite for this component </li>
    *   <li>GLOBAL: use this in case you wish to use the instance of the composite in any places where the composite is referenced and the scope is Global.</li>
    * </ul>
-   * In case Scope.GLOBAL is choosed Nalu will automaticily store the instance in the cache (the first timne the component is visited)
+   * In case Scope.GLOBAL is selected Nalu will automatically store the instance in the cache (the first time the component is visited)
    *
    * @return Scope of the composite
    */
@@ -81,8 +81,8 @@ public @interface Composite {
   /**
    * Scope of the composite:
    * <ul>
-   *   <li>LOCAL: in case of caching the cached composite is onyl used for the component</li>
-   *   <li>GLOBAL: in case of caching the cached composite is used in all places the composite is reference with Scop.GLOBAL</li>
+   *   <li>LOCAL: in case of caching the cached composite is only used for the component</li>
+   *   <li>GLOBAL: in case of caching the cached composite is used in all places the composite is reference with Scope.GLOBAL</li>
    * </ul>
    */
   enum Scope {

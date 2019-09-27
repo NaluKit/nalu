@@ -60,7 +60,7 @@ public class NaluPluginGwtProcessor
     this.stopwatch = Stopwatch.createStarted();
     setUp();
     this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor started ...");
-    this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor version >>1.3.3<<");
+    this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor version >>1.3.4-SNAPSHOT<<");
   }
 
   @Override
@@ -138,7 +138,7 @@ public class NaluPluginGwtProcessor
                         .equals(parameterClass) ||
           Widget.class.getCanonicalName()
                       .equals(parameterClass))) {
-      throw new ProcessorException("Nalu-Processor: @Selector can only be used with a method that has one parameter and the parameter type is com.google.gwt.user.client.ui.IsWidget or com.google.gwt.user.client.ui.WIdget");
+      throw new ProcessorException("Nalu-Processor: @Selector can only be used with a method that has one parameter and the parameter type is com.google.gwt.user.client.ui.IsWidget or com.google.gwt.user.client.ui.Widget");
     }
   }
 

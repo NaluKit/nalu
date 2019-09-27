@@ -111,7 +111,7 @@ public class PopUpControllerFactory {
     popUpComponentController.getController()
                             .setDataStore(e.getDataStore());
     ClientLogger.get()
-                .logSimple("controller >>" + popUpComponentController.getPopUpControllerClassName() + "<< --> initializied",
+                .logSimple("controller >>" + popUpComponentController.getPopUpControllerClassName() + "<< --> initialized",
                            3);
     ClientLogger.get()
                 .logSimple("controller >>" + popUpComponentController.getPopUpControllerClassName() + "<< --> call onBeforeShow",

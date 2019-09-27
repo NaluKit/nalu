@@ -165,7 +165,7 @@ public class ConsistenceValidator {
     if (shell.startsWith("/")) {
       shell = shell.substring(1);
     }
-    // seperate shellCreator
+    // separate shellCreator
     if (shell.contains("/")) {
       shell = shell.substring(0,
                               shell.indexOf("/"));

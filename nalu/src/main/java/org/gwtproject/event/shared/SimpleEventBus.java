@@ -265,7 +265,7 @@ public class SimpleEventBus
     List<?> pruned = sourceMap.remove(source);
 
     assert pruned != null : "Can't prune what wasn't there";
-    assert pruned.isEmpty() : "Pruned unempty list!";
+    assert pruned.isEmpty() : "Pruned non-empty list!";
 
     if (sourceMap.isEmpty()) {
       map.remove(type);

@@ -103,7 +103,7 @@ public class RouteConfig {
     if (this.shell.contains("*")) {
       return true;
     }
-    // seperate shellCreator from route
+    // separate shellCreator from route
     String shellOfRoute = route;
     if (shellOfRoute.startsWith("/")) {
       shellOfRoute = shellOfRoute.substring(1);
@@ -116,7 +116,7 @@ public class RouteConfig {
   }
 
   private boolean matchRouteWithoutShell(String route) {
-    // seperate shellCreator from route
+    // separate shellCreator from route
     String routeWithoutShell = route;
     if (routeWithoutShell.startsWith("/")) {
       routeWithoutShell = routeWithoutShell.substring(1);

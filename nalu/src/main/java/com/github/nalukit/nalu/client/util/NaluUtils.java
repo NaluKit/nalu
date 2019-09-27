@@ -40,7 +40,7 @@ public class NaluUtils {
   /**
    * Compares two routes.
    * <p>
-   * Parameters of the route will be converted using @see NaluUilts#convertRoute
+   * Parameters of the route will be converted using @see NaluUtils#convertRoute
    *
    * @param route01 first route of the compare
    * @param route02 second route of the compare

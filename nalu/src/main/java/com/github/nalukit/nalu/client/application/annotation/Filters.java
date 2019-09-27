@@ -40,9 +40,9 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Filters {
 
   /**
-   * List of the applicaiton filters.
+   * List of the application filters.
    *
-   * @return applicaiton filters
+   * @return application filters
    */
   Class<? extends IsFilter>[] filterClasses();
 

@@ -99,7 +99,7 @@ public class ControllerCreatorGenerator {
                                                                               "object")
                                                                      .build())
                                           .addParameter(ParameterSpec.builder(String[].class,
-                                                                              "parms")
+                                                                              "params")
                                                                      .build())
                                           .varargs()
                                           .addException(ClassName.get(RoutingInterceptionException.class))
@@ -117,26 +117,26 @@ public class ControllerCreatorGenerator {
                                                         ClassName.get(StringBuilder.class));
     if (controllerModel.getParameters()
                        .size() > 0) {
-      // has the model AccpetParameter ?
+      // has the model AcceptParameter ?
       if (controllerModel.getParameterAcceptors()
                          .size() > 0) {
-        method.beginControlFlow("if (parms != null)");
+        method.beginControlFlow("if (params != null)");
         for (int i = 0; i <
             controllerModel.getParameters()
                            .size(); i++) {
           String methodName = controllerModel.getParameterAcceptors(controllerModel.getParameters()
                                                                                    .get(i));
           if (methodName != null) {
-            method.beginControlFlow("if (parms.length >= " + (i + 1) + ")")
+            method.beginControlFlow("if (params.length >= " + (i + 1) + ")")
                   .addStatement("sb01 = new $T()",
                                 ClassName.get(StringBuilder.class))
                   .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> using method >>" +
                                     methodName +
-                                    "<< to set value >>\").append(parms[" + i +
+                                    "<< to set value >>\").append(params[" + i +
                                     "]).append(\"<<\")")
                   .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                                 ClassName.get(ClientLogger.class))
-                  .addStatement("controller." + methodName + "(parms[" + i + "])")
+                  .addStatement("controller." + methodName + "(params[" + i + "])")
                   .endControlFlow();
           }
         }
@@ -265,7 +265,7 @@ public class ControllerCreatorGenerator {
                                                                       controllerModel.getProvider()
                                                                                      .getSimpleName()))
                                           .addStatement("controllerInstance.setController(controller)")
-                                          .addStatement("controllerInstance.setChached(false)")
+                                          .addStatement("controllerInstance.setCached(false)")
                                           .addStatement("controller.setContext(context)")
                                           .addStatement("controller.setEventBus(eventBus)")
                                           .addStatement("controller.setRouter(router)")
@@ -280,7 +280,7 @@ public class ControllerCreatorGenerator {
                                           .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                                                         ClassName.get(ClientLogger.class))
                                           .addStatement("controllerInstance.setController(storedController)")
-                                          .addStatement("controllerInstance.setChached(true)")
+                                          .addStatement("controllerInstance.setCached(true)")
                                           .addStatement("controllerInstance.getController().setCached(true)")
                                           .endControlFlow();
     method.addStatement("return controllerInstance");
@@ -315,7 +315,7 @@ public class ControllerCreatorGenerator {
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param metaModel meta data model of the eventbus
+     * @param metaModel meta data model of the event bus
      * @return the Builder
      */
     public Builder metaModel(MetaModel metaModel) {

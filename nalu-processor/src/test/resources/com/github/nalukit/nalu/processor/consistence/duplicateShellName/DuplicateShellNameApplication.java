@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.consistence.dubplicatShellName;
+package com.github.nalukit.nalu.processor.consistence.duplicatShellName;
 
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
@@ -23,6 +23,6 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 @Application(startRoute = "/mockShell02/route03",
              context = MockContext.class,
              routeError = "/errorShell/error")
-public interface DubplicateShellNameApplication
+public interface DuplicateShellNameApplication
     extends IsApplication {
 }

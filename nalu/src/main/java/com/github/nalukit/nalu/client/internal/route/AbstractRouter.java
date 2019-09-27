@@ -37,7 +37,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 abstract class AbstractRouter
-    implements ConfiguratableRouter {
+    implements ConfigurableRouter {
 
   private static final String NALU_ERROR_TYPE_NO_CONTROLLER_INSTANCE = "NoControllerInstance";
   private static final String NALU_ERROR_TYPE_NO_SELECTOR_FOUND      = "NoSelectorFound";
@@ -69,7 +69,7 @@ abstract class AbstractRouter
   private List<String>                                      loopDetectionList;
   // the tracker: if not null, track the users routing
   private IsTracker                                         tracker;
-  // teh applicaiton eventbus
+  // teh application event bus
   private SimpleEventBus                                    eventBus;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
@@ -92,7 +92,7 @@ abstract class AbstractRouter
     this.plugin = plugin;
     // save the tracker
     this.tracker = tracker;
-    // inistantiate lists, etc.
+    // instantiate lists, etc.
     this.activeComponents = new HashMap<>();
     this.loopDetectionList = new ArrayList<>();
     // set up PropertyFactory
@@ -107,7 +107,7 @@ abstract class AbstractRouter
   /**
    * Returns the last error message set by the application.
    * <p>
-   * Once the error message is consumed, it should be reseted by the developer.
+   * Once the error message is consumed, it should be reset by the developer.
    * (after displayed on the error site!)
    *
    * @return the last set error message or null, if there is none
@@ -120,7 +120,7 @@ abstract class AbstractRouter
    * Sets the application error message.
    * <p>
    *
-   * @param applicationErrorMessage the new applicaiton error message
+   * @param applicationErrorMessage the new application error message
    */
   public void setApplicationErrorMessage(NaluErrorMessage applicationErrorMessage) {
     this.applicationErrorMessage = applicationErrorMessage;
@@ -151,7 +151,7 @@ abstract class AbstractRouter
   /**
    * Returns the last error message set by Nalu.
    * <p>
-   * Once the error message is consumed, it should be reseted by the developer.
+   * Once the error message is consumed, it should be reset by the developer.
    * (after displayed on the error site!)
    *
    * @return the last set error message or null, if there is none
@@ -175,10 +175,10 @@ abstract class AbstractRouter
    * In case a error message is set by Nalu and by the application,
    * this method will return the error message set by Nalu.
    * <p>
-   * Once the error message is consumed, it should be reseted by the developer.
+   * Once the error message is consumed, it should be reset by the developer.
    * (after displayed on the error site!)
    *
-   * @return the last set error message set by thel application
+   * @return the last set error message set by the application
    * or null, if there is none
    */
   public NaluErrorMessage getErrorMessageByPriority() {
@@ -227,7 +227,7 @@ abstract class AbstractRouter
   }
 
   /**
-   * Removes a controller from the chache
+   * Removes a controller from the cache
    *
    * @param controller controller to be removed
    * @param <C>        controller type
@@ -239,7 +239,7 @@ abstract class AbstractRouter
   }
 
   /**
-   * Removes a controller from the chache
+   * Removes a controller from the cache
    *
    * @param compositeController controller to be removed
    * @param <C>                 controller type
@@ -251,7 +251,7 @@ abstract class AbstractRouter
   }
 
   /**
-   * clears the chache
+   * clears the cache
    */
   public void clearCache() {
     ControllerFactory.get()
@@ -259,11 +259,11 @@ abstract class AbstractRouter
   }
 
   void handleRouting(String hash) {
-    // in some cases the hash contains protocoll, port and URI, we clean it
+    // in some cases the hash contains protocol, port and URI, we clean it
     if (hash.contains("#")) {
       hash = hash.substring(hash.indexOf("#") + 1);
     }
-    // logg hash
+    // log hash
     RouterLogger.logHandleHash(hash);
     // save hash to loop detector list ...
     if (this.loopDetectionList.contains(pimpUpHashForLoopDetection(hash))) {
@@ -314,14 +314,14 @@ abstract class AbstractRouter
                    true);
       } else {
         // should never be seen!
-        this.plugin.alert("No error Route defeined");
+        this.plugin.alert("No error route defined");
       }
       return;
     }
     // First we have to check if there is a filter
     // if there are filters ==>  filter the route
     for (IsFilter filter : this.routerConfiguration.getFilters()) {
-      if (!filter.filter(addLeadindgSlash(routeResult.getRoute()),
+      if (!filter.filter(addLeadingSlash(routeResult.getRoute()),
                          routeResult.getParameterValues()
                                     .toArray(new String[0]))) {
         RouterLogger.logFilterInterceptsRouting(filter.getClass()
@@ -359,11 +359,11 @@ abstract class AbstractRouter
                              new ShellCallback() {
                                @Override
                                public void onFinish(ShellInstance shellInstance) {
-                                 // in case there is an instance of an shellCreator existing, call the onDetach mehtod inside the shellCreator
+                                 // in case there is an instance of an shellCreator existing, call the onDetach method inside the shellCreator
                                  if (!Objects.isNull(shell)) {
                                    detachShell();
                                  }
-                                 // set newe shellCreator value
+                                 // set new shellCreator value
                                  shell = shellInstance.getShell();
                                  // save the last added shellCreator ....
                                  lastAddedShell = routeResult.getShell();
@@ -382,8 +382,8 @@ abstract class AbstractRouter
                                                           1);
                                  // get shellCreator matching root configs ...
                                  List<RouteConfig> shellMatchingRouteConfigurations = routerConfiguration.match(routeResult.getShell());
-                                 for (RouteConfig routeConfiguraion : shellMatchingRouteConfigurations) {
-                                   handleRouteConfig(routeConfiguraion,
+                                 for (RouteConfig routeConfiguration : shellMatchingRouteConfigurations) {
+                                   handleRouteConfig(routeConfiguration,
                                                      routeResult,
                                                      finalHash);
                                  }
@@ -438,8 +438,8 @@ abstract class AbstractRouter
                                         RouteResult routeResult,
                                         List<RouteConfig> routeConfigurations) {
     // routing
-    for (RouteConfig routeConfiguraion : routeConfigurations) {
-      this.handleRouteConfig(routeConfiguraion,
+    for (RouteConfig routeConfiguration : routeConfigurations) {
+      this.handleRouteConfig(routeConfiguration,
                              routeResult,
                              hash);
     }
@@ -451,11 +451,11 @@ abstract class AbstractRouter
                               routeResult.getRoute());
   }
 
-  private void handleRouteConfig(RouteConfig routeConfiguraion,
+  private void handleRouteConfig(RouteConfig routeConfiguration,
                                  RouteResult routeResult,
                                  String hash) {
     ControllerFactory.get()
-                     .controller(routeConfiguraion.getClassName(),
+                     .controller(routeConfiguration.getClassName(),
                                  new ControllerCallback() {
                                    @Override
                                    public void onRoutingInterceptionException(RoutingInterceptionException e) {
@@ -471,7 +471,7 @@ abstract class AbstractRouter
                                    public void onFinish(ControllerInstance controller) {
                                      doRouting(hash,
                                                routeResult,
-                                               routeConfiguraion,
+                                               routeConfiguration,
                                                controller);
                                    }
                                  },
@@ -496,23 +496,23 @@ abstract class AbstractRouter
       }
     } else {
       // inject the router instance into the controller!
-      // (we do it for cahced and non cached controllers,
+      // (we do it for cached and non-cached controllers,
       // cause it does not matter!
       controllerInstance.getController()
                         .setRouter(this);
       // composites of the controller
       List<AbstractCompositeController<?, ?, ?>> compositeControllers = new ArrayList<>();
-      // in case the controller is not cached, that means it is newly created, we have to deal with compüosites
+      // in case the controller is not cached, that means it is newly created, we have to deal with composites
       // handle composite of the controller
       RouterLogger.logControllerLookForCompositeController(controllerInstance.getController()
                                                                              .getClass()
                                                                              .getCanonicalName());
-      // get a list of compistes for this controller (might be empty ...
+      // get a list of composites for this controller (might be empty ...
       List<CompositeControllerReference> compositeForController = this.getCompositeForController(controllerInstance.getController()
                                                                                                                    .getClass()
                                                                                                                    .getCanonicalName());
       // in case the controller is not cached, we have to deal with composites!
-      if (!controllerInstance.isChached()) {
+      if (!controllerInstance.isCached()) {
         if (compositeForController.size() > 0) {
           RouterLogger.logControllerCompositeControllerFound(controllerInstance.getController()
                                                                                .getClass()
@@ -575,7 +575,7 @@ abstract class AbstractRouter
       // add element to DOM
       this.append(routeConfiguration.getSelector(),
                   controllerInstance.getController());
-      if (!controllerInstance.isChached()) {
+      if (!controllerInstance.isCached()) {
         // append composite
         for (AbstractCompositeController<?, ?, ?> compositeController : compositeControllers) {
           CompositeControllerReference reference = null;
@@ -649,11 +649,11 @@ abstract class AbstractRouter
                                                           .getCanonicalName());
       });
       // in case the controller is cached, we call only activate  ...
-      if (controllerInstance.isChached()) {
+      if (controllerInstance.isCached()) {
         // let's call active for all related composite
         compositeControllers.forEach(s -> {
           s.activate();
-          RouterLogger.logCompositeComntrollerActivateMethodCalled(s.getClass()
+          RouterLogger.logCompositeControllerActivateMethodCalled(s.getClass()
                                                                     .getCanonicalName());
         });
         controllerInstance.getController()
@@ -665,7 +665,7 @@ abstract class AbstractRouter
         compositeControllers.forEach(s -> {
           if (!s.isCached()) {
             s.start();
-            RouterLogger.logCompositeComntrollerStartMethodCalled(s.getClass()
+            RouterLogger.logCompositeControllerStartMethodCalled(s.getClass()
                                                                    .getCanonicalName());
             // in case we are cached globally we need to set cached
             // to true after the first time the
@@ -675,7 +675,7 @@ abstract class AbstractRouter
             }
           }
           s.activate();
-          RouterLogger.logCompositeComntrollerActivateMethodCalled(s.getClass()
+          RouterLogger.logCompositeControllerActivateMethodCalled(s.getClass()
                                                                     .getCanonicalName());
         });
         controllerInstance.getController()
@@ -712,7 +712,7 @@ abstract class AbstractRouter
                              this.routerConfiguration);
   }
 
-  private String addLeadindgSlash(String value) {
+  private String addLeadingSlash(String value) {
     if (value.startsWith("/")) {
       return value;
     }
@@ -746,13 +746,13 @@ abstract class AbstractRouter
                            .allMatch(message -> this.plugin.confirm(message));
   }
 
-  private void stopController(List<RouteConfig> routeConfiguraions,
+  private void stopController(List<RouteConfig> routeConfigurations,
                               boolean replaceShell) {
     List<AbstractComponentController<?, ?, ?>> controllerList = new ArrayList<>();
     if (replaceShell) {
       controllerList.addAll(this.activeComponents.values());
     } else {
-      controllerList.addAll(routeConfiguraions.stream()
+      controllerList.addAll(routeConfigurations.stream()
                                               .map(config -> this.activeComponents.get(config.getSelector()))
                                               .filter(Objects::nonNull)
                                               .collect(Collectors.toList()));
@@ -764,7 +764,7 @@ abstract class AbstractRouter
                                                        .getCanonicalName());
       RouterLogger.logControllerHandlingStopComposites(controller.getClass()
                                                                  .getCanonicalName());
-      // stop compositeComntrollers
+      // stop compositeControllers
       controller.getComposites()
                 .values()
                 .forEach(s -> {
@@ -790,13 +790,13 @@ abstract class AbstractRouter
         stopController(controller);
       }
     });
-    routeConfiguraions.forEach(routeConfiguraion -> this.plugin.remove(routeConfiguraion.getSelector()));
+    routeConfigurations.forEach(routeConfiguration -> this.plugin.remove(routeConfiguration.getSelector()));
     controllerList.forEach(c -> this.activeComponents.remove(c));
   }
 
   private void deactivateController(AbstractComponentController<?, ?, ?> controller) {
     // deactivate controller
-    RouterLogger.logControllerdeactivateMethodWillBeCalled(controller.getClass()
+    RouterLogger.logControllerDeactivateMethodWillBeCalled(controller.getClass()
                                                                      .getCanonicalName());
     controller.deactivate();
     RouterLogger.logControllerDeactivateMethodCalled(controller.getClass()
@@ -814,7 +814,7 @@ abstract class AbstractRouter
   }
 
   private void stopController(AbstractComponentController<?, ?, ?> controller) {
-    RouterLogger.logControllerdeactivateMethodWillBeCalled(controller.getClass()
+    RouterLogger.logControllerDeactivateMethodWillBeCalled(controller.getClass()
                                                                      .getCanonicalName());
     controller.deactivate();
     RouterLogger.logControllerDeactivateMethodCalled(controller.getClass()
@@ -942,32 +942,32 @@ abstract class AbstractRouter
    * <li>create a new hash</li>
    * <li>update the url (in case history is desired)</li>
    * </ul>
-   * Once the url gets updated, it triggers the onahshchange event and Nalu starts to work
+   * Once the url gets updated, it triggers the onhashchange event and Nalu starts to work
    *
    * @param newRoute routing goal
-   * @param parms    list of parameters [0 - n]
+   * @param params    list of parameters [0 - n]
    */
   public void route(String newRoute,
-                    String... parms) {
+                    String... params) {
     // fire souring event ...
     this.fireRouterStateEvent(RouterState.START_ROUTING,
                               newRoute);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
-                         parms);
+                         params);
     }
     // let's do the routing!
     this.route(newRoute,
                false,
-               parms);
+               params);
   }
 
   private void route(String newRoute,
                      boolean replaceState,
-                     String... parms) {
+                     String... params) {
     String newRouteWithParams = this.generate(newRoute,
-                                              parms);
+                                              params);
     if (replaceState) {
       this.plugin.route(newRouteWithParams,
                         true);
@@ -985,14 +985,14 @@ abstract class AbstractRouter
    * needs the same number of '*' in it.
    *
    * @param route route to navigate to
-   * @param parms parameters of the route
+   * @param params parameters of the route
    * @return generate String of new route
    */
   public String generate(String route,
-                         String... parms) {
+                         String... params) {
     return RouteParser.get()
                       .generate(route,
-                                parms);
+                                params);
   }
 
   private String pimpUpHashForLoopDetection(String hash) {
@@ -1007,9 +1007,9 @@ abstract class AbstractRouter
   }
 
   /**
-   * sets the eventbus inside the router
+   * sets the event bus inside the router
    *
-   * @param eventBus Nalu applicaiton eventbus
+   * @param eventBus Nalu application event bus
    */
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;

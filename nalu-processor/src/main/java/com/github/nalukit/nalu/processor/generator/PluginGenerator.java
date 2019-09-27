@@ -109,7 +109,7 @@ public class PluginGenerator {
 
     this.generateLoadShellFactory(typeSpec);
     this.generateLoadComposites(typeSpec);
-    this.generateLoadContollers(typeSpec);
+    this.generateLoadControllers(typeSpec);
     this.generateLoadFilters(typeSpec);
     this.generateLoadHandlers(typeSpec);
 
@@ -253,7 +253,7 @@ public class PluginGenerator {
     typeSpec.addMethod(loadCompositesMethodBuilder.build());
   }
 
-  private void generateLoadContollers(TypeSpec.Builder typeSpec) {
+  private void generateLoadControllers(TypeSpec.Builder typeSpec) {
     // generate method 'loadComponents()'
     MethodSpec.Builder loadComponentsMethodBuilder = MethodSpec.methodBuilder("loadComponents")
                                                                .addModifiers(Modifier.PUBLIC)
@@ -321,7 +321,7 @@ public class PluginGenerator {
                                                             .addStatement("$L.setContext(super.context)",
                                                                           this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
                                                                                                                                     .getSimpleName()));
-                                 // remmeber generated condition to avoid creating the smae class again!
+                                 // remember generated condition to avoid creating the same class again!
                                  generatedConditionClassNames.add(controllerCompositeModel.getCondition()
                                                                                           .getClassName());
                                }
@@ -383,7 +383,7 @@ public class PluginGenerator {
                                                                               ClassName.get(RouteConfig.class),
                                                                               createRoute(route.getRoute()),
                                                                               ClassName.get(Arrays.class),
-                                                                              createParaemter(route.getParameters()),
+                                                                              createParameter(route.getParameters()),
                                                                               route.getSelector(),
                                                                               route.getProvider()
                                                                                    .getClassName()));
@@ -434,7 +434,7 @@ public class PluginGenerator {
     }
   }
 
-  private String createParaemter(List<String> parameters) {
+  private String createParameter(List<String> parameters) {
     StringBuilder sb = new StringBuilder();
     IntStream.range(0,
                     parameters.size())
@@ -471,7 +471,7 @@ public class PluginGenerator {
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param metaModel meta data model of the eventbus
+     * @param metaModel meta data model of the event bus
      * @return the Builder
      */
     public Builder metaModel(MetaModel metaModel) {

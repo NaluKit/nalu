@@ -53,11 +53,11 @@ public class ControllerGenerator {
   }
 
   void generate() {
-    generateLoadContollers();
+    generateLoadControllers();
     generateLoadSelectors();
   }
 
-  private void generateLoadContollers() {
+  private void generateLoadControllers() {
     // generate method 'loadComponents()'
     MethodSpec.Builder loadComponentsMethodBuilder = MethodSpec.methodBuilder("loadComponents")
                                                                .addModifiers(Modifier.PUBLIC)
@@ -125,7 +125,7 @@ public class ControllerGenerator {
                                                             .addStatement("$L.setContext(super.context)",
                                                                           this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
                                                                                                                                     .getSimpleName()));
-                                 // remmeber generated condition to avoid creating the smae class again!
+                                 // remember generated condition to avoid creating the same class again!
                                  generatedConditionClassNames.add(controllerCompositeModel.getCondition()
                                                                                           .getClassName());
                                }
@@ -166,7 +166,7 @@ public class ControllerGenerator {
                                                                      ClassName.get(RouteConfig.class),
                                                                      createRoute(route.getRoute()),
                                                                      ClassName.get(Arrays.class),
-                                                                     createParaemter(route.getParameters(),
+                                                                     createParameter(route.getParameters(),
                                                                                      true),
                                                                      route.getSelector(),
                                                                      route.getProvider()
@@ -175,7 +175,7 @@ public class ControllerGenerator {
                                                                      ClassName.get(StringBuilder.class))
                                                        .addStatement("sb01.append(\"register route >>$L<< with parameter >>$L<< for selector >>$L<< for controller >>$L<<\")",
                                                                      createRoute(route.getRoute()),
-                                                                     createParaemter(route.getParameters(),
+                                                                     createParameter(route.getParameters(),
                                                                                      false),
                                                                      route.getSelector(),
                                                                      route.getProvider()
@@ -204,7 +204,7 @@ public class ControllerGenerator {
     }
   }
 
-  private String createParaemter(List<String> parameters,
+  private String createParameter(List<String> parameters,
                                  boolean apostrophe) {
     StringBuilder sb = new StringBuilder();
     IntStream.range(0,
@@ -246,7 +246,7 @@ public class ControllerGenerator {
     /**
      * Set the EventBusMetaModel of the currently generated eventBus
      *
-     * @param metaModel meta data model of the eventbus
+     * @param metaModel meta data model of the event bus
      * @return the Builder
      */
     public Builder metaModel(MetaModel metaModel) {
@@ -257,7 +257,7 @@ public class ControllerGenerator {
     /**
      * Set the typeSpec of the currently generated eventBus
      *
-     * @param typeSpec ttype spec of the crruent eventbus
+     * @param typeSpec type spec of the current event bus
      * @return the Builder
      */
     Builder typeSpec(TypeSpec.Builder typeSpec) {
