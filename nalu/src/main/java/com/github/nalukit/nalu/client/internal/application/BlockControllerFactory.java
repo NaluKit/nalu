@@ -17,36 +17,32 @@
 package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.event.RouterStateEvent;
+import com.github.nalukit.nalu.client.event.RouterStateEvent.RouterState;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import org.gwtproject.event.shared.EventBus;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @NaluInternalUse
 public class BlockControllerFactory {
 
   /* instance of the popup controller factory */
-  private static BlockControllerFactory instance;
-
-  /* map of components (key: name of class, Value: ControllerCreator */
-  private Map<String, IsBlockControllerCreator> creatorStore;
-
+  private static BlockControllerFactory               instance;
   /* map of components (key: name of class, Value: controller instance */
-  private Map<String, BlockControllerInstance> blockControllerStore;
-
+  private        Map<String, BlockControllerInstance> blockControllerInstanceStore;
   /* Nalu event bus to catch the RouteState-Event */
-  private EventBus eventBus;
+  private        EventBus                             eventBus;
+  /* list of visibles blocks (using block name) */
+  private        List<String>                         visiblesBlocks;
 
   /* Nalu plugin */
   private IsNaluProcessorPlugin plugin;
 
   private BlockControllerFactory() {
-    this.creatorStore = new HashMap<>();
-    this.blockControllerStore = new HashMap<>();
+    this.blockControllerInstanceStore = new HashMap<>();
+    this.visiblesBlocks = new ArrayList<>();
   }
 
   public static BlockControllerFactory get() {
@@ -58,8 +54,19 @@ public class BlockControllerFactory {
 
   public void registerBlockController(String blockName,
                                       IsBlockControllerCreator creator) {
-    this.creatorStore.put(blockName,
-                          creator);
+    BlockControllerInstance blockControllerInstance = creator.create();
+    ClientLogger.get()
+                .logSimple("block controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> append to root",
+                           3);
+    blockControllerInstance.getController()
+                           .append();
+    ClientLogger.get()
+                .logSimple("controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> appended to root",
+                           3);
+    blockControllerInstance.getController()
+                           .hide();
+    this.blockControllerInstanceStore.put(blockName,
+                                          blockControllerInstance);
   }
 
   public void register(IsNaluProcessorPlugin plugin,
@@ -69,62 +76,69 @@ public class BlockControllerFactory {
     // we will listen to the RouteSteEvent to show and hide blocks
     if (!Objects.isNull(this.eventBus)) {
       this.eventBus.addHandler(RouterStateEvent.TYPE,
-                               e -> onHandleRouting(e));
+                               this::onHandleRouting);
     }
   }
 
   private void onHandleRouting(RouterStateEvent e) {
+    if (RouterState.ROUTING_DONE != e.getState()) {
+      return;
+    }
     // TODO implementieren
     StringBuilder sb = new StringBuilder();
     sb.append("BlockControllerFactory: handle RouterStateEvent for route >>")
       .append(e.getRoute())
       .append("<<");
-    this.creatorStore.keySet()
-                     .forEach(k -> {
-                       BlockControllerInstance instance;
-                       if (Objects.isNull(blockControllerStore.get(k))) {
-                         IsBlockControllerCreator creator = this.creatorStore.get(k);
-                         if (!Objects.isNull(creator)) {
-                           instance = creator.create();
-                           this.blockControllerStore.put(k,
-                                                         instance);
-                         } else {
-                           ClientLogger.get()
-                                       .logDetailed("BlockControllerFactory: BlockController for name >>" + k + "<< not found",
-                                                    0);
-                           return;
-                         }
-                         ClientLogger.get()
-                                     .logSimple("block controller >>" + instance.getBlockControllerClassName() + "<< --> call onBeforeShow",
-                                                3);
-                         instance.getController()
-                                 .onBeforeShow();
-                         ClientLogger.get()
-                                     .logSimple("block controller >>" + instance.getBlockControllerClassName() + "<< --> onBeforeShow called",
-                                                3);
-                         ClientLogger.get()
-                                     .logSimple("block controller >>" + instance.getBlockControllerClassName() + "<< --> append to root",
-                                                3);
-                         instance.getController()
-                                    .append();
-                         ClientLogger.get()
-                                     .logSimple("controller >>" + instance.getBlockControllerClassName() + "<< --> appended to root",
-                                                3);
-                         ClientLogger.get()
-                                     .logSimple("block controller >>" + instance.getBlockControllerClassName() + "<< --> call show",
-                                                3);
-                         instance.getController()
-                                 .show();
-                         ClientLogger.get()
-                                     .logSimple("controller >>" + instance.getBlockControllerClassName() + "<< --> show called",
-                                                3);
-                       }
-                       instance = this.blockControllerStore.get(k);
-                       if (!Objects.isNull(instance)) {
-                         instance.getController()
-                                 .show();
-                       }
-                     });
+    this.blockControllerInstanceStore.keySet()
+                                     .forEach(i -> {
+                                       BlockControllerInstance blockControllerInstance = this.blockControllerInstanceStore.get(i);
+                                       if (blockControllerInstance.showBlock(e.getRoute(),
+                                                                             e.getParams())) {
+                                         if (!this.visiblesBlocks.contains(blockControllerInstance.getController()
+                                                                                                  .getName())) {
+                                           ClientLogger.get()
+                                                       .logSimple("block controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> call onBeforeShow",
+                                                                  3);
+                                           blockControllerInstance.getController()
+                                                                  .onBeforeShow();
+                                           ClientLogger.get()
+                                                       .logSimple("block controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> onBeforeShow called",
+                                                                  3);
+                                           ClientLogger.get()
+                                                       .logSimple("block controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> call show",
+                                                                  3);
+                                           blockControllerInstance.getController()
+                                                                  .show();
+                                           ClientLogger.get()
+                                                       .logSimple("controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> show called",
+                                                                  3);
+                                           visiblesBlocks.add(blockControllerInstance.getController()
+                                                                                     .getName());
+                                         }
+                                       } else {
+                                         if (this.visiblesBlocks.contains(blockControllerInstance.getController()
+                                                                                                 .getName())) {
+                                           ClientLogger.get()
+                                                       .logSimple("block controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> call onBeforeHide",
+                                                                  3);
+                                           blockControllerInstance.getController()
+                                                                  .onBeforeHide();
+                                           ClientLogger.get()
+                                                       .logSimple("block controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> onBeforeHide called",
+                                                                  3);
+                                           ClientLogger.get()
+                                                       .logSimple("block controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> call hide",
+                                                                  3);
+                                           blockControllerInstance.getController()
+                                                                  .hide();
+                                           ClientLogger.get()
+                                                       .logSimple("controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> hide called",
+                                                                  3);
+                                           visiblesBlocks.remove(blockControllerInstance.getController()
+                                                                                        .getName());
+                                         }
+                                       }
+                                     });
   }
 
 }

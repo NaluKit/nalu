@@ -94,7 +94,19 @@ public class BlockControllerAnnotationScanner {
                                     new ClassNameModel(componentInterfaceTypeElement.toString()),
                                     new ClassNameModel(componentTypeElement.toString()),
                                     new ClassNameModel(blockControllerElement.toString()),
-                                    componentController);
+                                    componentController,
+                                    new ClassNameModel(Objects.requireNonNull(getConditionElement(annotation))
+                                                              .toString()));
+  }
+
+  private TypeElement getConditionElement(BlockController annotation) {
+    try {
+      annotation.condition();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
   }
 
   private String getContextType(Element element)

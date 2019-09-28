@@ -21,7 +21,7 @@ import java.util.Map;
 public class NaluApplicationEvent
     extends Event<NaluApplicationEvent.NaluApplicationEventHandler> {
 
-  public static Type<NaluApplicationEvent.NaluApplicationEventHandler> TYPE = new Type<>();
+  public final static Type<NaluApplicationEvent.NaluApplicationEventHandler> TYPE = new Type<>();
 
   private String              event;
   private Map<String, Object> dataStore;

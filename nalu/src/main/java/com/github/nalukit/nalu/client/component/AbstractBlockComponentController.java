@@ -112,4 +112,15 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   public void onBeforeShow() {
   }
 
+  /**
+   * The method is called before the hide-method.
+   * A good place to do some clean up.
+   * <p>
+   * If you want to do some blean up before you get the
+   * control, just override the method.
+   */
+  @Override
+  public void onBeforeHide() {
+  }
+
 }
