@@ -457,7 +457,7 @@ public class NaluProcessor
                           .generate(this.metaModel);
       // check if pluginModel is not null!
       // if pluginModel is null, we have nothing to do here,
-      // otherwise we nead to generate a plugin-Impl class
+      // otherwise we need to generate a plugin-Impl class
       if (!Objects.isNull(metaModel.getPluginModel())) {
         PluginGenerator.builder()
                        .processingEnvironment(processingEnv)

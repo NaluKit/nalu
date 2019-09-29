@@ -31,7 +31,7 @@ public final class ControllerC06CreatorImpl extends AbstractControllerCreator<Mo
       ClientLogger.get().logSimple(sb01.toString(), 3);
       ControllerC06 controller = new ControllerC06();
       controllerInstance.setController(controller);
-      controllerInstance.setChached(false);
+      controllerInstance.setCached(false);
       controller.setContext(context);
       controller.setEventBus(eventBus);
       controller.setRouter(router);
@@ -43,7 +43,7 @@ public final class ControllerC06CreatorImpl extends AbstractControllerCreator<Mo
       sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
       controllerInstance.setController(storedController);
-      controllerInstance.setChached(true);
+      controllerInstance.setCached(true);
       controllerInstance.getController().setCached(true);
     }
     return controllerInstance;
@@ -77,15 +77,15 @@ public final class ControllerC06CreatorImpl extends AbstractControllerCreator<Mo
   }
 
   @Override
-  public void setParameter(Object object, String... parms) throws RoutingInterceptionException {
+  public void setParameter(Object object, String... params) throws RoutingInterceptionException {
     ControllerC06 controller = (ControllerC06) object;
     StringBuilder sb01 = new StringBuilder();
-    if (parms != null) {
-      if (parms.length >= 2) {
+    if (params != null) {
+      if (params.length >= 2) {
         sb01 = new StringBuilder();
-        sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setParameter02<< to set value >>").append(parms[1]).append("<<");
+        sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setParameter02<< to set value >>").append(params[1]).append("<<");
         ClientLogger.get().logDetailed(sb01.toString(), 4);
-        controller.setParameter02(parms[1]);
+        controller.setParameter02(params[1]);
       }
     }
   }

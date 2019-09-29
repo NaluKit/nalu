@@ -39,7 +39,7 @@ package org.gwtproject.event.shared;
 public interface HandlerRegistration {
 
   /**
-   * Deregisters the handler associated with this registration object if the handler is still
+   * De-registers the handler associated with this registration object if the handler is still
    * attached to the event source. If the handler is no longer attached to the event source, this is
    * a no-op.
    */

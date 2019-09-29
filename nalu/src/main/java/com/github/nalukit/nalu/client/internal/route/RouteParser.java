@@ -30,7 +30,7 @@ public class RouteParser {
       throws RouterException {
     RouteResult routeResult = new RouteResult();
     String routeValue = route;
-    // only the part after the first # is intresting:
+    // only the part after the first # is of interest:
     if (routeValue.contains("#")) {
       routeValue = routeValue.substring(routeValue.indexOf("#") + 1);
     }
@@ -137,11 +137,11 @@ public class RouteParser {
    * needs the same number of '*' in it.
    *
    * @param route route to navigate to
-   * @param parms parameters of the route
+   * @param params parameters of the route
    * @return generate String of new route
    */
   String generate(String route,
-                  String... parms) {
+                  String... params) {
     StringBuilder sb = new StringBuilder();
     String routeValue = route;
     if (routeValue.startsWith("/")) {
@@ -156,8 +156,8 @@ public class RouteParser {
         if (Nalu.isUsingColonForParametersInUrl()) {
           sb.append(":");
         }
-        if (parms.length - 1 >= parameterIndex) {
-          sb.append(parms[parameterIndex].replace("/",
+        if (params.length - 1 >= parameterIndex) {
+          sb.append(params[parameterIndex].replace("/",
                                                   RouterConstants.NALU_SLASH_REPLACEMENT));
           parameterIndex++;
         }
@@ -166,21 +166,21 @@ public class RouteParser {
       }
     }
 
-    // in case there are more paraemters then placesholders, we add them add the end!
+    // in case there are more parameters then placeholders, we add them add the end!
     long numberOfPlaceHolders = Stream.of(partsOfRoute)
                                       .filter("*"::equals)
                                       .count();
-    if (parms.length > numberOfPlaceHolders) {
-      String sbExeption = "Warning: route >>" + route + "<< has less parameter placeholder >>" + numberOfPlaceHolders + "<< than the number of parameters in the list of parameters >>" + parms.length + "<< --> adding Prameters add the end of the url";
-      RouterLogger.logSimple(sbExeption,
+    if (params.length > numberOfPlaceHolders) {
+      String sbException = "Warning: route >>" + route + "<< has less parameter placeholder >>" + numberOfPlaceHolders + "<< than the number of parameters in the list of parameters >>" + params.length + "<< --> adding Parameters at the end of the url";
+      RouterLogger.logSimple(sbException,
                              1);
-      for (int i = parameterIndex; i < parms.length; i++) {
+      for (int i = parameterIndex; i < params.length; i++) {
         sb.append("/");
         if (Nalu.isUsingColonForParametersInUrl()) {
           sb.append(":");
         }
-        if (!Objects.isNull(parms[parameterIndex])) {
-          sb.append(parms[parameterIndex].replace("/",
+        if (!Objects.isNull(params[parameterIndex])) {
+          sb.append(params[parameterIndex].replace("/",
                                                   RouterConstants.NALU_SLASH_REPLACEMENT));
         } else {
           sb.append("null");
@@ -195,9 +195,9 @@ public class RouteParser {
       generatedRoute = generatedRoute.substring(1);
     }
     StringBuilder parameters = new StringBuilder();
-    for (int i = 0; i < parms.length; i++) {
-      parameters.append(parms[i]);
-      if (parms.length - 1 < i) {
+    for (int i = 0; i < params.length; i++) {
+      parameters.append(params[i]);
+      if (params.length - 1 < i) {
         parameters.append(",");
       }
     }

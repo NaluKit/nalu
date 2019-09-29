@@ -42,12 +42,12 @@ public abstract class AbstractPopUpComponent<C extends IsPopUpComponent.Controll
   public abstract void hide();
 
   public void bind() {
-    // if you need to bind some handlers and would like to do this in a seperate method
+    // if you need to bind some handlers and would like to do this in a separate method
     // just override this method.
   }
 
   //  /**
-  //   * internal framework method! Will be called by the framdework after the
+  //   * internal framework method! Will be called by the framework after the
   //   * stop-method f the controller is called
   //   *
   //   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>

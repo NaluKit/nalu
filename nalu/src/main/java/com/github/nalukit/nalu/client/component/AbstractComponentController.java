@@ -33,7 +33,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   protected V                                                 component;
   /* list of registered handlers */
   protected HandlerRegistrations                              handlerRegistrations = new HandlerRegistrations();
-  /* list fo compsite controllers */
+  /* list fo composite controllers */
   private   Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
   /* the route the controller is related to */
   private   String                                            relatedRoute;
@@ -46,7 +46,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
 
   /**
-   * Returns the elment of the component. Will be used by Nalu
+   * Returns the element of the component. Will be used by Nalu
    * to add it to the DOM.
    *
    * @return the element of the component
@@ -95,7 +95,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
 
   /**
-   * internal framework method! Will be called by the framdework after the
+   * internal framework method! Will be called by the framework after the
    * stop-method f the controller is called
    * <p>
    * The method is used by the framework!
@@ -214,7 +214,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   /**
    * Get the component
    *
-   * @return the compoment of the controller
+   * @return the component of the controller
    */
   public V getComponent() {
     return this.component;
@@ -237,9 +237,9 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * <p>
    * This method runs before the component and composites are
    * created. This is f.e.: a got place to do some
-   * authentification checks.
+   * authentication checks.
    * <p>
-   * Keep in mind, that the method is asynchron. Once you have
+   * Keep in mind, that the method is asynchronous. Once you have
    * done your work, you have to call <b>loader.continueLoading()</b>.
    * Otherwise Nalu will stop working!
    * <p>
@@ -247,7 +247,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * <p>
    * Attention:
    * Do not call super.bind(loader)! Cause this will tell Nalu to
-   * continue laoding!
+   * continue loading!
    *
    * @param loader loader to tell Nalu to continue loading the controller
    * @throws RoutingInterceptionException in case the bind controller

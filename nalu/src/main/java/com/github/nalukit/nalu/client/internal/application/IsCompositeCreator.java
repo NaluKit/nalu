@@ -26,7 +26,7 @@ public interface IsCompositeCreator {
       throws RoutingInterceptionException;
 
   void setParameter(Object object,
-                    String... parms)
+                    String... params)
       throws RoutingInterceptionException;
 
 }

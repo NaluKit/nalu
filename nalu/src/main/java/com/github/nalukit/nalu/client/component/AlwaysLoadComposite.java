@@ -8,7 +8,7 @@ public class AlwaysLoadComposite
 
   @Override
   public boolean loadComposite(String route,
-                               String... parms) {
+                               String... params) {
     return true;
   }
 

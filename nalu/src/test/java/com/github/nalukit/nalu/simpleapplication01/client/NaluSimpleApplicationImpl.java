@@ -93,7 +93,7 @@ public final class NaluSimpleApplicationImpl
     //    // create ControllerCreator for: NavigationController
     //    ControllerFactory.get().registerController("NavigationController", new IsControllerCreator() {
     //      @Override
-    //      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
+    //      public ControllerInstance create(String... params) throws RoutingInterceptionException {
     //        StringBuilder sb01 = new StringBuilder();
     //        ControllerInstance controllerInstance = new ControllerInstance();
     //        controllerInstance.setControllerClassName("NavigationController");
@@ -103,7 +103,7 @@ public final class NaluSimpleApplicationImpl
     //          ClientLogger.get().logSimple(sb01.toString(), 1);
     //          NavigationController controller = new NavigationController();
     //          controllerInstance.setController(controller);
-    //          controllerInstance.setChached(false);
+    //          controllerInstance.setCached(false);
     //          controller.setContext(context);
     //          controller.setEventBus(eventBus);
     //          controller.setRouter(router);
@@ -133,7 +133,7 @@ public final class NaluSimpleApplicationImpl
     //          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
     //          ClientLogger.get().logDetailed(sb01.toString(), 2);
     //          controllerInstance.setController(storedController);
-    //          controllerInstance.setChached(true);
+    //          controllerInstance.setCached(true);
     //        }
     //        return controllerInstance;
     //      }
@@ -141,7 +141,7 @@ public final class NaluSimpleApplicationImpl
     //    // create ControllerCreator for: DetailController
     //    ControllerFactory.get().registerController("DetailController", new IsControllerCreator() {
     //      @Override
-    //      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
+    //      public ControllerInstance create(String... params) throws RoutingInterceptionException {
     //        StringBuilder sb01 = new StringBuilder();
     //        ControllerInstance controllerInstance = new ControllerInstance();
     //        controllerInstance.setControllerClassName("com.github.nalukit.nalu.simpleapplication.client.ui.detail.DetailController");
@@ -151,7 +151,7 @@ public final class NaluSimpleApplicationImpl
     //          ClientLogger.get().logSimple(sb01.toString(), 1);
     //          DetailController controller = new DetailController();
     //          controllerInstance.setController(controller);
-    //          controllerInstance.setChached(false);
+    //          controllerInstance.setCached(false);
     //          controller.setContext(context);
     //          controller.setEventBus(eventBus);
     //          controller.setRouter(router);
@@ -177,19 +177,19 @@ public final class NaluSimpleApplicationImpl
     //          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
     //          ClientLogger.get().logDetailed(sb01.toString(), 2);
     //          ClientLogger.get().logSimple("controller >>DetailComponent<< created for route >>/detail<<", 1);
-    //          if (parms != null) {
-    //            if (parms.length >= 1) {
+    //          if (params != null) {
+    //            if (params.length >= 1) {
     //              sb01 = new StringBuilder();
-    //              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setId<< to set value >>").append(parms[0]).append("<<");
+    //              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setId<< to set value >>").append(params[0]).append("<<");
     //              ClientLogger.get().logDetailed(sb01.toString(), 2);
-    //              controller.setId(parms[0]);
+    //              controller.setId(params[0]);
     //            }
     //          }
     //        } else {
     //          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
     //          ClientLogger.get().logDetailed(sb01.toString(), 2);
     //          controllerInstance.setController(storedController);
-    //          controllerInstance.setChached(true);
+    //          controllerInstance.setCached(true);
     //        }
     //        return controllerInstance;
     //      }
@@ -197,7 +197,7 @@ public final class NaluSimpleApplicationImpl
     //    // create ControllerCreator for: ListController
     //    ControllerFactory.get().registerController("ListController", new IsControllerCreator() {
     //      @Override
-    //      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
+    //      public ControllerInstance create(String... params) throws RoutingInterceptionException {
     //        StringBuilder sb01 = new StringBuilder();
     //        ControllerInstance controllerInstance = new ControllerInstance();
     //        controllerInstance.setControllerClassName("com.github.nalukit.nalu.simpleapplication.client.ui.list.ListController");
@@ -207,7 +207,7 @@ public final class NaluSimpleApplicationImpl
     //          ClientLogger.get().logSimple(sb01.toString(), 1);
     //          ListController controller = new ListController();
     //          controllerInstance.setController(controller);
-    //          controllerInstance.setChached(false);
+    //          controllerInstance.setCached(false);
     //          controller.setContext(context);
     //          controller.setEventBus(eventBus);
     //          controller.setRouter(router);
@@ -233,25 +233,25 @@ public final class NaluSimpleApplicationImpl
     //          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
     //          ClientLogger.get().logDetailed(sb01.toString(), 2);
     //          ClientLogger.get().logSimple("controller >>ListComponent<< created for route >>/list<<", 1);
-    //          if (parms != null) {
-    //            if (parms.length >= 1) {
+    //          if (params != null) {
+    //            if (params.length >= 1) {
     //              sb01 = new StringBuilder();
-    //              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setName<< to set value >>").append(parms[0]).append("<<");
+    //              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setName<< to set value >>").append(params[0]).append("<<");
     //              ClientLogger.get().logDetailed(sb01.toString(), 2);
-    //              controller.setName(parms[0]);
+    //              controller.setName(params[0]);
     //            }
-    //            if (parms.length >= 2) {
+    //            if (params.length >= 2) {
     //              sb01 = new StringBuilder();
-    //              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setCity<< to set value >>").append(parms[1]).append("<<");
+    //              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setCity<< to set value >>").append(params[1]).append("<<");
     //              ClientLogger.get().logDetailed(sb01.toString(), 2);
-    //              controller.setCity(parms[1]);
+    //              controller.setCity(params[1]);
     //            }
     //          }
     //        } else {
     //          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
     //          ClientLogger.get().logDetailed(sb01.toString(), 2);
     //          controllerInstance.setController(storedController);
-    //          controllerInstance.setChached(true);
+    //          controllerInstance.setCached(true);
     //        }
     //        return controllerInstance;
     //      }
@@ -259,7 +259,7 @@ public final class NaluSimpleApplicationImpl
     //    // create ControllerCreator for: FooterController
     //    ControllerFactory.get().registerController("FooterController", new IsControllerCreator() {
     //      @Override
-    //      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
+    //      public ControllerInstance create(String... params) throws RoutingInterceptionException {
     //        StringBuilder sb01 = new StringBuilder();
     //        ControllerInstance controllerInstance = new ControllerInstance();
     //        controllerInstance.setControllerClassName("FooterController");
@@ -269,7 +269,7 @@ public final class NaluSimpleApplicationImpl
     //          ClientLogger.get().logSimple(sb01.toString(), 1);
     //          FooterController controller = new FooterController();
     //          controllerInstance.setController(controller);
-    //          controllerInstance.setChached(false);
+    //          controllerInstance.setCached(false);
     //          controller.setContext(context);
     //          controller.setEventBus(eventBus);
     //          controller.setRouter(router);
@@ -299,7 +299,7 @@ public final class NaluSimpleApplicationImpl
     //          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
     //          ClientLogger.get().logDetailed(sb01.toString(), 2);
     //          controllerInstance.setController(storedController);
-    //          controllerInstance.setChached(true);
+    //          controllerInstance.setCached(true);
     //        }
     //        return controllerInstance;
     //      }
@@ -307,7 +307,7 @@ public final class NaluSimpleApplicationImpl
     //    // create ControllerCreator for: SearchController
     //    ControllerFactory.get().registerController("SearchController", new IsControllerCreator() {
     //      @Override
-    //      public ControllerInstance create(String... parms) throws RoutingInterceptionException {
+    //      public ControllerInstance create(String... params) throws RoutingInterceptionException {
     //        StringBuilder sb01 = new StringBuilder();
     //        ControllerInstance controllerInstance = new ControllerInstance();
     //        controllerInstance.setControllerClassName("com.github.nalukit.nalu.simpleapplication.client.ui.search.SearchController");
@@ -317,7 +317,7 @@ public final class NaluSimpleApplicationImpl
     //          ClientLogger.get().logSimple(sb01.toString(), 1);
     //          SearchController controller = new SearchController();
     //          controllerInstance.setController(controller);
-    //          controllerInstance.setChached(false);
+    //          controllerInstance.setCached(false);
     //          controller.setContext(context);
     //          controller.setEventBus(eventBus);
     //          controller.setRouter(router);
@@ -343,25 +343,25 @@ public final class NaluSimpleApplicationImpl
     //          sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
     //          ClientLogger.get().logDetailed(sb01.toString(), 2);
     //          ClientLogger.get().logSimple("controller >>SearchComponent<< created for route >>/search<<", 1);
-    //          if (parms != null) {
-    //            if (parms.length >= 1) {
+    //          if (params != null) {
+    //            if (params.length >= 1) {
     //              sb01 = new StringBuilder();
-    //              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setSearchName<< to set value >>").append(parms[0]).append("<<");
+    //              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setSearchName<< to set value >>").append(params[0]).append("<<");
     //              ClientLogger.get().logDetailed(sb01.toString(), 2);
-    //              controller.setSearchName(parms[0]);
+    //              controller.setSearchName(params[0]);
     //            }
-    //            if (parms.length >= 2) {
+    //            if (params.length >= 2) {
     //              sb01 = new StringBuilder();
-    //              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setSearchCity<< to set value >>").append(parms[1]).append("<<");
+    //              sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setSearchCity<< to set value >>").append(params[1]).append("<<");
     //              ClientLogger.get().logDetailed(sb01.toString(), 2);
-    //              controller.setSearchCity(parms[1]);
+    //              controller.setSearchCity(params[1]);
     //            }
     //          }
     //        } else {
     //          sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
     //          ClientLogger.get().logDetailed(sb01.toString(), 2);
     //          controllerInstance.setController(storedController);
-    //          controllerInstance.setChached(true);
+    //          controllerInstance.setCached(true);
     //        }
     //        return controllerInstance;
     //      }

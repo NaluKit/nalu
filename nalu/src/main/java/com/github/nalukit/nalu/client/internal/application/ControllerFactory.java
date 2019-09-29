@@ -55,14 +55,14 @@ public class ControllerFactory {
 
   public void controller(String controller,
                          ControllerCallback callback,
-                         String... parms) {
+                         String... params) {
     if (this.controllerFactory.containsKey(controller)) {
       IsControllerCreator controllerCreator = this.controllerFactory.get(controller);
       ControllerInstance controllerInstance = controllerCreator.create();
-      if (controllerInstance.isChached()) {
+      if (controllerInstance.isCached()) {
         try {
           controllerCreator.setParameter(controllerInstance.getController(),
-                                         parms);
+                                         params);
         } catch (RoutingInterceptionException e) {
           callback.onRoutingInterceptionException(e);
         }
@@ -78,7 +78,7 @@ public class ControllerFactory {
                                                                              true);
                                 controllerCreator.onFinishCreating(controllerInstance.getController());
                                 controllerCreator.setParameter(controllerInstance.getController(),
-                                                               parms);
+                                                               params);
                                 callback.onFinish(controllerInstance);
                               } catch (RoutingInterceptionException e) {
                                 callback.onRoutingInterceptionException(e);

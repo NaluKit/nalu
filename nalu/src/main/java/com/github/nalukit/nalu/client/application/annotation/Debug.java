@@ -41,8 +41,8 @@ public @interface Debug {
    * Log Level of the application (during development). There are two
    * levels: <b>SIMPLE</b> and <b>DETAILED</b>.
    * <ul>
-   * <li>SIMPLE: basic log informations</li>
-   * <li>DETAILED: detailed log informations</li>
+   * <li>SIMPLE: basic log information</li>
+   * <li>DETAILED: detailed log information</li>
    * </ul>
    *
    * @return log level of the application

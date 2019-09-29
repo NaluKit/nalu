@@ -38,7 +38,7 @@ public class DetailController
 
   @Override
   public String mayStop() {
-    return this.component.isDirty() ? "Would youlike to cancel your edits?" : null;
+    return this.component.isDirty() ? "Would you like to cancel your edits?" : null;
   }
 
   @Override

@@ -39,13 +39,13 @@ public class Person
   public Person(long id,
                 String name,
                 String firstName,
-                Address adress) {
+                Address address) {
     super();
 
     this.id = id;
     this.name = name;
     this.firstName = firstName;
-    this.address = adress;
+    this.address = address;
   }
 
   public long getId() {

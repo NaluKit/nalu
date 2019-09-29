@@ -64,13 +64,13 @@ public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockCon
       sb01.append("composite >>").append(storedComposite.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
       compositeInstance.setComposite(storedComposite);
-      compositeInstance.setChached(true);
+      compositeInstance.setCached(true);
       compositeInstance.getComposite().setCached(true);
     }
     return compositeInstance;
   }
 
-  public void setParameter(Object object, String... parms) throws RoutingInterceptionException {
+  public void setParameter(Object object, String... params) throws RoutingInterceptionException {
     Composite composite = (Composite) object;
     StringBuilder sb01 = new StringBuilder();
   }

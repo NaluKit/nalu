@@ -31,7 +31,7 @@ public final class ControllerC04CreatorImpl extends AbstractControllerCreator<Mo
       ClientLogger.get().logSimple(sb01.toString(), 3);
       ControllerC04 controller = new ControllerC04();
       controllerInstance.setController(controller);
-      controllerInstance.setChached(false);
+      controllerInstance.setCached(false);
       controller.setContext(context);
       controller.setEventBus(eventBus);
       controller.setRouter(router);
@@ -43,7 +43,7 @@ public final class ControllerC04CreatorImpl extends AbstractControllerCreator<Mo
       sb01.append("controller >>").append(storedController.getClass().getCanonicalName()).append("<< --> found in cache -> REUSE!");
       ClientLogger.get().logDetailed(sb01.toString(), 4);
       controllerInstance.setController(storedController);
-      controllerInstance.setChached(true);
+      controllerInstance.setCached(true);
       controllerInstance.getController().setCached(true);
     }
     return controllerInstance;
@@ -77,21 +77,21 @@ public final class ControllerC04CreatorImpl extends AbstractControllerCreator<Mo
   }
 
   @Override
-  public void setParameter(Object object, String... parms) throws RoutingInterceptionException {
+  public void setParameter(Object object, String... params) throws RoutingInterceptionException {
     ControllerC04 controller = (ControllerC04) object;
     StringBuilder sb01 = new StringBuilder();
-    if (parms != null) {
-      if (parms.length >= 1) {
+    if (params != null) {
+      if (params.length >= 1) {
         sb01 = new StringBuilder();
-        sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setParameter01<< to set value >>").append(parms[0]).append("<<");
+        sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setParameter01<< to set value >>").append(params[0]).append("<<");
         ClientLogger.get().logDetailed(sb01.toString(), 4);
-        controller.setParameter01(parms[0]);
+        controller.setParameter01(params[0]);
       }
-      if (parms.length >= 2) {
+      if (params.length >= 2) {
         sb01 = new StringBuilder();
-        sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setParameter02<< to set value >>").append(parms[1]).append("<<");
+        sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> using method >>setParameter02<< to set value >>").append(params[1]).append("<<");
         ClientLogger.get().logDetailed(sb01.toString(), 4);
-        controller.setParameter02(parms[1]);
+        controller.setParameter02(params[1]);
       }
     }
   }
