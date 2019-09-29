@@ -18,19 +18,14 @@ package com.github.nalukit.nalu.processor.model.intern;
 
 public class BlockControllerModel {
 
-  private String name;
-
+  private String         name;
   private ClassNameModel context;
-
   private ClassNameModel controller;
-
   private ClassNameModel componentInterface;
-
   private ClassNameModel component;
-
   private ClassNameModel provider;
-
-  private boolean componentCreator;
+  private boolean        componentCreator;
+  private ClassNameModel conndition;
 
   public BlockControllerModel(String name,
                               ClassNameModel context,
@@ -38,7 +33,8 @@ public class BlockControllerModel {
                               ClassNameModel componentInterface,
                               ClassNameModel component,
                               ClassNameModel provider,
-                              boolean componentCreator) {
+                              boolean componentCreator,
+                              ClassNameModel condition) {
     this.name = name;
     this.context = context;
     this.controller = controller;
@@ -46,6 +42,7 @@ public class BlockControllerModel {
     this.component = component;
     this.provider = provider;
     this.componentCreator = componentCreator;
+    this.conndition = condition;
   }
 
   public String getName() {
@@ -102,6 +99,14 @@ public class BlockControllerModel {
 
   public void setComponentCreator(boolean componentCreator) {
     this.componentCreator = componentCreator;
+  }
+
+  public ClassNameModel getConndition() {
+    return conndition;
+  }
+
+  public void setConndition(ClassNameModel conndition) {
+    this.conndition = conndition;
   }
 
 }

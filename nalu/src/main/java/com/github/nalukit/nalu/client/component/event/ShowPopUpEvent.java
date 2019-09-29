@@ -8,7 +8,7 @@ import java.util.Map;
 public class ShowPopUpEvent
     extends Event<ShowPopUpEvent.ShowPopUpHandler> {
 
-  public static Type<ShowPopUpEvent.ShowPopUpHandler> TYPE = new Type<>();
+  public final static Type<ShowPopUpEvent.ShowPopUpHandler> TYPE = new Type<>();
 
   private String              name;
   private Map<String, String> dataStore;

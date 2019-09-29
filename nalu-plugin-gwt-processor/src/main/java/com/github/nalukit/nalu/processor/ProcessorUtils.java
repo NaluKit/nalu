@@ -16,23 +16,21 @@
 
 package com.github.nalukit.nalu.processor;
 
-import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
-
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.*;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class ProcessorUtils {
 
@@ -56,13 +54,13 @@ public class ProcessorUtils {
     return new Builder();
   }
 
-  public boolean implementsInterface(ProcessingEnvironment processingEnvironment,
-                                     TypeElement typeElement,
-                                     TypeMirror implementedInterface) {
-    return processingEnvironment.getTypeUtils()
-                                .isAssignable(typeElement.asType(),
-                                              implementedInterface);
-  }
+  //  public boolean implementsInterface(ProcessingEnvironment processingEnvironment,
+  //                                     TypeElement typeElement,
+  //                                     TypeMirror implementedInterface) {
+  //    return processingEnvironment.getTypeUtils()
+  //                                .isAssignable(typeElement.asType(),
+  //                                              implementedInterface);
+  //  }
 
   public String getPackageAsString(Element type) {
     return this.getPackage(type)
@@ -194,76 +192,76 @@ public class ProcessorUtils {
                           sw.toString());
   }
 
-  public void createWarningMessage(String warningMessage) {
-    StringWriter sw = new StringWriter();
-    PrintWriter pw = new PrintWriter(sw);
-    pw.println(warningMessage);
-    pw.close();
-    messager.printMessage(Diagnostic.Kind.WARNING,
-                          sw.toString());
-  }
+  //  public void createWarningMessage(String warningMessage) {
+  //    StringWriter sw = new StringWriter();
+  //    PrintWriter pw = new PrintWriter(sw);
+  //    pw.println(warningMessage);
+  //    pw.close();
+  //    messager.printMessage(Diagnostic.Kind.WARNING,
+  //                          sw.toString());
+  //  }
 
-  public <A extends Annotation> List<Element> getMethodFromTypeElementAnnotatedWith(ProcessingEnvironment processingEnvironment,
-                                                                                    TypeElement element,
-                                                                                    Class<A> annotation) {
-    List<Element> annotatedMethods = processingEnvironment.getElementUtils()
-                                                          .getAllMembers(element)
-                                                          .stream()
-                                                          .filter(methodElement -> methodElement.getAnnotation(annotation) != null)
-                                                          .collect(Collectors.toList());
-    return annotatedMethods;
-  }
+  //  public <A extends Annotation> List<Element> getMethodFromTypeElementAnnotatedWith(ProcessingEnvironment processingEnvironment,
+  //                                                                                    TypeElement element,
+  //                                                                                    Class<A> annotation) {
+  //    List<Element> annotatedMethods = processingEnvironment.getElementUtils()
+  //                                                          .getAllMembers(element)
+  //                                                          .stream()
+  //                                                          .filter(methodElement -> methodElement.getAnnotation(annotation) != null)
+  //                                                          .collect(Collectors.toList());
+  //    return annotatedMethods;
+  //  }
 
-  public String createInternalEventName(ExecutableElement executableElement) {
-    String internalEventName = executableElement.getSimpleName()
-                                                .toString();
-    for (VariableElement variableElement : executableElement.getParameters()) {
-      internalEventName += ProcessorConstants.PARAMETER_DELIMITER;
-      internalEventName += variableElement.asType()
-                                          .toString()
-                                          .replace(".",
-                                                   "_");
-    }
-    return internalEventName;
-  }
+  //  public String createInternalEventName(ExecutableElement executableElement) {
+  //    String internalEventName = executableElement.getSimpleName()
+  //                                                .toString();
+  //    for (VariableElement variableElement : executableElement.getParameters()) {
+  //      internalEventName += ProcessorConstants.PARAMETER_DELIMITER;
+  //      internalEventName += variableElement.asType()
+  //                                          .toString()
+  //                                          .replace(".",
+  //                                                   "_");
+  //    }
+  //    return internalEventName;
+  //  }
+  //
+  //  public boolean doesExist(ClassNameModel typeElementClassName) {
+  //    return this.processingEnvironment.getElementUtils()
+  //                                     .getTypeElement(typeElementClassName.getClassName()) != null;
+  //  }
+  //
+  //  public String createHistoryMetaDataClassName(String historyConverterClassName) {
+  //    return this.setFirstCharacterToUpperCase(this.createHistoryMetaDataVariableName(historyConverterClassName)) + "_" + ProcessorConstants.META_DATA;
+  //  }
 
-  public boolean doesExist(ClassNameModel typeElementClassName) {
-    return this.processingEnvironment.getElementUtils()
-                                     .getTypeElement(typeElementClassName.getClassName()) != null;
-  }
-
-  public String createHistoryMetaDataClassName(String historyConverterClassName) {
-    return this.setFirstCharacterToUpperCase(this.createHistoryMetaDataVariableName(historyConverterClassName)) + "_" + ProcessorConstants.META_DATA;
-  }
-
-  public String setFirstCharacterToUpperCase(String className) {
-    return className.substring(0,
-                               1)
-                    .toUpperCase() + className.substring(1);
-  }
-
-  public String createHistoryMetaDataVariableName(String historyConverterClassName) {
-    return this.createFullClassName(historyConverterClassName);
-  }
-
-  public String createFullClassName(String className) {
-    return className.replace(".",
-                             "_");
-  }
-
-  public String createEventHandlingMethodName(String eventName) {
-    return "on" +
-        eventName.substring(0,
-                            1)
-                 .toUpperCase() +
-        eventName.substring(1);
-  }
-
-  public String createEventNameFromHandlingMethod(String event) {
-    return event.substring(2,
-                           3)
-                .toLowerCase() + event.substring(3);
-  }
+  //  public String setFirstCharacterToUpperCase(String className) {
+  //    return className.substring(0,
+  //                               1)
+  //                    .toUpperCase() + className.substring(1);
+  //  }
+  //
+  //  public String createHistoryMetaDataVariableName(String historyConverterClassName) {
+  //    return this.createFullClassName(historyConverterClassName);
+  //  }
+  //
+  //  public String createFullClassName(String className) {
+  //    return className.replace(".",
+  //                             "_");
+  //  }
+  //
+  //  public String createEventHandlingMethodName(String eventName) {
+  //    return "on" +
+  //        eventName.substring(0,
+  //                            1)
+  //                 .toUpperCase() +
+  //        eventName.substring(1);
+  //  }
+  //
+  //  public String createEventNameFromHandlingMethod(String event) {
+  //    return event.substring(2,
+  //                           3)
+  //                .toLowerCase() + event.substring(3);
+  //  }
 
   public static class Builder {
 

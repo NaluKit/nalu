@@ -5,16 +5,19 @@ import org.gwtproject.event.shared.Event;
 public class RouterStateEvent
     extends Event<RouterStateEvent.RouterStateHandler> {
 
-  public static Type<RouterStateEvent.RouterStateHandler> TYPE = new Type<>();
+  public static final Type<RouterStateEvent.RouterStateHandler> TYPE = new Type<>();
 
   private RouterState state;
   private String      route;
+  private String[]    params;
 
   public RouterStateEvent(RouterState state,
-                          String route) {
+                          String route,
+                          String[] params) {
     super();
     this.state = state;
     this.route = route;
+    this.params = params;
   }
 
   public RouterState getState() {
@@ -23,6 +26,10 @@ public class RouterStateEvent
 
   public String getRoute() {
     return route;
+  }
+
+  public String[] getParams() {
+    return params;
   }
 
   @Override

@@ -122,8 +122,7 @@ public abstract class AbstractApplication<C extends IsContext>
     this.tracker = this.loadTrackerConfiguration();
     // initialize block factory
     BlockControllerFactory.get()
-                          .register(this.plugin,
-                                    this.eventBus);
+                          .register(this.eventBus);
     // initialize popup factory
     PopUpControllerFactory.get()
                           .register(this.eventBus);

@@ -417,6 +417,129 @@ Now, depending of the return value of the `loadComposite`-method, the composite 
 
 **Keep in mind: in case the condition class returns false, Nalu will not create an instance of the composite!**
 
+## BlockController (since v2.0.0)
+Starting with v2.0.0 Nalu provides a new controller type: the **BlockController**.
+
+A **BlockController** behaves like a normal controller, but gets created at the start of the application and will be permanent visible.
+
+A BlockController has the following features:
+
+* has no route (and because of that: no history!)
+* has no selector (Nalu will ask the BlockController to append the element)
+* has no life-cycle
+* can not be cached (cause it is cached by default)
+
+### Defining a BlockController
+To create a BlockController, you have to:
+
+* extend AbstractBlockComponentController<C, V>
+  * C: type of the context
+  * V: type of the view (interface) that will be injected in the controller
+
+By extending AbstractBlockComponentController you will have access to the allowing instances:
+
+* C context: instance of the application context (Singleton)
+* V view: instance of the view
+* event bus: instance of the application wide event bus
+* router: instance of the router
+
+To tell Nalu, that this class is a **BlockController**, you have to annotate the class with `@BlockController`. Nalu will automatically create an instance for each class annotated with `@BlockController` the first time the application gets loaded. Once the controller is created, it will always be used.
+
+A controller requires a
+
+* a public, zero-argument constructor
+* annotate the controller with `@BlockController`
+* extends AbstractBlockComponentController
+* 
+Here is an example of a controller:
+
+```java
+@BlockController(name = "fork",
+                 componentInterface = IForkBlockComponent.class,
+                 component = ForkBlockComponent.class)
+public class ForkBlockController
+    extends AbstractBlockComponentController<NaluSimpleApplicationContext, IForkBlockComponent>
+    implements IForkBlockComponent.Controller {
+
+  public ForkBlockController() {
+  }
+
+}
+```
+
+### BlockController annotation
+
+To let Nalu automatically create a **BlockController** the controller class (which extend `AbstractBlockComponentController`) needs to be annotated with `@BlockController`.
+
+The `@BlockController` annotation has three required attributes:
+
+* name: the name used to identify the controller
+* componentInterface: the type of the interface for your component
+* component: the type of the component
+
+and an additional, optional attribute:
+
+* condition: used by Nalu to hide or show the component
+
+The 'componentInterface'-attribute will be used inside the controller as reference of the component interface, where as the 'component'-attribute will be used to instantiate the component. By default Nalu uses the new to create an instance of an component. (GWT-create() will no longer be available in J2CL / GWT 3! And, to be ready for J2CL / GWT 3 Nalu has to avoid using GWT.create).
+
+You can use the `IsBlocKComponentCreator`-interface to create the component inside your controller.
+
+Nalu will inject:
+
+* the instance of the router
+* the instance of the event bus
+* the instance of the context
+* the instance of the component
+
+into the controller.
+
+### Life Cycle pf a BlockController
+
+A Nalu **BlockController** has no life cycle. The controller (and it's component) will be created at the start of the application. Once it is created, Nalu will always use this instance.
+
+Nalu will call several methods inside the **BlockController**:
+
+* onBeforeShow: will be called before the show-method. (A good place to initialize the controller and component)
+* show: to show the component.
+* onBeforeHide: will be called before the hide-method. (A good place to clean up the controller and component)
+* hide: to hide the component.
+* append: to add the component to the DOM
+
+It is up to the controller to show, hide and append the component..
+
+### BlockComponent Creation
+
+Nalu will automatically create a component using the Java 'new'-command and inject the component into the controller. Therefore the component needs to have a zero argument constructor.
+
+In some cases this might be a problem.
+
+You can tell Nalu to use a method inside the controller and create the component by your own. To do so, you have to annotate the controller with `IsBlockComponentCreator<V>` and implement a createBlockComponent-method.
+
+```java
+@BlockController(name = "fork",
+                 componentInterface = IForkBlockComponent.class,
+                 component = ForkBlockComponent.class)
+public class ForkBlockController
+    extends AbstractBlockComponentController<NaluSimpleApplicationContext, IForkBlockComponent>
+    implements IForkBlockComponent.Controller,
+               IsBlockComponentCreator<IForkBlockComponent> {
+
+  public ForkBlockController() {
+  }
+
+  ...
+  
+  @Override
+  public IForkBlockComponent createBlockComponent() {
+    return new ForkBlockComponent();
+  }
+
+}
+```
+
+Note: At the time Nalu calls the createBlockComponent-method, the context is already injected.
+
 ## PopUpController (since v1.2.2)
 Before version 1.2.2 Nalu does not support pop-ups. Starting with version 1.2.2 Nalu gets a new controller type: **PopUpController**. The new controller will enable Nalu to handle pop-ups.
 

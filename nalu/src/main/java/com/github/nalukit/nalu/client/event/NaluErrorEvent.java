@@ -18,7 +18,7 @@ import java.util.Map;
 public class NaluErrorEvent
     extends Event<NaluErrorEvent.NaluErrorEventHandler> {
 
-  public static Type<NaluErrorEvent.NaluErrorEventHandler> TYPE = new Type<>();
+  public final static Type<NaluErrorEvent.NaluErrorEventHandler> TYPE = new Type<>();
 
   /* the error info object */
   private ErrorInfo errorInfo;

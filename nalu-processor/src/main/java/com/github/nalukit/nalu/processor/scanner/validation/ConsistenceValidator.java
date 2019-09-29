@@ -17,6 +17,7 @@ package com.github.nalukit.nalu.processor.scanner.validation;
 
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
+import com.github.nalukit.nalu.processor.model.intern.BlockControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 
@@ -60,6 +61,8 @@ public class ConsistenceValidator {
     this.validateNoShellsDefined();
     // check, is there are duplicate shell names
     this.validateDuplicateShellName();
+    // check, is there are duplicate block controller names
+    this.validateDuplicateBlockControllerName();
   }
 
   private void validateDuplicateShellName()
@@ -70,6 +73,17 @@ public class ConsistenceValidator {
         throw new ProcessorException("Nalu-Processor:" + "@Shell: the name >>" + shellModel.getName() + "<< is duplicate! Please use another unique name!");
       }
       compareList.add(shellModel.getName());
+    }
+  }
+
+  private void validateDuplicateBlockControllerName()
+      throws ProcessorException {
+    List<String> compareList = new ArrayList<>();
+    for (BlockControllerModel blockControllerModel : this.metaModel.getBlockControllers()) {
+      if (compareList.contains(blockControllerModel.getName())) {
+        throw new ProcessorException("Nalu-Processor:" + "@BlockController: the name >>" + blockControllerModel.getName() + "<< is duplicate! Please use another unique name!");
+      }
+      compareList.add(blockControllerModel.getName());
     }
   }
 

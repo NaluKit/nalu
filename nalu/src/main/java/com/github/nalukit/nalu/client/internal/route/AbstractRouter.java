@@ -190,8 +190,16 @@ abstract class AbstractRouter
     // save hash to loop detector list ...
     if (this.loopDetectionList.contains(pimpUpHashForLoopDetection(hash))) {
       // fire Router StateEvent
-      this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
-                                hash);
+      try {
+        RouteResult routeResult = this.parse(hash);
+        this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
+                                  routeResult.getRoute(),
+                                  routeResult.getParameterValues()
+                                             .toArray(new String[0]));
+      } catch (RouterException e) {
+        this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
+                                  hash);
+      }
       // loop discovered .... -> create message
       String message = RouterLogger.logLoopDetected(this.loopDetectionList.get(0));
       // Fire error event ....
@@ -232,7 +240,9 @@ abstract class AbstractRouter
                    filter.parameters());
         // fire Router StateEvent
         this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
-                                  hash);
+                                  routeResult.getRoute(),
+                                  routeResult.getParameterValues()
+                                             .toArray(new String[0]));
         return;
       }
     }
@@ -338,8 +348,16 @@ abstract class AbstractRouter
   public void handleRouterException(String hash,
                                     RouterException e) {
     // fire Router StateEvent
-    this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
-                              hash);
+    try {
+      RouteResult routeResult = this.parse(hash);
+      this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
+                                routeResult.getRoute(),
+                                routeResult.getParameterValues()
+                                           .toArray(new String[0]));
+    } catch (RouterException e1) {
+      this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
+                                hash);
+    }
     // Fire error event ....
     this.eventBus.fireEvent(NaluErrorEvent.createNaluError()
                                           .errorId(NaluConstants.NALU_ERROR_ROUTING_EXCEPTION)
@@ -364,7 +382,9 @@ abstract class AbstractRouter
                    .update();
     // fire Router StateEvent
     this.fireRouterStateEvent(RouterState.ROUTING_DONE,
-                              routeResult.getRoute());
+                              routeResult.getRoute(),
+                              routeResult.getParameterValues()
+                                         .toArray(new String[0]));
   }
 
   private void handleRouteConfig(RouteConfig routeConfiguration,
@@ -664,9 +684,9 @@ abstract class AbstractRouter
       controllerList.addAll(this.activeComponents.values());
     } else {
       controllerList.addAll(routeConfigurations.stream()
-                                              .map(config -> this.activeComponents.get(config.getSelector()))
-                                              .filter(Objects::nonNull)
-                                              .collect(Collectors.toList()));
+                                               .map(config -> this.activeComponents.get(config.getSelector()))
+                                               .filter(Objects::nonNull)
+                                               .collect(Collectors.toList()));
 
     }
     controllerList.forEach(controller -> {
@@ -856,14 +876,15 @@ abstract class AbstractRouter
    * Once the url gets updated, it triggers the onhashchange event and Nalu starts to work
    *
    * @param newRoute routing goal
-   * @param params    list of parameters [0 - n]
+   * @param params   list of parameters [0 - n]
    */
   @Override
   public void route(String newRoute,
                     String... params) {
     // fire souring event ...
     this.fireRouterStateEvent(RouterState.START_ROUTING,
-                              newRoute);
+                              newRoute,
+                              params);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -896,7 +917,7 @@ abstract class AbstractRouter
    * If there is something to generate with parameters, the route
    * needs the same number of '*' in it.
    *
-   * @param route route to navigate to
+   * @param route  route to navigate to
    * @param params parameters of the route
    * @return generate String of new route
    */
@@ -934,14 +955,32 @@ abstract class AbstractRouter
    * of routing.
    *
    * @param state routing state
+   * @param route current route
    */
   private void fireRouterStateEvent(RouterState state,
                                     String route) {
+    this.fireRouterStateEvent(state,
+                              route,
+                              new String[0]);
+  }
+
+  /**
+   * Fires a router state event to inform the application about the state
+   * of routing.
+   *
+   * @param state  routing state
+   * @param route  current route
+   * @param params parameter
+   */
+  private void fireRouterStateEvent(RouterState state,
+                                    String route,
+                                    String... params) {
     String sb = "fire RouterEvent for route >>" + route + "<< with state >>" + state.name() + "<<";
     RouterLogger.logSimple(sb,
                            1);
     this.eventBus.fireEvent(new RouterStateEvent(state,
-                                                 route));
+                                                 route,
+                                                 params));
   }
 
   /**

@@ -17,17 +17,18 @@
 package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.component.AbstractBlockComponentController;
-import com.github.nalukit.nalu.client.component.AbstractPopUpComponentController;
+import com.github.nalukit.nalu.client.component.IsShowBlockCondition;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
 public class BlockControllerInstance {
 
   /* controller's class name */
-  private String blockControllerClassName;
-
+  private String                                 blockControllerClassName;
   /* controller */
   private AbstractBlockComponentController<?, ?> controller;
+  /* condition */
+  private IsShowBlockCondition                   condition;
 
   public BlockControllerInstance() {
   }
@@ -46,6 +47,16 @@ public class BlockControllerInstance {
 
   public void setController(AbstractBlockComponentController<?, ?> controller) {
     this.controller = controller;
+  }
+
+  public boolean showBlock(String route,
+                           String... params) {
+    return condition.showBlock(route,
+                               params);
+  }
+
+  public void setCondition(IsShowBlockCondition condition) {
+    this.condition = condition;
   }
 
 }

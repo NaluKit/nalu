@@ -36,6 +36,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   /**
    * append the element
    */
+  @Override
   public void append() {
     component.append();
   }
@@ -110,6 +111,17 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
    */
   @Override
   public void onBeforeShow() {
+  }
+
+  /**
+   * The method is called before the hide-method.
+   * A good place to do some clean up.
+   * <p>
+   * If you want to do some blean up before you get the
+   * control, just override the method.
+   */
+  @Override
+  public void onBeforeHide() {
   }
 
 }

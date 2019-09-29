@@ -93,6 +93,11 @@ public class BlockControllerCreatorGenerator {
                                                 .addStatement("blockControllerInstance.setBlockControllerClassName($S)",
                                                               blockControllerModel.getController()
                                                                                   .getClassName())
+                                                .addStatement("blockControllerInstance.setCondition(new $T())",
+                                                              ClassName.get(blockControllerModel.getConndition()
+                                                                                                .getPackage(),
+                                                                            blockControllerModel.getConndition()
+                                                                                                .getSimpleName()))
                                                 .addStatement("sb01.append(\"blockController >>$L<< --> will be created\")",
                                                               blockControllerModel.getProvider()
                                                                                   .getPackage() +

@@ -40,6 +40,8 @@ public interface IsBlockComponentController<V> {
 
   void onBeforeShow();
 
+  void onBeforeHide();
+
   /**
    * Add the element to the root element
    */
