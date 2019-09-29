@@ -36,6 +36,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   /**
    * append the element
    */
+  @Override
   public void append() {
     component.append();
   }

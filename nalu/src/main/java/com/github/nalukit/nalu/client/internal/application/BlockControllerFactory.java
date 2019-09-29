@@ -20,7 +20,6 @@ import com.github.nalukit.nalu.client.event.RouterStateEvent;
 import com.github.nalukit.nalu.client.event.RouterStateEvent.RouterState;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import org.gwtproject.event.shared.EventBus;
 
 import java.util.*;
@@ -36,9 +35,6 @@ public class BlockControllerFactory {
   private        EventBus                             eventBus;
   /* list of visibles blocks (using block name) */
   private        List<String>                         visiblesBlocks;
-
-  /* Nalu plugin */
-  private IsNaluProcessorPlugin plugin;
 
   private BlockControllerFactory() {
     this.blockControllerInstanceStore = new HashMap<>();
@@ -69,9 +65,7 @@ public class BlockControllerFactory {
                                           blockControllerInstance);
   }
 
-  public void register(IsNaluProcessorPlugin plugin,
-                       EventBus eventBus) {
-    this.plugin = plugin;
+  public void register(EventBus eventBus) {
     this.eventBus = eventBus;
     // we will listen to the RouteSteEvent to show and hide blocks
     if (!Objects.isNull(this.eventBus)) {

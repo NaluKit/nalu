@@ -97,4 +97,17 @@ public class BlockControllerTest {
                       .hadErrorContaining("@BlockController - name attribute should not be empty");
   }
 
+  @Test
+  void testBlockControllerBuplicateName() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/blockControllerNameDuplicate/BlockControllerDuplicateName01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/blockControllerNameDuplicate/BlockControllerDuplicateName02.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/common/block01/IBlockComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/common/block01/BlockComponent01.java")));
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("@BlockController: the name >>SameName<< is duplicate! Please use another unique name!");
+  }
+
 }
