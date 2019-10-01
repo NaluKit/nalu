@@ -4,9 +4,9 @@ Nalu supports simply setting SEO meta tags and the page title.
 
 Nalu will collect all SEO information during a routing and will update the SEO information at the end of a routing. To set a SEO-information call a `setter`-method.
 
-`setter``methods are available for the following meta information:
+`setter`-methods are available for the following meta information:
 
-* **title**: iupdates the title of the host page
+* **title**: updates the title of the host page
 
 Standard meta tags:
 
@@ -68,12 +68,12 @@ To set these values use the following code:
       SeoDataProvider.get()
                      .setTwitterSite("http://www.gwtproject.org");
       SeoDataProvider.get()
-                     .setTwitterTitle("Twitter Tittle");
+                     .setTwitterTitle("Twitter Title");
 ```
 
 In case a routing is handled by more than one controller and the second controllers also tries to update the SEO data, Nalu will use the data the first controller has set!
 
-In case a controller wants to make sure that the value is used, call: ` SeoDataProvider.get().setTwitterTitle("Twitter Tittle", true);`-method. In this case the value will be set even there is already a value.
+In case a controller wants to make sure that the value is used, call: ` SeoDataProvider.get().setTwitterTitle("Twitter Title", true);`-method. In this case the value will be set even there is already a value.
 
 After Nalu has updated the SEO tags, the data gets reset.
 
