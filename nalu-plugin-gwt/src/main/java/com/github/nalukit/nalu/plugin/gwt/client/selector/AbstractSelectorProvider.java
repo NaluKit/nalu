@@ -18,12 +18,9 @@ package com.github.nalukit.nalu.plugin.gwt.client.selector;
 
 public abstract class AbstractSelectorProvider {
 
-  //  private Map<String, ? extends Panel> selectors;
-
   public AbstractSelectorProvider() {
-    //    this.selectors = new HashMap<>();
   }
 
-  //  public abstract void removeSelectors();
+  public abstract void removeSelectors();
 
 }
