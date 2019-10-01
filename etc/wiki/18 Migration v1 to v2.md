@@ -12,5 +12,5 @@ The following classes have been moved:
 ## Removed features
 The following features from version 1.x have been removed:
 
-1. **errorRoute**: See error handling doc for more information on how to migrate ([Nalu Error Handling](xxx))
-2. **plugins**: See Multi Module Project ([Nalu Multi Module Feature](xxx))
+1. **errorRoute**: See error handling doc for more information on how to migrate ([Error Handling](xxx))
+2. **plugins**: See Multi Module Project ([Multi Module Feature](xxx))
