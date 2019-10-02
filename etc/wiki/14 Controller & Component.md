@@ -109,6 +109,9 @@ public class MyController
 }
 ```
 
+**Note:**
+At the time parameters are set by Nalu, the component is not rendered! Rendering of the component will occur after all parameters are set!
+
 
 ### Life Cycle
 A Nalu controller has a life cycle. Nalu supports the methods:
