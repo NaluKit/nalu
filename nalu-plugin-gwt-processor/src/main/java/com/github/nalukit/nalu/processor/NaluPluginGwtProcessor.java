@@ -109,6 +109,7 @@ public class NaluPluginGwtProcessor
       }
     } catch (ProcessorException e) {
       this.processorUtils.createErrorMessage(e.getMessage());
+      return true;
     }
     return true;
   }

@@ -55,6 +55,17 @@ In case the routing is used in this way:
 ```
 there is no need to add ':' before parameters, because Nalu will do that for you.
 
+### Note on routes
+Defining routes in your application needs some attention. Ohterwise you will be surprised by some unexpected results.
+
+For example:
+
+* controller one has a route like this: **/shell/route01/:parameter01**
+* controller two has a route like this: **/Shell/route01/route02**
+
+In case the hash is something like that: **/shell/route01/1**, Nalu will create controller one and inject '1' using the `setParameter01`-method. Controller two will not be created.
+Now, in case we have a route like this: **/shell/route01/route02**, Nalu will also create controller one and - this time - inject 'route02' using the `setParameter01`-method. Controller two will not be created!
+
 ## Generating a Route
 In case there is a need for a route inside a link, you can use the `generate`-method of the router. The method accepts a route and a list of parameters (0 - n) and will return the route. Calling the method with the following code:
 ```java

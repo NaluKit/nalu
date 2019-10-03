@@ -13,16 +13,16 @@
  *  License for the specific language governing permissions and limitations under
  *  the License.
  */
-package com.github.nalukit.nalu.processor.application.applicationAnnotationOnClass;
 
-import com.github.nalukit.nalu.client.application.IsApplication;
-import com.github.nalukit.nalu.client.application.annotation.Application;
-import com.github.nalukit.nalu.processor.common.MockContext;
-import com.github.nalukit.nalu.processor.common.MockShell;
+package com.github.nalukit.nalu.processor;
 
-@Application(shell = MockShell.class,
-             startRoute = "/search",
-             context = MockContext.class)
-public class ApplicationAnnotationInterfaceOnAClass
-    implements IsApplication {
+import com.github.nalukit.nalu.processor.test.ProviderTest;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.runner.RunWith;
+
+@RunWith(JUnitPlatform.class)
+@SelectClasses({ ProviderTest.class })
+public class AllTests {
+
 }

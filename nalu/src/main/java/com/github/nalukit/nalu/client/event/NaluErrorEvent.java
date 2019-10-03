@@ -38,7 +38,7 @@ public class NaluErrorEvent
    */
   @NaluInternalUse
   public static NaluErrorEvent createNaluError() {
-    return new NaluErrorEvent(ErrorInfo.ErrorType.APPLICAITON_ERROR);
+    return new NaluErrorEvent(ErrorType.NALU_INTERNAL_ERROR);
   }
 
   /**
