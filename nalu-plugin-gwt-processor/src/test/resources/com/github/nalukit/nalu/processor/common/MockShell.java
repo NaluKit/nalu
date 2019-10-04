@@ -15,9 +15,9 @@
  */
 package com.github.nalukit.nalu.processor.common;
 
-import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.component.AbstractShell;
 import elemental2.dom.Element;
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 
 import static elemental2.dom.DomGlobal.document;
@@ -27,6 +27,8 @@ public class MockShell
     extends AbstractShell<MockContext> {
 
   private static final String NALU_ID_ATTRIBUTE = "id";
+
+  private HTMLDivElement shell;
 
   public MockShell() {
   }
@@ -42,32 +44,45 @@ public class MockShell
     document.body.appendChild(this.render());
   }
 
+  /**
+   * The ShellPresenter has to implemented this method, because the framework
+   * can not do this. (It does not know, what to use).
+   * <p>
+   * We remmove the ShellView from the browser body.
+   */
+  @Override
+  public void detachShell() {
+    document.body.removeChild(this.shell);
+  }
+
   private HTMLElement render() {
-    return div().css("shellCreator")
-                .add(createNorth())
-                .add(createSouth())
-                .add(div().css("shellNavigation")
-                          .attr(MockShell.NALU_ID_ATTRIBUTE,
-                                "navigation")
-                          .asElement())
-                .add(div().css("shellContent")
-                          .attr(MockShell.NALU_ID_ATTRIBUTE,
-                                "content")
-                          .asElement())
-                .asElement();
+    this.shell = div().css("shellCreator")
+                      .add(createNorth())
+                      .add(createSouth())
+                      .add(div().css("shellNavigation")
+                                .attr(MockShell.NALU_ID_ATTRIBUTE,
+                                      "navigation")
+                                .get())
+                      .add(div().css("shellContent")
+                                .attr(MockShell.NALU_ID_ATTRIBUTE,
+                                      "content")
+                                .get())
+                      .get();
+    return this.shell;
   }
 
   private Element createNorth() {
     return header().css("shellHeader")
                    .attr(MockShell.NALU_ID_ATTRIBUTE,
                          "header")
-                   .asElement();
+                   .get();
   }
 
   private Element createSouth() {
     return footer().css("shellFooter")
                    .attr(MockShell.NALU_ID_ATTRIBUTE,
                          "footer")
-                   .asElement();
+                   .get();
   }
+
 }

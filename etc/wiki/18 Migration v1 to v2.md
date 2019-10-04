@@ -9,6 +9,9 @@ The following classes have been moved:
 
 2. **RouterStateEvent**: `com.github.nalukit.nalu.client.router.event` -> `com.github.nalukit.nalu.client.event`
 
+## New required method
+* **Shell:** you need to override the `detachShell`-method with the code needed to remove the shell.
+
 ## Removed features
 The following features from version 1.x have been removed:
 

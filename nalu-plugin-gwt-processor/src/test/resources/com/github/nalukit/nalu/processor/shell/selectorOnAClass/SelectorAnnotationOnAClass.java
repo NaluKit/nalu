@@ -28,4 +28,14 @@ public class SelectorAnnotationOnAClass
   public void attachShell() {
   }
 
+  /**
+   * The ShellPresenter has to implemented this method, because the framework
+   * can not do this. (It does not know, what to use).
+   * <p>
+   * We remove the shell from the browser body.
+   */
+  @Override
+  public void detachShell() {
+  }
+
 }

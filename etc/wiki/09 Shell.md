@@ -34,14 +34,22 @@ Nalu will look for a shell defined with the name 'applicationShell' and add it t
 
 Depending on the Nalu processor plugin that is used, a shell implementation may look different. See the next paragraphs for more information.
 
+### Attach shell
+You need to override the `attachShell`-method with the code needed to add the shell to the viewport.
+
+### Detach shell
+You need to override the `detachShell`-method with the code needed to remove the shell from the viewport.
+
 ## Nalu Elemental2 plugin
 In case you are working with the **nalu-plugin-elemental2**, Nalu uses the id to look for nodes inside the DOM.
 
 An implementation using the nalu-plugin-elemental2 (using Elemento) looks like this:
 ```java
-@Shell("applicationShell")
+import org.w3c.dom.html.HTMLDivElement;@Shell("applicationShell")
 public class ApplicationShell
     extends AbstractShell<MyApplicationContext> {
+  
+  private HTMLDivElement shell;
 
   public Shell() {
   }
@@ -51,35 +59,42 @@ public class ApplicationShell
     document.body.appendChild(this.render());
   }
 
+  @Override
+  public void detachShell() {
+    document.body.removeChild(this.shell);
+  }
+
   private HTMLElement render() {
     document.body.style.margin = CSSProperties.MarginUnionType.of(0);
-
-    return div().css("shell")
+    
+    this.shell = div().css("shell")
                 .add(createNorth())
                 .add(createSouth())
                 .add(div().css("navigation")
                           .attr(Nalu.NALU_ID_ATTRIBUTE,
                                 "navigation")
-                          .asElement())
+                          .get())
                 .add(div().css("shellContent")
                           .attr(Nalu.NALU_ID_ATTRIBUTE,
                                 "content")
-                          .asElement())
-                .asElement();
+                          .get())
+                .get();
+
+    return this.shell;
   }
 
   private Element createNorth() {
     return header().css("header")
                    .attr(Nalu.NALU_ID_ATTRIBUTE,
                          "header")
-                   .asElement();
+                   .get();
   }
 
   private Element createSouth() {
     return footer().css("footer")
                    .attr(Nalu.NALU_ID_ATTRIBUTE,
                          "footer")
-                   .asElement();
+                   .get();
   }
 }
 ```
@@ -123,6 +138,11 @@ public class ApplicationShell
   public void attachShell() {
     RootLayoutPanel.get()
                    .add(this.render());
+  }
+
+  @Override
+  public void detachShell() {
+    this.shell.removeFromParent();
   }
 
   private Widget render() {

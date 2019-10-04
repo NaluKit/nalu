@@ -29,6 +29,8 @@ import static elemental2.dom.DomGlobal.document;
 public class MockShell
     extends AbstractShell<MockContext> {
 
+  private HTMLDivElement shell;
+
   public MockShell() {
   }
 
@@ -43,16 +45,27 @@ public class MockShell
     document.body.appendChild(this.render());
   }
 
+  /**
+   * The ShellPresenter has to implemented this method, because the framework
+   * can not do this. (It does not know, what to use).
+   * <p>
+   * We remmove the ShellView from the browser body.
+   */
+  @Override
+  public void detachShell() {
+    document.body.removeChild(this.shell);
+  }
+
   private HTMLElement render() {
     document.body.style.margin = CSSProperties.MarginUnionType.of(0);
 
-    HTMLDivElement shell = (HTMLDivElement) document.createElement("div");
-    shell.style.height = CSSProperties.HeightUnionType.of("auto");
-    shell.style.width = CSSProperties.WidthUnionType.of("100%");
-    shell.style.margin = CSSProperties.MarginUnionType.of(0);
+    this.shell = (HTMLDivElement) document.createElement("div");
+    this.shell.style.height = CSSProperties.HeightUnionType.of("auto");
+    this.shell.style.width = CSSProperties.WidthUnionType.of("100%");
+    this.shell.style.margin = CSSProperties.MarginUnionType.of(0);
 
     Element header = createNorth();
-    shell.appendChild(header);
+    this.shell.appendChild(header);
 
     HTMLDivElement navigation = (HTMLDivElement) document.createElement("div");
     navigation.id = "navigation";
@@ -63,7 +76,7 @@ public class MockShell
     navigation.style.left = String.valueOf(0);
     navigation.style.width = CSSProperties.WidthUnionType.of("212px");
     navigation.style.borderRight = "black 1px solid";
-    shell.appendChild(navigation);
+    this.shell.appendChild(navigation);
 
     HTMLDivElement content = (HTMLDivElement) document.createElement("div");
     content.id = "content";
@@ -74,12 +87,12 @@ public class MockShell
     content.style.left = "212px";
     content.style.right = String.valueOf(0);
 
-    shell.appendChild(content);
+    this.shell.appendChild(content);
 
     Element footer = createSouth();
-    shell.appendChild(footer);
+    this.shell.appendChild(footer);
 
-    return shell;
+    return this.shell;
   }
 
   private Element createNorth() {

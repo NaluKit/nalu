@@ -36,6 +36,10 @@ You can add an error id using `id`, a route using the `route("myRoute")`-method.
 
 To retrieve information from the Nalu error event, you will have several getter-methods:
 
+* **getErrroInfo:** returns an object containing all error informations
+
+or use the specific methods to get a dedicated error info:
+
 * **getErrorEventType:** will return the error type
 * **getErrorId:** will return the error id
 * **getMessage:** will return the error message
@@ -43,6 +47,20 @@ To retrieve information from the Nalu error event, you will have several getter-
 * **get(String key):** will return the value for a defined key
 
 In case of a Nalu error the store does not contain additional information.
+
+## Firing the NaluErrorEvent
+Once you have created a `NaluErrorEvent` use
+```java
+this.eventBus.fireEvent(NaluErrorEvent.createApplicationError()
+                                      .id("myErrorId")
+                                      .route("/application/person/search")
+                                      .message("Oh, nothing wrong ... only wonna show a nice error dialog!")
+                                      .data("key01",
+                                            "first parameter")
+                                      .data("key02",
+                                            "second parameter"))
+```
+to fire the event.
 
 ## Handling Nalu Error event
 To handle a Nalu error event there are two ways to go:
@@ -75,10 +93,7 @@ public class ErrorController
 
   @Override
   protected void show() {
-    this.component.edit(this.errorEventType,
-                        this.route,
-                        this.message,
-                        this.dataStore);
+    this.component.edit(this.errorInfo);
     this.component.show();
   }
 
@@ -149,6 +164,7 @@ public class ApplicationContext
 }
 ```
 
+## Examples
+You will find an implementation using the `ErrorPopUpCopntroller` [here](todo).
 
-See the 'xxx'-exammple:
-
+And an implementation using an error handler [here](todo).
