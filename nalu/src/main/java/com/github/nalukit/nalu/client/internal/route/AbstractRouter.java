@@ -191,12 +191,14 @@ abstract class AbstractRouter
     if (this.loopDetectionList.contains(pimpUpHashForLoopDetection(hash))) {
       // fire Router StateEvent
       try {
+        // parse it again to get more informations to add to the event
         RouteResult routeResult = this.parse(hash);
         this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
                                   routeResult.getRoute(),
                                   routeResult.getParameterValues()
                                              .toArray(new String[0]));
       } catch (RouterException e) {
+        // Ups ... does not work ... lets use the hash
         this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
                                   hash);
       }
