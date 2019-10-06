@@ -30,7 +30,7 @@ Meta tags for Twitter integration:
 * **twitter:descritpion**: the 'twitter:description' meta tag
 * **twitter:image**: the 'twitter:image' meta tag
 * **twitter:site**: the 'twitter:site' meta tag
-* **twitter:Creator**: the 'twitter:creator' meta tag
+* **twitter:creator**: the 'twitter:creator' meta tag
 
 To set these values use the following code:
 
@@ -62,7 +62,7 @@ To set these values use the following code:
       SeoDataProvider.get()
                      .setTwitterCreator("Twitter Creator");
       SeoDataProvider.get()
-                     .setTwitterDescription("Twitter DEscription");
+                     .setTwitterDescription("Twitter Description");
       SeoDataProvider.get()
                      .setTwitterImage("http://www.gwtproject.org");
       SeoDataProvider.get()
