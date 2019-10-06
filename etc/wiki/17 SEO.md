@@ -53,7 +53,7 @@ To set these values use the following code:
       SeoDataProvider.get()
                      .setOgTitle("Title: Max Mustermann");
       SeoDataProvider.get()
-                     .setOgType("Type: Max Mustermann");
+                     .setOgType("website");
       SeoDataProvider.get()
                      .setOgUrl("http://www.gwtproject.org");
                      
