@@ -21,13 +21,13 @@ Meta tags for Facebook integration:
 * **og:type**: the 'og:type' meta tag
 * **og:url**: the 'og:url' meta tag
 * **og:sitename**: the 'og:sitename' meta tag
-* **og:descritpion**: the 'og:description' meta tag
+* **og:description**: the 'og:description' meta tag
 
 Meta tags for Twitter integration:
 
 * **twitter:card**: the 'twitter:card' meta tag
 * **twitter:title**: the 'twitter:title' meta tag
-* **twitter:descritpion**: the 'twitter:description' meta tag
+* **twitter:description**: the 'twitter:description' meta tag
 * **twitter:image**: the 'twitter:image' meta tag
 * **twitter:site**: the 'twitter:site' meta tag
 * **twitter:creator**: the 'twitter:creator' meta tag
