@@ -36,6 +36,7 @@
     <module>nalu-processor</module>
     <module>nalu-plugin-core-web</module>
     <module>nalu-plugin-elemental2</module>
+    <module>nalu-plugin-elemento</module>
     <module>nalu-plugin-gwt</module>
     <module>nalu-plugin-gwt-processor</module>
   </modules>
@@ -97,6 +98,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <elemental2.version>1.0.0-RC1</elemental2.version>
+    <elemento.version>0.9.1</elemento.version>
 
     <plugin.version.github.site>0.12</plugin.version.github.site>
     <plugin.version.gpg.maven>1.6</plugin.version.gpg.maven>
