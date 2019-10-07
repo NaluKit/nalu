@@ -164,6 +164,11 @@ public class ApplicationContext
 }
 ```
 
+## Important Note
+In a multi nodule environment the `@ErrorPopUpController` needs to be defined inside the main modules.
+
+**Sub-modules can not define a `@ErrorPopUpController`!**
+
 ## Examples
 You will find an implementation using the `ErrorPopUpCopntroller` [here](todo).
 

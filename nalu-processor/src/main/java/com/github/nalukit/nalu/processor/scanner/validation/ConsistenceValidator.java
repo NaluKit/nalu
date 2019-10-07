@@ -63,6 +63,19 @@ public class ConsistenceValidator {
     this.validateDuplicateShellName();
     // check, is there are duplicate block controller names
     this.validateDuplicateBlockControllerName();
+    // check, that there is no @ErrorPopUpController used in a sub module
+    this.vallidateErrorPopUpControllerInSubModule();
+  }
+
+  private void vallidateErrorPopUpControllerInSubModule()
+      throws ProcessorException {
+    // current compilation source is a sub module
+    if (!Objects.isNull(this.metaModel.getModuleModel())) {
+      // current module has a error pop up Controller
+      if (!Objects.isNull(this.metaModel.getErrorPopUpController())) {
+        throw new ProcessorException("Nalu-Processor:" + "@ErrorPopUpController: can only be use inside a main module");
+      }
+    }
   }
 
   private void validateDuplicateShellName()
