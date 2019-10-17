@@ -19,7 +19,7 @@ import com.github.nalukit.nalu.plugin.core.web.client.AbstractLogger;
 import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
 import elemental2.dom.DomGlobal;
 
-public class DefaultElemental2Logger
+public class DefaultElementoLogger
     extends AbstractLogger {
 
   static final String INDENT = "..";
