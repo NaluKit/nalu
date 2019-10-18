@@ -514,7 +514,7 @@ public class NaluProcessor
   }
 
   private String createRelativeFileName() {
-    return ProcessorConstants.META_INF + "/" + ProcessorConstants.NALU_REACT_FOLDER_NAME + "/" + NaluProcessor.APPLICATION_PROPERTIES;
+    return ProcessorConstants.META_INF + "/" + ProcessorConstants.NALU_FOLDER_NAME + "/" + NaluProcessor.APPLICATION_PROPERTIES;
   }
 
 }

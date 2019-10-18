@@ -24,7 +24,7 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>1.3.4<< used to generate this source");
+    sb01.append("Nalu processor version  >>1.3.5-SNAPSHOT<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);

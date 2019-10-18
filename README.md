@@ -120,8 +120,9 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
     <version>LATEST</version>
 </dependency>
 ```
+The **nalu-plugin-elemento** can also be used with Domino-ui.
 
-(These plugins are ready to use with J2CL / GWT 3)
+**(These plugins are ready to use with J2CL / GWT 3)**
 
 If the project uses a widget set based on GWT 2.8.2 or newer, use the **Nalu-Plugin-GWT** by adding the following lines to your pom:
 
