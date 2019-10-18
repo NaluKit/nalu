@@ -19,16 +19,60 @@ package com.github.nalukit.nalu.processor;
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.client.application.annotation.Filters;
-import com.github.nalukit.nalu.client.component.annotation.*;
+import com.github.nalukit.nalu.client.component.annotation.BlockController;
+import com.github.nalukit.nalu.client.component.annotation.CompositeController;
+import com.github.nalukit.nalu.client.component.annotation.Controller;
+import com.github.nalukit.nalu.client.component.annotation.ErrorPopUpController;
+import com.github.nalukit.nalu.client.component.annotation.PopUpController;
+import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.client.module.annotation.Module;
 import com.github.nalukit.nalu.client.module.annotation.Modules;
 import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
-import com.github.nalukit.nalu.processor.generator.*;
+import com.github.nalukit.nalu.processor.generator.ApplicationGenerator;
+import com.github.nalukit.nalu.processor.generator.BlockControllerCreatorGenerator;
+import com.github.nalukit.nalu.processor.generator.CompositeCreatorGenerator;
+import com.github.nalukit.nalu.processor.generator.ControllerCreatorGenerator;
+import com.github.nalukit.nalu.processor.generator.ModuleGenerator;
+import com.github.nalukit.nalu.processor.generator.PopUpControllerCreatorGenerator;
+import com.github.nalukit.nalu.processor.generator.ShellCreatorGenerator;
 import com.github.nalukit.nalu.processor.model.MetaModel;
-import com.github.nalukit.nalu.processor.model.intern.*;
-import com.github.nalukit.nalu.processor.scanner.*;
-import com.github.nalukit.nalu.processor.scanner.validation.*;
+import com.github.nalukit.nalu.processor.model.intern.BlockControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
+import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
+import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ErrorPopUpControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ModuleModel;
+import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ShellModel;
+import com.github.nalukit.nalu.processor.scanner.ApplicationAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.BlockControllerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.CompositeControllerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.CompositesAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.ControllerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.DebugAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.ErrorPopUpControllerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.FiltersAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.HandlerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.ModuleAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.ModulesAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.PopUpControllerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.ShellAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.TrackerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.validation.ApplicationAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.BlockControllerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.CompositeControllerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.ConsistenceValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.ControllerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.DebugAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.ErrorPopUpControllerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.FiltersAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.HandlerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.ModuleAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.ModulesAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.PopUpControllerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.ShellAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.TrackerAnnotationValidator;
 import com.google.auto.service.AutoService;
 import com.google.common.base.Stopwatch;
 import com.google.gson.Gson;
@@ -581,7 +625,7 @@ public class NaluProcessor
   }
 
   private String createRelativeFileName() {
-    return ProcessorConstants.META_INF + "/" + ProcessorConstants.NALU_REACT_FOLDER_NAME + "/" + NaluProcessor.APPLICATION_PROPERTIES;
+    return ProcessorConstants.META_INF + "/" + ProcessorConstants.NALU_FOLDER_NAME + "/" + NaluProcessor.APPLICATION_PROPERTIES;
   }
 
 }

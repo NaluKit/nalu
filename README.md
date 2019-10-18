@@ -107,7 +107,17 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
     <version>LATEST</version>
 </dependency>
 ```
-(This plugin is ready to use with J2CL / GWT 3)
+For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.core.IsElement<E>` as widget type:
+```XML
+<dependency>
+    <groupId>com.github.nalukit</groupId>
+    <artifactId>nalu-plugin-elemento</artifactId>
+    <version>LATEST</version>
+</dependency>
+```
+The **nalu-plugin-elemento** can also be used with Domino-ui.
+
+**(These plugins are ready to use with J2CL / GWT 3)**
 
 If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nalu-Plugin-GWT** by adding the following lines to your pom:
 ```XML

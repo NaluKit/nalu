@@ -13,13 +13,23 @@
  *  License for the specific language governing permissions and limitations under
  *  the License.
  */
+package com.github.nalukit.nalu.plugin.elemento.client;
 
-package com.github.nalukit.nalu.processor;
+import com.github.nalukit.nalu.plugin.core.web.client.AbstractLogger;
+import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
+import elemental2.dom.DomGlobal;
 
-public class ProcessorConstants {
+public class DefaultElementoLogger
+    extends AbstractLogger {
 
-  public final static String META_DATA = "MetaData";
+  static final String INDENT = "..";
 
-  public final static String PARAMETER_DELIMITER = "_pPp_";
+  public void log(String message,
+                  int depth) {
+    if (NaluPluginCoreWeb.isSuperDevMode()) {
+      DomGlobal.window.console.log(createLog(message,
+                                             depth));
+    }
+  }
 
 }
