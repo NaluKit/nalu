@@ -45,38 +45,8 @@ public class AcceptParameterAnnotationValidator {
 
   public void validate()
       throws ProcessorException {
-    //    for (Element annotatedElement : this.annotatedElements) {
-    //      // @AcceptParameter can only be used on a method
-    //      if (!ElementKind.METHOD.equals(annotatedElement.getKind())) {
-    //        throw new ProcessorException("Nalu-Processor: @AcceptParameter can only be used with a method");
-    //      }
-    //      ExecutableElement executableElement = (ExecutableElement) annotatedElement;
-    //      if (executableElement.getParameters()
-    //                           .size() != 1) {
-    //        throw new ProcessorException("Nalu-Processor: @AcceptParameter can only be used with a method that has one parameter");
-    //      }
-    //      if (!executableElement.getParameters()
-    //                            .get(0)
-    //                            .asType()
-    //                            .toString()
-    //                            .equals("java.lang.String")) {
-    //        throw new ProcessorException("Nalu-Processor: @AcceptParameter can only be used with a method that has one parameter and the parameter type is String");
-    //      }
-    //      AcceptParameter annotation = annotatedElement.getAnnotation(AcceptParameter.class);
-    //      if (!this.controllerModel.getParameters()
-    //                               .contains(annotation.value())) {
-    //        throw new ProcessorException("Nalu-Processor: @AcceptParameter refering a variable which is not in the controller's route");
-    //      }
-    //    }
-  }
-
-  //  private List<String> getParameterFromRoute(String route) {
-  //    if (!route.contains("/:")) {
-  //      return new ArrayList<>();
-  //    }
-  //    return Arrays.asList(route.substring(route.indexOf("/:") + 2)
-  //                              .split("/:"));
-  //  }
+      // Tests are currently done during ControllerValidation
+   }
 
   public static final class Builder {
 

@@ -98,7 +98,7 @@ public class ControllerAnnotationValidator {
           ExecutableType executableType = (ExecutableType) element.asType();
           List<? extends TypeMirror> parameters = executableType.getParameterTypes();
           if (parameters.size() != 1) {
-            throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString() + "<< - @AcceptParameter annotated on >>" + executableType.toString() + "<< need on parameter of type String");
+            throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString() + "<< - @AcceptParameter annotated on >>" + executableType.toString() + "<< need one parameter of type String");
           }
           if (!String.class.getCanonicalName()
                            .equals(parameters.get(0)
