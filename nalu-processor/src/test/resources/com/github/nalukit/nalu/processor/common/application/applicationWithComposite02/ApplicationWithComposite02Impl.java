@@ -19,7 +19,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0-rc-3<< at >>2019.09.27-18:20:23<< */
+ * Build with Nalu version >>2.0.0-rc-4<< at >>2019.10.23-09:15:22<< */
 public final class ApplicationWithComposite02Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite02 {
   public ApplicationWithComposite02Impl() {
     super();
@@ -31,7 +31,7 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>2.0.0-rc-3<< used to generate this source");
+    sb01.append("Nalu processor version  >>2.0.0-rc-4<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
@@ -74,9 +74,9 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
     // create ControllerCreator for: com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02
     ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02", new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02CreatorImpl(router, context, eventBus));
     // register conditions of composites for: com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02
-    CompositeCondition02 compositeCondition02 = new CompositeCondition02();
-    compositeCondition02.setContext(super.context);
-    ControllerCompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite.CompositeController02", compositeCondition02);
+    CompositeCondition02 compositeCondition02_1 = new CompositeCondition02();
+    compositeCondition02_1.setContext(super.context);
+    ControllerCompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite.CompositeController02", compositeCondition02_1);
   }
 
   @Override

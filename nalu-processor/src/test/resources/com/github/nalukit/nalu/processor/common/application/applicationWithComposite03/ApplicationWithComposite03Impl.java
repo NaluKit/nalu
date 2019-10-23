@@ -19,7 +19,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0-rc-3<< at >>2019.09.27-18:20:23<< */
+ * Build with Nalu version >>2.0.0-rc-4<< at >>2019.10.23-09:16:38<< */
 public final class ApplicationWithComposite03Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite03 {
   public ApplicationWithComposite03Impl() {
     super();
@@ -31,7 +31,7 @@ public final class ApplicationWithComposite03Impl extends AbstractApplication<Mo
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>2.0.0-rc-3<< used to generate this source");
+    sb01.append("Nalu processor version  >>2.0.0-rc-4<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
@@ -75,9 +75,9 @@ public final class ApplicationWithComposite03Impl extends AbstractApplication<Mo
     ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.ControllerWithComposite03", new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.ControllerWithComposite03CreatorImpl(router, context, eventBus));
     // register conditions of composites for: com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.ControllerWithComposite03
     ControllerCompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.ControllerWithComposite03", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.composite.CompositeController01", super.alwaysLoadComposite);
-    CompositeCondition03 compositeCondition03 = new CompositeCondition03();
-    compositeCondition03.setContext(super.context);
-    ControllerCompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.ControllerWithComposite03", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.composite.CompositeController03", compositeCondition03);
+    CompositeCondition03 compositeCondition03_1 = new CompositeCondition03();
+    compositeCondition03_1.setContext(super.context);
+    ControllerCompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.ControllerWithComposite03", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite03.composite.CompositeController03", compositeCondition03_1);
   }
 
   @Override
