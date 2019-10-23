@@ -22,6 +22,7 @@ import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.model.MetaModel;
+import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
@@ -30,7 +31,9 @@ import com.squareup.javapoet.TypeSpec;
 import javax.lang.model.element.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 public class ControllerGenerator {
@@ -39,6 +42,8 @@ public class ControllerGenerator {
 
   private TypeSpec.Builder typeSpec;
 
+  private Map<String, Integer> variableCounterMap;
+
   @SuppressWarnings("unused")
   private ControllerGenerator() {
   }
@@ -46,6 +51,8 @@ public class ControllerGenerator {
   private ControllerGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
     this.typeSpec = builder.typeSpec;
+
+    this.variableCounterMap = new HashMap<>();
   }
 
   public static Builder builder() {
@@ -109,22 +116,31 @@ public class ControllerGenerator {
                                                                         controllerCompositeModel.getComposite()
                                                                                                 .getSimpleName());
                              } else {
-                               if (!generatedConditionClassNames.contains(controllerCompositeModel.getCondition()
-                                                                                                  .getClassName())) {
+                               String conditionVariableName;
+                               if (generatedConditionClassNames.contains(controllerCompositeModel.getCondition()
+                                                                                                 .getClassName())) {
+                                 conditionVariableName = this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
+                                                                                                                   .getSimpleName()) +
+                                                         this.getNameWithVariableCount(controllerCompositeModel.getCondition(),
+                                                                                       false);
+                               } else {
+                                 conditionVariableName = this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
+                                                                                                                   .getSimpleName()) +
+                                                         this.getNameWithVariableCount(controllerCompositeModel.getCondition(),
+                                                                                       true);
+
                                  loadComponentsMethodBuilder.addStatement("$T $L = new $T()",
                                                                           ClassName.get(controllerCompositeModel.getCondition()
                                                                                                                 .getPackage(),
                                                                                         controllerCompositeModel.getCondition()
                                                                                                                 .getSimpleName()),
-                                                                          this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
-                                                                                                                                    .getSimpleName()),
+                                                                          conditionVariableName,
                                                                           ClassName.get(controllerCompositeModel.getCondition()
                                                                                                                 .getPackage(),
                                                                                         controllerCompositeModel.getCondition()
                                                                                                                 .getSimpleName()))
                                                             .addStatement("$L.setContext(super.context)",
-                                                                          this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
-                                                                                                                                    .getSimpleName()));
+                                                                          conditionVariableName);
                                  // remember generated condition to avoid creating the same class again!
                                  generatedConditionClassNames.add(controllerCompositeModel.getCondition()
                                                                                           .getClassName());
@@ -141,8 +157,7 @@ public class ControllerGenerator {
                                                                         "." +
                                                                         controllerCompositeModel.getComposite()
                                                                                                 .getSimpleName(),
-                                                                        this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
-                                                                                                                                  .getSimpleName()));
+                                                                        conditionVariableName);
                              }
                            });
           }
@@ -235,6 +250,34 @@ public class ControllerGenerator {
     return className.substring(0,
                                1)
                     .toLowerCase() + className.substring(1);
+  }
+
+  /**
+   * Created a String with a number at the end to get unique condition
+   * variable names
+   *
+   * @param classNameModel the condition class name
+   * @return uniques string with number
+   */
+  private String getNameWithVariableCount(ClassNameModel classNameModel,
+                                          boolean createNew) {
+    if (createNew) {
+      // new condition class!
+      if (this.variableCounterMap.get(classNameModel.getClassName()) == null) {
+        this.variableCounterMap.put(classNameModel.getClassName(),
+                                    1);
+        return "_1";
+      }
+      // already used condition class
+      Integer counter = this.variableCounterMap.get(classNameModel.getClassName());
+      Integer newCounter = counter + 1;
+      this.variableCounterMap.put(classNameModel.getClassName(),
+                                  newCounter);
+      return "_" + newCounter;
+    } else {
+      Integer count = this.variableCounterMap.get(classNameModel.getClassName());
+      return "_" + count;
+    }
   }
 
   public static final class Builder {

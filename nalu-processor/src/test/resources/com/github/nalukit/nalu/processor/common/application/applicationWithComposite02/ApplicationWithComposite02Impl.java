@@ -17,6 +17,8 @@ import java.lang.Override;
 import java.lang.StringBuilder;
 import java.util.Arrays;
 
+/**
+ * Build with Nalu version >>1.3.5-SNAPSHOT<< at >>2019.10.23-12:16:08<< */
 public final class ApplicationWithComposite02Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite02 {
   public ApplicationWithComposite02Impl() {
     super();
@@ -71,9 +73,9 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
     // create ControllerCreator for: com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02
     ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02", new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02CreatorImpl(router, context, eventBus));
     // register conditions of composites for: com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02
-    CompositeCondition02 compositeCondition02 = new CompositeCondition02();
-    compositeCondition02.setContext(super.context);
-    ControllerCompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite.CompositeController02", compositeCondition02);
+    CompositeCondition02 compositeCondition02_1 = new CompositeCondition02();
+    compositeCondition02_1.setContext(super.context);
+    ControllerCompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite.CompositeController02", compositeCondition02_1);
   }
 
   @Override
