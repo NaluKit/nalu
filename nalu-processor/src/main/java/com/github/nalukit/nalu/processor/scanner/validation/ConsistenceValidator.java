@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.processor.scanner.validation;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.BlockControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ControllerCompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 
@@ -63,8 +64,27 @@ public class ConsistenceValidator {
     this.validateDuplicateShellName();
     // check, is there are duplicate block controller names
     this.validateDuplicateBlockControllerName();
+    // check, is there are duplicate names for composites inside one controller
+    this.validateDuplicateCompositeNamesInAController();
+    // check, is there are duplicate block controller names
+    this.validateDuplicateBlockControllerName();
     // check, that there is no @ErrorPopUpController used in a sub module
     this.vallidateErrorPopUpControllerInSubModule();
+  }
+
+  private void validateDuplicateCompositeNamesInAController()
+      throws ProcessorException {
+    List<String> compareList = new ArrayList<>();
+    for (ControllerModel controllerModel : this.metaModel.getControllers()) {
+      for (ControllerCompositeModel controllerCompositeModel : controllerModel.getComposites()) {
+        if (compareList.contains(controllerCompositeModel.getName())) {
+          throw new ProcessorException("Nalu-Processor:" + "@Compiste: the name >>" + controllerCompositeModel.getName() + "<< is duplicate! Please use another unique name!");
+        }
+        compareList.add(controllerCompositeModel.getName());
+      }
+      // reset compare list
+      compareList = new ArrayList<>();
+    }
   }
 
   private void vallidateErrorPopUpControllerInSubModule()

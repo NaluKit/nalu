@@ -325,4 +325,30 @@ public class ApplicationTest {
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite07/ApplicationWithComposite07Impl.java"));
   }
 
+  @Test
+  void testApplicationWithCompositesAndSameName() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/ControllerWithComposite08.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/IComponent08.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/Component08.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/composite/CompositeController03.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/composite/ICompositeComponent03.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/composite/CompositeComponent03.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/composite/CompositeController04.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/composite/ICompositeComponent04.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/composite/CompositeComponent04.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/composite/CompositeController05.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/composite/ICompositeComponent05.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/composite/CompositeComponent05.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite08/ApplicationWithComposite08.java")
+
+                                     ));
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("@Compiste: the name >>testComposite02<< is duplicate! Please use another unique name!");
+  }
+
 }
