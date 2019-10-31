@@ -48,10 +48,7 @@ import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toSet;
@@ -111,8 +108,8 @@ public class NaluProcessor
           this.store(metaModel);
         }
         this.processorUtils.createNoteMessage("Nalu-Processor finished ... processing takes: " +
-                                              this.stopwatch.stop()
-                                                            .toString());
+                                                  this.stopwatch.stop()
+                                                                .toString());
       } else {
         if (annotations.size() > 0) {
           for (TypeElement annotation : annotations) {
@@ -188,6 +185,21 @@ public class NaluProcessor
                                      .generate();
       popUpControllerModels.add(popUpControllerModel);
     }
+    // check, if the one of the popUpController in the list is already
+    // added to the the meta model
+    //
+    // in case it is, remove it.
+    popUpControllerModels.forEach(model -> {
+      Optional<PopUpControllerModel> optional = this.metaModel.getPopUpControllers()
+                                                              .stream()
+                                                              .filter(s -> model.getController()
+                                                                                .getClassName()
+                                                                                .equals(s.getController()
+                                                                                         .getClassName()))
+                                                              .findFirst();
+      optional.ifPresent(optionalPopUpControllerModel -> this.metaModel.getPopUpControllers()
+                                                                       .remove(optionalPopUpControllerModel));
+    });
     // save data in metaModel
     this.metaModel.getPopUpControllers()
                   .addAll(popUpControllerModels);
@@ -277,6 +289,21 @@ public class NaluProcessor
                            .generate();
       shellsModels.add(shellModel);
     }
+    // check, if the one of the shell in the list is already
+    // added to the the meta model
+    //
+    // in case it is, remove it.
+    shellsModels.forEach(model -> {
+      Optional<ShellModel> optional = this.metaModel.getShells()
+                                                    .stream()
+                                                    .filter(s -> model.getShell()
+                                                                      .getClassName()
+                                                                      .equals(s.getShell()
+                                                                               .getClassName()))
+                                                    .findFirst();
+      optional.ifPresent(optionalShellModel -> this.metaModel.getShells()
+                                                             .remove(optionalShellModel));
+    });
     // save handler data in metaModel
     this.metaModel.getShells()
                   .addAll(shellsModels);
@@ -342,8 +369,19 @@ public class NaluProcessor
                                 .controllerModel(controllerModel)
                                 .build()
                                 .generate();
+      // check, if the controller is already
+      // added to the the meta model
       //
-
+      // in case it is, remove it.
+      final String controllerClassname = controllerModel.getController()
+                                                        .getClassName();
+      Optional<ControllerModel> optional = this.metaModel.getControllers()
+                                                         .stream()
+                                                         .filter(s -> controllerClassname.equals(s.getController()
+                                                                                                  .getClassName()))
+                                                         .findFirst();
+      optional.ifPresent(optionalControllerModel -> this.metaModel.getControllers()
+                                                                  .remove(optionalControllerModel));
       // save controller data in metaModel
       this.metaModel.getControllers()
                     .add(controllerModel);
@@ -367,6 +405,17 @@ public class NaluProcessor
                                                             .handlerElement(handlerElement)
                                                             .build()
                                                             .scan();
+      // check, if the handler is already
+      // added to the the meta model
+      //
+      // in case it is, remove it.
+      final String handlerClassname = handlerModel.getClassName();
+      Optional<ClassNameModel> optional = this.metaModel.getHandlers()
+                                                        .stream()
+                                                        .filter(s -> handlerClassname.equals(s.getClassName()))
+                                                        .findFirst();
+      optional.ifPresent(optionalHandler -> this.metaModel.getHandlers()
+                                                          .remove(optionalHandler));
       // save handler data in metaModel
       this.metaModel.getHandlers()
                     .add(handlerModel);
@@ -389,6 +438,19 @@ public class NaluProcessor
                                                                   .filtersElement(filtersElement)
                                                                   .build()
                                                                   .scan(roundEnv);
+      // check, if the one of the shell in the list is already
+      // added to the the meta model
+      //
+      // in case it is, remove it.
+      filterModels.forEach(model -> {
+        Optional<ClassNameModel> optional = this.metaModel.getFilters()
+                                                          .stream()
+                                                          .filter(s -> model.getClassName()
+                                                                            .equals(s.getClassName()))
+                                                          .findFirst();
+        optional.ifPresent(optionalFilter -> this.metaModel.getFilters()
+                                                           .remove(optionalFilter));
+      });
       // save filter data in metaModel
       this.metaModel.getFilters()
                     .addAll(filterModels);
