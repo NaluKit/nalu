@@ -19,60 +19,16 @@ package com.github.nalukit.nalu.processor;
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.client.application.annotation.Filters;
-import com.github.nalukit.nalu.client.component.annotation.BlockController;
-import com.github.nalukit.nalu.client.component.annotation.CompositeController;
-import com.github.nalukit.nalu.client.component.annotation.Controller;
-import com.github.nalukit.nalu.client.component.annotation.ErrorPopUpController;
-import com.github.nalukit.nalu.client.component.annotation.PopUpController;
-import com.github.nalukit.nalu.client.component.annotation.Shell;
+import com.github.nalukit.nalu.client.component.annotation.*;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.client.module.annotation.Module;
 import com.github.nalukit.nalu.client.module.annotation.Modules;
 import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
-import com.github.nalukit.nalu.processor.generator.ApplicationGenerator;
-import com.github.nalukit.nalu.processor.generator.BlockControllerCreatorGenerator;
-import com.github.nalukit.nalu.processor.generator.CompositeCreatorGenerator;
-import com.github.nalukit.nalu.processor.generator.ControllerCreatorGenerator;
-import com.github.nalukit.nalu.processor.generator.ModuleGenerator;
-import com.github.nalukit.nalu.processor.generator.PopUpControllerCreatorGenerator;
-import com.github.nalukit.nalu.processor.generator.ShellCreatorGenerator;
+import com.github.nalukit.nalu.processor.generator.*;
 import com.github.nalukit.nalu.processor.model.MetaModel;
-import com.github.nalukit.nalu.processor.model.intern.BlockControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
-import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
-import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.ErrorPopUpControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.ModuleModel;
-import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.ShellModel;
-import com.github.nalukit.nalu.processor.scanner.ApplicationAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.BlockControllerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.CompositeControllerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.CompositesAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.ControllerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.DebugAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.ErrorPopUpControllerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.FiltersAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.HandlerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.ModuleAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.ModulesAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.PopUpControllerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.ShellAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.TrackerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.validation.ApplicationAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.BlockControllerAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.CompositeControllerAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.ConsistenceValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.ControllerAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.DebugAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.ErrorPopUpControllerAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.FiltersAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.HandlerAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.ModuleAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.ModulesAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.PopUpControllerAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.ShellAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.TrackerAnnotationValidator;
+import com.github.nalukit.nalu.processor.model.intern.*;
+import com.github.nalukit.nalu.processor.scanner.*;
+import com.github.nalukit.nalu.processor.scanner.validation.*;
 import com.google.auto.service.AutoService;
 import com.google.common.base.Stopwatch;
 import com.google.gson.Gson;
@@ -89,10 +45,7 @@ import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -156,8 +109,8 @@ public class NaluProcessor
           this.store(metaModel);
         }
         this.processorUtils.createNoteMessage("Nalu-Processor finished ... processing takes: " +
-                                              this.stopwatch.stop()
-                                                            .toString());
+                                                  this.stopwatch.stop()
+                                                                .toString());
       } else {
         if (annotations.size() > 0) {
           for (TypeElement annotation : annotations) {
@@ -165,7 +118,7 @@ public class NaluProcessor
                                  .equals(annotation.toString())) {
               handleApplicationAnnotation(roundEnv);
             } else if (BlockController.class.getCanonicalName()
-                                                .equals(annotation.toString())) {
+                                            .equals(annotation.toString())) {
               handleBlockControllerAnnotation(roundEnv);
             } else if (CompositeController.class.getCanonicalName()
                                                 .equals(annotation.toString())) {
@@ -238,6 +191,21 @@ public class NaluProcessor
                                      .generate();
       blockControllerModels.add(blockControllerModel);
     }
+    // check, if the one of the popUpController in the list is already
+    // added to the the meta model
+    //
+    // in case it is, remove it.
+    blockControllerModels.forEach(model -> {
+      Optional<BlockControllerModel> optional = this.metaModel.getBlockControllers()
+                                                              .stream()
+                                                              .filter(s -> model.getController()
+                                                                                .getClassName()
+                                                                                .equals(s.getController()
+                                                                                         .getClassName()))
+                                                              .findFirst();
+      optional.ifPresent(optionalBlockControllerModel -> this.metaModel.getPopUpControllers()
+                                                                       .remove(optionalBlockControllerModel));
+    });
     // save data in metaModel
     this.metaModel.getBlockControllers()
                   .addAll(blockControllerModels);
@@ -298,6 +266,21 @@ public class NaluProcessor
                                      .generate();
       popUpControllerModels.add(popUpControllerModel);
     }
+    // check, if the one of the popUpController in the list is already
+    // added to the the meta model
+    //
+    // in case it is, remove it.
+    popUpControllerModels.forEach(model -> {
+      Optional<PopUpControllerModel> optional = this.metaModel.getPopUpControllers()
+                                                              .stream()
+                                                              .filter(s -> model.getController()
+                                                                                .getClassName()
+                                                                                .equals(s.getController()
+                                                                                         .getClassName()))
+                                                              .findFirst();
+      optional.ifPresent(optionalPopUpControllerModel -> this.metaModel.getPopUpControllers()
+                                                                       .remove(optionalPopUpControllerModel));
+    });
     // save data in metaModel
     this.metaModel.getPopUpControllers()
                   .addAll(popUpControllerModels);
@@ -387,6 +370,21 @@ public class NaluProcessor
                            .generate();
       shellsModels.add(shellModel);
     }
+    // check, if the one of the shell in the list is already
+    // added to the the meta model
+    //
+    // in case it is, remove it.
+    shellsModels.forEach(model -> {
+      Optional<ShellModel> optional = this.metaModel.getShells()
+                                                    .stream()
+                                                    .filter(s -> model.getShell()
+                                                                      .getClassName()
+                                                                      .equals(s.getShell()
+                                                                               .getClassName()))
+                                                    .findFirst();
+      optional.ifPresent(optionalShellModel -> this.metaModel.getShells()
+                                                             .remove(optionalShellModel));
+    });
     // save handler data in metaModel
     this.metaModel.getShells()
                   .addAll(shellsModels);
@@ -452,8 +450,19 @@ public class NaluProcessor
                                 .controllerModel(controllerModel)
                                 .build()
                                 .generate();
+      // check, if the controller is already
+      // added to the the meta model
       //
-
+      // in case it is, remove it.
+      final String controllerClassname = controllerModel.getController()
+                                                        .getClassName();
+      Optional<ControllerModel> optional = this.metaModel.getControllers()
+                                                         .stream()
+                                                         .filter(s -> controllerClassname.equals(s.getController()
+                                                                                                  .getClassName()))
+                                                         .findFirst();
+      optional.ifPresent(optionalControllerModel -> this.metaModel.getControllers()
+                                                                  .remove(optionalControllerModel));
       // save controller data in metaModel
       this.metaModel.getControllers()
                     .add(controllerModel);
@@ -477,6 +486,17 @@ public class NaluProcessor
                                                             .handlerElement(handlerElement)
                                                             .build()
                                                             .scan();
+      // check, if the handler is already
+      // added to the the meta model
+      //
+      // in case it is, remove it.
+      final String handlerClassname = handlerModel.getClassName();
+      Optional<ClassNameModel> optional = this.metaModel.getHandlers()
+                                                        .stream()
+                                                        .filter(s -> handlerClassname.equals(s.getClassName()))
+                                                        .findFirst();
+      optional.ifPresent(optionalHandler -> this.metaModel.getHandlers()
+                                                          .remove(optionalHandler));
       // save handler data in metaModel
       this.metaModel.getHandlers()
                     .add(handlerModel);
@@ -499,6 +519,19 @@ public class NaluProcessor
                                                                   .filtersElement(filtersElement)
                                                                   .build()
                                                                   .scan(roundEnv);
+      // check, if the one of the shell in the list is already
+      // added to the the meta model
+      //
+      // in case it is, remove it.
+      filterModels.forEach(model -> {
+        Optional<ClassNameModel> optional = this.metaModel.getFilters()
+                                                          .stream()
+                                                          .filter(s -> model.getClassName()
+                                                                            .equals(s.getClassName()))
+                                                          .findFirst();
+        optional.ifPresent(optionalFilter -> this.metaModel.getFilters()
+                                                           .remove(optionalFilter));
+      });
       // save filter data in metaModel
       this.metaModel.getFilters()
                     .addAll(filterModels);
