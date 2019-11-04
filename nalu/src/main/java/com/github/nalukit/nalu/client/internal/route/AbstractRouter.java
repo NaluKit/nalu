@@ -29,13 +29,26 @@ import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
-import com.github.nalukit.nalu.client.internal.application.*;
+import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
+import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
+import com.github.nalukit.nalu.client.internal.application.ControllerCallback;
+import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
+import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
+import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
+import com.github.nalukit.nalu.client.internal.application.ShellCallback;
+import com.github.nalukit.nalu.client.internal.application.ShellFactory;
+import com.github.nalukit.nalu.client.internal.application.ShellInstance;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.client.seo.SeoDataProvider;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import org.gwtproject.event.shared.SimpleEventBus;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
@@ -845,6 +858,14 @@ abstract class AbstractRouter
       // save to active components
       this.activeComponents.put(selector,
                                 controller);
+    } else {
+      String sb = "no element found, that matches selector >>" + selector + "<< --> Routing aborted!";
+      RouterLogger.logSimple(sb,
+                             1);
+      eventBus.fireEvent(NaluErrorEvent.createNaluError()
+                                       .errorId(NaluConstants.NALU_ERROR_SELECOR_NOT_FOUND)
+                                       .message(sb)
+                                       .route("NoRouteAvailable"));
     }
   }
 
