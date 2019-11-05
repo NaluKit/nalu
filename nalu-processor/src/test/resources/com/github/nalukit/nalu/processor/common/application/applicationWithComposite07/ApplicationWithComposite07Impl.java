@@ -19,7 +19,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>1.3.5-SNAPSHOT<< at >>2019.10.23-12:21:57<< */
+ * Build with Nalu version >>1.3.5<< at >>2019.10.23-12:21:57<< */
 public final class ApplicationWithComposite07Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite07 {
   public ApplicationWithComposite07Impl() {
     super();
@@ -31,7 +31,7 @@ public final class ApplicationWithComposite07Impl extends AbstractApplication<Mo
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>1.3.5-SNAPSHOT<< used to generate this source");
+    sb01.append("Nalu processor version  >>1.3.5<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
