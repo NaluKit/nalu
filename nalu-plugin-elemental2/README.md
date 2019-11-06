@@ -1,17 +1,22 @@
-# Nalu Plugin Elemental2
-This module contains the classes needed in case you are using Nalu with a Elemental2 based widget library.
+# Nalu Elemental2 Plugin
 
-Examples of Elemental2 based widget libraries are:
+In case your working with widgets based on Elemental2, use the **nalu-elemental2-plugin**.
 
-* vanilla Elemental2
+The plugin adds support for having components which use either:
+
+* `HTMLElement`
 * Elemento
 * Domino-UI
 
-In case your are using a Elemental2 based widget library, add this module to the dependencies using:
+
+To use this plugin in your application, add the following lines to your POM:
+
 ```xml
-    <dependency>
-      <groupId>com.github.nalukit</groupId>
-      <artifactId>nalu-plugin-elemental2</artifactId>
-      <version>LATEST</version>
-    </dependency>
+<dependency>
+    <groupId>com.github.nalukit</groupId>
+    <artifactId>nalu-plugin-elemental2</artifactId>
+    <version>LATEST</version>
+</dependency>
 ```
+
+**The nalu-plugin-elemental2 can also be used with Domino-ui.**
