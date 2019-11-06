@@ -5,6 +5,9 @@ In case your working with widgets based on Elemental2, use the **nalu-elemental2
 The plugin adds support for having components which use either:
 
 * `HTMLElement`
+* Elemento
+* Domino-UI
+
 
 To use this plugin in your application, add the following lines to your POM:
 
