@@ -2,7 +2,6 @@ package com.github.nalukit.nalu.processor.application.startRouteOK;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
-import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
@@ -15,7 +14,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0<< at >>2019.09.27-18:20:23<< */
+ * Build with Nalu version >>2.0.0<< at >>2019.11.07-07:25:37<< */
 public final class StartRouteOKImpl extends AbstractApplication<MockContext> implements StartRouteOK {
   public StartRouteOKImpl() {
     super();
@@ -152,10 +151,5 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
   @Override
   public boolean isStayOnSide() {
     return false;
-  }
-
-  @Override
-  public PropertyFactory.ErrorHandlingMethod getErrorHandlingMethod() {
-    return PropertyFactory.ErrorHandlingMethod.ROUTING;
   }
 }

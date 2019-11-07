@@ -3,7 +3,6 @@ package com.github.nalukit.nalu.processor.common.application.applicationWithComp
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
-import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
@@ -20,7 +19,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0<< at >>2019.10.23-10:23:48<< */
+ * Build with Nalu version >>2.0.0<< at >>2019.11.07-07:25:37<< */
 public final class ApplicationWithComposite04Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite04 {
   public ApplicationWithComposite04Impl() {
     super();
@@ -170,10 +169,5 @@ public final class ApplicationWithComposite04Impl extends AbstractApplication<Mo
   @Override
   public boolean isStayOnSide() {
     return false;
-  }
-
-  @Override
-  public PropertyFactory.ErrorHandlingMethod getErrorHandlingMethod() {
-    return PropertyFactory.ErrorHandlingMethod.ROUTING;
   }
 }

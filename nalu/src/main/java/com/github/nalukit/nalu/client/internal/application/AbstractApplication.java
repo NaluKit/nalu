@@ -24,9 +24,13 @@ import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
-import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.internal.route.*;
+import com.github.nalukit.nalu.client.internal.route.ConfigurableRouter;
+import com.github.nalukit.nalu.client.internal.route.RouteResult;
+import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
+import com.github.nalukit.nalu.client.internal.route.RouterException;
+import com.github.nalukit.nalu.client.internal.route.RouterImpl;
+import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.internal.validation.RouteValidation;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.client.seo.SeoDataProvider;
@@ -136,8 +140,7 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.hasHistory(),
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl(),
-                                 this.isStayOnSide(),
-                                 this.getErrorHandlingMethod());
+                                 this.isStayOnSide());
     this.router.setEventBus(this.eventBus);
     // initialize plugin
     this.plugin.initialize(this.shellConfiguration);
@@ -198,8 +201,6 @@ public abstract class AbstractApplication<C extends IsContext>
       applicationLoader.load(this::onFinishLoading);
     }
   }
-
-  protected abstract ErrorHandlingMethod getErrorHandlingMethod();
 
   protected abstract void logProcessorVersion();
 

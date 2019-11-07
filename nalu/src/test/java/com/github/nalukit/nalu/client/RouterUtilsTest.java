@@ -1,7 +1,6 @@
 package com.github.nalukit.nalu.client;
 
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
-import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +15,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(Nalu.match(route,
                                      with));
   }
@@ -31,8 +29,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -46,8 +43,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -61,8 +57,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -76,8 +71,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(Nalu.match(route,
                                      with));
   }
@@ -91,8 +85,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -106,8 +99,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(Nalu.match(route,
                                      with));
   }
@@ -121,8 +113,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(Nalu.match(route,
                                      with));
   }
@@ -136,8 +127,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -151,8 +141,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(Nalu.match(route,
                                      with));
   }
@@ -166,8 +155,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -181,8 +169,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with,
                                       true));
@@ -197,8 +184,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -212,8 +198,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -227,8 +212,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -242,8 +226,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -257,8 +240,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(Nalu.match(route,
                                      with));
   }
@@ -272,8 +254,7 @@ public class RouterUtilsTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(Nalu.match(route,
                                      with));
   }
@@ -287,8 +268,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(Nalu.match(route,
                                      with));
   }
@@ -302,8 +282,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -317,8 +296,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -332,8 +310,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -347,8 +324,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(Nalu.match(route,
                                      with));
   }
@@ -362,8 +338,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -377,8 +352,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(Nalu.match(route,
                                      with));
   }
@@ -392,8 +366,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(Nalu.match(route,
                                      with));
   }
@@ -407,8 +380,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -422,8 +394,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(Nalu.match(route,
                                      with));
   }
@@ -437,8 +408,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -452,8 +422,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with,
                                       true));
@@ -468,8 +437,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -483,8 +451,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -498,8 +465,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -513,8 +479,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(Nalu.match(route,
                                       with));
   }
@@ -528,8 +493,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(Nalu.match(route,
                                      with));
   }
@@ -543,8 +507,7 @@ public class RouterUtilsTest {
                              false,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(Nalu.match(route,
                                      with));
   }

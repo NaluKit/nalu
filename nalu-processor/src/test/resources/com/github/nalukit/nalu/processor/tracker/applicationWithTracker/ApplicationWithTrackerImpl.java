@@ -2,7 +2,6 @@ package com.github.nalukit.nalu.processor.tracker.applicationWithTracker;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
-import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
@@ -16,7 +15,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0<< at >>2019.09.27-20:35:16<< */
+ * Build with Nalu version >>2.0.0<< at >>2019.11.07-07:20:11<< */
 public final class ApplicationWithTrackerImpl extends AbstractApplication<MockContext> implements ApplicationWithTracker {
   public ApplicationWithTrackerImpl() {
     super();
@@ -151,10 +150,5 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   @Override
   public boolean isStayOnSide() {
     return false;
-  }
-
-  @Override
-  public PropertyFactory.ErrorHandlingMethod getErrorHandlingMethod() {
-    return PropertyFactory.ErrorHandlingMethod.ROUTING;
   }
 }

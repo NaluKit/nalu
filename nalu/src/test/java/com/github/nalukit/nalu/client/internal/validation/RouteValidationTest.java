@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.client.internal.validation;
 
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
-import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
@@ -96,8 +95,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application"));
@@ -110,8 +108,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/error/show"));
@@ -124,8 +121,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -138,8 +134,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -152,8 +147,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell"));
@@ -166,8 +160,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/application/person/detail/parameter01/parameter02"));
@@ -180,8 +173,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/show"));
@@ -194,8 +186,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail"));
@@ -208,8 +199,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/parameter01"));
@@ -222,8 +212,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/parameter01/parameter02"));
@@ -236,8 +225,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/error/showa"));
@@ -250,8 +238,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -264,8 +251,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -278,8 +264,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/application/person/detail/parameter01/parameter02"));
@@ -292,8 +277,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/"));
@@ -306,8 +290,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -320,8 +303,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -336,8 +318,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application"));
@@ -350,8 +331,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/error/show"));
@@ -364,8 +344,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -378,8 +357,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));
@@ -392,8 +370,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell"));
@@ -406,8 +383,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01/:parameter02"));
@@ -420,8 +396,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/show"));
@@ -434,8 +409,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail"));
@@ -448,8 +422,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/:parameter01"));
@@ -462,8 +435,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/:parameter01/:parameter02"));
@@ -476,8 +448,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/error/showa"));
@@ -490,8 +461,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -504,8 +474,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));
@@ -518,8 +487,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01/:parameter02"));
@@ -532,8 +500,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/"));
@@ -546,8 +513,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));
@@ -560,8 +526,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));
@@ -574,8 +539,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application"));
@@ -588,8 +552,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/error/show"));
@@ -602,8 +565,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -616,8 +578,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -630,8 +591,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell"));
@@ -644,8 +604,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/application/person/detail/parameter01/parameter02"));
@@ -658,8 +617,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/show"));
@@ -672,8 +630,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail"));
@@ -686,8 +643,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/parameter01"));
@@ -700,8 +656,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/parameter01/parameter02"));
@@ -714,8 +669,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/error/showa"));
@@ -728,8 +682,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -742,8 +695,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -756,8 +708,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/application/person/detail/parameter01/parameter02"));
@@ -770,8 +721,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/"));
@@ -784,8 +734,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -798,8 +747,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              false,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -814,8 +762,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application"));
@@ -828,8 +775,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/error/show"));
@@ -842,8 +788,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -856,8 +801,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));
@@ -870,8 +814,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell"));
@@ -884,8 +827,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01/:parameter02"));
@@ -898,8 +840,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/show"));
@@ -912,8 +853,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail"));
@@ -926,8 +866,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/:parameter01"));
@@ -940,8 +879,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/:parameter01/:parameter02"));
@@ -954,8 +892,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/error/showa"));
@@ -968,8 +905,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -982,8 +918,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));
@@ -996,8 +931,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01/:parameter02"));
@@ -1010,8 +944,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/"));
@@ -1024,8 +957,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));
@@ -1038,8 +970,7 @@ public class RouteValidationTest {
                              true,
                              true,
                              true,
-                             false,
-                             ErrorHandlingMethod.ROUTING);
+                             false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));

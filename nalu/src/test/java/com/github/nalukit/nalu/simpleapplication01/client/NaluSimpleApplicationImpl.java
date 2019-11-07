@@ -20,7 +20,6 @@ import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
-import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
@@ -38,11 +37,6 @@ public final class NaluSimpleApplicationImpl
   public NaluSimpleApplicationImpl() {
     super();
     super.context = new NaluSimpleApplicationContext();
-  }
-
-  @Override
-  protected ErrorHandlingMethod getErrorHandlingMethod() {
-    return ErrorHandlingMethod.ROUTING;
   }
 
   @Override

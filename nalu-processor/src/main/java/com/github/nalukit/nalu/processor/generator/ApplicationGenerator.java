@@ -18,8 +18,6 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
-import com.github.nalukit.nalu.client.internal.PropertyFactory;
-import com.github.nalukit.nalu.client.internal.PropertyFactory.ErrorHandlingMethod;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.NoApplicationLoader;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
@@ -27,12 +25,15 @@ import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
-import com.squareup.javapoet.*;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeSpec;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
-import java.util.Objects;
 
 public class ApplicationGenerator {
 
@@ -221,9 +222,6 @@ public class ApplicationGenerator {
     generateIsStayOnSide(typeSpec,
                          metaModel);
 
-    generateGetErrorHandlinghMethod(typeSpec,
-                                    metaModel);
-
     JavaFile javaFile = JavaFile.builder(metaModel.getGenerateToPackage(),
                                          typeSpec.build())
                                 .build();
@@ -302,24 +300,6 @@ public class ApplicationGenerator {
                                  .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                ClassName.get(ClientLogger.class))
                                  .build());
-  }
-
-  private void generateGetErrorHandlinghMethod(TypeSpec.Builder typeSpec,
-                                               MetaModel metaModel) {
-    MethodSpec.Builder method = MethodSpec.methodBuilder("getErrorHandlingMethod")
-                                          .addAnnotation(Override.class)
-                                          .addModifiers(Modifier.PUBLIC)
-                                          .returns(ClassName.get(ErrorHandlingMethod.class));
-    if (Objects.isNull(metaModel.getErrorPopUpController())) {
-      method.addStatement("return $T.$L",
-                          ClassName.get(PropertyFactory.ErrorHandlingMethod.class),
-                          ErrorHandlingMethod.ROUTING);
-    } else {
-      method.addStatement("return $T.$L",
-                          ClassName.get(PropertyFactory.ErrorHandlingMethod.class),
-                          ErrorHandlingMethod.EVENT);
-    }
-    typeSpec.addMethod(method.build());
   }
 
   public static class Builder {
