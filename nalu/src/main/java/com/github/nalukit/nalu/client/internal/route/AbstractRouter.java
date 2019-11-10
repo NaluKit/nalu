@@ -190,6 +190,22 @@ abstract class AbstractRouter
     return this.currentRoute;
   }
 
+  /**
+   * Returns the last executed hash.
+   * <br>
+   * The method will return a route with all parameters set.
+   * <br>
+   * Keep in mind:
+   * This is the last executed route. The route might be changed by other processes,
+   * f.e.: a RoutingException or something else!
+   *
+   * @return the current route
+   */
+  @Override
+  public String getLasExecutetdHash() {
+    return this.lastExecutedHash;
+  }
+
   void handleRouting(String hash) {
     // in some cases the hash contains protocol, port and URI, we clean it
     if (hash.contains("#")) {

@@ -31,7 +31,7 @@ public interface Router {
   /**
    * Generates the url using the given input ..
    *
-   * @param route route to navigate to
+   * @param route  route to navigate to
    * @param params parameters of the route
    * @return generated hash
    */
@@ -100,5 +100,18 @@ public interface Router {
    * @return the current route
    */
   String getCurrentRoute();
+
+  /**
+   * Returns the last executed hash.
+   * <br>
+   * The method will return a route with all parameters set.
+   * <br>
+   * Keep in mind:
+   * This is the last executed route. The route might be changed by other processes,
+   * f.e.: a RoutingException or something else!
+   *
+   * @return the current route
+   */
+  String getLasExecutetdHash();
 
 }
