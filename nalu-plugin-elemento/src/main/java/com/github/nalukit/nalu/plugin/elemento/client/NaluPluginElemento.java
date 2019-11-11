@@ -58,7 +58,7 @@ public class NaluPluginElemento
       return false;
     } else {
       if (content instanceof Iterable) {
-        Iterable elements = (Iterable) content;
+        Iterable<?> elements = (Iterable<?>) content;
         for (Object element : elements) {
           if (element instanceof IsElement) {
             selectorElement.appendChild(((IsElement) element).element());
