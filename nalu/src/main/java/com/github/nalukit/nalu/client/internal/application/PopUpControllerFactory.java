@@ -110,6 +110,8 @@ public class PopUpControllerFactory {
                            3);
     popUpComponentController.getController()
                             .setDataStore(e.getDataStore());
+    popUpComponentController.getController()
+                            .setCommandStore(e.getCommandStore());
     ClientLogger.get()
                 .logSimple("controller >>" + popUpComponentController.getPopUpControllerClassName() + "<< --> initialized",
                            3);

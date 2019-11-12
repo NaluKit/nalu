@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.component.event.ShowPopUpEvent;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
@@ -28,11 +29,13 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
                IsComponent.Controller {
 
   /* name of the popup controller */
-  protected String              name;
+  protected String                                   name;
   /* component of the controller */
-  protected V                   component;
+  protected V                                        component;
+  /* command store (taken from the event) */
+  protected Map<String, ShowPopUpEvent.PopUpCommand> commandStore;
   /* data store of the parameters (taken from the event) */
-  protected Map<String, String> dataStore;
+  protected Map<String, String>                      dataStore;
 
   public AbstractPopUpComponentController() {
     super();
@@ -61,17 +64,39 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   }
 
   /**
+   * Returns the command store.
+   * <p>
+   * The command store contains the commands set inside the ShowPopUp-event.
+   * Nalu will set the command store with the entries from the event. Commands
+   * can be obtained by using a key.
+   *
+   * @return the command store with the entries from the event
+   */
+  public Map<String, ShowPopUpEvent.PopUpCommand> getCommandStore() {
+    return this.commandStore;
+  }
+
+  /**
+   * sets the command store.
+   *
+   * @param commandStore the command store
+   */
+  @NaluInternalUse
+  public void setCommandStore(Map<String, ShowPopUpEvent.PopUpCommand> commandStore) {
+    this.commandStore = commandStore;
+  }
+
+  /**
    * Returns the data store.
    * <p>
    * The data store contains the parameters set inside the ShowPopUp-event.
    * Nalu will set the data store with the entries from the event. Values
-   * can be obtained by using a key. Keep in mind, the return values need
-   * to be casted.
+   * can be obtained by using a key.
    *
    * @return the data store with the entries from the event
    */
   public Map<String, String> getDataStore() {
-    return dataStore;
+    return this.dataStore;
   }
 
   /**
