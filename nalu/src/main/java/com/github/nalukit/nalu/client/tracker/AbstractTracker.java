@@ -38,4 +38,14 @@ public abstract class AbstractTracker<C extends IsContext>
     this.eventBus = eventBus;
   }
 
+  /**
+   * Right after the instance is created, the bind-method is called.
+   * R.e.: this method can be used to bind handler to the event bus.
+   */
+  public void bind() {
+    // default implementation
+    //
+    // if you need a binding inside your tracker, override the method
+  }
+
 }
