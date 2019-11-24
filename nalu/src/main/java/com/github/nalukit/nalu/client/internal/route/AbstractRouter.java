@@ -68,6 +68,8 @@ abstract class AbstractRouter
   private String                                            lastExecutedHash = "";
   // current route
   private String                                            currentRoute     = "";
+  // current parameters
+  private String[]                                          currentParameters;
   // last added shell - used, to check if the shell needs an shell replacement
   private String                                            lastAddedShell;
   // instance of the current shell
@@ -191,6 +193,21 @@ abstract class AbstractRouter
   }
 
   /**
+   * Returns the current parameters from the last executed route..
+   * <br>
+   * The method will return a String[] for parameters.
+   * <br>
+   * Keep in mind:
+   * This is the current route. The route might be changed by other processes,
+   * f.e.: a RoutingException or something else!
+   *
+   * @return the current parameters
+   */
+  public String[] getCurrentParameters() {
+    return this.currentParameters;
+  }
+
+  /**
    * Returns the last executed hash.
    * <br>
    * The method will return a route with all parameters set.
@@ -248,6 +265,9 @@ abstract class AbstractRouter
       routeResult = this.parse(hash);
       // once the hash is parsed, we save the route as currentRoute!
       this.currentRoute = routeResult.getRoute();
+      // once the hash is parsed, we save the parameter as currentParameters!
+      this.currentParameters = routeResult.getParameterValues()
+                                          .toArray(new String[0]);
     } catch (RouterException e) {
       this.handleRouterException(hash,
                                  e);

@@ -102,6 +102,19 @@ public interface Router {
   String getCurrentRoute();
 
   /**
+   * Returns the current parameters from the last executed route..
+   * <br>
+   * The method will return a String[] for parameters.
+   * <br>
+   * Keep in mind:
+   * This is the current route. The route might be changed by other processes,
+   * f.e.: a RoutingException or something else!
+   *
+   * @return the current parameters
+   */
+  String[] getCurrentParameters();
+
+  /**
    * Returns the last executed hash.
    * <br>
    * The method will return a route with all parameters set.
