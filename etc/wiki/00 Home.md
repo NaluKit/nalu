@@ -1,18 +1,16 @@
 # Welcome to the Nalu wiki!
 
-Here you will find a lot of useful information about Nalu.
+Inside the wiki you will find a lot of useful informations about Nalu.
 
-If you have any questions regarding the framework, please use the [Nalu Gitter room](https://gitter.im/NaluKit42/lobby).
+If you have any questions about the framework, please use the [Nalu Gitter room](https://gitter.im/NaluKit42/lobby).
 
-The current version of Nalu uses Java 8 and is tested with the latest GWT version. Nalu is also tested with Java 9, 10, and 11.
+The current version of Nalu uses Java 8 and is tested with the latest GWT version.
 
 ## Nalu Project Generator
-To start using Nalu is quite easy. Just create a new project [here](http://www.mvp4g.org/gwt-boot-starter-nalu/GwtBootStarterNalu.html).
+To start using Nalu just create a new project [here](http://www.mvp4g.org/gwt-boot-starter-nalu/GwtBootStarterNalu.html). Once you pressed the 'generate'-button, download and unzip the zip file and import the project into your IDE.
 
-Press the generate-button, unzip the downloaded file and import it to your preferred IDE.
-
-### Examples
+## Examples
 Take a look at the [nalu-example repository](https://github.com/nalukit/nalu-examples).
 
-A DiminoDo demo application based on Nalu & Domino-UI is online and can be found [here](http://www.mvp4g.org/dominodo).
+The Domino-UI exapmple is online and can be found [here](http://www.mvp4g.org/NaluDominoSimpleApplication-1.0.0/index.html#search).
 

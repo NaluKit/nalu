@@ -40,8 +40,8 @@ You need to override the `attachShell`-method with the code needed to add the sh
 ### Detach shell
 You need to override the `detachShell`-method with the code needed to remove the shell from the viewport.
 
-## Nalu Elemental2 plugin
-In case you are working with the **nalu-plugin-elemental2**, Nalu uses the id to look for nodes inside the DOM.
+## Nalu Elemental2 & Elemento plugin
+In case you are working with the **nalu-plugin-elemental2** or **nalu-plugin-elemento**, Nalu uses the id to look for nodes inside the DOM.
 
 An implementation using the nalu-plugin-elemental2 (using Elemento) looks like this:
 ```java
