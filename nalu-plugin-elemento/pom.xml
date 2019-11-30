@@ -75,7 +75,7 @@
     <!--<vertispan.snapshot.repo.name>Vertispan Snapshot Repository</vertispan.snapshot.repo.name>-->
     <!--<vertispan.snapshot.repo.url>https://repo.vertispan.com/gwt-snapshot/</vertispan.snapshot.repo.url>-->
 
-    <elemento.version>0.9.3</elemento.version>
+    <elemento.version>0.9.6</elemento.version>
   </properties>
 
   <dependencies>
