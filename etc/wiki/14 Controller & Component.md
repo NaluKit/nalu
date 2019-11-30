@@ -1,7 +1,7 @@
 # Controllers and Components
 Nalu mainly helps you to define three types of elements:
 
-* Handler (a class, without visual components see [Handler](https://github.com/NaluKit/nalu/wiki/10.-Handler))
+* Handler (a class, without visual components see [Handler](https://github.com/NaluKit/nalu/wiki/13.-Handler))
 * Controller
 * Components
 

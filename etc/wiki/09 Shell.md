@@ -12,7 +12,7 @@ If there is a need to attach handlers to DOM elements, you can use the `bind`-me
 Depending on the plugin you are using, you have to tell Nalu the extension points in different ways.
 
 ## Defining a shell in Nalu
-To define a shell in Nalu, you have to use the `@Shell`-annotation with your shell class and extend the `AbstractShell`-class. THe annotation takes one attribute. That's the name of the shell. This name will be used to identify the shell of the route.
+To define a shell in Nalu, you have to use the `@Shell`-annotation with your shell class and extend the `AbstractShell`-class. The annotation takes one attribute. That's the name of the shell. This name will be used to identify the shell of the route.
 
 Example of a shell class:
 ```java

@@ -67,4 +67,4 @@ At the moment Nalu requires at least Java 8 and GWT 2.8.x. We recommend to use a
 
 
 ## Important Note: com.github.nalukit.nalu.internal.*
-All code inside the ```com.github.nalukit.nalu.internal.*``` packages is considered private API and should not be relied upon at all. It can change at any time and with no announcement.
+All code inside the `com.github.nalukit.nalu.internal.*` packages is considered private API and should not be relied upon at all. It can change at any time and with no announcement.

@@ -130,4 +130,4 @@ this.eventBus.addHandler(NaluApplicationEvent.TYPE,
 ```
 Once you catch a `NaluApplicationEvent`, you need first to check the event type. In our example, we will handle a 'StatusEvent', so we check if the event is 'StatusEvent'. In case it is an 'StatusEvent' we expect a data 'message'. We can ask the event for a data called 'message' by calling `e.get("message").
 
-**Keep in mind, the `e.get("myKey")` will always return an `Object`. So you need to cast return value. And a requested value might be null!**
+**Keep in mind, the `e.get("myKey")` will always return an `Object`. So you need to cast the return value. And: keep in mind,  a requested value might be null!**

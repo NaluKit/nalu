@@ -12,5 +12,3 @@ To start using Nalu just create a new project [here](http://www.mvp4g.org/gwt-bo
 ## Examples
 Take a look at the [nalu-example repository](https://github.com/nalukit/nalu-examples).
 
-The Domino-UI exapmple is online and can be found [here](http://www.mvp4g.org/NaluDominoSimpleApplication-1.0.0/index.html#search).
-

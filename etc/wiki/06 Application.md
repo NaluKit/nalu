@@ -17,9 +17,9 @@ The attributes of the Application annotation are:
 
 * **startRoute**: The start route is the initial route that is called in case the application is called without a hash. If the application is called with a hash, the startRoute-attribute has no effect.
 
-* **loader**: the application loader will be executed at application start. (see: [Application Loader](xxx). This attribute is optional.
+* **loader**: the application loader will be executed at application start. (see: [Application Loader](https://github.com/NaluKit/nalu/wiki/07.-Application-Loader). This attribute is optional.
 
-* **context**: the application context is a singleton that will be injected in every filter, controller and handler of the application (see: [Context](xxx)).
+* **context**: the application context is a singleton that will be injected in every filter, controller and handler of the application (see: [Context](https://github.com/NaluKit/nalu/wiki/10.-Context)).
 
 * **history**: if **true** Nalu supports history, so the application can reload. Otherwise no hash will be created and the url stays untouched. This might be useful, in case the application should never reload or will be used embedded inside another web side. (default: **true**)
 
@@ -98,7 +98,7 @@ import java.util.Objects;public class MyFilter
 ```
 
 ### Adding Filters
-Once you have created a filter, you need to tell Nalu that there are filter and to use the. This can be done thanks to the ```@Filters```-annotation, which can be used on your application interface.
+Once you have created a filter, you need to tell Nalu that there are filter and to use the. This can be done thanks to the `@Filters`-annotation, which can be used on your application interface.
 
 ```Java
 @Filters(filterClasses = { MyFilter01.class, MyFilter02.class })
