@@ -3,7 +3,7 @@ package com.github.nalukit.nalu.plugin.core.web.client;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class NaluPluginCoreWebTest {
+public class NaluPluginCoreWebTest {
 
   @Test
   void isSuperDevMode() {
