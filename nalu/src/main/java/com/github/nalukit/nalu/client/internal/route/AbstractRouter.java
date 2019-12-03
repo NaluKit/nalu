@@ -389,6 +389,8 @@ abstract class AbstractRouter
     } else {
       this.plugin.route("#" + this.lastExecutedHash,
                         false);
+      // clear loop detection list ...
+      this.loopDetectionList.clear();
     }
   }
 
