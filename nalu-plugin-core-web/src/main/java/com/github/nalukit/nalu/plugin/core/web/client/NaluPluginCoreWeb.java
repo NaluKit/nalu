@@ -164,7 +164,7 @@ public class NaluPluginCoreWeb {
     String newRouteToken;
     if (PropertyFactory.get()
                        .isUsingHash()) {
-      newRouteToken = "#" + newRoute;
+      newRouteToken = newRoute.startsWith("#") ? newRoute : "#" + newRoute;
     } else {
       newRouteToken = "/";
       if (PropertyFactory.get()
