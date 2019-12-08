@@ -37,6 +37,8 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   private   Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
   /* the route the controller is related to */
   private   String                                            relatedRoute;
+  /* the selector the controller is related to */
+  private   String                                            relatedSelector;
   /* flag, if the controller is cached or not */
   private   boolean                                           cached;
 
@@ -189,8 +191,29 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    *
    * @param relatedRoute related route of the controller
    */
+  @NaluInternalUse
   public void setRelatedRoute(String relatedRoute) {
     this.relatedRoute = relatedRoute;
+  }
+
+  /**
+   * The selector the controller is related to.
+   *
+   * @return related selector
+   */
+  public String getRelatedSelector() {
+    return relatedSelector;
+  }
+
+  /**
+   * Sets the related selector of the controller. (Will be used by the framework!)
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @param relatedSelector related route of the controller
+   */
+  @NaluInternalUse
+  public void setRelatedSelector(String relatedSelector) {
+    this.relatedSelector = relatedSelector;
   }
 
   /**

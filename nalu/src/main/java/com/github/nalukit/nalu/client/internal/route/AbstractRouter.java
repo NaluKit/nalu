@@ -388,7 +388,7 @@ abstract class AbstractRouter
       }
     } else {
       this.plugin.route(this.lastExecutedHash,
-                       false);
+                        false);
       // clear loop detection list ...
       this.loopDetectionList.clear();
     }
@@ -772,8 +772,7 @@ abstract class AbstractRouter
       }
     });
     routeConfigurations.forEach(routeConfiguration -> this.plugin.remove(routeConfiguration.getSelector()));
-    controllerList.forEach(c -> this.activeComponents.remove(c.getClass()
-                                                              .getCanonicalName()));
+    controllerList.forEach(c -> this.activeComponents.remove(c.getRelatedSelector()));
   }
 
   private void deactivateController(AbstractComponentController<?, ?, ?> controller) {

@@ -28,7 +28,12 @@ import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
-import com.squareup.javapoet.*;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeSpec;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -80,11 +85,11 @@ public class ControllerCreatorGenerator {
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
-                                       controllerModel.getController()
-                                                      .getSimpleName() +
-                                       ProcessorConstants.CREATOR_IMPL +
-                                       "<< -> exception: " +
-                                       e.getMessage());
+                                   controllerModel.getController()
+                                                  .getSimpleName() +
+                                   ProcessorConstants.CREATOR_IMPL +
+                                   "<< -> exception: " +
+                                   e.getMessage());
     }
   }
 
@@ -119,16 +124,14 @@ public class ControllerCreatorGenerator {
                             ClassName.get(StringBuilder.class))
               .beginControlFlow("if (params != null)");
         for (int i = 0; i <
-            controllerModel.getParameters()
-                           .size(); i++) {
+                        controllerModel.getParameters()
+                                       .size(); i++) {
           String methodName = controllerModel.getParameterAcceptors(controllerModel.getParameters()
                                                                                    .get(i));
           if (methodName != null) {
             method.beginControlFlow("if (params.length >= " + (i + 1) + ")")
                   .addStatement("sb01.setLength(0)")
-                  .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> using method >>" +
-                                methodName + "<< to set value >>\").append(params[" + i +
-                                "]).append(\"<<\")")
+                  .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> using method >>" + methodName + "<< to set value >>\").append(params[" + i + "]).append(\"<<\")")
                   .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                                 ClassName.get(ClientLogger.class))
                   .addStatement("controller." + methodName + "(params[" + i + "])")
@@ -240,9 +243,9 @@ public class ControllerCreatorGenerator {
                                           .addStatement("sb01.append(\"controller >>$L<< --> will be created\")",
                                                         controllerModel.getProvider()
                                                                        .getPackage() +
-                                                            "." +
-                                                            controllerModel.getProvider()
-                                                                           .getSimpleName())
+                                                        "." +
+                                                        controllerModel.getProvider()
+                                                                       .getSimpleName())
                                           .addStatement("$T.get().logSimple(sb01.toString(), 3)",
                                                         ClassName.get(ClientLogger.class))
                                           .addStatement("$T controller = new $T()",
@@ -260,6 +263,10 @@ public class ControllerCreatorGenerator {
                                           .addStatement("controller.setEventBus(eventBus)")
                                           .addStatement("controller.setRouter(router)")
                                           .addStatement("controller.setCached(false)")
+                                          .addStatement("controller.setRelatedRoute($S)",
+                                                        controllerModel.getRoute())
+                                          .addStatement("controller.setRelatedSelector($S)",
+                                                        controllerModel.getSelector())
                                           .addStatement("sb01.setLength(0)")
                                           .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> created and data injected\")")
                                           .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
