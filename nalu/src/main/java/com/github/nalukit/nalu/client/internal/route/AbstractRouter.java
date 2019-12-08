@@ -223,7 +223,8 @@ abstract class AbstractRouter
     return this.lastExecutedHash;
   }
 
-  void handleRouting(String hash) {
+  void handleRouting(String hash,
+                     boolean forceRouting) {
     // in some cases the hash contains protocol, port and URI, we clean it
     if (hash.contains("#")) {
       hash = hash.substring(hash.indexOf("#") + 1);
@@ -285,6 +286,7 @@ abstract class AbstractRouter
                                                 filter.parameters());
         this.route(filter.redirectTo(),
                    true,
+                   true,
                    filter.parameters());
         // fire Router StateEvent
         this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
@@ -297,7 +299,7 @@ abstract class AbstractRouter
     // search for a matching routing
     List<RouteConfig> routeConfigurations = this.routerConfiguration.match(routeResult.getRoute());
     // check whether or not the routing is possible ...
-    if (this.confirmRouting(routeConfigurations)) {
+    if (forceRouting || this.confirmRouting(routeConfigurations)) {
       // call stop for all elements
       this.stopController(routeConfigurations,
                           !routeResult.getShell()
@@ -450,6 +452,7 @@ abstract class AbstractRouter
                                                                                  e.getParameter());
                                      route(e.getRoute(),
                                            true,
+                                           true,
                                            e.getParameter());
                                    }
 
@@ -543,6 +546,7 @@ abstract class AbstractRouter
                                                           e.getParameter());
               this.route(e.getRoute(),
                          true,
+                         true,
                          e.getParameter());
             }
           });
@@ -609,6 +613,7 @@ abstract class AbstractRouter
                                                           e.getRoute(),
                                                           e.getParameter());
               this.route(e.getRoute(),
+                         true,
                          true,
                          e.getParameter());
               return;
@@ -950,10 +955,45 @@ abstract class AbstractRouter
     // let's do the routing!
     this.route(newRoute,
                false,
+               false,
+               params);
+  }
+
+  /**
+   * The method routes to another screen. In case it is called,
+   * it will:
+   * <ul>
+   * <li>create a new hash</li>
+   * <li>update the url (in case history is desired)</li>
+   * </ul>
+   * Once the url gets updated, it triggers the onhashchange event and Nalu starts to work
+   * <p>
+   * in opposite to the route-method, the forceRoute-method does not confirm the new route!
+   *
+   * @param newRoute routing goal
+   * @param params   list of parameters [0 - n]
+   */
+  @Override
+  public void forceRoute(String newRoute,
+                         String... params) {
+    // fire souring event ...
+    this.fireRouterStateEvent(RouterState.START_ROUTING,
+                              newRoute,
+                              params);
+    // first, we track the new route (if there is a tracker!)
+    if (!Objects.isNull(this.tracker)) {
+      this.tracker.track(newRoute,
+                         params);
+    }
+    // let's do the routing!
+    this.route(newRoute,
+               true,
+               false,
                params);
   }
 
   private void route(String newRoute,
+                     boolean forceRouting,
                      boolean replaceState,
                      String... params) {
     String newRouteWithParams = this.generate(newRoute,
@@ -965,7 +1005,8 @@ abstract class AbstractRouter
       this.plugin.route(newRouteWithParams,
                         false);
     }
-    this.handleRouting(newRouteWithParams);
+    this.handleRouting(newRouteWithParams,
+                       forceRouting);
   }
 
   /**

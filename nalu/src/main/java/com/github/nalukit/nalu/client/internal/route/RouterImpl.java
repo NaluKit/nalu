@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.RouteChangeHandler;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 
 import java.util.List;
@@ -45,7 +46,7 @@ public final class RouterImpl
           usingHash,
           usingColonForParametersInUrl,
           stayOnSide);
-    this.plugin.register(super::handleRouting);
+    this.plugin.register(hash -> RouterImpl.super.handleRouting(hash, false));
   }
 
 }

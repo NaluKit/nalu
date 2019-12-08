@@ -48,6 +48,15 @@ public interface Router {
              String... parameter);
 
   /**
+   * Route to a new page without confirmation.
+   *
+   * @param route     new route
+   * @param parameter parameters of the route
+   */
+  void forceRoute(String route,
+                  String... parameter);
+
+  /**
    * Removes a controller from the cache
    *
    * @param controller controller to be removed
