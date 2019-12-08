@@ -55,13 +55,16 @@ In case the routing is used in this way:
 ```
 there is no need to add ':' before parameters, because Nalu will do that for you.
 
+### Routing without calling the mayStop-method (since 2.0.1)
+Starting with version 2.0.1 Nlau offers a new method to route. Th ename of the new method is `forceRoute`. You can use the `forceRoute`similar to the `route-mehtod. Th e only difference is, rthat the `forceLayout`method will not call the `mayStop``method of currently active controllers and composites.
+
 ### Note on routes
 Defining routes in your application needs some attention. Ohterwise you will be surprised by some unexpected results.
 
 For example:
 
 * controller one has a route like this: **/shell/route01/:parameter01**
-* controller two has a route like this: **/Shell/route01/route02**
+* controller two has a route like this: **/shell/route01/route02**
 
 In case the hash is something like that: **/shell/route01/1**, Nalu will create controller one and inject '1' using the `setParameter01`-method. Controller two will not be created.
 Now, in case we have a route like this: **/shell/route01/route02**, Nalu will also create controller one and - this time - inject 'route02' using the `setParameter01`-method. Controller two will not be created!
