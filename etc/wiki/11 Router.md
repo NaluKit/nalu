@@ -56,7 +56,9 @@ In case the routing is used in this way:
 there is no need to add ':' before parameters, because Nalu will do that for you.
 
 ### Routing without calling the mayStop-method (since 2.0.1)
-Starting with version 2.0.1 Nlau offers a new method to route. Th ename of the new method is `forceRoute`. You can use the `forceRoute`similar to the `route-mehtod. Th e only difference is, rthat the `forceLayout`method will not call the `mayStop``method of currently active controllers and composites.
+Starting with version 2.0.1 Nalu offers a new method to route. The name of the new method is `forceRoute`. You can use the `forceRoute`-method similar to the `route-method. The only difference is, that the `forceRoutet`-method will not call the `mayStop`-method of currently active controllers and composites.
+
+This might be useful in case of an error and routing to a central error page or a start-page.
 
 ### Note on routes
 Defining routes in your application needs some attention. Ohterwise you will be surprised by some unexpected results.
