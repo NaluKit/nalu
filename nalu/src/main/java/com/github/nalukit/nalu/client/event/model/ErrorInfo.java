@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public class ErrorInfo {
 
-  /* type of error [NALU_INTERNAL_ERROR\APPLICAITON_ERROR] */
+  /* type of error [NALU_INTERNAL_ERROR\APPLICATION_ERROR] */
   private ErrorType           errorEventType;
   /* error id */
   private String              errorId;
@@ -109,12 +109,12 @@ public class ErrorInfo {
    *
    * <ul>
    *   <li>NALU_INTERNAL_ERROR: Nalu internal error (do not use this type!)</li>
-   *   <li>APPLICAITON_ERROR: application error (use this type to mark application errors)</li>
+   *   <li>APPLICATION_ERROR: application error (use this type to mark application errors)</li>
    * </ul>
    */
   public enum ErrorType {
     NALU_INTERNAL_ERROR,
-    APPLICAITON_ERROR;
+    APPLICATION_ERROR;
   }
 
 }
