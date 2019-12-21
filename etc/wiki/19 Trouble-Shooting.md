@@ -16,4 +16,4 @@ In this case please try the following steps:
 In order to work with the annotations processor on eclipse is needed to activate manually:
 - Right click over project (Package explorer) :arrow_right: **Properties** :arrow_right: **Java Compiler** :arrow_right: **Annotation Processing**. Activate "Enable project specific settings" and "Enable annotation processing".
 - On "Factory Path" activate "Enable project specific settings" and add all jars with the annotation processors (in case of nalu *M2_REPO/com/github/nalukit/nalu-processor/2.0.0/nalu-processor-2.0.0.jar*).
-- It will be less prone to failure if you include the entire maven classpath, but if want to have the minimal classpath and no source is generated you can check the log with the *Error Log view*. Normally some dependencies are missing from factory path. Add the necesary and reload the procces.
+- It will be less prone to failure if you include the entire maven classpath, but if want to have the minimal classpath and no source is generated you can check the log with the *Error Log view*. Normally some dependencies are missing from factory path. Add the necessary and reload the process.

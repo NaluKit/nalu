@@ -34,7 +34,7 @@ Working with MAven, you need to add the following maven dependency:
 ```
 Depending on the widget library your project is using, you have to add another dependency.
 
-### Elemental2 based widget libriries
+### Elemental2 based widget libraries
 In case the project is using a widget library based on elemental2 or elemento or the project is using a library like [Domino-UI](https://github.com/DominoKit/domino-ui), add the following dependency to your pom:
 ```XML
     <dependency>

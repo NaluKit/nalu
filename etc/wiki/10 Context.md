@@ -13,7 +13,7 @@ There are two different ways of implementing the context depending of the type o
 
 * a multi module project
 
-## Single Module Implemention
+## Single Module Implementation
 Inside a single module application you can use any Pojo you like. You only need to add the `IsContext`-interface. The simplest implementation of a context looks like that:
 
 ```java
@@ -51,7 +51,7 @@ In case you plan to add modules in the future, you should consider the use of th
 See **Multi Module Implementation** for more information.
 
 ## Multi Module Implementation
-Inside a multi module application you need a different implementation of the context. (See the Module wiki page for more inforamtion). One motivation for the choosen implemantation is to avoid a common project which contains the context class. This will improve the reuse of child modules in Nalu.
+Inside a multi module application you need a different implementation of the context. (See the Module wiki page for more information). One motivation for the choosen implementation is to avoid a common project which contains the context class. This will improve the reuse of child modules in Nalu.
 
 In a multi module application you need to define a 'MainContext' for the main application and for each sub module a 'ModuleContext'.
 
@@ -63,10 +63,10 @@ The `AbstractMainContext`-class looks like that:
 /**
  * <p>
  * Abstract context - base class for application context in
- * a multi module envirement.
+ * a multi module environment.
  * </p>
  * Use this class to avoid a common base module in a multi module
- * envirement
+ * environment
  */
 public abstract class AbstractMainContext
     implements IsMainContext {
@@ -164,7 +164,7 @@ every where in your module, but in this case you need to do a cast every time yo
 ### Local (only inside the main module) Used Data
 Data, which should not be shared with the sub modules, can be stored in normal instance variables. These variables will not be shared with the context of a sub module.
 
-**Note: The MainContext will also work inside a singe module application.**
+**Note: The MainContext will also work inside a single module application.**
 
 ## ModuleContext
 Each sub module of an application needs it's own `ModuleContext`.
@@ -178,7 +178,7 @@ The `AbstractModuleContext`-class looks like that:
  * Abstract context base class to use inside moduls.
  * </p>
  * Use this class to avoid a common base module in a multi module
- * envirement
+ * environment
  */
 public abstract class AbstractModuleContext
     implements IsModuleContext {
@@ -229,7 +229,7 @@ Once the context of the sub module is created, you can access the global storage
 
 **Data stored inside the local data store is only available inside the sub module!**
 
-The `AbstractModuleContext`-class implelemtation will also use the `Context`-class.
+The `AbstractModuleContext`-class implementation will also use the `Context`-class.
 
 Here is an example of sub module context:
 ```java
@@ -275,4 +275,4 @@ Of course, you can also use instance variables instead of the local data store, 
 Because the `AbstractModuleContext`-class implements the `IsModuleContext`-interface, you can use the `MyApplicationContext`-class inside the `Module`-annotation without any problem.
 
 ### Note
-This implementation might look a little bit boiler-platted, but it helps you to avoid a common project where all modules and the main module depend on!
+This implementation might look a little bit boiler-plated, but it helps you to avoid a common project where all modules and the main module depend on!

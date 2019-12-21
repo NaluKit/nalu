@@ -16,7 +16,7 @@ Currently available are plugins for:
 ## Plugin Interface
 To avoid creating a dependency to GWT `Widget`-class or to Elemental2 `HTMLElement`, Nalu outsourced the depending classes into a plugin.
 
-The plugin interface provides a set of methods, that needed to be outsourced (cause they are plattform dependent).
+The plugin interface provides a set of methods, that needed to be outsourced (cause they are platform dependent).
 
 The plugin interface:
 
@@ -66,7 +66,7 @@ The methods of the `ÌsPlugin`-interface are:
 
 * **getQueryParameters()**: returns a map containing the url parameters at application start
 
-* **initialize(ShellConfiguration shellConfiguration)**: rsetting the context inside the plugin
+* **initialize(ShellConfiguration shellConfiguration)**: resetting the context inside the plugin
 
 * **register(HashHandler handler)**: register a hash handler. will be called in case the hash changes
 
@@ -110,7 +110,7 @@ public class Application
 }
 ```
 
-To define a node of the DOM as an extension point where childs can be added, just set an id using the `id`-attribute. The selector attribute inside the `@Controller`-annotation will be used to look for a node inside the DOM with the selector value as id. Once the node is found, all children of the node will be removed and the new child added.
+To define a node of the DOM as an extension point where children can be added, just set an id using the `id`-attribute. The selector attribute inside the `@Controller`-annotation will be used to look for a node inside the DOM with the selector value as id. Once the node is found, all children of the node will be removed and the new child added.
 
 
 ## GWT based Widget Sets
@@ -160,7 +160,7 @@ The last thing, the application has to do, is trigger the processor by calling:
    provider.initialize(this);
 ```
 
-**Nalu will use the simple name of the class and add the string 'SelectorProviderImpl'. In case you want to set a provider for a class which is called 'contentCompoent', the genereated provider wil be named: 'ContentComponentSelectorProviderImpl'!**
+**Nalu will use the simple name of the class and add the string 'SelectorProviderImpl'. In case you want to set a provider for a class which is called 'contentComponent', the generated provider will be named: 'ContentComponentSelectorProviderImpl'!**
 
 In case you are not sure, what's the name of the generated class is, take a look at 'target/generated-sources/annotations'.
 

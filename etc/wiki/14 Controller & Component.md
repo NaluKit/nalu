@@ -117,10 +117,10 @@ At the time parameters are set by Nalu, the component is not rendered! Rendering
 A Nalu controller has a life cycle. Nalu supports the methods:
 
 * `start`: will be called after the component is created. This method will not be called in case a controller is cached.
-* `active`: will be called after the `start`-method. This method will be called in case a ontroller is cached.
+* `active`: will be called after the `start`-method. This method will be called in case a controller is cached.
 * `mayStop`: will be called before a new routing occurs. In case the method return a String and not a null value, Nalu will display the String and abort the routing.
-* `deactive`: will be called before the `stop`-method. This method will be called in case a ontroller is cached.
-* `stop`: in case of a successful routing (not interrupted by a filter or the `mayStop` method) this method will be called. This method will not be called in case a ontroller is cached.
+* `deactive`: will be called before the `stop`-method. This method will be called in case a controller is cached.
+* `stop`: in case of a successful routing (not interrupted by a filter or the `mayStop` method) this method will be called. This method will not be called in case a controller is cached.
 
 Every time the application gets a new route, Nalu will create a new instance of the controller (and of course of the component). In case a controller is cached Nalu will use the cached instance of the controller.
 
@@ -212,7 +212,7 @@ Imagine, you have a view, that looks like that:
 
 ![Route Flow](https://github.com/NaluKit/nalu/raw/master/etc/images/view-mock-up.png)
 
-Of course it is possible to render this view inside one component. In some cases, where your controller and component will have to much code or you want to reuse one od the composite01 component, composite02 component and composite03 component, you can extract them in separate controller and component pairs. But this would not be handled but Nalu.
+Of course it is possible to render this view inside one component. In some cases, where your controller and component will have to much code or you want to reuse one of the composite01 component, composite02 component and composite03 component, you can extract them in separate controller and component pairs. But this would not be handled but Nalu.
 
 Nalu offers - with the support for Composites - a feature to help you creating such things.
 

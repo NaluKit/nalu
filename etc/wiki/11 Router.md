@@ -61,7 +61,7 @@ Starting with version 2.0.1 Nalu offers a new method to route. The name of the n
 This might be useful in case of an error and routing to a central error page or a start-page.
 
 ### Note on routes
-Defining routes in your application needs some attention. Ohterwise you will be surprised by some unexpected results.
+Defining routes in your application needs some attention. Otherwise you will be surprised by some unexpected results.
 
 For example:
 
