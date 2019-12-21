@@ -47,7 +47,7 @@ public class NaluErrorEvent
    * @return new Nalu error event
    */
   public static NaluErrorEvent createApplicationError() {
-    return new NaluErrorEvent(ErrorType.APPLICAITON_ERROR);
+    return new NaluErrorEvent(ErrorType.APPLICATION_ERROR);
   }
 
   /**

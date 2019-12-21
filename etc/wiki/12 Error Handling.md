@@ -28,7 +28,7 @@ NaluErrorEvent.createApplicationError()
                     "second parameter");
 ```
 
-To create a Nalu error event, call `NaluErrorEvent.createApplicationError()`. This will create a Nalue error event with a error type of `APPLICAITON_ERROR`. (Nalu internal error events will have the error type `NALU_INTERNAL_ERROR`.
+To create a Nalu error event, call `NaluErrorEvent.createApplicationError()`. This will create a Nalue error event with a error type of `APPLICATION_ERROR`. (Nalu internal error events will have the error type `NALU_INTERNAL_ERROR`.
 
 **Do not use the `NaluErrorEvent.createNaluError()`-method!**
 
