@@ -70,13 +70,13 @@ public class NaluPluginElemento
         Iterable<?> elements = (Iterable<?>) content;
         for (Object element : elements) {
           if (element instanceof IsElement) {
-            selectorElement.appendChild(((IsElement) element).element());
+            selectorElement.appendChild(((IsElement<?>) element).element());
           } else if (element instanceof HTMLElement) {
             selectorElement.appendChild(((HTMLElement) element));
           }
         }
       } else if (content instanceof IsElement) {
-        selectorElement.appendChild(((IsElement) content).element());
+        selectorElement.appendChild(((IsElement<?>) content).element());
       } else if (content instanceof HTMLElement) {
         selectorElement.appendChild(((HTMLElement) content));
       }
@@ -94,7 +94,8 @@ public class NaluPluginElemento
         handler.onCancel();
       }
     } else {
-
+      customConfirmPresenter.addConfirmHandler(handler);
+      customConfirmPresenter.confirm(message);
     }
   }
 

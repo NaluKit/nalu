@@ -80,7 +80,8 @@ public class NaluPluginElemental2
         handler.onCancel();
       }
     } else {
-
+      customConfirmPresenter.addConfirmHandler(handler);
+      customConfirmPresenter.confirm(message);
     }
   }
 
