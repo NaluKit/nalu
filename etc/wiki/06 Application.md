@@ -29,6 +29,10 @@ The attributes of the Application annotation are:
 
 * **stayOnSide**: if **true** Nalu will - in case of an empty hash -  add an new history entry using the hash of the start route
 
+* **alertPresenter**: Tells Nalu to use a custom alert - this parameter is optional
+
+* **confirmPresenter**: Tells Nalu to use a custom confirm - this parameter is optional
+
 In case **useHash** is used with the value **false**, you need to create a filter or something else to handle a bookmark correct. This filter should evaluate the relative path of the application and return a parameter named **url** with this value.
 
 ### Start Route
@@ -42,6 +46,11 @@ Minimal requirements for a start route are:
 **Important note: a start route can not have a parameter!**
 
 Using only a shell as start route will produce an error.
+
+### Custom alert and confirm
+Nalu offers the possibility to add a custom alert and confirm dialog. In case it is set, Nalu will use the custom dialog instead of the default dialog from the plugin.
+
+A custom alert needs to implement the `IsCustomAlertPresenter` and a custom confirm dialog needs to implement the `IsCustomConfirmPresenter`.
 
 ## Filter Annotation
 Nalu allows you to use filters to stop routings in order to interrupt a route before it is handled. In case a route is interrupted, you can redirect to another route.
