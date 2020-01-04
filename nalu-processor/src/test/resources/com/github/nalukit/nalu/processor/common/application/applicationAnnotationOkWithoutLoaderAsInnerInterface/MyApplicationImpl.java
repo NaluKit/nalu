@@ -7,6 +7,8 @@ import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
+import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
+import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithoutLoaderAsInnerInterface.ApplicationAnnotationOkWithoutLoaderAsInnerInterface.MyApplication;
@@ -15,7 +17,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.1-SNAPSHOT<< at >>2019.11.07-07:25:37<< */
+ * Build with Nalu version >>2.0.1-SNAPSHOT<< at >>2020.11.07-07:25:37<< */
 public final class MyApplicationImpl extends AbstractApplication<MockContext> implements MyApplication {
   public MyApplicationImpl() {
     super();
@@ -115,6 +117,16 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
 
   @Override
   public IsApplicationLoader<MockContext> getApplicationLoader() {
+    return null;
+  }
+
+  @Override
+  public IsCustomAlertPresenter getCustomAlertPresenter() {
+    return null;
+  }
+
+  @Override
+  public IsCustomConfirmPresenter getCustomConfirmPresenter() {
     return null;
   }
 

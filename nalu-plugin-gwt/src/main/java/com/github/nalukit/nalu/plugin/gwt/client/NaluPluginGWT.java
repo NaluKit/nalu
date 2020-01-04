@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 - Frank Hossfeld
+ * Copyright (c) 2020 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -18,6 +18,8 @@ package com.github.nalukit.nalu.plugin.gwt.client;
 
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
+import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
+import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
 import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
@@ -40,6 +42,9 @@ public class NaluPluginGWT
 
   private NaluStartModel naluStartModel;
 
+  private IsCustomAlertPresenter   customAlertPresenter;
+  private IsCustomConfirmPresenter customConfirmPresenter;
+
   /* RouteChangeHandler - to be used directly   */
   /* in case Nalu does not have history support */
   private RouteChangeHandler routeChangeHandler;
@@ -50,7 +55,11 @@ public class NaluPluginGWT
 
   @Override
   public void alert(String message) {
-    Window.alert(message);
+    if (customAlertPresenter == null) {
+      Window.alert(message);
+    } else {
+      this.customAlertPresenter.alert(message);
+    }
   }
 
   @Override
@@ -68,8 +77,17 @@ public class NaluPluginGWT
   }
 
   @Override
-  public boolean confirm(String message) {
-    return Window.confirm(message);
+  public void confirm(String message,
+                      ConfirmHandler handler) {
+    if (customConfirmPresenter == null) {
+      if (Window.confirm(message)) {
+        handler.onOk();
+      } else {
+        handler.onCancel();
+      }
+    } else {
+
+    }
   }
 
   @Override
@@ -191,6 +209,16 @@ public class NaluPluginGWT
     NodeList<Element> node = Document.get()
                                      .getElementsByTagName("head");
     return node.getItem(0);
+  }
+
+  @Override
+  public void setCustomAlertPresenter(IsCustomAlertPresenter customAlertPresenter) {
+    this.customAlertPresenter = customAlertPresenter;
+  }
+
+  @Override
+  public void setCustomConfirmPresenter(IsCustomConfirmPresenter customConfirmPresenter) {
+    this.customConfirmPresenter = customConfirmPresenter;
   }
 
 }

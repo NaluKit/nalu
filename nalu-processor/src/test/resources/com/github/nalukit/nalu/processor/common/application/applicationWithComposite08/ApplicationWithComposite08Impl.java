@@ -20,7 +20,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.1-SNAPSHOT<< at >>2019.10.23-11:44:39<< */
+ * Build with Nalu version >>2.0.1-SNAPSHOT<< at >>2020.10.23-11:44:39<< */
 public final class ApplicationWithComposite07Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite07 {
   public ApplicationWithComposite07Impl() {
     super();

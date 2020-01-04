@@ -22,12 +22,22 @@ import java.util.Map;
 
 public interface IsNaluProcessorPlugin {
 
+  /**
+   * Display an alert message.
+   * <p>
+   * Note:<br>
+   * apllication flow needs to stop after calling this method.
+   * </p>
+   *
+   * @param message message to display
+   */
   void alert(String message);
 
   boolean attach(String selector,
                  Object asElement);
 
-  boolean confirm(String message);
+  void confirm(String message,
+               ConfirmHandler handler);
 
   String getStartRoute();
 
@@ -52,10 +62,24 @@ public interface IsNaluProcessorPlugin {
 
   String decode(String route);
 
+  void setCustomAlertPresenter(IsCustomAlertPresenter presenter);
+
+  void setCustomConfirmPresenter(IsCustomConfirmPresenter presenter);
+
   @FunctionalInterface
   interface RouteChangeHandler {
 
     void onRouteChange(String newRoute);
+
+  }
+
+
+
+  interface ConfirmHandler {
+
+    void onOk();
+
+    void onCancel();
 
   }
 

@@ -5,9 +5,15 @@ import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
+import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
+import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 class Utils {
 
@@ -27,8 +33,8 @@ class Utils {
       }
 
       @Override
-      public boolean confirm(String message) {
-        return confirm;
+      public void confirm(String message,
+                          ConfirmHandler handler) {
       }
 
       @Override
@@ -76,6 +82,17 @@ class Utils {
       public String decode(String route) {
         return route;
       }
+
+      @Override
+      public void setCustomAlertPresenter(IsCustomAlertPresenter presenter) {
+
+      }
+
+      @Override
+      public void setCustomConfirmPresenter(IsCustomConfirmPresenter presenter) {
+
+      }
+
     };
   }
 

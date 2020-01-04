@@ -64,6 +64,8 @@ public class ApplicationAnnotationScanner {
     if (!isNull(applicationAnnotation)) {
       TypeElement applicationLoaderTypeElement = this.getApplicationLoaderTypeElement(applicationAnnotation);
       TypeElement contextTypeElement = this.getContextTypeElement(applicationAnnotation);
+      TypeElement customAlertPresenterTypeElement = this.getCustomAlertPresenterTypeElement(applicationAnnotation);
+      TypeElement customConfirmPresenterTypeElement = this.getCustomConfirmPresenterTypeElement(applicationAnnotation);
       metaModel.setGenerateToPackage(this.processorUtils.getPackageAsString(applicationElement));
       metaModel.setApplication(new ClassNameModel(applicationElement.toString()));
       metaModel.setLoader(new ClassNameModel(isNull(applicationLoaderTypeElement) ? "" : applicationLoaderTypeElement.toString()));
@@ -77,12 +79,34 @@ public class ApplicationAnnotationScanner {
       metaModel.setUsingColonForParametersInUrl(applicationAnnotation.useColonForParametersInUrl());
       metaModel.setStayOnSide(applicationAnnotation.stayOnSite());
       metaModel.setHistory(applicationAnnotation.history());
+      metaModel.setCustomAlertPresenter(new ClassNameModel(isNull(customAlertPresenterTypeElement) ? "" : customAlertPresenterTypeElement.toString()));
+      metaModel.setCustomConfirmPresenter(new ClassNameModel(isNull(customConfirmPresenterTypeElement) ? "" : customConfirmPresenterTypeElement.toString()));
     }
   }
 
   private TypeElement getApplicationLoaderTypeElement(Application applicationAnnotation) {
     try {
       applicationAnnotation.loader();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
+  }
+
+  private TypeElement getCustomAlertPresenterTypeElement(Application applicationAnnotation) {
+    try {
+      applicationAnnotation.alertPresenter();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
+  }
+
+  private TypeElement getCustomConfirmPresenterTypeElement(Application applicationAnnotation) {
+    try {
+      applicationAnnotation.confirmPresenter();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());

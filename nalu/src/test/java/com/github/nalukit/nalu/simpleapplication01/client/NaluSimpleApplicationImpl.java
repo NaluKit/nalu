@@ -22,6 +22,8 @@ import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
+import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
+import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.simpleapplication01.client.filters.BartSimpsonFilter;
 import com.github.nalukit.nalu.simpleapplication01.client.handler.SimpleApplicationHandler01;
@@ -168,6 +170,16 @@ public final class NaluSimpleApplicationImpl
   @Override
   public IsApplicationLoader<NaluSimpleApplicationContext> getApplicationLoader() {
     return new NaluSimpleApplicationLoader();
+  }
+
+  @Override
+  protected IsCustomAlertPresenter getCustomAlertPresenter() {
+    return null;
+  }
+
+  @Override
+  protected IsCustomConfirmPresenter getCustomConfirmPresenter() {
+    return null;
   }
 
   @Override

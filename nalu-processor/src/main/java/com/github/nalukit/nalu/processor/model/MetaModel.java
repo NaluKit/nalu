@@ -16,7 +16,14 @@
 
 package com.github.nalukit.nalu.processor.model;
 
-import com.github.nalukit.nalu.processor.model.intern.*;
+import com.github.nalukit.nalu.processor.model.intern.BlockControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
+import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
+import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ErrorPopUpControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ModuleModel;
+import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +36,10 @@ public class MetaModel {
   private ClassNameModel application;
 
   private ClassNameModel loader;
+
+  private ClassNameModel customAlertPresenter;
+
+  private ClassNameModel customConfirmPresenter;
 
   private List<ClassNameModel> modules;
 
@@ -269,6 +280,22 @@ public class MetaModel {
 
   public void setStayOnSide(boolean stayOnSide) {
     this.stayOnSide = stayOnSide;
+  }
+
+  public ClassNameModel getCustomAlertPresenter() {
+    return customAlertPresenter;
+  }
+
+  public void setCustomAlertPresenter(ClassNameModel customAlertPresenter) {
+    this.customAlertPresenter = customAlertPresenter;
+  }
+
+  public ClassNameModel getCustomConfirmPresenter() {
+    return customConfirmPresenter;
+  }
+
+  public void setCustomConfirmPresenter(ClassNameModel customConfirmPresenter) {
+    this.customConfirmPresenter = customConfirmPresenter;
   }
 
   public String getShellOfStartRoute() {

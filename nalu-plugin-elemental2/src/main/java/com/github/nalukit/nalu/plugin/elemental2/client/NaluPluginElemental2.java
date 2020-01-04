@@ -18,11 +18,17 @@ package com.github.nalukit.nalu.plugin.elemental2.client;
 
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
+import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
+import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
 import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import elemental2.core.Global;
-import elemental2.dom.*;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.Element;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLMetaElement;
+import elemental2.dom.NodeList;
 
 import java.util.Map;
 import java.util.Objects;
@@ -31,6 +37,9 @@ public class NaluPluginElemental2
     implements IsNaluProcessorPlugin {
 
   private NaluStartModel naluStartModel;
+
+  private IsCustomAlertPresenter   customAlertPresenter;
+  private IsCustomConfirmPresenter customConfirmPresenter;
 
   /* RouteChangeHandler - to be used directly   */
   /* in case Nalu does not have history support */
@@ -42,7 +51,11 @@ public class NaluPluginElemental2
 
   @Override
   public void alert(String message) {
-    DomGlobal.window.alert(message);
+    if (customAlertPresenter == null) {
+      DomGlobal.window.alert(message);
+    } else {
+      this.customAlertPresenter.alert(message);
+    }
   }
 
   @Override
@@ -58,8 +71,17 @@ public class NaluPluginElemental2
   }
 
   @Override
-  public boolean confirm(String message) {
-    return DomGlobal.window.confirm(message);
+  public void confirm(String message,
+                      ConfirmHandler handler) {
+    if (customConfirmPresenter == null) {
+      if (DomGlobal.window.confirm(message)) {
+        handler.onOk();
+      } else {
+        handler.onCancel();
+      }
+    } else {
+
+    }
   }
 
   @Override
@@ -170,6 +192,16 @@ public class NaluPluginElemental2
   @Override
   public String decode(String route) {
     return Global.decodeURI(route);
+  }
+
+  @Override
+  public void setCustomAlertPresenter(IsCustomAlertPresenter customAlertPresenter) {
+    this.customAlertPresenter = customAlertPresenter;
+  }
+
+  @Override
+  public void setCustomConfirmPresenter(IsCustomConfirmPresenter customConfirmPresenter) {
+    this.customConfirmPresenter = customConfirmPresenter;
   }
 
 }
