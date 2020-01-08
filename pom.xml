@@ -102,7 +102,6 @@
 
     <plugin.version.github.site>0.12</plugin.version.github.site>
     <plugin.version.gpg.maven>1.6</plugin.version.gpg.maven>
-    <plugin.version.gwt.maven>1.0.0</plugin.version.gwt.maven>
     <plugin.version.javadoc>3.0.0</plugin.version.javadoc>
     <plugin.version.nexus.staging>1.6.8</plugin.version.nexus.staging>
     <plugin.version.project.info.report>3.0.0</plugin.version.project.info.report>
@@ -118,12 +117,6 @@
   <build>
     <pluginManagement>
       <plugins>
-        <plugin>
-          <groupId>net.ltgt.gwt.maven</groupId>
-          <artifactId>gwt-maven-plugin</artifactId>
-          <version>${plugin.version.gwt.maven}</version>
-          <extensions>true</extensions>
-        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-project-info-reports-plugin</artifactId>
