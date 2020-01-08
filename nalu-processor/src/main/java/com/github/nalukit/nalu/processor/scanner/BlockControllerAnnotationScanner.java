@@ -91,7 +91,7 @@ public class BlockControllerAnnotationScanner {
     // get context!
     String context = this.getContextType(blockControllerElement);
     if (Objects.isNull(context)) {
-      throw new ProcessorException("Nalu-Processor: controller >>" + blockControllerElement.toString() + "<< does not have a context generic!");
+      throw new ProcessorException("Nalu-Processor: controller >>" + blockControllerElement.toString() + "<< does not have a generic context!");
     }
     // save model ...
     return new BlockControllerModel(annotation.name(),

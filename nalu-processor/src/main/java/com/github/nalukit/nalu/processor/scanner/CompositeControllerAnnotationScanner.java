@@ -111,7 +111,7 @@ public class CompositeControllerAnnotationScanner {
       ClassNameModel compareValue = new ClassNameModel(componentTypeTypeMirror.toString());
       if (!metaModel.getComponentType()
                     .equals(compareValue)) {
-        throw new ProcessorException("Nalu-Processor: componentType >>" + compareValue + "<< is different. All composite controllers must implement the componentType!");
+        throw new ProcessorException("Nalu-Processor: componentType >>" + compareValue.getClassName() + "<< is different. All composite controllers must implement the componentType!");
       }
     }
     // check, if the controller implements IsComponentController

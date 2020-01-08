@@ -68,7 +68,7 @@ public class ModuleAnnotationScanner {
     // get context!
     String context = this.getContextType(moduleElement);
     if (Objects.isNull(context)) {
-      throw new ProcessorException("Nalu-Processor: module >>" + moduleElement.toString() + "<< does not have a context generic!");
+      throw new ProcessorException("Nalu-Processor: module >>" + moduleElement.toString() + "<< does not have a generic context!");
     }
     return new ModuleModel(moduleAnnotation.name(),
                            new ClassNameModel(moduleElement.toString()),

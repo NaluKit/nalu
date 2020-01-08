@@ -91,7 +91,7 @@ public class PopUpControllerAnnotationScanner {
     // get context!
     String context = this.getContextType(popUpControllerElement);
     if (Objects.isNull(context)) {
-      throw new ProcessorException("Nalu-Processor: controller >>" + popUpControllerElement.toString() + "<< does not have a context generic!");
+      throw new ProcessorException("Nalu-Processor: controller >>" + popUpControllerElement.toString() + "<< does not have a generic context!");
     }
     // save model ...
     return new PopUpControllerModel(annotation.name(),

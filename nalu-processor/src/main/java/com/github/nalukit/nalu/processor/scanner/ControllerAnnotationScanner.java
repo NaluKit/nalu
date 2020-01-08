@@ -106,7 +106,7 @@ public class ControllerAnnotationScanner {
       ClassNameModel compareValue = new ClassNameModel(componentTypeTypeMirror.toString());
       if (!metaModel.getComponentType()
                     .equals(compareValue)) {
-        throw new ProcessorException("Nalu-Processor: componentType >>" + compareValue + "<< is different. All controllers must implement the componentType!");
+        throw new ProcessorException("Nalu-Processor: componentType >>" + compareValue.getClassName() + "<< is different. All controllers must implement the componentType!");
       }
     }
     // check, if the controller implements IsComponentController
@@ -115,7 +115,7 @@ public class ControllerAnnotationScanner {
     // get context!
     String context = this.getContextType(controllerElement);
     if (Objects.isNull(context)) {
-      throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString() + "<< does not have a context generic!");
+      throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString() + "<< does not have a generic context!");
     }
     // save model ...
     return new ControllerModel(annotation.route(),
