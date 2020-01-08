@@ -51,19 +51,19 @@ public class ErrorPopUpControllerTest {
   @Test
   void testErrorPopUpAnnotationAbstractErrorPopUpComponentControllerWithoutgenerics() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/errorPopUpController/errorPopUpAnnotationAbstractErrorPopUpComponentControllerWithoutgenerics/ErrorPopUpAnnotationAbstractErrorPopUpComponentControllerWithoutgenerics.java"),
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/errorPopUpController/epuAnnoAbstractComConWithoutGenerics/EpuAnnoAbstractErPoUpComConWithoutgenerics.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/errorPopUp01/IErrorEventComponent01.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/errorPopUp01/ErrorEventComponent01.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.errorPopUpController.errorPopUpAnnotationAbstractErrorPopUpComponentControllerWithoutgenerics.ErrorPopUpAnnotationAbstractErrorPopUpComponentControllerWithoutgenerics<< does not have a context generic!");
+                      .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.errorPopUpController.epuAnnoAbstractComConWithoutGenerics.EpuAnnoAbstractErPoUpComConWithoutgenerics<< does not have a context generic!");
   }
 
   @Test
   void testErrorPopUpAnnotationDoesNotExtendsAbstractErrorPopUpComponentController() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/errorPopUpController/errorPopUpAnnotationDoesNotExtendsAbstractErrorPopUpComponentController/ErrorPopUpAnnotationDoesNotExtendsAbstractErrorPopUpComponentController.java"),
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/errorPopUpController/epuAnnoDoesNotExtendsAbstractErPoUpComCon/EpuAnnoDoesNotExtendsAbstractErPoUpComCon.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/errorPopUp01/IErrorEventComponent01.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/errorPopUp01/ErrorEventComponent01.java")));
     CompilationSubject.assertThat(compilation)

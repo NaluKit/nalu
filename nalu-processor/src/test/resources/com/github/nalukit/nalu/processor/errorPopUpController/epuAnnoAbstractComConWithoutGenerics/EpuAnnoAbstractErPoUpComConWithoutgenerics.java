@@ -14,17 +14,26 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.errorPopUpController.errorPopUpAnnotationDoesNotExtendsAbstractErrorPopUpComponentController;
+package com.github.nalukit.nalu.processor.errorPopUpController.epuAnnoAbstractComConWithoutGenerics;
 
-import com.github.nalukit.nalu.client.component.IsErrorPopUpComponent;
+import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.component.AbstractErrorPopUpComponentController;
+import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.client.component.annotation.ErrorPopUpController;
-import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.ui.errorPopUp01.IErrorEventComponent01;
 import com.github.nalukit.nalu.processor.common.ui.errorPopUp01.ErrorEventComponent01;
-import com.github.nalukit.nalu.client.component.IsErrorPopUpController;
 
 @ErrorPopUpController(componentInterface = IErrorEventComponent01.class,
                       component = ErrorEventComponent01.class)
-public class ErrorPopUpAnnotationDoesNotExtendsAbstractErrorPopUpComponentController
-    implements IsErrorPopUpController {
+public class EpuAnnoAbstractErPoUpComConWithoutgenerics
+    extends AbstractErrorPopUpComponentController
+    implements IErrorEventComponent01.Controller {
+
+  public EpuAnnoAbstractErPoUpComConWithoutgenerics() {
+  }
+
+  @Override
+  public void show() {
+  }
+
 }
