@@ -32,7 +32,7 @@
   <packaging>jar</packaging>
   <description>Model View Presenter with Event Bus For GWT 2 + 3 based on APT</description>
 
-  <inceptionYear>2018 - 2019</inceptionYear>
+  <inceptionYear>2018</inceptionYear>
 
   <licenses>
     <license>
