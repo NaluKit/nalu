@@ -75,7 +75,7 @@
     <!--<vertispan.snapshot.repo.name>Vertispan Snapshot Repository</vertispan.snapshot.repo.name>-->
     <!--<vertispan.snapshot.repo.url>https://repo.vertispan.com/gwt-snapshot/</vertispan.snapshot.repo.url>-->
 
-    <elemento.version>0.9.6</elemento.version>
+    <elemento.version>1.0.0-rc1</elemento.version>
   </properties>
 
   <dependencies>
@@ -100,7 +100,7 @@
       <version>${elemental2.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.jboss.gwt.elemento</groupId>
+      <groupId>org.jboss.elemento</groupId>
       <artifactId>elemento-core</artifactId>
       <version>${elemento.version}</version>
     </dependency>
