@@ -29,7 +29,7 @@ import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLMetaElement;
 import elemental2.dom.NodeList;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.elemento.IsElement;
 
 import java.util.Map;
 import java.util.Objects;
