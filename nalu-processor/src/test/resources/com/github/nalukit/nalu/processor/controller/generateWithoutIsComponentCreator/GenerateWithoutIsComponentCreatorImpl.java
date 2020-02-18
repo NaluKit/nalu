@@ -16,7 +16,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.1-SNAPSHOT<< at >>2020.01.04-09:48:46<< */
+ * Build with Nalu version >>2.0.1<< at >>2020.01.04-09:48:46<< */
 public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplication<MockContext> implements GenerateWithoutIsComponentCreator {
   public GenerateWithoutIsComponentCreatorImpl() {
     super();
@@ -28,7 +28,7 @@ public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplica
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>2.0.1-SNAPSHOT<< used to generate this source");
+    sb01.append("Nalu processor version  >>2.0.1<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);

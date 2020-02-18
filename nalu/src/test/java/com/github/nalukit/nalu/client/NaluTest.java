@@ -8,7 +8,7 @@ public class NaluTest {
 
   @Test
   void getVersion() {
-    Assertions.assertEquals("2.0.1-SNAPSHOT",
+    Assertions.assertEquals("2.0.1",
                             Nalu.getVersion());
   }
 
