@@ -102,7 +102,7 @@
 
     <plugin.version.github.site>0.12</plugin.version.github.site>
     <plugin.version.gpg.maven>1.6</plugin.version.gpg.maven>
-    <plugin.version.javadoc>3.0.0</plugin.version.javadoc>
+    <plugin.version.javadoc>3.1.1</plugin.version.javadoc>
     <plugin.version.nexus.staging>1.6.8</plugin.version.nexus.staging>
     <plugin.version.project.info.report>3.0.0</plugin.version.project.info.report>
     <plugin.version.sonatype>1.6.3</plugin.version.sonatype>
