@@ -12,7 +12,7 @@ import java.lang.StringBuilder;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>2.0.0<< at >>2019.09.14-14:18:30<< */
+ * Build with Nalu version >>2.0.1<< at >>2020.09.14-14:18:30<< */
 public final class MockShellCreatorImpl extends AbstractShellCreator<MockContext> implements IsShellCreator {
     public MockShellCreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
         super(router, context, eventBus);

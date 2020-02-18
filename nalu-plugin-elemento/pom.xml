@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2018 - 2019 - Frank Hossfeld
+  ~ Copyright (c) 2018 - 2020 - Frank Hossfeld
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License"); you may not
   ~  use this file except in compliance with the License. You may obtain a copy of
@@ -25,14 +25,14 @@
   <parent>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-parent</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
   </parent>
 
   <artifactId>nalu-plugin-elemento</artifactId>
   <packaging>jar</packaging>
   <description>Nalu's Elemento Plugin</description>
 
-  <inceptionYear>2018 - 2019</inceptionYear>
+  <inceptionYear>2018</inceptionYear>
 
   <licenses>
     <license>
@@ -75,7 +75,7 @@
     <!--<vertispan.snapshot.repo.name>Vertispan Snapshot Repository</vertispan.snapshot.repo.name>-->
     <!--<vertispan.snapshot.repo.url>https://repo.vertispan.com/gwt-snapshot/</vertispan.snapshot.repo.url>-->
 
-    <elemento.version>0.9.6</elemento.version>
+    <elemento.version>1.0.0-rc3</elemento.version>
   </properties>
 
   <dependencies>
@@ -100,7 +100,7 @@
       <version>${elemental2.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.jboss.gwt.elemento</groupId>
+      <groupId>org.jboss.elemento</groupId>
       <artifactId>elemento-core</artifactId>
       <version>${elemento.version}</version>
     </dependency>
@@ -125,6 +125,7 @@
       <resource>
         <directory>src/main/resources</directory>
         <includes>
+          <include>**/META-INF/**</include>
           <include>**/nalu/**</include>
           <include>**/*.gwt.xml</include>
           <include>**/*.html</include>

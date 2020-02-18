@@ -16,7 +16,7 @@ import java.lang.StringBuilder;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>2.0.0<< at >>2019.09.14-21:12:32<< */
+ * Build with Nalu version >>2.0.1<< at >>2020.12.08-10:31:40<< */
 public final class ControllerC06CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
   public ControllerC06CreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
     super(router, context, eventBus);
@@ -38,6 +38,8 @@ public final class ControllerC06CreatorImpl extends AbstractControllerCreator<Mo
       controller.setEventBus(eventBus);
       controller.setRouter(router);
       controller.setCached(false);
+      controller.setRelatedRoute("/mockShell/route01/*/*");
+      controller.setRelatedSelector("selector01");
       sb01.setLength(0);
       sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
       ClientLogger.get().logDetailed(sb01.toString(), 4);

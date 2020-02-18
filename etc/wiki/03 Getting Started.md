@@ -20,7 +20,7 @@ Depending on the widget lib your are using inside your project, you need to add 
   <inherits name='com.github.nalukit.nalu.plugin.gwt.NaluPluginGWT'/>
 ```
 
-Last but not least, we need to set up the entry point of opur application:
+Last but not least, we need to set up the entry point of our application:
 ```XML
   <entrypoint class='[path to your entrypoint]'/>
 ````
@@ -46,7 +46,7 @@ public class Application
   }
 }
 ```
-Wenn using this code, you will recognize that `MyApplication` and `MyApplicationImpl` is marked as error, case the classes do not exist. This is correct. We will discuss the `MyApplication`-class next and the `MyApplicationImpl`-class will be created, once you build your project.
+When using this code, you will recognize that `MyApplication` and `MyApplicationImpl` is marked as error, case the classes do not exist. This is correct. We will discuss the `MyApplication`-class next and the `MyApplicationImpl`-class will be created, once you build your project.
 
 #### Note
 There is a pitfall: the `run`-method requires a Nalu plugin.

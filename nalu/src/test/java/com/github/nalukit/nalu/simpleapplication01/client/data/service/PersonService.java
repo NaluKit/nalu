@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2019 - Frank Hossfeld
+ * Copyright (c) 2018 - 2020 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -21,7 +21,11 @@ import com.github.nalukit.nalu.simpleapplication01.client.data.model.dto.Person;
 import com.github.nalukit.nalu.simpleapplication01.client.data.model.dto.PersonSearch;
 import com.github.nalukit.nalu.simpleapplication01.client.data.model.exception.PersonNotFoundException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Due to the fact, that there is currently no J2Cl based server framework and to proof Nalu is working,

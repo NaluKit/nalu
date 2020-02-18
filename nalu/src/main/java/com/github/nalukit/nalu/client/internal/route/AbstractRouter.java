@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2019 - Frank Hossfeld
+ * Copyright (c) 2018 - 2020 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -38,6 +38,7 @@ import com.github.nalukit.nalu.client.internal.application.ShellCallback;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellInstance;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.ConfirmHandler;
 import com.github.nalukit.nalu.client.seo.SeoDataProvider;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import org.gwtproject.event.shared.SimpleEventBus;
@@ -48,7 +49,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 abstract class AbstractRouter
@@ -223,7 +223,8 @@ abstract class AbstractRouter
     return this.lastExecutedHash;
   }
 
-  void handleRouting(String hash) {
+  void handleRouting(String hash,
+                     boolean forceRouting) {
     // in some cases the hash contains protocol, port and URI, we clean it
     if (hash.contains("#")) {
       hash = hash.substring(hash.indexOf("#") + 1);
@@ -285,6 +286,7 @@ abstract class AbstractRouter
                                                 filter.parameters());
         this.route(filter.redirectTo(),
                    true,
+                   true,
                    filter.parameters());
         // fire Router StateEvent
         this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
@@ -297,98 +299,124 @@ abstract class AbstractRouter
     // search for a matching routing
     List<RouteConfig> routeConfigurations = this.routerConfiguration.match(routeResult.getRoute());
     // check whether or not the routing is possible ...
-    if (this.confirmRouting(routeConfigurations)) {
-      // call stop for all elements
-      this.stopController(routeConfigurations,
-                          !routeResult.getShell()
-                                      .equals(this.lastAddedShell));
-      // handle shellCreator
-      //
-      // in case shellCreator changed or is not set, use the actual shellCreator!
-      if (!routeResult.getShell()
-                      .equals(this.lastAddedShell)) {
-        // add shellCreator to the viewport
-        ShellConfig shellConfig = this.shellConfiguration.match(routeResult.getShell());
-        if (!Objects.isNull(shellConfig)) {
-          String finalHash = hash;
-          ShellFactory.get()
-                      .shell(shellConfig.getClassName(),
-                             new ShellCallback() {
-                               @Override
-                               public void onFinish(ShellInstance shellInstance) {
-                                 // in case there is an instance of an shellCreator existing, call the onDetach method inside the shellCreator
-                                 if (!Objects.isNull(shell)) {
-                                   detachShell();
-                                 }
-                                 // set newe shellCreator value
-                                 shell = shellInstance.getShell();
-                                 // save the last added shellCreator ....
-                                 lastAddedShell = routeResult.getShell();
-                                 // initialize shellCreator ...
-                                 ClientLogger.get()
-                                             .logDetailed("Router: attach shellCreator >>" + routeResult.getShell() + "<<",
-                                                          1);
-                                 shellInstance.getShell()
-                                              .attachShell();
-                                 ClientLogger.get()
-                                             .logDetailed("Router: shellCreator >>" + routeResult.getShell() + "<< attached",
-                                                          1);
-                                 // start the application by calling url + '#'
-                                 ClientLogger.get()
-                                             .logDetailed("Router: initialize shellCreator >>" + routeResult.getShell() + "<< (route to '/')",
-                                                          1);
-                                 // get shellCreator matching root configs ...
-                                 List<RouteConfig> shellMatchingRouteConfigurations = routerConfiguration.match(routeResult.getShell());
-                                 for (RouteConfig routeConfiguration : shellMatchingRouteConfigurations) {
-                                   handleRouteConfig(routeConfiguration,
-                                                     routeResult,
-                                                     finalHash);
-                                 }
-                                 postProcessHandleRouting(finalHash,
-                                                          routeResult,
-                                                          routeConfigurations);
-                               }
+    if (forceRouting) {
+      // in case of 'forceRouting' we route without confirmation!
+      doRouting(hash,
+                routeResult,
+                routeConfigurations);
+    } else {
+      String finalHash = hash;
+      this.confirmRouting(routeConfigurations,
+                          new ConfirmHandler() {
+                            @Override
+                            public void onOk() {
+                              // in case of 'forceRouting' we route without confirmation!
+                              doRouting(finalHash,
+                                        routeResult,
+                                        routeConfigurations);
 
-                               private void detachShell() {
-                                 ClientLogger.get()
-                                             .logDetailed("Router: detach shellCreator >>" +
-                                                          shell.getClass()
-                                                               .getCanonicalName() +
-                                                          "<<",
-                                                          1);
-                                 shell.detachShell();
-                                 ClientLogger.get()
-                                             .logDetailed("Router: shellCreator >>" +
-                                                          shell.getClass()
-                                                               .getCanonicalName() +
-                                                          "<< detached",
-                                                          1);
-                               }
+                            }
 
-                               @Override
-                               public void onShellNotFound() {
-                                 eventBus.fireEvent(NaluErrorEvent.createNaluError()
-                                                                  .errorId(NaluConstants.NALU_ERROR_SHELL_NOT_FOUND)
-                                                                  .message("no shell found for route: >>" + shellConfig.getRoute() + "<<")
-                                                                  .route(shellConfig.getRoute()));
-                               }
+                            @Override
+                            public void onCancel() {
+                              plugin.route(lastExecutedHash,
+                                           false);
+                              // clear loop detection list ...
+                              loopDetectionList.clear();
+                            }
+                          });
+    }
+  }
 
-                               @Override
-                               public void onRoutingInterceptionException(RoutingInterceptionException e) {
-                                 RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
-                                                                             e.getRoute(),
-                                                                             e.getParameter());
+  private void doRouting(String hash,
+                         RouteResult routeResult,
+                         List<RouteConfig> routeConfigurations) {
+    // call stop for all elements
+    this.stopController(routeConfigurations,
+                        !routeResult.getShell()
+                                    .equals(this.lastAddedShell));
+    // handle shellCreator
+    //
+    // in case shellCreator changed or is not set, use the actual shellCreator!
+    if (!routeResult.getShell()
+                    .equals(this.lastAddedShell)) {
+      // add shellCreator to the viewport
+      ShellConfig shellConfig = this.shellConfiguration.match(routeResult.getShell());
+      if (!Objects.isNull(shellConfig)) {
+        ShellFactory.get()
+                    .shell(shellConfig.getClassName(),
+                           new ShellCallback() {
+                             @Override
+                             public void onFinish(ShellInstance shellInstance) {
+                               // in case there is an instance of an shellCreator existing, call the onDetach method inside the shellCreator
+                               if (!Objects.isNull(shell)) {
+                                 detachShell();
                                }
-                             });
-        }
-      } else {
-        postProcessHandleRouting(hash,
-                                 routeResult,
-                                 routeConfigurations);
+                               // set newe shellCreator value
+                               shell = shellInstance.getShell();
+                               // save the last added shellCreator ....
+                               lastAddedShell = routeResult.getShell();
+                               // initialize shellCreator ...
+                               ClientLogger.get()
+                                           .logDetailed("Router: attach shellCreator >>" + routeResult.getShell() + "<<",
+                                                        1);
+                               shellInstance.getShell()
+                                            .attachShell();
+                               ClientLogger.get()
+                                           .logDetailed("Router: shellCreator >>" + routeResult.getShell() + "<< attached",
+                                                        1);
+                               // start the application by calling url + '#'
+                               ClientLogger.get()
+                                           .logDetailed("Router: initialize shellCreator >>" + routeResult.getShell() + "<< (route to '/')",
+                                                        1);
+                               // get shellCreator matching root configs ...
+                               List<RouteConfig> shellMatchingRouteConfigurations = routerConfiguration.match(routeResult.getShell());
+                               for (RouteConfig routeConfiguration : shellMatchingRouteConfigurations) {
+                                 handleRouteConfig(routeConfiguration,
+                                                   routeResult,
+                                                   hash);
+                               }
+                               postProcessHandleRouting(hash,
+                                                        routeResult,
+                                                        routeConfigurations);
+                             }
+
+                             private void detachShell() {
+                               ClientLogger.get()
+                                           .logDetailed("Router: detach shellCreator >>" +
+                                                        shell.getClass()
+                                                             .getCanonicalName() +
+                                                        "<<",
+                                                        1);
+                               shell.detachShell();
+                               ClientLogger.get()
+                                           .logDetailed("Router: shellCreator >>" +
+                                                        shell.getClass()
+                                                             .getCanonicalName() +
+                                                        "<< detached",
+                                                        1);
+                             }
+
+                             @Override
+                             public void onShellNotFound() {
+                               eventBus.fireEvent(NaluErrorEvent.createNaluError()
+                                                                .errorId(NaluConstants.NALU_ERROR_SHELL_NOT_FOUND)
+                                                                .message("no shell found for route: >>" + shellConfig.getRoute() + "<<")
+                                                                .route(shellConfig.getRoute()));
+                             }
+
+                             @Override
+                             public void onRoutingInterceptionException(RoutingInterceptionException e) {
+                               RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
+                                                                           e.getRoute(),
+                                                                           e.getParameter());
+                             }
+                           });
       }
     } else {
-      this.plugin.route("#" + this.lastExecutedHash,
-                        false);
+      postProcessHandleRouting(hash,
+                               routeResult,
+                               routeConfigurations);
     }
   }
 
@@ -447,6 +475,7 @@ abstract class AbstractRouter
                                                                                  e.getRoute(),
                                                                                  e.getParameter());
                                      route(e.getRoute(),
+                                           true,
                                            true,
                                            e.getParameter());
                                    }
@@ -541,6 +570,7 @@ abstract class AbstractRouter
                                                           e.getParameter());
               this.route(e.getRoute(),
                          true,
+                         true,
                          e.getParameter());
             }
           });
@@ -607,6 +637,7 @@ abstract class AbstractRouter
                                                           e.getRoute(),
                                                           e.getParameter());
               this.route(e.getRoute(),
+                         true,
                          true,
                          e.getParameter());
               return;
@@ -698,8 +729,9 @@ abstract class AbstractRouter
     return "/" + value;
   }
 
-  private boolean confirmRouting(List<RouteConfig> routeConfigurations) {
-    AtomicBoolean isDirtyComposite = new AtomicBoolean(false);
+  private void confirmRouting(List<RouteConfig> routeConfigurations,
+                              ConfirmHandler confirmHandler) {
+    List<String> messageList = new ArrayList<>();
     routeConfigurations.stream()
                        .map(config -> this.activeComponents.get(config.getSelector()))
                        .filter(Objects::nonNull)
@@ -710,19 +742,22 @@ abstract class AbstractRouter
                                                       .map(AbstractCompositeController::mayStop)
                                                       .filter(Objects::nonNull)
                                                       .findFirst();
-                         if (optional.isPresent()) {
-                           this.plugin.confirm(optional.get());
-                           isDirtyComposite.set(true);
-                         }
+                         optional.ifPresent(messageList::add);
                        });
 
-    return !isDirtyComposite.get() &&
-           routeConfigurations.stream()
-                              .map(config -> this.activeComponents.get(config.getSelector()))
-                              .filter(Objects::nonNull)
-                              .map(AbstractComponentController::mayStop)
-                              .filter(Objects::nonNull)
-                              .allMatch(message -> this.plugin.confirm(message));
+    Optional<String> optionalConfirm = routeConfigurations.stream()
+                                                          .map(config -> this.activeComponents.get(config.getSelector()))
+                                                          .filter(Objects::nonNull)
+                                                          .map(AbstractComponentController::mayStop)
+                                                          .filter(Objects::nonNull)
+                                                          .findFirst();
+
+    if (optionalConfirm.isPresent() || messageList.size() > 0) {
+      this.plugin.confirm(optionalConfirm.orElseGet(() -> messageList.get(0)),
+                          confirmHandler);
+    } else {
+      confirmHandler.onOk();
+    }
   }
 
   private void stopController(List<RouteConfig> routeConfigurations,
@@ -770,8 +805,7 @@ abstract class AbstractRouter
       }
     });
     routeConfigurations.forEach(routeConfiguration -> this.plugin.remove(routeConfiguration.getSelector()));
-    controllerList.forEach(c -> this.activeComponents.remove(c.getClass()
-                                                              .getCanonicalName()));
+    controllerList.forEach(c -> this.activeComponents.remove(c.getRelatedSelector()));
   }
 
   private void deactivateController(AbstractComponentController<?, ?, ?> controller) {
@@ -949,10 +983,45 @@ abstract class AbstractRouter
     // let's do the routing!
     this.route(newRoute,
                false,
+               false,
+               params);
+  }
+
+  /**
+   * The method routes to another screen. In case it is called,
+   * it will:
+   * <ul>
+   * <li>create a new hash</li>
+   * <li>update the url (in case history is desired)</li>
+   * </ul>
+   * Once the url gets updated, it triggers the onhashchange event and Nalu starts to work
+   * <p>
+   * in opposite to the route-method, the forceRoute-method does not confirm the new route!
+   *
+   * @param newRoute routing goal
+   * @param params   list of parameters [0 - n]
+   */
+  @Override
+  public void forceRoute(String newRoute,
+                         String... params) {
+    // fire souring event ...
+    this.fireRouterStateEvent(RouterState.START_ROUTING,
+                              newRoute,
+                              params);
+    // first, we track the new route (if there is a tracker!)
+    if (!Objects.isNull(this.tracker)) {
+      this.tracker.track(newRoute,
+                         params);
+    }
+    // let's do the routing!
+    this.route(newRoute,
+               true,
+               false,
                params);
   }
 
   private void route(String newRoute,
+                     boolean forceRouting,
                      boolean replaceState,
                      String... params) {
     String newRouteWithParams = this.generate(newRoute,
@@ -964,7 +1033,8 @@ abstract class AbstractRouter
       this.plugin.route(newRouteWithParams,
                         false);
     }
-    this.handleRouting(newRouteWithParams);
+    this.handleRouting(newRouteWithParams,
+                       forceRouting);
   }
 
   /**

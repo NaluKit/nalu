@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 - Frank Hossfeld
+ * Copyright (c) 2020 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -27,7 +27,11 @@ import elemental2.dom.Location;
 import elemental2.dom.PopStateEvent;
 import jsinterop.base.Js;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 public class NaluPluginCoreWeb {
 
@@ -164,7 +168,7 @@ public class NaluPluginCoreWeb {
     String newRouteToken;
     if (PropertyFactory.get()
                        .isUsingHash()) {
-      newRouteToken = "#" + newRoute;
+      newRouteToken = newRoute.startsWith("#") ? newRoute : "#" + newRoute;
     } else {
       newRouteToken = "/";
       if (PropertyFactory.get()

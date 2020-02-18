@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2019 - Frank Hossfeld
+ * Copyright (c) 2018 - 2020 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -17,8 +17,8 @@
 package com.github.nalukit.nalu.client.internal;
 
 import com.github.nalukit.nalu.client.Router;
-import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
 import org.gwtproject.event.shared.SimpleEventBus;

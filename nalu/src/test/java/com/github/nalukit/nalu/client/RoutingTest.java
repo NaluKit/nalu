@@ -1,6 +1,8 @@
 package com.github.nalukit.nalu.client;
 
 import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
+import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
+import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.simpleapplication01.client.Application;
 import org.junit.jupiter.api.AfterEach;
@@ -51,8 +53,8 @@ public class RoutingTest {
       }
 
       @Override
-      public boolean confirm(String message) {
-        return this.confirm;
+      public void confirm(String message,
+                          ConfirmHandler handler) {
       }
 
       @Override
@@ -103,6 +105,16 @@ public class RoutingTest {
       @Override
       public String decode(String route) {
         return route;
+      }
+
+      @Override
+      public void setCustomAlertPresenter(IsCustomAlertPresenter presenter) {
+
+      }
+
+      @Override
+      public void setCustomConfirmPresenter(IsCustomConfirmPresenter presenter) {
+
       }
 
       @Override

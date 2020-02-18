@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2019 - Frank Hossfeld
+ * Copyright (c) 2018 - 2020 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -22,7 +22,7 @@ import com.github.nalukit.nalu.client.internal.route.RouterUtils;
 public class Nalu {
 
   public static String getVersion() {
-    return "2.0.0";
+    return "2.0.1";
   }
 
   public static boolean hasHistory() {

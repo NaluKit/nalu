@@ -21,14 +21,14 @@ Creating a Nalu error event:
 NaluErrorEvent.createApplicationError()
               .id("myErrorId")
               .route("/application/person/search")
-              .message("Oh, nothing wrong ... only wonna show a nice error dialog!")
+              .message("Oh, nothing wrong ... only wanna show a nice error dialog!")
               .data("key01",
                     "first parameter")
               .data("key02",
                     "second parameter");
 ```
 
-To create a Nalu error event, call `NaluErrorEvent.createApplicationError()`. This will create a Nalue error event with a error type of `APPLICAITON_ERROR`. (Nalu internal error events will have the error type `NALU_INTERNAL_ERROR`.
+To create a Nalu error event, call `NaluErrorEvent.createApplicationError()`. This will create a Nalu error event with a error type of `APPLICATION_ERROR`. (Nalu internal error events will have the error type `NALU_INTERNAL_ERROR`.
 
 **Do not use the `NaluErrorEvent.createNaluError()`-method!**
 
@@ -54,7 +54,7 @@ Once you have created a `NaluErrorEvent` use
 this.eventBus.fireEvent(NaluErrorEvent.createApplicationError()
                                       .id("myErrorId")
                                       .route("/application/person/search")
-                                      .message("Oh, nothing wrong ... only wonna show a nice error dialog!")
+                                      .message("Oh, nothing wrong ... only wanna show a nice error dialog!")
                                       .data("key01",
                                             "first parameter")
                                       .data("key02",
@@ -165,7 +165,7 @@ public class ApplicationContext
 ```
 
 ## Important Note
-In a multi nodule environment the `@ErrorPopUpController` needs to be defined inside the main modules.
+In a multi module environment the `@ErrorPopUpController` needs to be defined inside the main modules.
 
 **Sub-modules can not define a `@ErrorPopUpController`!**
 

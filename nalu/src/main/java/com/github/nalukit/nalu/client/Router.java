@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2019 - Frank Hossfeld
+ * Copyright (c) 2018 - 2020 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -46,6 +46,15 @@ public interface Router {
    */
   void route(String route,
              String... parameter);
+
+  /**
+   * Route to a new page without confirmation.
+   *
+   * @param route     new route
+   * @param parameter parameters of the route
+   */
+  void forceRoute(String route,
+                  String... parameter);
 
   /**
    * Removes a controller from the cache

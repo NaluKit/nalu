@@ -14,7 +14,7 @@ In case the name of the shell changed, Nalu will remove the last shell and repla
 
 Next Nalu will look for controllers, that match the route part. Matching controllers will be created and added to the shell.
 
-Parameters inside a route are optional. In case a route has parameters, Nalu will inject the paramters into the newly created controllers.
+Parameters inside a route are optional. In case a route has parameters, Nalu will inject the parameters into the newly created controllers.
 
 Of cause, the route parts can be a combination of several parts. So, routes might look like this:
 ```
@@ -23,7 +23,7 @@ Of cause, the route parts can be a combination of several parts. So, routes migh
 /myShell/routePart01/routePart02/routePart03
 ```
 
-Parameters inside a route can be added to the end of the route or inside the route. The only limitation for paramemters is: **parameters can never be the first part of a route!**
+Parameters inside a route can be added to the end of the route or inside the route. The only limitation for parameters is: **parameters can never be the first part of a route!**
 
 These are all legal routes:
 ```
@@ -35,7 +35,7 @@ These are all legal routes:
 
 
 ## Parameters
-In case a route has parameters, they have to be added to the route of the `@Controller`-annotaton:
+In case a route has parameters, they have to be added to the route of the `@Controller`-annotation:
 ```java
 @Controller(route = "/application/myRoute/:parameterName",
             selector = 'content',

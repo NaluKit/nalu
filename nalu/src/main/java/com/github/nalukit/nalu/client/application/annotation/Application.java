@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2019 - Frank Hossfeld
+ * Copyright (c) 2018 - 2020 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -18,7 +18,11 @@ package com.github.nalukit.nalu.client.application.annotation;
 
 import com.github.nalukit.nalu.client.application.AbstractApplicationLoader;
 import com.github.nalukit.nalu.client.context.IsContext;
+import com.github.nalukit.nalu.client.internal.NoCustomAlertPresenter;
+import com.github.nalukit.nalu.client.internal.NoCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.internal.application.NoApplicationLoader;
+import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
+import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -108,5 +112,19 @@ public @interface Application {
    * @return the configuration value for stayOnSite
    */
   boolean stayOnSite() default false;
+
+  /**
+   * This attribute will tell Nalu to use a custom alert presenter
+   *
+   * @return the custom alert presenter
+   */
+  Class<? extends IsCustomAlertPresenter> alertPresenter() default NoCustomAlertPresenter.class;
+
+  /**
+   * This attribute will tell Nalu to use a custom confirm presenter
+   *
+   * @return the custom confirm presenter
+   */
+  Class<? extends IsCustomConfirmPresenter> confirmPresenter() default NoCustomConfirmPresenter.class;
 
 }

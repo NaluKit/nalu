@@ -17,7 +17,7 @@ By extending AbstractHandler you will have access to the allowing instances:
 
 * C context: instance of the application context (Singleton)
 * event bus: instance of the application wide event bus
-* router: instance fo the router
+* router: instance of the router
 
 To tell Nalu, that this class is a handler, you have to annotate the class with `Handler`. Nalu will automatically create an instance for each class annotated with `@Handler` at application start.
 

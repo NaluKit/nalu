@@ -7,6 +7,8 @@ import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
+import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
+import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.ui.errorPopUp01.ErrorEventComponent01;
@@ -17,7 +19,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0<< at >>2019.11.07-07:21:34<< */
+ * Build with Nalu version >>2.0.1<< at >>2020.01.04-09:46:53<< */
 public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockContext> implements ErrorPopUpAnnotationOk {
   public ErrorPopUpAnnotationOkImpl() {
     super();
@@ -29,7 +31,7 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>2.0.0<< used to generate this source");
+    sb01.append("Nalu processor version  >>2.0.1<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
@@ -153,6 +155,16 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
 
   @Override
   public IsApplicationLoader<MockContext> getApplicationLoader() {
+    return null;
+  }
+
+  @Override
+  public IsCustomAlertPresenter getCustomAlertPresenter() {
+    return null;
+  }
+
+  @Override
+  public IsCustomConfirmPresenter getCustomConfirmPresenter() {
     return null;
   }
 

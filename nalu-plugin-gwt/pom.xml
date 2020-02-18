@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2018 - 2019 - Frank Hossfeld
+  ~ Copyright (c) 2018 - 2020 - Frank Hossfeld
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License"); you may not
   ~  use this file except in compliance with the License. You may obtain a copy of
@@ -25,14 +25,14 @@
   <parent>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-parent</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
   </parent>
 
   <artifactId>nalu-plugin-gwt</artifactId>
   <packaging>jar</packaging>
   <description>Nalu's GWT Plugin</description>
 
-  <inceptionYear>2018 - 2019</inceptionYear>
+  <inceptionYear>2018</inceptionYear>
 
   <licenses>
     <license>
@@ -137,6 +137,7 @@
       <resource>
         <directory>src/main/resources</directory>
         <includes>
+          <include>**/META-INF/**</include>
           <include>**/nalu/**</include>
           <include>**/*.gwt.xml</include>
           <include>**/*.html</include>

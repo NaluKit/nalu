@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2019 - Frank Hossfeld
+ * Copyright (c) 2018 - 2020 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -32,6 +32,8 @@ import com.github.nalukit.nalu.client.internal.route.RouterException;
 import com.github.nalukit.nalu.client.internal.route.RouterImpl;
 import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.internal.validation.RouteValidation;
+import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
+import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.client.seo.SeoDataProvider;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
@@ -79,6 +81,9 @@ public abstract class AbstractApplication<C extends IsContext>
   public void run(IsNaluProcessorPlugin plugin) {
     // save the plugin
     this.plugin = plugin;
+    // set custom presenter - if available
+    this.plugin.setCustomAlertPresenter(getCustomAlertPresenter());
+    this.plugin.setCustomConfirmPresenter(getCustomConfirmPresenter());
     // first load the debug configuration
     this.loadDebugConfiguration();
     // debug message
@@ -235,6 +240,10 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract void loadErrorPopUpController();
 
   protected abstract IsApplicationLoader<C> getApplicationLoader();
+
+  protected abstract IsCustomAlertPresenter getCustomAlertPresenter();
+
+  protected abstract IsCustomConfirmPresenter getCustomConfirmPresenter();
 
   protected abstract boolean hasHistory();
 

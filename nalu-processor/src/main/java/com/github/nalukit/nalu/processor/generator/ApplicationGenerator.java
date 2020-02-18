@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2019 - Frank Hossfeld
+ * Copyright (c) 2018 - 2020 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -18,8 +18,12 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
+import com.github.nalukit.nalu.client.internal.NoCustomAlertPresenter;
+import com.github.nalukit.nalu.client.internal.NoCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.NoApplicationLoader;
+import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
+import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
@@ -206,6 +210,38 @@ public class ApplicationGenerator {
                                                        .getTypeName());
     }
     typeSpec.addMethod(getApplicationLoaderMethod.build());
+
+    // method "getCustomAlertPresenter"
+    MethodSpec.Builder getCustomAlertPresenterMethod = MethodSpec.methodBuilder("getCustomAlertPresenter")
+                                                                 .addModifiers(Modifier.PUBLIC)
+                                                                 .addAnnotation(Override.class)
+                                                                 .returns(ClassName.get(IsCustomAlertPresenter.class));
+    if (NoCustomAlertPresenter.class.getCanonicalName()
+                                    .equals(metaModel.getCustomAlertPresenter()
+                                                     .getClassName())) {
+      getCustomAlertPresenterMethod.addStatement("return null");
+    } else {
+      getCustomAlertPresenterMethod.addStatement("return new $T()",
+                                                 metaModel.getCustomAlertPresenter()
+                                                          .getTypeName());
+    }
+    typeSpec.addMethod(getCustomAlertPresenterMethod.build());
+
+    // method "getCustomConfirmPresenter"
+    MethodSpec.Builder getCustomConfirmPresenterMethod = MethodSpec.methodBuilder("getCustomConfirmPresenter")
+                                                                   .addModifiers(Modifier.PUBLIC)
+                                                                   .addAnnotation(Override.class)
+                                                                   .returns(ClassName.get(IsCustomConfirmPresenter.class));
+    if (NoCustomConfirmPresenter.class.getCanonicalName()
+                                      .equals(metaModel.getCustomConfirmPresenter()
+                                                       .getClassName())) {
+      getCustomConfirmPresenterMethod.addStatement("return null");
+    } else {
+      getCustomConfirmPresenterMethod.addStatement("return new $T()",
+                                                   metaModel.getCustomConfirmPresenter()
+                                                            .getTypeName());
+    }
+    typeSpec.addMethod(getCustomConfirmPresenterMethod.build());
 
     generateLoadDefaultsRoutes(typeSpec,
                                metaModel);

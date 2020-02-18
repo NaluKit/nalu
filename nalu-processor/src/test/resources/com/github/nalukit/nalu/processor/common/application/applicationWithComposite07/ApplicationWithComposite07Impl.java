@@ -10,6 +10,8 @@ import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
+import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
+import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.ui.controllerWithComposite07.CompositeCondition01;
@@ -19,7 +21,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.0<< at >>2019.11.07-07:25:37<< */
+ * Build with Nalu version >>2.0.1<< at >>2020.11.07-07:25:37<< */
 public final class ApplicationWithComposite07Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite07 {
   public ApplicationWithComposite07Impl() {
     super();
@@ -31,7 +33,7 @@ public final class ApplicationWithComposite07Impl extends AbstractApplication<Mo
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>2.0.0<< used to generate this source");
+    sb01.append("Nalu processor version  >>2.0.1<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
@@ -169,6 +171,16 @@ public final class ApplicationWithComposite07Impl extends AbstractApplication<Mo
 
   @Override
   public IsApplicationLoader<MockContext> getApplicationLoader() {
+    return null;
+  }
+
+  @Override
+  public IsCustomAlertPresenter getCustomAlertPresenter() {
+    return null;
+  }
+
+  @Override
+  public IsCustomConfirmPresenter getCustomConfirmPresenter() {
     return null;
   }
 
