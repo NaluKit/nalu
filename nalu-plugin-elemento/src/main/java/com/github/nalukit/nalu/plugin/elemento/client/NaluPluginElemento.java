@@ -64,6 +64,7 @@ public class NaluPluginElemento
                         Object content) {
     Element selectorElement = DomGlobal.document.querySelector("#" + selector);
     if (selectorElement == null) {
+      NaluPluginCoreWeb.logNonExistingSelector(selector);
       return false;
     } else {
       if (content instanceof Iterable) {
