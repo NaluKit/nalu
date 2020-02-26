@@ -63,6 +63,7 @@ public class NaluPluginElemental2
                         Object asElement) {
     Element selectorElement = DomGlobal.document.querySelector("#" + selector);
     if (selectorElement == null) {
+      NaluPluginCoreWeb.logNonExistingSelector(selector);
       return false;
     } else {
       selectorElement.appendChild((HTMLElement) asElement);

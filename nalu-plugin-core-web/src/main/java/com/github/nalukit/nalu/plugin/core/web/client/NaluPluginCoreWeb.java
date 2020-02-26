@@ -27,17 +27,28 @@ import elemental2.dom.Location;
 import elemental2.dom.PopStateEvent;
 import jsinterop.base.Js;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class NaluPluginCoreWeb {
 
   public static boolean isSuperDevMode() {
     return "on".equals(System.getProperty("superdevmode",
                                           "off"));
+  }
+
+  /**
+   * Log's non-existing selector that was not found inside DOM on the browser's console
+   *
+   * @param selector not existing selector
+   */
+  public static void logNonExistingSelector(String selector) {
+    if (!NaluPluginCoreWeb.isSuperDevMode()) {
+      return;
+    }
+    String sb = "WARNING: selector >>" + selector + "<< not foound in DOM (element not attached!)";
+    ClientLogger.get()
+                .logSimple(sb,
+                           0);
   }
 
   /**
