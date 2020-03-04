@@ -28,12 +28,7 @@ import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.*;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -41,24 +36,23 @@ import javax.lang.model.element.Modifier;
 import java.io.IOException;
 
 public class CompositeCreatorGenerator {
-
+  
   private ProcessingEnvironment processingEnvironment;
-
-  private CompositeModel compositeModel;
-
+  private CompositeModel        compositeModel;
+  
   @SuppressWarnings("unused")
   private CompositeCreatorGenerator() {
   }
-
+  
   private CompositeCreatorGenerator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
-    this.compositeModel = builder.compositeModel;
+    this.compositeModel        = builder.compositeModel;
   }
-
+  
   public static Builder builder() {
     return new Builder();
   }
-
+  
   public void generate()
       throws ProcessorException {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(compositeModel.getProvider()
@@ -74,7 +68,7 @@ public class CompositeCreatorGenerator {
     typeSpec.addMethod(createConstructor());
     typeSpec.addMethod(createCreateMethod());
     typeSpec.addMethod(createSetParameterMethod());
-
+    
     JavaFile javaFile = JavaFile.builder(this.compositeModel.getProvider()
                                                             .getPackage(),
                                          typeSpec.build())
@@ -84,14 +78,14 @@ public class CompositeCreatorGenerator {
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
-                                       this.compositeModel.getProvider()
-                                                          .getClassName() +
-                                       ProcessorConstants.CREATOR_IMPL +
-                                       "<< -> exception: " +
-                                       e.getMessage());
+                                   this.compositeModel.getProvider()
+                                                      .getClassName() +
+                                   ProcessorConstants.CREATOR_IMPL +
+                                   "<< -> exception: " +
+                                   e.getMessage());
     }
   }
-
+  
   private MethodSpec createCreateMethod() {
     MethodSpec.Builder createMethod = MethodSpec.methodBuilder("create")
                                                 .addModifiers(Modifier.PUBLIC)
@@ -206,7 +200,7 @@ public class CompositeCreatorGenerator {
     createMethod.addStatement("return compositeInstance");
     return createMethod.build();
   }
-
+  
   private MethodSpec createSetParameterMethod() {
     MethodSpec.Builder method = MethodSpec.methodBuilder("setParameter")
                                           .addModifiers(Modifier.PUBLIC)
@@ -218,43 +212,43 @@ public class CompositeCreatorGenerator {
                                                                      .build())
                                           .varargs()
                                           //                                                .returns(ClassName.get(CompositeInstance.class))
-                                          .addException(ClassName.get(RoutingInterceptionException.class))
-                                          .addStatement("$T composite = ($T) object",
-                                                        ClassName.get(compositeModel.getProvider()
-                                                                                    .getPackage(),
-                                                                      compositeModel.getProvider()
-                                                                                    .getSimpleName()),
-                                                        ClassName.get(compositeModel.getProvider()
-                                                                                    .getPackage(),
-                                                                      compositeModel.getProvider()
-                                                                                    .getSimpleName()))
-                                          .addStatement("$T sb01 = new $T()",
-                                                        ClassName.get(StringBuilder.class),
-                                                        ClassName.get(StringBuilder.class));
+                                          .addException(ClassName.get(RoutingInterceptionException.class));
     // compositeModel has parameters?
     if (compositeModel.getParameterAcceptors()
                       .size() > 0) {
       // has the model AcceptParameter ?
       if (compositeModel.getParameterAcceptors()
                         .size() > 0) {
+        method.addStatement("$T composite = ($T) object",
+                            ClassName.get(compositeModel.getProvider()
+                                                        .getPackage(),
+                                          compositeModel.getProvider()
+                                                        .getSimpleName()),
+                            ClassName.get(compositeModel.getProvider()
+                                                        .getPackage(),
+                                          compositeModel.getProvider()
+                                                        .getSimpleName()))
+              .addStatement("$T sb01 = new $T()",
+                            ClassName.get(StringBuilder.class),
+                            ClassName.get(StringBuilder.class));
         method.beginControlFlow("if (params != null)");
         for (int i = 0; i <
-            compositeModel.getParameterAcceptors()
-                          .size(); i++) {
+                        compositeModel.getParameterAcceptors()
+                                      .size(); i++) {
           method.beginControlFlow("if (params.length >= " + (i + 1) + ")")
                 .addStatement("sb01.setLength(0)")
                 .addStatement("sb01.append(\"composite >>\").append(composite.getClass().getCanonicalName()).append(\"<< --> using method >>" +
                               compositeModel.getParameterAcceptors()
-                                                .get(i)
-                                                .getMethodName() + "<< to set value >>\").append(params[" +
+                                            .get(i)
+                                            .getMethodName() + "<< to set value >>\").append(params[" +
                               i +
                               "]).append(\"<<\")")
                 .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
                               ClassName.get(ClientLogger.class))
                 .addStatement("composite." +
                               compositeModel.getParameterAcceptors()
-                                                .get(i)
-                                                .getMethodName() + "(params[" +
+                                            .get(i)
+                                            .getMethodName() + "(params[" +
                               i +
                               "])")
                 .endControlFlow();
@@ -264,7 +258,7 @@ public class CompositeCreatorGenerator {
     }
     return method.build();
   }
-
+  
   private MethodSpec createConstructor() {
     return MethodSpec.constructorBuilder()
                      .addModifiers(Modifier.PUBLIC)
@@ -281,15 +275,13 @@ public class CompositeCreatorGenerator {
                      .addStatement("super(router, context, eventBus)")
                      .build();
   }
-
+  
   public static final class Builder {
-
-    MetaModel metaModel;
-
+    
+    MetaModel             metaModel;
     ProcessingEnvironment processingEnvironment;
-
-    CompositeModel compositeModel;
-
+    CompositeModel        compositeModel;
+    
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -300,21 +292,21 @@ public class CompositeCreatorGenerator {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public Builder compositeModel(CompositeModel compositeModel) {
       this.compositeModel = compositeModel;
       return this;
     }
-
+    
     public CompositeCreatorGenerator build() {
       return new CompositeCreatorGenerator(this);
     }
-
+    
   }
-
+  
 }
