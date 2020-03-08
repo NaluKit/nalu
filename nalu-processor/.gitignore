@@ -220,3 +220,5 @@ fabric.properties
 
 # Editor-based Rest Client
 .idea/httpRequests
+
+dependency-reduced-pom.xml

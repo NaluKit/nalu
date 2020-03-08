@@ -226,4 +226,6 @@ fabric.properties
 /nalu-processor/nalu-processor.iml
 /nalu/nalu.iml
 
+*/dependency-reduced-pom.xml
+
 
