@@ -234,8 +234,10 @@
                   <exclude>com.github.nalukit:nalu-plugin-core</exclude>
                   <exclude>com.github.nalukit:nalu-plugin-elemental2</exclude>
                   <exclude>com.github.nalukit:nalu-plugin-elemento</exclude>
+                  <exclude>com.google.auto.service:*</exclude>
                   <exclude>com.google.elemental2:*</exclude>
                   <exclude>com.google.jsinterop:*</exclude>
+                  <exclude>com.squareup.javapoet:*</exclude>
                   <exclude>org.gwtproject.i18n:*</exclude>
                   <exclude>org.gwtproject.regexp:*</exclude>
                   <exclude>javax.annotation:javax.annotation-api</exclude>
