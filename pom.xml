@@ -107,7 +107,7 @@
     <plugin.version.project.info.report>3.0.0</plugin.version.project.info.report>
     <plugin.version.sonatype>1.6.3</plugin.version.sonatype>
     <plugin.version.source>3.0.1</plugin.version.source>
-    <plugin.version.surfire>2.21.0</plugin.version.surfire>
+    <plugin.version.surfire>2.22.1</plugin.version.surfire>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!--<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
