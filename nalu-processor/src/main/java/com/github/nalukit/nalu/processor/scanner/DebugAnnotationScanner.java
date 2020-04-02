@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.application.annotation.Debug;
-import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 
@@ -54,8 +53,7 @@ public class DebugAnnotationScanner {
   private void setUp() {
   }
 
-  public MetaModel scan(RoundEnvironment roundEnvironment)
-      throws ProcessorException {
+  public MetaModel scan(RoundEnvironment roundEnvironment) {
     // handle debug-annotation
     Debug debugAnnotation = debugElement.getAnnotation(Debug.class);
     if (!isNull(debugAnnotation)) {

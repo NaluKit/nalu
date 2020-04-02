@@ -85,6 +85,9 @@ public class BlockControllerAnnotationScanner {
       throw new ProcessorException("Nalu-Processor: @BlockController - componentTypeElement is null");
     }
     TypeElement componentInterfaceTypeElement = this.getComponentInterfaceTypeElement(annotation);
+    if (componentInterfaceTypeElement == null) {
+      throw new ProcessorException("Nalu-Processor: @BlockController - componentInterfaceTypeElement is null");
+    }
     // check, if the controller implements IsComponentController
     boolean componentController = this.checkIsComponentCreator(blockControllerElement,
                                                                componentInterfaceTypeElement);
@@ -115,8 +118,7 @@ public class BlockControllerAnnotationScanner {
     return null;
   }
 
-  private String getContextType(Element element)
-      throws ProcessorException {
+  private String getContextType(Element element) {
     final TypeMirror[] result = { null };
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
                                                                 element.asType(),

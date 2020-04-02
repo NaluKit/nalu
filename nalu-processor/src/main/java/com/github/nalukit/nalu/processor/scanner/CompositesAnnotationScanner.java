@@ -19,7 +19,6 @@ package com.github.nalukit.nalu.processor.scanner;
 import com.github.nalukit.nalu.client.component.annotation.Composite;
 import com.github.nalukit.nalu.client.component.annotation.Composite.Scope;
 import com.github.nalukit.nalu.client.component.annotation.Composites;
-import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerCompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
@@ -56,8 +55,7 @@ public class CompositesAnnotationScanner {
   }
 
   @SuppressWarnings("unused")
-  public ControllerModel scan(RoundEnvironment roundEnvironment)
-      throws ProcessorException {
+  public ControllerModel scan(RoundEnvironment roundEnvironment) {
     Composites annotation = this.controllerElement.getAnnotation(Composites.class);
     if (annotation != null) {
       for (Composite composite : annotation.value()) {

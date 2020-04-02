@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.application.annotation.Filters;
-import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 
@@ -51,8 +50,7 @@ public class FiltersAnnotationScanner {
   private void setUp() {
   }
 
-  public List<ClassNameModel> scan(RoundEnvironment roundEnvironment)
-      throws ProcessorException {
+  public List<ClassNameModel> scan(RoundEnvironment roundEnvironment) {
     return this.getFiltersAsList()
                .stream()
                .map(ClassNameModel::new)

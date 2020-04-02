@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
-import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 
@@ -31,31 +30,30 @@ import java.util.Objects;
 import static java.util.Objects.isNull;
 
 public class TrackerAnnotationScanner {
-
+  
   private ProcessingEnvironment processingEnvironment;
-
+  
   private Element trackerElement;
-
+  
   private MetaModel metaModel;
-
+  
   @SuppressWarnings("unused")
   private TrackerAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.trackerElement = builder.trackerElement;
-    this.metaModel = builder.metaModel;
+    this.trackerElement        = builder.trackerElement;
+    this.metaModel             = builder.metaModel;
     setUp();
   }
-
+  
+  private void setUp() {
+  }
+  
   public static Builder builder() {
     return new Builder();
   }
-
-  private void setUp() {
-  }
-
-  public MetaModel scan(RoundEnvironment roundEnvironment)
-      throws ProcessorException {
+  
+  public MetaModel scan(RoundEnvironment roundEnvironment) {
     // handle debug-annotation
     Tracker trackerAnnotation = trackerElement.getAnnotation(Tracker.class);
     if (!isNull(trackerAnnotation)) {
@@ -73,7 +71,7 @@ public class TrackerAnnotationScanner {
     }
     return this.metaModel;
   }
-
+  
   private TypeElement getTracker(Tracker trackerAnnotation) {
     try {
       trackerAnnotation.value();
@@ -83,34 +81,34 @@ public class TrackerAnnotationScanner {
     }
     return null;
   }
-
+  
   public static class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     Element trackerElement;
-
+    
     MetaModel metaModel;
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public Builder trackerElement(Element debugElement) {
       this.trackerElement = debugElement;
       return this;
     }
-
+    
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     public TrackerAnnotationScanner build() {
       return new TrackerAnnotationScanner(this);
     }
-
+    
   }
-
+  
 }

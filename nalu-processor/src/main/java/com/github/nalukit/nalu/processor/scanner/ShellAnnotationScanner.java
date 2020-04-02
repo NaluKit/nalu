@@ -18,7 +18,6 @@ package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.component.AbstractShell;
 import com.github.nalukit.nalu.client.component.annotation.Shell;
-import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
@@ -62,9 +61,7 @@ public class ShellAnnotationScanner {
                                         .build();
   }
 
-  @SuppressWarnings("unused")
-  public ShellModel scan(RoundEnvironment roundEnvironment)
-      throws ProcessorException {
+  public ShellModel scan(RoundEnvironment roundEnvironment) {
     // handle Shells-annotation
     Shell shell = this.shellElement.getAnnotation(Shell.class);
     // get context!

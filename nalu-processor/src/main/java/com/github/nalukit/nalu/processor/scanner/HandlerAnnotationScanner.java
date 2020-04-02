@@ -44,8 +44,7 @@ public class HandlerAnnotationScanner {
 
   public ClassNameModel scan()
       throws ProcessorException {
-    ClassNameModel handlerModel = new ClassNameModel(handlerElement.toString());
-    return handlerModel;
+    return new ClassNameModel(handlerElement.toString());
   }
 
   public static class Builder {
