@@ -696,3 +696,55 @@ There are two kind of scopes:
 
 * Scope.GLOBAL to cache the composite as a singleton (share between components / sites)
 * Scope.LOCAL to cache the composite only for this component / site (default)
+
+##  Controller/Component resilience
+
+Consider a *Pet Shop* application consisting of a list of sold pets. The customer is presented with a list of pets being sold. Also, the customer is invited to click on a pet from the list to get more information about the animal. The shop routes to a *details page* for this purpose. The details page has also a browsing capability allowing the user to browse the data from the list without actually leaving the details page. Simply clicking on a *next* or a *previous* button or let's say by swiping on the screen, i.e. trigger a *next* or a *previous* action, the user is presented with the details of the next or previous pet. 
+
+Technically, this is a use case such that Nalu has to route multiple consecutive times to the same *details page* Controller each time the user triggers a *next* or a *previous* action. So the route does not change, only the parameters. To be specific, in the Pet Shop case, this is the *:id* parameter.
+
+A normal Controller would fetch the Pet by the provided *id* and refresh the Component. This process may look as follows:
+
+```Java
+@Controller(route = "/petshop/pet/details/:id",
+            selector = "content",
+            componentInterface = PetShopComponent.class,
+            component = PetShopComponentImpl.class)
+public class PetDetailsController
+  extends AbstractComponentController<PetShopContext, PetShopComponent, HTMLElement>
+  implements PetShopComponent.Controller {
+
+  private String id;
+
+  public PetDetailsController() {
+  }
+  
+  @Override
+  public void activate() {
+    DomGlobal.window.console.log("activate");
+    Pet pet = PetService.obtainPet(this.id);
+    getComponent().initPet(pet);
+  }
+  
+  @AcceptParameter("id")
+  public void setId(String s) {
+    this.id = (s != null) ? s : "";
+  }
+}
+```
+
+In the *initPet(Pet pet)* method, the Component will likely transform the data in Pet and show it to the user. There are two possible ways of doing that:
+
+1. Destroy/abandon the already built UI structure (HTMLElements/Widgets/DOM) and build a new one with the new *Pet* data. Then call *initElement()* so that the new UI structure is displayed.
+2. Reuse the already built UI structure and replace only the data while leaving the DOM tree in place.
+
+Depending on the requirements, the first one is perfectly fine.
+
+The second one is preferable, if only a part of the refreshed page contains changes. It is plausible to change only that part instead of removing the whole content and rebuilding it. 
+
+Routing to the *PetDetailsController* can behave in one of three ways:
+* if the Controller is **not cached**, the router will abandon the Controller and the Component from the previous call. Instead, it will create a new Controller and Component. This means that the DOM tree will be recomputed, new data will be fetched etc.
+* if the Controller is **cached**, the router will not recreate the Controller and Component. Their DOM elements will be removed from the selector but not destroyed. This makes it possible to reuse them in case the user returns to the */petshop/pet/details/:id* route. If another route is selected, e.g. */petshop/pet/list* (which may also be cached), the now empty selector will be filled with it's corresponding DOM structure. In the case of *multiple consecutive routing events to the same route*, the same DOM will be re-injected in the selector. We just saved us the rebuilding of both Controller and Component, but there is a slight catch leading to an unexpected user experience issue. Removing an element from the DOM and reinserting it will reset the view of said element (e.g. reset it's scrollbars, caret position, blinking etc). These are all undesirable.
+* if the Controller is **cached AND resilient**, then the DOM inside the selector is not removed on consecutive routing events to the same route thus eliminating the removing and inserting of the same element. This allows the corresponding Component to remain in place and refresh only it's data without a reset or glitches diminishing the user experience.
+
+So in summary: in the behavioral context of the Router, *resilience* is to the Components and their DOM the same as what *caching* is to the Controllers and their fields.

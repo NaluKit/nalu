@@ -41,6 +41,11 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   private   String                                            relatedSelector;
   /* flag, if the controller is cached or not */
   private   boolean                                           cached;
+  /* 
+   * flag, if the component should be kept in place if 
+   * the same route is executed consecutively
+   */
+  private   boolean                                           resilient;
 
   public AbstractComponentController() {
     super();
@@ -233,6 +238,24 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    */
   public void setCached(boolean cached) {
     this.cached = cached;
+  }
+  
+  /**
+   * Used by the router to preserve and reuse the component of this controller in the DOM if possible. Use inside the {@link #activate()} method.
+   *
+   * @return true: the component is preserved and reused in the DOM, false: the component is removed and a new one is inserted.
+   */
+  public boolean isResilient() {
+    return resilient;
+  }
+
+  /**
+   * Sets the {@link #resilient} property.
+   *
+   * @param resilient true: the component is preserved reused in the DOM, false: the component is removed and a new one is inserted.
+   */
+  public void setResilient(boolean resilient) {
+    this.resilient = resilient;
   }
 
   /**
