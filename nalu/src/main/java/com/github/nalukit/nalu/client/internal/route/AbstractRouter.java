@@ -68,6 +68,8 @@ abstract class AbstractRouter
   private String                                            lastExecutedHash = "";
   // current route
   private String                                            currentRoute     = "";
+  // last successful route
+  private String                                            lastRoute     = "";
   // current parameters
   private String[]                                          currentParameters;
   // last added shell - used, to check if the shell needs an shell replacement
@@ -580,6 +582,8 @@ abstract class AbstractRouter
                                                                                  .getCanonicalName());
         }
       }
+      // mark the last successful route
+      this.lastRoute = routeConfiguration.getRoute();
       // add element to DOM
       this.append(routeConfiguration.getSelector(),
                   controllerInstance.getController());
@@ -804,8 +808,25 @@ abstract class AbstractRouter
         stopController(controller);
       }
     });
-    routeConfigurations.forEach(routeConfiguration -> this.plugin.remove(routeConfiguration.getSelector()));
-    controllerList.forEach(c -> this.activeComponents.remove(c.getRelatedSelector()));
+    routeConfigurations.stream().filter(c -> !preserveResilient(c)).forEach(routeConfiguration -> this.plugin.remove(routeConfiguration.getSelector()));
+    controllerList.stream().filter(c -> !c.isResilient()).forEach(c -> this.activeComponents.remove(c.getRelatedSelector()));
+  }
+
+  /**
+   * Inspects whether the router should try to keep the Component of a {@link RouteConfig} in the DOM when stopping it's {@link AbstractComponentController}.
+   * 
+   * @param c the {@link RouteConfig} that contains the {@link AbstractComponentController} to be inspected.
+   * @return true if the component of the controller in the {@link RouteConfig} should be preserved in the DOM, false otherwise.
+   */
+  private boolean preserveResilient(RouteConfig c) {
+    return lastRoute.equals(c.getRoute()) && componentIsResilient(c.getSelector());
+  }
+
+  /**
+   * A shorthand to make the check for resilience reusable and more readable in lambdas.
+   */
+  private boolean componentIsResilient(String selector) {
+    return this.activeComponents.get(selector) != null && this.activeComponents.get(selector).isResilient();
   }
 
   private void deactivateController(AbstractComponentController<?, ?, ?> controller) {

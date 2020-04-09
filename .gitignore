@@ -205,6 +205,10 @@ cmake-build-*/
 # IntelliJ
 out/
 
+# Eclipse
+.project
+.classpath
+
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 

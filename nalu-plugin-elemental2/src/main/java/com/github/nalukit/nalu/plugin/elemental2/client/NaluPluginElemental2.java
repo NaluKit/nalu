@@ -66,7 +66,14 @@ public class NaluPluginElemental2
       NaluPluginCoreWeb.logNonExistingSelector(selector);
       return false;
     } else {
-      selectorElement.appendChild((HTMLElement) asElement);
+      /*
+       * Adding consecutive copies in the DOM by the router can be avoided.
+       * so check and add only if the element does not exist already (useful 
+       * for resilient component controllers).
+       */
+      if (selectorElement.childNodes.asList().stream().noneMatch(e -> e.equals(asElement))) {
+        selectorElement.appendChild((HTMLElement) asElement);
+      }
       return true;
     }
   }
