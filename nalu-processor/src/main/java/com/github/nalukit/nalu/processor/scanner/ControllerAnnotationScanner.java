@@ -36,8 +36,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.*;
 import javax.lang.model.util.SimpleTypeVisitor8;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -45,11 +44,11 @@ public class ControllerAnnotationScanner {
   
   private ProcessorUtils processorUtils;
   
-  private ProcessingEnvironment processingEnvironment;
+  private final ProcessingEnvironment processingEnvironment;
   
-  private MetaModel metaModel;
+  private final MetaModel metaModel;
   
-  private Element controllerElement;
+  private final Element controllerElement;
   
   @SuppressWarnings("unused")
   private ControllerAnnotationScanner(Builder builder) {
@@ -123,7 +122,6 @@ public class ControllerAnnotationScanner {
                                new ClassNameModel(controllerElement.toString()),
                                new ClassNameModel(componentInterfaceTypeElement.toString()),
                                new ClassNameModel(componentTypeElement.toString()),
-                               new ClassNameModel(componentTypeTypeMirror.toString()),
                                new ClassNameModel(controllerElement.toString()),
                                componentController);
   }
@@ -358,36 +356,40 @@ public class ControllerAnnotationScanner {
     return result[0].toString();
   }
   
-  private String getRoute(String route) {
-    String tmpRoute = route;
-    if (tmpRoute.startsWith("/")) {
-      tmpRoute = tmpRoute.substring(1);
+  private List<String> getRoute(String[] routes) {
+    List<String> convertedRoutes = new ArrayList<>();
+    for (String tmpRoute : routes) {
+      if (tmpRoute.startsWith("/")) {
+        tmpRoute = tmpRoute.substring(1);
+      }
+      if (tmpRoute.length() == 0) {
+        convertedRoutes.add("/");
+      } else {
+        StringBuilder sbRoute = new StringBuilder();
+        Stream.of(tmpRoute.split("/"))
+              .collect(Collectors.toList())
+              .forEach(s -> {
+                if (s.startsWith(":")) {
+                  sbRoute.append("/")
+                         .append("*");
+                } else {
+                  sbRoute.append("/")
+                         .append(s);
+                }
+              });
+        convertedRoutes.add(sbRoute.toString());
+      }
     }
-    if (tmpRoute.length() == 0) {
-      return "/";
-    }
-    StringBuilder sbRoute = new StringBuilder();
-    Stream.of(tmpRoute.split("/"))
-          .collect(Collectors.toList())
-          .forEach(s -> {
-            if (s.startsWith(":")) {
-              sbRoute.append("/")
-                     .append("*");
-            } else {
-              sbRoute.append("/")
-                     .append(s);
-            }
-          });
-    return sbRoute.toString();
+    return convertedRoutes;
   }
   
-  private List<String> getParametersFromRoute(String route) {
-    return Stream.of(route.split("/"))
-                 .collect(Collectors.toList())
-                 .stream()
-                 .filter(s -> s.startsWith(":"))
-                 .map(p -> p.substring(1))
-                 .collect(Collectors.toList());
+  private List<String> getParametersFromRoute(String[] routes) {
+    return Stream.of(routes[0].split("/"))
+                                           .collect(Collectors.toList())
+                                           .stream()
+                                           .filter(s -> s.startsWith(":"))
+                                           .map(p -> p.substring(1))
+                                           .collect(Collectors.toList());
   }
   
   public static class Builder {

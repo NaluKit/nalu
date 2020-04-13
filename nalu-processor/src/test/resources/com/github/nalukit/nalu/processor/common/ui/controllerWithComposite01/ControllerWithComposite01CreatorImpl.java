@@ -16,15 +16,16 @@ import java.lang.StringBuilder;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>2.1.0-SNAPSHOT<< at >>2020.12.08-10:23:11<< */
+ * Build with Nalu version >>2.1.0-SNAPSHOT<< at >>2020.04.12-16:00:31<<
+ */
 public final class ControllerWithComposite01CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
   public ControllerWithComposite01CreatorImpl(Router router, MockContext context,
                                               SimpleEventBus eventBus) {
     super(router, context, eventBus);
   }
-
+  
   @Override
-  public ControllerInstance create() {
+  public ControllerInstance create(String route) {
     StringBuilder sb01 = new StringBuilder();
     ControllerInstance controllerInstance = new ControllerInstance();
     controllerInstance.setControllerClassName("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01");
@@ -39,7 +40,7 @@ public final class ControllerWithComposite01CreatorImpl extends AbstractControll
       controller.setEventBus(eventBus);
       controller.setRouter(router);
       controller.setCached(false);
-      controller.setRelatedRoute("/mockShell/route01/*");
+      controller.setRelatedRoute(route);
       controller.setRelatedSelector("selector01");
       sb01.setLength(0);
       sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
@@ -53,9 +54,9 @@ public final class ControllerWithComposite01CreatorImpl extends AbstractControll
     }
     return controllerInstance;
   }
-
+  
   @Override
-  public void onFinishCreating(Object object) throws RoutingInterceptionException {
+  public void onFinishCreating(Object object, String route) throws RoutingInterceptionException {
     ControllerWithComposite01 controller = (ControllerWithComposite01) object;
     StringBuilder sb01 = new StringBuilder();
     IComponent01 component = new Component01();
@@ -78,9 +79,9 @@ public final class ControllerWithComposite01CreatorImpl extends AbstractControll
     sb01.setLength(0);
     sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
-    ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.Component01<< created for route >>/mockShell/route01/*<<", 3);
+    ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.Component01<< created for route >>" + route + "<<", 3);
   }
-
+  
   @Override
   public void setParameter(Object object, String... params) throws RoutingInterceptionException {
     ControllerWithComposite01 controller = (ControllerWithComposite01) object;
@@ -95,4 +96,3 @@ public final class ControllerWithComposite01CreatorImpl extends AbstractControll
     }
   }
 }
-    

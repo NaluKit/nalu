@@ -671,6 +671,39 @@ public class MyController
 
 Note: At the time Nalu calls the `createPopUpComponent`-method, the context is already injected.
 
+## Multiple Route Support
+A controller in Nalu can be atteched to more than one route. To define a controller for several routes, use a list of Strings for the `route`-attribute.
+
+
+```Java
+@Controller(route = { "/shell/route01/route02/:id",
+                      "/shell/route03/:id/route04",
+                      "/shell/route01/route02/route03/:id" },
+            selector = "content",
+            componentInterface = MultiRouteComponent.class,
+            component = MultiRouteComponentImpl.class)
+public class MultiRouteController
+  extends AbstractComponentController<MultiRouteContext, MultiRouteComponent, HTMLElement>
+  implements MultiRouteComponent.Controller {
+
+  private String id;
+
+  public MultiRouteController() {
+  }
+  
+  @AcceptParameter("id")
+  public void setId(String s) {
+    this.id = (s != null) ? s : "";
+  }
+}
+```
+
+Nalu will validate, that
+
+* all routes have the same number of parameters
+* all parameters have the same name
+* there is no duplicate route
+
 ## Caching
 Nalu provides a caching mechanism. This allows to store a controller/component for a route. Next the route will be used, Nalu restores the cached controller/component instead of creating a new controller and component.
 
@@ -681,11 +714,10 @@ You can also cache composites.
 Since 1.3.2 there is also a possibility to cache a composite as a singleton, so different sites can share a composite with the same state. You can configure this with the attribute scope in the annotation @Composites of the controllers which contain the composites:
 
 ```java
-  @Composites({ @Composite(
-       name = "myComposite",
-       compositeController = MyComposite.class,
-       selector = "my-composite",
-       scope = Scope.GLOBAL) })
+  @Composites({ @Composite(name = "myComposite",
+                           compositeController = MyComposite.class,
+                           selector = "my-composite",
+                           scope = Scope.GLOBAL) })
   public class MyCompositeContainerController {
     
     ...

@@ -22,13 +22,13 @@ import java.util.Optional;
 
 public class ControllerModel {
 
-  private String originalRoute;
+  private final String[] originalRoute;
 
-  private String route;
+  private List<String> route;
 
   private String selector;
 
-  private List<String> parameters;
+  private final List<String> parameters;
 
   private ClassNameModel context;
 
@@ -38,25 +38,22 @@ public class ControllerModel {
 
   private ClassNameModel component;
 
-  private ClassNameModel provider;
+  private final ClassNameModel provider;
 
-  private ClassNameModel componentType;
-
-  private List<ParameterAcceptor> parameterAcceptors;
+  private final List<ParameterAcceptor> parameterAcceptors;
 
   private List<ControllerCompositeModel> composites;
 
-  private boolean componentCreator;
+  private final boolean componentCreator;
 
-  public ControllerModel(String originalRoute,
-                         String route,
+  public ControllerModel(String[] originalRoute,
+                         List<String> route,
                          String selector,
                          List<String> parameters,
                          ClassNameModel context,
                          ClassNameModel controller,
                          ClassNameModel componentInterface,
                          ClassNameModel component,
-                         ClassNameModel componentType,
                          ClassNameModel provider,
                          boolean componentCreator) {
     this.originalRoute = originalRoute;
@@ -68,26 +65,17 @@ public class ControllerModel {
     this.componentInterface = componentInterface;
     this.component = component;
     this.provider = provider;
-    this.componentType = componentType;
     this.componentCreator = componentCreator;
 
     this.parameterAcceptors = new ArrayList<>();
     this.composites = new ArrayList<>();
   }
 
-  public String getOriginalRoute() {
-    return originalRoute;
-  }
-
-  public void setOriginalRoute(String originalRoute) {
-    this.originalRoute = originalRoute;
-  }
-
-  public String getRoute() {
+  public List<String> getRoute() {
     return route;
   }
 
-  public void setRoute(String route) {
+  public void setRoute(List<String> route) {
     this.route = route;
   }
 
@@ -101,10 +89,6 @@ public class ControllerModel {
 
   public List<String> getParameters() {
     return parameters;
-  }
-
-  public void setParameters(List<String> parameters) {
-    this.parameters = parameters;
   }
 
   public ClassNameModel getController() {
@@ -133,18 +117,6 @@ public class ControllerModel {
 
   public ClassNameModel getProvider() {
     return provider;
-  }
-
-  public void setProvider(ClassNameModel provider) {
-    this.provider = provider;
-  }
-
-  public ClassNameModel getComponentType() {
-    return componentType;
-  }
-
-  public void setComponentType(ClassNameModel componentType) {
-    this.componentType = componentType;
   }
 
   public List<ParameterAcceptor> getParameterAcceptors() {
@@ -179,23 +151,38 @@ public class ControllerModel {
     return componentCreator;
   }
 
-  public void setComponentCreator(boolean componentCreator) {
-    this.componentCreator = componentCreator;
-  }
-
   public boolean match(String route) {
-    if (this.matchShell(route)) {
-      if (this.matchRouteWithoutShell(route)) {
-        return true;
+    for (String originalRoute : this.originalRoute) {
+      if (this.matchShell(originalRoute, route)) {
+        String routeWithoutShell      = this.getRouteWithoutShell(originalRoute);
+        String startRouteWithoutShell = this.getRouteWithoutShell(route);
+        if (routeWithoutShell.equals(startRouteWithoutShell)) {
+          return true;
+        }
       }
     }
     return false;
   }
+  
+  private boolean matchShell(String originalRoute,
+                             String route) {
+    if (originalRoute.startsWith("/*")) {
+      return true;
+    }
+    String shellOfRoute = this.getShellFromRoute(route);
+    String shellOfOriginalRoute = this.getShellFromRoute(originalRoute);
+    return shellOfOriginalRoute.contains(shellOfRoute);
+  }
 
   private boolean matchRouteWithoutShell(String route) {
-    String routeWithoutShell = this.getRouteWithoutShell(this.originalRoute);
-    String startRouteWithoutShell = this.getRouteWithoutShell(route);
-    return routeWithoutShell.equals(startRouteWithoutShell);
+    for (String originalRoute : this.originalRoute) {
+      String routeWithoutShell = this.getRouteWithoutShell(originalRoute);
+      String startRouteWithoutShell = this.getRouteWithoutShell(route);
+      if (routeWithoutShell.equals(startRouteWithoutShell)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private String getRouteWithoutShell(String route) {
@@ -213,18 +200,6 @@ public class ControllerModel {
     } else {
       return "/";
     }
-  }
-
-  private boolean matchShell(String route) {
-    if (this.originalRoute.startsWith("/*")) {
-      return true;
-    }
-    String shellOfRoute = this.getShellFromRoute(route);
-    String shellOfOriginalRoute = this.getShellFromRoute(this.originalRoute);
-    if (shellOfOriginalRoute.contains(shellOfRoute)) {
-      return true;
-    }
-    return false;
   }
 
   private String getShellFromRoute(String route) {

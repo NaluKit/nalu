@@ -262,5 +262,81 @@ public class ControllerTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite03/ControllerWithComposite03CreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite03/ControllerWithComposite03CreatorImpl.java"));
   }
+  
+  @Test
+  void testMultiRouteSupport01() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport01/MultiRouteController01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport01/IMultiRouteComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport01/MultiRouteComponent01.java")));
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+  }
+  
+  @Test
+  void testMultiRouteSupport02() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport02/MultiRouteController02.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport02/IMultiRouteComponent02.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport02/MultiRouteComponent02.java")));
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.multiRouteSupport02<<  - parameter needs to be equal for all routes (source-route >>/mockShell/route01/:parameter01/:parameter02<< -> compare route >>/mockShell/route06/:parameter03<<<)[0]");
+  }
+  
+  @Test
+  void testMultiRouteSupport03() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport03/MultiRouteController03.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport03/IMultiRouteComponent03.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport03/MultiRouteComponent03.java")));
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.multiRouteSupport03<<  - parameter needs to be equal for all routes (source-route >>/mockShell/route06/:parameter03/route07/:parameter01<< illegal parameter: >>parameter03<<)[1]");
+  }
+ 
+  @Test
+  void testMultiRouteSupport04() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport04/MultiRouteController04.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport04/IMultiRouteComponent04.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport04/MultiRouteComponent04.java")));
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.multiRouteSupport04<<  - illegal route >>mockShell/:parameter02/route07/:parameter01<< -> route cannot start with parameter (Part 2 wrong)");
+  }
+
+  @Test
+  void testMultiRouteSupport05() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport05/MultiRouteController05.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport05/IMultiRouteComponent05.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport05/MultiRouteComponent05.java")));
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.multiRouteSupport05<< duplicate route: >>/mockShell/route02/*/*<<)");
+  }
+
+  @Test
+  void testMultiRouteSupport06() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport06/MultiRouteController06.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport06/IMultiRouteComponent06.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/multiRouteSupport06/MultiRouteComponent06.java")));
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.multiRouteSupport06<<  - parameter needs to be equal for all routes (source-route >>/mockShell/route01/:parameter01/:parameter02<< -> compare route >>/mockShell/route02/:parameter01<<<)[0]");
+  }
 
 }

@@ -53,12 +53,13 @@ public class ControllerFactory {
                                creator);
   }
 
-  public void controller(String controller,
+  public void controller(String route,
+                         String controller,
                          ControllerCallback callback,
                          String... params) {
     if (this.controllerFactory.containsKey(controller)) {
       IsControllerCreator controllerCreator = this.controllerFactory.get(controller);
-      ControllerInstance controllerInstance = controllerCreator.create();
+      ControllerInstance controllerInstance = controllerCreator.create(route);
       if (controllerInstance.isCached()) {
         try {
           controllerCreator.setParameter(controllerInstance.getController(),
@@ -76,7 +77,7 @@ public class ControllerFactory {
                               try {
                                 controllerCreator.logBindMethodCallToConsole(controllerInstance.getController(),
                                                                              true);
-                                controllerCreator.onFinishCreating(controllerInstance.getController());
+                                controllerCreator.onFinishCreating(controllerInstance.getController(), route);
                                 controllerCreator.setParameter(controllerInstance.getController(),
                                                                params);
                                 callback.onFinish(controllerInstance);

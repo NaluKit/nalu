@@ -469,7 +469,8 @@ abstract class AbstractRouter
                                  RouteResult routeResult,
                                  String hash) {
     ControllerFactory.get()
-                     .controller(routeConfiguration.getClassName(),
+                     .controller(routeConfiguration.getRoute(),
+                                 routeConfiguration.getClassName(),
                                  new ControllerCallback() {
                                    @Override
                                    public void onRoutingInterceptionException(RoutingInterceptionException e) {

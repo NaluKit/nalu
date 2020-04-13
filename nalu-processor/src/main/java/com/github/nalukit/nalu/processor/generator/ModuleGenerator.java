@@ -35,12 +35,7 @@ import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.*;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -52,31 +47,31 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class ModuleGenerator {
-
-  private MetaModel metaModel;
-
-  private ProcessingEnvironment processingEnvironment;
-
+  
+  private final MetaModel metaModel;
+  
+  private final ProcessingEnvironment processingEnvironment;
+  
   private ProcessorUtils processorUtils;
-
+  
   @SuppressWarnings("unused")
   private ModuleGenerator(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.metaModel = builder.metaModel;
+    this.metaModel             = builder.metaModel;
     setUp();
   }
-
-  public static Builder builder() {
-    return new Builder();
-  }
-
+  
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-
+  
+  public static Builder builder() {
+    return new Builder();
+  }
+  
   public void generate()
       throws ProcessorException {
     // generate code
@@ -92,7 +87,7 @@ public class ModuleGenerator {
                                         .addSuperinterface(this.metaModel.getModuleModel()
                                                                          .getModule()
                                                                          .getTypeName());
-
+    
     // constructor ...
     MethodSpec constructor = MethodSpec.constructorBuilder()
                                        .addModifiers(Modifier.PUBLIC)
@@ -111,19 +106,19 @@ public class ModuleGenerator {
                                        .addStatement("super(router, context, eventBus, alwaysLoadComposite)")
                                        .build();
     typeSpec.addMethod(constructor);
-
+    
     this.generateCreateModuleContext(typeSpec);
-
+    
     this.generateLoadShellFactory(typeSpec);
     this.generateLoadComposites(typeSpec);
     this.generateLoadContollers(typeSpec);
     this.generateLoadFilters(typeSpec);
     this.generateLoadHandlers(typeSpec);
-
+    
     this.generateGetShellConfigs(typeSpec);
     this.generateGetRouteConfigs(typeSpec);
     this.generateGetCompositeReferences(typeSpec);
-
+    
     JavaFile javaFile = JavaFile.builder(this.metaModel.getModuleModel()
                                                        .getModule()
                                                        .getPackage(),
@@ -142,7 +137,7 @@ public class ModuleGenerator {
                                    e.getMessage());
     }
   }
-
+  
   private void generateCreateModuleContext(TypeSpec.Builder typeSpec) {
     MethodSpec.Builder createModuleContextMethod = MethodSpec.methodBuilder("createModuleContext")
                                                              .addAnnotation(Override.class)
@@ -162,67 +157,7 @@ public class ModuleGenerator {
                                                                                                        .getSimpleName()));
     typeSpec.addMethod(createModuleContextMethod.build());
   }
-
-  private void generateLoadHandlers(TypeSpec.Builder typeSpec) {
-    // method must always be created!
-    MethodSpec.Builder loadHandlersMethod = MethodSpec.methodBuilder("loadHandlers")
-                                                      .addAnnotation(Override.class)
-                                                      .addModifiers(Modifier.PUBLIC);
-
-    this.metaModel.getHandlers()
-                  .forEach(handler -> {
-                    String variableName = this.processorUtils.createFullClassName(handler.getPackage(),
-                                                                                  handler.getSimpleName());
-                    loadHandlersMethod.addComment("create handler for: " + handler.getPackage() + "." + handler.getSimpleName())
-                                      .addStatement("$T $L = new $T()",
-                                                    ClassName.get(handler.getPackage(),
-                                                                  handler.getSimpleName()),
-                                                    variableName,
-                                                    ClassName.get(handler.getPackage(),
-                                                                  handler.getSimpleName()))
-                                      .addStatement("$L.setContext(super.moduleContext)",
-                                                    variableName)
-                                      .addStatement("$L.setEventBus(super.eventBus)",
-                                                    variableName)
-                                      .addStatement("$L.setRouter(super.router)",
-                                                    variableName)
-                                      .addStatement("$L.bind()",
-                                                    variableName)
-                                      .addStatement("$T.get().logDetailed(\"ModuleCreator: handler >>$L<< created\", 0)",
-                                                    ClassName.get(ClientLogger.class),
-                                                    handler.getClassName());
-                  });
-
-    typeSpec.addMethod(loadHandlersMethod.build());
-  }
-
-  private void generateLoadFilters(TypeSpec.Builder typeSpec) {
-    // method must always be created!
-    MethodSpec.Builder loadFiltersMethod = MethodSpec.methodBuilder("loadFilters")
-                                                     .addAnnotation(Override.class)
-                                                     .addModifiers(Modifier.PUBLIC)
-                                                     .addParameter(ParameterSpec.builder(ClassName.get(RouterConfiguration.class),
-                                                                                         "routerConfiguration")
-                                                                                .build());
-
-    this.metaModel.getFilters()
-                  .forEach(classNameModel -> loadFiltersMethod.addStatement("$T $L = new $T()",
-                                                                            ClassName.get(classNameModel.getPackage(),
-                                                                                          classNameModel.getSimpleName()),
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()),
-                                                                            ClassName.get(classNameModel.getPackage(),
-                                                                                          classNameModel.getSimpleName()))
-                                                              .addStatement("$L.setContext(super.moduleContext)",
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()))
-                                                              .addStatement("routerConfiguration.getFilters().add($L)",
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()))
-                                                              .addStatement("$T.get().logDetailed(\"AbstractApplication: filter >> $L << created\", 0)",
-                                                                            ClassName.get(ClientLogger.class),
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName())));
-
-    typeSpec.addMethod(loadFiltersMethod.build());
-  }
-
+  
   private void generateLoadShellFactory(TypeSpec.Builder typeSpec) {
     // generate method 'generateLoadShells()'
     MethodSpec.Builder loadShellFactoryMethodBuilder = MethodSpec.methodBuilder("loadShellFactory")
@@ -248,11 +183,11 @@ public class ModuleGenerator {
                                                                                        .getPackage(),
                                                                              shellModel.getShell()
                                                                                        .getSimpleName() + ProcessorConstants.CREATOR_IMPL));
-
+      
                   });
     typeSpec.addMethod(loadShellFactoryMethodBuilder.build());
   }
-
+  
   private void generateLoadComposites(TypeSpec.Builder typeSpec) {
     // generate method 'loadCompositeController()'
     MethodSpec.Builder loadCompositesMethodBuilder = MethodSpec.methodBuilder("loadCompositeController")
@@ -279,7 +214,7 @@ public class ModuleGenerator {
     }
     typeSpec.addMethod(loadCompositesMethodBuilder.build());
   }
-
+  
   private void generateLoadContollers(TypeSpec.Builder typeSpec) {
     // generate method 'loadComponents()'
     MethodSpec.Builder loadComponentsMethodBuilder = MethodSpec.methodBuilder("loadComponents")
@@ -304,7 +239,7 @@ public class ModuleGenerator {
                                                                                 .getPackage(),
                                                                  controllerModel.getController()
                                                                                 .getSimpleName() + ProcessorConstants.CREATOR_IMPL));
-
+      
           if (controllerModel.getComposites()
                              .size() > 0) {
             List<String> generatedConditionClassNames = new ArrayList<>();
@@ -372,7 +307,67 @@ public class ModuleGenerator {
         });
     typeSpec.addMethod(loadComponentsMethodBuilder.build());
   }
-
+  
+  private void generateLoadFilters(TypeSpec.Builder typeSpec) {
+    // method must always be created!
+    MethodSpec.Builder loadFiltersMethod = MethodSpec.methodBuilder("loadFilters")
+                                                     .addAnnotation(Override.class)
+                                                     .addModifiers(Modifier.PUBLIC)
+                                                     .addParameter(ParameterSpec.builder(ClassName.get(RouterConfiguration.class),
+                                                                                         "routerConfiguration")
+                                                                                .build());
+    
+    this.metaModel.getFilters()
+                  .forEach(classNameModel -> loadFiltersMethod.addStatement("$T $L = new $T()",
+                                                                            ClassName.get(classNameModel.getPackage(),
+                                                                                          classNameModel.getSimpleName()),
+                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()),
+                                                                            ClassName.get(classNameModel.getPackage(),
+                                                                                          classNameModel.getSimpleName()))
+                                                              .addStatement("$L.setContext(super.moduleContext)",
+                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()))
+                                                              .addStatement("routerConfiguration.getFilters().add($L)",
+                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()))
+                                                              .addStatement("$T.get().logDetailed(\"AbstractApplication: filter >> $L << created\", 0)",
+                                                                            ClassName.get(ClientLogger.class),
+                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName())));
+    
+    typeSpec.addMethod(loadFiltersMethod.build());
+  }
+  
+  private void generateLoadHandlers(TypeSpec.Builder typeSpec) {
+    // method must always be created!
+    MethodSpec.Builder loadHandlersMethod = MethodSpec.methodBuilder("loadHandlers")
+                                                      .addAnnotation(Override.class)
+                                                      .addModifiers(Modifier.PUBLIC);
+    
+    this.metaModel.getHandlers()
+                  .forEach(handler -> {
+                    String variableName = this.processorUtils.createFullClassName(handler.getPackage(),
+                                                                                  handler.getSimpleName());
+                    loadHandlersMethod.addComment("create handler for: " + handler.getPackage() + "." + handler.getSimpleName())
+                                      .addStatement("$T $L = new $T()",
+                                                    ClassName.get(handler.getPackage(),
+                                                                  handler.getSimpleName()),
+                                                    variableName,
+                                                    ClassName.get(handler.getPackage(),
+                                                                  handler.getSimpleName()))
+                                      .addStatement("$L.setContext(super.moduleContext)",
+                                                    variableName)
+                                      .addStatement("$L.setEventBus(super.eventBus)",
+                                                    variableName)
+                                      .addStatement("$L.setRouter(super.router)",
+                                                    variableName)
+                                      .addStatement("$L.bind()",
+                                                    variableName)
+                                      .addStatement("$T.get().logDetailed(\"ModuleCreator: handler >>$L<< created\", 0)",
+                                                    ClassName.get(ClientLogger.class),
+                                                    handler.getClassName());
+                  });
+    
+    typeSpec.addMethod(loadHandlersMethod.build());
+  }
+  
   private void generateGetShellConfigs(TypeSpec.Builder typeSpec) {
     // generate method 'generateLoadShells()'
     MethodSpec.Builder loadShellConfigMethodBuilder = MethodSpec.methodBuilder("getShellConfigs")
@@ -393,7 +388,7 @@ public class ModuleGenerator {
     loadShellConfigMethodBuilder.addStatement("return list");
     typeSpec.addMethod(loadShellConfigMethodBuilder.build());
   }
-
+  
   private void generateGetRouteConfigs(TypeSpec.Builder typeSpec) {
     // generate method 'generateLoadShells()'
     MethodSpec.Builder loadRouteConfigMethodBuilder = MethodSpec.methodBuilder("getRouteConfigs")
@@ -406,18 +401,19 @@ public class ModuleGenerator {
                                                                               ClassName.get(RouteConfig.class),
                                                                               ClassName.get(ArrayList.class));
     this.metaModel.getControllers()
-                  .forEach(route -> loadRouteConfigMethodBuilder.addStatement("list.add(new $T($S, $T.asList(new String[]{$L}), $S, $S))",
-                                                                              ClassName.get(RouteConfig.class),
-                                                                              createRoute(route.getRoute()),
-                                                                              ClassName.get(Arrays.class),
-                                                                              createParaemter(route.getParameters()),
-                                                                              route.getSelector(),
-                                                                              route.getProvider()
-                                                                                   .getClassName()));
+                  .forEach(controllerModel -> controllerModel.getRoute()
+                                                             .forEach(route -> loadRouteConfigMethodBuilder.addStatement("list.add(new $T($S, $T.asList(new String[]{$L}), $S, $S))",
+                                                                                                                         ClassName.get(RouteConfig.class),
+                                                                                                                         createRoute(route),
+                                                                                                                         ClassName.get(Arrays.class),
+                                                                                                                         createParaemter(controllerModel.getParameters()),
+                                                                                                                         controllerModel.getSelector(),
+                                                                                                                         controllerModel.getProvider()
+                                                                                                                                        .getClassName())));
     loadRouteConfigMethodBuilder.addStatement("return list");
     typeSpec.addMethod(loadRouteConfigMethodBuilder.build());
   }
-
+  
   private void generateGetCompositeReferences(TypeSpec.Builder typeSpec) {
     MethodSpec.Builder getCompositeReferencesMethod = MethodSpec.methodBuilder("getCompositeReferences")
                                                                 .addModifiers(Modifier.PUBLIC)
@@ -441,7 +437,7 @@ public class ModuleGenerator {
     getCompositeReferencesMethod.addStatement("return list");
     typeSpec.addMethod(getCompositeReferencesMethod.build());
   }
-
+  
   private List<ControllerModel> getAllComponents(List<ControllerModel> routes) {
     List<ControllerModel> models = new ArrayList<>();
     routes.forEach(route -> {
@@ -452,7 +448,13 @@ public class ModuleGenerator {
     });
     return models;
   }
-
+  
+  private String setFirstCharacterToLowerCase(String className) {
+    return className.substring(0,
+                               1)
+                    .toLowerCase() + className.substring(1);
+  }
+  
   private String createRoute(String route) {
     if (route.startsWith("/")) {
       return route;
@@ -460,7 +462,7 @@ public class ModuleGenerator {
       return "/" + route;
     }
   }
-
+  
   private String createParaemter(List<String> parameters) {
     StringBuilder sb = new StringBuilder();
     IntStream.range(0,
@@ -475,26 +477,22 @@ public class ModuleGenerator {
              });
     return sb.toString();
   }
-
+  
   private boolean contains(List<ControllerModel> models,
                            ControllerModel controllerModel) {
     return models.stream()
                  .anyMatch(model -> model.getProvider()
                                          .equals(controllerModel.getProvider()));
   }
+  
 
-  private String setFirstCharacterToLowerCase(String className) {
-    return className.substring(0,
-                               1)
-                    .toLowerCase() + className.substring(1);
-  }
 
   public static final class Builder {
-
+    
     MetaModel metaModel;
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -505,16 +503,16 @@ public class ModuleGenerator {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public ModuleGenerator build() {
       return new ModuleGenerator(this);
     }
-
+    
   }
-
+  
 }

@@ -113,4 +113,19 @@ public class ControllerCreatorTest {
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithTwoParameter04/ControllerC07CreatorImpl.java"));
   }
 
+  // everything ok
+  @Test
+  void testMultiRouteSupport01() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/multiRouteSupport01/MultiRouteController01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/multiRouteSupport01/IMultiRouteComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/multiRouteSupport01/MultiRouteComponent01.java")));
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/controllerCreator/multiRouteSupport01/MultiRouteController01CreatorImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/multiRouteSupport01/MultiRouteController01CreatorImpl.java"));
+  }
+
 }

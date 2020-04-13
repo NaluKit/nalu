@@ -1,4 +1,4 @@
-package com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithoutParameter;
+package com.github.nalukit.nalu.processor.controllerCreator.multiRouteSupport01;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
@@ -16,10 +16,11 @@ import java.lang.StringBuilder;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>2.1.0-SNAPSHOT<< at >>2020.04.12-16:33:32<<
+ * Build with Nalu version >>2.1.0-SNAPSHOT<< at >>2020.04.12-17:07:17<<
  */
-public final class ControllerC01CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
-  public ControllerC01CreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
+public final class MultiRouteController01CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
+  public MultiRouteController01CreatorImpl(Router router, MockContext context,
+                                           SimpleEventBus eventBus) {
     super(router, context, eventBus);
   }
   
@@ -27,12 +28,12 @@ public final class ControllerC01CreatorImpl extends AbstractControllerCreator<Mo
   public ControllerInstance create(String route) {
     StringBuilder sb01 = new StringBuilder();
     ControllerInstance controllerInstance = new ControllerInstance();
-    controllerInstance.setControllerClassName("com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithoutParameter.ControllerC01");
-    AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithoutParameter.ControllerC01");
+    controllerInstance.setControllerClassName("com.github.nalukit.nalu.processor.controllerCreator.multiRouteSupport01.MultiRouteController01");
+    AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("com.github.nalukit.nalu.processor.controllerCreator.multiRouteSupport01.MultiRouteController01");
     if (storedController == null) {
-      sb01.append("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithoutParameter.ControllerC01<< --> will be created");
+      sb01.append("controller >>com.github.nalukit.nalu.processor.controllerCreator.multiRouteSupport01.MultiRouteController01<< --> will be created");
       ClientLogger.get().logSimple(sb01.toString(), 3);
-      ControllerC01 controller = new ControllerC01();
+      MultiRouteController01 controller = new MultiRouteController01();
       controllerInstance.setController(controller);
       controllerInstance.setCached(false);
       controller.setContext(context);
@@ -56,11 +57,11 @@ public final class ControllerC01CreatorImpl extends AbstractControllerCreator<Mo
   
   @Override
   public void onFinishCreating(Object object, String route) throws RoutingInterceptionException {
-    ControllerC01 controller = (ControllerC01) object;
+    MultiRouteController01 controller = (MultiRouteController01) object;
     StringBuilder sb01 = new StringBuilder();
-    IComponent01 component = new Component01();
+    IMultiRouteComponent01 component = new MultiRouteComponent01();
     sb01.setLength(0);
-    sb01.append("component >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithoutParameter.Component01<< --> created using new");
+    sb01.append("component >>com.github.nalukit.nalu.processor.controllerCreator.multiRouteSupport01.MultiRouteComponent01<< --> created using new");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
     component.setController(controller);
     sb01.setLength(0);
@@ -78,7 +79,7 @@ public final class ControllerC01CreatorImpl extends AbstractControllerCreator<Mo
     sb01.setLength(0);
     sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
-    ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithoutParameter.Component01<< created for route >>" + route + "<<", 3);
+    ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.multiRouteSupport01.MultiRouteComponent01<< created for route >>" + route + "<<", 3);
   }
   
   @Override

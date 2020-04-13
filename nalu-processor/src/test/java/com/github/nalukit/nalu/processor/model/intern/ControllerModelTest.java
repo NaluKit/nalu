@@ -19,7 +19,9 @@ package com.github.nalukit.nalu.processor.model.intern;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ControllerModelTest {
 
@@ -278,14 +280,15 @@ public class ControllerModelTest {
   @SuppressWarnings("serial")
   private ControllerModel getControllerModelForMatchingTest(String route,
                                                             String routeWithoutShell) {
-    return new ControllerModel(route,
-                               routeWithoutShell,
+    List<String> routes = new ArrayList<>();
+    routes.add(routeWithoutShell);
+    return new ControllerModel(new String[] { route },
+                               routes,
                                "selector,",
                                Arrays.asList("parameter01",
                                              "parameter02"),
                                new ClassNameModel("com.github.nalukit.nalu.processor.common.ui.component01,Controller01"),
                                new ClassNameModel("com.github.nalukit.nalu.processor.common.ui.component01,IComponent01"),
-                               new ClassNameModel("com.github.nalukit.nalu.processor.common.ui.component01,Component01"),
                                new ClassNameModel("com.github.nalukit.nalu.processor.common.ui.component01,Component01"),
                                new ClassNameModel("com.github.nalukit.nalu.processor.common.ui.component01,Component01"),
                                new ClassNameModel("com.github.nalukit.nalu.processor.common.ui.component01,Component01"),

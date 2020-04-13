@@ -29,41 +29,37 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class ControllerGenerator {
-
+  
   private MetaModel metaModel;
-
+  
   private TypeSpec.Builder typeSpec;
-
+  
   private Map<String, Integer> variableCounterMap;
-
+  
   @SuppressWarnings("unused")
   private ControllerGenerator() {
   }
-
+  
   private ControllerGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
-    this.typeSpec = builder.typeSpec;
-
+    this.typeSpec  = builder.typeSpec;
+    
     this.variableCounterMap = new HashMap<>();
   }
-
+  
   public static Builder builder() {
     return new Builder();
   }
-
+  
   void generate() {
     generateLoadControllers();
     generateLoadSelectors();
   }
-
+  
   private void generateLoadControllers() {
     // generate method 'loadComponents()'
     MethodSpec.Builder loadComponentsMethodBuilder = MethodSpec.methodBuilder("loadComponents")
@@ -88,7 +84,7 @@ public class ControllerGenerator {
                                                                                 .getPackage(),
                                                                  controllerModel.getController()
                                                                                 .getSimpleName() + ProcessorConstants.CREATOR_IMPL));
-
+      
           if (controllerModel.getComposites()
                              .size() > 0) {
             List<String> generatedConditionClassNames = new ArrayList<>();
@@ -118,7 +114,7 @@ public class ControllerGenerator {
                              } else {
                                String conditionVariableName;
                                if (generatedConditionClassNames.contains(controllerCompositeModel.getCondition()
-                                                                                                  .getClassName())) {
+                                                                                                 .getClassName())) {
                                  conditionVariableName = this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
                                                                                                                    .getSimpleName()) +
                                                          this.getNameWithVariableCount(controllerCompositeModel.getCondition(),
@@ -128,7 +124,7 @@ public class ControllerGenerator {
                                                                                                                    .getSimpleName()) +
                                                          this.getNameWithVariableCount(controllerCompositeModel.getCondition(),
                                                                                        true);
-
+              
                                  loadComponentsMethodBuilder.addStatement("$T $L = new $T()",
                                                                           ClassName.get(controllerCompositeModel.getCondition()
                                                                                                                 .getPackage(),
@@ -164,7 +160,7 @@ public class ControllerGenerator {
         });
     typeSpec.addMethod(loadComponentsMethodBuilder.build());
   }
-
+  
   private void generateLoadSelectors() {
     // method must always be created!
     MethodSpec.Builder loadSelectorsMethod = MethodSpec.methodBuilder("loadRoutes")
@@ -177,28 +173,29 @@ public class ControllerGenerator {
                                                        .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                                      ClassName.get(ClientLogger.class));
     this.metaModel.getControllers()
-                  .forEach(route -> loadSelectorsMethod.addStatement("super.routerConfiguration.getRouters().add(new $T($S, $T.asList(new String[]{$L}), $S, $S))",
-                                                                     ClassName.get(RouteConfig.class),
-                                                                     createRoute(route.getRoute()),
-                                                                     ClassName.get(Arrays.class),
-                                                                     createParameter(route.getParameters(),
-                                                                                     true),
-                                                                     route.getSelector(),
-                                                                     route.getProvider()
-                                                                          .getClassName())
-                                                       .addStatement("sb01.setLength(0)")
-                                                       .addStatement("sb01.append(\"register route >>$L<< with parameter >>$L<< for selector >>$L<< for controller >>$L<<\")",
-                                                                     createRoute(route.getRoute()),
-                                                                     createParameter(route.getParameters(),
-                                                                                     false),
-                                                                     route.getSelector(),
-                                                                     route.getProvider()
-                                                                          .getClassName())
-                                                       .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
-                                                                     ClassName.get(ClientLogger.class)));
+                  .forEach(controllerModel -> controllerModel.getRoute()
+                                                             .forEach(route -> loadSelectorsMethod.addStatement("super.routerConfiguration.getRouters().add(new $T($S, $T.asList(new String[]{$L}), $S, $S))",
+                                                                                                                ClassName.get(RouteConfig.class),
+                                                                                                                createRoute(route),
+                                                                                                                ClassName.get(Arrays.class),
+                                                                                                                createParameter(controllerModel.getParameters(),
+                                                                                                                                true),
+                                                                                                                controllerModel.getSelector(),
+                                                                                                                controllerModel.getProvider()
+                                                                                                                               .getClassName())
+                                                                                                  .addStatement("sb01.setLength(0)")
+                                                                                                  .addStatement("sb01.append(\"register route >>$L<< with parameter >>$L<< for selector >>$L<< for controller >>$L<<\")",
+                                                                                                                createRoute(route),
+                                                                                                                createParameter(controllerModel.getParameters(),
+                                                                                                                                false),
+                                                                                                                controllerModel.getSelector(),
+                                                                                                                controllerModel.getProvider()
+                                                                                                                               .getClassName())
+                                                                                                  .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
+                                                                                                                ClassName.get(ClientLogger.class))));
     typeSpec.addMethod(loadSelectorsMethod.build());
   }
-
+  
   private List<ControllerModel> getAllComponents(List<ControllerModel> routes) {
     List<ControllerModel> models = new ArrayList<>();
     routes.forEach(route -> {
@@ -209,7 +206,41 @@ public class ControllerGenerator {
     });
     return models;
   }
-
+  
+  private String setFirstCharacterToLowerCase(String className) {
+    return className.substring(0,
+                               1)
+                    .toLowerCase() + className.substring(1);
+  }
+  
+  /**
+   * Created a String with a number at the end to get unique condition
+   * variable names
+   *
+   * @param classNameModel the condition class name
+   * @return uniques string with number
+   */
+  private String getNameWithVariableCount(ClassNameModel classNameModel,
+                                          boolean createNew) {
+    if (createNew) {
+      // new condition class!
+      if (this.variableCounterMap.get(classNameModel.getClassName()) == null) {
+        this.variableCounterMap.put(classNameModel.getClassName(),
+                                    1);
+        return "_1";
+      }
+      // already used condition class
+      Integer counter    = this.variableCounterMap.get(classNameModel.getClassName());
+      Integer newCounter = counter + 1;
+      this.variableCounterMap.put(classNameModel.getClassName(),
+                                  newCounter);
+      return "_" + newCounter;
+    } else {
+      Integer count = this.variableCounterMap.get(classNameModel.getClassName());
+      return "_" + count;
+    }
+  }
+  
   private String createRoute(String route) {
     if (route.startsWith("/")) {
       return route;
@@ -217,7 +248,7 @@ public class ControllerGenerator {
       return "/" + route;
     }
   }
-
+  
   private String createParameter(List<String> parameters,
                                  boolean apostrophe) {
     StringBuilder sb = new StringBuilder();
@@ -237,54 +268,20 @@ public class ControllerGenerator {
              });
     return sb.toString();
   }
-
+  
   private boolean contains(List<ControllerModel> models,
                            ControllerModel controllerModel) {
     return models.stream()
                  .anyMatch(model -> model.getProvider()
                                          .equals(controllerModel.getProvider()));
   }
-
-  private String setFirstCharacterToLowerCase(String className) {
-    return className.substring(0,
-                               1)
-                    .toLowerCase() + className.substring(1);
-  }
-
-  /**
-   * Created a String with a number at the end to get unique condition
-   * variable names
-   *
-   * @param classNameModel the condition class name
-   * @return uniques string with number
-   */
-  private String getNameWithVariableCount(ClassNameModel classNameModel,
-                                          boolean createNew) {
-    if (createNew) {
-      // new condition class!
-      if (this.variableCounterMap.get(classNameModel.getClassName()) == null) {
-        this.variableCounterMap.put(classNameModel.getClassName(),
-                                    1);
-        return "_1";
-      }
-      // already used condition class
-      Integer counter = this.variableCounterMap.get(classNameModel.getClassName());
-      Integer newCounter = counter + 1;
-      this.variableCounterMap.put(classNameModel.getClassName(),
-                                  newCounter);
-      return "_" + newCounter;
-    } else {
-      Integer count = this.variableCounterMap.get(classNameModel.getClassName());
-      return "_" + count;
-    }
-  }
-
+  
   public static final class Builder {
-
+    
     MetaModel metaModel;
-
+    
     TypeSpec.Builder typeSpec;
-
+    
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -295,7 +292,7 @@ public class ControllerGenerator {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -306,11 +303,11 @@ public class ControllerGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-
+    
     public ControllerGenerator build() {
       return new ControllerGenerator(this);
     }
-
+    
   }
-
+  
 }
