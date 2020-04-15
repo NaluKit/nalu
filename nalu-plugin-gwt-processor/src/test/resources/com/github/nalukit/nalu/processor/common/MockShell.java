@@ -25,14 +25,14 @@ import static org.jboss.gwt.elemento.core.Elements.*;
 
 public class MockShell
     extends AbstractShell<MockContext> {
-
+  
   private static final String NALU_ID_ATTRIBUTE = "id";
-
+  
   private HTMLDivElement shell;
-
+  
   public MockShell() {
   }
-
+  
   /**
    * The ShellPresenter has to implemented this method, because the framework
    * can not do this. (It does not know, what to use).
@@ -43,18 +43,7 @@ public class MockShell
   public void attachShell() {
     document.body.appendChild(this.render());
   }
-
-  /**
-   * The ShellPresenter has to implemented this method, because the framework
-   * can not do this. (It does not know, what to use).
-   * <p>
-   * We remmove the ShellView from the browser body.
-   */
-  @Override
-  public void detachShell() {
-    document.body.removeChild(this.shell);
-  }
-
+  
   private HTMLElement render() {
     this.shell = div().css("shellCreator")
                       .add(createNorth())
@@ -70,19 +59,30 @@ public class MockShell
                       .get();
     return this.shell;
   }
-
+  
   private Element createNorth() {
     return header().css("shellHeader")
                    .attr(MockShell.NALU_ID_ATTRIBUTE,
                          "header")
                    .get();
   }
-
+  
   private Element createSouth() {
     return footer().css("shellFooter")
                    .attr(MockShell.NALU_ID_ATTRIBUTE,
                          "footer")
                    .get();
   }
-
+  
+  /**
+   * The ShellPresenter has to implemented this method, because the framework
+   * can not do this. (It does not know, what to use).
+   * <p>
+   * We remmove the ShellView from the browser body.
+   */
+  @Override
+  public void detachShell() {
+    document.body.removeChild(this.shell);
+  }
+  
 }

@@ -21,11 +21,7 @@ import com.github.nalukit.nalu.simpleapplication02.client.data.model.dto.Person;
 import com.github.nalukit.nalu.simpleapplication02.client.data.model.dto.PersonSearch;
 import com.github.nalukit.nalu.simpleapplication02.client.data.model.exception.PersonNotFoundException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Due to the fact, that there is currently no J2Cl based server framework and to proof Nalu is working,
@@ -37,23 +33,16 @@ import java.util.Map;
  * For the example it does matter, if we retrieve the data form a server mock or a client mock!
  */
 public class PersonService {
-
+  
   private static PersonService instance;
-
+  
   private Map<Long, Person> persons;
-
+  
   private PersonService() {
     persons = new HashMap<>();
     initList();
   }
-
-  public static PersonService get() {
-    if (instance == null) {
-      instance = new PersonService();
-    }
-    return instance;
-  }
-
+  
   private void initList() {
     Address address01 = new Address(1,
                                     "Evergreen Terrace",
@@ -118,7 +107,14 @@ public class PersonService {
                            "Dagobert",
                            address03));
   }
-
+  
+  public static PersonService get() {
+    if (instance == null) {
+      instance = new PersonService();
+    }
+    return instance;
+  }
+  
   public Person get(long id)
       throws PersonNotFoundException {
     if (persons.containsKey(id)) {
@@ -127,7 +123,7 @@ public class PersonService {
       throw new PersonNotFoundException("no data found for ID >>" + Long.toString(id) + "<<");
     }
   }
-
+  
   public List<Person> getAll() {
     List<Person> list = new ArrayList<>();
     for (Long aLong : persons.keySet()) {
@@ -135,7 +131,7 @@ public class PersonService {
     }
     return list;
   }
-
+  
   public List<Person> get(PersonSearch search) {
     List<Person> list = new ArrayList<>();
     if ((search.getName() != null &&
@@ -187,7 +183,7 @@ public class PersonService {
     }
     return list;
   }
-
+  
   public void insert(Person person) {
     Iterator<Person> iter = persons.values()
                                    .iterator();
@@ -203,7 +199,7 @@ public class PersonService {
     persons.put(maxKey,
                 person);
   }
-
+  
   public void update(Person person) {
     Person value = persons.get(person.getId());
     if (value != null) {
@@ -212,5 +208,5 @@ public class PersonService {
                   person);
     }
   }
-
+  
 }

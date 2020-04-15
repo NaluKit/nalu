@@ -29,7 +29,7 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
     extends AbstractController<C>
     implements IsErrorPopUpController<V>,
                IsErrorPopUpComponent.Controller {
-
+  
   /* component of the controller */
   protected V                   component;
   /* error type */
@@ -40,12 +40,12 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
   protected String              message;
   /* data store  */
   protected Map<String, String> dataStore;
-
+  
   public AbstractErrorPopUpComponentController() {
     super();
     this.dataStore = new HashMap<>();
   }
-
+  
   /**
    * Sets the component inside the controller
    * <b>Do not use this method. This will lead to unexpected results</b>
@@ -56,17 +56,7 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
   public void setComponent(V component) {
     this.component = component;
   }
-
-  /**
-   * The method is called before the show-method.
-   * A good place to do some initialization.
-   * <p>
-   * If you want to do some initialization before you get the
-   * control, just override the method.
-   */
-  public void onBeforeShow() {
-  }
-
+  
   /**
    * The method is called right after the isntace is created.
    * <p>
@@ -77,7 +67,7 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
     this.eventBus.addHandler(NaluErrorEvent.TYPE,
                              e -> handleErrorEvent(e));
   }
-
+  
   private void handleErrorEvent(NaluErrorEvent e) {
     StringBuilder sb01 = new StringBuilder();
     sb01.append("caught NaluErrorEvent");
@@ -106,9 +96,9 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
     ClientLogger.get()
                 .logDetailed(sb01.toString(),
                              2);
-
-    this.route = e.getRoute();
-    this.message = e.getMessage();
+    
+    this.route          = e.getRoute();
+    this.message        = e.getMessage();
     this.errorEventType = e.getErrorEventType();
     e.getDataStore()
      .keySet()
@@ -123,7 +113,7 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
        ClientLogger.get()
                    .logDetailed(sb01.toString(),
                                 2);
-
+      
        this.dataStore.put(k,
                           e.getDataStore()
                            .get(k));
@@ -134,7 +124,7 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
                 .logDetailed(sb01.toString(),
                              3);
     this.onBeforeShow();
-
+    
     sb01.setLength(0);
     sb01.append("call show()");
     ClientLogger.get()
@@ -142,10 +132,20 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
                              3);
     this.show();
   }
-
+  
+  /**
+   * The method is called before the show-method.
+   * A good place to do some initialization.
+   * <p>
+   * If you want to do some initialization before you get the
+   * control, just override the method.
+   */
+  public void onBeforeShow() {
+  }
+  
   /**
    * Method will be called in case an error event gets fired and the popup gets visible!
    */
   protected abstract void show();
-
+  
 }

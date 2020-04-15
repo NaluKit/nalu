@@ -28,19 +28,19 @@ import com.github.nalukit.nalu.simpleapplication01.client.event.StatusChangeEven
 public class DetailController
     extends AbstractComponentController<NaluSimpleApplicationContext, IDetailComponent, String>
     implements IDetailComponent.Controller {
-
+  
   private Person person;
-
+  
   private long id;
-
+  
   public DetailController() {
   }
-
+  
   @Override
   public String mayStop() {
     return this.component.isDirty() ? "Would you like to cancel your edits?" : null;
   }
-
+  
   @Override
   public void start() {
     if (this.id == 0) {
@@ -52,18 +52,18 @@ public class DetailController
                                  .get(id);
       this.component.edit(this.person);
       this.eventBus.fireEvent(new StatusChangeEvent("Edit person data with id: " + this.person.getId()));
-
+  
       this.eventBus.fireEvent(new SelectEvent(SelectEvent.Select.DETAIL));
     } catch (PersonNotFoundException e) {
       System.out.println("Panic!");
     }
   }
-
+  
   @Override
   public void stop() {
     this.eventBus.fireEvent(new StatusChangeEvent(""));
   }
-
+  
   public void setId(String id)
       throws RoutingInterceptionException {
     try {
@@ -77,19 +77,19 @@ public class DetailController
                                              this.context.getSearchCity());
     }
   }
-
+  
   @Override
   public Person getPerson() {
     return this.person;
   }
-
+  
   @Override
   public void doRevert() {
     this.router.route("/list",
                       this.context.getSearchName(),
                       this.context.getSearchCity());
   }
-
+  
   @Override
   public void doUpdate() {
     PersonService.get()
@@ -103,5 +103,5 @@ public class DetailController
                         this.context.getSearchCity());
     }
   }
-
+  
 }

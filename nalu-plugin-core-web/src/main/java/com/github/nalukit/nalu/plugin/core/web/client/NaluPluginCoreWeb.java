@@ -30,12 +30,7 @@ import jsinterop.base.Js;
 import java.util.*;
 
 public class NaluPluginCoreWeb {
-
-  public static boolean isSuperDevMode() {
-    return "on".equals(System.getProperty("superdevmode",
-                                          "off"));
-  }
-
+  
   /**
    * Log's non-existing selector that was not found inside DOM on the browser's console
    *
@@ -50,19 +45,12 @@ public class NaluPluginCoreWeb {
                 .logSimple(sb,
                            0);
   }
-
-  /**
-   * Log's the new URL on the browser's console
-   *
-   * @param newUrl new url to log
-   */
-  private static void logNewUrl(String newUrl) {
-    String sb = "Router: new url ->>" + newUrl + "<<";
-    ClientLogger.get()
-                .logSimple(sb,
-                           0);
+  
+  public static boolean isSuperDevMode() {
+    return "on".equals(System.getProperty("superdevmode",
+                                          "off"));
   }
-
+  
   @SuppressWarnings("StringSplitter")
   public static void getContextPath(ShellConfiguration shellConfiguration) {
     if (PropertyFactory.get()
@@ -70,7 +58,7 @@ public class NaluPluginCoreWeb {
       return;
     }
     Location location = Js.uncheckedCast(DomGlobal.location);
-    String pathName = location.getPathname();
+    String   pathName = location.getPathname();
     if (pathName.startsWith("/") && pathName.length() > 1) {
       pathName = pathName.substring(1);
     }
@@ -104,12 +92,12 @@ public class NaluPluginCoreWeb {
     PropertyFactory.get()
                    .setContextPath("");
   }
-
+  
   @SuppressWarnings("StringSplitter")
   public static NaluStartModel getNaluStartModel() {
-    Location location = Js.uncheckedCast(DomGlobal.location);
+    Location            location        = Js.uncheckedCast(DomGlobal.location);
     Map<String, String> queryParameters = new HashMap<>();
-    String search = location.getSearch();
+    String              search          = location.getSearch();
     if (!Objects.isNull(search)) {
       if (search.startsWith("?")) {
         search = search.substring(1);
@@ -123,7 +111,7 @@ public class NaluPluginCoreWeb {
               } else if (split.length == 2) {
                 queryParameters.put(split[0],
                                     split[1]);
-
+  
               }
             });
     }
@@ -159,7 +147,7 @@ public class NaluPluginCoreWeb {
     return new NaluStartModel(startRoute,
                               queryParameters);
   }
-
+  
   private static String getHashValue(String hash) {
     if (!Objects.isNull(hash)) {
       if (hash.startsWith("#")) {
@@ -172,40 +160,7 @@ public class NaluPluginCoreWeb {
     }
     return null;
   }
-
-  public static void route(String newRoute,
-                           boolean replace,
-                           RouteChangeHandler handler) {
-    String newRouteToken;
-    if (PropertyFactory.get()
-                       .isUsingHash()) {
-      newRouteToken = newRoute.startsWith("#") ? newRoute : "#" + newRoute;
-    } else {
-      newRouteToken = "/";
-      if (PropertyFactory.get()
-                         .getContextPath()
-                         .length() > 0) {
-        newRouteToken = newRouteToken +
-            PropertyFactory.get()
-                           .getContextPath() +
-            "/";
-      }
-      newRouteToken = newRouteToken + newRoute;
-    }
-    if (PropertyFactory.get()
-                       .hasHistory()) {
-      if (replace) {
-        DomGlobal.window.history.replaceState(newRouteToken,
-                                              null,
-                                              newRouteToken);
-      } else {
-        DomGlobal.window.history.pushState(newRouteToken,
-                                           null,
-                                           newRouteToken);
-      }
-    }
-  }
-
+  
   public static void addPopStateHandler(RouteChangeHandler handler,
                                         String contextPath) {
     DomGlobal.window.onpopstate = e -> {
@@ -241,18 +196,7 @@ public class NaluPluginCoreWeb {
       return null;
     };
   }
-
-  public static void addOnHashChangeHandler(RouteChangeHandler handler) {
-    DomGlobal.window.onhashchange = e -> {
-      String newUrl;
-      Location location = Js.uncheckedCast(DomGlobal.location);
-      newUrl = location.getHash();
-      NaluPluginCoreWeb.handleChange(handler,
-                                     newUrl);
-      return null;
-    };
-  }
-
+  
   private static void handleChange(RouteChangeHandler handler,
                                    String newUrl) {
     if (newUrl.startsWith("#")) {
@@ -271,5 +215,61 @@ public class NaluPluginCoreWeb {
       handler.onRouteChange(newUrl);
     }
   }
-
+  
+  public static void route(String newRoute,
+                           boolean replace,
+                           RouteChangeHandler handler) {
+    String newRouteToken;
+    if (PropertyFactory.get()
+                       .isUsingHash()) {
+      newRouteToken = newRoute.startsWith("#") ? newRoute : "#" + newRoute;
+    } else {
+      newRouteToken = "/";
+      if (PropertyFactory.get()
+                         .getContextPath()
+                         .length() > 0) {
+        newRouteToken = newRouteToken +
+                        PropertyFactory.get()
+                                       .getContextPath() +
+                        "/";
+      }
+      newRouteToken = newRouteToken + newRoute;
+    }
+    if (PropertyFactory.get()
+                       .hasHistory()) {
+      if (replace) {
+        DomGlobal.window.history.replaceState(newRouteToken,
+                                              null,
+                                              newRouteToken);
+      } else {
+        DomGlobal.window.history.pushState(newRouteToken,
+                                           null,
+                                           newRouteToken);
+      }
+    }
+  }
+  
+  /**
+   * Log's the new URL on the browser's console
+   *
+   * @param newUrl new url to log
+   */
+  private static void logNewUrl(String newUrl) {
+    String sb = "Router: new url ->>" + newUrl + "<<";
+    ClientLogger.get()
+                .logSimple(sb,
+                           0);
+  }
+  
+  public static void addOnHashChangeHandler(RouteChangeHandler handler) {
+    DomGlobal.window.onhashchange = e -> {
+      String   newUrl;
+      Location location = Js.uncheckedCast(DomGlobal.location);
+      newUrl = location.getHash();
+      NaluPluginCoreWeb.handleChange(handler,
+                                     newUrl);
+      return null;
+    };
+  }
+  
 }

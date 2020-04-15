@@ -17,10 +17,10 @@
 package com.github.nalukit.nalu.plugin.gwt.client.selector;
 
 public abstract class AbstractSelectorProvider {
-
+  
   public AbstractSelectorProvider() {
   }
-
+  
   public abstract void removeSelectors();
-
+  
 }

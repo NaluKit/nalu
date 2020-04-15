@@ -17,21 +17,21 @@
 package com.github.nalukit.nalu.client.component;
 
 public interface IsErrorPopUpComponent<C extends IsErrorPopUpComponent.Controller> {
-
+  
   void render();
-
+  
   void bind();
-
+  
   C getController();
-
+  
   void setController(C controller);
-
+  
   void show();
-
+  
   void hide();
-
+  
   interface Controller {
-
+  
   }
-
+  
 }

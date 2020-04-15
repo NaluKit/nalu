@@ -33,27 +33,27 @@ import java.util.List;
 import java.util.Set;
 
 public class ProcessorUtils {
-
+  
   private ProcessingEnvironment processingEnvironment;
-
+  
   private Messager messager;
-
+  
   private Elements elements;
-
+  
   @SuppressWarnings("unused")
   private ProcessorUtils(Builder builder) {
     super();
-
+    
     this.processingEnvironment = builder.processingEnvironment;
-
+    
     this.messager = this.processingEnvironment.getMessager();
     this.elements = this.processingEnvironment.getElementUtils();
   }
-
+  
   public static Builder builder() {
     return new Builder();
   }
-
+  
   //  public boolean implementsInterface(ProcessingEnvironment processingEnvironment,
   //                                     TypeElement typeElement,
   //                                     TypeMirror implementedInterface) {
@@ -61,24 +61,24 @@ public class ProcessorUtils {
   //                                .isAssignable(typeElement.asType(),
   //                                              implementedInterface);
   //  }
-
+  
   public String getPackageAsString(Element type) {
     return this.getPackage(type)
                .getQualifiedName()
                .toString();
   }
-
+  
   public PackageElement getPackage(Element type) {
     while (type.getKind() != ElementKind.PACKAGE) {
       type = type.getEnclosingElement();
     }
     return (PackageElement) type;
   }
-
+  
   public Elements getElements() {
     return this.elements;
   }
-
+  
   /**
    * checks if a class or interface is implemented.
    *
@@ -100,7 +100,7 @@ public class ProcessorUtils {
     }
     return false;
   }
-
+  
   private String removeGenericsFromClassName(String className) {
     if (className.contains("<")) {
       className = className.substring(0,
@@ -108,7 +108,7 @@ public class ProcessorUtils {
     }
     return className;
   }
-
+  
   /**
    * Returns all of the superclasses and superinterfaces for a given generator
    * including the generator itself. The returned set maintains an internal
@@ -121,7 +121,7 @@ public class ProcessorUtils {
    */
   public Set<TypeMirror> getFlattenedSupertypeHierarchy(Types types,
                                                         TypeMirror typeMirror) {
-    List<TypeMirror> toAdd = new ArrayList<>();
+    List<TypeMirror>          toAdd  = new ArrayList<>();
     LinkedHashSet<TypeMirror> result = new LinkedHashSet<>();
     toAdd.add(typeMirror);
     for (int i = 0; i < toAdd.size(); i++) {
@@ -132,7 +132,7 @@ public class ProcessorUtils {
     }
     return result;
   }
-
+  
   public boolean supertypeHasGeneric(Types types,
                                      TypeMirror typeMirror,
                                      TypeMirror implementsMirror) {
@@ -145,7 +145,7 @@ public class ProcessorUtils {
     return superTypeMirror.toString()
                           .contains("<");
   }
-
+  
   public TypeMirror getFlattenedSupertype(Types types,
                                           TypeMirror typeMirror,
                                           TypeMirror implementsMirror) {
@@ -160,38 +160,38 @@ public class ProcessorUtils {
     }
     return null;
   }
-
+  
   //  public String createNameWithleadingUpperCase(String name) {
   //    return name.substring(0,
   //                          1)
   //               .toUpperCase() + name.substring(1);
   //  }
-
+  
   public void createErrorMessage(String errorMessage) {
     StringWriter sw = new StringWriter();
-    PrintWriter pw = new PrintWriter(sw);
+    PrintWriter  pw = new PrintWriter(sw);
     pw.println(errorMessage);
     pw.close();
     messager.printMessage(Diagnostic.Kind.ERROR,
                           sw.toString());
-
+    
   }
-
+  
   public String createFullClassName(String packageName,
                                     String className) {
     return packageName.replace(".",
                                "_") + "_" + className;
   }
-
+  
   public void createNoteMessage(String noteMessage) {
     StringWriter sw = new StringWriter();
-    PrintWriter pw = new PrintWriter(sw);
+    PrintWriter  pw = new PrintWriter(sw);
     pw.println(noteMessage);
     pw.close();
     messager.printMessage(Diagnostic.Kind.NOTE,
                           sw.toString());
   }
-
+  
   //  public void createWarningMessage(String warningMessage) {
   //    StringWriter sw = new StringWriter();
   //    PrintWriter pw = new PrintWriter(sw);
@@ -200,7 +200,7 @@ public class ProcessorUtils {
   //    messager.printMessage(Diagnostic.Kind.WARNING,
   //                          sw.toString());
   //  }
-
+  
   //  public <A extends Annotation> List<Element> getMethodFromTypeElementAnnotatedWith(ProcessingEnvironment processingEnvironment,
   //                                                                                    TypeElement element,
   //                                                                                    Class<A> annotation) {
@@ -211,7 +211,7 @@ public class ProcessorUtils {
   //                                                          .collect(Collectors.toList());
   //    return annotatedMethods;
   //  }
-
+  
   //  public String createInternalEventName(ExecutableElement executableElement) {
   //    String internalEventName = executableElement.getSimpleName()
   //                                                .toString();
@@ -233,7 +233,7 @@ public class ProcessorUtils {
   //  public String createHistoryMetaDataClassName(String historyConverterClassName) {
   //    return this.setFirstCharacterToUpperCase(this.createHistoryMetaDataVariableName(historyConverterClassName)) + "_" + ProcessorConstants.META_DATA;
   //  }
-
+  
   //  public String setFirstCharacterToUpperCase(String className) {
   //    return className.substring(0,
   //                               1)
@@ -262,20 +262,22 @@ public class ProcessorUtils {
   //                           3)
   //                .toLowerCase() + event.substring(3);
   //  }
-
+  
+  
+  
   public static class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public ProcessorUtils build() {
       return new ProcessorUtils(this);
     }
-
+    
   }
-
+  
 }

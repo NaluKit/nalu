@@ -28,7 +28,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class ModuleTest {
-
+  
   @Test
   void testSubModuleHasErrorPopUpController() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -42,5 +42,5 @@ public class ModuleTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor:@ErrorPopUpController: can only be use inside a main module");
   }
-
+  
 }

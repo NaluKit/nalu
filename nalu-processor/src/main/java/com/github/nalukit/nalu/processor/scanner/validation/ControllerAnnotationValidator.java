@@ -128,41 +128,6 @@ public class ControllerAnnotationValidator {
     }
   }
   
-  private void searchForDuplicateRoutes(String[] routes)
-      throws ProcessorException {
-    List<String> convertedRoutes = Arrays.stream(routes)
-                                         .map(this::convertRoute).collect(Collectors.toList());
-    List<String> duplicateRoutes = convertedRoutes.stream()
-                                                             .collect(Collectors.groupingBy(Function.identity()))
-                                                             .entrySet()
-                                                             .stream()
-                                                             .filter(e -> e.getValue()
-                                                                           .size() > 1)
-                                                             .map(Map.Entry::getKey)
-                                                             .collect(Collectors.toList());
-    if (duplicateRoutes.size() > 0) {
-      StringBuilder sb = new StringBuilder();
-      sb.append("Nalu-Processor: controller >>")
-        .append(this.controllerElement.getEnclosingElement()
-                                      .toString())
-        .append("<< duplicate route: ");
-      IntStream.range(0,
-                      duplicateRoutes.size())
-               .forEachOrdered(i -> {
-                 sb.append(">>")
-                   .append(duplicateRoutes.get(i))
-                   .append("<<");
-                 if (i < duplicateRoutes.size() - 1) {
-                   sb.append(", ");
-                 }
-               });
-      sb.append(")");
-      throw new ProcessorException(sb.toString());
-    }
-  
-  
-  }
-  
   @SuppressWarnings("StringSplitter")
   private void validateRoute(String route)
       throws ProcessorException {
@@ -302,6 +267,41 @@ public class ControllerAnnotationValidator {
     }
   }
   
+  private void searchForDuplicateRoutes(String[] routes)
+      throws ProcessorException {
+    List<String> convertedRoutes = Arrays.stream(routes)
+                                         .map(this::convertRoute)
+                                         .collect(Collectors.toList());
+    List<String> duplicateRoutes = convertedRoutes.stream()
+                                                  .collect(Collectors.groupingBy(Function.identity()))
+                                                  .entrySet()
+                                                  .stream()
+                                                  .filter(e -> e.getValue()
+                                                                .size() > 1)
+                                                  .map(Map.Entry::getKey)
+                                                  .collect(Collectors.toList());
+    if (duplicateRoutes.size() > 0) {
+      StringBuilder sb = new StringBuilder();
+      sb.append("Nalu-Processor: controller >>")
+        .append(this.controllerElement.getEnclosingElement()
+                                      .toString())
+        .append("<< duplicate route: ");
+      IntStream.range(0,
+                      duplicateRoutes.size())
+               .forEachOrdered(i -> {
+                 sb.append(">>")
+                   .append(duplicateRoutes.get(i))
+                   .append("<<");
+                 if (i < duplicateRoutes.size() - 1) {
+                   sb.append(", ");
+                 }
+               });
+      sb.append(")");
+      throw new ProcessorException(sb.toString());
+    }
+    
+  }
+  
   private List<String> getParametersFromRoute(String route) {
     return Stream.of(route.split("/"))
                  .filter(s -> s.startsWith(":"))
@@ -325,7 +325,7 @@ public class ControllerAnnotationValidator {
     if ("/".equals(route)) {
       return route;
     }
-    String[] splits = route.split("/");
+    String[]      splits   = route.split("/");
     StringBuilder newRoute = new StringBuilder();
     for (int i = 1; i < splits.length; i++) {
       String s = splits[i];

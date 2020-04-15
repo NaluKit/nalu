@@ -31,30 +31,25 @@ import org.gwtproject.event.shared.SimpleEventBus;
 @NaluInternalUse
 public abstract class AbstractModule<C extends IsModuleContext>
     implements IsModule<C> {
-
+  
   protected Router         router;
   protected IsMainContext  applicationContext;
   protected C              moduleContext;
   protected SimpleEventBus eventBus;
-
+  
   protected AlwaysLoadComposite alwaysLoadComposite;
-
+  
   public AbstractModule(Router router,
                         IsMainContext applicationContext,
                         SimpleEventBus eventBus,
                         AlwaysLoadComposite alwaysLoadComposite) {
     super();
-    this.router = router;
-    this.applicationContext = applicationContext;
-    this.eventBus = eventBus;
+    this.router              = router;
+    this.applicationContext  = applicationContext;
+    this.eventBus            = eventBus;
     this.alwaysLoadComposite = alwaysLoadComposite;
   }
-
-  private void setUpContext() {
-    this.moduleContext = createModuleContext();
-    this.moduleContext.setApplicationContext(this.applicationContext.getContext());
-  }
-
+  
   @Override
   public void loadModule(RouterConfiguration routeConfiguration) {
     this.setUpContext();
@@ -64,17 +59,22 @@ public abstract class AbstractModule<C extends IsModuleContext>
     this.loadFilters(routeConfiguration);
     this.loadHandlers();
   }
-
-  protected abstract C createModuleContext();
-
-  protected abstract void loadHandlers();
-
-  protected abstract void loadFilters(RouterConfiguration routeConfiguration);
-
-  protected abstract void loadComponents();
-
-  protected abstract void loadCompositeController();
-
+  
+  private void setUpContext() {
+    this.moduleContext = createModuleContext();
+    this.moduleContext.setApplicationContext(this.applicationContext.getContext());
+  }
+  
   protected abstract void loadShellFactory();
-
+  
+  protected abstract C createModuleContext();
+  
+  protected abstract void loadCompositeController();
+  
+  protected abstract void loadComponents();
+  
+  protected abstract void loadFilters(RouterConfiguration routeConfiguration);
+  
+  protected abstract void loadHandlers();
+  
 }

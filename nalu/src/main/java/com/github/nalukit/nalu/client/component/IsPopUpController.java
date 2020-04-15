@@ -17,11 +17,11 @@
 package com.github.nalukit.nalu.client.component;
 
 public interface IsPopUpController<V> {
-
+  
   void setComponent(V component);
-
+  
   void onBeforeShow();
-
+  
   void show();
-
+  
 }

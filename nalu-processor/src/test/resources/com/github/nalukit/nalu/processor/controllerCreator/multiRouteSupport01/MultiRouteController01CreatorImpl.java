@@ -28,6 +28,7 @@ public final class MultiRouteController01CreatorImpl extends AbstractControllerC
   public ControllerInstance create(String route) {
     StringBuilder sb01 = new StringBuilder();
     ControllerInstance controllerInstance = new ControllerInstance();
+    controllerInstance.setControllerCreator(this);
     controllerInstance.setControllerClassName("com.github.nalukit.nalu.processor.controllerCreator.multiRouteSupport01.MultiRouteController01");
     AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("com.github.nalukit.nalu.processor.controllerCreator.multiRouteSupport01.MultiRouteController01");
     if (storedController == null) {

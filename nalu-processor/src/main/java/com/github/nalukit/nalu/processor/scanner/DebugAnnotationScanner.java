@@ -30,29 +30,29 @@ import java.util.Objects;
 import static java.util.Objects.isNull;
 
 public class DebugAnnotationScanner {
-
+  
   private ProcessingEnvironment processingEnvironment;
-
+  
   private Element debugElement;
-
+  
   private MetaModel metaModel;
-
+  
   @SuppressWarnings("unused")
   private DebugAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.debugElement = builder.debugElement;
-    this.metaModel = builder.metaModel;
+    this.debugElement          = builder.debugElement;
+    this.metaModel             = builder.metaModel;
     setUp();
   }
-
+  
+  private void setUp() {
+  }
+  
   public static Builder builder() {
     return new Builder();
   }
-
-  private void setUp() {
-  }
-
+  
   public MetaModel scan(RoundEnvironment roundEnvironment) {
     // handle debug-annotation
     Debug debugAnnotation = debugElement.getAnnotation(Debug.class);
@@ -74,7 +74,7 @@ public class DebugAnnotationScanner {
     }
     return this.metaModel;
   }
-
+  
   private TypeElement getLogger(Debug debugAnnotation) {
     try {
       debugAnnotation.logger();
@@ -84,34 +84,34 @@ public class DebugAnnotationScanner {
     }
     return null;
   }
-
+  
   public static class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     Element debugElement;
-
+    
     MetaModel metaModel;
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public Builder debugElement(Element debugElement) {
       this.debugElement = debugElement;
       return this;
     }
-
+    
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     public DebugAnnotationScanner build() {
       return new DebugAnnotationScanner(this);
     }
-
+    
   }
-
+  
 }

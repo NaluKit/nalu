@@ -86,6 +86,23 @@ public class CompositeCreatorGenerator {
     }
   }
   
+  private MethodSpec createConstructor() {
+    return MethodSpec.constructorBuilder()
+                     .addModifiers(Modifier.PUBLIC)
+                     .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
+                                                         "router")
+                                                .build())
+                     .addParameter(ParameterSpec.builder(compositeModel.getContext()
+                                                                       .getTypeName(),
+                                                         "context")
+                                                .build())
+                     .addParameter(ParameterSpec.builder(ClassName.get(SimpleEventBus.class),
+                                                         "eventBus")
+                                                .build())
+                     .addStatement("super(router, context, eventBus)")
+                     .build();
+  }
+  
   private MethodSpec createCreateMethod() {
     MethodSpec.Builder createMethod = MethodSpec.methodBuilder("create")
                                                 .addModifiers(Modifier.PUBLIC)
@@ -257,23 +274,6 @@ public class CompositeCreatorGenerator {
       }
     }
     return method.build();
-  }
-  
-  private MethodSpec createConstructor() {
-    return MethodSpec.constructorBuilder()
-                     .addModifiers(Modifier.PUBLIC)
-                     .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
-                                                         "router")
-                                                .build())
-                     .addParameter(ParameterSpec.builder(compositeModel.getContext()
-                                                                       .getTypeName(),
-                                                         "context")
-                                                .build())
-                     .addParameter(ParameterSpec.builder(ClassName.get(SimpleEventBus.class),
-                                                         "eventBus")
-                                                .build())
-                     .addStatement("super(router, context, eventBus)")
-                     .build();
   }
   
   public static final class Builder {

@@ -25,13 +25,13 @@ import java.util.List;
 public class ListComponent
     extends AbstractComponent<IListComponent.Controller, String>
     implements IListComponent {
-
+  
   //  private DataTable<Person>          table;
   private List<Person> store;
-
+  
   public ListComponent() {
   }
-
+  
   @Override
   public void render() {
     //    TableConfig<Person> tableConfig = new TableConfig<>();
@@ -80,17 +80,17 @@ public class ListComponent
     //    return this.table.asElement();
     initElement("ListView");
   }
-
+  
   @Override
   public void resetTable() {
     this.store = new ArrayList<>();
   }
-
+  
   @Override
   public void setData(List<Person> result) {
     resetTable();
     this.store.addAll(result);
     //    this.table.load();
   }
-
+  
 }

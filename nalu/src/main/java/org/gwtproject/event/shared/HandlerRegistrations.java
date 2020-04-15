@@ -17,13 +17,13 @@ package org.gwtproject.event.shared;
  * A utility class to help deal with {@link HandlerRegistration handler registrations}.
  */
 public class HandlerRegistrations {
-
+  
   /**
    * For know this is a utility class, make it not instantiable.
    */
   private HandlerRegistrations() {
   }
-
+  
   /**
    * Create and return a {@link HandlerRegistration} that will call {@link
    * HandlerRegistration#removeHandler()} on all supplied handlers if {@link
@@ -44,16 +44,16 @@ public class HandlerRegistrations {
   public static HandlerRegistration compose(HandlerRegistration... handlers) {
     return new HandlerRegistrationCollection(handlers);
   }
-
+  
   private static class HandlerRegistrationCollection
       implements HandlerRegistration {
-
+    
     private HandlerRegistration[] handlers;
-
+    
     public HandlerRegistrationCollection(HandlerRegistration... handlers) {
       this.handlers = handlers;
     }
-
+    
     @Override
     public void removeHandler() {
       if (handlers == null) {
@@ -66,7 +66,7 @@ public class HandlerRegistrations {
       // if someone fails to null out their reference to us
       handlers = null;
     }
-
+    
   }
-
+  
 }

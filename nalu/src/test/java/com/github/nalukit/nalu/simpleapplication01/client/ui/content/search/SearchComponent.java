@@ -21,16 +21,16 @@ import com.github.nalukit.nalu.client.component.AbstractComponent;
 public class SearchComponent
     extends AbstractComponent<ISearchComponent.Controller, String>
     implements ISearchComponent {
-
+  
   @SuppressWarnings("unused")
   private String searchName;
-
+  
   @SuppressWarnings("unused")
   private String searchCity;
-
+  
   public SearchComponent() {
   }
-
+  
   @Override
   public void render() {
     //    this.searchName = TextBox.create("Name");
@@ -60,15 +60,15 @@ public class SearchComponent
     //               .asElement();
     initElement("SearchForm");
   }
-
+  
   @Override
   public void setSearchName(String searchName) {
     this.searchName = searchName;
   }
-
+  
   @Override
   public void setSearchCity(String searchCity) {
     this.searchCity = searchCity;
   }
-
+  
 }

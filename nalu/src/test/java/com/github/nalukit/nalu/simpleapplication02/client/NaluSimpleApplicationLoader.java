@@ -23,7 +23,7 @@ import com.github.nalukit.nalu.client.application.AbstractApplicationLoader;
  */
 public class NaluSimpleApplicationLoader
     extends AbstractApplicationLoader<NaluSimpleApplicationContext> {
-
+  
   /**
    * The loader of the application.
    * <p>
@@ -36,5 +36,5 @@ public class NaluSimpleApplicationLoader
   public void load(FinishLoadCommand finishLoadCommand) {
     finishLoadCommand.finishLoading();
   }
-
+  
 }

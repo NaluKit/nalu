@@ -28,7 +28,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class FiltersTest {
-
+  
   @Test
   void testFiltersAnnotationOnAMethod() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -38,5 +38,5 @@ public class FiltersTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Filters can only be used on a type (interface)");
   }
-
+  
 }

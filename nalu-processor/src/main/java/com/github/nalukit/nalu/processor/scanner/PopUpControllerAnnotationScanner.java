@@ -245,8 +245,6 @@ public class PopUpControllerAnnotationScanner {
     return result[0].toString();
   }
   
-
-
   public static class Builder {
     
     ProcessingEnvironment processingEnvironment;

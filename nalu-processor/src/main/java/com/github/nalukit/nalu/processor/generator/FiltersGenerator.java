@@ -26,44 +26,44 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 
 public class FiltersGenerator {
-
+  
   private ProcessingEnvironment processingEnvironment;
-
+  
   private ProcessorUtils processorUtils;
-
+  
   private MetaModel metaModel;
-
+  
   private TypeSpec.Builder typeSpec;
-
+  
   @SuppressWarnings("unused")
   private FiltersGenerator() {
     super();
   }
-
+  
   private FiltersGenerator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
-    this.metaModel = builder.metaModel;
-    this.typeSpec = builder.typeSpec;
-
+    this.metaModel             = builder.metaModel;
+    this.typeSpec              = builder.typeSpec;
+    
     setUp();
   }
-
-  public static Builder builder() {
-    return new Builder();
-  }
-
+  
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-
+  
+  public static Builder builder() {
+    return new Builder();
+  }
+  
   void generate() {
     // method must always be created!
     MethodSpec.Builder loadFiltersMethod = MethodSpec.methodBuilder("loadFilters")
                                                      .addAnnotation(Override.class)
                                                      .addModifiers(Modifier.PUBLIC);
-
+    
     this.metaModel.getFilters()
                   .forEach(classNameModel -> loadFiltersMethod.addStatement("$T $L = new $T()",
                                                                             ClassName.get(classNameModel.getPackage(),
@@ -80,18 +80,18 @@ public class FiltersGenerator {
                                                               .addStatement("$T.get().logDetailed(\"AbstractApplication: filter >> $L << created\", 0)",
                                                                             ClassName.get(ClientLogger.class),
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName())));
-
+    
     typeSpec.addMethod(loadFiltersMethod.build());
   }
-
+  
   public static final class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     MetaModel metaModel;
-
+    
     TypeSpec.Builder typeSpec;
-
+    
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -102,7 +102,7 @@ public class FiltersGenerator {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -113,16 +113,16 @@ public class FiltersGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public FiltersGenerator build() {
       return new FiltersGenerator(this);
     }
-
+    
   }
-
+  
 }

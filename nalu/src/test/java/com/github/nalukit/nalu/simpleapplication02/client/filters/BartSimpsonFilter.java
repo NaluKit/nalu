@@ -21,7 +21,7 @@ import com.github.nalukit.nalu.simpleapplication02.client.NaluSimpleApplicationC
 
 public class BartSimpsonFilter
     extends AbstractFilter<NaluSimpleApplicationContext> {
-
+  
   @Override
   public boolean filter(String route,
                         String... params) {
@@ -33,16 +33,16 @@ public class BartSimpsonFilter
     }
     return true;
   }
-
+  
   @Override
   public String redirectTo() {
     return "/search";
   }
-
+  
   @Override
   public String[] parameters() {
     return new String[] { this.context.getSearchName(),
-                          this.context.getSearchCity() };
+        this.context.getSearchCity() };
   }
-
+  
 }

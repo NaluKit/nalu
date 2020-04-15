@@ -26,24 +26,24 @@ import org.gwtproject.event.shared.SimpleEventBus;
 @NaluInternalUse
 public abstract class AbstractControllerCreator<C extends IsContext>
     implements IsControllerCreator {
-
+  
   protected StringBuilder sb;
-
+  
   protected Router router;
-
+  
   protected C context;
-
+  
   protected SimpleEventBus eventBus;
-
+  
   public AbstractControllerCreator(Router router,
                                    C context,
                                    SimpleEventBus eventBus) {
     super();
-    this.router = router;
-    this.context = context;
+    this.router   = router;
+    this.context  = context;
     this.eventBus = eventBus;
   }
-
+  
   @Override
   public void logBindMethodCallToConsole(AbstractComponentController<?, ?, ?> controller,
                                          boolean isFinished) {
@@ -60,5 +60,5 @@ public abstract class AbstractControllerCreator<C extends IsContext>
                 .logDetailed(sb.toString(),
                              4);
   }
-
+  
 }

@@ -13,11 +13,11 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 @Selector("content")
 public class SelectorAnnotationOnAClass
     extends AbstractShell<MockContext> {
-
+  
   public SelectorAnnotationOnAClass() {
     super();
   }
-
+  
   /**
    * The ShellPresenter has to implemented this method, because the framework
    * can not do this. (It does not know, what to use).
@@ -27,7 +27,7 @@ public class SelectorAnnotationOnAClass
   @Override
   public void attachShell() {
   }
-
+  
   /**
    * The ShellPresenter has to implemented this method, because the framework
    * can not do this. (It does not know, what to use).
@@ -37,5 +37,5 @@ public class SelectorAnnotationOnAClass
   @Override
   public void detachShell() {
   }
-
+  
 }

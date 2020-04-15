@@ -15,9 +15,9 @@ import org.junit.jupiter.api.Test;
  * @version 1.0
  */
 public class RouterImplTest {
-
+  
   private RouterImpl router;
-
+  
   @BeforeEach
   void before() {
     this.router = new RouterImpl(Utils.createPlugin(true,
@@ -32,12 +32,12 @@ public class RouterImplTest {
                                  false,
                                  false);
   }
-
+  
   @AfterEach
   void after() {
     this.router = null;
   }
-
+  
   /**
    * Method: parse(String route) without parameter ("/MockShell")
    */
@@ -54,7 +54,7 @@ public class RouterImplTest {
     Assertions.assertEquals("/MockShell",
                             routeResult.getRoute());
   }
-
+  
   /**
    * Method: parse(String route) without parameter ("/textViewport/testRoute01")
    */
@@ -71,7 +71,7 @@ public class RouterImplTest {
     Assertions.assertEquals("/MockShell/testRoute01",
                             routeResult.getRoute());
   }
-
+  
   /**
    * Method: parse(String route) without parameter ("testRoute01")
    */
@@ -88,7 +88,7 @@ public class RouterImplTest {
     Assertions.assertEquals("/MockShell/testRoute01",
                             routeResult.getRoute());
   }
-
+  
   /**
    * Method: parse(String route) with one parameter ("/testRoute02/testParameter01")
    */
@@ -108,7 +108,7 @@ public class RouterImplTest {
                             routeResult.getParameterValues()
                                        .get(0));
   }
-
+  
   /**
    * Method: parse(String route) with one parameter ("/testRoute02/testParameter01/testParameter02")
    */
@@ -131,7 +131,7 @@ public class RouterImplTest {
                             routeResult.getParameterValues()
                                        .get(1));
   }
-
+  
   /**
    * Method: parse(String route) with one parameter ("/testRoute02//testParameter02")
    */
@@ -154,7 +154,7 @@ public class RouterImplTest {
                             routeResult.getParameterValues()
                                        .get(1));
   }
-
+  
   /**
    * Method: parse(String route) with one parameter ("testRoute02/testParameter01")
    */
@@ -174,7 +174,7 @@ public class RouterImplTest {
                             routeResult.getParameterValues()
                                        .get(0));
   }
-
+  
   /**
    * Method: parse(String route) with one parameter ("testRoute02/testParameter01/testParameter02")
    */
@@ -197,7 +197,7 @@ public class RouterImplTest {
                             routeResult.getParameterValues()
                                        .get(1));
   }
-
+  
   /**
    * Method: parse(String route) with one parameter ("testRoute02//testParameter02")
    */
@@ -220,7 +220,7 @@ public class RouterImplTest {
                             routeResult.getParameterValues()
                                        .get(1));
   }
-
+  
   /**
    * Method: parse(String route) with one parameter ("/testRoute03/testRoute04/testRoute05")
    */
@@ -237,7 +237,7 @@ public class RouterImplTest {
     Assertions.assertEquals("/MockShell/testRoute03/testRoute04/testRoute05",
                             routeResult.getRoute());
   }
-
+  
   /**
    * Method: parse(String route) with one parameter ("/testRoute03/testRoute04/testRoute05")
    */
@@ -254,7 +254,7 @@ public class RouterImplTest {
     Assertions.assertEquals("/MockShell/testRoute03/testRoute04/testRoute05",
                             routeResult.getRoute());
   }
-
+  
   /**
    * Method: parse(String route) with one parameter ("/testRoute03/testRoute04/testRoute05/testParameter01")
    */
@@ -268,7 +268,7 @@ public class RouterImplTest {
                               "no matching route found for route >>/MockShell/testRoute03/testRoute04/testRoute05/testParameter01<< --> Routing aborted!");
     }
   }
-
+  
   /**
    * Method: parse(String route) with one parameter ("/testRoute06/testRoute07/testParameter01/testParameter02")
    */
@@ -291,7 +291,7 @@ public class RouterImplTest {
                             routeResult.getParameterValues()
                                        .get(1));
   }
-
+  
   /**
    * Method: parse(String route) with one parameter ("/testRoute02/testParameter01/testParameter02")
    */
@@ -311,13 +311,13 @@ public class RouterImplTest {
                             routeResult.getParameterValues()
                                        .get(0));
   }
-
+  
   /**
    * Method: generate(String route, String... params)
    */
   @Test
   void testGenerateRoute01() {
-    String route = "MockShell/testRoute01";
+    String      route       = "MockShell/testRoute01";
     RouteResult routeResult = null;
     try {
       routeResult = this.router.parse(route);
@@ -328,13 +328,13 @@ public class RouterImplTest {
     Assertions.assertEquals(route,
                             generateRoute);
   }
-
+  
   /**
    * Method: generate(String route, String... params)
    */
   @Test
   void testGenerateRoute02() {
-    String route = "MockShell/testRoute02/testParameter01";
+    String      route       = "MockShell/testRoute02/testParameter01";
     RouteResult routeResult = null;
     try {
       routeResult = this.router.parse(route);
@@ -347,13 +347,13 @@ public class RouterImplTest {
     Assertions.assertEquals(route + "/",
                             generateRoute);
   }
-
+  
   /**
    * Method: generate(String route, String... params)
    */
   @Test
   void testGenerateRoute03() {
-    String route = "MockShell/testRoute02/testParameter01/testParameter02";
+    String      route       = "MockShell/testRoute02/testParameter01/testParameter02";
     RouteResult routeResult = null;
     try {
       routeResult = this.router.parse(route);
@@ -366,13 +366,13 @@ public class RouterImplTest {
     Assertions.assertEquals(route,
                             generateRoute);
   }
-
+  
   /**
    * Method: generate(String route, String... params)
    */
   @Test
   void testGenerateRoute04() {
-    String route = "MockShell/testRoute02//testParameter02";
+    String      route       = "MockShell/testRoute02//testParameter02";
     RouteResult routeResult = null;
     try {
       routeResult = this.router.parse(route);
@@ -385,5 +385,5 @@ public class RouterImplTest {
     Assertions.assertEquals(route,
                             generateRoute);
   }
-
+  
 }

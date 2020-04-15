@@ -242,8 +242,6 @@ public class ErrorPopUpControllerAnnotationScanner {
     return Objects.isNull(result[0]) ? null : result[0].toString();
   }
   
-
-
   public static class Builder {
     
     ProcessingEnvironment processingEnvironment;

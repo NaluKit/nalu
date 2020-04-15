@@ -25,51 +25,51 @@ import com.squareup.javapoet.TypeSpec;
 import javax.lang.model.element.Modifier;
 
 public class PopUpControllerGenerator {
-
+  
   private MetaModel metaModel;
-
+  
   private TypeSpec.Builder typeSpec;
-
+  
   @SuppressWarnings("unused")
   private PopUpControllerGenerator() {
   }
-
+  
   private PopUpControllerGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
-    this.typeSpec = builder.typeSpec;
+    this.typeSpec  = builder.typeSpec;
   }
-
+  
   public static Builder builder() {
     return new Builder();
   }
-
+  
   void generate() {
     MethodSpec.Builder loadPopUpControllerFactoryMethodBuilder = MethodSpec.methodBuilder("loadPopUpControllerFactory")
                                                                            .addModifiers(Modifier.PUBLIC)
                                                                            .addAnnotation(Override.class);
     this.metaModel.getPopUpControllers()
                   .forEach(popUpControllerModel -> loadPopUpControllerFactoryMethodBuilder.addComment("create popUpControllerCreator for: " +
-                                                                                                    popUpControllerModel.getProvider()
-                                                                                         .getPackage() +
-                                                                                                    "." +
-                                                                                                    popUpControllerModel.getProvider()
-                                                                                         .getSimpleName())
-                                                                                        .addStatement("$T.get().registerPopUpController($S, new $L(router, context, eventBus))",
-                                                                       ClassName.get(PopUpControllerFactory.class),
-                                                                       popUpControllerModel.getName(),
-                                                                       ClassName.get(popUpControllerModel.getController()
-                                                                                                         .getPackage(),
-                                                                                     popUpControllerModel.getController()
-                                                                                                         .getSimpleName() + ProcessorConstants.CREATOR_IMPL)));
+                                                                                                      popUpControllerModel.getProvider()
+                                                                                                                          .getPackage() +
+                                                                                                      "." +
+                                                                                                      popUpControllerModel.getProvider()
+                                                                                                                          .getSimpleName())
+                                                                                          .addStatement("$T.get().registerPopUpController($S, new $L(router, context, eventBus))",
+                                                                                                        ClassName.get(PopUpControllerFactory.class),
+                                                                                                        popUpControllerModel.getName(),
+                                                                                                        ClassName.get(popUpControllerModel.getController()
+                                                                                                                                          .getPackage(),
+                                                                                                                      popUpControllerModel.getController()
+                                                                                                                                          .getSimpleName() + ProcessorConstants.CREATOR_IMPL)));
     typeSpec.addMethod(loadPopUpControllerFactoryMethodBuilder.build());
   }
-
+  
   public static final class Builder {
-
+    
     MetaModel metaModel;
-
+    
     TypeSpec.Builder typeSpec;
-
+    
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -80,7 +80,7 @@ public class PopUpControllerGenerator {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -91,11 +91,11 @@ public class PopUpControllerGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-
+    
     public PopUpControllerGenerator build() {
       return new PopUpControllerGenerator(this);
     }
-
+    
   }
-
+  
 }

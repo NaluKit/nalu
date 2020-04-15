@@ -25,22 +25,22 @@ import org.gwtproject.event.shared.SimpleEventBus;
 @NaluInternalUse
 public abstract class AbstractBlockControllerCreator<C extends IsContext>
     implements IsBlockControllerCreator {
-
+  
   protected StringBuilder sb;
-
+  
   protected Router router;
-
+  
   protected C context;
-
+  
   protected SimpleEventBus eventBus;
-
+  
   public AbstractBlockControllerCreator(Router router,
                                         C context,
                                         SimpleEventBus eventBus) {
     super();
-    this.router = router;
-    this.context = context;
+    this.router   = router;
+    this.context  = context;
     this.eventBus = eventBus;
   }
-
+  
 }

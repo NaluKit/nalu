@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 
 @FunctionalInterface
 public interface SelectorCommand {
-
+  
   void append(IsWidget widget);
-
+  
 }

@@ -25,21 +25,21 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
  */
 public interface IsModuleContext
     extends IsContext {
-
+  
   /**
    * Gets the application context
    *
    * @return application context
    */
   Context getContext();
-
+  
   /**
    * Gets the application context
    *
    * @return application context
    */
   Context getLocalContext();
-
+  
   /**
    * Sets the application context
    *
@@ -47,5 +47,5 @@ public interface IsModuleContext
    */
   @NaluInternalUse
   void setApplicationContext(Context context);
-
+  
 }

@@ -17,21 +17,21 @@
 package com.github.nalukit.nalu.processor.model.intern;
 
 public class PopUpControllerModel {
-
+  
   private String name;
-
+  
   private ClassNameModel context;
-
+  
   private ClassNameModel controller;
-
+  
   private ClassNameModel componentInterface;
-
+  
   private ClassNameModel component;
-
+  
   private ClassNameModel provider;
-
+  
   private boolean componentCreator;
-
+  
   public PopUpControllerModel(String name,
                               ClassNameModel context,
                               ClassNameModel controller,
@@ -39,69 +39,69 @@ public class PopUpControllerModel {
                               ClassNameModel component,
                               ClassNameModel provider,
                               boolean componentCreator) {
-    this.name = name;
-    this.context = context;
-    this.controller = controller;
+    this.name               = name;
+    this.context            = context;
+    this.controller         = controller;
     this.componentInterface = componentInterface;
-    this.component = component;
-    this.provider = provider;
-    this.componentCreator = componentCreator;
+    this.component          = component;
+    this.provider           = provider;
+    this.componentCreator   = componentCreator;
   }
-
+  
   public String getName() {
     return name;
   }
-
+  
   public void setName(String name) {
     this.name = name;
   }
-
+  
   public ClassNameModel getContext() {
     return context;
   }
-
+  
   public void setContext(ClassNameModel context) {
     this.context = context;
   }
-
+  
   public ClassNameModel getController() {
     return controller;
   }
-
+  
   public void setController(ClassNameModel controller) {
     this.controller = controller;
   }
-
+  
   public ClassNameModel getComponentInterface() {
     return componentInterface;
   }
-
+  
   public void setComponentInterface(ClassNameModel componentInterface) {
     this.componentInterface = componentInterface;
   }
-
+  
   public ClassNameModel getComponent() {
     return component;
   }
-
+  
   public void setComponent(ClassNameModel component) {
     this.component = component;
   }
-
+  
   public ClassNameModel getProvider() {
     return provider;
   }
-
+  
   public void setProvider(ClassNameModel provider) {
     this.provider = provider;
   }
-
+  
   public boolean isComponentCreator() {
     return componentCreator;
   }
-
+  
   public void setComponentCreator(boolean componentCreator) {
     this.componentCreator = componentCreator;
   }
-
+  
 }

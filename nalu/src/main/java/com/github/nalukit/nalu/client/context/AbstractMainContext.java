@@ -12,14 +12,14 @@ import com.github.nalukit.nalu.client.context.module.IsMainContext;
  */
 public abstract class AbstractMainContext
     implements IsMainContext {
-
+  
   /* application data store - available in main- and sub-modules */
   private Context context;
-
+  
   public AbstractMainContext() {
     this.context = new Context();
   }
-
+  
   /**
    * Gets the application context
    *
@@ -29,5 +29,5 @@ public abstract class AbstractMainContext
   public Context getContext() {
     return this.context;
   }
-
+  
 }

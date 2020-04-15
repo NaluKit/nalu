@@ -34,13 +34,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.ArrayType;
-import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.ErrorType;
-import javax.lang.model.type.MirroredTypeException;
-import javax.lang.model.type.PrimitiveType;
-import javax.lang.model.type.TypeMirror;
-import javax.lang.model.type.TypeVariable;
+import javax.lang.model.type.*;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,34 +42,34 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CompositeControllerAnnotationScanner {
-
+  
   private ProcessorUtils processorUtils;
-
+  
   private ProcessingEnvironment processingEnvironment;
-
+  
   private MetaModel metaModel;
-
+  
   private Element compositeElement;
-
+  
   @SuppressWarnings("unused")
   private CompositeControllerAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.metaModel = builder.metaModel;
-    this.compositeElement = builder.compositeElement;
+    this.metaModel             = builder.metaModel;
+    this.compositeElement      = builder.compositeElement;
     setUp();
   }
-
-  public static Builder builder() {
-    return new Builder();
-  }
-
+  
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-
+  
+  public static Builder builder() {
+    return new Builder();
+  }
+  
   public CompositeModel scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
     // handle CompositeController-annotation
@@ -89,7 +83,7 @@ public class CompositeControllerAnnotationScanner {
                   .add(compositeModel);
     return compositeModel;
   }
-
+  
   private CompositeModel handleComposite(Element element)
       throws ProcessorException {
     // get Annotation ...
@@ -100,7 +94,7 @@ public class CompositeControllerAnnotationScanner {
       throw new ProcessorException("Nalu-Processor: componentTypeElement is null");
     }
     TypeElement componentInterfaceTypeElement = this.getComponentInterfaceTypeElement(annotation);
-    TypeMirror componentTypeTypeMirror = this.getComponentType(element.asType());
+    TypeMirror  componentTypeTypeMirror       = this.getComponentType(element.asType());
     if (Objects.isNull(componentTypeTypeMirror)) {
       throw new ProcessorException("Nalu-Processor: componentTypeTypeMirror is null");
     }
@@ -132,54 +126,75 @@ public class CompositeControllerAnnotationScanner {
                               new ClassNameModel(componentTypeElement.toString()),
                               componentController);
   }
-
-  private String getContextType(Element element) {
+  
+  private TypeElement getComponentTypeElement(CompositeController annotation) {
+    try {
+      annotation.component();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
+  }
+  
+  private TypeElement getComponentInterfaceTypeElement(CompositeController annotation) {
+    try {
+      annotation.componentInterface();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
+  }
+  
+  private TypeMirror getComponentType(final TypeMirror typeMirror) {
     final TypeMirror[] result = { null };
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
-                                                                element.asType(),
+                                                                typeMirror,
                                                                 this.processorUtils.getElements()
                                                                                    .getTypeElement(AbstractCompositeController.class.getCanonicalName())
                                                                                    .asType());
-    // on case type is null, no IsComponentCreator interface found!
     if (type == null) {
       return null;
     }
-    // check the generic!
     type.accept(new SimpleTypeVisitor8<Void, Void>() {
+      
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
                     throw new UnsupportedOperationException();
                   }
-
+      
                   @Override
                   public Void visitPrimitive(PrimitiveType primitiveType,
                                              Void v) {
                     return null;
                   }
-
+      
                   @Override
                   public Void visitArray(ArrayType arrayType,
                                          Void v) {
                     return null;
                   }
-
+      
                   @Override
                   public Void visitDeclared(DeclaredType declaredType,
                                             Void v) {
                     List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
                     if (!typeArguments.isEmpty()) {
-                      result[0] = typeArguments.get(0);
+                      if (typeArguments.size() == 3) {
+                        result[0] = typeArguments.get(2);
+                      }
                     }
                     return null;
                   }
-
+      
                   @Override
                   public Void visitError(ErrorType errorType,
                                          Void v) {
                     return null;
                   }
-
+      
                   @Override
                   public Void visitTypeVariable(TypeVariable typeVariable,
                                                 Void v) {
@@ -187,9 +202,9 @@ public class CompositeControllerAnnotationScanner {
                   }
                 },
                 null);
-    return result[0].toString();
+    return result[0];
   }
-
+  
   private boolean checkIsComponentCreator(Element element,
                                           TypeElement componentInterfaceTypeElement)
       throws ProcessorException {
@@ -205,24 +220,25 @@ public class CompositeControllerAnnotationScanner {
     }
     // check the generic!
     type.accept(new SimpleTypeVisitor8<Void, Void>() {
+  
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
                     throw new UnsupportedOperationException();
                   }
-
+  
                   @Override
                   public Void visitPrimitive(PrimitiveType primitiveType,
                                              Void v) {
                     return null;
                   }
-
+  
                   @Override
                   public Void visitArray(ArrayType arrayType,
                                          Void v) {
                     return null;
                   }
-
+  
                   @Override
                   public Void visitDeclared(DeclaredType declaredType,
                                             Void v) {
@@ -234,13 +250,13 @@ public class CompositeControllerAnnotationScanner {
                     }
                     return null;
                   }
-
+  
                   @Override
                   public Void visitError(ErrorType errorType,
                                          Void v) {
                     return null;
                   }
-
+  
                   @Override
                   public Void visitTypeVariable(TypeVariable typeVariable,
                                                 Void v) {
@@ -255,7 +271,65 @@ public class CompositeControllerAnnotationScanner {
     }
     return true;
   }
-
+  
+  private String getContextType(Element element) {
+    final TypeMirror[] result = { null };
+    TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
+                                                                element.asType(),
+                                                                this.processorUtils.getElements()
+                                                                                   .getTypeElement(AbstractCompositeController.class.getCanonicalName())
+                                                                                   .asType());
+    // on case type is null, no IsComponentCreator interface found!
+    if (type == null) {
+      return null;
+    }
+    // check the generic!
+    type.accept(new SimpleTypeVisitor8<Void, Void>() {
+  
+                  @Override
+                  protected Void defaultAction(TypeMirror typeMirror,
+                                               Void v) {
+                    throw new UnsupportedOperationException();
+                  }
+  
+                  @Override
+                  public Void visitPrimitive(PrimitiveType primitiveType,
+                                             Void v) {
+                    return null;
+                  }
+  
+                  @Override
+                  public Void visitArray(ArrayType arrayType,
+                                         Void v) {
+                    return null;
+                  }
+  
+                  @Override
+                  public Void visitDeclared(DeclaredType declaredType,
+                                            Void v) {
+                    List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
+                    if (!typeArguments.isEmpty()) {
+                      result[0] = typeArguments.get(0);
+                    }
+                    return null;
+                  }
+  
+                  @Override
+                  public Void visitError(ErrorType errorType,
+                                         Void v) {
+                    return null;
+                  }
+  
+                  @Override
+                  public Void visitTypeVariable(TypeVariable typeVariable,
+                                                Void v) {
+                    return null;
+                  }
+                },
+                null);
+    return result[0].toString();
+  }
+  
   private void handleAcceptParameters(RoundEnvironment roundEnvironment,
                                       Element element,
                                       CompositeModel splitterModel)
@@ -278,91 +352,14 @@ public class CompositeControllerAnnotationScanner {
     // add to ControllerModel ...
     for (Element annotatedElement : annotatedElements) {
       ExecutableElement executableElement = (ExecutableElement) annotatedElement;
-      AcceptParameter annotation = executableElement.getAnnotation(AcceptParameter.class);
+      AcceptParameter   annotation        = executableElement.getAnnotation(AcceptParameter.class);
       splitterModel.getParameterAcceptors()
                    .add(new ParameterAcceptor(annotation.value(),
                                               executableElement.getSimpleName()
                                                                .toString()));
     }
   }
-
-  private TypeElement getComponentTypeElement(CompositeController annotation) {
-    try {
-      annotation.component();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
-    }
-    return null;
-  }
-
-  private TypeElement getComponentInterfaceTypeElement(CompositeController annotation) {
-    try {
-      annotation.componentInterface();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
-    }
-    return null;
-  }
-
-  private TypeMirror getComponentType(final TypeMirror typeMirror) {
-    final TypeMirror[] result = { null };
-    TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
-                                                                typeMirror,
-                                                                this.processorUtils.getElements()
-                                                                                   .getTypeElement(AbstractCompositeController.class.getCanonicalName())
-                                                                                   .asType());
-    if (type == null) {
-      return null;
-    }
-    type.accept(new SimpleTypeVisitor8<Void, Void>() {
-                  @Override
-                  protected Void defaultAction(TypeMirror typeMirror,
-                                               Void v) {
-                    throw new UnsupportedOperationException();
-                  }
-
-                  @Override
-                  public Void visitPrimitive(PrimitiveType primitiveType,
-                                             Void v) {
-                    return null;
-                  }
-
-                  @Override
-                  public Void visitArray(ArrayType arrayType,
-                                         Void v) {
-                    return null;
-                  }
-
-                  @Override
-                  public Void visitDeclared(DeclaredType declaredType,
-                                            Void v) {
-                    List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
-                    if (!typeArguments.isEmpty()) {
-                      if (typeArguments.size() == 3) {
-                        result[0] = typeArguments.get(2);
-                      }
-                    }
-                    return null;
-                  }
-
-                  @Override
-                  public Void visitError(ErrorType errorType,
-                                         Void v) {
-                    return null;
-                  }
-
-                  @Override
-                  public Void visitTypeVariable(TypeVariable typeVariable,
-                                                Void v) {
-                    return null;
-                  }
-                },
-                null);
-    return result[0];
-  }
-
+  
   private List<ControllerModel> getControllerUsingComposite(Element element) {
     List<ControllerModel> models = new ArrayList<>();
     this.metaModel.getControllers()
@@ -375,34 +372,34 @@ public class CompositeControllerAnnotationScanner {
                                                                            .collect(Collectors.toList())));
     return models;
   }
-
+  
   public static class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     MetaModel metaModel;
-
+    
     Element compositeElement;
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     public Builder compositeElement(Element compositeElement) {
       this.compositeElement = compositeElement;
       return this;
     }
-
+    
     public CompositeControllerAnnotationScanner build() {
       return new CompositeControllerAnnotationScanner(this);
     }
-
+    
   }
-
+  
 }

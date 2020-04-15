@@ -119,6 +119,7 @@ public class ControllerCreatorGenerator {
                                           .addStatement("$T controllerInstance = new $T()",
                                                         ClassName.get(ControllerInstance.class),
                                                         ClassName.get(ControllerInstance.class))
+                                          .addStatement("controllerInstance.setControllerCreator(this)")
                                           .addStatement("controllerInstance.setControllerClassName($S)",
                                                         controllerModel.getController()
                                                                        .getClassName())
@@ -177,7 +178,7 @@ public class ControllerCreatorGenerator {
                                           .addParameter(ParameterSpec.builder(ClassName.get(Object.class),
                                                                               "object")
                                                                      .build())
-                                         .addParameter(ParameterSpec.builder(ClassName.get(String.class),
+                                          .addParameter(ParameterSpec.builder(ClassName.get(String.class),
                                                                               "route")
                                                                      .build())
                                           .addException(ClassName.get(RoutingInterceptionException.class))
@@ -298,8 +299,6 @@ public class ControllerCreatorGenerator {
     return method.build();
   }
   
-
-
   public static final class Builder {
     
     MetaModel metaModel;

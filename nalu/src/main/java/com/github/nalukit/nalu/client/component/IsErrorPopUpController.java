@@ -17,7 +17,7 @@
 package com.github.nalukit.nalu.client.component;
 
 public interface IsErrorPopUpController<V> {
-
+  
   void setComponent(V component);
-
+  
 }

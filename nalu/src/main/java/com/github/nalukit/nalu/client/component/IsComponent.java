@@ -17,25 +17,25 @@
 package com.github.nalukit.nalu.client.component;
 
 public interface IsComponent<C extends IsComponent.Controller, W> {
-
+  
   W asElement();
-
+  
   void render();
-
+  
   void bind();
-
+  
   C getController();
-
+  
   void setController(C controller);
-
+  
   void onAttach();
-
+  
   void onDetach();
-
+  
   void removeHandlers();
-
+  
   interface Controller {
-
+  
   }
-
+  
 }

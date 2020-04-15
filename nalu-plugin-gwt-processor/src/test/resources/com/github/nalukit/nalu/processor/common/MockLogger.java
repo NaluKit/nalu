@@ -24,12 +24,13 @@ import com.github.nalukit.nalu.client.application.IsLogger;
  */
 public class MockLogger
     implements IsLogger {
-
+  
   static final String INDENT = "    ";
-
+  
   public void log(String message,
                   int depth) {
     // we do nothing!
   }
+  
 }
 

@@ -59,9 +59,9 @@ public @interface Controller {
    * @return defines the slot to be used to present the component
    */
   String selector();
-
+  
   Class<? extends IsComponent<?, ?>> componentInterface();
-
+  
   Class<? extends AbstractComponent<?, ?>> component();
-
+  
 }

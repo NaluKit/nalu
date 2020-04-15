@@ -45,14 +45,14 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Module {
-
+  
   /**
    * Name of the module
    *
    * @return return the name of the module
    */
   String name();
-
+  
   /**
    * The context of the module. it can be compared to the session of the server side.
    * Use the context to store application and module data.
@@ -60,5 +60,5 @@ public @interface Module {
    * @return application context
    */
   Class<? extends IsModuleContext> context();
-
+  
 }

@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class NaluTest {
-
+  
   @Test
   void getVersion() {
     Assertions.assertEquals("2.1.0-SNAPSHOT",
                             Nalu.getVersion());
   }
-
+  
   @Test
   void hasHistory01() {
     PropertyFactory.get()
@@ -22,7 +22,7 @@ public class NaluTest {
                              false);
     Assertions.assertTrue(Nalu.hasHistory());
   }
-
+  
   @Test
   void hasHistory02() {
     PropertyFactory.get()
@@ -33,7 +33,7 @@ public class NaluTest {
                              false);
     Assertions.assertFalse(Nalu.hasHistory());
   }
-
+  
   @Test
   void isUsingHash01() {
     PropertyFactory.get()
@@ -44,7 +44,7 @@ public class NaluTest {
                              false);
     Assertions.assertTrue(Nalu.isUsingHash());
   }
-
+  
   @Test
   void isUsingHash02() {
     PropertyFactory.get()
@@ -55,7 +55,7 @@ public class NaluTest {
                              false);
     Assertions.assertFalse(Nalu.isUsingHash());
   }
-
+  
   @Test
   void isUsingColonForParametersInUrl01() {
     PropertyFactory.get()
@@ -66,7 +66,7 @@ public class NaluTest {
                              false);
     Assertions.assertTrue(Nalu.isUsingColonForParametersInUrl());
   }
-
+  
   @Test
   void isUsingColonForParametersInUrl02() {
     PropertyFactory.get()
@@ -77,5 +77,5 @@ public class NaluTest {
                              false);
     Assertions.assertFalse(Nalu.isUsingColonForParametersInUrl());
   }
-
+  
 }

@@ -28,7 +28,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class DebugTest {
-
+  
   @Test
   void testDebugAnnotationOnAMethod() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -38,7 +38,7 @@ public class DebugTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("@Debug can only be used on a type (interface)");
   }
-
+  
   @Test
   void testDebugAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -48,7 +48,7 @@ public class DebugTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Debug can only be used on a type (interface)");
   }
-
+  
   @Test
   void testDebugAnnotationWithoutExtendsIsApplication() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -58,7 +58,7 @@ public class DebugTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Debug can only be used on interfaces that extends IsApplication");
   }
-
+  
   @Test
   void testDebugAnnotationOnClassWithoutApplicationAnnotation() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -68,5 +68,5 @@ public class DebugTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Debug can only be used with an interfaces annotated with @Application");
   }
-
+  
 }

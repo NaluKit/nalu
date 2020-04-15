@@ -19,9 +19,9 @@ package com.github.nalukit.nalu.client.component;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public interface IsBlockComponentController<V> {
-
+  
   void setComponent(V component);
-
+  
   /**
    * Shows the block
    *
@@ -29,7 +29,7 @@ public interface IsBlockComponentController<V> {
    */
   @NaluInternalUse
   void show();
-
+  
   /**
    * hides the block
    *
@@ -37,16 +37,16 @@ public interface IsBlockComponentController<V> {
    */
   @NaluInternalUse
   void hide();
-
+  
   void onBeforeShow();
-
+  
   void onBeforeHide();
-
+  
   /**
    * Add the element to the root element
    */
   void append();
-
+  
   //  /**
   //   * Method is called during onAttach.
   //   * Nalu uses the method to call the onAttach-method of the component.
@@ -143,5 +143,5 @@ public interface IsBlockComponentController<V> {
   //    void continueLoading();
   //
   //  }
-
+  
 }

@@ -20,43 +20,43 @@ package com.github.nalukit.nalu.processor.model.intern;
  * Model of the Module annotation.
  */
 public class ModuleModel {
-
+  
   private String name;
-
+  
   private ClassNameModel module;
-
+  
   private ClassNameModel moduleContext;
-
+  
   public ModuleModel(String name,
                      ClassNameModel module,
                      ClassNameModel moduleContext) {
-    this.name = name;
-    this.module = module;
+    this.name          = name;
+    this.module        = module;
     this.moduleContext = moduleContext;
   }
-
+  
   public String getName() {
     return name;
   }
-
+  
   public void setName(String name) {
     this.name = name;
   }
-
+  
   public ClassNameModel getModule() {
     return module;
   }
-
+  
   public void setModule(ClassNameModel module) {
     this.module = module;
   }
-
+  
   public ClassNameModel getModuleContext() {
     return moduleContext;
   }
-
+  
   public void setModuleContext(ClassNameModel moduleContext) {
     this.moduleContext = moduleContext;
   }
-
+  
 }

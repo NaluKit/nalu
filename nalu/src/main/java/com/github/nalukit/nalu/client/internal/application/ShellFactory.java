@@ -24,35 +24,35 @@ import java.util.Map;
 
 @NaluInternalUse
 public class ShellFactory {
-
+  
   /* instance of the controller factory */
   private static ShellFactory instance;
-
+  
   /* map of components (key: name of class, Value: ShellCreator */
   private Map<String, IsShellCreator> shellFactory;
-
+  
   private ShellFactory() {
     this.shellFactory = new HashMap<>();
   }
-
+  
   public static ShellFactory get() {
     if (instance == null) {
       instance = new ShellFactory();
     }
     return instance;
   }
-
+  
   public void registerShell(String shellName,
                             IsShellCreator creator) {
     this.shellFactory.put(shellName,
                           creator);
   }
-
+  
   public void shell(String shellName,
                     ShellCallback callback) {
     if (this.shellFactory.containsKey(shellName)) {
-      IsShellCreator shellCreator = this.shellFactory.get(shellName);
-      ShellInstance shellInstance = shellCreator.create();
+      IsShellCreator shellCreator  = this.shellFactory.get(shellName);
+      ShellInstance  shellInstance = shellCreator.create();
       shellCreator.logBindMethodCallToConsole(shellInstance.getShell(),
                                               false);
       try {
@@ -74,5 +74,5 @@ public class ShellFactory {
       callback.onShellNotFound();
     }
   }
-
+  
 }

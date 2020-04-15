@@ -20,7 +20,8 @@ import com.github.nalukit.nalu.client.context.IsContext;
 
 public class MockContext
     implements IsContext {
-
+  
   public MockContext() {
   }
+  
 }

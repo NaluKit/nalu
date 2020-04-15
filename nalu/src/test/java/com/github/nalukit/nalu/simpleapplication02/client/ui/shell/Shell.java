@@ -21,20 +21,20 @@ import com.github.nalukit.nalu.simpleapplication02.client.NaluSimpleApplicationC
 
 public class Shell
     extends AbstractShell<NaluSimpleApplicationContext> {
-
+  
   public Shell() {
   }
-
+  
   @Override
   public void attachShell() {
   }
-
+  
   @Override
   public void detachShell() {
   }
-
+  
   @Override
   public void onAttachedComponent() {
   }
-
+  
 }

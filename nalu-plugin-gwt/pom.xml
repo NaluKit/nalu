@@ -116,13 +116,13 @@
       <artifactId>elemental2-dom</artifactId>
       <version>${elemental2.version}</version>
     </dependency>
-     <!-- gwt-events: once it is on maven central, use it!
-    <dependency>
-      <groupId>org.gwtproject.event</groupId>
-      <artifactId>gwt-event</artifactId>
-      <version>${gwt-events.version}</version>
-    </dependency>
-    -->
+    <!-- gwt-events: once it is on maven central, use it!
+   <dependency>
+     <groupId>org.gwtproject.event</groupId>
+     <artifactId>gwt-event</artifactId>
+     <version>${gwt-events.version}</version>
+   </dependency>
+   -->
   </dependencies>
 
 
@@ -191,10 +191,10 @@
 
 
   <!--<repositories>-->
-    <!--<repository>-->
-      <!--<id>${vertispan.snapshot.repo.id}</id>-->
-      <!--<name>${vertispan.snapshot.repo.name}</name>-->
-      <!--<url>${vertispan.snapshot.repo.url}</url>-->
-    <!--</repository>-->
+  <!--<repository>-->
+  <!--<id>${vertispan.snapshot.repo.id}</id>-->
+  <!--<name>${vertispan.snapshot.repo.name}</name>-->
+  <!--<url>${vertispan.snapshot.repo.url}</url>-->
+  <!--</repository>-->
   <!--</repositories>-->
 </project>

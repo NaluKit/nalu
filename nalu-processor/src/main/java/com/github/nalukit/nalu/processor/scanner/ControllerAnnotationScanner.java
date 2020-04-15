@@ -36,19 +36,18 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.*;
 import javax.lang.model.util.SimpleTypeVisitor8;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ControllerAnnotationScanner {
   
-  private ProcessorUtils processorUtils;
-  
   private final ProcessingEnvironment processingEnvironment;
-  
-  private final MetaModel metaModel;
-  
-  private final Element controllerElement;
+  private final MetaModel             metaModel;
+  private final Element               controllerElement;
+  private       ProcessorUtils        processorUtils;
   
   @SuppressWarnings("unused")
   private ControllerAnnotationScanner(Builder builder) {
@@ -94,7 +93,7 @@ public class ControllerAnnotationScanner {
     if (componentInterfaceTypeElement == null) {
       throw new ProcessorException("Nalu-Processor: @Controller - componentInterfaceTypeElement is null");
     }
-    TypeMirror  componentTypeTypeMirror       = this.getComponentType(controllerElement.asType());
+    TypeMirror componentTypeTypeMirror = this.getComponentType(controllerElement.asType());
     // check and save the component type ...
     if (metaModel.getComponentType() == null) {
       metaModel.setComponentType(new ClassNameModel(componentTypeTypeMirror.toString()));
@@ -385,11 +384,11 @@ public class ControllerAnnotationScanner {
   
   private List<String> getParametersFromRoute(String[] routes) {
     return Stream.of(routes[0].split("/"))
-                                           .collect(Collectors.toList())
-                                           .stream()
-                                           .filter(s -> s.startsWith(":"))
-                                           .map(p -> p.substring(1))
-                                           .collect(Collectors.toList());
+                 .collect(Collectors.toList())
+                 .stream()
+                 .filter(s -> s.startsWith(":"))
+                 .map(p -> p.substring(1))
+                 .collect(Collectors.toList());
   }
   
   public static class Builder {

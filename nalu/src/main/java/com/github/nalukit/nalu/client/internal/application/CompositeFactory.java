@@ -26,9 +26,9 @@ import java.util.Objects;
 
 @NaluInternalUse
 public class CompositeFactory {
-
+  
   private final static String DELIMITER = "<<||>>";
-
+  
   /* instance of the controller factory */
   private static CompositeFactory                                  instance;
   /* map of components (key: name of class, Value: ControllerCreator */
@@ -37,26 +37,26 @@ public class CompositeFactory {
   private        Map<String, AbstractCompositeController<?, ?, ?>> compositeControllerStore;
   /* list of global cached composites */
   private        Map<String, CompositeInstance>                    cachedGlobalCompositeInstances;
-
+  
   private CompositeFactory() {
-    this.compositeCreatorFactory = new HashMap<>();
-    this.compositeControllerStore = new HashMap<>();
+    this.compositeCreatorFactory        = new HashMap<>();
+    this.compositeControllerStore       = new HashMap<>();
     this.cachedGlobalCompositeInstances = new HashMap<>();
   }
-
+  
   public static CompositeFactory get() {
     if (instance == null) {
       instance = new CompositeFactory();
     }
     return instance;
   }
-
+  
   public void registerComposite(String controller,
                                 IsCompositeCreator creator) {
     this.compositeCreatorFactory.put(controller,
                                      creator);
   }
-
+  
   public CompositeInstance getComposite(String parentControllerClassName,
                                         String compositeControllerClassName,
                                         boolean scopeGlobal,
@@ -70,8 +70,8 @@ public class CompositeFactory {
     }
     // ok, global cache is empty ... create it!
     if (this.compositeCreatorFactory.containsKey(compositeControllerClassName)) {
-      IsCompositeCreator compositeCreator = this.compositeCreatorFactory.get(compositeControllerClassName);
-      CompositeInstance compositeInstance = compositeCreator.create(parentControllerClassName);
+      IsCompositeCreator compositeCreator  = this.compositeCreatorFactory.get(compositeControllerClassName);
+      CompositeInstance  compositeInstance = compositeCreator.create(parentControllerClassName);
       if (scopeGlobal) {
         // oh ... global scope! store the compositeInstance
         compositeInstance.setCached(true);
@@ -86,14 +86,24 @@ public class CompositeFactory {
     }
     return null;
   }
-
+  
   public AbstractCompositeController<?, ?, ?> getCompositeFormStore(String parentControllerClassName,
                                                                     String controllerClassName) {
     String key = this.createKey(parentControllerClassName,
                                 controllerClassName);
     return this.compositeControllerStore.get(key);
   }
-
+  
+  private String createKey(String parentClassName,
+                           String compositeClassName) {
+    return this.classFormatter(parentClassName) + CompositeFactory.DELIMITER + this.classFormatter(compositeClassName);
+  }
+  
+  private String classFormatter(String className) {
+    return className.replace(".",
+                             "_");
+  }
+  
   public <C extends AbstractCompositeController<?, ?, ?>> void storeInCache(C controller) {
     String key = this.createKey(controller.getParentClassName(),
                                 controller.getClass()
@@ -101,26 +111,16 @@ public class CompositeFactory {
     this.compositeControllerStore.put(key,
                                       controller);
   }
-
+  
   public <C extends AbstractCompositeController<?, ?, ?>> void removeFromCache(C controller) {
     String key = this.createKey(controller.getParentClassName(),
                                 controller.getClass()
                                           .getCanonicalName());
     this.compositeControllerStore.remove(key);
   }
-
+  
   public void clearControllerCache() {
     this.compositeControllerStore.clear();
   }
-
-  private String createKey(String parentClassName,
-                           String compositeClassName) {
-    return this.classFormatter(parentClassName) + CompositeFactory.DELIMITER + this.classFormatter(compositeClassName);
-  }
-
-  private String classFormatter(String className) {
-    return className.replace(".",
-                             "_");
-  }
-
+  
 }

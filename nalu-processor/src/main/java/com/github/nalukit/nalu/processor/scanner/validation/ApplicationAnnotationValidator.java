@@ -25,33 +25,33 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
 public class ApplicationAnnotationValidator {
-
+  
   private ProcessorUtils processorUtils;
-
+  
   private ProcessingEnvironment processingEnvironment;
-
+  
   private Element applicationElement;
-
+  
   @SuppressWarnings("unused")
   private ApplicationAnnotationValidator() {
   }
-
+  
   private ApplicationAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
-    this.applicationElement = builder.applicationElement;
+    this.applicationElement    = builder.applicationElement;
     setUp();
   }
-
-  public static Builder builder() {
-    return new Builder();
-  }
-
+  
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-
+  
+  public static Builder builder() {
+    return new Builder();
+  }
+  
   public void validate()
       throws ProcessorException {
     if (this.applicationElement instanceof TypeElement) {
@@ -82,27 +82,27 @@ public class ApplicationAnnotationValidator {
       throw new ProcessorException("Nalu-Processor:" + "@Application can only be used on a type (interface)");
     }
   }
-
+  
   public static final class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     Element applicationElement;
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public Builder applicationElement(Element applicationElement) {
       this.applicationElement = applicationElement;
       return this;
     }
-
+    
     public ApplicationAnnotationValidator build() {
       return new ApplicationAnnotationValidator(this);
     }
-
+    
   }
-
+  
 }

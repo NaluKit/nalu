@@ -23,35 +23,35 @@ import com.github.nalukit.nalu.client.context.IsContext;
  */
 public class NaluSimpleApplicationContext
     implements IsContext {
-
+  
   private String version;
-
+  
   private String searchName;
-
+  
   private String searchCity;
-
+  
   public NaluSimpleApplicationContext() {
     this.version = "2.1.0-SNAPSHOT";
   }
-
+  
   public String getVersion() {
     return version;
   }
-
+  
   public String getSearchCity() {
     return searchCity;
   }
-
+  
   public void setSearchCity(String searchCity) {
     this.searchCity = searchCity;
   }
-
+  
   public String getSearchName() {
     return searchName;
   }
-
+  
   public void setSearchName(String searchName) {
     this.searchName = searchName;
   }
-
+  
 }

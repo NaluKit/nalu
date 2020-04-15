@@ -25,13 +25,13 @@ import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import java.util.List;
 
 public interface IsModule<C extends IsModuleContext> {
-
+  
   void loadModule(RouterConfiguration routeConfiguration);
-
+  
   List<ShellConfig> getShellConfigs();
-
+  
   List<RouteConfig> getRouteConfigs();
-
+  
   List<CompositeControllerReference> getCompositeReferences();
-
+  
 }

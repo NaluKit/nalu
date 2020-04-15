@@ -17,7 +17,7 @@
 package com.github.nalukit.nalu.simpleapplication01.client.ui;
 
 public class UiUtils {
-
+  
   public static void setUButton(String buttonElement) {
     //    buttonElement.style.width = CSSProperties.WidthUnionType.of("112px");
     //    buttonElement.style.height = CSSProperties.HeightUnionType.of("36px");
@@ -30,7 +30,7 @@ public class UiUtils {
     //    buttonElement.style.border = "2px solid darkgrey";
     //    buttonElement.style.margin = CSSProperties.MarginUnionType.of("6px 12px 6px 12px");
   }
-
+  
   public static void setUpNavigationButton(String buttonElement) {
     //    buttonElement.style.width = CSSProperties.WidthUnionType.of("188px");
     //    buttonElement.style.height = CSSProperties.HeightUnionType.of("36px");
@@ -43,7 +43,7 @@ public class UiUtils {
     //    buttonElement.style.border = "2px solid darkgrey";
     //    buttonElement.style.margin = CSSProperties.MarginUnionType.of("12px");
   }
-
+  
   public static void setUpHeadline(String headlineElement) {
     //    headlineElement.style.fontFamily = "arial, sans-serif";
     //    headlineElement.style.fontWeight = "bold";
@@ -51,5 +51,5 @@ public class UiUtils {
     //    headlineElement.style.fontSize = CSSProperties.FontSizeUnionType.of("24px");
     //    headlineElement.style.margin = CSSProperties.MarginUnionType.of("12px");
   }
-
+  
 }

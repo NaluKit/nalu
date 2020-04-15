@@ -17,20 +17,20 @@
 package com.github.nalukit.nalu.client.tracker;
 
 public interface IsTracker {
-
+  
   /**
    * Right after the instance is created, the bind-method is called.
    * R.e.: this method can be used to bind handler to the event bus.
    */
   void bind();
-
+  
   /**
    * Method is called to log a routing in case a new route is initiated.
    *
-   * @param route the new route
+   * @param route  the new route
    * @param params the parameters of the new route
    */
   void track(String route,
              String... params);
-
+  
 }

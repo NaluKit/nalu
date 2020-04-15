@@ -22,10 +22,10 @@ import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 @NaluInternalUse
 public final class NoCustomAlertPresenter
     implements IsCustomAlertPresenter {
-
+  
   @Override
   public void alert(String message) {
     // nothin to do here ... .
   }
-
+  
 }

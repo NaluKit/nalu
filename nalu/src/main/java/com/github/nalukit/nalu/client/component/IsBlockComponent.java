@@ -17,23 +17,23 @@
 package com.github.nalukit.nalu.client.component;
 
 public interface IsBlockComponent<C extends IsBlockComponent.Controller> {
-
+  
   void append();
-
+  
   void render();
-
+  
   void bind();
-
+  
   C getController();
-
+  
   void setController(C controller);
-
+  
   void show();
-
+  
   void hide();
-
+  
   interface Controller {
-
+  
   }
-
+  
 }

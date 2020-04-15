@@ -26,42 +26,42 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 
 public class HandlerGenerator {
-
+  
   private ProcessorUtils processorUtils;
-
+  
   private ProcessingEnvironment processingEnvironment;
-
+  
   private MetaModel metaModel;
-
+  
   private TypeSpec.Builder typeSpec;
-
+  
   @SuppressWarnings("unused")
   private HandlerGenerator() {
   }
-
+  
   private HandlerGenerator(Builder builder) {
-    this.metaModel = builder.metaModel;
+    this.metaModel             = builder.metaModel;
     this.processingEnvironment = builder.processingEnvironment;
-    this.typeSpec = builder.typeSpec;
+    this.typeSpec              = builder.typeSpec;
     setUp();
   }
-
-  public static Builder builder() {
-    return new Builder();
-  }
-
+  
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-
+  
+  public static Builder builder() {
+    return new Builder();
+  }
+  
   void generate() {
     // method must always be created!
     MethodSpec.Builder loadHandlersMethod = MethodSpec.methodBuilder("loadHandlers")
                                                       .addAnnotation(Override.class)
                                                       .addModifiers(Modifier.PUBLIC);
-
+    
     this.metaModel.getHandlers()
                   .forEach(handler -> {
                     String variableName = this.processorUtils.createFullClassName(handler.getPackage(),
@@ -85,23 +85,23 @@ public class HandlerGenerator {
                                                     ClassName.get(ClientLogger.class),
                                                     handler.getClassName());
                   });
-
+    
     typeSpec.addMethod(loadHandlersMethod.build());
   }
-
+  
   public static final class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     MetaModel metaModel;
-
+    
     TypeSpec.Builder typeSpec;
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -112,7 +112,7 @@ public class HandlerGenerator {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -123,11 +123,11 @@ public class HandlerGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-
+    
     public HandlerGenerator build() {
       return new HandlerGenerator(this);
     }
-
+    
   }
-
+  
 }

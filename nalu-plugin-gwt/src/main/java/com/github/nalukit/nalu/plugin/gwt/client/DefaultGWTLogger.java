@@ -24,9 +24,9 @@ import java.util.stream.IntStream;
 
 public class DefaultGWTLogger
     implements IsLogger {
-
+  
   static final String INDENT = "..";
-
+  
   @Override
   public void log(String message,
                   int depth) {
@@ -36,7 +36,7 @@ public class DefaultGWTLogger
                         depth));
     }
   }
-
+  
   private String createLog(String message,
                            int depth) {
     if (depth == 0) {
@@ -51,5 +51,5 @@ public class DefaultGWTLogger
       return "Nalu-Logger -> " + indent;
     }
   }
-
+  
 }

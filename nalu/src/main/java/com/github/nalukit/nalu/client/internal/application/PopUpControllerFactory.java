@@ -27,37 +27,37 @@ import java.util.Objects;
 
 @NaluInternalUse
 public class PopUpControllerFactory {
-
+  
   /* instance of the popup controller factory */
   private static PopUpControllerFactory instance;
-
+  
   /* map of components (key: name of class, Value: ControllerCreator */
   private Map<String, IsPopUpControllerCreator> creatorStore;
-
+  
   /* map of components (key: name of class, Value: controller instance */
   private Map<String, PopUpControllerInstance> popUpControllerStore;
-
+  
   /* Nalu event bus to catch the ShowPopUpEvents */
   private EventBus eventBus;
-
+  
   private PopUpControllerFactory() {
-    this.creatorStore = new HashMap<>();
+    this.creatorStore         = new HashMap<>();
     this.popUpControllerStore = new HashMap<>();
   }
-
+  
   public static PopUpControllerFactory get() {
     if (instance == null) {
       instance = new PopUpControllerFactory();
     }
     return instance;
   }
-
+  
   public void registerPopUpController(String popUpName,
                                       IsPopUpControllerCreator creator) {
     this.creatorStore.put(popUpName,
                           creator);
   }
-
+  
   public void register(EventBus eventBus) {
     this.eventBus = eventBus;
     if (!Objects.isNull(this.eventBus)) {
@@ -65,7 +65,7 @@ public class PopUpControllerFactory {
                                e -> onShowPopUp(e));
     }
   }
-
+  
   private void onShowPopUp(ShowPopUpEvent e) {
     StringBuilder sb = new StringBuilder();
     sb.append("PopUpControllerFactory: handle PopUpEvent for popup >>")
@@ -132,5 +132,5 @@ public class PopUpControllerFactory {
                 .logSimple("controller >>" + popUpComponentController.getPopUpControllerClassName() + "<< --> show called",
                            3);
   }
-
+  
 }

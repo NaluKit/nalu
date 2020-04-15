@@ -21,15 +21,15 @@ package org.gwtproject.event.shared;
  * @param <H> interface implemented by handlers of this kind of event
  */
 public abstract class Event<H> {
-
+  
   private Object source;
-
+  
   /**
    * Constructor.
    */
   protected Event() {
   }
-
+  
   /**
    * Returns the {@link Type} used to register this event, allowing an {@link EventBus} to find
    * handlers of the appropriate class.
@@ -37,7 +37,7 @@ public abstract class Event<H> {
    * @return the type
    */
   public abstract Type<H> getAssociatedType();
-
+  
   /**
    * Returns the source for this event. The type and meaning of the source is arbitrary, and is most
    * useful as a secondary key for handler registration. (See {@link EventBus#addHandlerToSource},
@@ -52,7 +52,7 @@ public abstract class Event<H> {
   public Object getSource() {
     return source;
   }
-
+  
   /**
    * Set the source that triggered this event. Intended to be called by the {@link EventBus} during
    * dispatch.
@@ -64,7 +64,7 @@ public abstract class Event<H> {
   protected void setSource(Object source) {
     this.source = source;
   }
-
+  
   /**
    * This is a method used primarily for debugging. It gives a string representation of the event
    * details. This does not override the toString method because the compiler cannot always optimize
@@ -78,7 +78,7 @@ public abstract class Event<H> {
     name = name.substring(name.lastIndexOf(".") + 1);
     return "event: " + name + ":";
   }
-
+  
   /**
    * The toString() for abstract event is overridden to avoid accidentally including class literals in
    * the compiled output. Use {@link Event} #toDebugString to get more information about the event.
@@ -87,7 +87,7 @@ public abstract class Event<H> {
   public String toString() {
     return "An event type";
   }
-
+  
   /**
    * Implemented by subclasses to to invoke their handlers in a type safe manner. Intended to be
    * called by {@link EventBus#fireEvent(Event)} or {@link EventBus#fireEventFromSource(Event,
@@ -97,35 +97,35 @@ public abstract class Event<H> {
    * @see EventBus#dispatchEvent(Event, Object)
    */
   protected abstract void dispatch(H handler);
-
+  
   /**
    * Type class used to register events with an {@link EventBus}.
    *
    * @param <H> handler type
    */
   public static class Type<H> {
-
+    
     private static int nextHashCode;
-
+    
     private final int index;
-
+    
     /**
      * Constructor.
      */
     public Type() {
       index = ++nextHashCode;
     }
-
+    
     @Override
     public final int hashCode() {
       return index;
     }
-
+    
     @Override
     public String toString() {
       return "Event type";
     }
-
+    
   }
-
+  
 }

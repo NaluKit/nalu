@@ -20,32 +20,28 @@ import com.github.nalukit.nalu.client.component.IsLoadCompositeCondition;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @NaluInternalUse
 public class ControllerCompositeConditionFactory {
-
+  
   /* instance of the controller factory */
   private static ControllerCompositeConditionFactory instance;
-
+  
   /* map of conditions (key: controller name, value: ConditionContainer)  */
   private Map<String, List<ConditionContainer>> conditionContainerMap;
-
+  
   private ControllerCompositeConditionFactory() {
     this.conditionContainerMap = new HashMap<>();
   }
-
+  
   public static ControllerCompositeConditionFactory get() {
     if (instance == null) {
       instance = new ControllerCompositeConditionFactory();
     }
     return instance;
   }
-
+  
   public void registerCondition(String controllerClassName,
                                 String compositeName,
                                 IsLoadCompositeCondition condition) {
@@ -60,21 +56,21 @@ public class ControllerCompositeConditionFactory {
                                                             condition));
     }
   }
-
+  
   /**
    * Will tell Nalu if the composite can be loaded or not!
    *
    * @param controllerClassName name of the controller containing the composites
    * @param compositeName       name of the composite which condition is requested
    * @param route               the route
-   * @param params               parameter (0 .. n)
+   * @param params              parameter (0 .. n)
    * @return true: load composite; false:  do not load composite
    */
   public boolean loadComposite(String controllerClassName,
                                String compositeName,
                                String route,
                                String... params) {
-    StringBuilder sb;
+    StringBuilder            sb;
     List<ConditionContainer> conditionContainers = this.conditionContainerMap.get(controllerClassName);
     if (Objects.isNull(conditionContainers)) {
       sb = new StringBuilder();
@@ -123,18 +119,18 @@ public class ControllerCompositeConditionFactory {
                            5);
     return false;
   }
-
+  
   static class ConditionContainer {
-
+    
     private String                   compositeName;
     private IsLoadCompositeCondition condition;
-
+    
     ConditionContainer(String compositeName,
                        IsLoadCompositeCondition condition) {
       this.compositeName = compositeName;
-      this.condition = condition;
+      this.condition     = condition;
     }
-
+    
   }
-
+  
 }

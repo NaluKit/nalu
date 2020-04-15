@@ -172,10 +172,10 @@
 
 
   <!--<repositories>-->
-    <!--<repository>-->
-      <!--<id>${vertispan.snapshot.repo.id}</id>-->
-      <!--<name>${vertispan.snapshot.repo.name}</name>-->
-      <!--<url>${vertispan.snapshot.repo.url}</url>-->
-    <!--</repository>-->
+  <!--<repository>-->
+  <!--<id>${vertispan.snapshot.repo.id}</id>-->
+  <!--<name>${vertispan.snapshot.repo.name}</name>-->
+  <!--<url>${vertispan.snapshot.repo.url}</url>-->
+  <!--</repository>-->
   <!--</repositories>-->
 </project>

@@ -28,6 +28,7 @@ public final class ControllerWithComposite01CreatorImpl extends AbstractControll
   public ControllerInstance create(String route) {
     StringBuilder sb01 = new StringBuilder();
     ControllerInstance controllerInstance = new ControllerInstance();
+    controllerInstance.setControllerCreator(this);
     controllerInstance.setControllerClassName("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01");
     AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01");
     if (storedController == null) {

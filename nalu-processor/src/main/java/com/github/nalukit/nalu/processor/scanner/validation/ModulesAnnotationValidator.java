@@ -24,30 +24,30 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
 public class ModulesAnnotationValidator {
-
+  
   private ProcessorUtils processorUtils;
-
+  
   private ProcessingEnvironment processingEnvironment;
-
+  
   @SuppressWarnings("unused")
   private ModulesAnnotationValidator() {
   }
-
+  
   private ModulesAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     setUp();
   }
-
-  public static Builder builder() {
-    return new Builder();
-  }
-
+  
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-
+  
+  public static Builder builder() {
+    return new Builder();
+  }
+  
   public void validate()
       throws ProcessorException {
     //    // get elements annotated with Application annotation
@@ -72,7 +72,7 @@ public class ModulesAnnotationValidator {
     //      }
     //    }
   }
-
+  
   public void validate(Element element)
       throws ProcessorException {
     if (element instanceof TypeElement) {
@@ -97,27 +97,27 @@ public class ModulesAnnotationValidator {
       throw new ProcessorException("Nalu-Processor:" + "@Modules can only be used on a type (interface)");
     }
   }
-
+  
   public static final class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     Element modulesElement;
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public Builder modulesElement(Element modulesElement) {
       this.modulesElement = modulesElement;
       return this;
     }
-
+    
     public ModulesAnnotationValidator build() {
       return new ModulesAnnotationValidator(this);
     }
-
+    
   }
-
+  
 }

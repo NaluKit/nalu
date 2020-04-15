@@ -22,17 +22,17 @@ import com.squareup.javapoet.TypeName;
 import java.util.Objects;
 
 public class ClassNameModel {
-
+  
   private String className;
-
+  
   public ClassNameModel(String className) {
     this.className = Objects.requireNonNull(className);
   }
-
+  
   public String getClassName() {
     return className;
   }
-
+  
   public TypeName getTypeName() {
     switch (className) {
       case "void":
@@ -87,26 +87,26 @@ public class ClassNameModel {
                              this.getSimpleName());
     }
   }
-
+  
   public String getPackage() {
     return className.contains(".") ? className.substring(0,
                                                          className.lastIndexOf(".")) : "";
   }
-
+  
   public String getSimpleName() {
     return className.contains(".") ? className.substring(className.lastIndexOf(".") + 1) : className;
   }
-
+  
   public String normalized() {
     return className.replace(".",
                              "_");
   }
-
+  
   @Override
   public int hashCode() {
     return Objects.hash(className);
   }
-
+  
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -119,5 +119,5 @@ public class ClassNameModel {
     return Objects.equals(className,
                           that.className);
   }
-
+  
 }

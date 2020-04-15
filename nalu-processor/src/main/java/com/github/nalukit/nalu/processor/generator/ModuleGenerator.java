@@ -485,8 +485,6 @@ public class ModuleGenerator {
                                          .equals(controllerModel.getProvider()));
   }
   
-
-
   public static final class Builder {
     
     MetaModel metaModel;

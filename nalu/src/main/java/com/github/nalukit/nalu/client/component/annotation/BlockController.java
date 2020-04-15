@@ -42,13 +42,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface BlockController {
-
+  
   String name();
-
+  
   Class<? extends IsBlockComponent<?>> componentInterface();
-
+  
   Class<? extends AbstractBlockComponent<?>> component();
-
+  
   /**
    * Conditional class to show the block depending on the return result
    * of the showBlock()-method.
@@ -60,5 +60,5 @@ public @interface BlockController {
    * @return the composite loader condition class
    */
   Class<? extends IsShowBlockCondition> condition() default AlwaysShowBlock.class;
-
+  
 }

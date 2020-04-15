@@ -21,13 +21,13 @@ import com.github.nalukit.nalu.client.component.AbstractComponent;
 public class NavigationComponent
     extends AbstractComponent<INavigationComponent.Controller, String>
     implements INavigationComponent {
-
+  
   //  private TreeItem searchItem;
   //  private TreeItem listItem;
-
+  
   public NavigationComponent() {
   }
-
+  
   @Override
   public void render() {
     //    this.searchItem = TreeItem.create("Search persons",
@@ -43,7 +43,7 @@ public class NavigationComponent
     //               .asElement();
     initElement("navigation");
   }
-
+  
   @Override
   public void select(String toString) {
     switch (toString) {
@@ -61,5 +61,5 @@ public class NavigationComponent
         break;
     }
   }
-
+  
 }

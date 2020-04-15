@@ -29,52 +29,46 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.ArrayType;
-import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.ErrorType;
-import javax.lang.model.type.MirroredTypeException;
-import javax.lang.model.type.PrimitiveType;
-import javax.lang.model.type.TypeMirror;
-import javax.lang.model.type.TypeVariable;
+import javax.lang.model.type.*;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import java.util.List;
 import java.util.Objects;
 
 public class BlockControllerAnnotationScanner {
-
+  
   private ProcessorUtils processorUtils;
-
+  
   private ProcessingEnvironment processingEnvironment;
-
+  
   private Element blockControllerElement;
-
+  
   @SuppressWarnings("unused")
   private BlockControllerAnnotationScanner() {
   }
-
+  
   //  @SuppressWarnings("unused")
   private BlockControllerAnnotationScanner(Builder builder) {
     super();
-    this.processingEnvironment = builder.processingEnvironment;
+    this.processingEnvironment  = builder.processingEnvironment;
     this.blockControllerElement = builder.blockControllerElement;
     setUp();
   }
-
-  public static Builder builder() {
-    return new Builder();
-  }
-
+  
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-
+  
+  public static Builder builder() {
+    return new Builder();
+  }
+  
   public BlockControllerModel scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
     return this.handleBlockController();
   }
-
+  
   private BlockControllerModel handleBlockController()
       throws ProcessorException {
     // get Annotation ...
@@ -107,74 +101,27 @@ public class BlockControllerAnnotationScanner {
                                     new ClassNameModel(Objects.requireNonNull(getConditionElement(annotation))
                                                               .toString()));
   }
-
-  private TypeElement getConditionElement(BlockController annotation) {
+  
+  private TypeElement getComponentTypeElement(BlockController annotation) {
     try {
-      annotation.condition();
+      annotation.component();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());
     }
     return null;
   }
-
-  private String getContextType(Element element) {
-    final TypeMirror[] result = { null };
-    TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
-                                                                element.asType(),
-                                                                this.processorUtils.getElements()
-                                                                                   .getTypeElement(AbstractBlockComponentController.class.getCanonicalName())
-                                                                                   .asType());
-    // on case type is null, no IsComponentCreator interface found!
-    if (type == null) {
-      return null;
+  
+  private TypeElement getComponentInterfaceTypeElement(BlockController annotation) {
+    try {
+      annotation.componentInterface();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
     }
-    // check the generic!
-    type.accept(new SimpleTypeVisitor8<Void, Void>() {
-                  @Override
-                  protected Void defaultAction(TypeMirror typeMirror,
-                                               Void v) {
-                    throw new UnsupportedOperationException();
-                  }
-
-                  @Override
-                  public Void visitPrimitive(PrimitiveType primitiveType,
-                                             Void v) {
-                    return null;
-                  }
-
-                  @Override
-                  public Void visitArray(ArrayType arrayType,
-                                         Void v) {
-                    return null;
-                  }
-
-                  @Override
-                  public Void visitDeclared(DeclaredType declaredType,
-                                            Void v) {
-                    List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
-                    if (!typeArguments.isEmpty()) {
-                      result[0] = typeArguments.get(0);
-                    }
-                    return null;
-                  }
-
-                  @Override
-                  public Void visitError(ErrorType errorType,
-                                         Void v) {
-                    return null;
-                  }
-
-                  @Override
-                  public Void visitTypeVariable(TypeVariable typeVariable,
-                                                Void v) {
-                    return null;
-                  }
-                },
-                null);
-    return result[0].toString();
+    return null;
   }
-
+  
   private boolean checkIsComponentCreator(Element element,
                                           TypeElement componentInterfaceTypeElement)
       throws ProcessorException {
@@ -190,24 +137,25 @@ public class BlockControllerAnnotationScanner {
     }
     // check the generic!
     type.accept(new SimpleTypeVisitor8<Void, Void>() {
+  
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
                     throw new UnsupportedOperationException();
                   }
-
+  
                   @Override
                   public Void visitPrimitive(PrimitiveType primitiveType,
                                              Void v) {
                     return null;
                   }
-
+  
                   @Override
                   public Void visitArray(ArrayType arrayType,
                                          Void v) {
                     return null;
                   }
-
+  
                   @Override
                   public Void visitDeclared(DeclaredType declaredType,
                                             Void v) {
@@ -219,13 +167,13 @@ public class BlockControllerAnnotationScanner {
                     }
                     return null;
                   }
-
+  
                   @Override
                   public Void visitError(ErrorType errorType,
                                          Void v) {
                     return null;
                   }
-
+  
                   @Override
                   public Void visitTypeVariable(TypeVariable typeVariable,
                                                 Void v) {
@@ -240,54 +188,102 @@ public class BlockControllerAnnotationScanner {
     }
     return true;
   }
-
-  private TypeElement getComponentTypeElement(BlockController annotation) {
+  
+  private String getContextType(Element element) {
+    final TypeMirror[] result = { null };
+    TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
+                                                                element.asType(),
+                                                                this.processorUtils.getElements()
+                                                                                   .getTypeElement(AbstractBlockComponentController.class.getCanonicalName())
+                                                                                   .asType());
+    // on case type is null, no IsComponentCreator interface found!
+    if (type == null) {
+      return null;
+    }
+    // check the generic!
+    type.accept(new SimpleTypeVisitor8<Void, Void>() {
+  
+                  @Override
+                  protected Void defaultAction(TypeMirror typeMirror,
+                                               Void v) {
+                    throw new UnsupportedOperationException();
+                  }
+  
+                  @Override
+                  public Void visitPrimitive(PrimitiveType primitiveType,
+                                             Void v) {
+                    return null;
+                  }
+  
+                  @Override
+                  public Void visitArray(ArrayType arrayType,
+                                         Void v) {
+                    return null;
+                  }
+  
+                  @Override
+                  public Void visitDeclared(DeclaredType declaredType,
+                                            Void v) {
+                    List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
+                    if (!typeArguments.isEmpty()) {
+                      result[0] = typeArguments.get(0);
+                    }
+                    return null;
+                  }
+  
+                  @Override
+                  public Void visitError(ErrorType errorType,
+                                         Void v) {
+                    return null;
+                  }
+  
+                  @Override
+                  public Void visitTypeVariable(TypeVariable typeVariable,
+                                                Void v) {
+                    return null;
+                  }
+                },
+                null);
+    return result[0].toString();
+  }
+  
+  private TypeElement getConditionElement(BlockController annotation) {
     try {
-      annotation.component();
+      annotation.condition();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());
     }
     return null;
   }
-
-  private TypeElement getComponentInterfaceTypeElement(BlockController annotation) {
-    try {
-      annotation.componentInterface();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
-    }
-    return null;
-  }
-
+  
   public static class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     MetaModel metaModel;
-
+    
     Element blockControllerElement;
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     public Builder blockControllerElement(Element blockControllerElement) {
       this.blockControllerElement = blockControllerElement;
       return this;
     }
-
+    
     public BlockControllerAnnotationScanner build() {
       return new BlockControllerAnnotationScanner(this);
     }
-
+    
   }
-
+  
 }
