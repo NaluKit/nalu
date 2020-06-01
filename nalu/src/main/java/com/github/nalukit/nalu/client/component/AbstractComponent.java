@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public abstract class AbstractComponent<C extends IsComponent.Controller, W>
     implements IsComponent<C, W> {
@@ -59,6 +60,7 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
   }
   
   @Override
+  @NaluInternalUse
   public void setController(C controller) {
     this.controller = controller;
   }

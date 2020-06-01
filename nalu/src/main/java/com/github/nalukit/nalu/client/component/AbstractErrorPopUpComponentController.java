@@ -58,7 +58,7 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
   }
   
   /**
-   * The method is called right after the isntace is created.
+   * The method is called right after the istance is created.
    * <p>
    * <b>DO NOT CALL OR OVERRIDE THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */

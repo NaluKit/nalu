@@ -125,6 +125,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
    * @param component instance fo the component
    */
   @Override
+  @NaluInternalUse
   public void setComponent(V component) {
     this.component = component;
   }

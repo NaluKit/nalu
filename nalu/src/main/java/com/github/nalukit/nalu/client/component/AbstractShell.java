@@ -20,6 +20,7 @@ import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractShell<C extends IsContext>
@@ -36,14 +37,17 @@ public abstract class AbstractShell<C extends IsContext>
   public AbstractShell() {
   }
   
+  @NaluInternalUse
   public void setRouter(Router router) {
     this.router = router;
   }
   
+  @NaluInternalUse
   public void setContext(C context) {
     this.context = context;
   }
   
+  @NaluInternalUse
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }

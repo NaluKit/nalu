@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 /**
  * Controllers marked with this interface will create the component instance.
  * This is useful, if you want to use Elemento templating or GWT.create to ensure,
@@ -32,6 +34,7 @@ package com.github.nalukit.nalu.client.component;
  */
 public interface IsComponentCreator<V extends IsComponent<?, ?>> {
   
+  @NaluInternalUse
   V createComponent();
   
 }

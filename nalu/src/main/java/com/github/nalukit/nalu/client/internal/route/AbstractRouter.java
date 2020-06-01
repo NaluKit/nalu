@@ -343,6 +343,9 @@ abstract class AbstractRouter
       this.loopDetectionList.add(pimpUpHashForLoopDetection(hash));
     }
     // parse hash ...
+  
+    // TODO LIste an routes
+    //  // TODO currentRoute
     RouteResult routeResult;
     try {
       routeResult = this.parse(hash);
@@ -422,85 +425,78 @@ abstract class AbstractRouter
     // in case shellCreator changed or is not set, use the actual shellCreator!
     if (!routeResult.getShell()
                     .equals(this.lastAddedShell)) {
-      // add shellCreator to the viewport
-      ShellConfig shellConfig = this.shellConfiguration.match(routeResult.getShell());
-      if (!Objects.isNull(shellConfig)) {
-        ShellFactory.get()
-                    .shell(shellConfig.getClassName(),
-                           new ShellCallback() {
-  
-                             @Override
-                             public void onFinish(ShellInstance shellInstance) {
-                               // in case there is an instance of an shellCreator existing, call the onDetach method inside the shellCreator
-                               if (!Objects.isNull(shell)) {
-                                 detachShell();
-                               }
-                               // set newe shellCreator value
-                               shell = shellInstance.getShell();
-                               // save the last added shellCreator ....
-                               lastAddedShell = routeResult.getShell();
-                               // initialize shellCreator ...
-                               ClientLogger.get()
-                                           .logDetailed("Router: attach shellCreator >>" + routeResult.getShell() + "<<",
-                                                        1);
-                               shellInstance.getShell()
-                                            .attachShell();
-                               ClientLogger.get()
-                                           .logDetailed("Router: shellCreator >>" + routeResult.getShell() + "<< attached",
-                                                        1);
-                               // start the application by calling url + '#'
-                               ClientLogger.get()
-                                           .logDetailed("Router: initialize shellCreator >>" + routeResult.getShell() + "<< (route to '/')",
-                                                        1);
-                               // get shellCreator matching root configs ...
-                               List<RouteConfig> shellMatchingRouteConfigurations = routerConfiguration.match(routeResult.getShell());
-                               for (RouteConfig routeConfiguration : shellMatchingRouteConfigurations) {
-                                 handleRouteConfig(routeConfiguration,
-                                                   routeResult,
-                                                   hash);
-                               }
-                               postProcessHandleRouting(hash,
-                                                        routeResult,
-                                                        routeConfigurations);
-                             }
-  
-                             private void detachShell() {
-                               ClientLogger.get()
-                                           .logDetailed("Router: detach shellCreator >>" +
-                                                        shell.getClass()
-                                                             .getCanonicalName() +
-                                                        "<<",
-                                                        1);
-                               shell.detachShell();
-                               ClientLogger.get()
-                                           .logDetailed("Router: shellCreator >>" +
-                                                        shell.getClass()
-                                                             .getCanonicalName() +
-                                                        "<< detached",
-                                                        1);
-                             }
-  
-                             @Override
-                             public void onShellNotFound() {
-                               eventBus.fireEvent(NaluErrorEvent.createNaluError()
-                                                                .errorId(NaluConstants.NALU_ERROR_SHELL_NOT_FOUND)
-                                                                .message("no shell found for route: >>" + shellConfig.getRoute() + "<<")
-                                                                .route(shellConfig.getRoute()));
-                             }
-  
-                             @Override
-                             public void onRoutingInterceptionException(RoutingInterceptionException e) {
-                               RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
-                                                                           e.getRoute(),
-                                                                           e.getParameter());
-                             }
-                           });
-      }
+      updateShell(hash,
+                  routeResult,
+                  routeConfigurations);
     } else {
       postProcessHandleRouting(hash,
                                routeResult,
                                routeConfigurations);
     }
+  }
+  
+  private void stopController(List<RouteConfig> routeConfigurations,
+                              boolean replaceShell) {
+    List<AbstractComponentController<?, ?, ?>> controllerList = new ArrayList<>();
+    if (replaceShell) {
+      controllerList.addAll(this.activeComponents.values()
+                                                 .stream()
+                                                 .map(ci -> ci.getController())
+                                                 .collect(Collectors.toList()));
+    } else {
+      controllerList.addAll(routeConfigurations.stream()
+                                               .map(config -> this.activeComponents.get(config.getSelector()))
+                                               .filter(Objects::nonNull)
+                                               .map(ControllerInstance::getController)
+                                               .collect(Collectors.toList()));
+      
+    }
+    controllerList.forEach(controller -> {
+      // stop controller
+      RouterLogger.logControllerHandlingStop(controller.getClass()
+                                                       .getCanonicalName());
+      RouterLogger.logControllerHandlingStopComposites(controller.getClass()
+                                                                 .getCanonicalName());
+      // check, if it is a redraw case
+      boolean handlingModeReuse = this.isHandlingModeReuse(controller);
+      RouterLogger.logControllerHandlingMode(controller.getClass()
+                                                       .getCanonicalName(),
+                                             handlingModeReuse);
+      // stop compositeControllers
+      controller.getComposites()
+                .values()
+                .forEach(s -> {
+                  if (controller.isCached() || handlingModeReuse) {
+                    deactivateCompositeController(controller,
+                                                  s);
+                  } else {
+                    if (s.isCached()) {
+                      deactivateCompositeController(controller,
+                                                    s);
+                    } else {
+                      stopCompositeController(controller,
+                                              s);
+                    }
+                  }
+                });
+      
+      RouterLogger.logControllerCompositesStopped(controller.getClass()
+                                                            .getCanonicalName());
+      if (controller.isCached() || handlingModeReuse) {
+        deactivateController(controller,
+                             handlingModeReuse);
+      } else {
+        stopController(controller);
+      }
+      // In case we have the same route and the redrawMode is set to 'REUSE'
+      // we should only deactivate the controller and not remove them ...
+      controllerList.stream()
+                    .filter(c -> !isHandlingModeReuse(c))
+                    .forEach(c -> {
+                      this.plugin.remove(c.getRelatedSelector());
+                      this.activeComponents.remove(c.getRelatedSelector());
+                    });
+    });
   }
   
   @Override
@@ -582,6 +578,85 @@ abstract class AbstractRouter
                                          .toArray(new String[0]));
   }
   
+  private void updateShell(String hash,
+                           RouteResult routeResult,
+                           List<RouteConfig> routeConfigurations) {
+    // add shellCreator to the viewport
+    ShellConfig shellConfig = this.shellConfiguration.match(routeResult.getShell());
+    if (!Objects.isNull(shellConfig)) {
+      ShellFactory.get()
+                  .shell(shellConfig.getClassName(),
+                         new ShellCallback() {
+        
+                           @Override
+                           public void onFinish(ShellInstance shellInstance) {
+                             // in case there is an instance of an shellCreator existing, call the onDetach method inside the shellCreator
+                             if (!Objects.isNull(shell)) {
+                               detachShell();
+                             }
+                             // set newe shellCreator value
+                             shell = shellInstance.getShell();
+                             // save the last added shellCreator ....
+                             lastAddedShell = routeResult.getShell();
+                             // initialize shellCreator ...
+                             ClientLogger.get()
+                                         .logDetailed("Router: attach shellCreator >>" + routeResult.getShell() + "<<",
+                                                      1);
+                             shellInstance.getShell()
+                                          .attachShell();
+                             ClientLogger.get()
+                                         .logDetailed("Router: shellCreator >>" + routeResult.getShell() + "<< attached",
+                                                      1);
+                             // start the application by calling url + '#'
+                             ClientLogger.get()
+                                         .logDetailed("Router: initialize shellCreator >>" + routeResult.getShell() + "<< (route to '/')",
+                                                      1);
+                             // get shellCreator matching root configs ...
+                             List<RouteConfig> shellMatchingRouteConfigurations = routerConfiguration.match(routeResult.getShell());
+                             for (RouteConfig routeConfiguration : shellMatchingRouteConfigurations) {
+                               handleRouteConfig(routeConfiguration,
+                                                 routeResult,
+                                                 hash);
+                             }
+                             postProcessHandleRouting(hash,
+                                                      routeResult,
+                                                      routeConfigurations);
+                           }
+        
+                           private void detachShell() {
+                             ClientLogger.get()
+                                         .logDetailed("Router: detach shellCreator >>" +
+                                                      shell.getClass()
+                                                           .getCanonicalName() +
+                                                      "<<",
+                                                      1);
+                             shell.detachShell();
+                             ClientLogger.get()
+                                         .logDetailed("Router: shellCreator >>" +
+                                                      shell.getClass()
+                                                           .getCanonicalName() +
+                                                      "<< detached",
+                                                      1);
+                           }
+        
+                           @Override
+                           public void onShellNotFound() {
+                             eventBus.fireEvent(NaluErrorEvent.createNaluError()
+                                                              .errorId(NaluConstants.NALU_ERROR_SHELL_NOT_FOUND)
+                                                              .message("no shell found for route: >>" + shellConfig.getRoute() + "<<")
+                                                              .route(shellConfig.getRoute()));
+                           }
+        
+                           @Override
+                           public void onRoutingInterceptionException(RoutingInterceptionException e) {
+                             RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
+                                                                         e.getRoute(),
+                                                                         e.getParameter());
+                           }
+                         });
+    }
+  }
+  
   private void handleRouteConfig(RouteConfig routeConfiguration,
                                  RouteResult routeResult,
                                  String hash) {
@@ -589,7 +664,7 @@ abstract class AbstractRouter
                      .controller(routeConfiguration.getRoute(),
                                  routeConfiguration.getClassName(),
                                  new ControllerCallback() {
-  
+      
                                    @Override
                                    public void onRoutingInterceptionException(RoutingInterceptionException e) {
                                      RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
@@ -600,7 +675,7 @@ abstract class AbstractRouter
                                            true,
                                            e.getParameter());
                                    }
-  
+      
                                    @Override
                                    public void onFinish(ControllerInstance controller) {
                                      doRouting(hash,
@@ -613,15 +688,55 @@ abstract class AbstractRouter
                                             .toArray(new String[0]));
   }
   
+  private String addLeadingSlash(String value) {
+    if (value.startsWith("/")) {
+      return value;
+    }
+    return "/" + value;
+  }
+  
+  private void confirmRouting(List<RouteConfig> routeConfigurations,
+                              ConfirmHandler confirmHandler) {
+    List<String> messageList = new ArrayList<>();
+    routeConfigurations.stream()
+                       .map(config -> this.activeComponents.get(config.getSelector()))
+                       .filter(Objects::nonNull)
+                       .forEach(c -> {
+                         Optional<String> optional = c.getController()
+                                                      .getComposites()
+                                                      .values()
+                                                      .stream()
+                                                      .map(AbstractCompositeController::mayStop)
+                                                      .filter(Objects::nonNull)
+                                                      .findFirst();
+                         optional.ifPresent(messageList::add);
+                       });
+    
+    Optional<String> optionalConfirm = routeConfigurations.stream()
+                                                          .map(config -> this.activeComponents.get(config.getSelector()))
+                                                          .filter(Objects::nonNull)
+                                                          .map(c -> c.getController()
+                                                                     .mayStop())
+                                                          .filter(Objects::nonNull)
+                                                          .findFirst();
+    
+    if (optionalConfirm.isPresent() || messageList.size() > 0) {
+      this.plugin.confirm(optionalConfirm.orElseGet(() -> messageList.get(0)),
+                          confirmHandler);
+    } else {
+      confirmHandler.onOk();
+    }
+  }
+  
   private void doRouting(String hash,
-                         RouteResult hashResult,
+                         RouteResult routeResult,
                          RouteConfig routeConfiguration,
                          ControllerInstance controllerInstance) {
     if (Objects.isNull(controllerInstance.getController())) {
       eventBus.fireEvent(NaluErrorEvent.createNaluError()
                                        .errorId(NaluConstants.NALU_ERROR_NO_CONTROLLER_INSTANCE_FOUND)
                                        .message(RouterLogger.logNoControllerFoundForHash(hash))
-                                       .route(hashResult.getRoute()));
+                                       .route(routeResult.getRoute()));
     } else {
       // inject the router instance into the controller!
       // (we do it for cached and not cached controllers,
@@ -653,16 +768,16 @@ abstract class AbstractRouter
               if (ControllerCompositeConditionFactory.get()
                                                      .loadComposite(controllerInstance.getControllerClassName(),
                                                                     s.getComposite(),
-                                                                    hashResult.getRoute(),
-                                                                    hashResult.getParameterValues()
-                                                                              .toArray(new String[hashResult.getParameterValues()
-                                                                                                            .size()]))) {
+                                                                    routeResult.getRoute(),
+                                                                    routeResult.getParameterValues()
+                                                                               .toArray(new String[routeResult.getParameterValues()
+                                                                                                              .size()]))) {
                 CompositeInstance compositeInstance = CompositeFactory.get()
                                                                       .getComposite(controllerInstance.getControllerClassName(),
                                                                                     s.getComposite(),
                                                                                     s.isScopeGlobal(),
-                                                                                    hashResult.getParameterValues()
-                                                                                              .toArray(new String[0]));
+                                                                                    routeResult.getParameterValues()
+                                                                                               .toArray(new String[0]));
                 if (compositeInstance == null) {
                   RouterLogger.logCompositeNotFound(controllerInstance.getController()
                                                                       .getClass()
@@ -740,17 +855,17 @@ abstract class AbstractRouter
             if (ControllerCompositeConditionFactory.get()
                                                    .loadComposite(controllerInstance.getControllerClassName(),
                                                                   compositeControllerReference.getComposite(),
-                                                                  hashResult.getRoute(),
-                                                                  hashResult.getParameterValues()
-                                                                            .toArray(new String[hashResult.getParameterValues()
-                                                                                                          .size()]))) {
+                                                                  routeResult.getRoute(),
+                                                                  routeResult.getParameterValues()
+                                                                             .toArray(new String[routeResult.getParameterValues()
+                                                                                                            .size()]))) {
               try {
                 CompositeInstance compositeInstance = CompositeFactory.get()
                                                                       .getComposite(controllerInstance.getControllerClassName(),
                                                                                     compositeControllerReference.getComposite(),
                                                                                     true,
-                                                                                    hashResult.getParameterValues()
-                                                                                              .toArray(new String[0]));
+                                                                                    routeResult.getParameterValues()
+                                                                                               .toArray(new String[0]));
                 this.append(compositeControllerReference.getSelector(),
                             compositeInstance.getComposite());
                 RouterLogger.logCachedControllerOnAttachedGlobalCompositeController(controllerInstance.getController()
@@ -792,8 +907,8 @@ abstract class AbstractRouter
           try {
             controllerInstance.getControllerCreator()
                               .setParameter(controllerInstance.getController(),
-                                            hashResult.getParameterValues()
-                                                      .toArray(new String[0]));
+                                            routeResult.getParameterValues()
+                                                       .toArray(new String[0]));
           } catch (RoutingInterceptionException e) {
             RouterLogger.logControllerInterceptsRouting(e.getControllerClassName(),
                                                         e.getRoute(),
@@ -849,110 +964,6 @@ abstract class AbstractRouter
       // clear loo detection list ...
       this.loopDetectionList.clear();
     }
-  }
-  
-  private String addLeadingSlash(String value) {
-    if (value.startsWith("/")) {
-      return value;
-    }
-    return "/" + value;
-  }
-  
-  private void confirmRouting(List<RouteConfig> routeConfigurations,
-                              ConfirmHandler confirmHandler) {
-    List<String> messageList = new ArrayList<>();
-    routeConfigurations.stream()
-                       .map(config -> this.activeComponents.get(config.getSelector()))
-                       .filter(Objects::nonNull)
-                       .forEach(c -> {
-                         Optional<String> optional = c.getController()
-                                                      .getComposites()
-                                                      .values()
-                                                      .stream()
-                                                      .map(AbstractCompositeController::mayStop)
-                                                      .filter(Objects::nonNull)
-                                                      .findFirst();
-                         optional.ifPresent(messageList::add);
-                       });
-    
-    Optional<String> optionalConfirm = routeConfigurations.stream()
-                                                          .map(config -> this.activeComponents.get(config.getSelector()))
-                                                          .filter(Objects::nonNull)
-                                                          .map(c -> c.getController()
-                                                                     .mayStop())
-                                                          .filter(Objects::nonNull)
-                                                          .findFirst();
-    
-    if (optionalConfirm.isPresent() || messageList.size() > 0) {
-      this.plugin.confirm(optionalConfirm.orElseGet(() -> messageList.get(0)),
-                          confirmHandler);
-    } else {
-      confirmHandler.onOk();
-    }
-  }
-  
-  private void stopController(List<RouteConfig> routeConfigurations,
-                              boolean replaceShell) {
-    List<AbstractComponentController<?, ?, ?>> controllerList = new ArrayList<>();
-    if (replaceShell) {
-      controllerList.addAll(this.activeComponents.values()
-                                                 .stream()
-                                                 .map(ci -> ci.getController())
-                                                 .collect(Collectors.toList()));
-    } else {
-      controllerList.addAll(routeConfigurations.stream()
-                                               .map(config -> this.activeComponents.get(config.getSelector()))
-                                               .filter(Objects::nonNull)
-                                               .map(ControllerInstance::getController)
-                                               .collect(Collectors.toList()));
-  
-    }
-    controllerList.forEach(controller -> {
-      // stop controller
-      RouterLogger.logControllerHandlingStop(controller.getClass()
-                                                       .getCanonicalName());
-      RouterLogger.logControllerHandlingStopComposites(controller.getClass()
-                                                                 .getCanonicalName());
-      // check, if it is a redraw case
-      boolean handlingModeReuse = this.isHandlingModeReuse(controller);
-      RouterLogger.logControllerHandlingMode(controller.getClass()
-                                                       .getCanonicalName(),
-                                             handlingModeReuse);
-      // stop compositeControllers
-      controller.getComposites()
-                .values()
-                .forEach(s -> {
-                  if (controller.isCached() || handlingModeReuse) {
-                    deactivateCompositeController(controller,
-                                                  s);
-                  } else {
-                    if (s.isCached()) {
-                      deactivateCompositeController(controller,
-                                                    s);
-                    } else {
-                      stopCompositeController(controller,
-                                              s);
-                    }
-                  }
-                });
-  
-      RouterLogger.logControllerCompositesStopped(controller.getClass()
-                                                            .getCanonicalName());
-      if (controller.isCached() || handlingModeReuse) {
-        deactivateController(controller,
-                             handlingModeReuse);
-      } else {
-        stopController(controller);
-      }
-      // In case we have the same route and the redrawMode is set to 'REUSE'
-      // we should only deactivate the controller and not remove them ...
-      controllerList.stream()
-                    .filter(c -> !isHandlingModeReuse(c))
-                    .forEach(c -> {
-                      this.plugin.remove(c.getRelatedSelector());
-                      this.activeComponents.remove(c.getRelatedSelector());
-                    });
-    });
   }
   
   /**

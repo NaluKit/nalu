@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 public abstract class AbstractPopUpComponent<C extends IsPopUpComponent.Controller>
     implements IsPopUpComponent<C> {
   
@@ -42,6 +44,7 @@ public abstract class AbstractPopUpComponent<C extends IsPopUpComponent.Controll
   }
   
   @Override
+  @NaluInternalUse
   public void setController(C controller) {
     this.controller = controller;
   }

@@ -180,6 +180,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
     return this.component;
   }
   
+  @NaluInternalUse
   public void setComponent(V component) {
     this.component = component;
   }

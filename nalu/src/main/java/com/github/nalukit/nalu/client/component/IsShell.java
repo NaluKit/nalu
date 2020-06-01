@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 /**
  * <p>Marks an class as a Nalu's shellCreator.</p>
@@ -36,6 +37,7 @@ public interface IsShell {
    * </code>
    * <p>This will make the framework independent of GWT or user implemantations!</p>
    */
+  @NaluInternalUse
   void attachShell();
   
   /**
@@ -54,6 +56,7 @@ public interface IsShell {
    * </code>
    * <p>This will make the framework independent of GWT or user implemantations!</p>
    */
+  @NaluInternalUse
   void detachShell();
   
   /**

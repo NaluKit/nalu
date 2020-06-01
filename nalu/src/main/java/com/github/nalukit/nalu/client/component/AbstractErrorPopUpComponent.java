@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 public abstract class AbstractErrorPopUpComponent<C extends IsErrorPopUpComponent.Controller>
     implements IsErrorPopUpComponent<C> {
   
@@ -44,21 +46,10 @@ public abstract class AbstractErrorPopUpComponent<C extends IsErrorPopUpComponen
   }
   
   @Override
+  @NaluInternalUse
   public void setController(C controller) {
     this.controller = controller;
   }
-  
-  //  /**
-  //   * internal framework method! Will be called by the framework after the
-  //   * stop-method f the controller is called
-  //   *
-  //   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
-  //   */
-  //  @Override
-  //  public void removeHandlers() {
-  //    this.handlerRegistrations.removeHandler();
-  //    this.handlerRegistrations = new HandlerRegistrations();
-  //  }
   
   /**
    * call to show the popup

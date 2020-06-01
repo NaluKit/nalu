@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 public abstract class AbstractBlockComponent<C extends IsBlockComponent.Controller>
     implements IsBlockComponent<C> {
   
@@ -36,11 +38,13 @@ public abstract class AbstractBlockComponent<C extends IsBlockComponent.Controll
     // just override this method.
   }
   
+  @NaluInternalUse
   @Override
   public C getController() {
     return this.controller;
   }
   
+  @NaluInternalUse
   @Override
   public void setController(C controller) {
     this.controller = controller;

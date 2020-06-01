@@ -58,6 +58,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * @return the element of the component
    */
   @Override
+  @NaluInternalUse
   public W asElement() {
     return this.component.asElement();
   }
@@ -140,6 +141,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * @param component instance fo the component
    */
   @Override
+  @NaluInternalUse
   public void setComponent(V component) {
     this.component = component;
   }

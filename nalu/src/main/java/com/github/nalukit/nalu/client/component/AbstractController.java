@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.context.IsContext;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractController<C extends IsContext> {
@@ -32,14 +33,17 @@ public abstract class AbstractController<C extends IsContext> {
     super();
   }
   
+  @NaluInternalUse
   public void setRouter(Router router) {
     this.router = router;
   }
   
+  @NaluInternalUse
   public void setContext(C context) {
     this.context = context;
   }
   
+  @NaluInternalUse
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }

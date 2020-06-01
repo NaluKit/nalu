@@ -198,7 +198,7 @@ public class RouteParser {
     StringBuilder parameters = new StringBuilder();
     for (int i = 0; i < params.length; i++) {
       parameters.append(params[i]);
-      if (params.length - 1 < i) {
+      if (i < params.length - 1) {
         parameters.append(",");
       }
     }

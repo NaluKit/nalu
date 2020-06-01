@@ -16,9 +16,12 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 public interface IsCompositeComponent<C extends IsComponent.Controller, W>
     extends IsComponent<C, W> {
   
+  @NaluInternalUse
   void remove();
   
   interface Controller

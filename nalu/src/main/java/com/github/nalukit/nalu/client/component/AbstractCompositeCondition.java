@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.context.IsContext;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 /**
  * Composite condition to tell Nalu weather a composite should be added to a component or not
@@ -33,6 +34,7 @@ public abstract class AbstractCompositeCondition<C extends IsContext>
    *
    * @param context Nalu application context
    */
+  @NaluInternalUse
   public void setContext(C context) {
     this.context = context;
   }

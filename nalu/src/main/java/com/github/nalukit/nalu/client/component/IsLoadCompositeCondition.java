@@ -1,5 +1,7 @@
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 /**
  * Marks a composite condition
  */
@@ -14,6 +16,7 @@ public interface IsLoadCompositeCondition {
    * @param params parameter (0 .. n)
    * @return true: load the composite; false: ignore the composite
    */
+  @NaluInternalUse
   boolean loadComposite(String route,
                         String... params);
   
