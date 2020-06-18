@@ -1,7 +1,7 @@
 # Application Context
 Inside a Nalu application the context is the store of all shared application information.
 
-The context will be instantiated by the framework and **can not be overriden or set by the applicaiton** with another instance!  
+The context will be instantiated by the framework and **can not be overriden or set by the application** with another instance!  
 It is injected in every controller, filter, handler and the loader. All controllers, handlers, filters and the loader will have access to the same instance.
 
 This is a good place to store information that should be application wide available.
