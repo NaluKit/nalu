@@ -470,10 +470,9 @@ abstract class AbstractRouter
                     deactivateCompositeController(controller,
                                                   s);
                   } else {
-                    if (s.isCached()) {
-                      deactivateCompositeController(controller,
-                                                    s);
-                    } else {
+                    deactivateCompositeController(controller,
+                                                  s);
+                    if (!s.isCached()) {
                       stopCompositeController(controller,
                                               s);
                     }
@@ -1039,6 +1038,9 @@ abstract class AbstractRouter
     compositeController.deactivate();
     RouterLogger.logCompositeControllerDeactivateMethodCalled(compositeController.getClass()
                                                                                  .getCanonicalName());
+    compositeController.removeHandlers();
+    RouterLogger.logCompositeControllerRemoveHandlersMethodCalled(compositeController.getClass()
+                                                                                     .getCanonicalName());
     RouterLogger.logCompositeControllerDeactivated(controller.getClass()
                                                              .getCanonicalName());
   }
@@ -1063,9 +1065,6 @@ abstract class AbstractRouter
     compositeController.onDetach();
     RouterLogger.logCompositeControllerDetached(compositeController.getClass()
                                                                    .getCanonicalName());
-    compositeController.removeHandlers();
-    RouterLogger.logCompositeControllerRemoveHandlersMethodCalled(compositeController.getClass()
-                                                                                     .getCanonicalName());
     compositeController.getComponent()
                        .onDetach();
     RouterLogger.logCompositeComponentDetached(compositeController.getComponent()
