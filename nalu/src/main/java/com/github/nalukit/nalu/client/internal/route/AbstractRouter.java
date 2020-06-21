@@ -482,10 +482,9 @@ abstract class AbstractRouter
       
       RouterLogger.logControllerCompositesStopped(controller.getClass()
                                                             .getCanonicalName());
-      if (controller.isCached() || handlingModeReuse) {
-        deactivateController(controller,
-                             handlingModeReuse);
-      } else {
+      deactivateController(controller,
+                           handlingModeReuse);
+      if (!controller.isCached() && !handlingModeReuse) {
         stopController(controller);
       }
       // In case we have the same route and the redrawMode is set to 'REUSE'
@@ -984,6 +983,9 @@ abstract class AbstractRouter
     controller.deactivate();
     RouterLogger.logControllerDeactivateMethodCalled(controller.getClass()
                                                                .getCanonicalName());
+    controller.removeHandlers();
+    RouterLogger.logControllerRemoveHandlersMethodCalled(controller.getClass()
+                                                                   .getCanonicalName());
     if (!handlingModeReuse) {
       controller.onDetach();
       RouterLogger.logControllerDetached(controller.getClass()
@@ -1016,9 +1018,6 @@ abstract class AbstractRouter
     controller.onDetach();
     RouterLogger.logControllerDetached(controller.getClass()
                                                  .getCanonicalName());
-    controller.removeHandlers();
-    RouterLogger.logControllerRemoveHandlersMethodCalled(controller.getClass()
-                                                                   .getCanonicalName());
     controller.getComponent()
               .onDetach();
     RouterLogger.logComponentDetached(controller.getComponent()
