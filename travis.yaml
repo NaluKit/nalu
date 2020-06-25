@@ -1,0 +1,24 @@
+dist: trusty
+
+language: java
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
+jdk:
+  - oraclejdk8
+  - oraclejdk11
+  - openjdk8
+  - openjdk9
+  - openjdk10
+  - openjdk11
+
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+    - "$HOME/.m2"
