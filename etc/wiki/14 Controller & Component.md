@@ -71,6 +71,24 @@ The `@Controller` annotation has four required attributes:
 
 The 'componentInterface'-attribute will be used inside the controller as reference of the component interface, where as the 'component'-attribute will be used to instantiate the component. By default Nalu uses `new` to create an instance of a component. (`GWT-create()` will no longer be available in J2CL / GWT 3! And, to be ready for J2CL / GWT 3 Nalu has to avoid using `GWT.create`.).
 
+You can assign a controller to several shells and routes.
+This is an example of a controller, that can be used with the shell 'logon' and 'application'. To define this, use: `/[logon|application]/part01/part02/`.
+
+To assign a controller to several routes:
+```java
+@Controller(route = { "/shell/route01/route02/:id",
+                      "/shell/route03/:id/route04",
+                      "/shell/route01/route02/route03/:id" },
+            selector = "content",
+            componentInterface = MultiRouteComponent.class,
+            component = MultiRouteComponentImpl.class)
+public class MultiRouteController
+    extends AbstractComponentController<MultiRouteContext, MultiRouteComponent, HTMLElement>
+    implements MultiRouteComponent.Controller {
+}
+```
+Keep in MInd, that all routes need the same number and names for the parameters.
+
 ### Parameters
 In case a controller accepts parameters, you have to add the parameters to the route attribute. Parameters are defined by using '/:parameterName'.
 
@@ -978,3 +996,4 @@ public class MyController
 The `IsComponentCreator`-interface will also work with Nalu's composites!
 
 Note: At the time Nalu calls the `createComponent`-method, the context is already injected.
+
