@@ -30,7 +30,7 @@ public class ProcessorConstants {
   public final static String CREATOR_IMPL        = "CreatorImpl";
   public final static String MODULE_IMPL         = "ModuleImpl";
   public final static String PLUGIN_IMPL         = "PluginImpl";
-  public final static String PROCESSOR_VERSION   = "2.1.0-SNAPSHOT";
+  public final static String PROCESSOR_VERSION   = "2.0.2-SNAPSHOT";
   public final static String BUILD_TIME          = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(new Date(System.currentTimeMillis()));
   
 }
