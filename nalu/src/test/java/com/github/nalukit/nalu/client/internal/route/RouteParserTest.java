@@ -10,16 +10,16 @@ import java.util.Collections;
 import static org.hamcrest.CoreMatchers.is;
 
 public class RouteParserTest {
-
+  
   private ShellConfiguration shellConfiguration;
-
+  
   private RouterConfiguration routerConfiguration;
-
+  
   @BeforeEach
   void setUp() {
     this.routerConfiguration = new RouterConfiguration();
-    this.shellConfiguration = new ShellConfiguration();
-
+    this.shellConfiguration  = new ShellConfiguration();
+    
     this.routerConfiguration.getRouters()
                             .add(new RouteConfig("/application/person/list/*/*",
                                                  Arrays.asList("name",
@@ -57,7 +57,7 @@ public class RouteParserTest {
                                                  Collections.singletonList("id"),
                                                  "content",
                                                  "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
-
+    
     this.shellConfiguration.getShells()
                            .add(new ShellConfig("/application",
                                                 "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.application.ApplicationShell"));
@@ -65,7 +65,7 @@ public class RouteParserTest {
                            .add(new ShellConfig("/login",
                                                 "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.login.LoginShell"));
   }
-
+  
   @Test
   void parse01() {
     String route = "/application/person/search";
@@ -89,7 +89,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse02() {
     String route = "/application/person/search/";
@@ -113,7 +113,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse03() {
     String route = "/application/person/search/S";
@@ -137,7 +137,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse04() {
     String route = "/application/person/search/S/";
@@ -161,7 +161,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse05() {
     String route = "/application/person/search/S/T";
@@ -185,7 +185,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse06() {
     String route = "/application/person/search/S/T/";
@@ -209,7 +209,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse11() {
     String route = "/application/person/list";
@@ -233,7 +233,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse12() {
     String route = "/application/person/list/";
@@ -257,7 +257,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse13() {
     String route = "/application/person/list/S";
@@ -281,7 +281,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse14() {
     String route = "/application/person/list/S/";
@@ -305,7 +305,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse15() {
     String route = "/application/person/list/S/T";
@@ -329,7 +329,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse16() {
     String route = "/application/person/list/S/T/";
@@ -353,7 +353,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse21() {
     String route = "/application/person/detail";
@@ -374,7 +374,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse22() {
     String route = "/application/person/detail/";
@@ -395,7 +395,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse23() {
     String route = "/application/person/detail/1";
@@ -416,7 +416,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse24() {
     String route = "/application/person/detail/1/";
@@ -437,7 +437,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse31() {
     String route = "/application/person//detail";
@@ -458,7 +458,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse32() {
     String route = "/application/person//detail/";
@@ -479,7 +479,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse33() {
     String route = "/application/person/1/detail";
@@ -500,7 +500,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void parse34() {
     String route = "/application/person/1/detail/";
@@ -521,7 +521,7 @@ public class RouteParserTest {
                                e);
     }
   }
-
+  
   @Test
   void generate01() {
     String hash = RouteParser.get()
@@ -530,7 +530,7 @@ public class RouteParserTest {
     Assert.assertThat(hash,
                       is("application/person/detail/1"));
   }
-
+  
   @Test
   void generate02() {
     String hash = RouteParser.get()
@@ -539,5 +539,5 @@ public class RouteParserTest {
     Assert.assertThat(hash,
                       is("application/person/1/detail"));
   }
-
+  
 }

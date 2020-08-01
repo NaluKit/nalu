@@ -25,24 +25,24 @@ import javax.lang.model.element.Modifier;
 import java.util.Objects;
 
 public class ErrorPopUpControllerGenerator {
-
+  
   private MetaModel metaModel;
-
+  
   private TypeSpec.Builder typeSpec;
-
+  
   @SuppressWarnings("unused")
   private ErrorPopUpControllerGenerator() {
   }
-
+  
   private ErrorPopUpControllerGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
-    this.typeSpec = builder.typeSpec;
+    this.typeSpec  = builder.typeSpec;
   }
-
+  
   public static Builder builder() {
     return new Builder();
   }
-
+  
   void generate() {
     MethodSpec.Builder createErrorPopUpControllerMethodBuilder = MethodSpec.methodBuilder("loadErrorPopUpController")
                                                                            .addModifiers(Modifier.PUBLIC)
@@ -147,13 +147,13 @@ public class ErrorPopUpControllerGenerator {
     }
     typeSpec.addMethod(createErrorPopUpControllerMethodBuilder.build());
   }
-
+  
   public static final class Builder {
-
+    
     MetaModel metaModel;
-
+    
     TypeSpec.Builder typeSpec;
-
+    
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -164,7 +164,7 @@ public class ErrorPopUpControllerGenerator {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -175,11 +175,11 @@ public class ErrorPopUpControllerGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-
+    
     public ErrorPopUpControllerGenerator build() {
       return new ErrorPopUpControllerGenerator(this);
     }
-
+    
   }
-
+  
 }

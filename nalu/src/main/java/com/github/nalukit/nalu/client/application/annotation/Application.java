@@ -46,7 +46,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Application {
-
+  
   /**
    * the application loader of the application. Will be executed in case the
    * application is started. This is a good place to load apllication data.
@@ -57,14 +57,14 @@ public @interface Application {
    * @return the application loader
    */
   Class<? extends AbstractApplicationLoader<?>> loader() default NoApplicationLoader.class;
-
+  
   /**
    * Start route used by Nalu in case the application is started
    *
    * @return return the start route
    */
   String startRoute();
-
+  
   /**
    * The context of the application. it can be compared to the session of the server side.
    * Use the context to store application wide data.
@@ -72,7 +72,7 @@ public @interface Application {
    * @return application context
    */
   Class<? extends IsContext> context();
-
+  
   /**
    * This attribute - if <b>true</b> will tell Nalu to use history.
    * <br>
@@ -81,7 +81,7 @@ public @interface Application {
    * @return the configuration value for history
    */
   boolean history() default true;
-
+  
   /**
    * This attribute will tell Nalu to:
    * <ul>
@@ -92,7 +92,7 @@ public @interface Application {
    * @return the configuration value for using hash
    */
   boolean useHash() default true;
-
+  
   /**
    * This attribute - if <b>true</b> will tell Nalu to add a ':' before
    * a variable value inside the url.
@@ -102,7 +102,7 @@ public @interface Application {
    * @return the configuration value for useColonForParametersInUrl
    */
   boolean useColonForParametersInUrl() default false;
-
+  
   /**
    * This attribute will tell Nalu, to use the start route in case
    * an empty hash is found (if <p>true</p>).
@@ -112,19 +112,19 @@ public @interface Application {
    * @return the configuration value for stayOnSite
    */
   boolean stayOnSite() default false;
-
+  
   /**
    * This attribute will tell Nalu to use a custom alert presenter
    *
    * @return the custom alert presenter
    */
   Class<? extends IsCustomAlertPresenter> alertPresenter() default NoCustomAlertPresenter.class;
-
+  
   /**
    * This attribute will tell Nalu to use a custom confirm presenter
    *
    * @return the custom confirm presenter
    */
   Class<? extends IsCustomConfirmPresenter> confirmPresenter() default NoCustomConfirmPresenter.class;
-
+  
 }

@@ -16,16 +16,18 @@ import java.lang.StringBuilder;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>2.0.1<< at >>2020.12.08-10:31:40<< */
+ * Build with Nalu version >>2.0.2<< at >>2020.04.12-16:34:42<<
+ */
 public final class ControllerC07CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
   public ControllerC07CreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
     super(router, context, eventBus);
   }
-
+  
   @Override
-  public ControllerInstance create() {
+  public ControllerInstance create(String route) {
     StringBuilder sb01 = new StringBuilder();
     ControllerInstance controllerInstance = new ControllerInstance();
+    controllerInstance.setControllerCreator(this);
     controllerInstance.setControllerClassName("com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter04.ControllerC07");
     AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter04.ControllerC07");
     if (storedController == null) {
@@ -38,7 +40,7 @@ public final class ControllerC07CreatorImpl extends AbstractControllerCreator<Mo
       controller.setEventBus(eventBus);
       controller.setRouter(router);
       controller.setCached(false);
-      controller.setRelatedRoute("/mockShell/route01/*/*");
+      controller.setRelatedRoute(route);
       controller.setRelatedSelector("selector01");
       sb01.setLength(0);
       sb01.append("controller >>").append(controller.getClass().getCanonicalName()).append("<< --> created and data injected");
@@ -52,9 +54,9 @@ public final class ControllerC07CreatorImpl extends AbstractControllerCreator<Mo
     }
     return controllerInstance;
   }
-
+  
   @Override
-  public void onFinishCreating(Object object) throws RoutingInterceptionException {
+  public void onFinishCreating(Object object, String route) throws RoutingInterceptionException {
     ControllerC07 controller = (ControllerC07) object;
     StringBuilder sb01 = new StringBuilder();
     IComponent07 component = new Component07();
@@ -77,9 +79,9 @@ public final class ControllerC07CreatorImpl extends AbstractControllerCreator<Mo
     sb01.setLength(0);
     sb01.append("component >>").append(component.getClass().getCanonicalName()).append("<< --> bound");
     ClientLogger.get().logDetailed(sb01.toString(), 4);
-    ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter04.Component07<< created for route >>/mockShell/route01/*/*<<", 3);
+    ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter04.Component07<< created for route >>" + route + "<<", 3);
   }
-
+  
   @Override
   public void setParameter(Object object, String... params) throws RoutingInterceptionException {
   }

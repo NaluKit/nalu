@@ -7,16 +7,16 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public class RouteParser {
-
+  
   private static RouteParser instance = new RouteParser();
-
+  
   private RouteParser() {
   }
-
+  
   public static RouteParser get() {
     return instance;
   }
-
+  
   /**
    * Parse the hash and divides it into shellCreator, route and parameters
    *
@@ -30,7 +30,7 @@ public class RouteParser {
                     RouterConfiguration routerConfiguration)
       throws RouterException {
     RouteResult routeResult = new RouteResult();
-    String routeValue = route;
+    String      routeValue  = route;
     // only the part after the first # is of interest:
     if (routeValue.contains("#")) {
       routeValue = routeValue.substring(routeValue.indexOf("#") + 1);
@@ -130,26 +130,26 @@ public class RouteParser {
     }
     return routeResult;
   }
-
+  
   /**
    * Generates a new route!
    * <p>
    * If there is something to generate with parameters, the route
    * needs the same number of '*' in it.
    *
-   * @param route route to navigate to
+   * @param route  route to navigate to
    * @param params parameters of the route
    * @return generate String of new route
    */
   String generate(String route,
                   String... params) {
-    StringBuilder sb = new StringBuilder();
-    String routeValue = route;
+    StringBuilder sb         = new StringBuilder();
+    String        routeValue = route;
     if (routeValue.startsWith("/")) {
       routeValue = routeValue.substring(1);
     }
     String[] partsOfRoute = routeValue.split("/");
-
+  
     int parameterIndex = 0;
     for (String s : partsOfRoute) {
       sb.append("/");
@@ -159,14 +159,14 @@ public class RouteParser {
         }
         if (params.length - 1 >= parameterIndex) {
           sb.append(params[parameterIndex].replace("/",
-                                                  RouterConstants.NALU_SLASH_REPLACEMENT));
+                                                   RouterConstants.NALU_SLASH_REPLACEMENT));
           parameterIndex++;
         }
       } else {
         sb.append(s);
       }
     }
-
+  
     // in case there are more parameters then placesholders, we add them add the end!
     long numberOfPlaceHolders = Stream.of(partsOfRoute)
                                       .filter("*"::equals)
@@ -182,14 +182,14 @@ public class RouteParser {
         }
         if (!Objects.isNull(params[parameterIndex])) {
           sb.append(params[parameterIndex].replace("/",
-                                                  RouterConstants.NALU_SLASH_REPLACEMENT));
+                                                   RouterConstants.NALU_SLASH_REPLACEMENT));
         } else {
           sb.append("null");
         }
         parameterIndex++;
       }
     }
-
+  
     // remove leading '/'
     String generatedRoute = sb.toString();
     if (generatedRoute.startsWith("/")) {
@@ -198,7 +198,7 @@ public class RouteParser {
     StringBuilder parameters = new StringBuilder();
     for (int i = 0; i < params.length; i++) {
       parameters.append(params[i]);
-      if (params.length - 1 < i) {
+      if (i < params.length - 1) {
         parameters.append(",");
       }
     }
@@ -207,5 +207,5 @@ public class RouteParser {
                            1);
     return generatedRoute;
   }
-
+  
 }

@@ -25,21 +25,21 @@ import com.github.nalukit.nalu.client.component.AbstractComponent;
 public class FooterComponent
     extends AbstractComponent<IFooterComponent.Controller, String>
     implements IFooterComponent {
-
+  
   @SuppressWarnings("unused")
   private String messageInfo;
-
+  
   public FooterComponent() {
   }
-
+  
   @Override
   public void render() {
     initElement("footer");
   }
-
+  
   @Override
   public void setStatus(String status) {
     //this.messageInfo.textContent = status;
   }
-
+  
 }

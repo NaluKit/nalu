@@ -24,12 +24,12 @@ import com.github.nalukit.nalu.client.context.IsContext;
  */
 public interface IsMainContext
     extends IsContext {
-
+  
   /**
    * Gets the application context
    *
    * @return application context
    */
   Context getContext();
-
+  
 }

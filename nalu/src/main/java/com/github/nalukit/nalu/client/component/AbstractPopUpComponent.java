@@ -16,46 +16,49 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 public abstract class AbstractPopUpComponent<C extends IsPopUpComponent.Controller>
     implements IsPopUpComponent<C> {
-
+  
   private C controller;
-
+  
   public AbstractPopUpComponent() {
   }
-
+  
   /**
    * create the popup here
    */
   @Override
   public abstract void render();
-
-  /**
-   * call to show the popup
-   */
-  @Override
-  public abstract void show();
-
-  /**
-   * call to hide the popup
-   */
-  @Override
-  public abstract void hide();
-
+  
   @Override
   public void bind() {
     // if you need to bind some handlers and would like to do this in a separate method
     // just override this method.
   }
-
+  
   @Override
   public C getController() {
     return this.controller;
   }
-
+  
   @Override
+  @NaluInternalUse
   public void setController(C controller) {
     this.controller = controller;
   }
-
+  
+  /**
+   * call to show the popup
+   */
+  @Override
+  public abstract void show();
+  
+  /**
+   * call to hide the popup
+   */
+  @Override
+  public abstract void hide();
+  
 }

@@ -19,267 +19,26 @@ package com.github.nalukit.nalu.processor.model.intern;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ControllerModelTest {
-
+  
   @Test
   void match01() {
     ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01",
                                                                 "route01");
     Assertions.assertTrue(cm.match("/shell01/route01"));
   }
-
-  @Test
-  void match02() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01",
-                                                                "route01");
-    Assertions.assertTrue(cm.match("shell01/route01"));
-  }
-
-  @Test
-  void match03() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01",
-                                                                "route01");
-    Assertions.assertFalse(cm.match("/shell02/route01"));
-  }
-
-  @Test
-  void match04() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01",
-                                                                "route01");
-    Assertions.assertFalse(cm.match("shell01/route02"));
-  }
-
-  @Test
-  void match05() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01",
-                                                                "route01");
-    Assertions.assertTrue(cm.match("/shell01/route01"));
-  }
-
-  @Test
-  void match06() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01",
-                                                                "route01");
-    Assertions.assertTrue(cm.match("shell01/route01"));
-  }
-
-  @Test
-  void match07() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01",
-                                                                "route01");
-    Assertions.assertFalse(cm.match("/shell03/route01"));
-  }
-
-  @Test
-  void match08() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01",
-                                                                "route01");
-    Assertions.assertFalse(cm.match("shell03/route02"));
-  }
-
-  @Test
-  void match09() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01",
-                                                                "route01");
-    Assertions.assertTrue(cm.match("/shell01/route01"));
-  }
-
-  @Test
-  void match10() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01",
-                                                                "route01");
-    Assertions.assertTrue(cm.match("shell01/route01"));
-  }
-
-  @Test
-  void match11() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01",
-                                                                "route01");
-    Assertions.assertFalse(cm.match("/shell02/route02"));
-  }
-
-  @Test
-  void match12() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01",
-                                                                "route01");
-    Assertions.assertFalse(cm.match("shell01/route02"));
-  }
-
-  @Test
-  void match13() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/:parameter",
-                                                                "route01");
-    Assertions.assertTrue(cm.match("/shell01/route01"));
-  }
-
-  @Test
-  void match14() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/:parameter",
-                                                                "route01");
-    Assertions.assertTrue(cm.match("shell01/route01"));
-  }
-
-  @Test
-  void match15() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/:parameter",
-                                                                "route01");
-    Assertions.assertFalse(cm.match("/shell02/route01"));
-  }
-
-  @Test
-  void match16() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/:parameter",
-                                                                "route01");
-    Assertions.assertFalse(cm.match("shell01/route02"));
-  }
-
-  @Test
-  void match17() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/:parameter",
-                                                                "route01");
-    Assertions.assertTrue(cm.match("/shell01/route01"));
-  }
-
-  @Test
-  void match18() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/:parameter",
-                                                                "route01");
-    Assertions.assertTrue(cm.match("shell01/route01"));
-  }
-
-  @Test
-  void match19() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/:parameter",
-                                                                "route01");
-    Assertions.assertFalse(cm.match("/shell03/route01"));
-  }
-
-  @Test
-  void match20() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/:parameter",
-                                                                "route01");
-    Assertions.assertFalse(cm.match("shell03/route02"));
-  }
-
-  @Test
-  void match21() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/:parameter",
-                                                                "route01");
-    Assertions.assertTrue(cm.match("/shell01/route01"));
-  }
-
-  @Test
-  void match22() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/:parameter",
-                                                                "route01");
-    Assertions.assertTrue(cm.match("shell01/route01"));
-  }
-
-  @Test
-  void match23() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/:parameter",
-                                                                "route01");
-    Assertions.assertFalse(cm.match("/shell02/route02"));
-  }
-
-  @Test
-  void match24() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/:parameter",
-                                                                "route01");
-    Assertions.assertFalse(cm.match("shell01/route02"));
-  }
-
-  @Test
-  void match25() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/route02/:parameter",
-                                                                "route01/route02");
-    Assertions.assertTrue(cm.match("/shell01/route01/route02"));
-  }
-
-  @Test
-  void match26() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/route02/:parameter",
-                                                                "route01/route02");
-    Assertions.assertTrue(cm.match("shell01/route01/route02"));
-  }
-
-  @Test
-  void match27() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/route02/:parameter",
-                                                                "route01/route02");
-    Assertions.assertFalse(cm.match("/shell02/route01/route02"));
-  }
-
-  @Test
-  void match28() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/route02/:parameter",
-                                                                "route01/route02");
-    Assertions.assertFalse(cm.match("shell01/route02"));
-  }
-
-  @Test
-  void match29() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/route02/:parameter",
-                                                                "route01/route02");
-    Assertions.assertTrue(cm.match("/shell01/route01/route02"));
-  }
-
-  @Test
-  void match30() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/route02/:parameter",
-                                                                "route01/route02");
-    Assertions.assertTrue(cm.match("shell01/route01/route02"));
-  }
-
-  @Test
-  void match31() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/route02/:parameter",
-                                                                "route01/route02");
-    Assertions.assertFalse(cm.match("/shell03/route01/route02"));
-  }
-
-  @Test
-  void match32() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/route02/:parameter",
-                                                                "route01/route02");
-    Assertions.assertFalse(cm.match("shell03/route02/route02"));
-  }
-
-  @Test
-  void match33() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/route02/:parameter",
-                                                                "route01/route02");
-    Assertions.assertTrue(cm.match("/shell01/route01/route02"));
-  }
-
-  @Test
-  void match34() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/route02/:parameter",
-                                                                "route01/route02");
-    Assertions.assertFalse(cm.match("shell01/route01/route03"));
-  }
-
-  @Test
-  void match35() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/route02/:parameter",
-                                                                "route01");
-    Assertions.assertFalse(cm.match("/shell02/route03/route02"));
-  }
-
-  @Test
-  void match36() {
-    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/:parameter",
-                                                                "route01");
-    Assertions.assertFalse(cm.match("shell01/route02/route02"));
-  }
-
+  
   @SuppressWarnings("serial")
   private ControllerModel getControllerModelForMatchingTest(String route,
                                                             String routeWithoutShell) {
-    return new ControllerModel(route,
-                               routeWithoutShell,
+    List<String> routes = new ArrayList<>();
+    routes.add(routeWithoutShell);
+    return new ControllerModel(new String[] { route },
+                               routes,
                                "selector,",
                                Arrays.asList("parameter01",
                                              "parameter02"),
@@ -288,9 +47,253 @@ public class ControllerModelTest {
                                new ClassNameModel("com.github.nalukit.nalu.processor.common.ui.component01,Component01"),
                                new ClassNameModel("com.github.nalukit.nalu.processor.common.ui.component01,Component01"),
                                new ClassNameModel("com.github.nalukit.nalu.processor.common.ui.component01,Component01"),
-                               new ClassNameModel("com.github.nalukit.nalu.processor.common.ui.component01,Component01"),
                                false);
-
+    
   }
-
+  
+  @Test
+  void match02() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01",
+                                                                "route01");
+    Assertions.assertTrue(cm.match("shell01/route01"));
+  }
+  
+  @Test
+  void match03() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01",
+                                                                "route01");
+    Assertions.assertFalse(cm.match("/shell02/route01"));
+  }
+  
+  @Test
+  void match04() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01",
+                                                                "route01");
+    Assertions.assertFalse(cm.match("shell01/route02"));
+  }
+  
+  @Test
+  void match05() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01",
+                                                                "route01");
+    Assertions.assertTrue(cm.match("/shell01/route01"));
+  }
+  
+  @Test
+  void match06() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01",
+                                                                "route01");
+    Assertions.assertTrue(cm.match("shell01/route01"));
+  }
+  
+  @Test
+  void match07() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01",
+                                                                "route01");
+    Assertions.assertFalse(cm.match("/shell03/route01"));
+  }
+  
+  @Test
+  void match08() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01",
+                                                                "route01");
+    Assertions.assertFalse(cm.match("shell03/route02"));
+  }
+  
+  @Test
+  void match09() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01",
+                                                                "route01");
+    Assertions.assertTrue(cm.match("/shell01/route01"));
+  }
+  
+  @Test
+  void match10() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01",
+                                                                "route01");
+    Assertions.assertTrue(cm.match("shell01/route01"));
+  }
+  
+  @Test
+  void match11() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01",
+                                                                "route01");
+    Assertions.assertFalse(cm.match("/shell02/route02"));
+  }
+  
+  @Test
+  void match12() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01",
+                                                                "route01");
+    Assertions.assertFalse(cm.match("shell01/route02"));
+  }
+  
+  @Test
+  void match13() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/:parameter",
+                                                                "route01");
+    Assertions.assertTrue(cm.match("/shell01/route01"));
+  }
+  
+  @Test
+  void match14() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/:parameter",
+                                                                "route01");
+    Assertions.assertTrue(cm.match("shell01/route01"));
+  }
+  
+  @Test
+  void match15() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/:parameter",
+                                                                "route01");
+    Assertions.assertFalse(cm.match("/shell02/route01"));
+  }
+  
+  @Test
+  void match16() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/:parameter",
+                                                                "route01");
+    Assertions.assertFalse(cm.match("shell01/route02"));
+  }
+  
+  @Test
+  void match17() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/:parameter",
+                                                                "route01");
+    Assertions.assertTrue(cm.match("/shell01/route01"));
+  }
+  
+  @Test
+  void match18() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/:parameter",
+                                                                "route01");
+    Assertions.assertTrue(cm.match("shell01/route01"));
+  }
+  
+  @Test
+  void match19() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/:parameter",
+                                                                "route01");
+    Assertions.assertFalse(cm.match("/shell03/route01"));
+  }
+  
+  @Test
+  void match20() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/:parameter",
+                                                                "route01");
+    Assertions.assertFalse(cm.match("shell03/route02"));
+  }
+  
+  @Test
+  void match21() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/:parameter",
+                                                                "route01");
+    Assertions.assertTrue(cm.match("/shell01/route01"));
+  }
+  
+  @Test
+  void match22() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/:parameter",
+                                                                "route01");
+    Assertions.assertTrue(cm.match("shell01/route01"));
+  }
+  
+  @Test
+  void match23() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/:parameter",
+                                                                "route01");
+    Assertions.assertFalse(cm.match("/shell02/route02"));
+  }
+  
+  @Test
+  void match24() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/:parameter",
+                                                                "route01");
+    Assertions.assertFalse(cm.match("shell01/route02"));
+  }
+  
+  @Test
+  void match25() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/route02/:parameter",
+                                                                "route01/route02");
+    Assertions.assertTrue(cm.match("/shell01/route01/route02"));
+  }
+  
+  @Test
+  void match26() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/route02/:parameter",
+                                                                "route01/route02");
+    Assertions.assertTrue(cm.match("shell01/route01/route02"));
+  }
+  
+  @Test
+  void match27() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/route02/:parameter",
+                                                                "route01/route02");
+    Assertions.assertFalse(cm.match("/shell02/route01/route02"));
+  }
+  
+  @Test
+  void match28() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/shell01/route01/route02/:parameter",
+                                                                "route01/route02");
+    Assertions.assertFalse(cm.match("shell01/route02"));
+  }
+  
+  @Test
+  void match29() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/route02/:parameter",
+                                                                "route01/route02");
+    Assertions.assertTrue(cm.match("/shell01/route01/route02"));
+  }
+  
+  @Test
+  void match30() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/route02/:parameter",
+                                                                "route01/route02");
+    Assertions.assertTrue(cm.match("shell01/route01/route02"));
+  }
+  
+  @Test
+  void match31() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/route02/:parameter",
+                                                                "route01/route02");
+    Assertions.assertFalse(cm.match("/shell03/route01/route02"));
+  }
+  
+  @Test
+  void match32() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/[shell01|shell02]/route01/route02/:parameter",
+                                                                "route01/route02");
+    Assertions.assertFalse(cm.match("shell03/route02/route02"));
+  }
+  
+  @Test
+  void match33() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/route02/:parameter",
+                                                                "route01/route02");
+    Assertions.assertTrue(cm.match("/shell01/route01/route02"));
+  }
+  
+  @Test
+  void match34() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/route02/:parameter",
+                                                                "route01/route02");
+    Assertions.assertFalse(cm.match("shell01/route01/route03"));
+  }
+  
+  @Test
+  void match35() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/route02/:parameter",
+                                                                "route01");
+    Assertions.assertFalse(cm.match("/shell02/route03/route02"));
+  }
+  
+  @Test
+  void match36() {
+    ControllerModel cm = this.getControllerModelForMatchingTest("/*/route01/:parameter",
+                                                                "route01");
+    Assertions.assertFalse(cm.match("shell01/route02/route02"));
+  }
+  
 }

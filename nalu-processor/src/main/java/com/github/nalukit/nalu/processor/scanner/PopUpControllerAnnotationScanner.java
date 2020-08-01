@@ -29,52 +29,46 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.ArrayType;
-import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.ErrorType;
-import javax.lang.model.type.MirroredTypeException;
-import javax.lang.model.type.PrimitiveType;
-import javax.lang.model.type.TypeMirror;
-import javax.lang.model.type.TypeVariable;
+import javax.lang.model.type.*;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import java.util.List;
 import java.util.Objects;
 
 public class PopUpControllerAnnotationScanner {
-
+  
   private ProcessorUtils processorUtils;
-
+  
   private ProcessingEnvironment processingEnvironment;
-
+  
   private Element popUpControllerElement;
-
+  
   @SuppressWarnings("unused")
   private PopUpControllerAnnotationScanner() {
   }
-
+  
   //  @SuppressWarnings("unused")
   private PopUpControllerAnnotationScanner(Builder builder) {
     super();
-    this.processingEnvironment = builder.processingEnvironment;
+    this.processingEnvironment  = builder.processingEnvironment;
     this.popUpControllerElement = builder.popUpControllerElement;
     setUp();
   }
-
-  public static Builder builder() {
-    return new Builder();
-  }
-
+  
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-
+  
+  public static Builder builder() {
+    return new Builder();
+  }
+  
   public PopUpControllerModel scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
     return this.handlePopUpController();
   }
-
+  
   private PopUpControllerModel handlePopUpController()
       throws ProcessorException {
     // get Annotation ...
@@ -85,6 +79,9 @@ public class PopUpControllerAnnotationScanner {
       throw new ProcessorException("Nalu-Processor: @PopUpController - componentTypeElement is null");
     }
     TypeElement componentInterfaceTypeElement = this.getComponentInterfaceTypeElement(annotation);
+    if (componentInterfaceTypeElement == null) {
+      throw new ProcessorException("Nalu-Processor: @PopUpController - componentInterfaceTypeElement is null");
+    }
     // check, if the controller implements IsComponentController
     boolean componentController = this.checkIsComponentCreator(popUpControllerElement,
                                                                componentInterfaceTypeElement);
@@ -102,65 +99,27 @@ public class PopUpControllerAnnotationScanner {
                                     new ClassNameModel(popUpControllerElement.toString()),
                                     componentController);
   }
-
-  private String getContextType(Element element)
-      throws ProcessorException {
-    final TypeMirror[] result = { null };
-    TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
-                                                                element.asType(),
-                                                                this.processorUtils.getElements()
-                                                                                   .getTypeElement(AbstractController.class.getCanonicalName())
-                                                                                   .asType());
-    // on case type is null, no IsComponentCreator interface found!
-    if (type == null) {
-      return null;
+  
+  private TypeElement getComponentTypeElement(PopUpController annotation) {
+    try {
+      annotation.component();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
     }
-    // check the generic!
-    type.accept(new SimpleTypeVisitor8<Void, Void>() {
-                  @Override
-                  protected Void defaultAction(TypeMirror typeMirror,
-                                               Void v) {
-                    throw new UnsupportedOperationException();
-                  }
-
-                  @Override
-                  public Void visitPrimitive(PrimitiveType primitiveType,
-                                             Void v) {
-                    return null;
-                  }
-
-                  @Override
-                  public Void visitArray(ArrayType arrayType,
-                                         Void v) {
-                    return null;
-                  }
-
-                  @Override
-                  public Void visitDeclared(DeclaredType declaredType,
-                                            Void v) {
-                    List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
-                    if (!typeArguments.isEmpty()) {
-                      result[0] = typeArguments.get(0);
-                    }
-                    return null;
-                  }
-
-                  @Override
-                  public Void visitError(ErrorType errorType,
-                                         Void v) {
-                    return null;
-                  }
-
-                  @Override
-                  public Void visitTypeVariable(TypeVariable typeVariable,
-                                                Void v) {
-                    return null;
-                  }
-                },
-                null);
-    return result[0].toString();
+    return null;
   }
-
+  
+  private TypeElement getComponentInterfaceTypeElement(PopUpController annotation) {
+    try {
+      annotation.componentInterface();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
+  }
+  
   private boolean checkIsComponentCreator(Element element,
                                           TypeElement componentInterfaceTypeElement)
       throws ProcessorException {
@@ -176,24 +135,25 @@ public class PopUpControllerAnnotationScanner {
     }
     // check the generic!
     type.accept(new SimpleTypeVisitor8<Void, Void>() {
+      
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
                     throw new UnsupportedOperationException();
                   }
-
+      
                   @Override
                   public Void visitPrimitive(PrimitiveType primitiveType,
                                              Void v) {
                     return null;
                   }
-
+      
                   @Override
                   public Void visitArray(ArrayType arrayType,
                                          Void v) {
                     return null;
                   }
-
+      
                   @Override
                   public Void visitDeclared(DeclaredType declaredType,
                                             Void v) {
@@ -205,13 +165,13 @@ public class PopUpControllerAnnotationScanner {
                     }
                     return null;
                   }
-
+      
                   @Override
                   public Void visitError(ErrorType errorType,
                                          Void v) {
                     return null;
                   }
-
+      
                   @Override
                   public Void visitTypeVariable(TypeVariable typeVariable,
                                                 Void v) {
@@ -226,54 +186,92 @@ public class PopUpControllerAnnotationScanner {
     }
     return true;
   }
-
-  private TypeElement getComponentTypeElement(PopUpController annotation) {
-    try {
-      annotation.component();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
+  
+  private String getContextType(Element element) {
+    final TypeMirror[] result = { null };
+    TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
+                                                                element.asType(),
+                                                                this.processorUtils.getElements()
+                                                                                   .getTypeElement(AbstractController.class.getCanonicalName())
+                                                                                   .asType());
+    // on case type is null, no IsComponentCreator interface found!
+    if (type == null) {
+      return null;
     }
-    return null;
+    // check the generic!
+    type.accept(new SimpleTypeVisitor8<Void, Void>() {
+      
+                  @Override
+                  protected Void defaultAction(TypeMirror typeMirror,
+                                               Void v) {
+                    throw new UnsupportedOperationException();
+                  }
+      
+                  @Override
+                  public Void visitPrimitive(PrimitiveType primitiveType,
+                                             Void v) {
+                    return null;
+                  }
+      
+                  @Override
+                  public Void visitArray(ArrayType arrayType,
+                                         Void v) {
+                    return null;
+                  }
+      
+                  @Override
+                  public Void visitDeclared(DeclaredType declaredType,
+                                            Void v) {
+                    List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
+                    if (!typeArguments.isEmpty()) {
+                      result[0] = typeArguments.get(0);
+                    }
+                    return null;
+                  }
+      
+                  @Override
+                  public Void visitError(ErrorType errorType,
+                                         Void v) {
+                    return null;
+                  }
+      
+                  @Override
+                  public Void visitTypeVariable(TypeVariable typeVariable,
+                                                Void v) {
+                    return null;
+                  }
+                },
+                null);
+    return result[0].toString();
   }
-
-  private TypeElement getComponentInterfaceTypeElement(PopUpController annotation) {
-    try {
-      annotation.componentInterface();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
-    }
-    return null;
-  }
-
+  
   public static class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     MetaModel metaModel;
-
+    
     Element popUpControllerElement;
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     public Builder popUpControllerElement(Element popUpControllerElement) {
       this.popUpControllerElement = popUpControllerElement;
       return this;
     }
-
+    
     public PopUpControllerAnnotationScanner build() {
       return new PopUpControllerAnnotationScanner(this);
     }
-
+    
   }
-
+  
 }

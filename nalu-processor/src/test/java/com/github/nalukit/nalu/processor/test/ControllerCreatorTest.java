@@ -28,7 +28,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class ControllerCreatorTest {
-
+  
   @Test
   void testControllerCreatorOkWithoutParameter() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -42,7 +42,7 @@ public class ControllerCreatorTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithoutParameter/ControllerC01CreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithoutParameter/ControllerC01CreatorImpl.java"));
   }
-
+  
   @Test
   void testControllerCreatorOkWithOneParameter() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -56,7 +56,7 @@ public class ControllerCreatorTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithOneParameter01/ControllerC02CreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithOneParameter01/ControllerC02CreatorImpl.java"));
   }
-
+  
   @Test
   void testControllerCreatorOkWithOneParameterWithoutAcceptParameter() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -70,7 +70,7 @@ public class ControllerCreatorTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithOneParameter01WithoutAcceptParameter/ControllerC03CreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithOneParameter01WithoutAcceptParameter/ControllerC03CreatorImpl.java"));
   }
-
+  
   @Test
   void testControllerCreatorOkWithTwoParameter() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -84,7 +84,7 @@ public class ControllerCreatorTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithTwoParameter01/ControllerC04CreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithTwoParameter01/ControllerC04CreatorImpl.java"));
   }
-
+  
   @Test
   void testControllerCreatorOkWithTwoParameterWithoutParameterOne() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -98,7 +98,7 @@ public class ControllerCreatorTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithTwoParameter03/ControllerC06CreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithTwoParameter03/ControllerC06CreatorImpl.java"));
   }
-
+  
   @Test
   void testControllerCreatorOkWithTwoParameterWithoutParameterOneAndTwo() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -112,5 +112,20 @@ public class ControllerCreatorTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithTwoParameter04/ControllerC07CreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/controllerCreatorOkWithTwoParameter04/ControllerC07CreatorImpl.java"));
   }
-
+  
+  // everything ok
+  @Test
+  void testMultiRouteSupport01() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/multiRouteSupport01/MultiRouteController01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/multiRouteSupport01/IMultiRouteComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/multiRouteSupport01/MultiRouteComponent01.java")));
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/controllerCreator/multiRouteSupport01/MultiRouteController01CreatorImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controllerCreator/multiRouteSupport01/MultiRouteController01CreatorImpl.java"));
+  }
+  
 }

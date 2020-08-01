@@ -20,12 +20,7 @@ import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.PackageElement;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
+import javax.lang.model.element.*;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
@@ -33,35 +28,31 @@ import javax.tools.Diagnostic;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ProcessorUtils {
-
+  
   private ProcessingEnvironment processingEnvironment;
-
+  
   private Messager messager;
-
+  
   private Elements elements;
-
+  
   @SuppressWarnings("unused")
   private ProcessorUtils(Builder builder) {
     super();
-
+    
     this.processingEnvironment = builder.processingEnvironment;
-
+    
     this.messager = this.processingEnvironment.getMessager();
     this.elements = this.processingEnvironment.getElementUtils();
   }
-
+  
   public static Builder builder() {
     return new Builder();
   }
-
+  
   //  public void store(IsMetaModel metaModel,
   //                    String fileName)
   //    throws ProcessorException {
@@ -79,7 +70,7 @@ public class ProcessorUtils {
   //      throw new ProcessorException("NaluProcessor: Unable to write file: >>" + fileName + "<< -> exception: " + ex.getMessage());
   //    }
   //  }
-
+  
   //  public boolean implementsInterface(ProcessingEnvironment processingEnvironment,
   //                                     TypeElement typeElement,
   //                                     TypeMirror implementedInterface) {
@@ -87,30 +78,30 @@ public class ProcessorUtils {
   //                                .isAssignable(typeElement.asType(),
   //                                              implementedInterface);
   //  }
-
+  
   //  public String getCanonicalClassName(Element element) {
   //    return this.getPackageAsString(element) +
   //           "." + element.getSimpleName()
   //                        .toString();
   //  }
-
+  
   public String getPackageAsString(Element type) {
     return this.getPackage(type)
                .getQualifiedName()
                .toString();
   }
-
+  
   public PackageElement getPackage(Element type) {
     while (type.getKind() != ElementKind.PACKAGE) {
       type = type.getEnclosingElement();
     }
     return (PackageElement) type;
   }
-
+  
   public Elements getElements() {
     return this.elements;
   }
-
+  
   /**
    * checks if a class or interface is implemented.
    *
@@ -132,7 +123,7 @@ public class ProcessorUtils {
     }
     return false;
   }
-
+  
   private String removeGenericsFromClassName(String className) {
     if (className.contains("<")) {
       className = className.substring(0,
@@ -140,7 +131,7 @@ public class ProcessorUtils {
     }
     return className;
   }
-
+  
   /**
    * Returns all of the superclasses and superinterfaces for a given generator
    * including the generator itself. The returned set maintains an internal
@@ -153,7 +144,7 @@ public class ProcessorUtils {
    */
   public Set<TypeMirror> getFlattenedSupertypeHierarchy(Types types,
                                                         TypeMirror typeMirror) {
-    List<TypeMirror> toAdd = new ArrayList<>();
+    List<TypeMirror>          toAdd  = new ArrayList<>();
     LinkedHashSet<TypeMirror> result = new LinkedHashSet<>();
     toAdd.add(typeMirror);
     for (int i = 0; i < toAdd.size(); i++) {
@@ -164,7 +155,7 @@ public class ProcessorUtils {
     }
     return result;
   }
-
+  
   public boolean supertypeHasGeneric(Types types,
                                      TypeMirror typeMirror,
                                      TypeMirror implementsMirror) {
@@ -177,7 +168,7 @@ public class ProcessorUtils {
     return superTypeMirror.toString()
                           .contains("<");
   }
-
+  
   public TypeMirror getFlattenedSupertype(Types types,
                                           TypeMirror typeMirror,
                                           TypeMirror implementsMirror) {
@@ -192,47 +183,47 @@ public class ProcessorUtils {
     }
     return null;
   }
-
+  
   //  public String createNameWithleadingUpperCase(String name) {
   //    return name.substring(0,
   //                          1)
   //               .toUpperCase() + name.substring(1);
   //  }
-
+  
   public void createErrorMessage(String errorMessage) {
     StringWriter sw = new StringWriter();
-    PrintWriter pw = new PrintWriter(sw);
+    PrintWriter  pw = new PrintWriter(sw);
     pw.println(errorMessage);
     pw.close();
     messager.printMessage(Diagnostic.Kind.ERROR,
                           sw.toString());
-
+    
   }
-
+  
   public String createFullClassName(String packageName,
                                     String className) {
     return packageName.replace(".",
                                "_") + "_" + className;
   }
-
+  
   public void createNoteMessage(String noteMessage) {
     StringWriter sw = new StringWriter();
-    PrintWriter pw = new PrintWriter(sw);
+    PrintWriter  pw = new PrintWriter(sw);
     pw.println(noteMessage);
     pw.close();
     messager.printMessage(Diagnostic.Kind.NOTE,
                           sw.toString());
   }
-
+  
   public void createWarningMessage(String warningMessage) {
     StringWriter sw = new StringWriter();
-    PrintWriter pw = new PrintWriter(sw);
+    PrintWriter  pw = new PrintWriter(sw);
     pw.println(warningMessage);
     pw.close();
     messager.printMessage(Diagnostic.Kind.WARNING,
                           sw.toString());
   }
-
+  
   //  public <T> boolean isSuperClass(Types typeUtils,
   //                                  TypeElement typeElement,
   //                                  Class<T> superClazz) {
@@ -289,7 +280,7 @@ public class ProcessorUtils {
   //  public String getEventBusResourcePath() {
   //    return StandardLocation.CLASS_OUTPUT + "/" + "META-INF/" + ProcessorConstants.NALU_REACT_FOLDER_NAME + "/" + ProcessorConstants.EVENT_BUS_FOLDER_NAME + "/EventBus";
   //  }
-
+  
   public <A extends Annotation> List<Element> getMethodFromTypeElementAnnotatedWith(ProcessingEnvironment processingEnvironment,
                                                                                     TypeElement element,
                                                                                     Class<A> annotation) {
@@ -300,7 +291,7 @@ public class ProcessorUtils {
                                                           .collect(Collectors.toList());
     return annotatedMethods;
   }
-
+  
   public String createInternalEventName(ExecutableElement executableElement) {
     String internalEventname = executableElement.getSimpleName()
                                                 .toString();
@@ -313,7 +304,7 @@ public class ProcessorUtils {
     }
     return internalEventname;
   }
-
+  
   public boolean doesExist(ClassNameModel typeElementClassName) {
     if (Objects.isNull(typeElementClassName)) {
       return false;
@@ -321,32 +312,32 @@ public class ProcessorUtils {
     return this.processingEnvironment.getElementUtils()
                                      .getTypeElement(typeElementClassName.getClassName()) != null;
   }
-
+  
   public String createHistoryMetaDataClassName(String historyConverterClassName) {
     return this.setFirstCharacterToUpperCase(this.createHistoryMetaDataVariableName(historyConverterClassName)) + "_" + ProcessorConstants.META_DATA;
   }
-
-  public String setFirstCharacterToLowerCase(String className) {
-    return className.substring(0,
-                               1)
-                    .toLowerCase() + className.substring(1);
-  }
-
+  
   public String setFirstCharacterToUpperCase(String className) {
     return className.substring(0,
                                1)
                     .toUpperCase() + className.substring(1);
   }
-
+  
   public String createHistoryMetaDataVariableName(String historyConverterClassName) {
     return this.createFullClassName(historyConverterClassName);
   }
-
+  
   public String createFullClassName(String className) {
     return className.replace(".",
                              "_");
   }
-
+  
+  public String setFirstCharacterToLowerCase(String className) {
+    return className.substring(0,
+                               1)
+                    .toLowerCase() + className.substring(1);
+  }
+  
   public String createSetMethodName(String value) {
     return "set" +
            value.substring(0,
@@ -354,26 +345,26 @@ public class ProcessorUtils {
                 .toUpperCase() +
            value.substring(1);
   }
-
+  
   public String createEventNameFromHandlingMethod(String event) {
     return event.substring(2,
                            3)
                 .toLowerCase() + event.substring(3);
   }
-
+  
   public static class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public ProcessorUtils build() {
       return new ProcessorUtils(this);
     }
-
+    
   }
-
+  
 }

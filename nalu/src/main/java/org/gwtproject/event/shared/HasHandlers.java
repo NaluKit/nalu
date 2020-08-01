@@ -19,7 +19,7 @@ package org.gwtproject.event.shared;
  * An object that implements this interface has a collection of event handlers associated with it.
  */
 public interface HasHandlers {
-
+  
   /**
    * Fires the given event to the handlers listening to the event's type.
    *
@@ -30,5 +30,5 @@ public interface HasHandlers {
    * @param event the event
    */
   void fireEvent(Event<?> event);
-
+  
 }

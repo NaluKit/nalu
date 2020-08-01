@@ -28,7 +28,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class ConsistenceTest {
-
+  
   @Test
   void testStartRouteShellDoesNotExists() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -41,7 +41,7 @@ public class ConsistenceTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: The shell of the startRoute >>MockShell<< does not exist!");
   }
-
+  
   @Test
   void testStartRouteDoesNotExists() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -54,7 +54,7 @@ public class ConsistenceTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: The shell of the startRoute >>mockShell<< does not exist!");
   }
-
+  
   @Test
   void testShellOfSelection() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -67,7 +67,7 @@ public class ConsistenceTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-
+  
   @Test
   void testShellOfSelectionWildCard() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -79,7 +79,7 @@ public class ConsistenceTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-
+  
   @Test
   void testDuplicateShellName() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -98,7 +98,7 @@ public class ConsistenceTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor:@Shell: the name >>mockShell02<< is duplicate! Please use another unique name!");
   }
-
+  
   @Test
   void testNoDuplicateShellName() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -116,7 +116,7 @@ public class ConsistenceTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-
+  
   @Test
   void testMultipleShells() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -128,5 +128,5 @@ public class ConsistenceTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-
+  
 }

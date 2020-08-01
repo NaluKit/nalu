@@ -35,26 +35,22 @@ import java.util.Arrays;
 public final class NaluSimpleApplicationImpl
     extends AbstractApplication<NaluSimpleApplicationContext>
     implements NaluSimpleApplication {
-
+  
   public NaluSimpleApplicationImpl() {
     super();
     super.context = new NaluSimpleApplicationContext();
   }
-
+  
   @Override
-  protected void logProcessorVersion() {
+  protected IsCustomAlertPresenter getCustomAlertPresenter() {
+    return null;
   }
-
+  
   @Override
-  protected void loadModules() {
-
+  protected IsCustomConfirmPresenter getCustomConfirmPresenter() {
+    return null;
   }
-
-  @Override
-  protected void loadShellFactory() {
-
-  }
-
+  
   @Override
   public void loadDebugConfiguration() {
     ClientLogger.get()
@@ -62,38 +58,26 @@ public final class NaluSimpleApplicationImpl
                           new DefaultLogger(),
                           Debug.LogLevel.DETAILED);
   }
-
+  
   @Override
-  protected IsTracker loadTrackerConfiguration() {
-    return null;
+  protected void logProcessorVersion() {
   }
-
+  
+  @Override
+  public void loadDefaultRoutes() {
+    this.startRoute = "/search";
+  }
+  
+  @Override
+  protected void loadModules() {
+  
+  }
+  
   @Override
   protected void loadShells() {
-
+  
   }
-
-  @Override
-  public void loadCompositeController() {
-  }
-
-  @Override
-  @SuppressWarnings("CatchAndPrintStackTrace")
-  public void loadComponents() {
-    // shellCreator ...
-    Shell shell = new Shell();
-    shell.setRouter(this.router);
-    shell.setEventBus(this.eventBus);
-    shell.setContext(this.context);
-    super.shell = shell;
-    try {
-      shell.bind(() -> {
-      });
-    } catch (RoutingInterceptionException e) {
-      e.printStackTrace();
-    }
-  }
-
+  
   @Override
   public void loadRoutes() {
     super.routerConfiguration.getRouters()
@@ -124,7 +108,7 @@ public final class NaluSimpleApplicationImpl
                                                   "content",
                                                   "SearchController"));
   }
-
+  
   @Override
   public void loadFilters() {
     BartSimpsonFilter com_github_nalukit_example_nalu_simpleapplication_client_filters_BartSimpsonFilter = new BartSimpsonFilter();
@@ -135,7 +119,76 @@ public final class NaluSimpleApplicationImpl
                 .logDetailed("AbstractApplication: filter >> com_github_nalukit_example_nalu_simpleapplication_client_filters_BartSimpsonFilter << created",
                              0);
   }
-
+  
+  @Override
+  public void loadCompositeReferences() {
+  }
+  
+  @Override
+  protected IsTracker loadTrackerConfiguration() {
+    return null;
+  }
+  
+  @Override
+  protected boolean hasHistory() {
+    return true;
+  }
+  
+  @Override
+  protected boolean isUsingHash() {
+    return true;
+  }
+  
+  @Override
+  protected boolean isUsingColonForParametersInUrl() {
+    return false;
+  }
+  
+  @Override
+  protected boolean isStayOnSide() {
+    return false;
+  }
+  
+  @Override
+  protected void loadShellFactory() {
+  
+  }
+  
+  @Override
+  protected void loadBlockControllerFactory() {
+  }
+  
+  @Override
+  protected void loadPopUpControllerFactory() {
+  
+  }
+  
+  @Override
+  protected void loadErrorPopUpController() {
+  
+  }
+  
+  @Override
+  public void loadCompositeController() {
+  }
+  
+  @Override
+  @SuppressWarnings("CatchAndPrintStackTrace")
+  public void loadComponents() {
+    // shellCreator ...
+    Shell shell = new Shell();
+    shell.setRouter(this.router);
+    shell.setEventBus(this.eventBus);
+    shell.setContext(this.context);
+    super.shell = shell;
+    try {
+      shell.bind(() -> {
+      });
+    } catch (RoutingInterceptionException e) {
+      e.printStackTrace();
+    }
+  }
+  
   @Override
   public void loadHandlers() {
     // create handler for: SimpleApplicationHandler01
@@ -148,63 +201,10 @@ public final class NaluSimpleApplicationImpl
                 .logDetailed("AbstractController: handler >>SimpleApplicationHandler01<< created",
                              0);
   }
-
-  @Override
-  protected void loadBlockControllerFactory() {
-  }
-
-  @Override
-  protected void loadPopUpControllerFactory() {
-
-  }
-
-  @Override
-  protected void loadErrorPopUpController() {
-
-  }
-
-  @Override
-  public void loadCompositeReferences() {
-  }
-
+  
   @Override
   public IsApplicationLoader<NaluSimpleApplicationContext> getApplicationLoader() {
     return new NaluSimpleApplicationLoader();
   }
-
-  @Override
-  protected IsCustomAlertPresenter getCustomAlertPresenter() {
-    return null;
-  }
-
-  @Override
-  protected IsCustomConfirmPresenter getCustomConfirmPresenter() {
-    return null;
-  }
-
-  @Override
-  protected boolean hasHistory() {
-    return true;
-  }
-
-  @Override
-  protected boolean isUsingHash() {
-    return true;
-  }
-
-  @Override
-  protected boolean isUsingColonForParametersInUrl() {
-    return false;
-  }
-
-  @Override
-  protected boolean isStayOnSide() {
-    return false;
-  }
-
-  @Override
-  public void loadDefaultRoutes() {
-    this.startRoute = "/search";
-  }
-
+  
 }

@@ -39,20 +39,20 @@ import java.util.Objects;
 
 public class NaluPluginGWT
     implements IsNaluProcessorPlugin {
-
+  
   private NaluStartModel naluStartModel;
-
+  
   private IsCustomAlertPresenter   customAlertPresenter;
   private IsCustomConfirmPresenter customConfirmPresenter;
-
+  
   /* RouteChangeHandler - to be used directly   */
   /* in case Nalu does not have history support */
   private RouteChangeHandler routeChangeHandler;
-
+  
   public NaluPluginGWT() {
     super();
   }
-
+  
   @Override
   public void alert(String message) {
     if (customAlertPresenter == null) {
@@ -61,7 +61,7 @@ public class NaluPluginGWT
       this.customAlertPresenter.alert(message);
     }
   }
-
+  
   @Override
   public boolean attach(String selector,
                         Object asElement) {
@@ -69,13 +69,14 @@ public class NaluPluginGWT
                                                       .getSelectorCommands()
                                                       .get(selector);
     if (selectorCommand == null) {
+      NaluPluginCoreWeb.logNonExistingSelector(selector);
       return false;
     } else {
       selectorCommand.append(((IsWidget) asElement).asWidget());
       return true;
     }
   }
-
+  
   @Override
   public void confirm(String message,
                       ConfirmHandler handler) {
@@ -90,17 +91,17 @@ public class NaluPluginGWT
       customConfirmPresenter.confirm(message);
     }
   }
-
+  
   @Override
   public String getStartRoute() {
     return this.naluStartModel.getStartRoute();
   }
-
+  
   @Override
   public Map<String, String> getQueryParameters() {
     return this.naluStartModel.getQueryParameters();
   }
-
+  
   @Override
   public void register(RouteChangeHandler handler) {
     if (PropertyFactory.get()
@@ -117,7 +118,7 @@ public class NaluPluginGWT
       this.routeChangeHandler = handler;
     }
   }
-
+  
   @Override
   public void remove(String selector) {
     Element selectorElement = DOM.getElementById(selector);
@@ -125,7 +126,7 @@ public class NaluPluginGWT
       selectorElement.removeAllChildren();
     }
   }
-
+  
   @Override
   public void route(String newRoute,
                     boolean replace) {
@@ -133,19 +134,19 @@ public class NaluPluginGWT
                             replace,
                             this.routeChangeHandler);
   }
-
+  
   @Override
   public void initialize(ShellConfiguration shellConfiguration) {
     // Sets the context path inside the PropertyFactory
     NaluPluginCoreWeb.getContextPath(shellConfiguration);
     this.naluStartModel = NaluPluginCoreWeb.getNaluStartModel();
   }
-
+  
   @Override
   public void updateTitle(String title) {
     Window.setTitle(title);
   }
-
+  
   @Override
   public void updateMetaNameContent(String name,
                                     String content) {
@@ -172,7 +173,7 @@ public class NaluPluginGWT
       headerElement.appendChild(metaElement);
     }
   }
-
+  
   @Override
   public void updateMetaPropertyContent(String property,
                                         String content) {
@@ -200,26 +201,26 @@ public class NaluPluginGWT
       headerElement.appendChild(metaElement);
     }
   }
-
+  
   @Override
   public String decode(String route) {
     return URL.decode(route);
   }
-
+  
+  @Override
+  public void setCustomAlertPresenter(IsCustomAlertPresenter customAlertPresenter) {
+    this.customAlertPresenter = customAlertPresenter;
+  }
+  
+  @Override
+  public void setCustomConfirmPresenter(IsCustomConfirmPresenter customConfirmPresenter) {
+    this.customConfirmPresenter = customConfirmPresenter;
+  }
+  
   private Element getHeaderNode() {
     NodeList<Element> node = Document.get()
                                      .getElementsByTagName("head");
     return node.getItem(0);
   }
-
-  @Override
-  public void setCustomAlertPresenter(IsCustomAlertPresenter customAlertPresenter) {
-    this.customAlertPresenter = customAlertPresenter;
-  }
-
-  @Override
-  public void setCustomConfirmPresenter(IsCustomConfirmPresenter customConfirmPresenter) {
-    this.customConfirmPresenter = customConfirmPresenter;
-  }
-
+  
 }

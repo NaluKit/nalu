@@ -3,37 +3,37 @@ package com.github.nalukit.nalu.client.internal;
 import java.util.Objects;
 
 public class PropertyFactory {
-
+  
   private static PropertyFactory instance;
-
+  
   // context path
   private String contextPath;
-
+  
   // start route of the application
   private String startRoute;
-
+  
   // does the application have history
   private boolean hasHistory;
-
+  
   // is the application using hash in url?
   private boolean usingHash;
-
+  
   // is the application using colon in url for parameter?
   private boolean usingColonForParametersInUrl;
-
+  
   // should the application replace history (stay on side) in case of empty hash
   private boolean stayOnSide;
-
+  
   private PropertyFactory() {
   }
-
+  
   public static PropertyFactory get() {
     if (Objects.isNull(instance)) {
       instance = new PropertyFactory();
     }
     return instance;
   }
-
+  
   /**
    * get the context path for this application
    *
@@ -42,7 +42,7 @@ public class PropertyFactory {
   public String getContextPath() {
     return this.contextPath;
   }
-
+  
   /**
    * DO NOT CALL THIS METHOD!
    *
@@ -51,7 +51,7 @@ public class PropertyFactory {
   public void setContextPath(String contextPath) {
     this.contextPath = contextPath;
   }
-
+  
   /**
    * Will Nalu use a ahs for Navigation?
    *
@@ -60,7 +60,7 @@ public class PropertyFactory {
   public boolean hasHistory() {
     return this.hasHistory;
   }
-
+  
   /**
    * Will Nalu use a ahs for Navigation?
    *
@@ -69,7 +69,7 @@ public class PropertyFactory {
   public boolean isUsingHash() {
     return this.usingHash;
   }
-
+  
   /**
    * Will Nalu use colons to mark parameters inside the url?
    *
@@ -78,7 +78,7 @@ public class PropertyFactory {
   public boolean isUsingColonForParametersInUrl() {
     return this.usingColonForParametersInUrl;
   }
-
+  
   /**
    * should the application replace history (stay on side) in case of empty hash?
    *
@@ -87,7 +87,7 @@ public class PropertyFactory {
   public boolean isStayOnSide() {
     return stayOnSide;
   }
-
+  
   /**
    * The start route of the applilcation
    *
@@ -96,7 +96,7 @@ public class PropertyFactory {
   public String getStartRoute() {
     return this.startRoute;
   }
-
+  
   /**
    * Do NOT call this method!
    *
@@ -116,10 +116,10 @@ public class PropertyFactory {
     } else {
       this.startRoute = startRoute;
     }
-    this.hasHistory = hasHistory;
-    this.usingHash = usingHash;
+    this.hasHistory                   = hasHistory;
+    this.usingHash                    = usingHash;
     this.usingColonForParametersInUrl = usingColonForParametersInUrl;
-    this.stayOnSide = stayOnSide;
+    this.stayOnSide                   = stayOnSide;
   }
-
+  
 }

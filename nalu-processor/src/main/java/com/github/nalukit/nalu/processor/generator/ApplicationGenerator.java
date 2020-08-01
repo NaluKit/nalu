@@ -29,43 +29,39 @@ import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.*;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
 
 public class ApplicationGenerator {
-
+  
   private final static String IMPL_NAME = "Impl";
-
+  
   private ProcessorUtils processorUtils;
-
+  
   private ProcessingEnvironment processingEnvironment;
-
+  
   @SuppressWarnings("unused")
   private ApplicationGenerator(Builder builder) {
     super();
-
+    
     this.processingEnvironment = builder.processingEnvironment;
-
+    
     setUp();
   }
-
-  public static Builder builder() {
-    return new Builder();
-  }
-
+  
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-
+  
+  public static Builder builder() {
+    return new Builder();
+  }
+  
   public void generate(MetaModel metaModel)
       throws ProcessorException {
     // check if element is existing (to avoid generating code for deleted items)
@@ -84,7 +80,7 @@ public class ApplicationGenerator {
                                                       Modifier.FINAL)
                                         .addSuperinterface(metaModel.getApplication()
                                                                     .getTypeName());
-
+    
     // constructor ...
     MethodSpec constructor = MethodSpec.constructorBuilder()
                                        .addModifiers(Modifier.PUBLIC)
@@ -96,7 +92,7 @@ public class ApplicationGenerator {
                                                               .getSimpleName())
                                        .build();
     typeSpec.addMethod(constructor);
-
+    
     typeSpec.addMethod(MethodSpec.methodBuilder("logProcessorVersion")
                                  .addAnnotation(ClassName.get(Override.class))
                                  .addModifiers(Modifier.PUBLIC)
@@ -116,69 +112,69 @@ public class ApplicationGenerator {
                                  .addStatement("$T.get().logDetailed(\"\", 0)",
                                                ClassName.get(ClientLogger.class))
                                  .build());
-
+    
     DebugGenerator.builder()
                   .metaModel(metaModel)
                   .typeSpec(typeSpec)
                   .build()
                   .generate();
-
+    
     TrackerGenerator.builder()
                     .metaModel(metaModel)
                     .typeSpec(typeSpec)
                     .build()
                     .generate();
-
+    
     ShellGenerator.builder()
                   .metaModel(metaModel)
                   .typeSpec(typeSpec)
                   .build()
                   .generate();
-
+    
     CompositeControllerGenerator.builder()
                                 .metaModel(metaModel)
                                 .typeSpec(typeSpec)
                                 .build()
                                 .generate();
-
+    
     ControllerGenerator.builder()
                        .metaModel(metaModel)
                        .typeSpec(typeSpec)
                        .build()
                        .generate();
-
+    
     BlockControllerGenerator.builder()
                             .metaModel(metaModel)
                             .typeSpec(typeSpec)
                             .build()
                             .generate();
-
+    
     PopUpControllerGenerator.builder()
                             .metaModel(metaModel)
                             .typeSpec(typeSpec)
                             .build()
                             .generate();
-
+    
     ErrorPopUpControllerGenerator.builder()
                                  .metaModel(metaModel)
                                  .typeSpec(typeSpec)
                                  .build()
                                  .generate();
-
+    
     FiltersGenerator.builder()
                     .processingEnvironment(this.processingEnvironment)
                     .metaModel(metaModel)
                     .typeSpec(typeSpec)
                     .build()
                     .generate();
-
+    
     HandlerGenerator.builder()
                     .processingEnvironment(this.processingEnvironment)
                     .metaModel(metaModel)
                     .typeSpec(typeSpec)
                     .build()
                     .generate();
-
+    
     CompositesGenerator.builder()
                        .metaModel(metaModel)
                        .typeSpec(typeSpec)
@@ -192,7 +188,7 @@ public class ApplicationGenerator {
                     .typeSpec(typeSpec)
                     .build()
                     .generate();
-
+    
     // method "getApplicationLoader"
     MethodSpec.Builder getApplicationLoaderMethod = MethodSpec.methodBuilder("getApplicationLoader")
                                                               .addModifiers(Modifier.PUBLIC)
@@ -210,7 +206,7 @@ public class ApplicationGenerator {
                                                        .getTypeName());
     }
     typeSpec.addMethod(getApplicationLoaderMethod.build());
-
+    
     // method "getCustomAlertPresenter"
     MethodSpec.Builder getCustomAlertPresenterMethod = MethodSpec.methodBuilder("getCustomAlertPresenter")
                                                                  .addModifiers(Modifier.PUBLIC)
@@ -226,7 +222,7 @@ public class ApplicationGenerator {
                                                           .getTypeName());
     }
     typeSpec.addMethod(getCustomAlertPresenterMethod.build());
-
+    
     // method "getCustomConfirmPresenter"
     MethodSpec.Builder getCustomConfirmPresenterMethod = MethodSpec.methodBuilder("getCustomConfirmPresenter")
                                                                    .addModifiers(Modifier.PUBLIC)
@@ -242,22 +238,22 @@ public class ApplicationGenerator {
                                                             .getTypeName());
     }
     typeSpec.addMethod(getCustomConfirmPresenterMethod.build());
-
+    
     generateLoadDefaultsRoutes(typeSpec,
                                metaModel);
-
+    
     generateHasHistoryMethod(typeSpec,
                              metaModel);
-
+    
     generateIsUsingHashMethod(typeSpec,
                               metaModel);
-
+    
     generateIsUsingColonForParametersInUrl(typeSpec,
                                            metaModel);
-
+    
     generateIsStayOnSide(typeSpec,
                          metaModel);
-
+    
     JavaFile javaFile = JavaFile.builder(metaModel.getGenerateToPackage(),
                                          typeSpec.build())
                                 .build();
@@ -273,51 +269,7 @@ public class ApplicationGenerator {
                                    e.getMessage());
     }
   }
-
-  private void generateHasHistoryMethod(TypeSpec.Builder typeSpec,
-                                        MetaModel metaModel) {
-    typeSpec.addMethod(MethodSpec.methodBuilder("hasHistory")
-                                 .addAnnotation(Override.class)
-                                 .addModifiers(Modifier.PUBLIC)
-                                 .returns(boolean.class)
-                                 .addStatement("return $L",
-                                               metaModel.hasHistory() ? "true" : "false")
-                                 .build());
-  }
-
-  private void generateIsUsingHashMethod(TypeSpec.Builder typeSpec,
-                                         MetaModel metaModel) {
-    typeSpec.addMethod(MethodSpec.methodBuilder("isUsingHash")
-                                 .addAnnotation(Override.class)
-                                 .addModifiers(Modifier.PUBLIC)
-                                 .returns(boolean.class)
-                                 .addStatement("return $L",
-                                               metaModel.isUsingHash() ? "true" : "false")
-                                 .build());
-  }
-
-  private void generateIsUsingColonForParametersInUrl(TypeSpec.Builder typeSpec,
-                                                      MetaModel metaModel) {
-    typeSpec.addMethod(MethodSpec.methodBuilder("isUsingColonForParametersInUrl")
-                                 .addAnnotation(Override.class)
-                                 .addModifiers(Modifier.PUBLIC)
-                                 .returns(boolean.class)
-                                 .addStatement("return $L",
-                                               metaModel.isUsingColonForParametersInUrl() ? "true" : "false")
-                                 .build());
-  }
-
-  private void generateIsStayOnSide(TypeSpec.Builder typeSpec,
-                                    MetaModel metaModel) {
-    typeSpec.addMethod(MethodSpec.methodBuilder("isStayOnSide")
-                                 .addAnnotation(Override.class)
-                                 .addModifiers(Modifier.PUBLIC)
-                                 .returns(boolean.class)
-                                 .addStatement("return $L",
-                                               metaModel.isStayOnSide() ? "true" : "false")
-                                 .build());
-  }
-
+  
   private void generateLoadDefaultsRoutes(TypeSpec.Builder typeSpec,
                                           MetaModel metaModel) {
     typeSpec.addMethod(MethodSpec.methodBuilder("loadDefaultRoutes")
@@ -337,20 +289,64 @@ public class ApplicationGenerator {
                                                ClassName.get(ClientLogger.class))
                                  .build());
   }
-
+  
+  private void generateHasHistoryMethod(TypeSpec.Builder typeSpec,
+                                        MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("hasHistory")
+                                 .addAnnotation(Override.class)
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .returns(boolean.class)
+                                 .addStatement("return $L",
+                                               metaModel.hasHistory() ? "true" : "false")
+                                 .build());
+  }
+  
+  private void generateIsUsingHashMethod(TypeSpec.Builder typeSpec,
+                                         MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("isUsingHash")
+                                 .addAnnotation(Override.class)
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .returns(boolean.class)
+                                 .addStatement("return $L",
+                                               metaModel.isUsingHash() ? "true" : "false")
+                                 .build());
+  }
+  
+  private void generateIsUsingColonForParametersInUrl(TypeSpec.Builder typeSpec,
+                                                      MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("isUsingColonForParametersInUrl")
+                                 .addAnnotation(Override.class)
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .returns(boolean.class)
+                                 .addStatement("return $L",
+                                               metaModel.isUsingColonForParametersInUrl() ? "true" : "false")
+                                 .build());
+  }
+  
+  private void generateIsStayOnSide(TypeSpec.Builder typeSpec,
+                                    MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("isStayOnSide")
+                                 .addAnnotation(Override.class)
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .returns(boolean.class)
+                                 .addStatement("return $L",
+                                               metaModel.isStayOnSide() ? "true" : "false")
+                                 .build());
+  }
+  
   public static class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public ApplicationGenerator build() {
       return new ApplicationGenerator(this);
     }
-
+    
   }
-
+  
 }

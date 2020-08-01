@@ -24,10 +24,10 @@ import com.github.nalukit.nalu.simpleapplication02.client.event.StatusChangeEven
 @Handler
 public class SimpleApplicationHandler01
     extends AbstractHandler<NaluSimpleApplicationContext> {
-
+  
   public SimpleApplicationHandler01() {
   }
-
+  
   @Override
   public void bind() {
     this.eventBus.addHandler(StatusChangeEvent.TYPE,
@@ -36,5 +36,5 @@ public class SimpleApplicationHandler01
                                System.out.print("new Status:" + e.getStatus());
                              });
   }
-
+  
 }

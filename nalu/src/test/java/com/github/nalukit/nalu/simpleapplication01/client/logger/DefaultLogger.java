@@ -23,9 +23,9 @@ import java.util.stream.IntStream;
 
 public class DefaultLogger
     implements IsLogger {
-
+  
   private static final String INDENT = "    ";
-
+  
   @Override
   public void log(String message,
                   int depth) {
@@ -35,7 +35,7 @@ public class DefaultLogger
                                    depth));
     }
   }
-
+  
   private String createLog(String message,
                            int depth) {
     if (depth == 0) {
@@ -50,5 +50,5 @@ public class DefaultLogger
       return "Nalu-Logger -> " + indent;
     }
   }
-
+  
 }

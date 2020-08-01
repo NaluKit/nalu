@@ -28,7 +28,7 @@ import org.gwtproject.event.shared.Event.Type;
  */
 public abstract class EventBus
     implements HasHandlers {
-
+  
   /**
    * Invokes {@code event.dispatch} with {@code handler}.
    *
@@ -43,7 +43,7 @@ public abstract class EventBus
                                           H handler) {
     event.dispatch(handler);
   }
-
+  
   /**
    * Sets {@code source} as the source of {@code event}.
    *
@@ -57,7 +57,7 @@ public abstract class EventBus
                                          Object source) {
     event.setSource(source);
   }
-
+  
   /**
    * Adds an unfiltered handler to receive events of this type from all sources.
    *
@@ -71,7 +71,7 @@ public abstract class EventBus
    */
   public abstract <H> HandlerRegistration addHandler(Type<H> type,
                                                      H handler);
-
+  
   /**
    * Adds a handler to receive events of this type from the given source.
    *
@@ -87,7 +87,7 @@ public abstract class EventBus
   public abstract <H> HandlerRegistration addHandlerToSource(Type<H> type,
                                                              Object source,
                                                              H handler);
-
+  
   /**
    * Fires the event from no source. Only unfiltered handlers will receive it.
    *
@@ -100,7 +100,7 @@ public abstract class EventBus
    */
   @Override
   public abstract void fireEvent(Event<?> event);
-
+  
   /**
    * Fires the given event to the handlers listening to the event's type.
    *
@@ -114,5 +114,5 @@ public abstract class EventBus
    */
   public abstract void fireEventFromSource(Event<?> event,
                                            Object source);
-
+  
 }

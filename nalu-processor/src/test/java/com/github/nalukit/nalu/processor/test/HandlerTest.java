@@ -28,7 +28,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class HandlerTest {
-
+  
   @Test
   void testHandlerAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -36,7 +36,7 @@ public class HandlerTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-
+  
   @Test
   void testHandlerAnnotationOnAInterface() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -46,7 +46,7 @@ public class HandlerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Handler can only be used with an class");
   }
-
+  
   @Test
   void testHandlerAnnotationOnAClassThatDoesNotExtendIsHandler() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -56,16 +56,16 @@ public class HandlerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Handler can only be used on a class that implements IsHandler");
   }
-
+  
   @Test
   void testHandlerAnnotationOnAClassThatDoesExtendIsHandler() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/handlerAnnotationOnAClassThatExtendIsHandler/HandlerAnnotationOnAClassThatDoesExtendIsHandler.java")));
-
+    
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-
+  
   @Test
   void testHandlerAnnotationOnAClassThatDoesNotExtendAbstractHandler() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -75,7 +75,7 @@ public class HandlerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Handler can only be used on a class that extends AbstractHandler");
   }
-
+  
   @Test
   void testHandlerAnnotationOnAClassThatDoesExtendAbstractHandler() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -83,5 +83,5 @@ public class HandlerTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-
+  
 }

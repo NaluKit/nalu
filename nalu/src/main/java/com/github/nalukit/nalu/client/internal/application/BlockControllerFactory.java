@@ -22,15 +22,11 @@ import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.EventBus;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @NaluInternalUse
 public class BlockControllerFactory {
-
+  
   /* instance of the popup controller factory */
   private static BlockControllerFactory               instance;
   /* map of components (key: name of class, Value: controller instance */
@@ -39,19 +35,19 @@ public class BlockControllerFactory {
   private        EventBus                             eventBus;
   /* list of visibles blocks (using block name) */
   private        List<String>                         visiblesBlocks;
-
+  
   private BlockControllerFactory() {
     this.blockControllerInstanceStore = new HashMap<>();
-    this.visiblesBlocks = new ArrayList<>();
+    this.visiblesBlocks               = new ArrayList<>();
   }
-
+  
   public static BlockControllerFactory get() {
     if (instance == null) {
       instance = new BlockControllerFactory();
     }
     return instance;
   }
-
+  
   public void registerBlockController(String blockName,
                                       IsBlockControllerCreator creator) {
     BlockControllerInstance blockControllerInstance = creator.create();
@@ -68,7 +64,7 @@ public class BlockControllerFactory {
     this.blockControllerInstanceStore.put(blockName,
                                           blockControllerInstance);
   }
-
+  
   public void register(EventBus eventBus) {
     this.eventBus = eventBus;
     // we will listen to the RouteSteEvent to show and hide blocks
@@ -77,7 +73,7 @@ public class BlockControllerFactory {
                                this::onHandleRouting);
     }
   }
-
+  
   private void onHandleRouting(RouterStateEvent e) {
     if (RouterState.ROUTING_DONE != e.getState()) {
       return;
@@ -138,5 +134,5 @@ public class BlockControllerFactory {
                                        }
                                      });
   }
-
+  
 }

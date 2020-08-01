@@ -22,17 +22,18 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
 public interface IsControllerCreator {
-
-  ControllerInstance create();
-
-  void onFinishCreating(Object object)
+  
+  ControllerInstance create(String route);
+  
+  void onFinishCreating(Object object,
+                        String route)
       throws RoutingInterceptionException;
-
+  
   void logBindMethodCallToConsole(AbstractComponentController<?, ?, ?> controller,
                                   boolean isFinished);
-
+  
   void setParameter(Object object,
                     String... params)
       throws RoutingInterceptionException;
-
+  
 }

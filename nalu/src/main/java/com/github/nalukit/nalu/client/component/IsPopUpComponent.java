@@ -16,22 +16,25 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 public interface IsPopUpComponent<C extends IsPopUpComponent.Controller> {
-
+  
   void render();
-
+  
   void bind();
-
+  
   C getController();
-
+  
+  @NaluInternalUse
   void setController(C controller);
-
+  
   void show();
-
+  
   void hide();
-
+  
   interface Controller {
-
+  
   }
-
+  
 }

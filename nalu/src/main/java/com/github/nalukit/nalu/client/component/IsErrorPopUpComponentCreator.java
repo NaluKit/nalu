@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 /**
  * PopUpControllers marked with this interface will create the component instance.
  * This is useful, if you want to use Elemento templating or GWT.create to ensure,
@@ -31,7 +33,8 @@ package com.github.nalukit.nalu.client.component;
  * @param <V> type of the component's interface
  */
 public interface IsErrorPopUpComponentCreator<V extends IsErrorPopUpComponent<?>> {
-
+  
+  @NaluInternalUse
   V createErrorPopUpComponent();
-
+  
 }

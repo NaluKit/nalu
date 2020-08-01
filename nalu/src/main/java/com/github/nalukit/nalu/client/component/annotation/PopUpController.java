@@ -39,11 +39,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface PopUpController {
-
+  
   String name();
-
+  
   Class<? extends IsPopUpComponent<?>> componentInterface();
-
+  
   Class<? extends AbstractPopUpComponent<?>> component();
-
+  
 }

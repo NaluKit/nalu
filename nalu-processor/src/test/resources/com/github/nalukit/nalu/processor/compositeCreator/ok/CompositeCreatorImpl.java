@@ -15,12 +15,13 @@ import java.lang.StringBuilder;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>2.0.1<< at >>2020.09.14-14:16:18<< */
+ * Build with Nalu version >>2.0.2<< at >>2020.03.04-19:55:07<<
+ */
 public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockContext> implements IsCompositeCreator {
   public CompositeCreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
     super(router, context, eventBus);
   }
-
+  
   public CompositeInstance create(String parentControllerClassName) throws
                                                                     RoutingInterceptionException {
     StringBuilder sb01 = new StringBuilder();
@@ -71,9 +72,7 @@ public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockCon
     }
     return compositeInstance;
   }
-
+  
   public void setParameter(Object object, String... params) throws RoutingInterceptionException {
-    Composite composite = (Composite) object;
-    StringBuilder sb01 = new StringBuilder();
   }
 }

@@ -21,16 +21,16 @@ import org.gwtproject.event.shared.SimpleEventBus;
 
 public interface ConfigurableRouter
     extends Router {
-
+  
   /**
    * handle router exception.
    *
    * @param hash hash on start
-   * @param e the RouterException
+   * @param e    the RouterException
    */
   void handleRouterException(String hash,
                              RouterException e);
-
+  
   /**
    * Parse the route!
    *
@@ -40,12 +40,12 @@ public interface ConfigurableRouter
    */
   RouteResult parse(String route)
       throws RouterException;
-
+  
   /**
    * sets the event bus inside the router
    *
    * @param eventBus Nalu application event bus
    */
   void setEventBus(SimpleEventBus eventBus);
-
+  
 }

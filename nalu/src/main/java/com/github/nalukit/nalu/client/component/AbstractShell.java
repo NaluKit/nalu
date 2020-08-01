@@ -20,34 +20,61 @@ import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractShell<C extends IsContext>
     implements IsShell {
-
+  
   protected Router router;
-
+  
   protected C context;
-
+  
   protected SimpleEventBus eventBus;
-
+  
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
-
+  
   public AbstractShell() {
   }
-
+  
+  @NaluInternalUse
   public void setRouter(Router router) {
     this.router = router;
   }
-
+  
+  @NaluInternalUse
   public void setContext(C context) {
     this.context = context;
   }
-
+  
+  @NaluInternalUse
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
-
+  
+  /**
+   * Ovverride this method with the necessary code to remove the shell.
+   */
+  @Override
+  public abstract void detachShell();
+  
+  @Override
+  public void onAttachedComponent() {
+    // override this method if you need to do something, after a component is attached!
+  }
+  
+  /**
+   * internal framework method! Will be called by the framework after the
+   * stop-method f the controller is called
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   */
+  @Override
+  public void removeHandlers() {
+    this.handlerRegistrations.removeHandler();
+    this.handlerRegistrations = new HandlerRegistrations();
+  }
+  
   /**
    * The bind-method will be called before the shell is added to the viewport.
    * <p>
@@ -72,28 +99,5 @@ public abstract class AbstractShell<C extends IsContext>
       throws RoutingInterceptionException {
     loader.continueLoading();
   }
-
-  /**
-   * internal framework method! Will be called by the framework after the
-   * stop-method f the controller is called
-   *
-   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
-   */
-  @Override
-  public void removeHandlers() {
-    this.handlerRegistrations.removeHandler();
-    this.handlerRegistrations = new HandlerRegistrations();
-  }
-
-  @Override
-  public void onAttachedComponent() {
-    // override this method if you need to do something, after a component is attached!
-  }
-
-  /**
-   * Ovverride this method with the necessary code to remove the shell.
-   */
-  @Override
-  public abstract void detachShell();
-
+  
 }

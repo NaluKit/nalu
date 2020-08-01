@@ -5,19 +5,12 @@ import com.github.nalukit.nalu.client.Nalu;
 import java.util.Objects;
 
 public class RouterUtils {
-
+  
   private static RouterUtils instance;
-
+  
   private RouterUtils() {
   }
-
-  public static RouterUtils get() {
-    if (Objects.isNull(instance)) {
-      instance = new RouterUtils();
-    }
-    return instance;
-  }
-
+  
   /**
    * This method compares the route with the value of withRoute respecting parameters.
    *
@@ -46,7 +39,7 @@ public class RouterUtils {
                              withRoute,
                              false);
   }
-
+  
   /**
    * This method compares the route with the value of withRoute respecting parameters.
    *
@@ -76,7 +69,7 @@ public class RouterUtils {
                                        .split(route);
     String[] partsOfWithRoute = RouterUtils.get()
                                            .split(withRoute);
-
+  
     // in case route has more parts than withRoute, return false
     if (partsOfRoute.length > partsOfWithRoute.length) {
       return false;
@@ -177,7 +170,14 @@ public class RouterUtils {
     }
     return true;
   }
-
+  
+  public static RouterUtils get() {
+    if (Objects.isNull(instance)) {
+      instance = new RouterUtils();
+    }
+    return instance;
+  }
+  
   private String[] split(String route) {
     if (route.startsWith("/")) {
       if (route.length() > 1) {
@@ -189,7 +189,7 @@ public class RouterUtils {
       return route.split("/");
     }
   }
-
+  
   private boolean onlyParameterAddEnd(String[] partsOfRoute,
                                       int index) {
     for (int i = index; i < partsOfRoute.length; i++) {
@@ -199,5 +199,5 @@ public class RouterUtils {
     }
     return true;
   }
-
+  
 }

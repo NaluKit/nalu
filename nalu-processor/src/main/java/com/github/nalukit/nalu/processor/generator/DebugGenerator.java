@@ -25,24 +25,24 @@ import com.squareup.javapoet.TypeSpec;
 import javax.lang.model.element.Modifier;
 
 public class DebugGenerator {
-
+  
   private MetaModel metaModel;
-
+  
   private TypeSpec.Builder typeSpec;
-
+  
   @SuppressWarnings("unused")
   private DebugGenerator() {
   }
-
+  
   private DebugGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
-    this.typeSpec = builder.typeSpec;
+    this.typeSpec  = builder.typeSpec;
   }
-
+  
   public static Builder builder() {
     return new Builder();
   }
-
+  
   void generate() {
     // method must always be created!
     MethodSpec.Builder loadDebugConfigurationMethod = MethodSpec.methodBuilder("loadDebugConfiguration")
@@ -59,13 +59,13 @@ public class DebugGenerator {
     }
     typeSpec.addMethod(loadDebugConfigurationMethod.build());
   }
-
+  
   public static final class Builder {
-
+    
     MetaModel metaModel;
-
+    
     TypeSpec.Builder typeSpec;
-
+    
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -76,7 +76,7 @@ public class DebugGenerator {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -87,11 +87,11 @@ public class DebugGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-
+    
     public DebugGenerator build() {
       return new DebugGenerator(this);
     }
-
+    
   }
-
+  
 }

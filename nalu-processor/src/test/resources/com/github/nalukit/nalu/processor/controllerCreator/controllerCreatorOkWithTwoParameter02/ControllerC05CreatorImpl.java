@@ -20,6 +20,7 @@ public final class ControllerC05CreatorImpl extends AbstractControllerCreator<Mo
   public ControllerInstance create(String... params) throws RoutingInterceptionException {
     StringBuilder sb01 = new StringBuilder();
     ControllerInstance controllerInstance = new ControllerInstance();
+    controllerInstance.setControllerCreator(this);
     controllerInstance.setControllerClassName("com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter02.ControllerC05");
     AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter02.ControllerC05");
     if (storedController == null) {

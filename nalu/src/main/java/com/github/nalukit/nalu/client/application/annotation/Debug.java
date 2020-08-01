@@ -36,7 +36,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Debug {
-
+  
   /**
    * Log Level of the application (during development). There are two
    * levels: <b>SIMPLE</b> and <b>DETAILED</b>.
@@ -48,17 +48,17 @@ public @interface Debug {
    * @return log level of the application
    */
   LogLevel logLevel() default LogLevel.SIMPLE;
-
+  
   /**
    * Custom logger definition. Will replace the DefaultLogger.
    *
    * @return the custom logger
    */
   Class<? extends IsLogger> logger();
-
+  
   enum LogLevel {
     SIMPLE,
     DETAILED
   }
-
+  
 }

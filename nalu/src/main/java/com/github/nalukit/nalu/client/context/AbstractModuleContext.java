@@ -12,16 +12,16 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
  */
 public abstract class AbstractModuleContext
     implements IsModuleContext {
-
+  
   /* context - available in main- and sub-modules */
   private Context context;
   /* context - available only in sub-module */
   private Context localContext;
-
+  
   public AbstractModuleContext() {
     this.localContext = new Context();
   }
-
+  
   /**
    * Gets the application context
    *
@@ -31,7 +31,7 @@ public abstract class AbstractModuleContext
   public Context getContext() {
     return this.context;
   }
-
+  
   /**
    * Gets the application context
    *
@@ -41,7 +41,7 @@ public abstract class AbstractModuleContext
   public Context getLocalContext() {
     return this.localContext;
   }
-
+  
   /**
    * Sets the application context
    *
@@ -52,5 +52,5 @@ public abstract class AbstractModuleContext
   public void setApplicationContext(Context context) {
     this.context = context;
   }
-
+  
 }

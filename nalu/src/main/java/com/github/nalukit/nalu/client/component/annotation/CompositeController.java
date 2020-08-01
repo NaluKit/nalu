@@ -30,9 +30,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface CompositeController {
-
+  
   Class<? extends IsComponent<?, ?>> componentInterface();
-
+  
   Class<? extends AbstractComponent<?, ?>> component();
-
+  
 }

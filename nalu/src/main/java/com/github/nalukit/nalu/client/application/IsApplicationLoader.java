@@ -30,7 +30,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
  * <p><b>Caution: Do not use the router to route inside the loader!Just use it only to inject it!</b></p>
  */
 public interface IsApplicationLoader<C extends IsContext> {
-
+  
   /**
    * Calls the application loader.
    * <br>
@@ -45,20 +45,20 @@ public interface IsApplicationLoader<C extends IsContext> {
    * @param finishLoadCommand use this command to give the con trol back to Nalu
    */
   void load(FinishLoadCommand finishLoadCommand);
-
+  
   @NaluInternalUse
   void setContext(C context);
-
+  
   @NaluInternalUse
   void setEventBus(SimpleEventBus eventBus);
-
+  
   @NaluInternalUse
   void setRouter(Router router);
-
+  
   interface FinishLoadCommand {
-
+    
     void finishLoading();
-
+    
   }
-
+  
 }

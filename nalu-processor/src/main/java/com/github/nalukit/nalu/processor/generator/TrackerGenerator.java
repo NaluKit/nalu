@@ -24,24 +24,24 @@ import com.squareup.javapoet.TypeSpec;
 import javax.lang.model.element.Modifier;
 
 public class TrackerGenerator {
-
+  
   private MetaModel metaModel;
-
+  
   private TypeSpec.Builder typeSpec;
-
+  
   @SuppressWarnings("unused")
   private TrackerGenerator() {
   }
-
+  
   private TrackerGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
-    this.typeSpec = builder.typeSpec;
+    this.typeSpec  = builder.typeSpec;
   }
-
+  
   public static Builder builder() {
     return new Builder();
   }
-
+  
   void generate() {
     // method must always be created!
     MethodSpec.Builder loadTrackerConfigurationMethod = MethodSpec.methodBuilder("loadTrackerConfiguration")
@@ -67,13 +67,13 @@ public class TrackerGenerator {
     }
     typeSpec.addMethod(loadTrackerConfigurationMethod.build());
   }
-
+  
   public static final class Builder {
-
+    
     MetaModel metaModel;
-
+    
     TypeSpec.Builder typeSpec;
-
+    
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -84,7 +84,7 @@ public class TrackerGenerator {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -95,11 +95,11 @@ public class TrackerGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-
+    
     public TrackerGenerator build() {
       return new TrackerGenerator(this);
     }
-
+    
   }
-
+  
 }

@@ -25,12 +25,7 @@ import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.internal.route.ConfigurableRouter;
-import com.github.nalukit.nalu.client.internal.route.RouteResult;
-import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
-import com.github.nalukit.nalu.client.internal.route.RouterException;
-import com.github.nalukit.nalu.client.internal.route.RouterImpl;
-import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
+import com.github.nalukit.nalu.client.internal.route.*;
 import com.github.nalukit.nalu.client.internal.validation.RouteValidation;
 import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
@@ -48,7 +43,7 @@ import java.util.List;
 @NaluInternalUse
 public abstract class AbstractApplication<C extends IsContext>
     implements IsApplication {
-
+  
   /* start route */
   protected String                             startRoute;
   /* Shell */
@@ -71,12 +66,12 @@ public abstract class AbstractApplication<C extends IsContext>
   protected AlwaysLoadComposite                alwaysLoadComposite;
   /* List of CompositeControllerReferences */
   protected List<CompositeControllerReference> compositeControllerReferences;
-
+  
   public AbstractApplication() {
     super();
     this.compositeControllerReferences = new ArrayList<>();
   }
-
+  
   @Override
   public void run(IsNaluProcessorPlugin plugin) {
     // save the plugin
@@ -106,8 +101,8 @@ public abstract class AbstractApplication<C extends IsContext>
                 .logSimple("AbstractApplication: application is started!",
                            0);
     // instantiate necessary classes
-    this.eventBus = new SimpleEventBus();
-    this.shellConfiguration = new ShellConfiguration();
+    this.eventBus            = new SimpleEventBus();
+    this.shellConfiguration  = new ShellConfiguration();
     this.routerConfiguration = new RouterConfiguration();
     this.alwaysLoadComposite = new AlwaysLoadComposite();
     // load default routes!
@@ -206,53 +201,53 @@ public abstract class AbstractApplication<C extends IsContext>
       applicationLoader.load(this::onFinishLoading);
     }
   }
-
-  protected abstract void logProcessorVersion();
-
-  protected abstract void loadModules();
-
-  protected abstract void loadShellFactory();
-
-  protected abstract void loadDebugConfiguration();
-
-  protected abstract IsTracker loadTrackerConfiguration();
-
-  protected abstract void loadShells();
-
-  protected abstract void loadRoutes();
-
-  protected abstract void loadFilters();
-
-  protected abstract void loadDefaultRoutes();
-
-  protected abstract void loadCompositeReferences();
-
-  protected abstract void loadCompositeController();
-
-  protected abstract void loadComponents();
-
-  protected abstract void loadHandlers();
-
-  protected abstract void loadBlockControllerFactory();
-
-  protected abstract void loadPopUpControllerFactory();
-
-  protected abstract void loadErrorPopUpController();
-
-  protected abstract IsApplicationLoader<C> getApplicationLoader();
-
+  
   protected abstract IsCustomAlertPresenter getCustomAlertPresenter();
-
+  
   protected abstract IsCustomConfirmPresenter getCustomConfirmPresenter();
-
+  
+  protected abstract void loadDebugConfiguration();
+  
+  protected abstract void logProcessorVersion();
+  
+  protected abstract void loadDefaultRoutes();
+  
+  protected abstract void loadModules();
+  
+  protected abstract void loadShells();
+  
+  protected abstract void loadRoutes();
+  
+  protected abstract void loadFilters();
+  
+  protected abstract void loadCompositeReferences();
+  
+  protected abstract IsTracker loadTrackerConfiguration();
+  
   protected abstract boolean hasHistory();
-
+  
   protected abstract boolean isUsingHash();
-
+  
   protected abstract boolean isUsingColonForParametersInUrl();
-
+  
   protected abstract boolean isStayOnSide();
-
+  
+  protected abstract void loadShellFactory();
+  
+  protected abstract void loadBlockControllerFactory();
+  
+  protected abstract void loadPopUpControllerFactory();
+  
+  protected abstract void loadErrorPopUpController();
+  
+  protected abstract void loadCompositeController();
+  
+  protected abstract void loadComponents();
+  
+  protected abstract void loadHandlers();
+  
+  protected abstract IsApplicationLoader<C> getApplicationLoader();
+  
   /**
    * Once the loader did his job, we will continue
    */
@@ -289,5 +284,5 @@ public abstract class AbstractApplication<C extends IsContext>
                 .logSimple("AbstractApplication: application started",
                            0);
   }
-
+  
 }

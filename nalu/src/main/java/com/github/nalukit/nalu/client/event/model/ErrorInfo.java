@@ -7,7 +7,7 @@ import java.util.Map;
  * Class contains information about the error.
  */
 public class ErrorInfo {
-
+  
   /* type of error [NALU_INTERNAL_ERROR\APPLICATION_ERROR] */
   private ErrorType           errorEventType;
   /* error id */
@@ -18,11 +18,11 @@ public class ErrorInfo {
   private String              message;
   /* additional data */
   private Map<String, String> dataStore;
-
+  
   public ErrorInfo() {
     this.dataStore = new HashMap<>();
   }
-
+  
   /**
    * Get error type {@link ErrorType}
    *
@@ -31,7 +31,7 @@ public class ErrorInfo {
   public ErrorType getErrorEventType() {
     return errorEventType;
   }
-
+  
   /**
    * Set the error type.
    *
@@ -40,7 +40,7 @@ public class ErrorInfo {
   public void setErrorEventType(ErrorType errorEventType) {
     this.errorEventType = errorEventType;
   }
-
+  
   /**
    * Id of error
    *
@@ -49,7 +49,7 @@ public class ErrorInfo {
   public String getErrorId() {
     return errorId;
   }
-
+  
   /**
    * Set the error id.
    *
@@ -58,7 +58,7 @@ public class ErrorInfo {
   public void setErrorId(String errorId) {
     this.errorId = errorId;
   }
-
+  
   /**
    * Set the route.
    *
@@ -67,7 +67,7 @@ public class ErrorInfo {
   public String getRoute() {
     return route;
   }
-
+  
   /**
    * Set the toute
    *
@@ -76,7 +76,7 @@ public class ErrorInfo {
   public void setRoute(String route) {
     this.route = route;
   }
-
+  
   /**
    * Get the error message.
    *
@@ -85,7 +85,7 @@ public class ErrorInfo {
   public String getMessage() {
     return message;
   }
-
+  
   /**
    * Sets the error message.
    *
@@ -94,7 +94,7 @@ public class ErrorInfo {
   public void setMessage(String message) {
     this.message = message;
   }
-
+  
   /**
    * Gets the data store.
    *
@@ -103,7 +103,7 @@ public class ErrorInfo {
   public Map<String, String> getDataStore() {
     return dataStore;
   }
-
+  
   /**
    * Defines the type of error.
    *
@@ -116,5 +116,5 @@ public class ErrorInfo {
     NALU_INTERNAL_ERROR,
     APPLICATION_ERROR;
   }
-
+  
 }

@@ -22,24 +22,24 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 
 public class FiltersAnnotationValidator {
-
+  
   @SuppressWarnings("unused")
   private FiltersAnnotationValidator() {
   }
-
+  
   @SuppressWarnings("unused")
   private FiltersAnnotationValidator(Builder builder) {
-
+    
     setUp();
   }
-
+  
+  private void setUp() {
+  }
+  
   public static Builder builder() {
     return new Builder();
   }
-
-  private void setUp() {
-  }
-
+  
   public void validate(Element filterElement)
       throws ProcessorException {
     // get elements annotated with EventBus annotation
@@ -82,7 +82,7 @@ public class FiltersAnnotationValidator {
     //      }
     //    }
   }
-
+  
   //  private List<String> getFilterClassesAsList(TypeElement typeElement) {
   //    Element filtersAnnotation = this.processingEnvironment.getElementUtils()
   //                                                          .getTypeElement(Filters.class.getName());
@@ -107,29 +107,29 @@ public class FiltersAnnotationValidator {
   //                                                                                            v.indexOf(".class")))
   //                                                                    .collect(Collectors.toList())).orElse(new ArrayList<>());
   //  }
-
-
-
+  
+  
+  
   public static final class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     RoundEnvironment roundEnvironment;
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-
+    
     public FiltersAnnotationValidator build() {
       return new FiltersAnnotationValidator(this);
     }
-
+    
   }
-
+  
 }

@@ -21,7 +21,7 @@ package com.github.nalukit.nalu.client.application;
  * @author Frank Hossfeld
  */
 public interface IsLogger {
-
+  
   /**
    * Writes a log message to the browser console during development
    *
@@ -30,5 +30,5 @@ public interface IsLogger {
    */
   void log(String message,
            int depth);
-
+  
 }

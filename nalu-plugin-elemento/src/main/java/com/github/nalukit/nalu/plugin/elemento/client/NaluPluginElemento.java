@@ -24,11 +24,7 @@ import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
 import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import elemental2.core.Global;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLMetaElement;
-import elemental2.dom.NodeList;
+import elemental2.dom.*;
 import org.jboss.elemento.IsElement;
 
 import java.util.Map;
@@ -36,20 +32,20 @@ import java.util.Objects;
 
 public class NaluPluginElemento
     implements IsNaluProcessorPlugin {
-
+  
   private NaluStartModel naluStartModel;
-
+  
   private IsCustomAlertPresenter   customAlertPresenter;
   private IsCustomConfirmPresenter customConfirmPresenter;
-
+  
   /* RouteChangeHandler - to be used directly   */
   /* in case Nalu does not have history support */
   private RouteChangeHandler routeChangeHandler;
-
+  
   public NaluPluginElemento() {
     super();
   }
-
+  
   @Override
   public void alert(String message) {
     if (customAlertPresenter == null) {
@@ -58,12 +54,13 @@ public class NaluPluginElemento
       this.customAlertPresenter.alert(message);
     }
   }
-
+  
   @Override
   public boolean attach(String selector,
                         Object content) {
     Element selectorElement = DomGlobal.document.querySelector("#" + selector);
     if (selectorElement == null) {
+      NaluPluginCoreWeb.logNonExistingSelector(selector);
       return false;
     } else {
       if (content instanceof Iterable) {
@@ -83,7 +80,7 @@ public class NaluPluginElemento
       return true;
     }
   }
-
+  
   @Override
   public void confirm(String message,
                       ConfirmHandler handler) {
@@ -98,17 +95,17 @@ public class NaluPluginElemento
       customConfirmPresenter.confirm(message);
     }
   }
-
+  
   @Override
   public String getStartRoute() {
     return this.naluStartModel.getStartRoute();
   }
-
+  
   @Override
   public Map<String, String> getQueryParameters() {
     return this.naluStartModel.getQueryParameters();
   }
-
+  
   @Override
   public void register(RouteChangeHandler handler) {
     if (PropertyFactory.get()
@@ -125,7 +122,7 @@ public class NaluPluginElemento
       this.routeChangeHandler = handler;
     }
   }
-
+  
   @Override
   public void remove(String selector) {
     Element selectorElement = DomGlobal.document.querySelector("#" + selector);
@@ -139,7 +136,7 @@ public class NaluPluginElemento
       }
     }
   }
-
+  
   @Override
   public void route(String newRoute,
                     boolean replace) {
@@ -147,19 +144,19 @@ public class NaluPluginElemento
                             replace,
                             this.routeChangeHandler);
   }
-
+  
   @Override
   public void initialize(ShellConfiguration shellConfiguration) {
     // Sets the context path inside the PropertyFactory
     NaluPluginCoreWeb.getContextPath(shellConfiguration);
     this.naluStartModel = NaluPluginCoreWeb.getNaluStartModel();
   }
-
+  
   @Override
   public void updateTitle(String title) {
     DomGlobal.document.title = title;
   }
-
+  
   @Override
   public void updateMetaNameContent(String name,
                                     String content) {
@@ -176,11 +173,11 @@ public class NaluPluginElemento
       }
     }
     HTMLMetaElement metaTagElement = (HTMLMetaElement) DomGlobal.document.createElement("meta");
-    metaTagElement.name = name;
+    metaTagElement.name    = name;
     metaTagElement.content = content;
     DomGlobal.document.head.appendChild(metaTagElement);
   }
-
+  
   @Override
   public void updateMetaPropertyContent(String property,
                                         String content) {
@@ -203,20 +200,20 @@ public class NaluPluginElemento
     metaElement.content = content;
     DomGlobal.document.head.appendChild(metaElement);
   }
-
+  
   @Override
   public String decode(String route) {
     return Global.decodeURI(route);
   }
-
+  
   @Override
   public void setCustomAlertPresenter(IsCustomAlertPresenter customAlertPresenter) {
     this.customAlertPresenter = customAlertPresenter;
   }
-
+  
   @Override
   public void setCustomConfirmPresenter(IsCustomConfirmPresenter customConfirmPresenter) {
     this.customConfirmPresenter = customConfirmPresenter;
   }
-
+  
 }

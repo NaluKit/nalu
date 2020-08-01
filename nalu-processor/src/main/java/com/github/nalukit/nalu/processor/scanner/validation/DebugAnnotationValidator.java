@@ -31,36 +31,36 @@ import java.util.Objects;
 import java.util.Set;
 
 public class DebugAnnotationValidator {
-
+  
   private Element debugElement;
-
+  
   private ProcessorUtils processorUtils;
-
+  
   private ProcessingEnvironment processingEnvironment;
-
+  
   private RoundEnvironment roundEnvironment;
-
+  
   @SuppressWarnings("unused")
   private DebugAnnotationValidator() {
   }
-
+  
   private DebugAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
-    this.roundEnvironment = builder.roundEnvironment;
-    this.debugElement = builder.debugElement;
+    this.roundEnvironment      = builder.roundEnvironment;
+    this.debugElement          = builder.debugElement;
     setUp();
   }
-
-  public static Builder builder() {
-    return new Builder();
-  }
-
+  
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-
+  
+  public static Builder builder() {
+    return new Builder();
+  }
+  
   public void validate()
       throws ProcessorException {
     // get elements annotated with Debug annotation
@@ -103,7 +103,7 @@ public class DebugAnnotationValidator {
       }
     }
   }
-
+  
   private TypeElement getLogger(Debug debugAnnotation) {
     try {
       debugAnnotation.logger();
@@ -113,34 +113,34 @@ public class DebugAnnotationValidator {
     }
     return null;
   }
-
+  
   public static final class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     RoundEnvironment roundEnvironment;
-
+    
     Element debugElement;
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-
+    
     public Builder debugElement(Element debugElement) {
       this.debugElement = debugElement;
       return this;
     }
-
+    
     public DebugAnnotationValidator build() {
       return new DebugAnnotationValidator(this);
     }
-
+    
   }
-
+  
 }

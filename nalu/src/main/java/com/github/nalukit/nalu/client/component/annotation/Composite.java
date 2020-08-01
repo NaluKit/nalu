@@ -30,7 +30,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Composite {
-
+  
   /**
    * Name of the composite.
    * <p>
@@ -39,21 +39,21 @@ public @interface Composite {
    * @return reference of the composite controller
    */
   String name();
-
+  
   /**
    * Composite controller class of this composite
    *
    * @return the composite controller class
    */
   Class<? extends AbstractCompositeController<?, ?, ?>> compositeController();
-
+  
   /**
    * Name of the selector where to add the composite
    *
    * @return name of the selector
    */
   String selector();
-
+  
   /**
    * Conditional class to load the composite depending on the return result
    * of the loadComposite()-method.
@@ -65,7 +65,7 @@ public @interface Composite {
    * @return the composite loader condition class
    */
   Class<? extends IsLoadCompositeCondition> condition() default AlwaysLoadComposite.class;
-
+  
   /**
    * Scope of the composite:
    * <ul>
@@ -77,7 +77,7 @@ public @interface Composite {
    * @return Scope of the composite
    */
   Scope scope() default Scope.LOCAL;
-
+  
   /**
    * Scope of the composite:
    * <ul>
@@ -89,5 +89,5 @@ public @interface Composite {
     LOCAL,
     GLOBAL;
   }
-
+  
 }

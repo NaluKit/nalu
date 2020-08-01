@@ -22,13 +22,13 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
 public interface IsShellCreator {
-
+  
   ShellInstance create();
-
+  
   void onFinishCreating(Object object)
       throws RoutingInterceptionException;
-
+  
   void logBindMethodCallToConsole(AbstractShell<?> shell,
                                   boolean isFinished);
-
+  
 }

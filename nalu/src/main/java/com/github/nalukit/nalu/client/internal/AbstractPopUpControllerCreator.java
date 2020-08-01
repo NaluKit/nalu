@@ -25,22 +25,22 @@ import org.gwtproject.event.shared.SimpleEventBus;
 @NaluInternalUse
 public abstract class AbstractPopUpControllerCreator<C extends IsContext>
     implements IsPopUpControllerCreator {
-
+  
   protected StringBuilder sb;
-
+  
   protected Router router;
-
+  
   protected C context;
-
+  
   protected SimpleEventBus eventBus;
-
+  
   public AbstractPopUpControllerCreator(Router router,
                                         C context,
                                         SimpleEventBus eventBus) {
     super();
-    this.router = router;
-    this.context = context;
+    this.router   = router;
+    this.context  = context;
     this.eventBus = eventBus;
   }
-
+  
 }

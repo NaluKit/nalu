@@ -28,7 +28,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class CompositeCreatorTest {
-
+  
   @Test
   void testCompositeCreatorOk() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -42,5 +42,5 @@ public class CompositeCreatorTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/ok/CompositeCreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/ok/CompositeCreatorImpl.java"));
   }
-
+  
 }

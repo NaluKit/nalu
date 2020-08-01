@@ -28,7 +28,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
     extends AbstractController<C>
     implements IsController<V, W>,
                IsComponent.Controller {
-
+  
   /* component of the controller */
   protected V                                                 component;
   /* list of registered handlers */
@@ -41,12 +41,16 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   private   String                                            relatedSelector;
   /* flag, if the controller is cached or not */
   private   boolean                                           cached;
-
+  /* redraw mode */
+  private   Mode                                              mode;
+  
   public AbstractComponentController() {
     super();
     this.compositeControllers = new HashMap<>();
+    // set the default redrawMode
+    this.mode = Mode.CREATE;
   }
-
+  
   /**
    * Returns the element of the component. Will be used by Nalu
    * to add it to the DOM.
@@ -54,10 +58,94 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * @return the element of the component
    */
   @Override
+  @NaluInternalUse
   public W asElement() {
     return this.component.asElement();
   }
-
+  
+  /**
+   * Returns the composite stored under the composite name.
+   *
+   * @param name the name of the composite
+   * @param <S>  type of the composite
+   * @return instance of the composite
+   */
+  @SuppressWarnings({ "unchecked",
+                        "TypeParameterUnusedInFormals" })
+  public <S extends AbstractCompositeController<?, ?, ?>> S getComposite(String name) {
+    return (S) this.getComposites()
+                   .get(name);
+  }
+  
+  /**
+   * The map of the depending composites of the controller
+   *
+   * @return Map of depending composites
+   */
+  public Map<String, AbstractCompositeController<?, ?, ?>> getComposites() {
+    return compositeControllers;
+  }
+  
+  /**
+   * The selector the controller is related to.
+   *
+   * @return related selector
+   */
+  public String getRelatedSelector() {
+    return relatedSelector;
+  }
+  
+  /**
+   * Sets the related selector of the controller. (Will be used by the framework!)
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @param relatedSelector related route of the controller
+   */
+  @NaluInternalUse
+  public void setRelatedSelector(String relatedSelector) {
+    this.relatedSelector = relatedSelector;
+  }
+  
+  /**
+   * Indicates, if the controller is newly created or not
+   *
+   * @return true: the controller is reused, false: the controller is newly created
+   */
+  public boolean isCached() {
+    return cached;
+  }
+  
+  /**
+   * Sets the value, if the controller is newly created or cached!
+   * <b>This field is used by Nalu! Setting the value can lead to unexpected behavior!</b>
+   *
+   * @param cached true: the controller is reused, false: the controller is newly created
+   */
+  public void setCached(boolean cached) {
+    this.cached = cached;
+  }
+  
+  /**
+   * Get the component
+   *
+   * @return the component of the controller
+   */
+  public V getComponent() {
+    return this.component;
+  }
+  
+  /**
+   * Sets the component inside the controller
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @param component instance fo the component
+   */
+  @Override
+  @NaluInternalUse
+  public void setComponent(V component) {
+    this.component = component;
+  }
+  
   /**
    * Method will be called in case the element is attached to the DOM.
    * <p>
@@ -70,7 +158,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   public final void onAttach() {
     component.onAttach();
   }
-
+  
   /**
    * Method will be called in case the element is removed from the DOM
    * <p>
@@ -83,7 +171,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   public final void onDetach() {
     component.onDetach();
   }
-
+  
   /**
    * This method will be called in case a routing occurs and this instance is
    * a currently attached controller
@@ -95,7 +183,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   public String mayStop() {
     return null;
   }
-
+  
   /**
    * internal framework method! Will be called by the framework after the
    * stop-method f the controller is called
@@ -110,7 +198,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
     this.handlerRegistrations.removeHandler();
     this.handlerRegistrations = new HandlerRegistrations();
   }
-
+  
   /**
    * The activate-method will be called instead of the start-method
    * in case the controller is cached.
@@ -121,7 +209,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   @Override
   public void activate() {
   }
-
+  
   /**
    * The deactivate-method will be called instead of the stop-method
    * in case the controller is cached.
@@ -132,7 +220,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   @Override
   public void deactivate() {
   }
-
+  
   /**
    * The stop-method will be called at the start of the controller's life cycle.
    * <p>
@@ -142,7 +230,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   @Override
   public void start() {
   }
-
+  
   /**
    * The stop-method will be called at the end of the controller's life cycle.
    * <p>
@@ -152,30 +240,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   @Override
   public void stop() {
   }
-
-  /**
-   * The map of the depending composites of the controller
-   *
-   * @return Map of depending composites
-   */
-  public Map<String, AbstractCompositeController<?, ?, ?>> getComposites() {
-    return compositeControllers;
-  }
-
-  /**
-   * Returns the composite stored under the composite name.
-   *
-   * @param name the name of the composite
-   * @param <S>  type of the composite
-   * @return instance of the composite
-   */
-  @SuppressWarnings({ "unchecked",
-                      "TypeParameterUnusedInFormals" })
-  public <S extends AbstractCompositeController<?, ?, ?>> S getComposite(String name) {
-    return (S) this.getComposites()
-                   .get(name);
-  }
-
+  
   /**
    * The route the controller is related to.
    *
@@ -184,7 +249,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   public String getRelatedRoute() {
     return relatedRoute;
   }
-
+  
   /**
    * Sets the related route of the controller. (Will be used by the framework!)
    * <b>Do not use this method. This will lead to unexpected results</b>
@@ -195,66 +260,25 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   public void setRelatedRoute(String relatedRoute) {
     this.relatedRoute = relatedRoute;
   }
-
+  
   /**
-   * The selector the controller is related to.
+   * Returns the redrawMode of this controller.
    *
-   * @return related selector
+   * @return the current redrawMode
    */
-  public String getRelatedSelector() {
-    return relatedSelector;
+  public Mode getMode() {
+    return this.mode;
   }
-
+  
   /**
-   * Sets the related selector of the controller. (Will be used by the framework!)
-   * <b>Do not use this method. This will lead to unexpected results</b>
+   * Sets the redrawMode for this controller.
    *
-   * @param relatedSelector related route of the controller
+   * @param mode the new redrawMode
    */
-  @NaluInternalUse
-  public void setRelatedSelector(String relatedSelector) {
-    this.relatedSelector = relatedSelector;
+  public void setMode(Mode mode) {
+    this.mode = mode;
   }
-
-  /**
-   * Indicates, if the controller is newly created or not
-   *
-   * @return true: the controller is reused, false: the controller is newly created
-   */
-  public boolean isCached() {
-    return cached;
-  }
-
-  /**
-   * Sets the value, if the controller is newly created or cached!
-   * <b>This field is used by Nalu! Setting the value can lead to unexpected behavior!</b>
-   *
-   * @param cached true: the controller is reused, false: the controller is newly created
-   */
-  public void setCached(boolean cached) {
-    this.cached = cached;
-  }
-
-  /**
-   * Get the component
-   *
-   * @return the component of the controller
-   */
-  public V getComponent() {
-    return this.component;
-  }
-
-  /**
-   * Sets the component inside the controller
-   * <b>Do not use this method. This will lead to unexpected results</b>
-   *
-   * @param component instance fo the component
-   */
-  @Override
-  public void setComponent(V component) {
-    this.component = component;
-  }
-
+  
   /**
    * The bind-method will be called before the component of the
    * controller is created.
@@ -280,7 +304,9 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   @Override
   public void bind(ControllerLoader loader)
       throws RoutingInterceptionException {
+  
     loader.continueLoading();
+  
   }
-
+  
 }

@@ -21,30 +21,30 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
 public class ShellInstance {
-
+  
   /* controller's class name */
   private String shellClassName;
-
+  
   /* controller */
   private AbstractShell<?> shell;
-
+  
   public ShellInstance() {
   }
-
+  
   public String getShellClassName() {
     return shellClassName;
   }
-
+  
   public void setShellClassName(String shellClassName) {
     this.shellClassName = shellClassName;
   }
-
+  
   public AbstractShell<?> getShell() {
     return shell;
   }
-
+  
   public void setShell(AbstractShell<?> shell) {
     this.shell = shell;
   }
-
+  
 }

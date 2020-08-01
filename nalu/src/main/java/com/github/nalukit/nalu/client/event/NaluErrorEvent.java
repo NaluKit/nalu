@@ -17,18 +17,18 @@ import java.util.Map;
  */
 public class NaluErrorEvent
     extends Event<NaluErrorEvent.NaluErrorEventHandler> {
-
+  
   public final static Type<NaluErrorEvent.NaluErrorEventHandler> TYPE = new Type<>();
-
+  
   /* the error info object */
   private ErrorInfo errorInfo;
-
+  
   private NaluErrorEvent(ErrorType errorEventType) {
     super();
     this.errorInfo = new ErrorInfo();
     this.errorInfo.setErrorEventType(errorEventType);
   }
-
+  
   /**
    * Creates a new NaluErrorEvent.
    *
@@ -40,7 +40,7 @@ public class NaluErrorEvent
   public static NaluErrorEvent createNaluError() {
     return new NaluErrorEvent(ErrorType.NALU_INTERNAL_ERROR);
   }
-
+  
   /**
    * Creates a new NaluErrorEvent for a specific type.
    *
@@ -49,7 +49,7 @@ public class NaluErrorEvent
   public static NaluErrorEvent createApplicationError() {
     return new NaluErrorEvent(ErrorType.APPLICATION_ERROR);
   }
-
+  
   /**
    * Adds a error id to the event.
    *
@@ -60,7 +60,7 @@ public class NaluErrorEvent
     this.errorInfo.setErrorId(errorId);
     return this;
   }
-
+  
   /**
    * Adds a message to the event.
    *
@@ -71,7 +71,7 @@ public class NaluErrorEvent
     this.errorInfo.setMessage(message);
     return this;
   }
-
+  
   /**
    * Adds a route to the event.
    *
@@ -82,7 +82,7 @@ public class NaluErrorEvent
     this.errorInfo.setRoute(route);
     return this;
   }
-
+  
   /**
    * Adds data to the data store.
    *
@@ -99,7 +99,7 @@ public class NaluErrorEvent
                        value);
     return this;
   }
-
+  
   /**
    * Returns the event type of the error event.
    * <br>
@@ -111,7 +111,7 @@ public class NaluErrorEvent
   public ErrorType getErrorEventType() {
     return this.errorInfo.getErrorEventType();
   }
-
+  
   /**
    * Returns the id of the error.
    *
@@ -120,7 +120,7 @@ public class NaluErrorEvent
   public String getErrorId() {
     return this.errorInfo.getErrorId();
   }
-
+  
   /**
    * Returns the value for the message.
    *
@@ -129,7 +129,7 @@ public class NaluErrorEvent
   public String getMessage() {
     return this.errorInfo.getMessage();
   }
-
+  
   /**
    * Returns the value for the route.
    *
@@ -138,7 +138,7 @@ public class NaluErrorEvent
   public String getRoute() {
     return this.errorInfo.getRoute();
   }
-
+  
   /**
    * Returns the the data store.
    *
@@ -147,7 +147,7 @@ public class NaluErrorEvent
   public Map<String, String> getDataStore() {
     return this.errorInfo.getDataStore();
   }
-
+  
   /**
    * Gets the error info.
    *
@@ -156,7 +156,7 @@ public class NaluErrorEvent
   public ErrorInfo getErrorInfo() {
     return this.errorInfo;
   }
-
+  
   /**
    * Returns the value for the given key.
    *
@@ -167,21 +167,21 @@ public class NaluErrorEvent
     return this.errorInfo.getDataStore()
                          .get(key);
   }
-
+  
   @Override
   public Type<NaluErrorEvent.NaluErrorEventHandler> getAssociatedType() {
     return TYPE;
   }
-
+  
   @Override
   protected void dispatch(NaluErrorEvent.NaluErrorEventHandler handler) {
     handler.onNaluError(this);
   }
-
+  
   public interface NaluErrorEventHandler {
-
+    
     void onNaluError(NaluErrorEvent event);
-
+    
   }
-
+  
 }

@@ -17,12 +17,13 @@
 package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 /**
  * <p>Marks an class as a Nalu's shellCreator.</p>
  */
 public interface IsShell {
-
+  
   /**
    * <p>
    * This method is used by the framework, to delegate the adding
@@ -36,8 +37,9 @@ public interface IsShell {
    * </code>
    * <p>This will make the framework independent of GWT or user implemantations!</p>
    */
+  @NaluInternalUse
   void attachShell();
-
+  
   /**
    * <p>
    * This method is used by the framework, to delegate the removing
@@ -54,8 +56,9 @@ public interface IsShell {
    * </code>
    * <p>This will make the framework independent of GWT or user implemantations!</p>
    */
+  @NaluInternalUse
   void detachShell();
-
+  
   /**
    * Method will be called after a component is attached.
    * <p>
@@ -63,12 +66,12 @@ public interface IsShell {
    * f.e.: if you are working with GXT!
    */
   void onAttachedComponent();
-
+  
   /**
    * Removes all registered handlers.
    */
   void removeHandlers();
-
+  
   /**
    * The bind-method will be called before the shell is added to the viewport.
    * <p>
@@ -95,11 +98,11 @@ public interface IsShell {
    */
   void bind(ShellLoader loader)
       throws RoutingInterceptionException;
-
+  
   interface ShellLoader {
-
+    
     void continueLoading();
-
+    
   }
-
+  
 }

@@ -27,28 +27,28 @@ import com.squareup.javapoet.TypeSpec;
 import javax.lang.model.element.Modifier;
 
 public class CompositesGenerator {
-
+  
   private MetaModel metaModel;
-
+  
   private TypeSpec.Builder typeSpec;
-
+  
   @SuppressWarnings("unused")
   private CompositesGenerator() {
   }
-
+  
   private CompositesGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
-    this.typeSpec = builder.typeSpec;
+    this.typeSpec  = builder.typeSpec;
   }
-
+  
   public static Builder builder() {
     return new Builder();
   }
-
+  
   void generate() {
     generateLoadCompositeReferences();
   }
-
+  
   private void generateLoadCompositeReferences() {
     // generate method 'generateLoadCompositeReferences()'
     MethodSpec.Builder loadCompositesMethodBuilder = MethodSpec.methodBuilder("loadCompositeReferences")
@@ -79,18 +79,18 @@ public class CompositesGenerator {
                                                  controllerCompositeModel.getSelector())
                                    .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
                                                  ClassName.get(ClientLogger.class));
-
+  
       }
     }
     typeSpec.addMethod(loadCompositesMethodBuilder.build());
   }
-
+  
   public static final class Builder {
-
+    
     MetaModel metaModel;
-
+    
     TypeSpec.Builder typeSpec;
-
+    
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -101,7 +101,7 @@ public class CompositesGenerator {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -112,11 +112,11 @@ public class CompositesGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-
+    
     public CompositesGenerator build() {
       return new CompositesGenerator(this);
     }
-
+    
   }
-
+  
 }

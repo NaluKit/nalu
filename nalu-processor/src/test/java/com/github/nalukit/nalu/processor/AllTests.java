@@ -18,22 +18,7 @@ package com.github.nalukit.nalu.processor;
 
 import com.github.nalukit.nalu.processor.model.MetaModelTest;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModelTest;
-import com.github.nalukit.nalu.processor.test.ApplicationTest;
-import com.github.nalukit.nalu.processor.test.BlockControllerTest;
-import com.github.nalukit.nalu.processor.test.CompositeCreatorTest;
-import com.github.nalukit.nalu.processor.test.CompositeTest;
-import com.github.nalukit.nalu.processor.test.ConsistenceTest;
-import com.github.nalukit.nalu.processor.test.ControllerCreatorTest;
-import com.github.nalukit.nalu.processor.test.ControllerTest;
-import com.github.nalukit.nalu.processor.test.DebugTest;
-import com.github.nalukit.nalu.processor.test.ErrorPopUpControllerTest;
-import com.github.nalukit.nalu.processor.test.FiltersTest;
-import com.github.nalukit.nalu.processor.test.HandlerTest;
-import com.github.nalukit.nalu.processor.test.ModuleTest;
-import com.github.nalukit.nalu.processor.test.PopUpControllerCreatorTest;
-import com.github.nalukit.nalu.processor.test.ShellCreatorTest;
-import com.github.nalukit.nalu.processor.test.ShellTest;
-import com.github.nalukit.nalu.processor.test.TrackerTest;
+import com.github.nalukit.nalu.processor.test.*;
 import com.github.nalukit.nalu.processor.test.model.intern.ClassNameModelTest;
 import com.github.nalukit.nalu.processor.test.model.property.PropertiesTest;
 import org.junit.platform.runner.JUnitPlatform;
@@ -42,24 +27,25 @@ import org.junit.runner.RunWith;
 
 @RunWith(JUnitPlatform.class)
 @SelectClasses({ ApplicationTest.class,
-                 BlockControllerTest.class,
-                 ClassNameModelTest.class,
-                 CompositeCreatorTest.class,
-                 CompositeTest.class,
-                 ConsistenceTest.class,
-                 ControllerCreatorTest.class,
-                 ControllerModelTest.class,
-                 ControllerTest.class,
-                 DebugTest.class,
-                 ErrorPopUpControllerTest.class,
-                 FiltersTest.class,
-                 HandlerTest.class,
-                 MetaModelTest.class,
-                 ModuleTest.class,
-                 PopUpControllerCreatorTest.class,
-                 PropertiesTest.class,
-                 ShellCreatorTest.class,
-                 ShellTest.class,
-                 TrackerTest.class })
+                   BlockControllerTest.class,
+                   ClassNameModelTest.class,
+                   CompositeCreatorTest.class,
+                   CompositeTest.class,
+                   ConsistenceTest.class,
+                   ControllerCreatorTest.class,
+                   ControllerModelTest.class,
+                   ControllerTest.class,
+                   DebugTest.class,
+                   ErrorPopUpControllerTest.class,
+                   FiltersTest.class,
+                   HandlerTest.class,
+                   MetaModelTest.class,
+                   ModuleTest.class,
+                   PopUpControllerCreatorTest.class,
+                   PropertiesTest.class,
+                   ShellCreatorTest.class,
+                   ShellTest.class,
+                   TrackerTest.class })
 public class AllTests {
+
 }

@@ -16,46 +16,50 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 public abstract class AbstractBlockComponent<C extends IsBlockComponent.Controller>
     implements IsBlockComponent<C> {
-
+  
   private C controller;
-
+  
   public AbstractBlockComponent() {
   }
-
+  
   /**
    * create the block here
    */
   @Override
   public abstract void render();
-
-  /**
-   * call to show the block
-   */
-  @Override
-  public abstract void show();
-
-  /**
-   * call to hide the hide
-   */
-  @Override
-  public abstract void hide();
-
+  
   @Override
   public void bind() {
     // if you need to bind some handlers and would like to do this in a separate method
     // just override this method.
   }
-
+  
+  @NaluInternalUse
   @Override
   public C getController() {
     return this.controller;
   }
-
+  
+  @NaluInternalUse
   @Override
   public void setController(C controller) {
     this.controller = controller;
   }
-
+  
+  /**
+   * call to show the block
+   */
+  @Override
+  public abstract void show();
+  
+  /**
+   * call to hide the hide
+   */
+  @Override
+  public abstract void hide();
+  
 }

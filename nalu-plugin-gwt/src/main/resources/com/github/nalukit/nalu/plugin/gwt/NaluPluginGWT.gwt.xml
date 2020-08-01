@@ -28,7 +28,7 @@
 
   <!-- Other module inherits                                      -->
   <inherits name="com.github.nalukit.nalu.Nalu"/>
-  <inherits name="com.github.nalukit.nalu.plugin.core.web.NaluPluginCoreWeb" />
+  <inherits name="com.github.nalukit.nalu.plugin.core.web.NaluPluginCoreWeb"/>
   <inherits name="elemental2.dom.Dom"/>
 
   <!-- sources -->

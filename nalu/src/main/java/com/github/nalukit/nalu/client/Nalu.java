@@ -20,26 +20,26 @@ import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.route.RouterUtils;
 
 public class Nalu {
-
+  
   public static String getVersion() {
-    return "2.0.1";
+    return "2.0.2";
   }
-
+  
   public static boolean hasHistory() {
     return PropertyFactory.get()
                           .hasHistory();
   }
-
+  
   public static boolean isUsingHash() {
     return PropertyFactory.get()
                           .isUsingHash();
   }
-
+  
   public static boolean isUsingColonForParametersInUrl() {
     return PropertyFactory.get()
                           .isUsingColonForParametersInUrl();
   }
-
+  
   /**
    * This method compares the route with the value of withRoute respecting parameters.
    *
@@ -67,7 +67,7 @@ public class Nalu {
                       .match(route,
                              withRoute);
   }
-
+  
   /**
    * This method compares the route with the value of withRoute respecting parameters.
    *
@@ -98,5 +98,5 @@ public class Nalu {
                              withRoute,
                              exact);
   }
-
+  
 }

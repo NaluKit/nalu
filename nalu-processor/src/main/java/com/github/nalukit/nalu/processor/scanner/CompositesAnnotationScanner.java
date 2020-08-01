@@ -19,7 +19,6 @@ package com.github.nalukit.nalu.processor.scanner;
 import com.github.nalukit.nalu.client.component.annotation.Composite;
 import com.github.nalukit.nalu.client.component.annotation.Composite.Scope;
 import com.github.nalukit.nalu.client.component.annotation.Composites;
-import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerCompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
@@ -32,32 +31,31 @@ import javax.lang.model.type.MirroredTypeException;
 import java.util.Objects;
 
 public class CompositesAnnotationScanner {
-
+  
   private ProcessingEnvironment processingEnvironment;
-
+  
   private ControllerModel controllerModel;
-
+  
   private Element controllerElement;
-
+  
   @SuppressWarnings("unused")
   private CompositesAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.controllerModel = builder.controllerModel;
-    this.controllerElement = builder.controllerElement;
+    this.controllerModel       = builder.controllerModel;
+    this.controllerElement     = builder.controllerElement;
     setUp();
   }
-
+  
+  private void setUp() {
+  }
+  
   public static Builder builder() {
     return new Builder();
   }
-
-  private void setUp() {
-  }
-
+  
   @SuppressWarnings("unused")
-  public ControllerModel scan(RoundEnvironment roundEnvironment)
-      throws ProcessorException {
+  public ControllerModel scan(RoundEnvironment roundEnvironment) {
     Composites annotation = this.controllerElement.getAnnotation(Composites.class);
     if (annotation != null) {
       for (Composite composite : annotation.value()) {
@@ -73,7 +71,7 @@ public class CompositesAnnotationScanner {
     }
     return this.controllerModel;
   }
-
+  
   private TypeElement getCompositeTypeElement(Composite annotation) {
     try {
       annotation.compositeController();
@@ -83,7 +81,7 @@ public class CompositesAnnotationScanner {
     }
     return null;
   }
-
+  
   private TypeElement getCompositeConditionElement(Composite annotation) {
     try {
       annotation.condition();
@@ -93,34 +91,34 @@ public class CompositesAnnotationScanner {
     }
     return null;
   }
-
+  
   public static class Builder {
-
+    
     ProcessingEnvironment processingEnvironment;
-
+    
     ControllerModel controllerModel;
-
+    
     Element controllerElement;
-
+    
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-
+    
     public Builder controllerModel(ControllerModel controllerModel) {
       this.controllerModel = controllerModel;
       return this;
     }
-
+    
     public Builder controllerElement(Element controllerElement) {
       this.controllerElement = controllerElement;
       return this;
     }
-
+    
     public CompositesAnnotationScanner build() {
       return new CompositesAnnotationScanner(this);
     }
-
+    
   }
-
+  
 }

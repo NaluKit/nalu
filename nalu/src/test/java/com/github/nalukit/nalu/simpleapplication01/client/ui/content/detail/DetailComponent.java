@@ -22,24 +22,24 @@ import com.github.nalukit.nalu.simpleapplication01.client.data.model.dto.Person;
 public class DetailComponent
     extends AbstractComponent<IDetailComponent.Controller, String>
     implements IDetailComponent {
-
+  
   private String detailFirstName;
-
+  
   private String detailName;
-
+  
   private String detailStreet;
-
+  
   private String detailZip;
-
+  
   private String detailCity;
-
+  
   //  private HTMLButtonElement saveButton;
   //
   //  private HTMLButtonElement revertButton;
-
+  
   public DetailComponent() {
   }
-
+  
   @Override
   public void render() {
     //    this.detailFirstName = TextBox.create("First name");
@@ -78,21 +78,21 @@ public class DetailComponent
     //               .asElement();
     initElement("DetailForm");
   }
-
+  
   @Override
   public void edit(Person result) {
     if (result != null) {
       detailFirstName = result.getFirstName();
-      detailName = result.getName();
-      detailStreet = result.getAddress()
-                           .getStreet();
-      detailZip = result.getAddress()
-                        .getZip();
-      detailCity = result.getAddress()
-                         .getCity();
+      detailName      = result.getName();
+      detailStreet    = result.getAddress()
+                              .getStreet();
+      detailZip       = result.getAddress()
+                              .getZip();
+      detailCity      = result.getAddress()
+                              .getCity();
     }
   }
-
+  
   @Override
   public boolean isDirty() {
     //    boolean notDirty = (getController().getPerson()
@@ -115,7 +115,7 @@ public class DetailComponent
     //                        .equals(detailCity.getValue()));
     return false;
   }
-
+  
   @Override
   public Person flush(Person person) {
     person.setFirstName(detailFirstName);
@@ -128,5 +128,5 @@ public class DetailComponent
           .setCity(detailCity);
     return person;
   }
-
+  
 }

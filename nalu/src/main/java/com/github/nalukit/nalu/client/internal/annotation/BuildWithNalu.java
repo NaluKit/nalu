@@ -29,9 +29,9 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface BuildWithNalu {
-
+  
   String version();
-
+  
   String buildTime();
-
+  
 }

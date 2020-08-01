@@ -28,7 +28,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class ErrorPopUpControllerTest {
-
+  
   @Test
   void testControllerCreatorOk() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -47,7 +47,7 @@ public class ErrorPopUpControllerTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/errorPopUpController/errorPopUpAnnotationOk/ErrorPopUpAnnotationOkImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/errorPopUpController/errorPopUpAnnotationOk/ErrorPopUpAnnotationOkImpl.java"));
   }
-
+  
   @Test
   void testErrorPopUpAnnotationAbstractErrorPopUpComponentControllerWithoutgenerics() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -59,7 +59,7 @@ public class ErrorPopUpControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.errorPopUpController.epuAnnoAbstractComConWithoutGenerics.EpuAnnoAbstractErPoUpComConWithoutgenerics<< does not have a context generic!");
   }
-
+  
   @Test
   void testErrorPopUpAnnotationDoesNotExtendsAbstractErrorPopUpComponentController() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -71,7 +71,7 @@ public class ErrorPopUpControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("@ErrorPopUpController can only be used on a class that extends AbstractErrorPopUpComponentController");
   }
-
+  
   @Test
   void testErrorPopUpAnnotationOnAInterface() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -83,7 +83,7 @@ public class ErrorPopUpControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @ErrorPopUpController can only be used with an class");
   }
-
+  
   @Test
   void testErrorPopUpAnnotationUsedTwoTimes() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -98,5 +98,5 @@ public class ErrorPopUpControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: more than one class is annotated with @ErrorPopUpController");
   }
-
+  
 }

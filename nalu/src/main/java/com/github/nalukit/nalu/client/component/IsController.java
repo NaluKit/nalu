@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public interface IsController<V, W> {
-
+  
   /**
    * Returns the root element which will be attached to the DOM
    *
@@ -30,9 +30,9 @@ public interface IsController<V, W> {
    */
   @NaluInternalUse
   W asElement();
-
+  
   void setComponent(V component);
-
+  
   /**
    * Method is called during onAttach.
    * Nalu uses the method to call the onAttach-method of the component.
@@ -41,7 +41,7 @@ public interface IsController<V, W> {
    */
   @NaluInternalUse
   void onAttach();
-
+  
   /**
    * Method is called during onDetach.
    * Nalu uses the method to call the onDetach-method of the component.
@@ -50,9 +50,9 @@ public interface IsController<V, W> {
    */
   @NaluInternalUse
   void onDetach();
-
+  
   String mayStop();
-
+  
   /**
    * internal framework method! Will be called by the framework after the
    * stop-method of the controller is called
@@ -61,7 +61,7 @@ public interface IsController<V, W> {
    */
   @NaluInternalUse
   void removeHandlers();
-
+  
   /**
    * The activate-method will be called besides the the start-method.
    * In opposite to the start-method, it will also be called in case the controller is cached.
@@ -70,7 +70,7 @@ public interface IsController<V, W> {
    * that's the right place.
    */
   void activate();
-
+  
   /**
    * The deactivate-method will be called besides the the stop-method.
    * In opposite to the stop-method, it will also be called in case the controller is cached.
@@ -79,7 +79,7 @@ public interface IsController<V, W> {
    * that's the right place.
    */
   void deactivate();
-
+  
   /**
    * The start-method will be called in case a controller gets instantiated.
    * the method will not be called in case a controller is cached.
@@ -88,7 +88,7 @@ public interface IsController<V, W> {
    * that's the right place.
    */
   void start();
-
+  
   /**
    * The stop-method will be called in case a controller is stopped.
    * the method will not be called in case a controller is cached.
@@ -97,7 +97,21 @@ public interface IsController<V, W> {
    * that's the right place.
    */
   void stop();
-
+  
+  /**
+   * Returns the route the controller is related to.
+   *
+   * @return related route
+   */
+  String getRelatedRoute();
+  
+  /**
+   * Returns the handling mode.
+   *
+   * @return value of {@link Mode}
+   */
+  Mode getMode();
+  
   /**
    * The bind-method will be called before the component of the
    * controller is created.
@@ -125,11 +139,35 @@ public interface IsController<V, W> {
    */
   void bind(ControllerLoader loader)
       throws RoutingInterceptionException;
-
-  interface ControllerLoader {
-
-    void continueLoading();
-
+  
+  /**
+   * Modes, that define Nalu's behavior in case the component is
+   * already attached to the DOM.
+   */
+  enum Mode {
+    
+    /**
+     * Choose <b>CREATE</b> in case you will always detach/attach
+     * the component.
+     * <p>
+     * This is the default value.
+     */
+    CREATE,
+    
+    /**
+     * Choose <b>REUSE</b> in case you will reuse the component as
+     * long as the component is already is attached.
+     */
+    REUSE
+    
   }
-
+  
+  
+  
+  interface ControllerLoader {
+    
+    void continueLoading();
+    
+  }
+  
 }

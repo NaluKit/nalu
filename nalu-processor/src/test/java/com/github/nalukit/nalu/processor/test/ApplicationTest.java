@@ -29,7 +29,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class ApplicationTest {
-
+  
   @Test
   void testApplicationAnnotationStartRouteOK() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -43,7 +43,7 @@ public class ApplicationTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/application/startRouteOK/StartRouteOKImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/startRouteOK/StartRouteOKImpl.java"));
   }
-
+  
   @Test
   void testApplicationAnnotationStartRouteNotOK() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -56,7 +56,7 @@ public class ApplicationTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: The startRoute >>/mockShell<< can not contain only a shell");
   }
-
+  
   @Test
   void testApplicationAnnotationStartRouteDoesNotBeginWithSlash() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -66,7 +66,7 @@ public class ApplicationTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor:@Application - startRoute attribute muss begin with a '/'");
   }
-
+  
   @Test
   void testApplicationAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -76,7 +76,7 @@ public class ApplicationTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("@Application annotated must be used with an interface");
   }
-
+  
   @Test
   void testApplicationInterfaceWithoutExtendsIsApplication() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -86,7 +86,7 @@ public class ApplicationTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("@Application must implement IsApplication interface");
   }
-
+  
   @Test
   void testApplicationAnnotationOnAMethod() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -96,7 +96,7 @@ public class ApplicationTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("@Application can only be used on a type (interface)");
   }
-
+  
   @Test
   void testApplicationAnnotationOkWithLoader() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -112,7 +112,7 @@ public class ApplicationTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoaderImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithLoader/ApplicationAnnotationOkWithLoaderImpl.java"));
   }
-
+  
   @Test
   void testApplicationAnnotationOkWithoutLoader() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -128,7 +128,7 @@ public class ApplicationTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoaderImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithoutLoader/ApplicationAnnotationOkWithoutLoaderImpl.java"));
   }
-
+  
   @Test
   void testApplicationAnnotationOkWithoutLoaderAsInnerInterface() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -144,7 +144,7 @@ public class ApplicationTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/MyApplicationImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithoutLoaderAsInnerInterface/MyApplicationImpl.java"));
   }
-
+  
   @Test
   void testApplicationAnnotationOkWithLoaderAsInnerInterface() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -160,7 +160,7 @@ public class ApplicationTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationAnnotationOkWithLoaderAsInnerInterface/ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl.java"));
   }
-
+  
   @Test
   void testApplicationWithComposite01() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -179,7 +179,7 @@ public class ApplicationTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationWithComposite01/ApplicationWithComposite01Impl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite01/ApplicationWithComposite01Impl.java"));
   }
-
+  
   @Test
   void testApplicationWithComposite02() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -198,7 +198,7 @@ public class ApplicationTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationWithComposite02/ApplicationWithComposite02Impl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite02/ApplicationWithComposite02Impl.java"));
   }
-
+  
   @Test
   void testApplicationWithComposite03() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -218,7 +218,7 @@ public class ApplicationTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationWithComposite03/ApplicationWithComposite03Impl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite03/ApplicationWithComposite03Impl.java"));
   }
-
+  
   @Test
   void testApplicationWithTwoCompositeAndDifferentConditions() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -242,7 +242,7 @@ public class ApplicationTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationWithComposite04/ApplicationWithComposite04Impl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite04/ApplicationWithComposite04Impl.java"));
   }
-
+  
   @Test
   void testApplicationWithTwoCompositeAndSameConditions() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -265,7 +265,7 @@ public class ApplicationTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationWithComposite05/ApplicationWithComposite05Impl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite05/ApplicationWithComposite05Impl.java"));
   }
-
+  
   @Test
   void testApplicationWithTwoControllersAndTwoCompositeAndSameConditions_1() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -286,14 +286,14 @@ public class ApplicationTest {
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite06/composite/CompositeComponent04.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite06/ApplicationWithComposite06.java")
 
-                                     ));
+                                                           ));
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     CompilationSubject.assertThat(compilation)
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationWithComposite06/ApplicationWithComposite06Impl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite06/ApplicationWithComposite06Impl.java"));
   }
-
+  
   @Test
   void testApplicationWithTwoControllersAndTwoCompositeAndSameConditions_2() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -317,14 +317,14 @@ public class ApplicationTest {
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite07/composite/CompositeComponent05.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite07/ApplicationWithComposite07.java")
 
-                                     ));
+                                                           ));
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     CompilationSubject.assertThat(compilation)
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/application/applicationWithComposite07/ApplicationWithComposite07Impl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite07/ApplicationWithComposite07Impl.java"));
   }
-
+  
   @Test
   void testApplicationWithCompositesAndSameName() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -344,11 +344,11 @@ public class ApplicationTest {
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/composite/CompositeComponent05.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite08/ApplicationWithComposite08.java")
 
-                                     ));
+                                                           ));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("@Compiste: the name >>testComposite02<< is duplicate! Please use another unique name!");
   }
-
+  
 }

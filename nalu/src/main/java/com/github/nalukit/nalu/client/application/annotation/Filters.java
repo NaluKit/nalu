@@ -38,12 +38,12 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Filters {
-
+  
   /**
    * List of the application filters.
    *
    * @return application filters
    */
   Class<? extends IsFilter>[] filterClasses();
-
+  
 }

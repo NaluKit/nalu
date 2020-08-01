@@ -21,39 +21,39 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
 public class CompositeInstance {
-
+  
   /* controller's class name */
   private String                               compositeClassName;
   /* controller */
   private AbstractCompositeController<?, ?, ?> composite;
   /* flag, that indicates weather the controller is reused or not */
   private boolean                              cached;
-
+  
   public CompositeInstance() {
   }
-
+  
   public String getCompositeClassName() {
     return compositeClassName;
   }
-
+  
   public void setCompositeClassName(String compositeClassName) {
     this.compositeClassName = compositeClassName;
   }
-
+  
   public AbstractCompositeController<?, ?, ?> getComposite() {
     return composite;
   }
-
+  
   public void setComposite(AbstractCompositeController<?, ?, ?> composite) {
     this.composite = composite;
   }
-
+  
   public boolean isCached() {
     return cached;
   }
-
+  
   public void setCached(boolean cached) {
     this.cached = cached;
   }
-
+  
 }

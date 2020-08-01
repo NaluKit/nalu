@@ -21,22 +21,22 @@ import com.github.nalukit.nalu.simpleapplication02.client.data.model.dto.Person;
 
 public interface IDetailComponent
     extends IsComponent<IDetailComponent.Controller, String> {
-
+  
   void edit(Person result);
-
+  
   boolean isDirty();
-
+  
   Person flush(Person person);
-
+  
   interface Controller
       extends IsComponent.Controller {
-
+    
     Person getPerson();
-
+    
     void doRevert();
-
+    
     void doUpdate();
-
+    
   }
-
+  
 }

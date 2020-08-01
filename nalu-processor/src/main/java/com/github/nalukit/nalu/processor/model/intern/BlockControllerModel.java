@@ -17,7 +17,7 @@
 package com.github.nalukit.nalu.processor.model.intern;
 
 public class BlockControllerModel {
-
+  
   private String         name;
   private ClassNameModel context;
   private ClassNameModel controller;
@@ -26,7 +26,7 @@ public class BlockControllerModel {
   private ClassNameModel provider;
   private boolean        componentCreator;
   private ClassNameModel conndition;
-
+  
   public BlockControllerModel(String name,
                               ClassNameModel context,
                               ClassNameModel controller,
@@ -35,78 +35,78 @@ public class BlockControllerModel {
                               ClassNameModel provider,
                               boolean componentCreator,
                               ClassNameModel condition) {
-    this.name = name;
-    this.context = context;
-    this.controller = controller;
+    this.name               = name;
+    this.context            = context;
+    this.controller         = controller;
     this.componentInterface = componentInterface;
-    this.component = component;
-    this.provider = provider;
-    this.componentCreator = componentCreator;
-    this.conndition = condition;
+    this.component          = component;
+    this.provider           = provider;
+    this.componentCreator   = componentCreator;
+    this.conndition         = condition;
   }
-
+  
   public String getName() {
     return name;
   }
-
+  
   public void setName(String name) {
     this.name = name;
   }
-
+  
   public ClassNameModel getContext() {
     return context;
   }
-
+  
   public void setContext(ClassNameModel context) {
     this.context = context;
   }
-
+  
   public ClassNameModel getController() {
     return controller;
   }
-
+  
   public void setController(ClassNameModel controller) {
     this.controller = controller;
   }
-
+  
   public ClassNameModel getComponentInterface() {
     return componentInterface;
   }
-
+  
   public void setComponentInterface(ClassNameModel componentInterface) {
     this.componentInterface = componentInterface;
   }
-
+  
   public ClassNameModel getComponent() {
     return component;
   }
-
+  
   public void setComponent(ClassNameModel component) {
     this.component = component;
   }
-
+  
   public ClassNameModel getProvider() {
     return provider;
   }
-
+  
   public void setProvider(ClassNameModel provider) {
     this.provider = provider;
   }
-
+  
   public boolean isComponentCreator() {
     return componentCreator;
   }
-
+  
   public void setComponentCreator(boolean componentCreator) {
     this.componentCreator = componentCreator;
   }
-
+  
   public ClassNameModel getConndition() {
     return conndition;
   }
-
+  
   public void setConndition(ClassNameModel conndition) {
     this.conndition = conndition;
   }
-
+  
 }

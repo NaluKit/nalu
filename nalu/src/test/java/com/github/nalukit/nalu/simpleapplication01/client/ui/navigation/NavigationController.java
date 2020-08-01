@@ -23,29 +23,29 @@ import com.github.nalukit.nalu.simpleapplication01.client.event.SelectEvent;
 public class NavigationController
     extends AbstractComponentController<NaluSimpleApplicationContext, INavigationComponent, String>
     implements INavigationComponent.Controller {
-
+  
   public NavigationController() {
   }
-
+  
   @Override
   public void start() {
     this.eventBus.addHandler(SelectEvent.TYPE,
                              e -> component.select(e.getSelect()
                                                     .toString()));
   }
-
+  
   @Override
   public void doShowSearch() {
     this.router.route("/search",
                       this.context.getSearchName(),
                       this.context.getSearchCity());
   }
-
+  
   @Override
   public void doShowList() {
     this.router.route("/list",
                       this.context.getSearchName(),
                       this.context.getSearchCity());
   }
-
+  
 }

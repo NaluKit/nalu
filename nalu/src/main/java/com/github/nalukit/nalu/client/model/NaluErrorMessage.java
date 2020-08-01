@@ -17,34 +17,34 @@
 package com.github.nalukit.nalu.client.model;
 
 public class NaluErrorMessage {
-
+  
   private String errorType;
-
+  
   private String errorMessage;
-
+  
   public NaluErrorMessage() {
   }
-
+  
   public NaluErrorMessage(String errorType,
                           String errorMessage) {
-    this.errorType = errorType;
+    this.errorType    = errorType;
     this.errorMessage = errorMessage;
   }
-
+  
   public String getErrorType() {
     return errorType;
   }
-
+  
   public void setErrorType(String errorType) {
     this.errorType = errorType;
   }
-
+  
   public String getErrorMessage() {
     return errorMessage;
   }
-
+  
   public void setErrorMessage(String errorMessage) {
     this.errorMessage = errorMessage;
   }
-
+  
 }

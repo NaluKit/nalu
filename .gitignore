@@ -205,6 +205,10 @@ cmake-build-*/
 # IntelliJ
 out/
 
+# Eclipse
+.project
+.classpath
+
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
@@ -225,5 +229,7 @@ fabric.properties
 /nalu-plugin-elemental2/nalu-plugin-elemental2.iml
 /nalu-processor/nalu-processor.iml
 /nalu/nalu.iml
+
+*/dependency-reduced-pom.xml
 
 

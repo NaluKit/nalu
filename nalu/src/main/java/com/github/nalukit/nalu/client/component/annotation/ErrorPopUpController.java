@@ -38,9 +38,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface ErrorPopUpController {
-
+  
   Class<? extends IsErrorPopUpComponent<?>> componentInterface();
-
+  
   Class<? extends AbstractErrorPopUpComponent<?>> component();
-
+  
 }

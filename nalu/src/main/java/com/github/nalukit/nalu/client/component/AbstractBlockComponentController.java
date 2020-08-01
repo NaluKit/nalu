@@ -23,24 +23,16 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
     extends AbstractController<C>
     implements IsBlockComponentController<V>,
                IsComponent.Controller {
-
+  
   /* name of the popup controller */
   protected String name;
   /* component of the controller */
   protected V      component;
-
+  
   public AbstractBlockComponentController() {
     super();
   }
-
-  /**
-   * append the element
-   */
-  @Override
-  public void append() {
-    component.append();
-  }
-
+  
   /**
    * Returns the name of the BlockController.
    *
@@ -49,7 +41,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   public String getName() {
     return name;
   }
-
+  
   /**
    * Sets the name of the BlockController
    *
@@ -59,7 +51,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   public void setName(String name) {
     this.name = name;
   }
-
+  
   /**
    * Get the component
    *
@@ -68,7 +60,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   public V getComponent() {
     return this.component;
   }
-
+  
   /**
    * Sets the component inside the controller
    * <b>Do not use this method. This will lead to unexpected results</b>
@@ -79,7 +71,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   public void setComponent(V component) {
     this.component = component;
   }
-
+  
   /**
    * Shows the block
    *
@@ -90,7 +82,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   public void show() {
     component.show();
   }
-
+  
   /**
    * hides the block
    *
@@ -101,7 +93,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   public void hide() {
     component.hide();
   }
-
+  
   /**
    * The method is called before the show-method.
    * A good place to do some initialization.
@@ -112,7 +104,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   @Override
   public void onBeforeShow() {
   }
-
+  
   /**
    * The method is called before the hide-method.
    * A good place to do some clean up.
@@ -123,5 +115,13 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   @Override
   public void onBeforeHide() {
   }
-
+  
+  /**
+   * append the element
+   */
+  @Override
+  public void append() {
+    component.append();
+  }
+  
 }

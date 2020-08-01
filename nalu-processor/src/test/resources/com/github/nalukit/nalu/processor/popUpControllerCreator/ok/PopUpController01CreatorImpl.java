@@ -11,7 +11,7 @@ import java.lang.StringBuilder;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>2.0.1<< at >>2020.09.14-14:19:31<< */
+ * Build with Nalu version >>2.0.2<< at >>2020.09.14-14:19:31<< */
 public final class PopUpController01CreatorImpl extends AbstractPopUpControllerCreator<MockContext> implements IsPopUpControllerCreator {
   public PopUpController01CreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
     super(router, context, eventBus);

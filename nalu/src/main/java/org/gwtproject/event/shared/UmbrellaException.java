@@ -26,18 +26,18 @@ import java.util.Set;
 @SuppressWarnings("serial")
 public class UmbrellaException
     extends RuntimeException {
-
+  
   // Visible for testing
   static final String MULTIPLE = " exceptions caught: ";
-
+  
   // Visible for testing
   static final String ONE = "Exception caught: ";
-
+  
   /**
    * The causes of the exception.
    */
   private Set<Throwable> causes;
-
+  
   public UmbrellaException(Set<Throwable> causes) {
     super(makeMessage(causes),
           makeCause(causes));
@@ -51,7 +51,7 @@ public class UmbrellaException
       addSuppressed(cause);
     }
   }
-
+  
   /**
    * Required for GWT RPC serialization.
    */
@@ -60,20 +60,15 @@ public class UmbrellaException
     super(MULTIPLE);
     this.causes = Collections.emptySet();
   }
-
-  protected static Throwable makeCause(Set<Throwable> causes) {
-    return causes.isEmpty() ? null : causes.iterator()
-                                           .next();
-  }
-
+  
   protected static String makeMessage(Set<Throwable> causes) {
     int count = causes.size();
     if (count == 0) {
       return null;
     }
-
-    StringBuilder b = new StringBuilder(count == 1 ? ONE : count + MULTIPLE);
-    boolean first = true;
+    
+    StringBuilder b     = new StringBuilder(count == 1 ? ONE : count + MULTIPLE);
+    boolean       first = true;
     for (Throwable t : causes) {
       if (first) {
         first = false;
@@ -82,10 +77,15 @@ public class UmbrellaException
       }
       b.append(t.getMessage());
     }
-
+    
     return b.toString();
   }
-
+  
+  protected static Throwable makeCause(Set<Throwable> causes) {
+    return causes.isEmpty() ? null : causes.iterator()
+                                           .next();
+  }
+  
   /**
    * Get the set of exceptions that caused the failure.
    *
@@ -94,5 +94,5 @@ public class UmbrellaException
   public Set<Throwable> getCauses() {
     return causes;
   }
-
+  
 }

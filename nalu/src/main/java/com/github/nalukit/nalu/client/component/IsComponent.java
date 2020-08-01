@@ -16,26 +16,29 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 public interface IsComponent<C extends IsComponent.Controller, W> {
-
+  
   W asElement();
-
+  
   void render();
-
+  
   void bind();
-
+  
   C getController();
-
+  
+  @NaluInternalUse
   void setController(C controller);
-
+  
   void onAttach();
-
+  
   void onDetach();
-
+  
   void removeHandlers();
-
+  
   interface Controller {
-
+  
   }
-
+  
 }

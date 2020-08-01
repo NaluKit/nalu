@@ -27,29 +27,29 @@ import com.squareup.javapoet.TypeSpec;
 import javax.lang.model.element.Modifier;
 
 public class ShellGenerator {
-
+  
   private MetaModel metaModel;
-
+  
   private TypeSpec.Builder typeSpec;
-
+  
   @SuppressWarnings("unused")
   private ShellGenerator() {
   }
-
+  
   private ShellGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
-    this.typeSpec = builder.typeSpec;
+    this.typeSpec  = builder.typeSpec;
   }
-
+  
   public static Builder builder() {
     return new Builder();
   }
-
+  
   void generate() {
     generateLoadShells();
     generateLoadShellFactory();
   }
-
+  
   private void generateLoadShells() {
     // generate method 'generateLoadShells()'
     MethodSpec.Builder loadShellsMethodBuilder = MethodSpec.methodBuilder("loadShells")
@@ -61,7 +61,7 @@ public class ShellGenerator {
                                                            .addStatement("sb01.append(\"load shell references\")")
                                                            .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
                                                                          ClassName.get(ClientLogger.class));
-
+    
     this.metaModel.getShells()
                   .forEach(shellModel -> loadShellsMethodBuilder.addStatement("super.shellConfiguration.getShells().add(new $T($S, $S))",
                                                                               ClassName.get(ShellConfig.class),
@@ -77,7 +77,7 @@ public class ShellGenerator {
                                                                               ClassName.get(ClientLogger.class)));
     typeSpec.addMethod(loadShellsMethodBuilder.build());
   }
-
+  
   private void generateLoadShellFactory() {
     // generate method 'generateLoadShells()'
     MethodSpec.Builder loadShellFactoryMethodBuilder = MethodSpec.methodBuilder("loadShellFactory")
@@ -103,17 +103,17 @@ public class ShellGenerator {
                                                                                        .getPackage(),
                                                                              shellModel.getShell()
                                                                                        .getSimpleName() + ProcessorConstants.CREATOR_IMPL));
-
+  
                   });
     typeSpec.addMethod(loadShellFactoryMethodBuilder.build());
   }
-
+  
   public static final class Builder {
-
+    
     MetaModel metaModel;
-
+    
     TypeSpec.Builder typeSpec;
-
+    
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -124,7 +124,7 @@ public class ShellGenerator {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -135,11 +135,11 @@ public class ShellGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-
+    
     public ShellGenerator build() {
       return new ShellGenerator(this);
     }
-
+    
   }
-
+  
 }

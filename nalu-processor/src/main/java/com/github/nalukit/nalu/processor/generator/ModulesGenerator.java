@@ -25,24 +25,24 @@ import com.squareup.javapoet.TypeSpec;
 import javax.lang.model.element.Modifier;
 
 public class ModulesGenerator {
-
+  
   private MetaModel metaModel;
-
+  
   private TypeSpec.Builder typeSpec;
-
+  
   @SuppressWarnings("unused")
   private ModulesGenerator() {
   }
-
+  
   private ModulesGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
-    this.typeSpec = builder.typeSpec;
+    this.typeSpec  = builder.typeSpec;
   }
-
+  
   public static Builder builder() {
     return new Builder();
   }
-
+  
   public void generate() {
     // generate method 'generateLoadModules()'
     MethodSpec.Builder loadModuleMethodBuilder = MethodSpec.methodBuilder("loadModules")
@@ -50,7 +50,7 @@ public class ModulesGenerator {
                                                            .addAnnotation(Override.class);
     if (this.metaModel.getModules()
                       .size() > 0) {
-
+  
       loadModuleMethodBuilder.addStatement("$T sb01 = new $T()",
                                            ClassName.get(StringBuilder.class),
                                            ClassName.get(StringBuilder.class));
@@ -64,7 +64,7 @@ public class ModulesGenerator {
                                                            .toLowerCase() +
                                                 moduleModel.getSimpleName()
                                                            .substring(1);
-
+  
                     loadModuleMethodBuilder.addComment("")
                                            .addComment("")
                                            .addComment(" Start handling Module: $L",
@@ -146,17 +146,17 @@ public class ModulesGenerator {
                                                          moduleModel.getClassName())
                                            .addStatement("$T.get().logSimple(sb01.toString(), 2)",
                                                          ClassName.get(ClientLogger.class));
-
+  
                   });
     typeSpec.addMethod(loadModuleMethodBuilder.build());
   }
-
+  
   public static final class Builder {
-
+    
     MetaModel metaModel;
-
+    
     TypeSpec.Builder typeSpec;
-
+    
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -167,7 +167,7 @@ public class ModulesGenerator {
       this.metaModel = metaModel;
       return this;
     }
-
+    
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -178,11 +178,11 @@ public class ModulesGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-
+    
     public ModulesGenerator build() {
       return new ModulesGenerator(this);
     }
-
+    
   }
-
+  
 }

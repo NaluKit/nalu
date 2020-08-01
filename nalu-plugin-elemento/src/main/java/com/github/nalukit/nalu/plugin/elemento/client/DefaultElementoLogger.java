@@ -21,9 +21,9 @@ import elemental2.dom.DomGlobal;
 
 public class DefaultElementoLogger
     extends AbstractLogger {
-
+  
   static final String INDENT = "..";
-
+  
   public void log(String message,
                   int depth) {
     if (NaluPluginCoreWeb.isSuperDevMode()) {
@@ -31,5 +31,5 @@ public class DefaultElementoLogger
                                              depth));
     }
   }
-
+  
 }

@@ -21,9 +21,9 @@ import elemental2.dom.DomGlobal;
 
 public class DefaultElemental2Logger
     extends AbstractLogger {
-
+  
   static final String INDENT = "..";
-
+  
   @Override
   public void log(String message,
                   int depth) {
@@ -32,5 +32,5 @@ public class DefaultElemental2Logger
                                              depth));
     }
   }
-
+  
 }
