@@ -17,7 +17,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.0.2-SNAPSHOT<< at >>2020.01.04-09:45:41<< */
+ * Build with Nalu version >>2.0.2<< at >>2020.01.04-09:45:41<< */
 public final class ApplicationWithTrackerImpl extends AbstractApplication<MockContext> implements ApplicationWithTracker {
   public ApplicationWithTrackerImpl() {
     super();
@@ -29,7 +29,7 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>2.0.2-SNAPSHOT<< used to generate this source");
+    sb01.append("Nalu processor version  >>2.0.2<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
