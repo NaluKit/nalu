@@ -1,5 +1,6 @@
 package com.github.nalukit.nalu.client.internal.route;
 
+import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,13 +58,20 @@ public class RouteParserTest {
                                                  Collections.singletonList("id"),
                                                  "content",
                                                  "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
-    
+  
     this.shellConfiguration.getShells()
                            .add(new ShellConfig("/application",
                                                 "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.application.ApplicationShell"));
     this.shellConfiguration.getShells()
                            .add(new ShellConfig("/login",
                                                 "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.login.LoginShell"));
+    PropertyFactory.get()
+                   .register("/login",
+                             true,
+                             true,
+                             false,
+                             true);
+  
   }
   
   @Test
