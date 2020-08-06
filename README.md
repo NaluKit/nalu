@@ -155,6 +155,9 @@ Please use the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
 ## Examples
 Here you will find many examples that show Nalu in action: [https://github.com/nalukit/nalu-examples](https://github.com/nalukit/nalu-examples).
 
+## YouTube
+You will find a session about Nalu at the GWT Community Channel [here](https://www.youtube.com/watch?v=GsHY4f3cvRU)
+
 ## Project Generator
 To speed up creating a Nalu project, the [Nalu Boot Starter Project Generator](http://www.mvp4g.org/boot-starter-nalu/BootStarterNalu.html) (which is also based on Nalu) can be used to create a Nalu based project with a few clicks. The project generator will generate a Maven project, which can be imported to your preferred IDE. The project is ready to use.
 
