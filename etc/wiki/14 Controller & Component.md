@@ -645,7 +645,7 @@ public class ForkBlockController
 }
 ```
 
-### BlockController annotation
+### BlockController Annotation
 
 To let Nalu automatically create a **BlockController** the controller class (which extend `AbstractBlockComponentController`) needs to be annotated with `@BlockController`.
 
