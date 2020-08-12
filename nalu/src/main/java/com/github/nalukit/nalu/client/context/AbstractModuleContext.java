@@ -49,7 +49,7 @@ public abstract class AbstractModuleContext
    */
   @Override
   @NaluInternalUse
-  public void setApplicationContext(Context context) {
+  public final void setApplicationContext(Context context) {
     this.context = context;
   }
   

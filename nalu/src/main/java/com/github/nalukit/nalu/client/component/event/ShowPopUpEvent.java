@@ -10,9 +10,9 @@ public class ShowPopUpEvent
   
   public final static Type<ShowPopUpEvent.ShowPopUpHandler> TYPE = new Type<>();
   
-  private String                    name;
-  private Map<String, PopUpCommand> commandStore;
-  private Map<String, String>       dataStore;
+  private final String                    name;
+  private final Map<String, PopUpCommand> commandStore;
+  private final Map<String, String>       dataStore;
   
   private ShowPopUpEvent(String name) {
     super();

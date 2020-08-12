@@ -45,7 +45,7 @@ public abstract class AbstractPopUpComponent<C extends IsPopUpComponent.Controll
   
   @Override
   @NaluInternalUse
-  public void setController(C controller) {
+  public final void setController(C controller) {
     this.controller = controller;
   }
   

@@ -63,7 +63,7 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
    * <b>DO NOT CALL OR OVERRIDE THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
   @NaluInternalUse
-  public void onLoad() {
+  public final void onLoad() {
     this.eventBus.addHandler(NaluErrorEvent.TYPE,
                              e -> handleErrorEvent(e));
   }
