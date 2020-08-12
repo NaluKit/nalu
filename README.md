@@ -1,8 +1,11 @@
 # Nalu
 
+[![License](https://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+![GWT3/J2CL compatible](https://img.shields.io/badge/GWT3/J2CL-compatible-brightgreen.svg) 
 [![Join the chat at https://gitter.im/Nalukit42/Lobby](https://badges.gitter.im/Nalukit42/Lobby.svg)](https://gitter.im/Nalukit42/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.nalukit/nalu.svg?colorB=44cc11)](https://search.maven.org/artifact/com.github.nalukit/nalu)
 [![CI](https://github.com/NaluKit/nalu/workflows/CI/badge.svg)](https://github.com/NaluKit/nalu/actions)
+
 
 Nalu is a tiny framework that helps you to create GWT based applications quite easily. Using the HTML 5 history for routing and navigation, Nalu supports the browser's back-, forward-, and reload-button by default and without any need to implement anything.
 
@@ -154,6 +157,9 @@ Please use the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
 
 ## Examples
 Here you will find many examples that show Nalu in action: [https://github.com/nalukit/nalu-examples](https://github.com/nalukit/nalu-examples).
+
+## YouTube
+You will find a session about Nalu at the GWT Community Channel [here](https://www.youtube.com/watch?v=GsHY4f3cvRU).
 
 ## Project Generator
 To speed up creating a Nalu project, the [Nalu Boot Starter Project Generator](http://www.mvp4g.org/boot-starter-nalu/BootStarterNalu.html) (which is also based on Nalu) can be used to create a Nalu based project with a few clicks. The project generator will generate a Maven project, which can be imported to your preferred IDE. The project is ready to use.
