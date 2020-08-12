@@ -59,7 +59,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
    * @param name name of the PopUpController used by the ShowPopUp-event
    */
   @NaluInternalUse
-  public void setName(String name) {
+  public final void setName(String name) {
     this.name = name;
   }
   
@@ -82,7 +82,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
    * @param commandStore the command store
    */
   @NaluInternalUse
-  public void setCommandStore(Map<String, ShowPopUpEvent.PopUpCommand> commandStore) {
+  public final void setCommandStore(Map<String, ShowPopUpEvent.PopUpCommand> commandStore) {
     this.commandStore = commandStore;
   }
   
@@ -105,7 +105,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
    * @param dataStore the data store
    */
   @NaluInternalUse
-  public void setDataStore(Map<String, String> dataStore) {
+  public final void setDataStore(Map<String, String> dataStore) {
     this.dataStore = dataStore;
   }
   
@@ -126,7 +126,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
    */
   @Override
   @NaluInternalUse
-  public void setComponent(V component) {
+  public final void setComponent(V component) {
     this.component = component;
   }
   

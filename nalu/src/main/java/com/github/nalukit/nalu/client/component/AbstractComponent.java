@@ -61,7 +61,7 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
   
   @Override
   @NaluInternalUse
-  public void setController(C controller) {
+  public final void setController(C controller) {
     this.controller = controller;
   }
   

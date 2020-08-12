@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.component.event.HideBlockComponentEvent;
+import com.github.nalukit.nalu.client.component.event.ShowBlockComponentEvent;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
@@ -25,31 +27,58 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
                IsComponent.Controller {
   
   /* name of the popup controller */
-  protected String name;
+  protected String  name;
   /* component of the controller */
-  protected V      component;
+  protected V       component;
+  /* flag to indicate if the cblockComponent is visible or not */
+  private   boolean visible;
   
   public AbstractBlockComponentController() {
     super();
   }
   
   /**
-   * Returns the name of the BlockController.
-   *
-   * @return name of the BlockController
+   * Nalu uses thie method to bind the handler to the event bus.
    */
-  public String getName() {
-    return name;
+  @NaluInternalUse
+  public final void bind() {
+    super.eventBus.addHandler(HideBlockComponentEvent.TYPE,
+                              this::onHideBlockComponent);
+    super.eventBus.addHandler(ShowBlockComponentEvent.TYPE,
+                              this::onShowBlockComponent);
+    this.visible = true;
   }
   
   /**
-   * Sets the name of the BlockController
+   * Called in case the {@link HideBlockComponentEvent} gets catched
    *
-   * @param name name of the BlockController
+   * @param event the hide event - can be used to get parameters
    */
-  @NaluInternalUse
-  public void setName(String name) {
-    this.name = name;
+  private void onHideBlockComponent(HideBlockComponentEvent event) {
+    if (this.getName()
+            .equals(event.getName())) {
+      if (this.visible) {
+        this.onBeforeHide(event);
+        this.hide();
+        this.visible = false;
+      }
+    }
+  }
+  
+  /**
+   * called in case the {@link ShowBlockComponentEvent} gets catched.
+   *
+   * @param event the show event - can be used to get parameters
+   */
+  private void onShowBlockComponent(ShowBlockComponentEvent event) {
+    if (this.getName()
+            .equals(event.getName())) {
+      if (!this.visible) {
+        this.onBeforeShow(event);
+        this.show();
+        this.visible = true;
+      }
+    }
   }
   
   /**
@@ -73,14 +102,23 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   }
   
   /**
-   * Shows the block
+   * Returns the name of the BlockController.
    *
-   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   * @return name of the BlockController
    */
-  @Override
   @NaluInternalUse
-  public void show() {
-    component.show();
+  public final String getName() {
+    return name;
+  }
+  
+  /**
+   * Sets the name of the BlockController
+   *
+   * @param name name of the BlockController
+   */
+  @NaluInternalUse
+  public final void setName(String name) {
+    this.name = name;
   }
   
   /**
@@ -88,10 +126,17 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
-  @Override
-  @NaluInternalUse
-  public void hide() {
+  private void hide() {
     component.hide();
+  }
+  
+  /**
+   * Shows the block
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   */
+  private void show() {
+    component.show();
   }
   
   /**
@@ -100,9 +145,11 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
    * <p>
    * If you want to do some initialization before you get the
    * control, just override the method.
+   *
+   * @param event the show event - can be used to get parameters
    */
   @Override
-  public void onBeforeShow() {
+  public void onBeforeShow(ShowBlockComponentEvent event) {
   }
   
   /**
@@ -111,9 +158,11 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
    * <p>
    * If you want to do some blean up before you get the
    * control, just override the method.
+   *
+   * @param event the hide event - can be used to get parameters
    */
   @Override
-  public void onBeforeHide() {
+  public void onBeforeHide(HideBlockComponentEvent event) {
   }
   
   /**

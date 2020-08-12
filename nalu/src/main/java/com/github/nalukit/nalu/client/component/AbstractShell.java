@@ -38,17 +38,17 @@ public abstract class AbstractShell<C extends IsContext>
   }
   
   @NaluInternalUse
-  public void setRouter(Router router) {
+  public final void setRouter(Router router) {
     this.router = router;
   }
   
   @NaluInternalUse
-  public void setContext(C context) {
+  public final void setContext(C context) {
     this.context = context;
   }
   
   @NaluInternalUse
-  public void setEventBus(SimpleEventBus eventBus) {
+  public final void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
   

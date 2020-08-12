@@ -98,7 +98,7 @@ public class BlockControllerTest {
   }
   
   @Test
-  void testBlockControllerBuplicateName() {
+  void testBlockControllerDuplicateName() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/blockControllerNameDuplicate/BlockControllerDuplicateName01.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/blockControllerNameDuplicate/BlockControllerDuplicateName02.java"),

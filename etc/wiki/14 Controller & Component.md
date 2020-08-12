@@ -672,7 +672,7 @@ Nalu will inject:
 
 into the controller.
 
-### Life Cycle pf a BlockController
+### Life Cycle of a BlockController
 
 A Nalu **BlockController** has no life cycle. The controller (and it's component) will be created at the start of the application. Once it is created, Nalu will always use this instance.
 
@@ -717,6 +717,28 @@ public class ForkBlockController
 ```
 
 Note: At the time Nalu calls the createBlockComponent-method, the context is already injected.
+
+#### Controlling the Block using Events
+Starting with version 2.1.0 Nalu will provide events to control the visibility of a block.
+
+To make a BlockComponent visible, just fire the `ShowBlockComponentEvent` by calling:
+```java
+this.eventBus.fireEvent(ShowBlockComponentEvent.show("MyBlockControllerName"));
+```
+The `show`-method will take the name of the BlockController to show.
+
+To make a BlockComponent invisible, just fire the `HideBlockComponentEvent`:
+```java
+this.eventBus.fireEvent(HideBlockComponentEvent.hide("MyBlockControllerName"));
+```
+The `hide`-method will take the name of the BlockController to hide.
+
+Both events accept parameters. To add a parameter to the event, use:
+```java
+this.eventBus.fireEvent(ShowBlockComponentEvent.show("MyBlockControllerName")
+                                               .using("myParameter01", "myValue01")
+                                               .using("myParameter02", "myValue02"));
+```
 
 ## PopUpController (since v1.2.2)
 Before version 1.2.2 Nalu does not support pop-ups. Starting with version 1.2.2 Nalu gets a new controller type: **PopUpController**. The new controller will enable Nalu to handle pop-ups.

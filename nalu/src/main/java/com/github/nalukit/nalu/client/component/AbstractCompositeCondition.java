@@ -35,7 +35,7 @@ public abstract class AbstractCompositeCondition<C extends IsContext>
    * @param context Nalu application context
    */
   @NaluInternalUse
-  public void setContext(C context) {
+  public final void setContext(C context) {
     this.context = context;
   }
   

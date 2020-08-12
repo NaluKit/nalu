@@ -47,7 +47,7 @@ public abstract class AbstractErrorPopUpComponent<C extends IsErrorPopUpComponen
   
   @Override
   @NaluInternalUse
-  public void setController(C controller) {
+  public final void setController(C controller) {
     this.controller = controller;
   }
   

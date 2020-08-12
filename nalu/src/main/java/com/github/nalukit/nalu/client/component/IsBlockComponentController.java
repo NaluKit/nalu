@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.component.event.HideBlockComponentEvent;
+import com.github.nalukit.nalu.client.component.event.ShowBlockComponentEvent;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public interface IsBlockComponentController<V> {
@@ -23,24 +25,36 @@ public interface IsBlockComponentController<V> {
   void setComponent(V component);
   
   /**
-   * Shows the block
+   * gets the name of teh block controller
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   *
+   * @return the name of the block controller
    */
   @NaluInternalUse
-  void show();
+  String getName();
   
   /**
-   * hides the block
+   * The method is called before the show-method.
+   * A good place to do some preapration, if needed.
+   * <p>
+   * If you want to do something before you get the
+   * control, just override the method.
    *
-   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   * @param event the show event - can be used to get parameters
    */
-  @NaluInternalUse
-  void hide();
+  void onBeforeShow(ShowBlockComponentEvent event);
   
-  void onBeforeShow();
-  
-  void onBeforeHide();
+  /**
+   * The method is called before the hide-method.
+   * A good place to do some clean up.
+   * <p>
+   * If you want to do some cblean up before you get the
+   * control, just override the method.
+   *
+   * @param event the hide event - can be used to get parameters
+   */
+  void onBeforeHide(HideBlockComponentEvent event);
   
   /**
    * Add the element to the root element
