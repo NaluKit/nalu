@@ -16,6 +16,11 @@ public class ShowBlockComponentEvent
   private final String              name;
   private final Map<String, String> dataStore;
   
+  @SuppressWarnings("unused")
+  private ShowBlockComponentEvent() {
+    this("");
+  }
+  
   private ShowBlockComponentEvent(String name) {
     super();
     this.name      = name;

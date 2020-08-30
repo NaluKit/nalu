@@ -57,14 +57,19 @@ public class MetaModel {
   
   private boolean hasPluginsAnnotation;
   
+  @Deprecated
   private boolean hasDebugAnnotation;
+  
+  private boolean hasLoggerAnnotation;
   
   private boolean hasTrackerAnnotation;
   
   private ClassNameModel tracker;
   
+  @Deprecated
   private String debugLogLevel;
   
+  @Deprecated
   private ClassNameModel debugLogger;
   
   private List<ControllerModel> controllers;
@@ -80,6 +85,10 @@ public class MetaModel {
   private ClassNameModel componentType;
   
   private List<CompositeModel> compositeModels;
+  
+  private ClassNameModel logger;
+  
+  private ClassNameModel clientLogger;
   
   /* flag, that indicates, if a Nalu application */
   /* uses a history token or not.                */
@@ -120,14 +129,17 @@ public class MetaModel {
     this.loader = loader;
   }
   
+  @Deprecated
   public boolean isHasDebugAnnotation() {
     return hasDebugAnnotation;
   }
   
+  @Deprecated
   public void setHasDebugAnnotation(boolean hasDebugAnnotation) {
     this.hasDebugAnnotation = hasDebugAnnotation;
   }
   
+  @Deprecated
   public String getDebugLogLevel() {
     if (debugLogLevel == null || "".equals(debugLogLevel)) {
       return "SIMPLE";
@@ -135,6 +147,7 @@ public class MetaModel {
     return debugLogLevel;
   }
   
+  @Deprecated
   public void setDebugLogLevel(String debugLogLevel) {
     this.debugLogLevel = debugLogLevel;
   }
@@ -163,10 +176,12 @@ public class MetaModel {
     this.startRoute = startRoute;
   }
   
+  @Deprecated
   public ClassNameModel getDebugLogger() {
     return debugLogger;
   }
   
+  @Deprecated
   public void setDebugLogger(ClassNameModel debugLogger) {
     this.debugLogger = debugLogger;
   }
@@ -332,6 +347,22 @@ public class MetaModel {
   
   public void setTracker(ClassNameModel tracker) {
     this.tracker = tracker;
+  }
+  
+  public ClassNameModel getLogger() {
+    return logger;
+  }
+  
+  public void setLogger(ClassNameModel logger) {
+    this.logger = logger;
+  }
+  
+  public ClassNameModel getClientLogger() {
+    return clientLogger;
+  }
+  
+  public void setClientLogger(ClassNameModel clientLogger) {
+    this.clientLogger = clientLogger;
   }
   
 }

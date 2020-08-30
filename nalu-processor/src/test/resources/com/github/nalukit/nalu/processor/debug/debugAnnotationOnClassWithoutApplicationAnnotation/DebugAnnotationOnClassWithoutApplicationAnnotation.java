@@ -18,9 +18,9 @@ package com.github.nalukit.nalu.processor.debug.debugAnnotationOnClassWithoutApp
 
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
-import com.github.nalukit.nalu.processor.common.MockLogger;
+import com.github.nalukit.nalu.processor.common.DebugLogger;
 
-@Debug(logger = MockLogger.class)
+@Debug(logger = DebugLogger.class)
 public interface DebugAnnotationOnClassWithoutApplicationAnnotation
     extends IsApplication {
 }

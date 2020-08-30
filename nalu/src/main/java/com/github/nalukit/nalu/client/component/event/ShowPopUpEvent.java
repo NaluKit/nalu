@@ -14,6 +14,11 @@ public class ShowPopUpEvent
   private final Map<String, PopUpCommand> commandStore;
   private final Map<String, String>       dataStore;
   
+  @SuppressWarnings("unused")
+  private ShowPopUpEvent() {
+    this("");
+  }
+  
   private ShowPopUpEvent(String name) {
     super();
     this.name         = name;

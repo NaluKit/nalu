@@ -29,6 +29,7 @@ import java.util.Objects;
 
 import static java.util.Objects.isNull;
 
+@Deprecated
 public class DebugAnnotationScanner {
   
   private ProcessingEnvironment processingEnvironment;

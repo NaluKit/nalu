@@ -22,7 +22,7 @@ import com.github.nalukit.nalu.client.internal.route.RouterUtils;
 public class Nalu {
   
   public static String getVersion() {
-    return "2.1.0-SNAPSHOT";
+    return "HEAD-SNAPSHOT";
   }
   
   public static boolean hasHistory() {

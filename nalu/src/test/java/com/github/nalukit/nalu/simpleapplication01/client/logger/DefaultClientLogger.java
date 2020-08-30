@@ -14,17 +14,25 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.simpleapplication02.client.logger;
+package com.github.nalukit.nalu.simpleapplication01.client.logger;
 
-import com.github.nalukit.nalu.client.application.IsLogger;
+import com.github.nalukit.nalu.client.application.IsClientLogger;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class DefaultLogger
-    implements IsLogger {
+public class DefaultClientLogger
+    implements IsClientLogger {
   
   private static final String INDENT = "    ";
+  
+  @Override
+  public void log(String message) {
+    if ("on".equals(System.getProperty("superdevmode",
+                                       "off"))) {
+      System.out.println(message);
+    }
+  }
   
   @Override
   public void log(String message,

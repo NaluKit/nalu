@@ -19,6 +19,7 @@ package com.github.nalukit.nalu.processor;
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.client.application.annotation.Filters;
+import com.github.nalukit.nalu.client.application.annotation.Logger;
 import com.github.nalukit.nalu.client.component.annotation.*;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.client.module.annotation.Module;
@@ -75,6 +76,7 @@ public class NaluProcessor
                      Debug.class.getCanonicalName(),
                      ErrorPopUpController.class.getCanonicalName(),
                      Filters.class.getCanonicalName(),
+                     Logger.class.getCanonicalName(),
                      Handler.class.getCanonicalName(),
                      Module.class.getCanonicalName(),
                      Modules.class.getCanonicalName(),
@@ -138,6 +140,9 @@ public class NaluProcessor
             } else if (Handler.class.getCanonicalName()
                                     .equals(annotation.toString())) {
               handleHandlerAnnotation(roundEnv);
+            } else if (Logger.class.getCanonicalName()
+                                   .equals(annotation.toString())) {
+              handleLoggerAnnotation(roundEnv);
             } else if (Module.class.getCanonicalName()
                                    .equals(annotation.toString())) {
               handleModuleAnnotation(roundEnv);
@@ -159,7 +164,6 @@ public class NaluProcessor
       }
     } catch (ProcessorException e) {
       this.processorUtils.createErrorMessage(e.getMessage());
-      //    }/
       return true;
     }
     return true;
@@ -475,6 +479,26 @@ public class NaluProcessor
       // save handler data in metaModel
       this.metaModel.getHandlers()
                     .add(handlerModel);
+    }
+  }
+  
+  private void handleLoggerAnnotation(RoundEnvironment roundEnv)
+      throws ProcessorException {
+    for (Element loggerElement : roundEnv.getElementsAnnotatedWith(Logger.class)) {
+      LoggerAnnotationValidator.builder()
+                               .roundEnvironment(roundEnv)
+                               .processingEnvironment(processingEnv)
+                               .loggerElement(loggerElement)
+                               .build()
+                               .validate();
+      // scan filter element and save data in metaModel
+      this.metaModel = LoggerAnnotationScanner.builder()
+                                              .processingEnvironment(processingEnv)
+                                              .metaModel(this.metaModel)
+                                              .loggerElement(loggerElement)
+                                              .build()
+                                              .scan(roundEnv);
+      
     }
   }
   

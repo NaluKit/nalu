@@ -15,7 +15,7 @@
  */
 package com.github.nalukit.nalu.processor.common;
 
-import com.github.nalukit.nalu.client.application.IsLogger;
+import com.github.nalukit.nalu.client.application.IsClientLogger;
 
 /**
  * Default implementation of Nalu Logger.
@@ -23,7 +23,7 @@ import com.github.nalukit.nalu.client.application.IsLogger;
  * @author Frank Hossfeld
  */
 public class MockLogger
-    implements IsLogger {
+    implements IsClientLogger {
   
   static final String INDENT = "    ";
   

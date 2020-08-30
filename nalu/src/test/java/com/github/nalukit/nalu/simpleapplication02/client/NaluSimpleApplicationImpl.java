@@ -27,7 +27,7 @@ import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.simpleapplication02.client.filters.BartSimpsonFilter;
 import com.github.nalukit.nalu.simpleapplication02.client.handler.SimpleApplicationHandler01;
-import com.github.nalukit.nalu.simpleapplication02.client.logger.DefaultLogger;
+import com.github.nalukit.nalu.simpleapplication02.client.logger.DefaultClientLogger;
 import com.github.nalukit.nalu.simpleapplication02.client.ui.shell.Shell;
 
 import java.util.Arrays;
@@ -53,10 +53,14 @@ public final class NaluSimpleApplicationImpl
   }
   
   @Override
+  public void loadLoggerConfiguration() {
+  }
+  
+  @Override
   public void loadDebugConfiguration() {
     ClientLogger.get()
                 .register(true,
-                          new DefaultLogger(),
+                          new DefaultClientLogger(),
                           Debug.LogLevel.DETAILED);
   }
   

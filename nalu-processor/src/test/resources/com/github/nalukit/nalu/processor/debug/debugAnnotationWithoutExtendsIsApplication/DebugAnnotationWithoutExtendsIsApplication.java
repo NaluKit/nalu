@@ -19,11 +19,11 @@ package com.github.nalukit.nalu.processor.debug.debugAnnotationWithoutExtendsIsA
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import com.github.nalukit.nalu.processor.common.MockLogger;
+import com.github.nalukit.nalu.processor.common.DebugLogger;
 
 @Application(startRoute = "/search",
              context = MockContext.class,
              routeError = "/errorShell/error")
-@Debug(logger = MockLogger.class)
+@Debug(logger = DebugLogger.class)
 public interface DebugAnnotationWithoutExtendsIsApplication {
 }

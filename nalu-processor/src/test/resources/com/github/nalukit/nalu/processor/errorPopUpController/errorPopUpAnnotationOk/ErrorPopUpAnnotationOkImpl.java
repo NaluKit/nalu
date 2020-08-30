@@ -1,6 +1,7 @@
 package com.github.nalukit.nalu.processor.errorPopUpController.errorPopUpAnnotationOk;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
+import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
@@ -19,33 +20,39 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.1.0-SNAPSHOT<< at >>2020.01.04-09:46:53<< */
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.08.30-17:56:41<<
+ */
 public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockContext> implements ErrorPopUpAnnotationOk {
   public ErrorPopUpAnnotationOkImpl() {
     super();
     super.context = new com.github.nalukit.nalu.processor.common.MockContext();
   }
-
+  
+  @Override
+  public void loadLoggerConfiguration() {
+  }
+  
   @Override
   public void logProcessorVersion() {
+    this.eventBus.fireEvent(LogEvent.create()                          .sdmOnly(true)                          .addMessage("=================================================================================")                          .addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source")                          .addMessage("=================================================================================")                          .addMessage(""));
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>2.1.0-SNAPSHOT<< used to generate this source");
+    sb01.append("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
   }
-
+  
   @Override
   public void loadDebugConfiguration() {
   }
-
+  
   @Override
   public IsTracker loadTrackerConfiguration() {
     return null;
   }
-
+  
   @Override
   public void loadShells() {
     StringBuilder sb01 = new StringBuilder();
@@ -60,7 +67,7 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
     sb01.append("register shell >>/errorShell<< with class >>com.github.nalukit.nalu.processor.common.MockErrorShell<<");
     ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
-
+  
   @Override
   public void loadShellFactory() {
     // create ShellCreator for: com.github.nalukit.nalu.processor.common.MockShell
@@ -68,17 +75,17 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
     // create ShellCreator for: com.github.nalukit.nalu.processor.common.MockErrorShell
     ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockErrorShell", new com.github.nalukit.nalu.processor.common.MockErrorShellCreatorImpl(router, context, eventBus));
   }
-
+  
   @Override
   public void loadCompositeController() {
   }
-
+  
   @Override
   public void loadComponents() {
     // create ControllerCreator for: com.github.nalukit.nalu.processor.common.ui.component01.Controller01
     ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01", new com.github.nalukit.nalu.processor.common.ui.component01.Controller01CreatorImpl(router, context, eventBus));
   }
-
+  
   @Override
   public void loadRoutes() {
     StringBuilder sb01 = new StringBuilder();
@@ -89,15 +96,15 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
     sb01.append("register route >>/mockShell/route01/*<< with parameter >>parameter01<< for selector >>selector01<< for controller >>com.github.nalukit.nalu.processor.common.ui.component01.Controller01<<");
     ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
-
+  
   @Override
   public void loadBlockControllerFactory() {
   }
-
+  
   @Override
   public void loadPopUpControllerFactory() {
   }
-
+  
   @Override
   public void loadErrorPopUpController() {
     StringBuilder sb01 = new StringBuilder();
@@ -133,41 +140,41 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
     ClientLogger.get().logSimple("controller >>com.github.nalukit.nalu.processor.common.ui.errorPopUp01.ErrorEventController01<< created", 3);
     errorPopUpController.onLoad();
   }
-
+  
   @Override
   public void loadFilters() {
   }
-
+  
   @Override
   public void loadHandlers() {
   }
-
+  
   @Override
   public void loadCompositeReferences() {
     StringBuilder sb01 = new StringBuilder();
     sb01.append("load composite references");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
   }
-
+  
   @Override
   public void loadModules() {
   }
-
+  
   @Override
   public IsApplicationLoader<MockContext> getApplicationLoader() {
     return null;
   }
-
+  
   @Override
   public IsCustomAlertPresenter getCustomAlertPresenter() {
     return null;
   }
-
+  
   @Override
   public IsCustomConfirmPresenter getCustomConfirmPresenter() {
     return null;
   }
-
+  
   @Override
   public void loadDefaultRoutes() {
     StringBuilder sb01 = new StringBuilder();
@@ -177,22 +184,22 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
     sb01.setLength(0);
     ClientLogger.get().logDetailed(sb01.toString(), 2);
   }
-
+  
   @Override
   public boolean hasHistory() {
     return true;
   }
-
+  
   @Override
   public boolean isUsingHash() {
     return true;
   }
-
+  
   @Override
   public boolean isUsingColonForParametersInUrl() {
     return false;
   }
-
+  
   @Override
   public boolean isStayOnSide() {
     return false;

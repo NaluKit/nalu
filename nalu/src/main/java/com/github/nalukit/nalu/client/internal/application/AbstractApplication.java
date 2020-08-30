@@ -19,6 +19,7 @@ package com.github.nalukit.nalu.client.internal.application;
 import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
+import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.context.IsContext;
@@ -66,6 +67,8 @@ public abstract class AbstractApplication<C extends IsContext>
   protected AlwaysLoadComposite                alwaysLoadComposite;
   /* List of CompositeControllerReferences */
   protected List<CompositeControllerReference> compositeControllerReferences;
+  /* Nalu Logger instance */
+  protected NaluLogger<C>                      naluLogger;
   
   public AbstractApplication() {
     super();
@@ -76,11 +79,30 @@ public abstract class AbstractApplication<C extends IsContext>
   public void run(IsNaluProcessorPlugin plugin) {
     // save the plugin
     this.plugin = plugin;
+    // instantiate necessary classes
+    this.eventBus            = new SimpleEventBus();
+    this.shellConfiguration  = new ShellConfiguration();
+    this.routerConfiguration = new RouterConfiguration();
+    this.alwaysLoadComposite = new AlwaysLoadComposite();
     // set custom presenter - if available
     this.plugin.setCustomAlertPresenter(getCustomAlertPresenter());
     this.plugin.setCustomConfirmPresenter(getCustomConfirmPresenter());
+    // create NaluLogger
+    this.naluLogger = new NaluLogger<>();
+    this.naluLogger.setEventBus(this.eventBus);
+    this.naluLogger.bind();
+    this.loadLoggerConfiguration();
     // first load the debug configuration
     this.loadDebugConfiguration();
+    // log development messages
+    this.eventBus.fireEvent(LogEvent.create()
+                                    .sdmOnly(true)
+                                    .addMessage("=================================================================================")
+                                    .addMessage("Running Nalu version: >>" + Nalu.getVersion() + "<<")
+                                    .addMessage("=================================================================================")
+                                    .addMessage("")
+                                    .addMessage("AbstractApplication: application is started!"));
+    // TODO ...
     // debug message
     ClientLogger.get()
                 .logDetailed("=================================================================================",
@@ -100,11 +122,6 @@ public abstract class AbstractApplication<C extends IsContext>
     ClientLogger.get()
                 .logSimple("AbstractApplication: application is started!",
                            0);
-    // instantiate necessary classes
-    this.eventBus            = new SimpleEventBus();
-    this.shellConfiguration  = new ShellConfiguration();
-    this.routerConfiguration = new RouterConfiguration();
-    this.alwaysLoadComposite = new AlwaysLoadComposite();
     // load default routes!
     this.loadDefaultRoutes();
     // set up seo factory
@@ -206,6 +223,9 @@ public abstract class AbstractApplication<C extends IsContext>
   
   protected abstract IsCustomConfirmPresenter getCustomConfirmPresenter();
   
+  protected abstract void loadLoggerConfiguration();
+  
+  @Deprecated
   protected abstract void loadDebugConfiguration();
   
   protected abstract void logProcessorVersion();

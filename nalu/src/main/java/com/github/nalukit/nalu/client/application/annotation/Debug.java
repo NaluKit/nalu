@@ -15,7 +15,7 @@
  */
 package com.github.nalukit.nalu.client.application.annotation;
 
-import com.github.nalukit.nalu.client.application.IsLogger;
+import com.github.nalukit.nalu.client.application.IsClientLogger;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -35,6 +35,7 @@ import java.lang.annotation.RetentionPolicy;
  * @author Frank Hossfeld
  */
 @Retention(RetentionPolicy.RUNTIME)
+@Deprecated
 public @interface Debug {
   
   /**
@@ -54,7 +55,7 @@ public @interface Debug {
    *
    * @return the custom logger
    */
-  Class<? extends IsLogger> logger();
+  Class<? extends IsClientLogger> logger();
   
   enum LogLevel {
     SIMPLE,

@@ -15,20 +15,33 @@
  */
 package com.github.nalukit.nalu.client.application;
 
+import com.github.nalukit.nalu.client.context.IsContext;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
+import java.util.List;
+
 /**
  * Interface that defines a logger used for events logging.
  *
  * @author Frank Hossfeld
  */
-public interface IsLogger {
+public interface IsLogger<C extends IsContext> {
+  
+  /**
+   * Sets the context.
+   *
+   * @param context applciaiton context
+   */
+  @NaluInternalUse
+  void setContext(C context);
   
   /**
    * Writes a log message to the browser console during development
    *
-   * @param message message to log
-   * @param depth   depth of the log
+   * @param messages list of messages to log
+   * @param sdmOnly  indicates if the log should only appear in SDM
    */
-  void log(String message,
-           int depth);
+  void log(List<String> messages,
+           boolean sdmOnly);
   
 }

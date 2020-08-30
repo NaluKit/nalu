@@ -16,7 +16,7 @@
 package com.github.nalukit.nalu.processor.scanner.validation;
 
 import com.github.nalukit.nalu.client.application.IsApplication;
-import com.github.nalukit.nalu.client.application.IsLogger;
+import com.github.nalukit.nalu.client.application.IsClientLogger;
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.processor.ProcessorException;
@@ -30,6 +30,7 @@ import javax.lang.model.type.MirroredTypeException;
 import java.util.Objects;
 import java.util.Set;
 
+@Deprecated
 public class DebugAnnotationValidator {
   
   private Element debugElement;
@@ -94,7 +95,7 @@ public class DebugAnnotationValidator {
                                                          Objects.requireNonNull(loggerElement)
                                                                 .asType(),
                                                          this.processingEnvironment.getElementUtils()
-                                                                                   .getTypeElement(IsLogger.class.getCanonicalName())
+                                                                                   .getTypeElement(IsClientLogger.class.getCanonicalName())
                                                                                    .asType())) {
           throw new ProcessorException("Nalu-Processor: @Debug - the logger attribute needs class that extends IsLogger");
         }

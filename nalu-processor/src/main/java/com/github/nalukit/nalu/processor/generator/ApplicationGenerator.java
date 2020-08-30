@@ -16,7 +16,9 @@
 
 package com.github.nalukit.nalu.processor.generator;
 
+import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
+import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.NoCustomAlertPresenter;
 import com.github.nalukit.nalu.client.internal.NoCustomConfirmPresenter;
@@ -92,10 +94,25 @@ public class ApplicationGenerator {
                                                               .getSimpleName())
                                        .build();
     typeSpec.addMethod(constructor);
-    
+  
+    LoggerGenerator.builder()
+                   .metaModel(metaModel)
+                   .typeSpec(typeSpec)
+                   .build()
+                   .generate();
+  
     typeSpec.addMethod(MethodSpec.methodBuilder("logProcessorVersion")
                                  .addAnnotation(ClassName.get(Override.class))
                                  .addModifiers(Modifier.PUBLIC)
+                                 .addStatement("this.eventBus.fireEvent($T.create()" +
+                                               "                          .sdmOnly(true)" +
+                                               "                          .addMessage(\"=================================================================================\")" +
+                                               "                          .addMessage(\"Nalu processor version  >>$L<< used to generate this source\")" +
+                                               "                          .addMessage(\"=================================================================================\")" +
+                                               "                          .addMessage(\"\"))",
+                                               ClassName.get(LogEvent.class),
+                                               ProcessorConstants.PROCESSOR_VERSION)
+                                 // TODO ...
                                  .addStatement("$T.get().logDetailed(\"\", 0)",
                                                ClassName.get(ClientLogger.class))
                                  .addStatement("$T.get().logDetailed(\"=================================================================================\", 0)",
@@ -112,13 +129,22 @@ public class ApplicationGenerator {
                                  .addStatement("$T.get().logDetailed(\"\", 0)",
                                                ClassName.get(ClientLogger.class))
                                  .build());
-    
+  
+    // log development messages
+    LogEvent.create()
+            .sdmOnly(true)
+            .addMessage("=================================================================================")
+            .addMessage("Running Nalu version: >>" + Nalu.getVersion() + "<<")
+            .addMessage("=================================================================================")
+            .addMessage("")
+            .addMessage("AbstractApplication: application is started!");
+  
     DebugGenerator.builder()
                   .metaModel(metaModel)
                   .typeSpec(typeSpec)
                   .build()
                   .generate();
-    
+  
     TrackerGenerator.builder()
                     .metaModel(metaModel)
                     .typeSpec(typeSpec)

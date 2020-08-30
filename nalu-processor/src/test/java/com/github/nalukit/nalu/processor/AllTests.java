@@ -39,6 +39,7 @@ import org.junit.runner.RunWith;
                    ErrorPopUpControllerTest.class,
                    FiltersTest.class,
                    HandlerTest.class,
+                   LoggerTest.class,
                    MetaModelTest.class,
                    ModuleTest.class,
                    PopUpControllerCreatorTest.class,

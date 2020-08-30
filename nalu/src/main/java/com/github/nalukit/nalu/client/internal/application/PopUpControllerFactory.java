@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.client.internal.application;
 
+import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.component.event.ShowPopUpEvent;
 import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
@@ -94,9 +95,13 @@ public class PopUpControllerFactory {
       if (Objects.isNull(instance)) {
         IsPopUpControllerCreator creator = this.creatorStore.get(e.getName());
         if (Objects.isNull(creator)) {
-          ClientLogger.get()
-                      .logDetailed("PopUpControllerFactory: PopUpController for name >>" + e.getName() + "<< not found",
-                                   0);
+          LogEvent.create()
+                  .sdmOnly(false)
+                  .addMessage("PopUpControllerFactory: PopUpController for name >>" + e.getName() + "<< not found");
+          // TODO Remove!
+          //          ClientLogger.get()
+          //                      .logDetailed("PopUpControllerFactory: PopUpController for name >>" + e.getName() + "<< not found",
+          //                                   0);
           return;
         }
         instance = creator.create();

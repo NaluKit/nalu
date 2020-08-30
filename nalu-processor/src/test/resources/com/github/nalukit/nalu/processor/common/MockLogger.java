@@ -16,7 +16,8 @@
 
 package com.github.nalukit.nalu.processor.common;
 
-import com.github.nalukit.nalu.client.application.IsLogger;
+import com.github.nalukit.nalu.client.application.AbstractLogger;
+import java.util.List;
 
 /**
  * Default implementation of Nalu's logger.
@@ -24,13 +25,11 @@ import com.github.nalukit.nalu.client.application.IsLogger;
  * @author Frank Hossfeld
  */
 public class MockLogger
-    implements IsLogger {
-
-  static final String INDENT = "    ";
-
-  public void log(String message,
-                  int depth) {
-    // we do nothing!
+    extends AbstractLogger<MockContext> {
+  
+  @Override
+  public void log(List<String> messages,
+                  boolean sdmOnly) {
   }
 }
 

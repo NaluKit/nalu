@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.NaluConstants;
+import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.IsController;
@@ -1088,6 +1089,10 @@ abstract class AbstractRouter
       this.activeComponents.put(selector,
                                 controllerInstance);
     } else {
+      this.eventBus.fireEvent(LogEvent.create()
+                                      .sdmOnly(false)
+                                      .addMessage("no element found, that matches selector >>" + selector + "<< --> Routing aborted!"));
+      // TODO
       String sb = "no element found, that matches selector >>" + selector + "<< --> Routing aborted!";
       RouterLogger.logSimple(sb,
                              1);
@@ -1102,6 +1107,10 @@ abstract class AbstractRouter
                       AbstractCompositeController<?, ?, ?> compositeController) {
     if (!this.plugin.attach(selector,
                             compositeController.asElement())) {
+      this.eventBus.fireEvent(LogEvent.create()
+                                      .sdmOnly(false)
+                                      .addMessage("no element found, that matches selector >>" + selector + "<< --> Routing aborted!"));
+      // TODO
       String sb = "no element found, that matches selector >>" + selector + "<< --> Routing aborted!";
       RouterLogger.logSimple(sb,
                              1);

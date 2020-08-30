@@ -124,7 +124,54 @@ The annotation @Filters has the following attributes:
 
 In case you have more than one filter, tilters will be executed in a unconditional order!
 
-## Debug Annotation
+## Logger Annotation (since version v2.1.0)
+Nalu has a logger feature to log informations to the browser console or to the server (service needs to be provided).
+
+To activate the log feature, you need to annotate your application class with `@Logger`:
+```Java
+@Logger(clientLogger = DefaultElemental2ClientLogger.class,
+        logger = MyLogger.class)
+interface MyApplication
+    extends IsApplication {
+}
+```
+
+**The @Logger annotation will only be handle if the interface is also annotated with @Application!**
+
+`@logger`-annotation has the following attributes:
+
+* **clientLogger**: defines the class of the client side logger to use depending on the selected plugin
+* **logger**: defines the class of the logger which can be used to send log messages to the server
+
+Every plugin provides a default client logger. In case you do not want to create an own logger, use:
+
+* **gwt-plugin-elemental2**: `DefaultElemental2Logger`.class
+* **gwt-plugin-elemento**: `DefaultElementoLogger`.class
+* **gwt-plugin-gwt**: `DefaultGWTLogger`.class
+
+The logger needs to implement the IsLogger-interface and looks like this:
+```java
+public class MyLogger
+    extends AbstractLogger<MyContext> {
+  
+  @Override
+  public void log(List<String> messages,
+                  boolean sdmOnly) {
+    LoggingServiceFactory.INSTANCE.log(messages)
+                                  .onSuccess(response -> {
+                                  })
+                                  .onFailed(failed -> {
+                                  })
+                                  .send();
+  }
+  
+}
+```
+This example uses [Domino-rest](https://github.com/DominoKit/domino-rest) to send the messages to server.
+
+A log message can be triggered by firing a `LogEvent`.
+
+## Debug Annotation (removed in version v2.1.0)
 Nalu integrates a log feature that let you trace the routes handled, controllers used, fired events, etc. The debug messages will be displayed using the browser's console.
 
 **This feature is only available during development!***

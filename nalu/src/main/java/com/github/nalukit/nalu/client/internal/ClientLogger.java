@@ -16,9 +16,10 @@
 
 package com.github.nalukit.nalu.client.internal;
 
-import com.github.nalukit.nalu.client.application.IsLogger;
+import com.github.nalukit.nalu.client.application.IsClientLogger;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
 
+@Deprecated
 public class ClientLogger {
   
   private static ClientLogger instance = new ClientLogger();
@@ -27,7 +28,7 @@ public class ClientLogger {
   private boolean debugEnabled = false;
   
   /* logger */
-  private IsLogger logger;
+  private IsClientLogger logger;
   
   /* log level */
   private Debug.LogLevel logLevel;
@@ -43,7 +44,7 @@ public class ClientLogger {
   }
   
   public void register(boolean debugEnabled,
-                       IsLogger logger,
+                       IsClientLogger logger,
                        Debug.LogLevel logLevel) {
     this.debugEnabled = debugEnabled;
     this.logger       = logger;

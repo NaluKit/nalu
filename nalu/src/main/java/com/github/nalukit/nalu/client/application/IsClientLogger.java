@@ -13,24 +13,30 @@
  *  License for the specific language governing permissions and limitations under
  *  the License.
  */
-package com.github.nalukit.nalu.plugin.elemental2.client;
+package com.github.nalukit.nalu.client.application;
 
-import com.github.nalukit.nalu.plugin.core.web.client.AbstractLogger;
-import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
-import elemental2.dom.DomGlobal;
-
-public class DefaultElemental2Logger
-    extends AbstractLogger {
+/**
+ * Interface that defines a logger used for events logging.
+ *
+ * @author Frank Hossfeld
+ */
+public interface IsClientLogger {
   
-  static final String INDENT = "..";
+  /**
+   * Writes a log message to the browser console
+   *
+   * @param message message to log
+   */
+  void log(String message);
   
-  @Override
-  public void log(String message,
-                  int depth) {
-    if (NaluPluginCoreWeb.isSuperDevMode()) {
-      DomGlobal.window.console.log(createLog(message,
-                                             depth));
-    }
-  }
+  /**
+   * Writes a log message to the browser console during development
+   *
+   * @param message message to log
+   * @param depth   depth of the log
+   */
+  @Deprecated
+  void log(String message,
+           int depth);
   
 }

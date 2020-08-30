@@ -16,6 +16,11 @@ public class HideBlockComponentEvent
   private final String              name;
   private final Map<String, String> dataStore;
   
+  @SuppressWarnings("unused")
+  private HideBlockComponentEvent() {
+    this("");
+  }
+  
   private HideBlockComponentEvent(String name) {
     super();
     this.name      = name;

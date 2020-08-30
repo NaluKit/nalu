@@ -14,20 +14,37 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.plugin.core.web.client;
+package com.github.nalukit.nalu.plugin.gwt.client;
 
-import com.github.nalukit.nalu.client.application.IsLogger;
+import com.github.nalukit.nalu.client.application.IsClientLogger;
+import com.google.gwt.core.client.GWT;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public abstract class AbstractLogger
-    implements IsLogger {
+public class DefaultGWTClientLogger
+    implements IsClientLogger {
   
-  protected static final String INDENT = "..";
+  static final String INDENT = "..";
   
-  protected String createLog(String message,
-                             int depth) {
+  @Override
+  public void log(String message) {
+    GWT.log(message);
+  }
+  
+  @Override
+  public void log(String message,
+                  int depth) {
+    if ("on".equals(System.getProperty("superdevmode",
+                                       "off"))) {
+      GWT.log(createLog(message,
+                        depth));
+    }
+  }
+  
+  @Deprecated
+  private String createLog(String message,
+                           int depth) {
     if (depth == 0) {
       return "Nalu-Logger -> " + message;
     } else {
