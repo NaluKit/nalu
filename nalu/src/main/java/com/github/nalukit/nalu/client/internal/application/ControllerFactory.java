@@ -27,13 +27,11 @@ import java.util.Map;
 public class ControllerFactory {
   
   /* instance of the controller factory */
-  private static ControllerFactory instance;
-  
+  private static ControllerFactory                                 instance;
   /* map of components (key: name of class, Value: ControllerCreator */
-  private Map<String, IsControllerCreator> controllerFactory;
-  
+  private final  Map<String, IsControllerCreator>                  controllerFactory;
   /* map of stored components (key: name of class, Value: instance of controller */
-  private Map<String, AbstractComponentController<?, ?, ?>> controllerStore;
+  private final  Map<String, AbstractComponentController<?, ?, ?>> controllerStore;
   
   private ControllerFactory() {
     this.controllerFactory = new HashMap<>();
@@ -69,14 +67,10 @@ public class ControllerFactory {
         }
         callback.onFinish(controllerInstance);
       } else {
-        controllerCreator.logBindMethodCallToConsole(controllerInstance.getController(),
-                                                     false);
         try {
           controllerInstance.getController()
                             .bind(() -> {
                               try {
-                                controllerCreator.logBindMethodCallToConsole(controllerInstance.getController(),
-                                                                             true);
                                 controllerCreator.onFinishCreating(controllerInstance.getController(),
                                                                    route);
                                 controllerCreator.setParameter(controllerInstance.getController(),

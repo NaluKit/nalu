@@ -16,7 +16,6 @@
 package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
@@ -67,13 +66,7 @@ public class ControllerGenerator {
                                                                .addAnnotation(Override.class);
     this.getAllComponents(this.metaModel.getControllers())
         .forEach(controllerModel -> {
-          loadComponentsMethodBuilder.addComment("create ControllerCreator for: " +
-                                                 controllerModel.getProvider()
-                                                                .getPackage() +
-                                                 "." +
-                                                 controllerModel.getProvider()
-                                                                .getSimpleName())
-                                     .addStatement("$T.get().registerController($S, new $L(router, context, eventBus))",
+          loadComponentsMethodBuilder.addStatement("$T.get().registerController($S, new $L(router, context, eventBus))",
                                                    ClassName.get(ControllerFactory.class),
                                                    controllerModel.getProvider()
                                                                   .getPackage() +
@@ -88,12 +81,6 @@ public class ControllerGenerator {
           if (controllerModel.getComposites()
                              .size() > 0) {
             List<String> generatedConditionClassNames = new ArrayList<>();
-            loadComponentsMethodBuilder.addComment("register conditions of composites for: " +
-                                                   controllerModel.getProvider()
-                                                                  .getPackage() +
-                                                   "." +
-                                                   controllerModel.getProvider()
-                                                                  .getSimpleName());
             controllerModel.getComposites()
                            .forEach(controllerCompositeModel -> {
                              if (AlwaysLoadComposite.class.getSimpleName()
@@ -165,13 +152,7 @@ public class ControllerGenerator {
     // method must always be created!
     MethodSpec.Builder loadSelectorsMethod = MethodSpec.methodBuilder("loadRoutes")
                                                        .addModifiers(Modifier.PUBLIC)
-                                                       .addAnnotation(Override.class)
-                                                       .addStatement("$T sb01 = new $T()",
-                                                                     ClassName.get(StringBuilder.class),
-                                                                     ClassName.get(StringBuilder.class))
-                                                       .addStatement("sb01.append(\"load routes\")")
-                                                       .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
-                                                                     ClassName.get(ClientLogger.class));
+                                                       .addAnnotation(Override.class);
     this.metaModel.getControllers()
                   .forEach(controllerModel -> controllerModel.getRoute()
                                                              .forEach(route -> loadSelectorsMethod.addStatement("super.routerConfiguration.getRouters().add(new $T($S, $T.asList(new String[]{$L}), $S, $S))",
@@ -182,17 +163,7 @@ public class ControllerGenerator {
                                                                                                                                 true),
                                                                                                                 controllerModel.getSelector(),
                                                                                                                 controllerModel.getProvider()
-                                                                                                                               .getClassName())
-                                                                                                  .addStatement("sb01.setLength(0)")
-                                                                                                  .addStatement("sb01.append(\"register route >>$L<< with parameter >>$L<< for selector >>$L<< for controller >>$L<<\")",
-                                                                                                                createRoute(route),
-                                                                                                                createParameter(controllerModel.getParameters(),
-                                                                                                                                false),
-                                                                                                                controllerModel.getSelector(),
-                                                                                                                controllerModel.getProvider()
-                                                                                                                               .getClassName())
-                                                                                                  .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
-                                                                                                                ClassName.get(ClientLogger.class))));
+                                                                                                                               .getClassName())));
     typeSpec.addMethod(loadSelectorsMethod.build());
   }
   

@@ -18,7 +18,6 @@ package com.github.nalukit.nalu.processor.generator;
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.AbstractShellCreator;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.IsShellCreator;
 import com.github.nalukit.nalu.client.internal.application.ShellInstance;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
@@ -85,20 +84,12 @@ public class ShellCreatorGenerator {
                                                 .addAnnotation(ClassName.get(Override.class))
                                                 .addModifiers(Modifier.PUBLIC)
                                                 .returns(ClassName.get(ShellInstance.class))
-                                                .addStatement("$T sb01 = new $T()",
-                                                              ClassName.get(StringBuilder.class),
-                                                              ClassName.get(StringBuilder.class))
                                                 .addStatement("$T shellInstance = new $T()",
                                                               ClassName.get(ShellInstance.class),
                                                               ClassName.get(ShellInstance.class))
                                                 .addStatement("shellInstance.setShellClassName($S)",
                                                               this.shellModel.getShell()
                                                                              .getClassName())
-                                                .addStatement("sb01.append(\"shell >>$L<< --> will be created\")",
-                                                              shellModel.getShell()
-                                                                        .getClassName())
-                                                .addStatement("$T.get().logSimple(sb01.toString(), 1)",
-                                                              ClassName.get(ClientLogger.class))
                                                 .addStatement("$T shell = new $T()",
                                                               ClassName.get(this.shellModel.getShell()
                                                                                            .getPackage(),
@@ -112,13 +103,6 @@ public class ShellCreatorGenerator {
                                                 .addStatement("shell.setContext(context)")
                                                 .addStatement("shell.setEventBus(eventBus)")
                                                 .addStatement("shell.setRouter(router)")
-                                                .addStatement("sb01.setLength(0)")
-                                                .addStatement("sb01.append(\"shell >>$L<< --> created and data injected\")",
-                                                              this.shellModel.getShell()
-                                                                             .getClassName())
-                                                .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
-                                                              ClassName.get(ClientLogger.class))
-                                                .addStatement("sb01.setLength(0)")
                                                 .addStatement("return shellInstance");
     typeSpec.addMethod(createMethod.build());
     

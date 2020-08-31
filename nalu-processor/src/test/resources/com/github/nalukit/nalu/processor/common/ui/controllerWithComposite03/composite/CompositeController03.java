@@ -26,12 +26,12 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 public class CompositeController03
     extends AbstractCompositeController<MockContext, ICompositeComponent03, String>
     implements ICompositeComponent03.Controller {
-
+  
   public CompositeController03() {
   }
-
+  
   @AcceptParameter("parameter03")
   public void setParameter03(String parameter) {
   }
-
+  
 }

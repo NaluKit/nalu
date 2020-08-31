@@ -2,7 +2,6 @@ package com.github.nalukit.nalu.processor.tracker.applicationWithTracker;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
@@ -18,7 +17,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.08.30-17:48:23<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.08.31-11:40:48<<
  */
 public final class ApplicationWithTrackerImpl extends AbstractApplication<MockContext> implements ApplicationWithTracker {
   public ApplicationWithTrackerImpl() {
@@ -33,17 +32,6 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   @Override
   public void logProcessorVersion() {
     this.eventBus.fireEvent(LogEvent.create()                          .sdmOnly(true)                          .addMessage("=================================================================================")                          .addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source")                          .addMessage("=================================================================================")                          .addMessage(""));
-    ClientLogger.get().logDetailed("", 0);
-    ClientLogger.get().logDetailed("=================================================================================", 0);
-    StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source");
-    ClientLogger.get().logDetailed(sb01.toString(), 0);
-    ClientLogger.get().logDetailed("=================================================================================", 0);
-    ClientLogger.get().logDetailed("", 0);
-  }
-  
-  @Override
-  public void loadDebugConfiguration() {
   }
   
   @Override
@@ -57,18 +45,11 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   
   @Override
   public void loadShells() {
-    StringBuilder sb01 = new StringBuilder();
-    sb01.append("load shell references");
-    ClientLogger.get().logDetailed(sb01.toString(), 2);
     super.shellConfiguration.getShells().add(new ShellConfig("/mockShell", "com.github.nalukit.nalu.processor.common.MockShell"));
-    sb01.setLength(0);
-    sb01.append("register shell >>/mockShell<< with class >>com.github.nalukit.nalu.processor.common.MockShell<<");
-    ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
   
   @Override
   public void loadShellFactory() {
-    // create ShellCreator for: com.github.nalukit.nalu.processor.common.MockShell
     ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockShell", new com.github.nalukit.nalu.processor.common.MockShellCreatorImpl(router, context, eventBus));
   }
   
@@ -78,19 +59,12 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   
   @Override
   public void loadComponents() {
-    // create ControllerCreator for: com.github.nalukit.nalu.processor.common.ui.component01.Controller01
     ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01", new com.github.nalukit.nalu.processor.common.ui.component01.Controller01CreatorImpl(router, context, eventBus));
   }
   
   @Override
   public void loadRoutes() {
-    StringBuilder sb01 = new StringBuilder();
-    sb01.append("load routes");
-    ClientLogger.get().logDetailed(sb01.toString(), 2);
     super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01/*", Arrays.asList(new String[]{"parameter01"}), "selector01", "com.github.nalukit.nalu.processor.common.ui.component01.Controller01"));
-    sb01.setLength(0);
-    sb01.append("register route >>/mockShell/route01/*<< with parameter >>parameter01<< for selector >>selector01<< for controller >>com.github.nalukit.nalu.processor.common.ui.component01.Controller01<<");
-    ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
   
   @Override
@@ -104,7 +78,7 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   @Override
   public void loadErrorPopUpController() {
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("no ErrorPopUpController found!°");
+    this.eventBus.fireEvent(LogEvent.create()                          .sdmOnly(true)                          .addMessage("no ErrorPopUpController found!°"));
   }
   
   @Override
@@ -117,9 +91,6 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   
   @Override
   public void loadCompositeReferences() {
-    StringBuilder sb01 = new StringBuilder();
-    sb01.append("load composite references");
-    ClientLogger.get().logDetailed(sb01.toString(), 2);
   }
   
   @Override
@@ -143,12 +114,7 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   
   @Override
   public void loadDefaultRoutes() {
-    StringBuilder sb01 = new StringBuilder();
     this.startRoute = "/mockShell/route01";
-    sb01.append("found startRoute >>/mockShell/route01<<");
-    ClientLogger.get().logDetailed(sb01.toString(), 2);
-    sb01.setLength(0);
-    ClientLogger.get().logDetailed(sb01.toString(), 2);
   }
   
   @Override

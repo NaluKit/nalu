@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.client.internal;
 
 import com.github.nalukit.nalu.client.Router;
-import com.github.nalukit.nalu.client.component.AbstractShell;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.application.IsShellCreator;
@@ -42,23 +41,6 @@ public abstract class AbstractShellCreator<C extends IsContext>
     this.router   = router;
     this.context  = context;
     this.eventBus = eventBus;
-  }
-  
-  @Override
-  public void logBindMethodCallToConsole(AbstractShell<?> shell,
-                                         boolean isFinished) {
-    StringBuilder sb = new StringBuilder();
-    sb.append("shell >>")
-      .append(shell.getClass()
-                   .getCanonicalName());
-    if (isFinished) {
-      sb.append("<< --> bind method called");
-    } else {
-      sb.append("<< --> call bind method");
-    }
-    ClientLogger.get()
-                .logDetailed(sb.toString(),
-                             2);
   }
   
 }

@@ -20,9 +20,10 @@ import com.github.nalukit.nalu.client.component.IsComponent;
 
 public interface IErrorComponent
     extends IsComponent<IErrorComponent.Controller, String> {
-
+  
   interface Controller
       extends IsComponent.Controller {
-
+    
   }
+  
 }

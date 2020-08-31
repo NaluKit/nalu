@@ -15,7 +15,6 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.squareup.javapoet.ClassName;
@@ -50,7 +49,7 @@ public class ModulesGenerator {
                                                            .addAnnotation(Override.class);
     if (this.metaModel.getModules()
                       .size() > 0) {
-  
+      
       loadModuleMethodBuilder.addStatement("$T sb01 = new $T()",
                                            ClassName.get(StringBuilder.class),
                                            ClassName.get(StringBuilder.class));
@@ -64,89 +63,22 @@ public class ModulesGenerator {
                                                            .toLowerCase() +
                                                 moduleModel.getSimpleName()
                                                            .substring(1);
-  
-                    loadModuleMethodBuilder.addComment("")
-                                           .addComment("")
-                                           .addComment(" Start handling Module: $L",
-                                                       moduleModel.getClassName())
-                                           .addComment("")
-                                           .addStatement("sb01.setLength(0)")
-                                           .addStatement("sb01.append(\"load module >>$L<<\")",
-                                                         moduleModel.getClassName())
-                                           .addStatement("$T.get().logSimple(sb01.toString(), 1)",
-                                                         ClassName.get(ClientLogger.class))
-
-                                           .addStatement("sb01.setLength(0)")
-                                           .addStatement("sb01.append(\"create module >>$L<<\")",
-                                                         moduleModel.getClassName())
-                                           .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
-                                                         ClassName.get(ClientLogger.class))
-                                           .addStatement("$T $L = new $T(super.router, super.context, super.eventBus, super.alwaysLoadComposite)",
+      
+                    loadModuleMethodBuilder.addStatement("$T $L = new $T(super.router, super.context, super.eventBus, super.alwaysLoadComposite)",
                                                          ClassName.get(moduleModel.getPackage(),
                                                                        moduleModel.getSimpleName()),
                                                          moduleInstanceName,
                                                          ClassName.get(moduleModel.getPackage(),
                                                                        moduleModel.getSimpleName() + ProcessorConstants.MODULE_IMPL))
-                                           .addStatement("sb01.setLength(0)")
-                                           .addStatement("sb01.append(\"module >>$L<< created\")",
-                                                         moduleModel.getClassName())
-                                           .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
-                                                         ClassName.get(ClientLogger.class))
-
-                                           .addStatement("sb01.setLength(0)")
-                                           .addStatement("sb01.append(\"call >>loadModule<<\")")
-                                           .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
-                                                         ClassName.get(ClientLogger.class))
                                            .addStatement("$L.loadModule(super.routerConfiguration)",
                                                          moduleInstanceName)
-                                           .addStatement("sb01.setLength(0)")
-                                           .addStatement("sb01.append(\"module >>$L<< loaded\")",
-                                                         moduleInstanceName)
-                                           .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
-                                                         ClassName.get(ClientLogger.class))
-
-                                           .addStatement("sb01.setLength(0)")
-                                           .addStatement("sb01.append(\"call >>getShellConfigs<< and add to shellCreator config list\")")
-                                           .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
-                                                         ClassName.get(ClientLogger.class))
                                            .addStatement("super.shellConfiguration.getShells().addAll($L.getShellConfigs())",
                                                          moduleInstanceName)
-                                           .addStatement("sb01.setLength(0)")
-                                           .addStatement("sb01.append(\"called >>getShellConfigs<<\")",
-                                                         moduleInstanceName)
-                                           .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
-                                                         ClassName.get(ClientLogger.class))
-
-                                           .addStatement("sb01.setLength(0)")
-                                           .addStatement("sb01.append(\"call >>getRouteConfigs<< and add to route config list\")")
-                                           .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
-                                                         ClassName.get(ClientLogger.class))
                                            .addStatement("super.routerConfiguration.getRouters().addAll($L.getRouteConfigs())",
                                                          moduleInstanceName)
-                                           .addStatement("sb01.setLength(0)")
-                                           .addStatement("sb01.append(\"called >>getRouteConfigs<<\")",
-                                                         moduleInstanceName)
-                                           .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
-                                                         ClassName.get(ClientLogger.class))
-
-                                           .addStatement("sb01.setLength(0)")
-                                           .addStatement("sb01.append(\"call >>getCompositeReferences<< and add to composite controller references\")")
-                                           .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
-                                                         ClassName.get(ClientLogger.class))
                                            .addStatement("super.compositeControllerReferences.addAll($L.getCompositeReferences())",
-                                                         moduleInstanceName)
-                                           .addStatement("sb01.setLength(0)")
-                                           .addStatement("sb01.append(\"called >>getCompositeReferences<<\")",
-                                                         moduleInstanceName)
-                                           .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
-                                                         ClassName.get(ClientLogger.class))
-
-                                           .addStatement("sb01.setLength(0)")
-                                           .addStatement("sb01.append(\"module >>$L<< loaded\")",
-                                                         moduleModel.getClassName())
-                                           .addStatement("$T.get().logSimple(sb01.toString(), 2)",
-                                                         ClassName.get(ClientLogger.class));
-  
+                                                         moduleInstanceName);
+      
                   });
     typeSpec.addMethod(loadModuleMethodBuilder.build());
   }

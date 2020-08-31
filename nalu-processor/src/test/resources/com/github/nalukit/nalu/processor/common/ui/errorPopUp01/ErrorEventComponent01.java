@@ -16,28 +16,26 @@
 
 package com.github.nalukit.nalu.processor.common.ui.errorPopUp01;
 
-import com.github.nalukit.nalu.client.component.AbstractComponent;
 import com.github.nalukit.nalu.client.component.AbstractErrorPopUpComponent;
-import com.github.nalukit.nalu.processor.common.ui.errorPopUp01.IErrorEventComponent01.Controller;
 import com.github.nalukit.nalu.processor.common.ui.errorPopUp01.IErrorEventComponent01.Controller;
 
 public class ErrorEventComponent01
     extends AbstractErrorPopUpComponent<IErrorEventComponent01.Controller>
     implements IErrorEventComponent01 {
-
+  
   public ErrorEventComponent01() {
   }
-
+  
   @Override
   public void render() {
   }
-
-
+  
   @Override
   public void show() {
   }
-
+  
   @Override
   public void hide() {
   }
+  
 }

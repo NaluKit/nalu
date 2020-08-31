@@ -52,15 +52,6 @@ public class UmbrellaException
     }
   }
   
-  /**
-   * Required for GWT RPC serialization.
-   */
-  protected UmbrellaException() {
-    // Can't delegate to the other constructor or GWT RPC gets cranky
-    super(MULTIPLE);
-    this.causes = Collections.emptySet();
-  }
-  
   protected static String makeMessage(Set<Throwable> causes) {
     int count = causes.size();
     if (count == 0) {
@@ -84,6 +75,15 @@ public class UmbrellaException
   protected static Throwable makeCause(Set<Throwable> causes) {
     return causes.isEmpty() ? null : causes.iterator()
                                            .next();
+  }
+  
+  /**
+   * Required for GWT RPC serialization.
+   */
+  protected UmbrellaException() {
+    // Can't delegate to the other constructor or GWT RPC gets cranky
+    super(MULTIPLE);
+    this.causes = Collections.emptySet();
   }
   
   /**

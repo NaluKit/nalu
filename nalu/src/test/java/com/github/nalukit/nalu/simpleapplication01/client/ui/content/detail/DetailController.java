@@ -52,7 +52,7 @@ public class DetailController
                                  .get(id);
       this.component.edit(this.person);
       this.eventBus.fireEvent(new StatusChangeEvent("Edit person data with id: " + this.person.getId()));
-  
+      
       this.eventBus.fireEvent(new SelectEvent(SelectEvent.Select.DETAIL));
     } catch (PersonNotFoundException e) {
       System.out.println("Panic!");

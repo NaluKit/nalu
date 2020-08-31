@@ -82,6 +82,24 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   }
   
   /**
+   * hides the block
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   */
+  private void hide() {
+    component.hide();
+  }
+  
+  /**
+   * Shows the block
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   */
+  private void show() {
+    component.show();
+  }
+  
+  /**
    * Get the component
    *
    * @return the component of the controller
@@ -119,24 +137,6 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   @NaluInternalUse
   public final void setName(String name) {
     this.name = name;
-  }
-  
-  /**
-   * hides the block
-   *
-   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
-   */
-  private void hide() {
-    component.hide();
-  }
-  
-  /**
-   * Shows the block
-   *
-   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
-   */
-  private void show() {
-    component.show();
   }
   
   /**

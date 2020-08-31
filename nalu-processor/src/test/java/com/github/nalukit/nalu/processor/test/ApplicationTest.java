@@ -285,7 +285,7 @@ public class ApplicationTest {
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite06/composite/ICompositeComponent04.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite06/composite/CompositeComponent04.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite06/ApplicationWithComposite06.java")
-
+    
                                                            ));
     CompilationSubject.assertThat(compilation)
                       .succeeded();
@@ -316,7 +316,7 @@ public class ApplicationTest {
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite07/composite/ICompositeComponent05.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite07/composite/CompositeComponent05.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite07/ApplicationWithComposite07.java")
-
+    
                                                            ));
     CompilationSubject.assertThat(compilation)
                       .succeeded();
@@ -343,7 +343,7 @@ public class ApplicationTest {
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/composite/ICompositeComponent05.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite08/composite/CompositeComponent05.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/applicationWithComposite08/ApplicationWithComposite08.java")
-
+    
                                                            ));
     CompilationSubject.assertThat(compilation)
                       .failed();

@@ -1,6 +1,8 @@
 package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.Nalu;
+import com.github.nalukit.nalu.client.application.event.LogEvent;
+import org.gwtproject.event.shared.SimpleEventBus;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -10,11 +12,17 @@ public class RouteParser {
   
   private static RouteParser instance = new RouteParser();
   
+  private SimpleEventBus eventBus;
+  
   private RouteParser() {
   }
   
   public static RouteParser get() {
     return instance;
+  }
+  
+  public void setEventBus(SimpleEventBus eventBus) {
+    this.eventBus = eventBus;
   }
   
   /**
@@ -60,8 +68,9 @@ public class RouteParser {
       sb.append("no matching shellCreator found for route >>")
         .append(route)
         .append("<< --> Routing aborted!");
-      RouterLogger.logSimple(sb.toString(),
-                             1);
+      this.eventBus.fireEvent(LogEvent.create()
+                                      .sdmOnly(true)
+                                      .addMessage(sb.toString()));
       throw new RouterException(sb.toString());
     }
     // extract route first:
@@ -114,8 +123,9 @@ public class RouteParser {
         sb.append("no matching route found for route >>")
           .append(route)
           .append("<< --> Routing aborted!");
-        RouterLogger.logSimple(sb.toString(),
-                               1);
+        this.eventBus.fireEvent(LogEvent.create()
+                                        .sdmOnly(true)
+                                        .addMessage(sb.toString()));
         throw new RouterException(sb.toString());
       }
     } else {
@@ -125,7 +135,14 @@ public class RouteParser {
                              .anyMatch(f -> f.match(finalSearchPart))) {
         routeResult.setRoute("/" + routeValue);
       } else {
-        throw new RouterException(RouterLogger.logNoMatchingRoute(route));
+        StringBuilder sb = new StringBuilder();
+        sb.append("no matching route for hash >>")
+          .append(route)
+          .append("<< --> Routing aborted!");
+        this.eventBus.fireEvent(LogEvent.create()
+                                        .sdmOnly(true)
+                                        .addMessage(sb.toString()));
+        throw new RouterException(sb.toString());
       }
     }
     return routeResult;
@@ -149,7 +166,7 @@ public class RouteParser {
       routeValue = routeValue.substring(1);
     }
     String[] partsOfRoute = routeValue.split("/");
-  
+    
     int parameterIndex = 0;
     for (String s : partsOfRoute) {
       sb.append("/");
@@ -166,15 +183,16 @@ public class RouteParser {
         sb.append(s);
       }
     }
-  
+    
     // in case there are more parameters then placesholders, we add them add the end!
     long numberOfPlaceHolders = Stream.of(partsOfRoute)
                                       .filter("*"::equals)
                                       .count();
     if (params.length > numberOfPlaceHolders) {
       String sbExeption = "Warning: route >>" + route + "<< has less parameter placeholder >>" + numberOfPlaceHolders + "<< than the number of parameters in the list of parameters >>" + params.length + "<< --> adding Prameters add the end of the url";
-      RouterLogger.logSimple(sbExeption,
-                             1);
+      this.eventBus.fireEvent(LogEvent.create()
+                                      .sdmOnly(true)
+                                      .addMessage(sbExeption));
       for (int i = parameterIndex; i < params.length; i++) {
         sb.append("/");
         if (Nalu.isUsingColonForParametersInUrl()) {
@@ -189,7 +207,7 @@ public class RouteParser {
         parameterIndex++;
       }
     }
-  
+    
     // remove leading '/'
     String generatedRoute = sb.toString();
     if (generatedRoute.startsWith("/")) {
@@ -202,9 +220,6 @@ public class RouteParser {
         parameters.append(",");
       }
     }
-    String sblog = "generated route >>" + generatedRoute + "<< -> created from >>" + route + "<< with parameters >>" + parameters + "<<";
-    RouterLogger.logSimple(sblog,
-                           1);
     return generatedRoute;
   }
   

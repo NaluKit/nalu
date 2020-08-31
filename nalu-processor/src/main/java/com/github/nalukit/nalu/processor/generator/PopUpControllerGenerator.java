@@ -48,13 +48,7 @@ public class PopUpControllerGenerator {
                                                                            .addModifiers(Modifier.PUBLIC)
                                                                            .addAnnotation(Override.class);
     this.metaModel.getPopUpControllers()
-                  .forEach(popUpControllerModel -> loadPopUpControllerFactoryMethodBuilder.addComment("create popUpControllerCreator for: " +
-                                                                                                      popUpControllerModel.getProvider()
-                                                                                                                          .getPackage() +
-                                                                                                      "." +
-                                                                                                      popUpControllerModel.getProvider()
-                                                                                                                          .getSimpleName())
-                                                                                          .addStatement("$T.get().registerPopUpController($S, new $L(router, context, eventBus))",
+                  .forEach(popUpControllerModel -> loadPopUpControllerFactoryMethodBuilder.addStatement("$T.get().registerPopUpController($S, new $L(router, context, eventBus))",
                                                                                                         ClassName.get(PopUpControllerFactory.class),
                                                                                                         popUpControllerModel.getName(),
                                                                                                         ClassName.get(popUpControllerModel.getController()

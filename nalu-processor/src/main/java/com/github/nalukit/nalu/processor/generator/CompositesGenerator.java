@@ -15,7 +15,6 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerCompositeModel;
@@ -53,13 +52,7 @@ public class CompositesGenerator {
     // generate method 'generateLoadCompositeReferences()'
     MethodSpec.Builder loadCompositesMethodBuilder = MethodSpec.methodBuilder("loadCompositeReferences")
                                                                .addModifiers(Modifier.PUBLIC)
-                                                               .addAnnotation(Override.class)
-                                                               .addStatement("$T sb01 = new $T()",
-                                                                             ClassName.get(StringBuilder.class),
-                                                                             ClassName.get(StringBuilder.class))
-                                                               .addStatement("sb01.append(\"load composite references\")")
-                                                               .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
-                                                                             ClassName.get(ClientLogger.class));
+                                                               .addAnnotation(Override.class);
     for (ControllerModel controllerModel : this.metaModel.getControllers()) {
       for (ControllerCompositeModel controllerCompositeModel : controllerModel.getComposites()) {
         loadCompositesMethodBuilder.addStatement("this.compositeControllerReferences.add(new $T($S, $S, $S, $S, $L))",
@@ -70,16 +63,8 @@ public class CompositesGenerator {
                                                  controllerCompositeModel.getComposite()
                                                                          .getClassName(),
                                                  controllerCompositeModel.getSelector(),
-                                                 controllerCompositeModel.isScopeGlobal())
-                                   .addStatement("sb01.setLength(0)")
-                                   .addStatement("sb01.append(\"register composite >>$L<< for controller >>$L<< in selector >>$L<<\")",
-                                                 controllerCompositeModel.getName(),
-                                                 controllerModel.getProvider()
-                                                                .getClassName(),
-                                                 controllerCompositeModel.getSelector())
-                                   .addStatement("$T.get().logDetailed(sb01.toString(), 3)",
-                                                 ClassName.get(ClientLogger.class));
-  
+                                                 controllerCompositeModel.isScopeGlobal());
+        
       }
     }
     typeSpec.addMethod(loadCompositesMethodBuilder.build());

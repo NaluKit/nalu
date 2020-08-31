@@ -15,7 +15,6 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.squareup.javapoet.ClassName;
@@ -76,9 +75,6 @@ public class FiltersGenerator {
                                                               .addStatement("$L.setEventBus(super.eventBus)",
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName()))
                                                               .addStatement("super.routerConfiguration.getFilters().add($L)",
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()))
-                                                              .addStatement("$T.get().logDetailed(\"AbstractApplication: filter >> $L << created\", 0)",
-                                                                            ClassName.get(ClientLogger.class),
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName())));
     
     typeSpec.addMethod(loadFiltersMethod.build());

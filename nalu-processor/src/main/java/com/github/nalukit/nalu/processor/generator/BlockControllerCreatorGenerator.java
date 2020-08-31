@@ -17,7 +17,6 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.internal.AbstractBlockControllerCreator;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.BlockControllerInstance;
 import com.github.nalukit.nalu.client.internal.application.IsBlockControllerCreator;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
@@ -84,9 +83,6 @@ public class BlockControllerCreatorGenerator {
                                                 .addAnnotation(ClassName.get(Override.class))
                                                 .addModifiers(Modifier.PUBLIC)
                                                 .returns(ClassName.get(BlockControllerInstance.class))
-                                                .addStatement("$T sb01 = new $T()",
-                                                              ClassName.get(StringBuilder.class),
-                                                              ClassName.get(StringBuilder.class))
                                                 .addStatement("$T blockControllerInstance = new $T()",
                                                               ClassName.get(BlockControllerInstance.class),
                                                               ClassName.get(BlockControllerInstance.class))
@@ -98,14 +94,6 @@ public class BlockControllerCreatorGenerator {
                                                                                                 .getPackage(),
                                                                             blockControllerModel.getConndition()
                                                                                                 .getSimpleName()))
-                                                .addStatement("sb01.append(\"blockController >>$L<< --> will be created\")",
-                                                              blockControllerModel.getProvider()
-                                                                                  .getPackage() +
-                                                              "." +
-                                                              blockControllerModel.getProvider()
-                                                                                  .getSimpleName())
-                                                .addStatement("$T.get().logSimple(sb01.toString(), 3)",
-                                                              ClassName.get(ClientLogger.class))
                                                 .addStatement("$T controller = new $T()",
                                                               ClassName.get(blockControllerModel.getProvider()
                                                                                                 .getPackage(),
@@ -120,23 +108,13 @@ public class BlockControllerCreatorGenerator {
                                                 .addStatement("controller.setEventBus(eventBus)")
                                                 .addStatement("controller.setRouter(router)")
                                                 .addStatement("controller.setName($S)",
-                                                              blockControllerModel.getName())
-                                                .addStatement("sb01.setLength(0)")
-                                                .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> created and data injected\")")
-                                                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                                              ClassName.get(ClientLogger.class));
+                                                              blockControllerModel.getName());
     if (blockControllerModel.isComponentCreator()) {
       createMethod.addStatement("$T component = controller.createBlockComponent()",
                                 ClassName.get(blockControllerModel.getComponentInterface()
                                                                   .getPackage(),
                                               blockControllerModel.getComponentInterface()
-                                                                  .getSimpleName()))
-                  .addStatement("sb01.setLength(0)")
-                  .addStatement("sb01.append(\"component >>$L<< --> created using createComponent-Method of controller\")",
-                                blockControllerModel.getComponent()
-                                                    .getClassName())
-                  .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                ClassName.get(ClientLogger.class));
+                                                                  .getSimpleName()));
     } else {
       createMethod.addStatement("$T component = new $T()",
                                 ClassName.get(blockControllerModel.getComponentInterface()
@@ -146,44 +124,13 @@ public class BlockControllerCreatorGenerator {
                                 ClassName.get(blockControllerModel.getComponent()
                                                                   .getPackage(),
                                               blockControllerModel.getComponent()
-                                                                  .getSimpleName()))
-                  .addStatement("sb01.setLength(0)")
-                  .addStatement("sb01.append(\"component >>$L<< --> created using new\")",
-                                blockControllerModel.getComponent()
-                                                    .getClassName())
-                  .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                ClassName.get(ClientLogger.class));
+                                                                  .getSimpleName()));
     }
     createMethod.addStatement("component.setController(controller)")
-                .addStatement("sb01.setLength(0)")
-                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
-                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                              ClassName.get(ClientLogger.class))
                 .addStatement("controller.setComponent(component)")
-                .addStatement("sb01.setLength(0)")
-                .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
-                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                              ClassName.get(ClientLogger.class))
                 .addStatement("component.render()")
-                .addStatement("sb01.setLength(0)")
-                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> rendered\")")
-                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                              ClassName.get(ClientLogger.class))
                 .addStatement("component.bind()")
-                .addStatement("sb01.setLength(0)")
-                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> bound\")")
-                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                              ClassName.get(ClientLogger.class))
-                .addStatement("controller.bind()")
-                .addStatement("sb01.setLength(0)")
-                .addStatement("sb01.append(\"component >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> bound\")")
-                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                              ClassName.get(ClientLogger.class))
-                .addStatement("$T.get().logSimple(\"controller >>$L<< created for block controller with name >>$L<<\", 3)",
-                              ClassName.get(ClientLogger.class),
-                              blockControllerModel.getController()
-                                                  .getClassName(),
-                              blockControllerModel.getName());
+                .addStatement("controller.bind()");
     
     createMethod.addStatement("return blockControllerInstance");
     typeSpec.addMethod(createMethod.build());

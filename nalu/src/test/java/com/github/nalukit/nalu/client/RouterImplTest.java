@@ -1,8 +1,10 @@
 package com.github.nalukit.nalu.client;
 
+import com.github.nalukit.nalu.client.internal.route.RouteParser;
 import com.github.nalukit.nalu.client.internal.route.RouteResult;
 import com.github.nalukit.nalu.client.internal.route.RouterException;
 import com.github.nalukit.nalu.client.internal.route.RouterImpl;
+import org.gwtproject.event.shared.SimpleEventBus;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,6 +33,8 @@ public class RouterImplTest {
                                  true,
                                  false,
                                  false);
+    RouteParser.get()
+               .setEventBus(new SimpleEventBus());
   }
   
   @AfterEach

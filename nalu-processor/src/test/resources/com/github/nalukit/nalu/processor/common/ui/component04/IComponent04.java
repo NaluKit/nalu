@@ -4,9 +4,10 @@ import com.github.nalukit.nalu.client.component.IsComponent;
 
 public interface IComponent04
     extends IsComponent<IComponent04.Controller, String> {
-
+  
   interface Controller
       extends IsComponent.Controller {
-
+    
   }
+  
 }

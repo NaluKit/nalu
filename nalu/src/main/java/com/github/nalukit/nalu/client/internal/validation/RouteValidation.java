@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.client.internal.validation;
 
 import com.github.nalukit.nalu.client.Nalu;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
@@ -27,13 +26,13 @@ import java.util.Optional;
 
 public class RouteValidation {
   
-  public static boolean validateRoute(ShellConfiguration shellConfiguration,
-                                      RouterConfiguration routerConfiguration,
-                                      String route) {
+  public static boolean validateStartRoute(ShellConfiguration shellConfiguration,
+                                           RouterConfiguration routerConfiguration,
+                                           String route) {
     return validateRoute(shellConfiguration,
                          routerConfiguration,
                          route,
-                         false,
+                         true,
                          false);
     
   }
@@ -52,9 +51,6 @@ public class RouteValidation {
                                                                           .equals("/" + shellOfRoute))
                                                             .findFirst();
     if (!optionalShell.isPresent()) {
-      logRouteNotFoud(route,
-                      startRoute,
-                      routeError);
       return false;
     }
     // check route
@@ -70,9 +66,6 @@ public class RouteValidation {
                                                                                      r.getRoute()))
                                                              .findFirst();
     if (!optionalRoute.isPresent()) {
-      logRouteNotFoud(route,
-                      startRoute,
-                      routeError);
       return false;
     }
     return true;
@@ -109,45 +102,6 @@ public class RouteValidation {
                                                       routeWithoutShell.indexOf("/:"));
     }
     return routeWithoutShell;
-  }
-  
-  private static void logRouteNotFoud(String route,
-                                      boolean startRoute,
-                                      boolean routeError) {
-    String sb = "value of ";
-    if (startRoute) {
-      sb += "start route ";
-    } else if (routeError) {
-      sb += "route error ";
-    } else {
-      sb += "route ";
-    }
-    sb += ">>" + route + "<< does not exist!";
-    ClientLogger.get()
-                .logSimple(sb,
-                           0);
-  }
-  
-  public static boolean validateStartRoute(ShellConfiguration shellConfiguration,
-                                           RouterConfiguration routerConfiguration,
-                                           String route) {
-    return validateRoute(shellConfiguration,
-                         routerConfiguration,
-                         route,
-                         true,
-                         false);
-    
-  }
-  
-  public static boolean validateRouteError(ShellConfiguration shellConfiguration,
-                                           RouterConfiguration routerConfiguration,
-                                           String route) {
-    return validateRoute(shellConfiguration,
-                         routerConfiguration,
-                         route,
-                         false,
-                         true);
-    
   }
   
 }

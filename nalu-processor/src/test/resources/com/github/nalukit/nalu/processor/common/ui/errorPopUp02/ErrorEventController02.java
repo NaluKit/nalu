@@ -16,23 +16,21 @@
 
 package com.github.nalukit.nalu.processor.common.ui.errorPopUp02;
 
-import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.AbstractErrorPopUpComponentController;
-import com.github.nalukit.nalu.client.component.annotation.Controller;
-import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.client.component.annotation.ErrorPopUpController;
+import com.github.nalukit.nalu.processor.common.MockContext;
 
 @ErrorPopUpController(componentInterface = IErrorEventComponent02.class,
                       component = ErrorEventComponent02.class)
 public class ErrorEventController02
     extends AbstractErrorPopUpComponentController<MockContext, IErrorEventComponent02>
     implements IErrorEventComponent02.Controller {
-
+  
   public ErrorEventController02() {
   }
-
+  
   @Override
   public void show() {
   }
-
+  
 }

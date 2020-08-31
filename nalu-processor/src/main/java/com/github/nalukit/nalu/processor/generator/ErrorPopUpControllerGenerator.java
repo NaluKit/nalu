@@ -15,7 +15,7 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.internal.ClientLogger;
+import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
@@ -51,15 +51,12 @@ public class ErrorPopUpControllerGenerator {
                                                                                          ClassName.get(StringBuilder.class),
                                                                                          ClassName.get(StringBuilder.class));
     if (Objects.isNull(this.metaModel.getErrorPopUpController())) {
-      createErrorPopUpControllerMethodBuilder.addStatement("sb01.append(\"no ErrorPopUpController found!°\")");
+      createErrorPopUpControllerMethodBuilder.addStatement("this.eventBus.fireEvent($T.create()" +
+                                                           ".sdmOnly(true)" +
+                                                           ".addMessage(\"no ErrorPopUpController found!°\"))",
+                                                           ClassName.get(LogEvent.class));
     } else {
-      createErrorPopUpControllerMethodBuilder.addStatement("sb01.append(\"ErrorPopUpController found!\")")
-                                             .addStatement("sb01.append(\"create ErrorPopUpController >>" +
-                                                           this.metaModel.getErrorPopUpController()
-                                                                         .getController()
-                                                                         .getClassName() +
-                                                           "<<\")")
-                                             .addStatement("$T errorPopUpController = new $T()",
+      createErrorPopUpControllerMethodBuilder.addStatement("$T errorPopUpController = new $T()",
                                                            ClassName.get(this.metaModel.getErrorPopUpController()
                                                                                        .getController()
                                                                                        .getPackage(),
@@ -74,11 +71,7 @@ public class ErrorPopUpControllerGenerator {
                                                                                        .getSimpleName()))
                                              .addStatement("errorPopUpController.setContext(context)")
                                              .addStatement("errorPopUpController.setEventBus(eventBus)")
-                                             .addStatement("errorPopUpController.setRouter(router)")
-                                             .addStatement("sb01.setLength(0)")
-                                             .addStatement("sb01.append(\"controller >>\").append(errorPopUpController.getClass().getCanonicalName()).append(\"<< --> created and data injected\")")
-                                             .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                                           ClassName.get(ClientLogger.class));
+                                             .addStatement("errorPopUpController.setRouter(router)");
       if (this.metaModel.getErrorPopUpController()
                         .isComponentCreator()) {
         createErrorPopUpControllerMethodBuilder.addStatement("$T component = controller.createErrorPopUpComponent()",
@@ -87,14 +80,7 @@ public class ErrorPopUpControllerGenerator {
                                                                                          .getPackage(),
                                                                            this.metaModel.getErrorPopUpController()
                                                                                          .getComponentInterface()
-                                                                                         .getSimpleName()))
-                                               .addStatement("sb01.setLength(0)")
-                                               .addStatement("sb01.append(\"component >>$L<< --> created using createComponent-Method of controller\")",
-                                                             this.metaModel.getErrorPopUpController()
-                                                                           .getComponent()
-                                                                           .getClassName())
-                                               .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                                             ClassName.get(ClientLogger.class));
+                                                                                         .getSimpleName()));
       } else {
         createErrorPopUpControllerMethodBuilder.addStatement("$T component = new $T()",
                                                              ClassName.get(this.metaModel.getErrorPopUpController()
@@ -108,41 +94,12 @@ public class ErrorPopUpControllerGenerator {
                                                                                          .getPackage(),
                                                                            this.metaModel.getErrorPopUpController()
                                                                                          .getComponent()
-                                                                                         .getSimpleName()))
-                                               .addStatement("sb01.setLength(0)")
-                                               .addStatement("sb01.append(\"component >>$L<< --> created using new\")",
-                                                             this.metaModel.getErrorPopUpController()
-                                                                           .getComponent()
-                                                                           .getClassName())
-                                               .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                                             ClassName.get(ClientLogger.class));
+                                                                                         .getSimpleName()));
       }
       createErrorPopUpControllerMethodBuilder.addStatement("component.setController(errorPopUpController)")
-                                             .addStatement("sb01.setLength(0)")
-                                             .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
-                                             .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                                           ClassName.get(ClientLogger.class))
                                              .addStatement("errorPopUpController.setComponent(component)")
-                                             .addStatement("sb01.setLength(0)")
-                                             .addStatement("sb01.append(\"controller >>\").append(errorPopUpController.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
-                                             .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                                           ClassName.get(ClientLogger.class))
                                              .addStatement("component.render()")
-                                             .addStatement("sb01.setLength(0)")
-
-                                             .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> rendered\")")
-                                             .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                                           ClassName.get(ClientLogger.class))
                                              .addStatement("component.bind()")
-                                             .addStatement("sb01.setLength(0)")
-                                             .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> bound\")")
-                                             .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                                           ClassName.get(ClientLogger.class))
-                                             .addStatement("$T.get().logSimple(\"controller >>$L<< created\", 3)",
-                                                           ClassName.get(ClientLogger.class),
-                                                           this.metaModel.getErrorPopUpController()
-                                                                         .getController()
-                                                                         .getClassName())
                                              .addStatement("errorPopUpController.onLoad()");
     }
     typeSpec.addMethod(createErrorPopUpControllerMethodBuilder.build());

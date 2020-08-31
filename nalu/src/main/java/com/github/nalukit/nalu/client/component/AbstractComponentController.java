@@ -96,15 +96,14 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
   
   /**
-   * Sets the component inside the controller
+   * Sets the related selector of the controller. (Will be used by the framework!)
    * <b>Do not use this method. This will lead to unexpected results</b>
    *
-   * @param component instance fo the component
+   * @param relatedSelector related route of the controller
    */
-  @Override
   @NaluInternalUse
-  public final void setComponent(V component) {
-    this.component = component;
+  public final void setRelatedSelector(String relatedSelector) {
+    this.relatedSelector = relatedSelector;
   }
   
   /**
@@ -136,18 +135,15 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
   
   /**
-   * internal framework method! Will be called by the framework after the
-   * stop-method f the controller is called
-   * <p>
-   * The method is used by the framework!
-   * <p>
-   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   * Sets the component inside the controller
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @param component instance fo the component
    */
-  @NaluInternalUse
   @Override
-  public final void removeHandlers() {
-    this.handlerRegistrations.removeHandler();
-    this.handlerRegistrations = new HandlerRegistrations();
+  @NaluInternalUse
+  public final void setComponent(V component) {
+    this.component = component;
   }
   
   /**
@@ -189,14 +185,18 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
   
   /**
-   * Sets the related selector of the controller. (Will be used by the framework!)
-   * <b>Do not use this method. This will lead to unexpected results</b>
-   *
-   * @param relatedSelector related route of the controller
+   * internal framework method! Will be called by the framework after the
+   * stop-method f the controller is called
+   * <p>
+   * The method is used by the framework!
+   * <p>
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
   @NaluInternalUse
-  public final void setRelatedSelector(String relatedSelector) {
-    this.relatedSelector = relatedSelector;
+  @Override
+  public final void removeHandlers() {
+    this.handlerRegistrations.removeHandler();
+    this.handlerRegistrations = new HandlerRegistrations();
   }
   
   /**
@@ -304,9 +304,9 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   @Override
   public void bind(ControllerLoader loader)
       throws RoutingInterceptionException {
-  
+    
     loader.continueLoading();
-  
+    
   }
   
 }

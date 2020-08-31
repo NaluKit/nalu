@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.component.IsLoadCompositeCondition;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.*;
@@ -26,10 +25,9 @@ import java.util.*;
 public class ControllerCompositeConditionFactory {
   
   /* instance of the controller factory */
-  private static ControllerCompositeConditionFactory instance;
-  
+  private static ControllerCompositeConditionFactory   instance;
   /* map of conditions (key: controller name, value: ConditionContainer)  */
-  private Map<String, List<ConditionContainer>> conditionContainerMap;
+  private final  Map<String, List<ConditionContainer>> conditionContainerMap;
   
   private ControllerCompositeConditionFactory() {
     this.conditionContainerMap = new HashMap<>();
@@ -70,60 +68,23 @@ public class ControllerCompositeConditionFactory {
                                String compositeName,
                                String route,
                                String... params) {
-    StringBuilder            sb;
     List<ConditionContainer> conditionContainers = this.conditionContainerMap.get(controllerClassName);
     if (Objects.isNull(conditionContainers)) {
-      sb = new StringBuilder();
-      sb.append("ControllerCompositeConditionFactory: composite condition not found for controller class name >>")
-        .append(controllerClassName)
-        .append("<< and composite >>")
-        .append(compositeName)
-        .append("<<");
-      ClientLogger.get()
-                  .logSimple(sb.toString(),
-                             5);
       return false;
     }
     for (ConditionContainer conditionContainer : conditionContainers) {
       if (conditionContainer.compositeName.equals(compositeName)) {
-        boolean toLoad = conditionContainer.condition.loadComposite(route,
-                                                                    params);
-        sb = new StringBuilder();
-        if (toLoad) {
-          sb.append("ControllerCompositeConditionFactory: composite condition for controller class name >>")
-            .append(controllerClassName)
-            .append("<< and composite >>")
-            .append(compositeName)
-            .append("<< will not interrupt loading the composite");
-        } else {
-          sb.append("ControllerCompositeConditionFactory: composite condition for controller class name >>")
-            .append(controllerClassName)
-            .append("<< and composite >>")
-            .append(compositeName)
-            .append("<< will abort loading the composite");
-        }
-        ClientLogger.get()
-                    .logSimple(sb.toString(),
-                               5);
-        return toLoad;
+        return conditionContainer.condition.loadComposite(route,
+                                                          params);
       }
     }
-    sb = new StringBuilder();
-    sb.append("ControllerCompositeConditionFactory: list of composite condition for controller class name >>")
-      .append(controllerClassName)
-      .append("<< and composite >>")
-      .append(compositeName)
-      .append("<< does have a entry for this composite!");
-    ClientLogger.get()
-                .logSimple(sb.toString(),
-                           5);
     return false;
   }
   
   static class ConditionContainer {
     
-    private String                   compositeName;
-    private IsLoadCompositeCondition condition;
+    private final String                   compositeName;
+    private final IsLoadCompositeCondition condition;
     
     ConditionContainer(String compositeName,
                        IsLoadCompositeCondition condition) {

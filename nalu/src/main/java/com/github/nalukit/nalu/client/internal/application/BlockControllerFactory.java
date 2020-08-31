@@ -20,7 +20,6 @@ import com.github.nalukit.nalu.client.component.event.HideBlockComponentEvent;
 import com.github.nalukit.nalu.client.component.event.ShowBlockComponentEvent;
 import com.github.nalukit.nalu.client.event.RouterStateEvent;
 import com.github.nalukit.nalu.client.event.RouterStateEvent.RouterState;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.EventBus;
 
@@ -53,14 +52,8 @@ public class BlockControllerFactory {
   public void registerBlockController(String blockName,
                                       IsBlockControllerCreator creator) {
     BlockControllerInstance blockControllerInstance = creator.create();
-    ClientLogger.get()
-                .logSimple("block controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> append to root",
-                           3);
     blockControllerInstance.getController()
                            .append();
-    ClientLogger.get()
-                .logSimple("controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> appended to root",
-                           3);
     this.eventBus.fireEvent(HideBlockComponentEvent.hide(blockControllerInstance.getController()
                                                                                 .getName()));
     this.blockControllerInstanceStore.put(blockName,
@@ -80,11 +73,6 @@ public class BlockControllerFactory {
     if (RouterState.ROUTING_DONE != e.getState()) {
       return;
     }
-    ClientLogger.get()
-                .logSimple("BlockControllerFactory: handle RouterStateEvent for route >>" +
-                           e.getRoute() +
-                           "<<",
-                           3);
     this.blockControllerInstanceStore.keySet()
                                      .forEach(i -> {
                                        BlockControllerInstance blockControllerInstance = this.blockControllerInstanceStore.get(i);
@@ -92,28 +80,16 @@ public class BlockControllerFactory {
                                                                              e.getParams())) {
                                          if (!this.visiblesBlocks.contains(blockControllerInstance.getController()
                                                                                                   .getName())) {
-                                           ClientLogger.get()
-                                                       .logSimple("block controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> fire ShowBlockComponentEvent",
-                                                                  4);
                                            this.eventBus.fireEvent(ShowBlockComponentEvent.show(blockControllerInstance.getController()
                                                                                                                        .getName()));
-                                           ClientLogger.get()
-                                                       .logSimple("block controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> fire ShowBlockComponentEvent ==> DONE",
-                                                                  4);
                                            visiblesBlocks.add(blockControllerInstance.getController()
                                                                                      .getName());
                                          }
                                        } else {
                                          if (this.visiblesBlocks.contains(blockControllerInstance.getController()
                                                                                                  .getName())) {
-                                           ClientLogger.get()
-                                                       .logSimple("block controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> fire HideBlockComponentEvent",
-                                                                  4);
                                            this.eventBus.fireEvent(HideBlockComponentEvent.hide(blockControllerInstance.getController()
                                                                                                                        .getName()));
-                                           ClientLogger.get()
-                                                       .logSimple("block controller >>" + blockControllerInstance.getBlockControllerClassName() + "<< --> fire HideBlockComponentEvent ==> DONE",
-                                                                  4);
                                            visiblesBlocks.remove(blockControllerInstance.getController()
                                                                                         .getName());
                                          }

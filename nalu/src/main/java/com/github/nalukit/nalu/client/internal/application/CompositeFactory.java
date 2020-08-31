@@ -32,11 +32,11 @@ public class CompositeFactory {
   /* instance of the controller factory */
   private static CompositeFactory                                  instance;
   /* map of components (key: name of class, Value: ControllerCreator */
-  private        Map<String, IsCompositeCreator>                   compositeCreatorFactory;
+  private final  Map<String, IsCompositeCreator>                   compositeCreatorFactory;
   /* map of stored components (key: name of class, Value: instance of controller */
-  private        Map<String, AbstractCompositeController<?, ?, ?>> compositeControllerStore;
+  private final  Map<String, AbstractCompositeController<?, ?, ?>> compositeControllerStore;
   /* list of global cached composites */
-  private        Map<String, CompositeInstance>                    cachedGlobalCompositeInstances;
+  private final  Map<String, CompositeInstance>                    cachedGlobalCompositeInstances;
   
   private CompositeFactory() {
     this.compositeCreatorFactory        = new HashMap<>();

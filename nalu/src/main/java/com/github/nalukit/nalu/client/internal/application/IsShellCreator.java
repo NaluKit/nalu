@@ -16,7 +16,6 @@
 
 package com.github.nalukit.nalu.client.internal.application;
 
-import com.github.nalukit.nalu.client.component.AbstractShell;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
@@ -27,8 +26,5 @@ public interface IsShellCreator {
   
   void onFinishCreating(Object object)
       throws RoutingInterceptionException;
-  
-  void logBindMethodCallToConsole(AbstractShell<?> shell,
-                                  boolean isFinished);
   
 }

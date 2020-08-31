@@ -127,6 +127,36 @@ public class CompositeControllerAnnotationScanner {
                               componentController);
   }
   
+  private void handleAcceptParameters(RoundEnvironment roundEnvironment,
+                                      Element element,
+                                      CompositeModel splitterModel)
+      throws ProcessorException {
+    TypeElement typeElement = (TypeElement) element;
+    List<Element> annotatedElements = this.processorUtils.getMethodFromTypeElementAnnotatedWith(this.processingEnvironment,
+                                                                                                typeElement,
+                                                                                                AcceptParameter.class);
+    // get all controllers, that use the compositeModel (for validation)
+    for (ControllerModel model : this.getControllerUsingComposite(element)) {
+      // validate
+      AcceptParameterAnnotationValidator.builder()
+                                        .roundEnvironment(roundEnvironment)
+                                        .processingEnvironment(processingEnvironment)
+                                        .controllerModel(model)
+                                        .listOfAnnotatedElements(annotatedElements)
+                                        .build()
+                                        .validate();
+    }
+    // add to ControllerModel ...
+    for (Element annotatedElement : annotatedElements) {
+      ExecutableElement executableElement = (ExecutableElement) annotatedElement;
+      AcceptParameter   annotation        = executableElement.getAnnotation(AcceptParameter.class);
+      splitterModel.getParameterAcceptors()
+                   .add(new ParameterAcceptor(annotation.value(),
+                                              executableElement.getSimpleName()
+                                                               .toString()));
+    }
+  }
+  
   private TypeElement getComponentTypeElement(CompositeController annotation) {
     try {
       annotation.component();
@@ -220,25 +250,25 @@ public class CompositeControllerAnnotationScanner {
     }
     // check the generic!
     type.accept(new SimpleTypeVisitor8<Void, Void>() {
-  
+      
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
                     throw new UnsupportedOperationException();
                   }
-  
+      
                   @Override
                   public Void visitPrimitive(PrimitiveType primitiveType,
                                              Void v) {
                     return null;
                   }
-  
+      
                   @Override
                   public Void visitArray(ArrayType arrayType,
                                          Void v) {
                     return null;
                   }
-  
+      
                   @Override
                   public Void visitDeclared(DeclaredType declaredType,
                                             Void v) {
@@ -250,13 +280,13 @@ public class CompositeControllerAnnotationScanner {
                     }
                     return null;
                   }
-  
+      
                   @Override
                   public Void visitError(ErrorType errorType,
                                          Void v) {
                     return null;
                   }
-  
+      
                   @Override
                   public Void visitTypeVariable(TypeVariable typeVariable,
                                                 Void v) {
@@ -285,25 +315,25 @@ public class CompositeControllerAnnotationScanner {
     }
     // check the generic!
     type.accept(new SimpleTypeVisitor8<Void, Void>() {
-  
+      
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
                     throw new UnsupportedOperationException();
                   }
-  
+      
                   @Override
                   public Void visitPrimitive(PrimitiveType primitiveType,
                                              Void v) {
                     return null;
                   }
-  
+      
                   @Override
                   public Void visitArray(ArrayType arrayType,
                                          Void v) {
                     return null;
                   }
-  
+      
                   @Override
                   public Void visitDeclared(DeclaredType declaredType,
                                             Void v) {
@@ -313,13 +343,13 @@ public class CompositeControllerAnnotationScanner {
                     }
                     return null;
                   }
-  
+      
                   @Override
                   public Void visitError(ErrorType errorType,
                                          Void v) {
                     return null;
                   }
-  
+      
                   @Override
                   public Void visitTypeVariable(TypeVariable typeVariable,
                                                 Void v) {
@@ -328,36 +358,6 @@ public class CompositeControllerAnnotationScanner {
                 },
                 null);
     return result[0].toString();
-  }
-  
-  private void handleAcceptParameters(RoundEnvironment roundEnvironment,
-                                      Element element,
-                                      CompositeModel splitterModel)
-      throws ProcessorException {
-    TypeElement typeElement = (TypeElement) element;
-    List<Element> annotatedElements = this.processorUtils.getMethodFromTypeElementAnnotatedWith(this.processingEnvironment,
-                                                                                                typeElement,
-                                                                                                AcceptParameter.class);
-    // get all controllers, that use the compositeModel (for validation)
-    for (ControllerModel model : this.getControllerUsingComposite(element)) {
-      // validate
-      AcceptParameterAnnotationValidator.builder()
-                                        .roundEnvironment(roundEnvironment)
-                                        .processingEnvironment(processingEnvironment)
-                                        .controllerModel(model)
-                                        .listOfAnnotatedElements(annotatedElements)
-                                        .build()
-                                        .validate();
-    }
-    // add to ControllerModel ...
-    for (Element annotatedElement : annotatedElements) {
-      ExecutableElement executableElement = (ExecutableElement) annotatedElement;
-      AcceptParameter   annotation        = executableElement.getAnnotation(AcceptParameter.class);
-      splitterModel.getParameterAcceptors()
-                   .add(new ParameterAcceptor(annotation.value(),
-                                              executableElement.getSimpleName()
-                                                               .toString()));
-    }
   }
   
   private List<ControllerModel> getControllerUsingComposite(Element element) {

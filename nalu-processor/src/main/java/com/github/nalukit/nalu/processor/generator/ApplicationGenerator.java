@@ -16,10 +16,8 @@
 
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.NoCustomAlertPresenter;
 import com.github.nalukit.nalu.client.internal.NoCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
@@ -94,57 +92,26 @@ public class ApplicationGenerator {
                                                               .getSimpleName())
                                        .build();
     typeSpec.addMethod(constructor);
-  
+    
     LoggerGenerator.builder()
                    .metaModel(metaModel)
                    .typeSpec(typeSpec)
                    .build()
                    .generate();
-  
+    
     typeSpec.addMethod(MethodSpec.methodBuilder("logProcessorVersion")
                                  .addAnnotation(ClassName.get(Override.class))
                                  .addModifiers(Modifier.PUBLIC)
                                  .addStatement("this.eventBus.fireEvent($T.create()" +
-                                               "                          .sdmOnly(true)" +
-                                               "                          .addMessage(\"=================================================================================\")" +
-                                               "                          .addMessage(\"Nalu processor version  >>$L<< used to generate this source\")" +
-                                               "                          .addMessage(\"=================================================================================\")" +
-                                               "                          .addMessage(\"\"))",
+                                               ".sdmOnly(true)" +
+                                               ".addMessage(\"=================================================================================\")" +
+                                               ".addMessage(\"Nalu processor version  >>$L<< used to generate this source\")" +
+                                               ".addMessage(\"=================================================================================\")" +
+                                               ".addMessage(\"\"))",
                                                ClassName.get(LogEvent.class),
                                                ProcessorConstants.PROCESSOR_VERSION)
-                                 // TODO ...
-                                 .addStatement("$T.get().logDetailed(\"\", 0)",
-                                               ClassName.get(ClientLogger.class))
-                                 .addStatement("$T.get().logDetailed(\"=================================================================================\", 0)",
-                                               ClassName.get(ClientLogger.class))
-                                 .addStatement("$T sb01 = new $T()",
-                                               ClassName.get(StringBuilder.class),
-                                               ClassName.get(StringBuilder.class))
-                                 .addStatement("sb01.append(\"Nalu processor version  >>$L<< used to generate this source\")",
-                                               ProcessorConstants.PROCESSOR_VERSION)
-                                 .addStatement("$T.get().logDetailed(sb01.toString(), 0)",
-                                               ClassName.get(ClientLogger.class))
-                                 .addStatement("$T.get().logDetailed(\"=================================================================================\", 0)",
-                                               ClassName.get(ClientLogger.class))
-                                 .addStatement("$T.get().logDetailed(\"\", 0)",
-                                               ClassName.get(ClientLogger.class))
                                  .build());
-  
-    // log development messages
-    LogEvent.create()
-            .sdmOnly(true)
-            .addMessage("=================================================================================")
-            .addMessage("Running Nalu version: >>" + Nalu.getVersion() + "<<")
-            .addMessage("=================================================================================")
-            .addMessage("")
-            .addMessage("AbstractApplication: application is started!");
-  
-    DebugGenerator.builder()
-                  .metaModel(metaModel)
-                  .typeSpec(typeSpec)
-                  .build()
-                  .generate();
-  
+    
     TrackerGenerator.builder()
                     .metaModel(metaModel)
                     .typeSpec(typeSpec)
@@ -301,18 +268,8 @@ public class ApplicationGenerator {
     typeSpec.addMethod(MethodSpec.methodBuilder("loadDefaultRoutes")
                                  .addModifiers(Modifier.PUBLIC)
                                  .addAnnotation(Override.class)
-                                 .addStatement("$T sb01 = new $T()",
-                                               ClassName.get(StringBuilder.class),
-                                               ClassName.get(StringBuilder.class))
                                  .addStatement("this.startRoute = $S",
                                                metaModel.getStartRoute())
-                                 .addStatement("sb01.append(\"found startRoute >>$L<<\")",
-                                               metaModel.getStartRoute())
-                                 .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
-                                               ClassName.get(ClientLogger.class))
-                                 .addStatement("sb01.setLength(0)")
-                                 .addStatement("$T.get().logDetailed(sb01.toString(), 2)",
-                                               ClassName.get(ClientLogger.class))
                                  .build());
   }
   

@@ -23,4 +23,5 @@ import com.github.nalukit.nalu.processor.common.DebugLogger;
 @Debug(logger = DebugLogger.class)
 public interface DebugAnnotationOnClassWithoutApplicationAnnotation
     extends IsApplication {
+  
 }

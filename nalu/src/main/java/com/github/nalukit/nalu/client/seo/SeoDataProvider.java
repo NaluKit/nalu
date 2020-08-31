@@ -300,7 +300,7 @@ public class SeoDataProvider {
       this.plugin.updateMetaNameContent("keywords",
                                         this.seoData.getKeywords());
     }
-  
+    
     if (!Objects.isNull(this.seoData.getOgTitle())) {
       this.plugin.updateMetaPropertyContent("og:title",
                                             this.seoData.getOgTitle());
@@ -325,7 +325,7 @@ public class SeoDataProvider {
       this.plugin.updateMetaPropertyContent("og:description",
                                             this.seoData.getOgDescription());
     }
-  
+    
     if (!Objects.isNull(this.seoData.getTwitterCard())) {
       this.plugin.updateMetaNameContent("twitter:card",
                                         this.seoData.getTwitterCard());
@@ -350,7 +350,7 @@ public class SeoDataProvider {
       this.plugin.updateMetaNameContent("twitter:title",
                                         this.seoData.getTwitterTitle());
     }
-  
+    
     // clear model
     this.seoData = new SeoData();
   }

@@ -21,13 +21,13 @@ import com.github.nalukit.nalu.client.component.AbstractCompositeComponent;
 public class CompositeComponent01
     extends AbstractCompositeComponent<ICompositeComponent01.Controller, String>
     implements ICompositeComponent01 {
-
+  
   public CompositeComponent01() {
   }
-
+  
   @Override
   public void render() {
     initElement("CompositeComponent01");
   }
-
+  
 }

@@ -15,7 +15,6 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.squareup.javapoet.ClassName;
@@ -66,8 +65,7 @@ public class HandlerGenerator {
                   .forEach(handler -> {
                     String variableName = this.processorUtils.createFullClassName(handler.getPackage(),
                                                                                   handler.getSimpleName());
-                    loadHandlersMethod.addComment("create handler for: " + handler.getPackage() + "." + handler.getSimpleName())
-                                      .addStatement("$T $L = new $T()",
+                    loadHandlersMethod.addStatement("$T $L = new $T()",
                                                     ClassName.get(handler.getPackage(),
                                                                   handler.getSimpleName()),
                                                     variableName,
@@ -80,10 +78,7 @@ public class HandlerGenerator {
                                       .addStatement("$L.setRouter(super.router)",
                                                     variableName)
                                       .addStatement("$L.bind()",
-                                                    variableName)
-                                      .addStatement("$T.get().logDetailed(\"AbstractController: handler >>$L<< created\", 0)",
-                                                    ClassName.get(ClientLogger.class),
-                                                    handler.getClassName());
+                                                    variableName);
                   });
     
     typeSpec.addMethod(loadHandlersMethod.build());

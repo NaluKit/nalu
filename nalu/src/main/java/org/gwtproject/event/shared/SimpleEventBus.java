@@ -74,31 +74,6 @@ public class SimpleEventBus
            source);
   }
   
-  private <H> HandlerRegistration doAdd(final Event.Type<H> type,
-                                        final Object source,
-                                        final H handler) {
-    if (type == null) {
-      throw new NullPointerException("Cannot add a handler with a null type");
-    }
-    if (handler == null) {
-      throw new NullPointerException("Cannot add a null handler");
-    }
-    
-    if (firingDepth > 0) {
-      enqueueAdd(type,
-                 source,
-                 handler);
-    } else {
-      doAddNow(type,
-               source,
-               handler);
-    }
-    
-    return () -> doRemove(type,
-                          source,
-                          handler);
-  }
-  
   private <H> void doFire(Event<H> event,
                           Object source) {
     if (event == null) {
@@ -106,16 +81,16 @@ public class SimpleEventBus
     }
     try {
       firingDepth++;
-  
+      
       if (source != null) {
         setSourceOfEvent(event,
                          source);
       }
-  
+      
       List<H> handlers = getDispatchList(event.getAssociatedType(),
                                          source);
       Set<Throwable> causes = null;
-  
+      
       for (H handler : handlers) {
         try {
           dispatchEvent(event,
@@ -127,7 +102,7 @@ public class SimpleEventBus
           causes.add(e);
         }
       }
-  
+      
       if (causes != null) {
         throw new UmbrellaException(causes);
       }
@@ -167,6 +142,48 @@ public class SimpleEventBus
     }
   }
   
+  private <H> List<H> getHandlerList(Event.Type<H> type,
+                                     Object source) {
+    Map<Object, List<?>> sourceMap = map.get(type);
+    if (sourceMap == null) {
+      return Collections.emptyList();
+    }
+    
+    // safe, we control the puts.
+    @SuppressWarnings("unchecked")
+    List<H> handlers = (List<H>) sourceMap.get(source);
+    if (handlers == null) {
+      return Collections.emptyList();
+    }
+    
+    return handlers;
+  }
+  
+  private <H> HandlerRegistration doAdd(final Event.Type<H> type,
+                                        final Object source,
+                                        final H handler) {
+    if (type == null) {
+      throw new NullPointerException("Cannot add a handler with a null type");
+    }
+    if (handler == null) {
+      throw new NullPointerException("Cannot add a null handler");
+    }
+    
+    if (firingDepth > 0) {
+      enqueueAdd(type,
+                 source,
+                 handler);
+    } else {
+      doAddNow(type,
+               source,
+               handler);
+    }
+    
+    return () -> doRemove(type,
+                          source,
+                          handler);
+  }
+  
   private <H> void doRemove(Event.Type<H> type,
                             Object source,
                             H handler) {
@@ -186,23 +203,6 @@ public class SimpleEventBus
       deferredDeltas = new ArrayList<>();
     }
     deferredDeltas.add(command);
-  }
-  
-  private <H> List<H> getHandlerList(Event.Type<H> type,
-                                     Object source) {
-    Map<Object, List<?>> sourceMap = map.get(type);
-    if (sourceMap == null) {
-      return Collections.emptyList();
-    }
-    
-    // safe, we control the puts.
-    @SuppressWarnings("unchecked")
-    List<H> handlers = (List<H>) sourceMap.get(source);
-    if (handlers == null) {
-      return Collections.emptyList();
-    }
-    
-    return handlers;
   }
   
   private <H> void doAddNow(Event.Type<H> type,

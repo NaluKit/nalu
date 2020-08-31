@@ -26,10 +26,10 @@ import static elemental2.dom.DomGlobal.document;
 
 public class MockShellLogin
     extends AbstractShell<MockContext> {
-
+  
   public MockShell() {
   }
-
+  
   /**
    * The ShellPresenter has to implemented this method, because the framework
    * can not do this. (It does not know, what to use).
@@ -40,57 +40,58 @@ public class MockShellLogin
   public void attachShell() {
     document.body.appendChild(this.render());
   }
-
+  
   private HTMLElement render() {
     document.body.style.margin = CSSProperties.MarginUnionType.of(0);
-
+    
     HTMLDivElement shell = (HTMLDivElement) document.createElement("div");
     shell.style.height = CSSProperties.HeightUnionType.of("auto");
-    shell.style.width = CSSProperties.WidthUnionType.of("100%");
+    shell.style.width  = CSSProperties.WidthUnionType.of("100%");
     shell.style.margin = CSSProperties.MarginUnionType.of(0);
-
+    
     HTMLDivElement content = (HTMLDivElement) document.createElement("div");
-    content.id = "content";
+    content.id             = "content";
     content.style.position = "absolute";
     content.style.overflow = "hidden";
-    content.style.top = "128px";
-    content.style.bottom = "42px";
-    content.style.left = "212px";
-    content.style.right = String.valueOf(0);
-
+    content.style.top      = "128px";
+    content.style.bottom   = "42px";
+    content.style.left     = "212px";
+    content.style.right    = String.valueOf(0);
+    
     shell.appendChild(content);
-
+    
     Element footer = createSouth();
     shell.appendChild(footer);
-
+    
     return shell;
   }
-
-  private Element createNorth() {
-    HTMLElement panel = (HTMLElement) document.createElement("header");
-    panel.id = "header";
-    panel.style.position = "absolute";
-    panel.style.overflow = "hidden";
-    panel.style.height = CSSProperties.HeightUnionType.of("128px");
-    panel.style.top = String.valueOf(0);
-    panel.style.right = String.valueOf(0);
-    panel.style.left = String.valueOf(0);
-    panel.style.width = CSSProperties.WidthUnionType.of("100%");
-    panel.style.borderBottom = "black 1px solid";
-    return panel;
-  }
-
+  
   private Element createSouth() {
     HTMLElement panel = (HTMLElement) document.createElement("header");
-    panel.id = "footer";
-    panel.style.position = "absolute";
-    panel.style.overflow = "hidden";
-    panel.style.height = CSSProperties.HeightUnionType.of("128px");
-    panel.style.top = String.valueOf(0);
-    panel.style.right = String.valueOf(0);
-    panel.style.left = String.valueOf(0);
-    panel.style.width = CSSProperties.WidthUnionType.of("100%");
+    panel.id                 = "footer";
+    panel.style.position     = "absolute";
+    panel.style.overflow     = "hidden";
+    panel.style.height       = CSSProperties.HeightUnionType.of("128px");
+    panel.style.top          = String.valueOf(0);
+    panel.style.right        = String.valueOf(0);
+    panel.style.left         = String.valueOf(0);
+    panel.style.width        = CSSProperties.WidthUnionType.of("100%");
     panel.style.borderBottom = "black 1px solid";
     return panel;
   }
+  
+  private Element createNorth() {
+    HTMLElement panel = (HTMLElement) document.createElement("header");
+    panel.id                 = "header";
+    panel.style.position     = "absolute";
+    panel.style.overflow     = "hidden";
+    panel.style.height       = CSSProperties.HeightUnionType.of("128px");
+    panel.style.top          = String.valueOf(0);
+    panel.style.right        = String.valueOf(0);
+    panel.style.left         = String.valueOf(0);
+    panel.style.width        = CSSProperties.WidthUnionType.of("100%");
+    panel.style.borderBottom = "black 1px solid";
+    return panel;
+  }
+  
 }

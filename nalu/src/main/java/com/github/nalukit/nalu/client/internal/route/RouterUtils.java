@@ -69,7 +69,7 @@ public class RouterUtils {
                                        .split(route);
     String[] partsOfWithRoute = RouterUtils.get()
                                            .split(withRoute);
-  
+    
     // in case route has more parts than withRoute, return false
     if (partsOfRoute.length > partsOfWithRoute.length) {
       return false;

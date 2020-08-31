@@ -19,7 +19,6 @@ package com.github.nalukit.nalu.processor.generator;
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.context.module.IsMainContext;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
@@ -166,13 +165,7 @@ public class ModuleGenerator {
     this.metaModel.getShells()
                   .forEach(shellModel -> {
                     // add return statement
-                    loadShellFactoryMethodBuilder.addComment("create ShellCreator for: " +
-                                                             shellModel.getShell()
-                                                                       .getPackage() +
-                                                             "." +
-                                                             shellModel.getShell()
-                                                                       .getSimpleName())
-                                                 .addStatement("$T.get().registerShell($S, new $L(router, moduleContext, eventBus))",
+                    loadShellFactoryMethodBuilder.addStatement("$T.get().registerShell($S, new $L(router, moduleContext, eventBus))",
                                                                ClassName.get(ShellFactory.class),
                                                                shellModel.getShell()
                                                                          .getPackage() +
@@ -194,13 +187,7 @@ public class ModuleGenerator {
                                                                .addModifiers(Modifier.PUBLIC)
                                                                .addAnnotation(Override.class);
     for (CompositeModel compositeModel : this.metaModel.getCompositeModels()) {
-      loadCompositesMethodBuilder.addComment("create Composite for: " +
-                                             compositeModel.getProvider()
-                                                           .getPackage() +
-                                             "." +
-                                             compositeModel.getProvider()
-                                                           .getSimpleName())
-                                 .addStatement("$T.get().registerComposite($S, new $L(router, moduleContext, eventBus))",
+      loadCompositesMethodBuilder.addStatement("$T.get().registerComposite($S, new $L(router, moduleContext, eventBus))",
                                                ClassName.get(CompositeFactory.class),
                                                compositeModel.getProvider()
                                                              .getPackage() +
@@ -222,13 +209,7 @@ public class ModuleGenerator {
                                                                .addAnnotation(Override.class);
     this.getAllComponents(this.metaModel.getControllers())
         .forEach(controllerModel -> {
-          loadComponentsMethodBuilder.addComment("create ControllerCreator for: " +
-                                                 controllerModel.getProvider()
-                                                                .getPackage() +
-                                                 "." +
-                                                 controllerModel.getProvider()
-                                                                .getSimpleName())
-                                     .addStatement("$T.get().registerController($S, new $L(router, moduleContext, eventBus))",
+          loadComponentsMethodBuilder.addStatement("$T.get().registerController($S, new $L(router, moduleContext, eventBus))",
                                                    ClassName.get(ControllerFactory.class),
                                                    controllerModel.getProvider()
                                                                   .getPackage() +
@@ -243,12 +224,6 @@ public class ModuleGenerator {
           if (controllerModel.getComposites()
                              .size() > 0) {
             List<String> generatedConditionClassNames = new ArrayList<>();
-            loadComponentsMethodBuilder.addComment("register conditions of composites for: " +
-                                                   controllerModel.getProvider()
-                                                                  .getPackage() +
-                                                   "." +
-                                                   controllerModel.getProvider()
-                                                                  .getSimpleName());
             controllerModel.getComposites()
                            .forEach(controllerCompositeModel -> {
                              if (AlwaysLoadComposite.class.getSimpleName()
@@ -327,9 +302,6 @@ public class ModuleGenerator {
                                                               .addStatement("$L.setContext(super.moduleContext)",
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName()))
                                                               .addStatement("routerConfiguration.getFilters().add($L)",
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()))
-                                                              .addStatement("$T.get().logDetailed(\"AbstractApplication: filter >> $L << created\", 0)",
-                                                                            ClassName.get(ClientLogger.class),
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName())));
     
     typeSpec.addMethod(loadFiltersMethod.build());
@@ -345,8 +317,7 @@ public class ModuleGenerator {
                   .forEach(handler -> {
                     String variableName = this.processorUtils.createFullClassName(handler.getPackage(),
                                                                                   handler.getSimpleName());
-                    loadHandlersMethod.addComment("create handler for: " + handler.getPackage() + "." + handler.getSimpleName())
-                                      .addStatement("$T $L = new $T()",
+                    loadHandlersMethod.addStatement("$T $L = new $T()",
                                                     ClassName.get(handler.getPackage(),
                                                                   handler.getSimpleName()),
                                                     variableName,
@@ -359,10 +330,7 @@ public class ModuleGenerator {
                                       .addStatement("$L.setRouter(super.router)",
                                                     variableName)
                                       .addStatement("$L.bind()",
-                                                    variableName)
-                                      .addStatement("$T.get().logDetailed(\"ModuleCreator: handler >>$L<< created\", 0)",
-                                                    ClassName.get(ClientLogger.class),
-                                                    handler.getClassName());
+                                                    variableName);
                   });
     
     typeSpec.addMethod(loadHandlersMethod.build());

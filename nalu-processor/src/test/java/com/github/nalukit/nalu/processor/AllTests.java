@@ -35,7 +35,6 @@ import org.junit.runner.RunWith;
                    ControllerCreatorTest.class,
                    ControllerModelTest.class,
                    ControllerTest.class,
-                   DebugTest.class,
                    ErrorPopUpControllerTest.class,
                    FiltersTest.class,
                    HandlerTest.class,
@@ -48,5 +47,4 @@ import org.junit.runner.RunWith;
                    ShellTest.class,
                    TrackerTest.class })
 public class AllTests {
-
 }

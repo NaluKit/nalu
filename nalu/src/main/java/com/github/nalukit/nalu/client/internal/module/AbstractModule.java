@@ -67,8 +67,6 @@ public abstract class AbstractModule<C extends IsModuleContext>
   
   protected abstract void loadShellFactory();
   
-  protected abstract C createModuleContext();
-  
   protected abstract void loadCompositeController();
   
   protected abstract void loadComponents();
@@ -76,5 +74,7 @@ public abstract class AbstractModule<C extends IsModuleContext>
   protected abstract void loadFilters(RouterConfiguration routeConfiguration);
   
   protected abstract void loadHandlers();
+  
+  protected abstract C createModuleContext();
   
 }

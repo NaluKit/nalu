@@ -27,7 +27,7 @@ import java.util.Arrays;
 import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
-public class ControllerCreatorTest {
+public class                                                                                    ControllerCreatorTest {
   
   @Test
   void testControllerCreatorOkWithoutParameter() {

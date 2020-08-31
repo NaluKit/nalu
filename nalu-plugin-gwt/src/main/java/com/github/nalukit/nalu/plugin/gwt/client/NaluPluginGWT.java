@@ -69,7 +69,6 @@ public class NaluPluginGWT
                                                       .getSelectorCommands()
                                                       .get(selector);
     if (selectorCommand == null) {
-      NaluPluginCoreWeb.logNonExistingSelector(selector);
       return false;
     } else {
       selectorCommand.append(((IsWidget) asElement).asWidget());

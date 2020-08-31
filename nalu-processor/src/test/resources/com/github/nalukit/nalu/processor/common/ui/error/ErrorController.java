@@ -27,7 +27,8 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 public class ErrorController
     extends AbstractComponentController<MockContext, IErrorComponent, String>
     implements IErrorComponent.Controller {
-
+  
   public ErrorController() {
   }
+  
 }

@@ -53,14 +53,10 @@ public class ShellFactory {
     if (this.shellFactory.containsKey(shellName)) {
       IsShellCreator shellCreator  = this.shellFactory.get(shellName);
       ShellInstance  shellInstance = shellCreator.create();
-      shellCreator.logBindMethodCallToConsole(shellInstance.getShell(),
-                                              false);
       try {
         shellInstance.getShell()
                      .bind(() -> {
                        try {
-                         shellCreator.logBindMethodCallToConsole(shellInstance.getShell(),
-                                                                 true);
                          shellCreator.onFinishCreating(shellInstance.getShell());
                          callback.onFinish(shellInstance);
                        } catch (RoutingInterceptionException e) {

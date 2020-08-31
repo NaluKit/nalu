@@ -17,7 +17,6 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.internal.AbstractPopUpControllerCreator;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.IsPopUpControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.PopUpControllerInstance;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
@@ -84,23 +83,12 @@ public class PopUpControllerCreatorGenerator {
                                                 .addAnnotation(ClassName.get(Override.class))
                                                 .addModifiers(Modifier.PUBLIC)
                                                 .returns(ClassName.get(PopUpControllerInstance.class))
-                                                .addStatement("$T sb01 = new $T()",
-                                                              ClassName.get(StringBuilder.class),
-                                                              ClassName.get(StringBuilder.class))
                                                 .addStatement("$T popUpControllerInstance = new $T()",
                                                               ClassName.get(PopUpControllerInstance.class),
                                                               ClassName.get(PopUpControllerInstance.class))
                                                 .addStatement("popUpControllerInstance.setPopUpControllerClassName($S)",
                                                               popUpControllerModel.getController()
                                                                                   .getClassName())
-                                                .addStatement("sb01.append(\"popUpController >>$L<< --> will be created\")",
-                                                              popUpControllerModel.getProvider()
-                                                                                  .getPackage() +
-                                                              "." +
-                                                              popUpControllerModel.getProvider()
-                                                                                  .getSimpleName())
-                                                .addStatement("$T.get().logSimple(sb01.toString(), 3)",
-                                                              ClassName.get(ClientLogger.class))
                                                 .addStatement("$T controller = new $T()",
                                                               ClassName.get(popUpControllerModel.getProvider()
                                                                                                 .getPackage(),
@@ -115,23 +103,13 @@ public class PopUpControllerCreatorGenerator {
                                                 .addStatement("controller.setEventBus(eventBus)")
                                                 .addStatement("controller.setRouter(router)")
                                                 .addStatement("controller.setName($S)",
-                                                              popUpControllerModel.getName())
-                                                .addStatement("sb01.setLength(0)")
-                                                .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> created and data injected\")")
-                                                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                                              ClassName.get(ClientLogger.class));
+                                                              popUpControllerModel.getName());
     if (popUpControllerModel.isComponentCreator()) {
       createMethod.addStatement("$T component = controller.createPopUpComponent()",
                                 ClassName.get(popUpControllerModel.getComponentInterface()
                                                                   .getPackage(),
                                               popUpControllerModel.getComponentInterface()
-                                                                  .getSimpleName()))
-                  .addStatement("sb01.setLength(0)")
-                  .addStatement("sb01.append(\"component >>$L<< --> created using createComponent-Method of controller\")",
-                                popUpControllerModel.getComponent()
-                                                    .getClassName())
-                  .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                ClassName.get(ClientLogger.class));
+                                                                  .getSimpleName()));
     } else {
       createMethod.addStatement("$T component = new $T()",
                                 ClassName.get(popUpControllerModel.getComponentInterface()
@@ -141,39 +119,12 @@ public class PopUpControllerCreatorGenerator {
                                 ClassName.get(popUpControllerModel.getComponent()
                                                                   .getPackage(),
                                               popUpControllerModel.getComponent()
-                                                                  .getSimpleName()))
-                  .addStatement("sb01.setLength(0)")
-                  .addStatement("sb01.append(\"component >>$L<< --> created using new\")",
-                                popUpControllerModel.getComponent()
-                                                    .getClassName())
-                  .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                                ClassName.get(ClientLogger.class));
+                                                                  .getSimpleName()));
     }
     createMethod.addStatement("component.setController(controller)")
-                .addStatement("sb01.setLength(0)")
-                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
-                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                              ClassName.get(ClientLogger.class))
                 .addStatement("controller.setComponent(component)")
-                .addStatement("sb01.setLength(0)")
-                .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
-                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                              ClassName.get(ClientLogger.class))
                 .addStatement("component.render()")
-                .addStatement("sb01.setLength(0)")
-                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> rendered\")")
-                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                              ClassName.get(ClientLogger.class))
-                .addStatement("component.bind()")
-                .addStatement("sb01.setLength(0)")
-                .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> bound\")")
-                .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-                              ClassName.get(ClientLogger.class))
-                .addStatement("$T.get().logSimple(\"controller >>$L<< created for event >>$L<<\", 3)",
-                              ClassName.get(ClientLogger.class),
-                              popUpControllerModel.getController()
-                                                  .getClassName(),
-                              popUpControllerModel.getName());
+                .addStatement("component.bind()");
     
     createMethod.addStatement("return popUpControllerInstance");
     typeSpec.addMethod(createMethod.build());

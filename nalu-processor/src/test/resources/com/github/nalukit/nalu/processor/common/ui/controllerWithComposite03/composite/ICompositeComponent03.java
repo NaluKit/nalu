@@ -20,10 +20,10 @@ import com.github.nalukit.nalu.client.component.IsCompositeComponent;
 
 public interface ICompositeComponent03
     extends IsCompositeComponent<ICompositeComponent03.Controller, String> {
-
+  
   interface Controller
       extends IsCompositeComponent.Controller {
-
+    
   }
-
+  
 }

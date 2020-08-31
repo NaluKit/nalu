@@ -1,6 +1,7 @@
 package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
+import org.gwtproject.event.shared.SimpleEventBus;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,9 @@ public class RouteParserTest {
   void setUp() {
     this.routerConfiguration = new RouterConfiguration();
     this.shellConfiguration  = new ShellConfiguration();
+    
+    RouteParser.get()
+               .setEventBus(new SimpleEventBus());
     
     this.routerConfiguration.getRouters()
                             .add(new RouteConfig("/application/person/list/*/*",
@@ -58,7 +62,7 @@ public class RouteParserTest {
                                                  Collections.singletonList("id"),
                                                  "content",
                                                  "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
-  
+    
     this.shellConfiguration.getShells()
                            .add(new ShellConfig("/application",
                                                 "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.application.ApplicationShell"));
@@ -71,7 +75,7 @@ public class RouteParserTest {
                              true,
                              false,
                              true);
-  
+    
   }
   
   @Test

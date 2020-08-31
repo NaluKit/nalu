@@ -16,80 +16,80 @@ class Utils {
   static IsNaluProcessorPlugin createPlugin(boolean attached,
                                             boolean confirm) {
     return new IsNaluProcessorPlugin() {
-  
+      
       @Override
       public void alert(String message) {
         // nothing to do
       }
-  
+      
       @Override
       public boolean attach(String selector,
                             Object asElement) {
         // rerun the attached default value
         return attached;
       }
-  
+      
       @Override
       public void confirm(String message,
                           ConfirmHandler handler) {
       }
-  
+      
       @Override
       public String getStartRoute() {
         return "/";
       }
-  
+      
       @Override
       public Map<String, String> getQueryParameters() {
         return new HashMap<>();
       }
-  
+      
       @Override
       public void register(RouteChangeHandler handler) {
       }
-  
+      
       @Override
       public void remove(String selector) {
       }
-  
+      
       @Override
       public void route(String newRoute,
                         boolean replace) {
       }
-  
+      
       @Override
       public void initialize(ShellConfiguration shellConfiguration) {
       }
-  
+      
       @Override
       public void updateTitle(String title) {
       }
-  
+      
       @Override
       public void updateMetaNameContent(String name,
                                         String content) {
       }
-  
+      
       @Override
       public void updateMetaPropertyContent(String property,
                                             String content) {
       }
-  
+      
       @Override
       public String decode(String route) {
         return route;
       }
-  
+      
       @Override
       public void setCustomAlertPresenter(IsCustomAlertPresenter presenter) {
-    
+      
       }
-  
+      
       @Override
       public void setCustomConfirmPresenter(IsCustomConfirmPresenter presenter) {
-    
+      
       }
-  
+      
     };
   }
   

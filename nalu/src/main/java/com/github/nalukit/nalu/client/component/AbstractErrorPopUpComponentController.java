@@ -19,7 +19,6 @@ package com.github.nalukit.nalu.client.component;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.event.NaluErrorEvent;
 import com.github.nalukit.nalu.client.event.model.ErrorInfo.ErrorType;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.HashMap;
@@ -69,67 +68,17 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
   }
   
   private void handleErrorEvent(NaluErrorEvent e) {
-    StringBuilder sb01 = new StringBuilder();
-    sb01.append("caught NaluErrorEvent");
-    ClientLogger.get()
-                .logDetailed(sb01.toString(),
-                             1);
-    sb01.setLength(0);
-    sb01.append("caught NaluErrorEvent: type >>")
-        .append(e.getErrorEventType()
-                 .toString())
-        .append("<<");
-    ClientLogger.get()
-                .logDetailed(sb01.toString(),
-                             2);
-    sb01.setLength(0);
-    sb01.append("caught NaluErrorEvent: route >>")
-        .append(e.getRoute())
-        .append("<<");
-    ClientLogger.get()
-                .logDetailed(sb01.toString(),
-                             2);
-    sb01.setLength(0);
-    sb01.append("caught NaluErrorEvent: message >>")
-        .append(e.getMessage())
-        .append("<<");
-    ClientLogger.get()
-                .logDetailed(sb01.toString(),
-                             2);
-    
     this.route          = e.getRoute();
     this.message        = e.getMessage();
     this.errorEventType = e.getErrorEventType();
     e.getDataStore()
      .keySet()
      .forEach(k -> {
-       sb01.setLength(0);
-       sb01.append("caught NaluErrorEvent: data -> key >>")
-           .append(k)
-           .append("<< - value >>")
-           .append(e.getDataStore()
-                    .get(k))
-           .append("<<");
-       ClientLogger.get()
-                   .logDetailed(sb01.toString(),
-                                2);
-      
        this.dataStore.put(k,
                           e.getDataStore()
                            .get(k));
      });
-    sb01.setLength(0);
-    sb01.append("call onBeforeShow()");
-    ClientLogger.get()
-                .logDetailed(sb01.toString(),
-                             3);
     this.onBeforeShow();
-    
-    sb01.setLength(0);
-    sb01.append("call show()");
-    ClientLogger.get()
-                .logDetailed(sb01.toString(),
-                             3);
     this.show();
   }
   

@@ -17,9 +17,7 @@
 package com.github.nalukit.nalu.simpleapplication01.client;
 
 import com.github.nalukit.nalu.client.application.IsApplicationLoader;
-import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
@@ -27,7 +25,6 @@ import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.simpleapplication01.client.filters.BartSimpsonFilter;
 import com.github.nalukit.nalu.simpleapplication01.client.handler.SimpleApplicationHandler01;
-import com.github.nalukit.nalu.simpleapplication01.client.logger.DefaultClientLogger;
 import com.github.nalukit.nalu.simpleapplication01.client.ui.shell.Shell;
 
 import java.util.Arrays;
@@ -53,14 +50,6 @@ public final class NaluSimpleApplicationImpl
   
   @Override
   public void loadLoggerConfiguration() {
-  }
-  
-  @Override
-  public void loadDebugConfiguration() {
-    ClientLogger.get()
-                .register(true,
-                          new DefaultClientLogger(),
-                          Debug.LogLevel.DETAILED);
   }
   
   @Override
@@ -119,9 +108,6 @@ public final class NaluSimpleApplicationImpl
     com_github_nalukit_example_nalu_simpleapplication_client_filters_BartSimpsonFilter.setContext(super.context);
     super.routerConfiguration.getFilters()
                              .add(com_github_nalukit_example_nalu_simpleapplication_client_filters_BartSimpsonFilter);
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: filter >> com_github_nalukit_example_nalu_simpleapplication_client_filters_BartSimpsonFilter << created",
-                             0);
   }
   
   @Override
@@ -201,9 +187,6 @@ public final class NaluSimpleApplicationImpl
     com_github_nalukit_example_nalu_simpleapplication_client_handler_SimpleApplicationHandler01.setEventBus(super.eventBus);
     com_github_nalukit_example_nalu_simpleapplication_client_handler_SimpleApplicationHandler01.setRouter(super.router);
     com_github_nalukit_example_nalu_simpleapplication_client_handler_SimpleApplicationHandler01.bind();
-    ClientLogger.get()
-                .logDetailed("AbstractController: handler >>SimpleApplicationHandler01<< created",
-                             0);
   }
   
   @Override

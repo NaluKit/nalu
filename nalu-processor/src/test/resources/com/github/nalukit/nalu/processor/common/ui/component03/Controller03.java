@@ -11,10 +11,11 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 public class Controller03
     extends AbstractComponentController<MockContext, IComponent03, String>
     implements IComponent03.Controller {
-
+  
   public Controller03() {
   }
-
+  
   public void setVariable01(String variable01) {
   }
+  
 }

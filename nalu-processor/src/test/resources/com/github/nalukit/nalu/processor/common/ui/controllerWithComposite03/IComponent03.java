@@ -20,10 +20,10 @@ import com.github.nalukit.nalu.client.component.IsComponent;
 
 public interface IComponent03
     extends IsComponent<IComponent03.Controller, String> {
-
+  
   interface Controller
       extends IsComponent.Controller {
-
+    
   }
-
+  
 }

@@ -16,15 +16,14 @@
 
 package com.github.nalukit.nalu.processor.common.ui.errorPopUp02;
 
-import com.github.nalukit.nalu.client.component.IsComponent;
 import com.github.nalukit.nalu.client.component.IsErrorPopUpComponent;
-import com.github.nalukit.nalu.processor.common.ui.errorPopUp02.IErrorEventComponent02.Controller;
 
 public interface IErrorEventComponent02
     extends IsErrorPopUpComponent<IErrorEventComponent02.Controller> {
-
+  
   interface Controller
       extends IsErrorPopUpComponent.Controller {
-
+    
   }
+  
 }

@@ -18,7 +18,6 @@ package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.component.event.ShowPopUpEvent;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.EventBus;
 
@@ -30,16 +29,13 @@ import java.util.Objects;
 public class PopUpControllerFactory {
   
   /* instance of the popup controller factory */
-  private static PopUpControllerFactory instance;
-  
+  private static PopUpControllerFactory                instance;
   /* map of components (key: name of class, Value: ControllerCreator */
-  private Map<String, IsPopUpControllerCreator> creatorStore;
-  
+  private final  Map<String, IsPopUpControllerCreator> creatorStore;
   /* map of components (key: name of class, Value: controller instance */
-  private Map<String, PopUpControllerInstance> popUpControllerStore;
-  
+  private final  Map<String, PopUpControllerInstance>  popUpControllerStore;
   /* Nalu event bus to catch the ShowPopUpEvents */
-  private EventBus eventBus;
+  private        EventBus                              eventBus;
   
   private PopUpControllerFactory() {
     this.creatorStore         = new HashMap<>();
@@ -63,32 +59,11 @@ public class PopUpControllerFactory {
     this.eventBus = eventBus;
     if (!Objects.isNull(this.eventBus)) {
       this.eventBus.addHandler(ShowPopUpEvent.TYPE,
-                               e -> onShowPopUp(e));
+                               this::onShowPopUp);
     }
   }
   
   private void onShowPopUp(ShowPopUpEvent e) {
-    StringBuilder sb = new StringBuilder();
-    sb.append("PopUpControllerFactory: handle PopUpEvent for popup >>")
-      .append(e.getName())
-      .append("<<");
-    if (!Objects.isNull(e.getDataStore())) {
-      if (!e.getDataStore()
-            .isEmpty()) {
-        sb.append(" using: ");
-        e.getDataStore()
-         .keySet()
-         .forEach(k -> sb.append(">>")
-                         .append(k)
-                         .append(": ")
-                         .append(e.getDataStore()
-                                  .get(k))
-                         .append("<<   "));
-        ClientLogger.get()
-                    .logDetailed(sb.toString(),
-                                 2);
-      }
-    }
     PopUpControllerInstance popUpComponentController = this.popUpControllerStore.get(e.getName());
     if (Objects.isNull(popUpComponentController)) {
       PopUpControllerInstance instance = this.popUpControllerStore.get(e.getName());
@@ -110,32 +85,14 @@ public class PopUpControllerFactory {
         popUpComponentController = instance;
       }
     }
-    ClientLogger.get()
-                .logSimple("controller >>" + popUpComponentController.getPopUpControllerClassName() + "<< --> initializing",
-                           3);
     popUpComponentController.getController()
                             .setDataStore(e.getDataStore());
     popUpComponentController.getController()
                             .setCommandStore(e.getCommandStore());
-    ClientLogger.get()
-                .logSimple("controller >>" + popUpComponentController.getPopUpControllerClassName() + "<< --> initialized",
-                           3);
-    ClientLogger.get()
-                .logSimple("controller >>" + popUpComponentController.getPopUpControllerClassName() + "<< --> call onBeforeShow",
-                           3);
     popUpComponentController.getController()
                             .onBeforeShow();
-    ClientLogger.get()
-                .logSimple("controller >>" + popUpComponentController.getPopUpControllerClassName() + "<< --> onBeforeShow called",
-                           3);
-    ClientLogger.get()
-                .logSimple("controller >>" + popUpComponentController.getPopUpControllerClassName() + "<< --> call show",
-                           3);
     popUpComponentController.getController()
                             .show();
-    ClientLogger.get()
-                .logSimple("controller >>" + popUpComponentController.getPopUpControllerClassName() + "<< --> show called",
-                           3);
   }
   
 }

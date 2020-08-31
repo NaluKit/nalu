@@ -23,7 +23,6 @@ import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.context.IsContext;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.*;
@@ -92,48 +91,22 @@ public abstract class AbstractApplication<C extends IsContext>
     this.naluLogger.setEventBus(this.eventBus);
     this.naluLogger.bind();
     this.loadLoggerConfiguration();
-    // first load the debug configuration
-    this.loadDebugConfiguration();
+    // set event bus in RouteParser
+    RouteParser.get()
+               .setEventBus(this.eventBus);
     // log development messages
     this.eventBus.fireEvent(LogEvent.create()
                                     .sdmOnly(true)
                                     .addMessage("=================================================================================")
                                     .addMessage("Running Nalu version: >>" + Nalu.getVersion() + "<<")
-                                    .addMessage("=================================================================================")
-                                    .addMessage("")
-                                    .addMessage("AbstractApplication: application is started!"));
-    // TODO ...
-    // debug message
-    ClientLogger.get()
-                .logDetailed("=================================================================================",
-                             0);
-    ClientLogger.get()
-                .logDetailed("Running Nalu version: >>" + Nalu.getVersion() + "<<",
-                             0);
-    ClientLogger.get()
-                .logDetailed("=================================================================================",
-                             0);
+                                    .addMessage("================================================================================="));
     // log processor version
     this.logProcessorVersion();
-    ClientLogger.get()
-                .logDetailed("",
-                             0);
-    // debug message
-    ClientLogger.get()
-                .logSimple("AbstractApplication: application is started!",
-                           0);
     // load default routes!
     this.loadDefaultRoutes();
-    // set up seo factory
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: set SeoFactory",
-                             1);
     SeoDataProvider.get()
                    .register(this.plugin);
     // load everything you need to start
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: load configurations",
-                             1);
     this.loadModules();
     this.loadShells();
     this.loadRoutes();
@@ -162,48 +135,28 @@ public abstract class AbstractApplication<C extends IsContext>
     // initialize plugin
     this.plugin.initialize(this.shellConfiguration);
     // load the shells of the application
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: load shells",
-                             1);
     this.loadShellFactory();
     // load block factory
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: load blockController factory",
-                             1);
     this.loadBlockControllerFactory();
     // load popup factory
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: load popupController factory",
-                             1);
     this.loadPopUpControllerFactory();
     // load popup factory
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: try to load error popup controller (if one is defined)",
-                             1);
     this.loadErrorPopUpController();
     // load the composite of the application
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: load compositeControllers",
-                             1);
     this.loadCompositeController();
     // load the controllers of the application
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: load components",
-                             1);
     this.loadComponents();
     // load the handlers fo the application
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: load handlers",
-                             1);
     this.loadHandlers();
     // execute the loader (if one is present)
-    ClientLogger.get()
-                .logDetailed("AbstractApplication: execute loader",
-                             1);
     // validate
     if (!RouteValidation.validateStartRoute(this.shellConfiguration,
                                             this.routerConfiguration,
                                             this.startRoute)) {
+      String sb = "value of start route >>" + this.startRoute + "<< does not exist!";
+      eventBus.fireEvent(LogEvent.create()
+                                 .sdmOnly(false)
+                                 .addMessage(sb));
       this.plugin.alert("startRoute not valid - application stopped!");
       return;
     }
@@ -224,9 +177,6 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract IsCustomConfirmPresenter getCustomConfirmPresenter();
   
   protected abstract void loadLoggerConfiguration();
-  
-  @Deprecated
-  protected abstract void loadDebugConfiguration();
   
   protected abstract void logProcessorVersion();
   
@@ -280,9 +230,6 @@ public abstract class AbstractApplication<C extends IsContext>
     if (hashOnStart != null &&
         hashOnStart.trim()
                    .length() > 0) {
-      ClientLogger.get()
-                  .logDetailed("AbstractApplication: handle history (hash at start: >>" + hashOnStart + "<<",
-                               1);
       RouteResult routeResult;
       try {
         routeResult = this.router.parse(hashOnStart);
@@ -295,14 +242,8 @@ public abstract class AbstractApplication<C extends IsContext>
                         routeResult.getParameterValues()
                                    .toArray(new String[0]));
     } else {
-      ClientLogger.get()
-                  .logDetailed("AbstractApplication: no history found -> use startRoute: >>" + this.startRoute + "<<",
-                               1);
       this.router.route(this.startRoute);
     }
-    ClientLogger.get()
-                .logSimple("AbstractApplication: application started",
-                           0);
   }
   
 }

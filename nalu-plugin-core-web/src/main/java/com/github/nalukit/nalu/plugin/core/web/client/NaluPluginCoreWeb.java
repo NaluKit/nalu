@@ -16,7 +16,6 @@
 
 package com.github.nalukit.nalu.plugin.core.web.client;
 
-import com.github.nalukit.nalu.client.internal.ClientLogger;
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
@@ -30,21 +29,6 @@ import jsinterop.base.Js;
 import java.util.*;
 
 public class NaluPluginCoreWeb {
-  
-  /**
-   * Log's non-existing selector that was not found inside DOM on the browser's console
-   *
-   * @param selector not existing selector
-   */
-  public static void logNonExistingSelector(String selector) {
-    if (!NaluPluginCoreWeb.isSuperDevMode()) {
-      return;
-    }
-    String sb = "WARNING: selector >>" + selector + "<< not foound in DOM (element not attached!)";
-    ClientLogger.get()
-                .logSimple(sb,
-                           0);
-  }
   
   public static boolean isSuperDevMode() {
     return "on".equals(System.getProperty("superdevmode",
@@ -111,7 +95,7 @@ public class NaluPluginCoreWeb {
               } else if (split.length == 2) {
                 queryParameters.put(split[0],
                                     split[1]);
-  
+          
               }
             });
     }
@@ -211,7 +195,6 @@ public class NaluPluginCoreWeb {
                                               .isStayOnSide(),
                               handler);
     } else {
-      NaluPluginCoreWeb.logNewUrl(newUrl);
       handler.onRouteChange(newUrl);
     }
   }
@@ -247,18 +230,6 @@ public class NaluPluginCoreWeb {
                                            newRouteToken);
       }
     }
-  }
-  
-  /**
-   * Log's the new URL on the browser's console
-   *
-   * @param newUrl new url to log
-   */
-  private static void logNewUrl(String newUrl) {
-    String sb = "Router: new url ->>" + newUrl + "<<";
-    ClientLogger.get()
-                .logSimple(sb,
-                           0);
   }
   
   public static void addOnHashChangeHandler(RouteChangeHandler handler) {

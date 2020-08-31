@@ -54,13 +54,7 @@ public class CompositeControllerGenerator {
                                                                .addModifiers(Modifier.PUBLIC)
                                                                .addAnnotation(Override.class);
     for (CompositeModel compositeModel : this.metaModel.getCompositeModels()) {
-      loadCompositesMethodBuilder.addComment("create Composite for: " +
-                                             compositeModel.getProvider()
-                                                           .getPackage() +
-                                             "." +
-                                             compositeModel.getProvider()
-                                                           .getSimpleName())
-                                 .addStatement("$T.get().registerComposite($S, new $L(router, context, eventBus))",
+      loadCompositesMethodBuilder.addStatement("$T.get().registerComposite($S, new $L(router, context, eventBus))",
                                                ClassName.get(CompositeFactory.class),
                                                compositeModel.getProvider()
                                                              .getPackage() +

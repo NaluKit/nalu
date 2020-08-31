@@ -21,12 +21,13 @@ import com.github.nalukit.nalu.client.component.AbstractComponent;
 public class ErrorComponent
     extends AbstractComponent<IErrorComponent.Controller, String>
     implements IErrorComponent {
-
+  
   public ErrorComponent() {
   }
-
+  
   @Override
   public void render() {
     initElement("ErrorComponent");
   }
+  
 }

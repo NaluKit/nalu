@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.processor;
 
 import com.github.nalukit.nalu.client.application.annotation.Application;
-import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.client.application.annotation.Filters;
 import com.github.nalukit.nalu.client.application.annotation.Logger;
 import com.github.nalukit.nalu.client.component.annotation.*;
@@ -73,7 +72,6 @@ public class NaluProcessor
                      BlockController.class.getCanonicalName(),
                      CompositeController.class.getCanonicalName(),
                      Controller.class.getCanonicalName(),
-                     Debug.class.getCanonicalName(),
                      ErrorPopUpController.class.getCanonicalName(),
                      Filters.class.getCanonicalName(),
                      Logger.class.getCanonicalName(),
@@ -128,9 +126,6 @@ public class NaluProcessor
             } else if (Controller.class.getCanonicalName()
                                        .equals(annotation.toString())) {
               handleControllerAnnotation(roundEnv);
-            } else if (Debug.class.getCanonicalName()
-                                  .equals(annotation.toString())) {
-              handleDebugAnnotation(roundEnv);
             } else if (ErrorPopUpController.class.getCanonicalName()
                                                  .equals(annotation.toString())) {
               handleErrorPopUpControllerAnnotation(roundEnv);
@@ -301,7 +296,7 @@ public class NaluProcessor
                                                                           .compositeElement(compositeElement)
                                                                           .build()
                                                                           .scan(roundEnv);
-  
+      
       // create the ControllerCreator
       CompositeCreatorGenerator.builder()
                                .metaModel(this.metaModel)
@@ -329,7 +324,7 @@ public class NaluProcessor
                                                                    .controllerElement(controllerElement)
                                                                    .build()
                                                                    .scan(roundEnv);
-  
+      
       // Composites-Annotation in controller
       controllerModel = CompositesAnnotationScanner.builder()
                                                    .processingEnvironment(processingEnv)
@@ -360,26 +355,6 @@ public class NaluProcessor
       // save controller data in metaModel
       this.metaModel.getControllers()
                     .add(controllerModel);
-    }
-  }
-  
-  private void handleDebugAnnotation(RoundEnvironment roundEnv)
-      throws ProcessorException {
-    for (Element debugElement : roundEnv.getElementsAnnotatedWith(Debug.class)) {
-      DebugAnnotationValidator.builder()
-                              .roundEnvironment(roundEnv)
-                              .processingEnvironment(processingEnv)
-                              .debugElement(debugElement)
-                              .build()
-                              .validate();
-      // scan filter element and save data in metaModel
-      this.metaModel = DebugAnnotationScanner.builder()
-                                             .processingEnvironment(processingEnv)
-                                             .metaModel(this.metaModel)
-                                             .debugElement(debugElement)
-                                             .build()
-                                             .scan(roundEnv);
-      
     }
   }
   
@@ -650,7 +625,7 @@ public class NaluProcessor
                                                .trackerElement(trackerElement)
                                                .build()
                                                .scan(roundEnv);
-  
+      
     }
   }
   

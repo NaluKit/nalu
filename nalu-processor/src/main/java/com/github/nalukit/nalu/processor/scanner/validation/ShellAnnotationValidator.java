@@ -102,25 +102,25 @@ public class ShellAnnotationValidator {
     }
     // check the generic!
     type.accept(new SimpleTypeVisitor8<Void, Void>() {
-  
+      
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
                     throw new UnsupportedOperationException();
                   }
-  
+      
                   @Override
                   public Void visitPrimitive(PrimitiveType primitiveType,
                                              Void v) {
                     return null;
                   }
-  
+      
                   @Override
                   public Void visitArray(ArrayType arrayType,
                                          Void v) {
                     return null;
                   }
-  
+      
                   @Override
                   public Void visitDeclared(DeclaredType declaredType,
                                             Void v) {
@@ -132,13 +132,13 @@ public class ShellAnnotationValidator {
                     }
                     return null;
                   }
-  
+      
                   @Override
                   public Void visitError(ErrorType errorType,
                                          Void v) {
                     return null;
                   }
-  
+      
                   @Override
                   public Void visitTypeVariable(TypeVariable typeVariable,
                                                 Void v) {

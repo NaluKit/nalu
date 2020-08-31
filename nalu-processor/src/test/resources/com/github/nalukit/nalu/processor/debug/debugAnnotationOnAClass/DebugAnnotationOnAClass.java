@@ -20,8 +20,8 @@ import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.application.annotation.Debug;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
-import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.DebugLogger;
+import com.github.nalukit.nalu.processor.common.MockContext;
 
 @Application(startRoute = "/search",
              context = MockContext.class,
@@ -30,7 +30,8 @@ import com.github.nalukit.nalu.processor.common.DebugLogger;
        logger = DebugLogger.class)
 public class DebugAnnotationOnAClass
     implements IsApplication {
-
+  
   public void run(IsNaluProcessorPlugin plugin) {
   }
+  
 }
