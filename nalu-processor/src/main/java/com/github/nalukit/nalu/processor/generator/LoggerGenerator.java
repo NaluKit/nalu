@@ -15,6 +15,7 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
+import com.github.nalukit.nalu.client.internal.NoCustomLogger;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
@@ -47,7 +48,7 @@ public class LoggerGenerator {
     MethodSpec.Builder loadLoggerConfigurationMethod = MethodSpec.methodBuilder("loadLoggerConfiguration")
                                                                  .addAnnotation(Override.class)
                                                                  .addModifiers(Modifier.PUBLIC);
-    if (!Objects.isNull(metaModel.getLogger())) {
+    if (!Objects.isNull(metaModel.getLogger()) && !metaModel.getLogger().getClassName().equals(NoCustomLogger.class.getCanonicalName())) {
       loadLoggerConfigurationMethod.addStatement("$T clientLogger = new $T()",
                                                  ClassName.get(metaModel.getClientLogger()
                                                                         .getPackage(),

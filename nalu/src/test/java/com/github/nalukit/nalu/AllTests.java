@@ -41,5 +41,4 @@ import org.junit.runner.RunWith;
                    RoutingTest.class,
                    RouteValidationTest.class })
 public class AllTests {
-
 }

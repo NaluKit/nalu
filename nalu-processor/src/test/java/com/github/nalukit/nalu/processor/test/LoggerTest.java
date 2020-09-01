@@ -22,6 +22,7 @@ import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import static com.google.testing.compile.Compiler.javac;
@@ -67,6 +68,39 @@ public class LoggerTest {
                       .failed();
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Logger can only be used with an interfaces annotated with @Application");
+  }
+  
+  @Test
+  void testLoggerAnnotationOk01() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/logger/loggerAnnotationOk01/LoggerAnnotationOk01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
+    
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/logger/loggerAnnotationOk01/LoggerAnnotationOk01Impl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/logger/loggerAnnotationOk01/LoggerAnnotationOk01Impl.java"));
+  }
+  
+  @Test
+  void testLoggerAnnotationOk02() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/logger/loggerAnnotationOk02/LoggerAnnotationOk02.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/logger/loggerAnnotationOk02/LoggerAnnotationOk02Impl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/logger/loggerAnnotationOk02/LoggerAnnotationOk02Impl.java"));
   }
   
 }
