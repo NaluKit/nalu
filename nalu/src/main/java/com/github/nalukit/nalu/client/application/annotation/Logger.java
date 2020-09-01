@@ -17,6 +17,7 @@ package com.github.nalukit.nalu.client.application.annotation;
 
 import com.github.nalukit.nalu.client.application.IsClientLogger;
 import com.github.nalukit.nalu.client.application.IsLogger;
+import com.github.nalukit.nalu.client.internal.NoCustomLogger;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -42,7 +43,7 @@ public @interface Logger {
    *
    * @return the logger
    */
-  Class<? extends IsLogger<?>> logger();
+  Class<? extends IsLogger<?>> logger() default NoCustomLogger.class;
   
   /**
    * Defines the client logger.
