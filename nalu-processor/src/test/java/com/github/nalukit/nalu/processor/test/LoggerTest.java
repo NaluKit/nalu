@@ -46,8 +46,6 @@ public class LoggerTest {
                                      .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/logger/loggerAnnotationOnAClass/LoggerAnnotationOnAClass.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("@Application annotated must be used with an interface");
   }
   
   @Test
@@ -56,8 +54,6 @@ public class LoggerTest {
                                      .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/logger/loggerAnnotationWithoutExtendsIsApplication/LoggerAnnotationWithoutExtendsIsApplication.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
-    CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("Nalu-Processor: LoggerAnnotationWithoutExtendsIsApplication: @Application must implement IsApplication interface");
   }
   
   @Test

@@ -30,15 +30,9 @@ import java.lang.annotation.RetentionPolicy;
  * <p>
  * The annotation has the following attributes:
  * <ul>
- * <li>loader: a loader that will be executed in case the application loads. If no loader
- * is defined, the NoApplicationLoader.class will be used. In this case, the loader will do nothing.</li>
- * <li>startRoute: in case the application is called without a bookmark, is this the initial route.</li>
+ * <li>name: name of the module.</li>
  * <li>context: the context of the class. Nalu will create an instance of this class and inject
  * the instance into all controllers, filters, handlers and the application loader.</li>
- * <li>routeError: in case an error occurs, Nalu will use this route toi display the error</li>
- * <li>useHash: if useHash is true, use a hash based url, otherwise a non hash based url</li>
- * <li>useColonForParametersInUrl: if useColonForParametersInUrl is true, Nalu expects parameters with a leading colon in urls</li>
- * <li>stayOnSite: if stayOnSite is true, Nalu will replace history with the start-route in case hash is empty, else Nalu will only update it.</li>
  * </ul>
  *
  * @author Frank Hossfeld

@@ -23,8 +23,7 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.MockTracker;
 
 @Application(startRoute = "/search",
-             context = MockContext.class,
-             routeError = "/errorShell/error")
+             context = MockContext.class)
 public interface TrackerAnnotationOnAMethod
     extends IsApplication {
 

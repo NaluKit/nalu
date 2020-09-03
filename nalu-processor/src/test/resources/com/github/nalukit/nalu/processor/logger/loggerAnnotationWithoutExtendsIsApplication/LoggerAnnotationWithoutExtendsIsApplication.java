@@ -23,8 +23,7 @@ import com.github.nalukit.nalu.processor.common.MockLogger;
 import com.github.nalukit.nalu.processor.common.MockDebug;
 
 @Application(startRoute = "/search",
-             context = MockContext.class,
-             routeError = "/errorShell/error")
+             context = MockContext.class)
 @Logger(clientLogger = DefaultElemental2ClientLogger.class,
         logger = MockLogger.class)
 public interface LoggerAnnotationWithoutExtendsIsApplication {

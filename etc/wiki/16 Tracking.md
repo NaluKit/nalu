@@ -71,8 +71,7 @@ Next, you need to inform Nalu that there is a tracker. To do so, add the `@Track
 ```Java
 @Application(loader = NaluLoginApplicationLoader.class,
              startRoute = "/loginShell/login",
-             context = NaluLoginApplicationContext.class,
-             routeError = "/errorShell/error")
+             context = NaluLoginApplicationContext.class)
 @Tracker(ApplicationTracker.class)
 interface NaluLoginApplication
     extends IsApplication {

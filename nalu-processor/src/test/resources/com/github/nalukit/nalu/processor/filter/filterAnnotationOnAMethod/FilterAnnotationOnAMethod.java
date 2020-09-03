@@ -22,8 +22,7 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.MockFilter;
 
 @Application(startRoute = "/search",
-             context = MockContext.class,
-             routeError = "/errorShell/error")
+             context = MockContext.class)
 public interface FilterAnnotationOnAMethod
     extends IsApplication {
 

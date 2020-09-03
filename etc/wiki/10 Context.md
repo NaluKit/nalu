@@ -40,8 +40,7 @@ To inform Nalu about the context, you have to set the attribute **context** of t
 ```Java
 @Application(loader = MyApplicationLoader.class,
              startRoute = "/application/search",
-             context = MyApplicationContext.class,
-             routeError = "/errorShell/error")
+             context = MyApplicationContext.class)
 interface MyApplication
   extends IsApplication {
 }
