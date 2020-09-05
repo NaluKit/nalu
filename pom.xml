@@ -88,26 +88,33 @@
   <properties>
     <github.global.server>github</github.global.server>
 
+    <auto-common.version>0.11</auto-common.version>
+    <auto-service.version>1.0-rc7</auto-service.version>
     <compile-testing.version>0.18</compile-testing.version>
-    <guava.version>27.0.1-jre</guava.version>
-    <hamcrest-core.version>2.1</hamcrest-core.version>
+    <gson.version>2.8.6</gson.version>
+    <elemental2.version>1.0.0-RC1</elemental2.version>
+    <guava.version>29.0-jre</guava.version>
+    <gwt.version>2.9.0</gwt.version>
+    <!-- gwt-events: once it is on maven central, use it!
+    <gwt-events.version>HEAD-SNAPSHOT</gwt-events.version>  -->
+    <hamcrest-core.version>2.2</hamcrest-core.version>
+    <javapoet.version>1.13.0</javapoet.version>
     <junit.version>4.12</junit.version>
     <junit-jupiter.version>5.4.0</junit-jupiter.version>
     <junit-jupiter-platform.version>1.4.0</junit-jupiter-platform.version>
+    <truth.version>1.0.1</truth.version>
 
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
 
-    <elemental2.version>1.0.0-RC1</elemental2.version>
-
     <plugin.version.github.site>0.12</plugin.version.github.site>
     <plugin.version.gpg.maven>1.6</plugin.version.gpg.maven>
-    <plugin.version.javadoc>3.1.1</plugin.version.javadoc>
+    <plugin.version.javadoc>3.2.0</plugin.version.javadoc>
     <plugin.version.nexus.staging>1.6.8</plugin.version.nexus.staging>
     <plugin.version.project.info.report>3.0.0</plugin.version.project.info.report>
     <plugin.version.sonatype>1.6.3</plugin.version.sonatype>
-    <plugin.version.source>3.0.1</plugin.version.source>
-    <plugin.version.surfire>2.22.1</plugin.version.surfire>
+    <plugin.version.source>3.2.1</plugin.version.source>
+    <plugin.version.surfire>2.22.2</plugin.version.surfire>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!--<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->

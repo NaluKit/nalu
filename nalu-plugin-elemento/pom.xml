@@ -66,15 +66,6 @@
   </issueManagement>
 
   <properties>
-    <!-- gwt-events: once it is on maven central, use it!
-    <gwt-events.version>HEAD-SNAPSHOT</gwt-events.version>
-    -->
-
-    <!--&lt;!&ndash; CI &ndash;&gt;-->
-    <!--<vertispan.snapshot.repo.id>vertispan-snapshot-repository</vertispan.snapshot.repo.id>-->
-    <!--<vertispan.snapshot.repo.name>Vertispan Snapshot Repository</vertispan.snapshot.repo.name>-->
-    <!--<vertispan.snapshot.repo.url>https://repo.vertispan.com/gwt-snapshot/</vertispan.snapshot.repo.url>-->
-
     <elemento.version>1.0.0-rc3</elemento.version>
   </properties>
 

@@ -65,12 +65,6 @@
     <url>https://github.com/nalukit/nalu/issues</url>
   </issueManagement>
 
-  <properties>
-    <!-- gwt-events: once it is on maven central, use it!
-    <gwt-events.version>HEAD-SNAPSHOT</gwt-events.version>
-    -->
-  </properties>
-
   <dependencies>
     <!-- gwt-events: once it is on maven central, use it!
     <dependency>

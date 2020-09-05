@@ -65,17 +65,11 @@
     <url>https://github.com/nalukit/nalu/issues</url>
   </issueManagement>
 
-  <properties>
+<!--  <properties>-->
     <!-- gwt-events: once it is on maven central, use it!
     <gwt-events.version>HEAD-SNAPSHOT</gwt-events.version>
     -->
-    <gwt.version>2.8.2</gwt.version>
-
-    <!-- CI -->
-    <!--<vertispan.snapshot.repo.id>vertispan-snapshot-repository</vertispan.snapshot.repo.id>-->
-    <!--<vertispan.snapshot.repo.name>Vertispan Snapshot Repository</vertispan.snapshot.repo.name>-->
-    <!--<vertispan.snapshot.repo.url>https://repo.vertispan.com/gwt-snapshot/</vertispan.snapshot.repo.url>-->
-  </properties>
+  <!--  </properties>-->
 
   <dependencyManagement>
     <dependencies>
