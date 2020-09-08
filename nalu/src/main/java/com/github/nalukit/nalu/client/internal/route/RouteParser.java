@@ -186,10 +186,10 @@ public class RouteParser {
     
     // in case there are more parameters then placesholders, we add them add the end!
     long numberOfPlaceHolders = Stream.of(partsOfRoute)
-                                      .filter("*"::equals)
+                                      .filter(s -> "*".equals(s) || s.startsWith(":"))
                                       .count();
     if (params.length > numberOfPlaceHolders) {
-      String sbExeption = "Warning: route >>" + route + "<< has less parameter placeholder >>" + numberOfPlaceHolders + "<< than the number of parameters in the list of parameters >>" + params.length + "<< --> adding Prameters add the end of the url";
+      String sbExeption = "Warning: route >>" + route + "<< has less parameter placeholder >>" + numberOfPlaceHolders + "<< than the number of parameters in the list of parameters >>" + params.length + "<< --> adding Parameters add the end of the url";
       this.eventBus.fireEvent(LogEvent.create()
                                       .sdmOnly(true)
                                       .addMessage(sbExeption));

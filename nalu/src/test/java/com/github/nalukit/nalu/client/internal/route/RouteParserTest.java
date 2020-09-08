@@ -535,6 +535,27 @@ public class RouteParserTest {
   }
   
   @Test
+  void parse35() {
+    String route = "/application/person/:ptNr/detail/";
+    try {
+      RouteResult routeResult = RouteParser.get()
+                                           .parse(route,
+                                                  this.shellConfiguration,
+                                                  this.routerConfiguration);
+      Assert.assertThat(routeResult.getShell(),
+                        is("/application"));
+      Assert.assertThat(routeResult.getRoute(),
+                        is("/application/person/*/detail"));
+      Assert.assertThat(routeResult.getParameterValues()
+                                   .get(0),
+                        is(":ptNr"));
+    } catch (RouterException e) {
+      throw new AssertionError("no exception expected here!",
+                               e);
+    }
+  }
+  
+  @Test
   void generate01() {
     String hash = RouteParser.get()
                              .generate("/application/person/detail",
@@ -550,6 +571,25 @@ public class RouteParserTest {
                                        "1");
     Assert.assertThat(hash,
                       is("application/person/1/detail"));
+  }
+  
+  @Test
+  void generate03() {
+    String hash = RouteParser.get()
+                             .generate("/application/person/list",
+                                       "A",
+                                       "B");
+    Assert.assertThat(hash,
+                      is("application/person/list/A/B"));
+  }
+  
+  @Test
+  void generate04() {
+    String hash = RouteParser.get()
+                             .generate("/application/person/list",
+                                       "A");
+    Assert.assertThat(hash,
+                      is("application/person/list/A"));
   }
   
 }
