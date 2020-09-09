@@ -16,7 +16,7 @@ public class NaluUtils {
    *
    * @param route01 first route of the compare
    * @param route02 second route of the compare
-   * @return true in case the non parameter parts are equal otherwise false
+   * @return true in case the no parameter parts are equal otherwise false
    */
   public boolean compareRoutes(String route01,
                                String route02) {
