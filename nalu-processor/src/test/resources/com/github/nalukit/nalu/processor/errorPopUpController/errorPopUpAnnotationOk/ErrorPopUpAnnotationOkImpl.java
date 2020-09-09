@@ -19,7 +19,7 @@ import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.08.31-11:44:41<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.09-20:24:23<<
  */
 public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockContext> implements ErrorPopUpAnnotationOk {
   public ErrorPopUpAnnotationOkImpl() {
@@ -33,7 +33,7 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
   
   @Override
   public void logProcessorVersion() {
-    this.eventBus.fireEvent(LogEvent.create()                          .sdmOnly(true)                          .addMessage("=================================================================================")                          .addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source")                          .addMessage("=================================================================================")                          .addMessage(""));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source").addMessage("=================================================================================").addMessage(""));
   }
   
   @Override
@@ -87,6 +87,7 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
     errorPopUpController.setComponent(component);
     component.render();
     component.bind();
+    errorPopUpController.bind();
     errorPopUpController.onLoad();
   }
   

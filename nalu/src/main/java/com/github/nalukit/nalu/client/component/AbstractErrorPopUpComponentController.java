@@ -57,6 +57,15 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
   }
   
   /**
+   * will be called, one time, when a popup-controller is created.
+   */
+  @Override
+  public void bind() {
+    // if you need to bind some handlers and would like to do this in a separate method
+    // just override this method.
+  }
+  
+  /**
    * The method is called right after the istance is created.
    * <p>
    * <b>DO NOT CALL OR OVERRIDE THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>

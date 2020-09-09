@@ -100,6 +100,7 @@ public class ErrorPopUpControllerGenerator {
                                              .addStatement("errorPopUpController.setComponent(component)")
                                              .addStatement("component.render()")
                                              .addStatement("component.bind()")
+                                             .addStatement("errorPopUpController.bind()")
                                              .addStatement("errorPopUpController.onLoad()");
     }
     typeSpec.addMethod(createErrorPopUpControllerMethodBuilder.build());

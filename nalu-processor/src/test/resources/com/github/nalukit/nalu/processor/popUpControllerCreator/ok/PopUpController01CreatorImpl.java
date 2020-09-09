@@ -31,6 +31,7 @@ public final class PopUpController01CreatorImpl extends AbstractPopUpControllerC
     controller.setComponent(component);
     component.render();
     component.bind();
+    controller.bind();
     return popUpControllerInstance;
   }
 }

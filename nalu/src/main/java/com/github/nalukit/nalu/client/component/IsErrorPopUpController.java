@@ -23,4 +23,9 @@ public interface IsErrorPopUpController<V> {
   @NaluInternalUse
   void setComponent(V component);
   
+  /**
+   * will be called one time, when a popup gets created.
+   */
+  void bind();
+  
 }

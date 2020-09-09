@@ -124,11 +124,12 @@ public class PopUpControllerCreatorGenerator {
     createMethod.addStatement("component.setController(controller)")
                 .addStatement("controller.setComponent(component)")
                 .addStatement("component.render()")
-                .addStatement("component.bind()");
-    
+                .addStatement("component.bind()")
+                .addStatement("controller.bind()");
+  
     createMethod.addStatement("return popUpControllerInstance");
     typeSpec.addMethod(createMethod.build());
-    
+  
     //        MethodSpec.Builder finishCreateMethod = MethodSpec.methodBuilder("onFinishCreating")
     //                                                          .addAnnotation(ClassName.get(Override.class))
     //                                                      .addModifiers(Modifier.PUBLIC)

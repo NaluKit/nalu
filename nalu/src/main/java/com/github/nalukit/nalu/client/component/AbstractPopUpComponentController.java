@@ -131,6 +131,15 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   }
   
   /**
+   * will be called, one time, when a popup-controller is created.
+   */
+  @Override
+  public void bind() {
+    // if you need to bind some handlers and would like to do this in a separate method
+    // just override this method.
+  }
+  
+  /**
    * The method is called before the show-method.
    * A good place to do some initialization.
    * <p>

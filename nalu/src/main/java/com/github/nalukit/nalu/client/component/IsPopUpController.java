@@ -23,8 +23,19 @@ public interface IsPopUpController<V> {
   @NaluInternalUse
   void setComponent(V component);
   
+  /**
+   * will be called one time, when a popup gets created.
+   */
+  void bind();
+  
+  /**
+   * Will be called before a popup gets visible
+   */
   void onBeforeShow();
   
+  /**
+   * sow hte popup
+   */
   void show();
   
 }
