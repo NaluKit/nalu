@@ -937,7 +937,6 @@ abstract class AbstractRouter
   }
   
   private void stopController(AbstractComponentController<?, ?, ?> controller) {
-    controller.deactivate();
     controller.onDetach();
     // stop controller
     controller.stop();
