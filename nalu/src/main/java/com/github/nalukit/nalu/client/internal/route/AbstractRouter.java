@@ -955,7 +955,6 @@ abstract class AbstractRouter
   
   private void stopCompositeController(AbstractComponentController<?, ?, ?> controller,
                                        AbstractCompositeController<?, ?, ?> compositeController) {
-    compositeController.deactivate();
     if (!compositeController.isCached()) {
       compositeController.stop();
     }
