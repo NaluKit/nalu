@@ -394,14 +394,15 @@ public class ModuleGenerator {
                                                                               ClassName.get(ArrayList.class));
     this.metaModel.getControllers()
                   .forEach(controllerModel -> controllerModel.getComposites()
-                                                             .forEach(controllerCompositeModel -> getCompositeReferencesMethod.addStatement("list.add(new $T($S, $S, $S, $S))",
+                                                             .forEach(controllerCompositeModel -> getCompositeReferencesMethod.addStatement("list.add(new $T($S, $S, $S, $S, $L))",
                                                                                                                                             ClassName.get(CompositeControllerReference.class),
                                                                                                                                             controllerModel.getProvider()
                                                                                                                                                            .getClassName(),
                                                                                                                                             controllerCompositeModel.getName(),
                                                                                                                                             controllerCompositeModel.getComposite()
                                                                                                                                                                     .getClassName(),
-                                                                                                                                            controllerCompositeModel.getSelector())));
+                                                                                                                                            controllerCompositeModel.getSelector(),
+                                                                                                                                            controllerCompositeModel.isScopeGlobal())));
     getCompositeReferencesMethod.addStatement("return list");
     typeSpec.addMethod(getCompositeReferencesMethod.build());
   }
