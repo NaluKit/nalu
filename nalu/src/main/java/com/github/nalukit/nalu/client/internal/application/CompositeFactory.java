@@ -109,7 +109,7 @@ public class CompositeFactory {
    * Adds the controller to the store of cached controllers.
    * Call this method from inside the controller you like to cache.
    * <p>
-   * This method will not call the <code>start</code>- or <code>activate</code>-method
+   * This method will not call the <code>start</code>- and <code>activate</code>-method
    * of the controller.
    *
    * @param controller the controller to store
@@ -128,7 +128,7 @@ public class CompositeFactory {
    * Call this method from inside the controller you like to remove from the cache.
    * In case the controller is not cached, the method does nothing
    * <p>
-   * This method will not call the <code>deactivate</code>- or <code>stop</code>-method
+   * This method will not call the <code>deactivate</code>- and <code>stop</code>-method
    * of the controller.
    *
    * @param controller the controller to remove from the store
@@ -150,7 +150,8 @@ public class CompositeFactory {
    * <code>deactivate</code>- and <code>stop</code>-method.
    * <p>
    * DO NOT CALL THIS METHOD INSIDE A CACHED CONTROLLER!
-   * If so, call <code>removeFromCache(this)</code> first!
+   * If you are inside a cached controller, call
+   * <code>removeFromCache(this)</code> first!
    */
   public void clearControllerCache() {
     this.compositeControllerStore.values()
