@@ -29,6 +29,7 @@ import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.filter.IsFilter;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
+import com.github.nalukit.nalu.client.internal.Utils;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.ConfirmHandler;
@@ -478,22 +479,27 @@ abstract class AbstractRouter
                 .values()
                 .forEach(s -> {
                   if (controller.isCached() || handlingModeReuse) {
-                    deactivateCompositeController(controller,
-                                                  s);
+                    Utils.get()
+                         .deactivateCompositeController(
+                             s);
                   } else {
-                    deactivateCompositeController(controller,
-                                                  s);
+                    Utils.get()
+                         .deactivateCompositeController(
+                             s);
                     if (!s.isCached()) {
-                      stopCompositeController(controller,
-                                              s);
+                      Utils.get()
+                           .stopCompositeController(
+                               s);
                     }
                   }
                 });
-      
-      deactivateController(controller,
-                           handlingModeReuse);
+  
+      Utils.get()
+           .deactivateController(controller,
+                                 handlingModeReuse);
       if (!controller.isCached() && !handlingModeReuse) {
-        stopController(controller);
+        Utils.get()
+             .stopController(controller);
       }
       // In case we have the same route and the redrawMode is set to 'REUSE'
       // we should only deactivate the controller and not remove them ...
@@ -922,48 +928,6 @@ abstract class AbstractRouter
    */
   private boolean isHandlingModeReuse(IsController<?, ?> controller) {
     return this.currentRoute.equals(controller.getRelatedRoute()) && IsController.Mode.REUSE == controller.getMode();
-  }
-  
-  private void deactivateController(AbstractComponentController<?, ?, ?> controller,
-                                    boolean handlingModeReuse) {
-    // deactivate controller
-    controller.deactivate();
-    controller.removeHandlers();
-    if (!handlingModeReuse) {
-      controller.onDetach();
-      controller.getComponent()
-                .onDetach();
-    }
-  }
-  
-  private void stopController(AbstractComponentController<?, ?, ?> controller) {
-    controller.onDetach();
-    // stop controller
-    controller.stop();
-    controller.onDetach();
-    controller.getComponent()
-              .onDetach();
-    controller.getComponent()
-              .removeHandlers();
-  }
-  
-  private void deactivateCompositeController(AbstractComponentController<?, ?, ?> controller,
-                                             AbstractCompositeController<?, ?, ?> compositeController) {
-    compositeController.deactivate();
-    compositeController.removeHandlers();
-  }
-  
-  private void stopCompositeController(AbstractComponentController<?, ?, ?> controller,
-                                       AbstractCompositeController<?, ?, ?> compositeController) {
-    if (!compositeController.isCached()) {
-      compositeController.stop();
-    }
-    compositeController.remove();
-    compositeController.onDetach();
-    compositeController.getComponent()
-                       .onDetach();
-    compositeController.getComponent()
-                       .removeHandlers();
   }
   
   private void append(String selector,

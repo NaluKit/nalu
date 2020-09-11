@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
+import com.github.nalukit.nalu.client.internal.Utils;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.HashMap;
@@ -96,6 +97,15 @@ public class ControllerFactory {
                              "_");
   }
   
+  /**
+   * Adds the controller to the store of cached controllers.
+   * Call this method from inside the controller you like to cache.
+   * <p>
+   * This method will not call the <code>start</code>- or <code>activate</code>-method of the controller.
+   *
+   * @param controller the controller to store
+   * @param <C>        type of controller
+   */
   public <C extends AbstractComponentController<?, ?, ?>> void storeInCache(C controller) {
     String key = this.classFormatter(controller.getClass()
                                                .getCanonicalName());
@@ -103,13 +113,54 @@ public class ControllerFactory {
                              controller);
   }
   
+  /**
+   * Removes the controller from the store of cached controllers.
+   * Call this method from inside the controller you like to remove from the cache.
+   * In case the controller is not cached, the method does nothing
+   * <p>
+   * This method will not call the <code>deactivate</code>- or <code>stop</code>-method
+   * of the controller.
+   *
+   * @param controller the controller to remove from the store
+   * @param <C>        type of controller
+   */
   public <C extends AbstractComponentController<?, ?, ?>> void removeFromCache(C controller) {
     String key = this.classFormatter(controller.getClass()
                                                .getCanonicalName());
     this.controllerStore.remove(key);
   }
   
+  /**
+   * Clears the cache!
+   * <p>
+   * This method will remove all cached controllers from the store.
+   * <p>
+   * For every controller the method will iterate over
+   * the composites and call <code>deactivate</code>- and
+   * <code>stop</code>-method.
+   * Once done, it call the <code>deactivate</code>- and
+   * <code>stop</code>-method of the controller.
+   * <p>
+   * DO NOT CALL THIS METHOD INSIDE A CACHED CONTROLLER!
+   * If so, call <code>removeFromCache(this)</code> first!
+   */
   public void clearControllerCache() {
+    this.controllerStore.values()
+                        .forEach(controller -> {
+                          controller.getComposites()
+                                    .values()
+                                    .forEach(compositeController -> {
+                                      Utils.get()
+                                           .deactivateCompositeController(compositeController);
+                                      Utils.get()
+                                           .stopCompositeController(compositeController);
+                                    });
+                          Utils.get()
+                               .deactivateController(controller,
+                                                     false);
+                          Utils.get()
+                               .stopController(controller);
+                        });
     this.controllerStore.clear();
   }
   
