@@ -19,9 +19,11 @@ package com.github.nalukit.nalu.processor.common.module;
 
 import com.github.nalukit.nalu.client.context.AbstractModuleContext;
 import com.github.nalukit.nalu.client.context.IsContext;
+import com.github.nalukit.nalu.client.context.module.IsModuleContext;
 
 public class MockSubModuleContext
-    extends AbstractModuleContext {
+    extends AbstractModuleContext
+    implements IsModuleContext {
 
   public MockSubModuleContext() {
   }

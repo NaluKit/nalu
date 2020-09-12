@@ -16,7 +16,6 @@
 
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.context.module.IsMainContext;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
@@ -35,7 +34,6 @@ import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.squareup.javapoet.*;
-import org.gwtproject.event.shared.SimpleEventBus;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
@@ -90,19 +88,10 @@ public class ModuleGenerator {
     // constructor ...
     MethodSpec constructor = MethodSpec.constructorBuilder()
                                        .addModifiers(Modifier.PUBLIC)
-                                       .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
-                                                                           "router")
-                                                                  .build())
                                        .addParameter(ParameterSpec.builder(ClassName.get(IsMainContext.class),
                                                                            "context")
                                                                   .build())
-                                       .addParameter(ParameterSpec.builder(ClassName.get(SimpleEventBus.class),
-                                                                           "eventBus")
-                                                                  .build())
-                                       .addParameter(ParameterSpec.builder(ClassName.get(AlwaysLoadComposite.class),
-                                                                           "alwaysLoadComposite")
-                                                                  .build())
-                                       .addStatement("super(router, context, eventBus, alwaysLoadComposite)")
+                                       .addStatement("super(context)")
                                        .build();
     typeSpec.addMethod(constructor);
     

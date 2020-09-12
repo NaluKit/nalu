@@ -16,22 +16,54 @@
 
 package com.github.nalukit.nalu.client.module;
 
+import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.context.module.IsModuleContext;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
+import org.gwtproject.event.shared.SimpleEventBus;
 
 import java.util.List;
 
 public interface IsModule<C extends IsModuleContext> {
   
+  /**
+   * Sets the alwaysLoadComposite flag inside the router
+   *
+   * @param alwaysLoadComposite the alwaysLoadComposite flag
+   */
+  @NaluInternalUse
+  void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite);
+  
+  /**
+   * Sets the event bus inside the router
+   *
+   * @param eventBus Nalu application event bus
+   */
+  @NaluInternalUse
+  void setEventBus(SimpleEventBus eventBus);
+  
+  /**
+   * Sets the router inside the router
+   *
+   * @param router Nalu application router
+   */
+  @NaluInternalUse
+  void setRouter(Router router);
+  
+  @NaluInternalUse
   void loadModule(RouterConfiguration routeConfiguration);
   
+  @NaluInternalUse
   List<ShellConfig> getShellConfigs();
   
+  @NaluInternalUse
   List<RouteConfig> getRouteConfigs();
   
+  @NaluInternalUse
   List<CompositeControllerReference> getCompositeReferences();
   
 }

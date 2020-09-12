@@ -17,6 +17,9 @@
 package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+import com.github.nalukit.nalu.client.module.IsModule;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public interface ConfigurableRouter
@@ -42,10 +45,33 @@ public interface ConfigurableRouter
       throws RouterException;
   
   /**
-   * sets the event bus inside the router
+   * Sets the alwaysLoadComposite flag inside the router
+   *
+   * @param alwaysLoadComposite the alwaysLoadComposite flag
+   */
+  @NaluInternalUse
+  void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite);
+  
+  /**
+   * Sets the event bus inside the router
    *
    * @param eventBus Nalu application event bus
    */
+  @NaluInternalUse
   void setEventBus(SimpleEventBus eventBus);
+  
+  /**
+   * Add a module to the application.
+   * <p>
+   * The method wil inject the router, event bus, context
+   * and the alwaysLoadComposite-flag into the module.
+   * <p>
+   * Besides that, the method adds the shell- and
+   * route-configuration and also the controller-configurations.
+   *
+   * @param module the new module to add to the application
+   * @param <M>    Type of the module.
+   */
+  <M extends IsModule<?>> void addModule(M module);
   
 }

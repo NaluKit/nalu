@@ -18,10 +18,7 @@ package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.NaluConstants;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
-import com.github.nalukit.nalu.client.component.AbstractComponentController;
-import com.github.nalukit.nalu.client.component.AbstractCompositeController;
-import com.github.nalukit.nalu.client.component.IsController;
-import com.github.nalukit.nalu.client.component.IsShell;
+import com.github.nalukit.nalu.client.component.*;
 import com.github.nalukit.nalu.client.event.NaluErrorEvent;
 import com.github.nalukit.nalu.client.event.RouterStateEvent;
 import com.github.nalukit.nalu.client.event.RouterStateEvent.RouterState;
@@ -30,7 +27,9 @@ import com.github.nalukit.nalu.client.filter.IsFilter;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.Utils;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.application.*;
+import com.github.nalukit.nalu.client.module.IsModule;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.ConfirmHandler;
 import com.github.nalukit.nalu.client.seo.SeoDataProvider;
@@ -44,6 +43,8 @@ import java.util.stream.Stream;
 abstract class AbstractRouter
     implements ConfigurableRouter {
   
+  /* instance of AlwaysLoadComposite-class */
+  protected AlwaysLoadComposite alwaysLoadComposite;
   // the plugin
   IsNaluProcessorPlugin plugin;
   // composite configuration
@@ -558,13 +559,50 @@ abstract class AbstractRouter
   }
   
   /**
+   * Sets the alwaysLoadComposite flag inside the router
+   *
+   * @param alwaysLoadComposite the alwaysLoadComposite flag
+   */
+  @NaluInternalUse
+  @Override
+  public void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite) {
+    this.alwaysLoadComposite = alwaysLoadComposite;
+  }
+  
+  /**
    * sets the event bus inside the router
    *
    * @param eventBus Nalu application event bus
    */
   @Override
+  @NaluInternalUse
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
+  }
+  
+  /**
+   * Add a module to the application.
+   * <p>
+   * The method wil inject the router, event bus, context
+   * and the alwaysLoadComposite-flag into the module.
+   * <p>
+   * Besides that, the method adds the shell- and
+   * route-configuration and also the controller-configurations.
+   *
+   * @param module the new module to add to the application
+   * @param <M>    Type of the module.
+   */
+  @Override
+  public <M extends IsModule<?>> void addModule(M module) {
+    module.setRouter(this);
+    module.setEventBus(this.eventBus);
+    module.setAlwaysLoadComposite(this.alwaysLoadComposite);
+    module.loadModule(this.routerConfiguration);
+    this.shellConfiguration.getShells()
+                           .addAll(module.getShellConfigs());
+    this.routerConfiguration.getRouters()
+                            .addAll(module.getRouteConfigs());
+    this.compositeControllerReferences.addAll(module.getCompositeReferences());
   }
   
   private void postProcessHandleRouting(String hash,

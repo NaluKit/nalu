@@ -49,30 +49,9 @@ public class ModulesGenerator {
                                                            .addAnnotation(Override.class);
     // are there any modules?
     this.metaModel.getModules()
-                  .forEach(moduleModel -> {
-                    String moduleInstanceName = moduleModel.getSimpleName()
-                                                           .substring(0,
-                                                                      1)
-                                                           .toLowerCase() +
-                                                moduleModel.getSimpleName()
-                                                           .substring(1);
-      
-                    loadModuleMethodBuilder.addStatement("$T $L = new $T(super.router, super.context, super.eventBus, super.alwaysLoadComposite)",
-                                                         ClassName.get(moduleModel.getPackage(),
-                                                                       moduleModel.getSimpleName()),
-                                                         moduleInstanceName,
-                                                         ClassName.get(moduleModel.getPackage(),
-                                                                       moduleModel.getSimpleName() + ProcessorConstants.MODULE_IMPL))
-                                           .addStatement("$L.loadModule(super.routerConfiguration)",
-                                                         moduleInstanceName)
-                                           .addStatement("super.shellConfiguration.getShells().addAll($L.getShellConfigs())",
-                                                         moduleInstanceName)
-                                           .addStatement("super.routerConfiguration.getRouters().addAll($L.getRouteConfigs())",
-                                                         moduleInstanceName)
-                                           .addStatement("super.compositeControllerReferences.addAll($L.getCompositeReferences())",
-                                                         moduleInstanceName);
-      
-                  });
+                  .forEach(moduleModel -> loadModuleMethodBuilder.addStatement("this.router.addModule(new $T(super.context))",
+                                                                               ClassName.get(moduleModel.getPackage(),
+                                                                                             moduleModel.getSimpleName() + ProcessorConstants.MODULE_IMPL)));
     typeSpec.addMethod(loadModuleMethodBuilder.build());
   }
   

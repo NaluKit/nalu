@@ -39,18 +39,46 @@ public abstract class AbstractModule<C extends IsModuleContext>
   
   protected AlwaysLoadComposite alwaysLoadComposite;
   
-  public AbstractModule(Router router,
-                        IsMainContext applicationContext,
-                        SimpleEventBus eventBus,
-                        AlwaysLoadComposite alwaysLoadComposite) {
+  public AbstractModule(IsMainContext applicationContext) {
     super();
-    this.router              = router;
-    this.applicationContext  = applicationContext;
-    this.eventBus            = eventBus;
+    this.applicationContext = applicationContext;
+  }
+  
+  /**
+   * Sets the alwaysLoadComposite flag inside the router
+   *
+   * @param alwaysLoadComposite the alwaysLoadComposite flag
+   */
+  @Override
+  @NaluInternalUse
+  public void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite) {
     this.alwaysLoadComposite = alwaysLoadComposite;
   }
   
+  /**
+   * Sets the event bus inside the router
+   *
+   * @param eventBus Nalu application event bus
+   */
   @Override
+  @NaluInternalUse
+  public void setEventBus(SimpleEventBus eventBus) {
+    this.eventBus = eventBus;
+  }
+  
+  /**
+   * Sets the router inside the router
+   *
+   * @param router Nalu application router
+   */
+  @Override
+  @NaluInternalUse
+  public void setRouter(Router router) {
+    this.router = router;
+  }
+  
+  @Override
+  @NaluInternalUse
   public void loadModule(RouterConfiguration routeConfiguration) {
     this.setUpContext();
     this.loadShellFactory();

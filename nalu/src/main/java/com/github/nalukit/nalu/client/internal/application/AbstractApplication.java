@@ -107,7 +107,6 @@ public abstract class AbstractApplication<C extends IsContext>
     SeoDataProvider.get()
                    .register(this.plugin);
     // load everything you need to start
-    this.loadModules();
     this.loadShells();
     this.loadRoutes();
     this.loadFilters();
@@ -131,7 +130,10 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl(),
                                  this.isStayOnSide());
+    this.router.setAlwaysLoadComposite(this.alwaysLoadComposite);
     this.router.setEventBus(this.eventBus);
+    // load modules, now we have created the router ...
+    this.loadModules();
     // initialize plugin
     this.plugin.initialize(this.shellConfiguration);
     // load the shells of the application
