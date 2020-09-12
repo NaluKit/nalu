@@ -928,6 +928,10 @@ abstract class AbstractRouter
         // let's call active for all related composite
         compositeControllers.forEach(AbstractCompositeController::activate);
         controllerInstance.getController()
+                          .getComposites()
+                          .values()
+                          .forEach(AbstractCompositeController::activate);
+        controllerInstance.getController()
                           .activate();
       } else {
         compositeControllers.forEach(s -> {
