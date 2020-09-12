@@ -47,13 +47,6 @@ public class ModulesGenerator {
     MethodSpec.Builder loadModuleMethodBuilder = MethodSpec.methodBuilder("loadModules")
                                                            .addModifiers(Modifier.PUBLIC)
                                                            .addAnnotation(Override.class);
-    if (this.metaModel.getModules()
-                      .size() > 0) {
-      
-      loadModuleMethodBuilder.addStatement("$T sb01 = new $T()",
-                                           ClassName.get(StringBuilder.class),
-                                           ClassName.get(StringBuilder.class));
-    }
     // are there any modules?
     this.metaModel.getModules()
                   .forEach(moduleModel -> {
