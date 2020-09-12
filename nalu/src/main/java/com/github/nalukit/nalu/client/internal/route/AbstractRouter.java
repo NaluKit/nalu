@@ -732,10 +732,10 @@ abstract class AbstractRouter
       this.eventBus.fireEvent(LogEvent.create()
                                       .sdmOnly(true)
                                       .addMessage(sb));
-      eventBus.fireEvent(NaluErrorEvent.createNaluError()
-                                       .errorId(NaluConstants.NALU_ERROR_NO_CONTROLLER_INSTANCE_FOUND)
-                                       .message(sb)
-                                       .route(routeResult.getRoute()));
+      this.eventBus.fireEvent(NaluErrorEvent.createNaluError()
+                                            .errorId(NaluConstants.NALU_ERROR_NO_CONTROLLER_INSTANCE_FOUND)
+                                            .message(sb)
+                                            .route(routeResult.getRoute()));
     } else {
       // inject the router instance into the controller!
       // (we do it for cached and not cached controllers,
@@ -865,9 +865,7 @@ abstract class AbstractRouter
         // we will do it in both cases, cached and not cached!
         controllerInstance.getController()
                           .onAttach();
-        compositeControllers.forEach(s -> {
-          s.onAttach();
-        });
+        compositeControllers.forEach(AbstractCompositeController::onAttach);
       }
       // in case the controller is cached, we call only activate  ...
       if (controllerInstance.isCached() || handlingModeReuse) {
@@ -890,9 +888,7 @@ abstract class AbstractRouter
           }
         }
         // let's call active for all related composite
-        compositeControllers.forEach(s -> {
-          s.activate();
-        });
+        compositeControllers.forEach(AbstractCompositeController::activate);
         controllerInstance.getController()
                           .activate();
       } else {
