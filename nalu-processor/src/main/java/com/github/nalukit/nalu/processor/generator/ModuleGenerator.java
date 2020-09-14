@@ -37,15 +37,11 @@ import com.squareup.javapoet.*;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
-import javax.tools.FileObject;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
-
-import static javax.tools.StandardLocation.SOURCE_OUTPUT;
 
 public class ModuleGenerator {
   
@@ -118,16 +114,18 @@ public class ModuleGenerator {
                                 .build();
     try {
       //      System.out.println(javaFile.toString());
-      //      javaFile.writeTo(this.processingEnvironment.getFiler());
-      FileObject fileObject = this.processingEnvironment.getFiler()
-                                                        .createResource(SOURCE_OUTPUT,
-                                                                        metaModel.getGenerateToPackage(),
-                                                                        metaModel.getApplication()
-                                                                                 .getSimpleName() + ProcessorConstants.MODULE_IMPL + ".java");
-      Writer writer = fileObject.openWriter();
-      writer.write(javaFile.toString());
-      writer.flush();
-      writer.close();
+      javaFile.writeTo(this.processingEnvironment.getFiler());
+      //      FileObject fileObject = this.processingEnvironment.getFiler()
+      //                                                        .createResource(SOURCE_OUTPUT,
+      //                                                                        this.metaModel.getModuleModel()
+      //                                                                                      .getModule()
+      //                                                                                      .getPackage(),
+      //                                                                        metaModel.getApplication()
+      //                                                                                 .getSimpleName() + ProcessorConstants.MODULE_IMPL + ".java");
+      //      Writer writer = fileObject.openWriter();
+      //      writer.write(javaFile.toString());
+      //      writer.flush();
+      //      writer.close();
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
                                    this.metaModel.getModuleModel()
