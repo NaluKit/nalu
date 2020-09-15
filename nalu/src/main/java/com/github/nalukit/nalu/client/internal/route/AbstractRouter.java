@@ -953,7 +953,7 @@ abstract class AbstractRouter
       }
       // save current hash
       this.lastExecutedHash = hash;
-      // clear loo detection list ...
+      // clear loop detection list ...
       this.loopDetectionList.clear();
     }
   }
