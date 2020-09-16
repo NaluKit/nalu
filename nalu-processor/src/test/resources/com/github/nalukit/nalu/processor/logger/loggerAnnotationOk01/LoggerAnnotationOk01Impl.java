@@ -14,11 +14,10 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.MockDebug;
 import com.github.nalukit.nalu.processor.common.MockLogger;
 import java.lang.Override;
-import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.03-13:43:45<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.16-22:18:01<<
  */
 public final class LoggerAnnotationOk01Impl extends AbstractApplication<MockContext> implements LoggerAnnotationOk01 {
   public LoggerAnnotationOk01Impl() {
@@ -79,7 +78,6 @@ public final class LoggerAnnotationOk01Impl extends AbstractApplication<MockCont
   
   @Override
   public void loadErrorPopUpController() {
-    StringBuilder sb01 = new StringBuilder();
     this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("no ErrorPopUpController found!°"));
   }
   

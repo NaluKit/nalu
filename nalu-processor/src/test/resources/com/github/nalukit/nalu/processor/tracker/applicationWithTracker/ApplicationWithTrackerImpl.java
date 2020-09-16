@@ -13,11 +13,10 @@ import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.MockTracker;
 import java.lang.Override;
-import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.08.31-11:40:48<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.16-22:18:01<<
  */
 public final class ApplicationWithTrackerImpl extends AbstractApplication<MockContext> implements ApplicationWithTracker {
   public ApplicationWithTrackerImpl() {
@@ -31,7 +30,7 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   
   @Override
   public void logProcessorVersion() {
-    this.eventBus.fireEvent(LogEvent.create()                          .sdmOnly(true)                          .addMessage("=================================================================================")                          .addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source")                          .addMessage("=================================================================================")                          .addMessage(""));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source").addMessage("=================================================================================").addMessage(""));
   }
   
   @Override
@@ -77,8 +76,7 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   
   @Override
   public void loadErrorPopUpController() {
-    StringBuilder sb01 = new StringBuilder();
-    this.eventBus.fireEvent(LogEvent.create()                          .sdmOnly(true)                          .addMessage("no ErrorPopUpController found!°"));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("no ErrorPopUpController found!°"));
   }
   
   @Override

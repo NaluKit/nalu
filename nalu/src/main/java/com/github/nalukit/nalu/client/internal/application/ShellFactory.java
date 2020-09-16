@@ -57,7 +57,7 @@ public class ShellFactory {
         shellInstance.getShell()
                      .bind(() -> {
                        try {
-                         shellCreator.onFinishCreating(shellInstance.getShell());
+                         shellCreator.onFinishCreating();
                          callback.onFinish(shellInstance);
                        } catch (RoutingInterceptionException e) {
                          callback.onRoutingInterceptionException(e);

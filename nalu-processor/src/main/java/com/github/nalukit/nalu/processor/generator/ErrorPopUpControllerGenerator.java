@@ -46,10 +46,7 @@ public class ErrorPopUpControllerGenerator {
   void generate() {
     MethodSpec.Builder createErrorPopUpControllerMethodBuilder = MethodSpec.methodBuilder("loadErrorPopUpController")
                                                                            .addModifiers(Modifier.PUBLIC)
-                                                                           .addAnnotation(Override.class)
-                                                                           .addStatement("$T sb01 = new $T()",
-                                                                                         ClassName.get(StringBuilder.class),
-                                                                                         ClassName.get(StringBuilder.class));
+                                                                           .addAnnotation(Override.class);
     if (Objects.isNull(this.metaModel.getErrorPopUpController())) {
       createErrorPopUpControllerMethodBuilder.addStatement("this.eventBus.fireEvent($T.create()" +
                                                            ".sdmOnly(true)" +

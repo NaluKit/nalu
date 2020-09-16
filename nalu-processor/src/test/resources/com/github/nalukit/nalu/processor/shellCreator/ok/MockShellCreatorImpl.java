@@ -5,12 +5,11 @@ import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.AbstractShellCreator;
 import com.github.nalukit.nalu.client.internal.application.IsShellCreator;
 import com.github.nalukit.nalu.client.internal.application.ShellInstance;
-import java.lang.Object;
 import java.lang.Override;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.08.31-11:41:49<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.16-22:14:22<<
  */
 public final class MockShellCreatorImpl extends AbstractShellCreator<MockContext> implements IsShellCreator {
     public MockShellCreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
@@ -30,7 +29,6 @@ public final class MockShellCreatorImpl extends AbstractShellCreator<MockContext
     }
     
     @Override
-    public void onFinishCreating(Object object) throws RoutingInterceptionException {
-        MockShell shell = (MockShell) object;
+    public void onFinishCreating() throws RoutingInterceptionException {
     }
 }

@@ -24,7 +24,7 @@ public interface IsShellCreator {
   
   ShellInstance create();
   
-  void onFinishCreating(Object object)
+  void onFinishCreating()
       throws RoutingInterceptionException;
   
 }

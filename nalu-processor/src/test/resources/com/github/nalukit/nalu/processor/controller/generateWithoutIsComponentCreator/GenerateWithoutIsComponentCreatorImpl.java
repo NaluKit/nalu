@@ -12,11 +12,10 @@ import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import java.lang.Override;
-import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.08.31-11:51:31<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.16-22:20:28<<
  */
 public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplication<MockContext> implements GenerateWithoutIsComponentCreator {
   public GenerateWithoutIsComponentCreatorImpl() {
@@ -30,7 +29,7 @@ public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplica
   
   @Override
   public void logProcessorVersion() {
-    this.eventBus.fireEvent(LogEvent.create()                          .sdmOnly(true)                          .addMessage("=================================================================================")                          .addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source")                          .addMessage("=================================================================================")                          .addMessage(""));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source").addMessage("=================================================================================").addMessage(""));
   }
   
   @Override
@@ -72,8 +71,7 @@ public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplica
   
   @Override
   public void loadErrorPopUpController() {
-    StringBuilder sb01 = new StringBuilder();
-    this.eventBus.fireEvent(LogEvent.create()                          .sdmOnly(true)                          .addMessage("no ErrorPopUpController found!°"));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("no ErrorPopUpController found!°"));
   }
   
   @Override

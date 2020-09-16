@@ -15,11 +15,10 @@ import com.github.nalukit.nalu.processor.common.ui.errorPopUp01.ErrorEventCompon
 import com.github.nalukit.nalu.processor.common.ui.errorPopUp01.ErrorEventController01;
 import com.github.nalukit.nalu.processor.common.ui.errorPopUp01.IErrorEventComponent01;
 import java.lang.Override;
-import java.lang.StringBuilder;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.09-20:24:23<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.16-22:18:01<<
  */
 public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockContext> implements ErrorPopUpAnnotationOk {
   public ErrorPopUpAnnotationOkImpl() {
@@ -77,7 +76,6 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
   
   @Override
   public void loadErrorPopUpController() {
-    StringBuilder sb01 = new StringBuilder();
     ErrorEventController01 errorPopUpController = new ErrorEventController01();
     errorPopUpController.setContext(context);
     errorPopUpController.setEventBus(eventBus);

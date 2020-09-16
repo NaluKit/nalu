@@ -110,19 +110,7 @@ public class ShellCreatorGenerator {
     MethodSpec.Builder finishCreateMethod = MethodSpec.methodBuilder("onFinishCreating")
                                                       .addAnnotation(ClassName.get(Override.class))
                                                       .addModifiers(Modifier.PUBLIC)
-                                                      .addParameter(ParameterSpec.builder(ClassName.get(Object.class),
-                                                                                          "object")
-                                                                                 .build())
-                                                      .addException(ClassName.get(RoutingInterceptionException.class))
-                                                      .addStatement("$T shell = ($T) object",
-                                                                    ClassName.get(this.shellModel.getShell()
-                                                                                                 .getPackage(),
-                                                                                  this.shellModel.getShell()
-                                                                                                 .getSimpleName()),
-                                                                    ClassName.get(this.shellModel.getShell()
-                                                                                                 .getPackage(),
-                                                                                  this.shellModel.getShell()
-                                                                                                 .getSimpleName()));
+                                                      .addException(ClassName.get(RoutingInterceptionException.class));
     
     typeSpec.addMethod(finishCreateMethod.build());
     
