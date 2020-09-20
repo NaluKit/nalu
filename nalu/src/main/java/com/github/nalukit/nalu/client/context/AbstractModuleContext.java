@@ -4,10 +4,10 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 /**
  * <p>
- * Abstract context base class to use inside moduls.
+ * Abstract context base class to use inside modules.
  * </p>
  * Use this class to avoid a common base module in a multi module
- * envirement
+ * environment.
  */
 public abstract class AbstractModuleContext
     implements IsModuleContext {
