@@ -16,16 +16,12 @@
 
 package com.github.nalukit.nalu.client.context;
 
-import com.github.nalukit.nalu.client.context.module.IsMainContext;
-import com.github.nalukit.nalu.client.context.module.IsModuleContext;
-
 /**
  * Marks a class as Nalu application context inside a single and module application.
  * <p>
  * Keep in mind, in a multi module project you need to use:
  * <ul>
- *   <li>{@link IsMainContext} inside the application project</li>
- *   <li>{@link IsModuleContext} inside the module projects</li>
+ *   <li>{@link IsModuleContext} inside every projects</li>
  * </ul>
  */
 public interface IsContext {

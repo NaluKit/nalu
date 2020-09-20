@@ -6,12 +6,12 @@ import java.util.Map;
 /**
  * Context to store data
  */
-public class Context {
+public class GlobalContext {
   
   /* data store */
   private Map<String, Object> dataStore;
   
-  public Context() {
+  public GlobalContext() {
     this.dataStore = new HashMap<>();
   }
   

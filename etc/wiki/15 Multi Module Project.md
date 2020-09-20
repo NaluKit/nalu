@@ -1,4 +1,3 @@
-
 # Multi Module Envirement
 Starting with version 2 Nalu improves the multi module support on the client side. In a client side multi module environment it is not possible to share classes without having a common module.
 
@@ -27,14 +26,14 @@ The context is be part of the current module.
 Example:
 ```java
 @Module(name = "myModule",
-        context = MyModuleContext.class)
+        context = MyApplicationContext.class)
 public interface MyModule
     extends IsModule<MyModuleContext> {
 }
 ```
 
 ## Context
-To share data between modules, it is necessary to use the context super classes for the main- and the sub-modules.
+To share data between modules, it is necessary to extend the `AbstractModuleContext`-class for the main- and the sub-modules.
 
 For more information about the context look [here](xxx).
 

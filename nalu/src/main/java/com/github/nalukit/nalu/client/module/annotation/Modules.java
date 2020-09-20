@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.client.module.annotation;
 
-import com.github.nalukit.nalu.client.context.module.IsModuleContext;
+import com.github.nalukit.nalu.client.context.IsModuleContext;
 import com.github.nalukit.nalu.client.module.IsModule;
 
 import java.lang.annotation.Retention;
