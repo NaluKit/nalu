@@ -19,10 +19,7 @@ package com.github.nalukit.nalu.processor.generator;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.context.IsModuleContext;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
-import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
-import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
-import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
-import com.github.nalukit.nalu.client.internal.application.ShellFactory;
+import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.internal.module.AbstractModule;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
@@ -102,6 +99,7 @@ public class ModuleGenerator {
     this.generateLoadContollers(typeSpec);
     this.generateLoadFilters(typeSpec);
     this.generateLoadHandlers(typeSpec);
+    this.generateLoadPopUpControllers(typeSpec);
     
     this.generateGetShellConfigs(typeSpec);
     this.generateGetRouteConfigs(typeSpec);
@@ -332,8 +330,24 @@ public class ModuleGenerator {
                                       .addStatement("$L.bind()",
                                                     variableName);
                   });
-    
+  
     typeSpec.addMethod(loadHandlersMethod.build());
+  }
+  
+  private void generateLoadPopUpControllers(TypeSpec.Builder typeSpec) {
+    // method must always be created!
+    MethodSpec.Builder loadPopUpControllersMethod = MethodSpec.methodBuilder("loadPopUpControllers")
+                                                              .addAnnotation(Override.class)
+                                                              .addModifiers(Modifier.PUBLIC);
+    this.metaModel.getPopUpControllers()
+                  .forEach(popUpControllerModel -> loadPopUpControllersMethod.addStatement("$T.get().registerPopUpController($S, new $L(super.router, super.moduleContext, super.eventBus))",
+                                                                                           ClassName.get(PopUpControllerFactory.class),
+                                                                                           popUpControllerModel.getName(),
+                                                                                           ClassName.get(popUpControllerModel.getController()
+                                                                                                                             .getPackage(),
+                                                                                                         popUpControllerModel.getController()
+                                                                                                                             .getSimpleName() + ProcessorConstants.CREATOR_IMPL)));
+    typeSpec.addMethod(loadPopUpControllersMethod.build());
   }
   
   private void generateGetShellConfigs(TypeSpec.Builder typeSpec) {

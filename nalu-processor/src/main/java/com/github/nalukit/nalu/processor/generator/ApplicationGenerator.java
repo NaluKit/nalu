@@ -234,16 +234,12 @@ public class ApplicationGenerator {
     
     generateLoadDefaultsRoutes(typeSpec,
                                metaModel);
-    
     generateHasHistoryMethod(typeSpec,
                              metaModel);
-    
     generateIsUsingHashMethod(typeSpec,
                               metaModel);
-    
     generateIsUsingColonForParametersInUrl(typeSpec,
                                            metaModel);
-    
     generateIsStayOnSide(typeSpec,
                          metaModel);
     

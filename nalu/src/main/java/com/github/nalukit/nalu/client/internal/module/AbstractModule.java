@@ -86,6 +86,7 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
     this.loadComponents();
     this.loadFilters(routeConfiguration);
     this.loadHandlers();
+    this.loadPopUpControllers();
   }
   
   private void setUpContext() {
@@ -102,6 +103,8 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
   protected abstract void loadFilters(RouterConfiguration routeConfiguration);
   
   protected abstract void loadHandlers();
+  
+  protected abstract void loadPopUpControllers();
   
   protected abstract C createModuleContext();
   
