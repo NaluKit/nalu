@@ -100,6 +100,7 @@ public class ModuleGenerator {
     this.generateLoadFilters(typeSpec);
     this.generateLoadHandlers(typeSpec);
     this.generateLoadPopUpControllers(typeSpec);
+    this.generateLoadBlockControllers(typeSpec);
     
     this.generateGetShellConfigs(typeSpec);
     this.generateGetRouteConfigs(typeSpec);
@@ -348,6 +349,22 @@ public class ModuleGenerator {
                                                                                                          popUpControllerModel.getController()
                                                                                                                              .getSimpleName() + ProcessorConstants.CREATOR_IMPL)));
     typeSpec.addMethod(loadPopUpControllersMethod.build());
+  }
+  
+  private void generateLoadBlockControllers(TypeSpec.Builder typeSpec) {
+    // method must always be created!
+    MethodSpec.Builder loadBlockControllersMethod = MethodSpec.methodBuilder("loadBlockControllers")
+                                                              .addAnnotation(Override.class)
+                                                              .addModifiers(Modifier.PUBLIC);
+    this.metaModel.getBlockControllers()
+                  .forEach(blockControllerModel -> loadBlockControllersMethod.addStatement("$T.get().registerBlockController($S, new $L(super.router, super.moduleContext, super.eventBus))",
+                                                                                           ClassName.get(BlockControllerFactory.class),
+                                                                                           blockControllerModel.getName(),
+                                                                                           ClassName.get(blockControllerModel.getController()
+                                                                                                                             .getPackage(),
+                                                                                                         blockControllerModel.getController()
+                                                                                                                             .getSimpleName() + ProcessorConstants.CREATOR_IMPL)));
+    typeSpec.addMethod(loadBlockControllersMethod.build());
   }
   
   private void generateGetShellConfigs(TypeSpec.Builder typeSpec) {
