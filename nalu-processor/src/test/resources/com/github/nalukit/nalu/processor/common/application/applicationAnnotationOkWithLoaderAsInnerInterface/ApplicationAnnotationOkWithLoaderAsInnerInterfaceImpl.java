@@ -89,6 +89,7 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   
   @Override
   public void loadModules() {
+    super.onFinishModuleLoading();
   }
   
   @Override

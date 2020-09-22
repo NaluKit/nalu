@@ -27,12 +27,16 @@ public class ModuleModel {
   
   private ClassNameModel moduleContext;
   
+  private ClassNameModel moduleLoader;
+  
   public ModuleModel(String name,
                      ClassNameModel module,
-                     ClassNameModel moduleContext) {
+                     ClassNameModel moduleContext,
+                     ClassNameModel moduleLoader) {
     this.name          = name;
     this.module        = module;
     this.moduleContext = moduleContext;
+    this.moduleLoader  = moduleLoader;
   }
   
   public String getName() {
@@ -57,6 +61,14 @@ public class ModuleModel {
   
   public void setModuleContext(ClassNameModel moduleContext) {
     this.moduleContext = moduleContext;
+  }
+  
+  public ClassNameModel getModuleLoader() {
+    return moduleLoader;
+  }
+  
+  public void setModuleLoader(ClassNameModel moduleLoader) {
+    this.moduleLoader = moduleLoader;
   }
   
 }

@@ -17,6 +17,8 @@
 package com.github.nalukit.nalu.client.module.annotation;
 
 import com.github.nalukit.nalu.client.context.IsModuleContext;
+import com.github.nalukit.nalu.client.internal.module.NoModuleLoader;
+import com.github.nalukit.nalu.client.module.AbstractModuleLoader;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -33,6 +35,8 @@ import java.lang.annotation.RetentionPolicy;
  * <li>name: name of the module.</li>
  * <li>context: the context of the class. Nalu will create an instance of this class and inject
  * the instance into all controllers, filters, handlers and the application loader.</li>
+ * <li>loader: a loader that will be executed in case the module loads. If no loader
+ * is defined, the NoMoculeLoader.class will be used. In this case, the loader will do nothing.</li>
  * </ul>
  *
  * @author Frank Hossfeld
@@ -54,5 +58,16 @@ public @interface Module {
    * @return application context
    */
   Class<? extends IsModuleContext> context();
+  
+  /**
+   * The module loader of the module. Will be executed in case the
+   * module gets loaded. This is a good place to load module specific data.
+   * F.e.: Meta-data, store values, etc.
+   * <br>
+   * The module loader is optional.
+   *
+   * @return the module loader
+   */
+  Class<? extends AbstractModuleLoader<?>> loader() default NoModuleLoader.class;
   
 }

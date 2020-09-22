@@ -17,7 +17,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.16-22:18:01<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.22-07:06:26<<
  */
 public final class LoggerAnnotationOk01Impl extends AbstractApplication<MockContext> implements LoggerAnnotationOk01 {
   public LoggerAnnotationOk01Impl() {
@@ -95,6 +95,7 @@ public final class LoggerAnnotationOk01Impl extends AbstractApplication<MockCont
   
   @Override
   public void loadModules() {
+    super.onFinishModuleLoading();
   }
   
   @Override

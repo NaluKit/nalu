@@ -16,7 +16,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.16-22:18:01<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.22-07:01:52<<
  */
 public final class ApplicationWithTrackerImpl extends AbstractApplication<MockContext> implements ApplicationWithTracker {
   public ApplicationWithTrackerImpl() {
@@ -93,6 +93,7 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   
   @Override
   public void loadModules() {
+    super.onFinishModuleLoading();
   }
   
   @Override

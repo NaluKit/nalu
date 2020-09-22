@@ -89,6 +89,7 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
   
   @Override
   public void loadModules() {
+    super.onFinishModuleLoading();
   }
   
   @Override

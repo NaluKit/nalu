@@ -21,9 +21,11 @@ import com.github.nalukit.nalu.client.context.IsModuleContext;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.internal.module.AbstractModule;
+import com.github.nalukit.nalu.client.internal.module.NoModuleLoader;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
+import com.github.nalukit.nalu.client.module.IsModuleLoader;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
@@ -105,6 +107,7 @@ public class ModuleGenerator {
     this.generateGetShellConfigs(typeSpec);
     this.generateGetRouteConfigs(typeSpec);
     this.generateGetCompositeReferences(typeSpec);
+    this.generateGetLoader(typeSpec);
     
     JavaFile javaFile = JavaFile.builder(this.metaModel.getModuleModel()
                                                        .getModule()
@@ -436,6 +439,36 @@ public class ModuleGenerator {
                                                                                                                                             controllerCompositeModel.isScopeGlobal())));
     getCompositeReferencesMethod.addStatement("return list");
     typeSpec.addMethod(getCompositeReferencesMethod.build());
+  }
+  
+  private void generateGetLoader(TypeSpec.Builder typeSpec) {
+    MethodSpec.Builder getLoaderMethod = MethodSpec.methodBuilder("createModuleLoader")
+                                                   .addModifiers(Modifier.PUBLIC)
+                                                   .addAnnotation(Override.class)
+                                                   .returns(ParameterizedTypeName.get(ClassName.get(IsModuleLoader.class),
+                                                                                      this.metaModel.getModuleModel()
+                                                                                                    .getModuleContext()
+                                                                                                    .getTypeName()));
+    if (!this.metaModel.getModuleModel()
+                       .getModuleLoader()
+                       .getPackage()
+                       .equals(NoModuleLoader.class.getPackage()
+                                                   .getName()) &&
+        !this.metaModel.getModuleModel()
+                       .getModuleLoader()
+                       .getPackage()
+                       .equals(NoModuleLoader.class.getSimpleName())) {
+      getLoaderMethod.addStatement("return new $T()",
+                                   ClassName.get(this.metaModel.getModuleModel()
+                                                               .getModuleLoader()
+                                                               .getPackage(),
+                                                 this.metaModel.getModuleModel()
+                                                               .getModuleLoader()
+                                                               .getSimpleName()));
+    } else {
+      getLoaderMethod.addStatement("return null");
+    }
+    typeSpec.addMethod(getLoaderMethod.build());
   }
   
   private List<ControllerModel> getAllComponents(List<ControllerModel> routes) {

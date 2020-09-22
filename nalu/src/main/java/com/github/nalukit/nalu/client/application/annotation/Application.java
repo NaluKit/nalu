@@ -52,7 +52,7 @@ public @interface Application {
    * application is started. This is a good place to load apllication data.
    * F.e.: Meta-data, store values, etc.
    * <br>
-   * The applicaition loader is optional.
+   * The application loader is optional.
    *
    * @return the application loader
    */

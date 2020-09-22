@@ -23,6 +23,7 @@ import com.github.nalukit.nalu.client.context.IsModuleContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.module.IsModule;
+import com.github.nalukit.nalu.client.module.IsModuleLoader;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
@@ -110,5 +111,7 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
   protected abstract void loadBlockControllers();
   
   protected abstract C createModuleContext();
+  
+  protected abstract IsModuleLoader<C> createModuleLoader();
   
 }

@@ -90,6 +90,7 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
   
   @Override
   public void loadModules() {
+    super.onFinishModuleLoading();
   }
   
   @Override

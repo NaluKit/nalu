@@ -88,6 +88,7 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
   
   @Override
   public void loadModules() {
+    super.onFinishModuleLoading();
   }
   
   @Override

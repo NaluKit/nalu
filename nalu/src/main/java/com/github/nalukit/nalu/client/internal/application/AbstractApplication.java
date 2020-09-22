@@ -68,6 +68,8 @@ public abstract class AbstractApplication<C extends IsContext>
   protected List<CompositeControllerReference> compositeControllerReferences;
   /* Nalu Logger instance */
   protected NaluLogger<C>                      naluLogger;
+  /* The call counter */
+  protected int                                callCounter;
   
   public AbstractApplication() {
     super();
@@ -132,8 +134,6 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.isStayOnSide());
     this.router.setAlwaysLoadComposite(this.alwaysLoadComposite);
     this.router.setEventBus(this.eventBus);
-    // load modules, now we have created the router ...
-    this.loadModules();
     // initialize plugin
     this.plugin.initialize(this.shellConfiguration);
     // load the shells of the application
@@ -150,7 +150,6 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadComponents();
     // load the handlers fo the application
     this.loadHandlers();
-    // execute the loader (if one is present)
     // validate
     if (!RouteValidation.validateStartRoute(this.shellConfiguration,
                                             this.routerConfiguration,
@@ -165,12 +164,12 @@ public abstract class AbstractApplication<C extends IsContext>
     // handling application loading
     IsApplicationLoader<C> applicationLoader = getApplicationLoader();
     if (getApplicationLoader() == null) {
-      this.onFinishLoading();
+      this.onFinishApplicationLoading();
     } else {
       applicationLoader.setContext(this.context);
       applicationLoader.setEventBus(this.eventBus);
       applicationLoader.setRouter(this.router);
-      applicationLoader.load(this::onFinishLoading);
+      applicationLoader.load(this::onFinishApplicationLoading);
     }
   }
   
@@ -183,8 +182,6 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract void logProcessorVersion();
   
   protected abstract void loadDefaultRoutes();
-  
-  protected abstract void loadModules();
   
   protected abstract void loadShells();
   
@@ -223,7 +220,24 @@ public abstract class AbstractApplication<C extends IsContext>
   /**
    * Once the loader did his job, we will continue
    */
-  private void onFinishLoading() {
+  private void onFinishApplicationLoading() {
+    // load modules, now we have started everything, it's tiem to deal with mdoules ...
+    this.loadModules();
+  }
+  
+  protected abstract void loadModules();
+  
+  protected void handleSuccess() {
+    callCounter--;
+    if (callCounter == 0) {
+      this.onFinishModuleLoading();
+    }
+  }
+  
+  /**
+   * Once the loader did his job, we will continue
+   */
+  protected void onFinishModuleLoading() {
     // save the current hash
     String hashOnStart = this.plugin.getStartRoute();
     // check if the url contains a hash.

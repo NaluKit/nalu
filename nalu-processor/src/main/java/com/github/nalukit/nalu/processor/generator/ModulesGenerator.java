@@ -15,8 +15,10 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
+import com.github.nalukit.nalu.client.module.IsModuleLoader;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.model.MetaModel;
+import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -48,11 +50,62 @@ public class ModulesGenerator {
                                                            .addModifiers(Modifier.PUBLIC)
                                                            .addAnnotation(Override.class);
     // are there any modules?
-    this.metaModel.getModules()
-                  .forEach(moduleModel -> loadModuleMethodBuilder.addStatement("this.router.addModule(new $T(super.context))",
-                                                                               ClassName.get(moduleModel.getPackage(),
-                                                                                             moduleModel.getSimpleName() + ProcessorConstants.MODULE_IMPL)));
+    if (this.metaModel.getModules()
+                      .size() == 0) {
+      loadModuleMethodBuilder.addStatement("super.onFinishModuleLoading()");
+    } else {
+      loadModuleMethodBuilder.addStatement("this.callCounter = $L",
+                                           String.valueOf(this.metaModel.getModules()
+                                                                        .size()));
+      this.metaModel.getModules()
+                    .forEach(moduleModel -> this.loadModule(loadModuleMethodBuilder,
+                                                            this.metaModel.getContext(),
+                                                            moduleModel));
+    }
     typeSpec.addMethod(loadModuleMethodBuilder.build());
+  }
+  
+  private void loadModule(MethodSpec.Builder loadModuleMethodBuilder,
+                          ClassNameModel contextModel,
+                          ClassNameModel moduleModel) {
+    String moduleImplVariableName = this.createPackageName(moduleModel.getPackage()) + "_" + moduleModel.getSimpleName() + ProcessorConstants.MODULE_IMPL;
+    loadModuleMethodBuilder.addStatement("$T $L = new $T(super.context)",
+                                         ClassName.get(moduleModel.getPackage(),
+                                                       moduleModel.getSimpleName() + ProcessorConstants.MODULE_IMPL),
+                                         moduleImplVariableName,
+                                         ClassName.get(moduleModel.getPackage(),
+                                                       moduleModel.getSimpleName() + ProcessorConstants.MODULE_IMPL));
+    loadModuleMethodBuilder.addStatement("this.router.addModule($L)",
+                                         moduleImplVariableName);
+    String moduleLoaderVariableName = this.createPackageName(moduleModel.getPackage()) + "_" + moduleModel.getSimpleName() + ProcessorConstants.LOADER_IMPL;
+    loadModuleMethodBuilder.addStatement("$T<$T> $L = $L.createModuleLoader()",
+                                         ClassName.get(IsModuleLoader.class),
+                                         ClassName.get(contextModel.getPackage(),
+                                                       contextModel.getSimpleName()),
+                                         moduleLoaderVariableName,
+                                         moduleImplVariableName);
+    loadModuleMethodBuilder.beginControlFlow("if ($L == null)",
+                                             moduleLoaderVariableName)
+                           .addStatement("this.handleSuccess()")
+                           .nextControlFlow("else")
+                           .addStatement("$L.setRouter(super.router)",
+                                         moduleLoaderVariableName)
+                           .addStatement("$L.setEventBus(super.eventBus)",
+                                         moduleLoaderVariableName)
+                           .addStatement("$L.setContext(super.context)",
+                                         moduleLoaderVariableName)
+                           .addStatement("$L.load(() -> this.handleSuccess())",
+                                         moduleLoaderVariableName)
+                           .endControlFlow();
+  }
+  
+  private String createPackageName(String pkg) {
+    String value = pkg.replace(".",
+                               "_");
+    value = value.substring(0,
+                            1)
+                 .toLowerCase() + value.substring(1);
+    return value;
   }
   
   public static final class Builder {

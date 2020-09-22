@@ -15,7 +15,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.16-22:20:28<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.22-07:03:58<<
  */
 public final class GenerateWithIsComponentCreatorImpl extends AbstractApplication<MockContext> implements GenerateWithIsComponentCreator {
   public GenerateWithIsComponentCreatorImpl() {
@@ -88,6 +88,7 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
   
   @Override
   public void loadModules() {
+    super.onFinishModuleLoading();
   }
   
   @Override

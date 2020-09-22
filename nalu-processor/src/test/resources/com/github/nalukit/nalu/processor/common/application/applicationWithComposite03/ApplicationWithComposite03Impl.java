@@ -99,6 +99,7 @@ public final class ApplicationWithComposite03Impl extends AbstractApplication<Mo
   
   @Override
   public void loadModules() {
+    super.onFinishModuleLoading();
   }
   
   @Override

@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.application;
+package com.github.nalukit.nalu.client.module;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.context.IsContext;
@@ -22,19 +22,20 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Nalu application loader
+ * Nalu module loader
  * <br>
  * <p>The Loader is executed during the start sequence of the application.
- * The loader can be used to load meta-information at the start of the application</p>
+ * The loader can be used to load meta-information during the load sequence of a module.</p>
  * <p>Once the work is done call finishLoadCommand.finishLoad() to resume with the normal processing.</p>
+ * <br>
  * <p><b>Caution: Do not use the router to route inside the loader!Just use it only to inject it!</b></p>
  */
-public interface IsApplicationLoader<C extends IsContext> {
+public interface IsModuleLoader<C extends IsContext> {
   
   /**
-   * Calls the application loader.
+   * Calls the module loader.
    * <br>
-   * Implement here the code you want to execute durng application start.
+   * Implement here the code you want to execute durng module start.
    * <br>
    * Once you are done, call: <b>finishLoadCommand.finishLoading();</b>
    * <br>

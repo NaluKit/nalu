@@ -26,10 +26,13 @@ import com.github.nalukit.nalu.processor.model.intern.ModuleModel;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.*;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import java.util.List;
 import java.util.Objects;
+
+import static java.util.Objects.isNull;
 
 public class ModuleAnnotationScanner {
   
@@ -65,9 +68,11 @@ public class ModuleAnnotationScanner {
     if (Objects.isNull(context)) {
       throw new ProcessorException("Nalu-Processor: module >>" + moduleElement.toString() + "<< does not have a generic context!");
     }
+    TypeElement moduleLoaderTypeElement = this.getLoaderType(moduleAnnotation);
     return new ModuleModel(moduleAnnotation.name(),
                            new ClassNameModel(moduleElement.toString()),
-                           new ClassNameModel(context));
+                           new ClassNameModel(context),
+                           new ClassNameModel(isNull(moduleLoaderTypeElement) ? "" : moduleLoaderTypeElement.toString()));
   }
   
   private String getContextType(Element element) {
@@ -117,7 +122,7 @@ public class ModuleAnnotationScanner {
                                          Void v) {
                     return null;
                   }
-      
+  
                   @Override
                   public Void visitTypeVariable(TypeVariable typeVariable,
                                                 Void v) {
@@ -126,6 +131,16 @@ public class ModuleAnnotationScanner {
                 },
                 null);
     return result[0].toString();
+  }
+  
+  private TypeElement getLoaderType(Module moduleAnnotation) {
+    try {
+      moduleAnnotation.loader();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
   }
   
   public static class Builder {

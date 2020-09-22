@@ -15,7 +15,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.16-22:22:53<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.22-07:07:44<<
  */
 public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithLoader {
   public ApplicationAnnotationOkWithLoaderImpl() {
@@ -88,6 +88,7 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
   
   @Override
   public void loadModules() {
+    super.onFinishModuleLoading();
   }
   
   @Override
