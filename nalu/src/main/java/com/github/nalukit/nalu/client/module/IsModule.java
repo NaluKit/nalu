@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.module;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
+import com.github.nalukit.nalu.client.context.Context;
 import com.github.nalukit.nalu.client.context.IsModuleContext;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
@@ -29,12 +30,12 @@ import org.gwtproject.event.shared.SimpleEventBus;
 import java.util.List;
 
 public interface IsModule<C extends IsModuleContext> {
-  
-  /**
-   * Sets the alwaysLoadComposite flag inside the router
-   *
-   * @param alwaysLoadComposite the alwaysLoadComposite flag
-   */
+
+    /**
+     * Sets the alwaysLoadComposite flag inside the router
+     *
+     * @param alwaysLoadComposite the alwaysLoadComposite flag
+     */
   @NaluInternalUse
   void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite);
   

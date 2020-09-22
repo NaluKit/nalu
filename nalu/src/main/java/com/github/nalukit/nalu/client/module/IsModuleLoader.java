@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client.module;
 
 import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.context.AbstractModuleContext;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.SimpleEventBus;
@@ -30,7 +31,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
  * <br>
  * <p><b>Caution: Do not use the router to route inside the loader!Just use it only to inject it!</b></p>
  */
-public interface IsModuleLoader<C extends IsContext> {
+public interface IsModuleLoader<C extends AbstractModuleContext> {
   
   /**
    * Calls the module loader.

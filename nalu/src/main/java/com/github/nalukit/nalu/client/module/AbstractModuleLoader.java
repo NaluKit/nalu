@@ -17,10 +17,11 @@
 package com.github.nalukit.nalu.client.module;
 
 import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.context.AbstractModuleContext;
 import com.github.nalukit.nalu.client.context.IsContext;
 import org.gwtproject.event.shared.SimpleEventBus;
 
-public abstract class AbstractModuleLoader<C extends IsContext>
+public abstract class AbstractModuleLoader<C extends AbstractModuleContext>
     implements IsModuleLoader<C> {
   
   protected C context;

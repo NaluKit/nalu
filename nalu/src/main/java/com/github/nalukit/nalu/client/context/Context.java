@@ -9,7 +9,7 @@ import java.util.Map;
 public class Context {
   
   /* data store */
-  private Map<String, Object> dataStore;
+  private final Map<String, Object> dataStore;
   
   public Context() {
     this.dataStore = new HashMap<>();

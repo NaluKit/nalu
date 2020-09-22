@@ -19,6 +19,7 @@ package com.github.nalukit.nalu.client.internal.module;
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.context.AbstractModuleContext;
+import com.github.nalukit.nalu.client.context.Context;
 import com.github.nalukit.nalu.client.context.IsModuleContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
@@ -34,17 +35,17 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
     implements IsModule<C> {
   
   protected Router          router;
-  protected IsModuleContext applicationContext;
   protected C               moduleContext;
   protected SimpleEventBus  eventBus;
   
   protected AlwaysLoadComposite alwaysLoadComposite;
   
-  public AbstractModule(IsModuleContext applicationContext) {
+  public AbstractModule(Context applicationContext) {
     super();
-    this.applicationContext = applicationContext;
+    this.moduleContext = createModuleContext();
+    this.moduleContext.setApplicationContext(applicationContext);
   }
-  
+
   /**
    * Sets the alwaysLoadComposite flag inside the router
    *
@@ -55,7 +56,7 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
   public void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite) {
     this.alwaysLoadComposite = alwaysLoadComposite;
   }
-  
+
   /**
    * Sets the event bus inside the router
    *
@@ -92,8 +93,6 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
   }
   
   private void setUpContext() {
-    this.moduleContext = createModuleContext();
-    this.moduleContext.setApplicationContext(this.applicationContext.getApplicationContext());
   }
   
   protected abstract void loadShellFactory();

@@ -14,26 +14,22 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.internal.module;
+package com.github.nalukit.nalu.client.internal.application;
 
+import com.github.nalukit.nalu.client.context.AbstractModuleContext;
+import com.github.nalukit.nalu.client.context.Context;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.internal.application.DefaultContext;
-import com.github.nalukit.nalu.client.internal.application.DefaultModuleContext;
-import com.github.nalukit.nalu.client.module.AbstractModuleLoader;
 
 /**
- * Default module loader
- * <p>does nothing</p>
- * <p>Used by the framework</p>
- * <p><b>DO NOT USE THIS CLASS</b></p>
+ * Default context used by the NoApplicationLoader class
+ *
+ * <b>DO NOT USE THIS CLASS</b>
  */
 @NaluInternalUse
-public final class NoModuleLoader
-    extends AbstractModuleLoader<DefaultModuleContext> {
-  
-  @Override
-  public void load(FinishLoadCommand finishLoadCommand) {
-    finishLoadCommand.finishLoading();
+public class DefaultModuleContext
+    extends AbstractModuleContext {
+
+  public DefaultModuleContext() {
+    super();
   }
-  
 }

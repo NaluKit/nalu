@@ -17,7 +17,7 @@
 package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
-import com.github.nalukit.nalu.client.context.IsModuleContext;
+import com.github.nalukit.nalu.client.context.Context;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.internal.module.AbstractModule;
@@ -43,31 +43,31 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class ModuleGenerator {
-  
+
   private final MetaModel metaModel;
-  
+
   private final ProcessingEnvironment processingEnvironment;
-  
+
   private ProcessorUtils processorUtils;
-  
+
   @SuppressWarnings("unused")
   private ModuleGenerator(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.metaModel             = builder.metaModel;
+    this.metaModel = builder.metaModel;
     setUp();
   }
-  
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   public void generate()
       throws ProcessorException {
     // generate code
@@ -83,19 +83,19 @@ public class ModuleGenerator {
                                         .addSuperinterface(this.metaModel.getModuleModel()
                                                                          .getModule()
                                                                          .getTypeName());
-    
+
     // constructor ...
     MethodSpec constructor = MethodSpec.constructorBuilder()
                                        .addModifiers(Modifier.PUBLIC)
-                                       .addParameter(ParameterSpec.builder(ClassName.get(IsModuleContext.class),
+                                       .addParameter(ParameterSpec.builder(ClassName.get(Context.class),
                                                                            "context")
                                                                   .build())
                                        .addStatement("super(context)")
                                        .build();
     typeSpec.addMethod(constructor);
-    
+
     this.generateCreateModuleContext(typeSpec);
-    
+
     this.generateLoadShellFactory(typeSpec);
     this.generateLoadComposites(typeSpec);
     this.generateLoadContollers(typeSpec);
@@ -103,12 +103,12 @@ public class ModuleGenerator {
     this.generateLoadHandlers(typeSpec);
     this.generateLoadPopUpControllers(typeSpec);
     this.generateLoadBlockControllers(typeSpec);
-    
+
     this.generateGetShellConfigs(typeSpec);
     this.generateGetRouteConfigs(typeSpec);
     this.generateGetCompositeReferences(typeSpec);
     this.generateGetLoader(typeSpec);
-    
+
     JavaFile javaFile = JavaFile.builder(this.metaModel.getModuleModel()
                                                        .getModule()
                                                        .getPackage(),
@@ -130,15 +130,15 @@ public class ModuleGenerator {
       //      writer.close();
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
-                                   this.metaModel.getModuleModel()
-                                                 .getModule()
-                                                 .getClassName() +
-                                   ProcessorConstants.MODULE_IMPL +
-                                   "<< -> exception: " +
-                                   e.getMessage());
+                                       this.metaModel.getModuleModel()
+                                                     .getModule()
+                                                     .getClassName() +
+                                       ProcessorConstants.MODULE_IMPL +
+                                       "<< -> exception: " +
+                                       e.getMessage());
     }
   }
-  
+
   private void generateCreateModuleContext(TypeSpec.Builder typeSpec) {
     MethodSpec.Builder createModuleContextMethod = MethodSpec.methodBuilder("createModuleContext")
                                                              .addAnnotation(Override.class)
@@ -158,7 +158,7 @@ public class ModuleGenerator {
                                                                                                        .getSimpleName()));
     typeSpec.addMethod(createModuleContextMethod.build());
   }
-  
+
   private void generateLoadShellFactory(TypeSpec.Builder typeSpec) {
     // generate method 'generateLoadShells()'
     MethodSpec.Builder loadShellFactoryMethodBuilder = MethodSpec.methodBuilder("loadShellFactory")
@@ -171,18 +171,18 @@ public class ModuleGenerator {
                                                                ClassName.get(ShellFactory.class),
                                                                shellModel.getShell()
                                                                          .getPackage() +
-                                                               "." +
-                                                               shellModel.getShell()
-                                                                         .getSimpleName(),
+                                                                   "." +
+                                                                   shellModel.getShell()
+                                                                             .getSimpleName(),
                                                                ClassName.get(shellModel.getShell()
                                                                                        .getPackage(),
                                                                              shellModel.getShell()
                                                                                        .getSimpleName() + ProcessorConstants.CREATOR_IMPL));
-      
+
                   });
     typeSpec.addMethod(loadShellFactoryMethodBuilder.build());
   }
-  
+
   private void generateLoadComposites(TypeSpec.Builder typeSpec) {
     // generate method 'loadCompositeController()'
     MethodSpec.Builder loadCompositesMethodBuilder = MethodSpec.methodBuilder("loadCompositeController")
@@ -193,9 +193,9 @@ public class ModuleGenerator {
                                                ClassName.get(CompositeFactory.class),
                                                compositeModel.getProvider()
                                                              .getPackage() +
-                                               "." +
-                                               compositeModel.getProvider()
-                                                             .getSimpleName(),
+                                                   "." +
+                                                   compositeModel.getProvider()
+                                                                 .getSimpleName(),
                                                ClassName.get(compositeModel.getProvider()
                                                                            .getPackage(),
                                                              compositeModel.getProvider()
@@ -203,7 +203,7 @@ public class ModuleGenerator {
     }
     typeSpec.addMethod(loadCompositesMethodBuilder.build());
   }
-  
+
   private void generateLoadContollers(TypeSpec.Builder typeSpec) {
     // generate method 'loadComponents()'
     MethodSpec.Builder loadComponentsMethodBuilder = MethodSpec.methodBuilder("loadComponents")
@@ -215,14 +215,14 @@ public class ModuleGenerator {
                                                    ClassName.get(ControllerFactory.class),
                                                    controllerModel.getProvider()
                                                                   .getPackage() +
-                                                   "." +
-                                                   controllerModel.getProvider()
-                                                                  .getSimpleName(),
+                                                       "." +
+                                                       controllerModel.getProvider()
+                                                                      .getSimpleName(),
                                                    ClassName.get(controllerModel.getController()
                                                                                 .getPackage(),
                                                                  controllerModel.getController()
                                                                                 .getSimpleName() + ProcessorConstants.CREATOR_IMPL));
-      
+
           if (controllerModel.getComposites()
                              .size() > 0) {
             List<String> generatedConditionClassNames = new ArrayList<>();
@@ -235,14 +235,14 @@ public class ModuleGenerator {
                                                                         ClassName.get(ControllerCompositeConditionFactory.class),
                                                                         controllerModel.getProvider()
                                                                                        .getPackage() +
-                                                                        "." +
-                                                                        controllerModel.getProvider()
-                                                                                       .getSimpleName(),
+                                                                            "." +
+                                                                            controllerModel.getProvider()
+                                                                                           .getSimpleName(),
                                                                         controllerCompositeModel.getComposite()
                                                                                                 .getPackage() +
-                                                                        "." +
-                                                                        controllerCompositeModel.getComposite()
-                                                                                                .getSimpleName());
+                                                                            "." +
+                                                                            controllerCompositeModel.getComposite()
+                                                                                                    .getSimpleName());
                              } else {
                                if (!generatedConditionClassNames.contains(controllerCompositeModel.getCondition()
                                                                                                   .getClassName())) {
@@ -268,14 +268,14 @@ public class ModuleGenerator {
                                                                         ClassName.get(ControllerCompositeConditionFactory.class),
                                                                         controllerModel.getProvider()
                                                                                        .getPackage() +
-                                                                        "." +
-                                                                        controllerModel.getProvider()
-                                                                                       .getSimpleName(),
+                                                                            "." +
+                                                                            controllerModel.getProvider()
+                                                                                           .getSimpleName(),
                                                                         controllerCompositeModel.getComposite()
                                                                                                 .getPackage() +
-                                                                        "." +
-                                                                        controllerCompositeModel.getComposite()
-                                                                                                .getSimpleName(),
+                                                                            "." +
+                                                                            controllerCompositeModel.getComposite()
+                                                                                                    .getSimpleName(),
                                                                         this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
                                                                                                                                   .getSimpleName()));
                              }
@@ -284,7 +284,7 @@ public class ModuleGenerator {
         });
     typeSpec.addMethod(loadComponentsMethodBuilder.build());
   }
-  
+
   private void generateLoadFilters(TypeSpec.Builder typeSpec) {
     // method must always be created!
     MethodSpec.Builder loadFiltersMethod = MethodSpec.methodBuilder("loadFilters")
@@ -293,7 +293,7 @@ public class ModuleGenerator {
                                                      .addParameter(ParameterSpec.builder(ClassName.get(RouterConfiguration.class),
                                                                                          "routerConfiguration")
                                                                                 .build());
-    
+
     this.metaModel.getFilters()
                   .forEach(classNameModel -> loadFiltersMethod.addStatement("$T $L = new $T()",
                                                                             ClassName.get(classNameModel.getPackage(),
@@ -305,16 +305,16 @@ public class ModuleGenerator {
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName()))
                                                               .addStatement("routerConfiguration.getFilters().add($L)",
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName())));
-    
+
     typeSpec.addMethod(loadFiltersMethod.build());
   }
-  
+
   private void generateLoadHandlers(TypeSpec.Builder typeSpec) {
     // method must always be created!
     MethodSpec.Builder loadHandlersMethod = MethodSpec.methodBuilder("loadHandlers")
                                                       .addAnnotation(Override.class)
                                                       .addModifiers(Modifier.PUBLIC);
-    
+
     this.metaModel.getHandlers()
                   .forEach(handler -> {
                     String variableName = this.processorUtils.createFullClassName(handler.getPackage(),
@@ -334,10 +334,10 @@ public class ModuleGenerator {
                                       .addStatement("$L.bind()",
                                                     variableName);
                   });
-  
+
     typeSpec.addMethod(loadHandlersMethod.build());
   }
-  
+
   private void generateLoadPopUpControllers(TypeSpec.Builder typeSpec) {
     // method must always be created!
     MethodSpec.Builder loadPopUpControllersMethod = MethodSpec.methodBuilder("loadPopUpControllers")
@@ -353,7 +353,7 @@ public class ModuleGenerator {
                                                                                                                              .getSimpleName() + ProcessorConstants.CREATOR_IMPL)));
     typeSpec.addMethod(loadPopUpControllersMethod.build());
   }
-  
+
   private void generateLoadBlockControllers(TypeSpec.Builder typeSpec) {
     // method must always be created!
     MethodSpec.Builder loadBlockControllersMethod = MethodSpec.methodBuilder("loadBlockControllers")
@@ -369,7 +369,7 @@ public class ModuleGenerator {
                                                                                                                              .getSimpleName() + ProcessorConstants.CREATOR_IMPL)));
     typeSpec.addMethod(loadBlockControllersMethod.build());
   }
-  
+
   private void generateGetShellConfigs(TypeSpec.Builder typeSpec) {
     // generate method 'generateLoadShells()'
     MethodSpec.Builder loadShellConfigMethodBuilder = MethodSpec.methodBuilder("getShellConfigs")
@@ -390,7 +390,7 @@ public class ModuleGenerator {
     loadShellConfigMethodBuilder.addStatement("return list");
     typeSpec.addMethod(loadShellConfigMethodBuilder.build());
   }
-  
+
   private void generateGetRouteConfigs(TypeSpec.Builder typeSpec) {
     // generate method 'generateLoadShells()'
     MethodSpec.Builder loadRouteConfigMethodBuilder = MethodSpec.methodBuilder("getRouteConfigs")
@@ -415,7 +415,7 @@ public class ModuleGenerator {
     loadRouteConfigMethodBuilder.addStatement("return list");
     typeSpec.addMethod(loadRouteConfigMethodBuilder.build());
   }
-  
+
   private void generateGetCompositeReferences(TypeSpec.Builder typeSpec) {
     MethodSpec.Builder getCompositeReferencesMethod = MethodSpec.methodBuilder("getCompositeReferences")
                                                                 .addModifiers(Modifier.PUBLIC)
@@ -440,7 +440,7 @@ public class ModuleGenerator {
     getCompositeReferencesMethod.addStatement("return list");
     typeSpec.addMethod(getCompositeReferencesMethod.build());
   }
-  
+
   private void generateGetLoader(TypeSpec.Builder typeSpec) {
     MethodSpec.Builder getLoaderMethod = MethodSpec.methodBuilder("createModuleLoader")
                                                    .addModifiers(Modifier.PUBLIC)
@@ -458,19 +458,27 @@ public class ModuleGenerator {
                        .getModuleLoader()
                        .getPackage()
                        .equals(NoModuleLoader.class.getSimpleName())) {
-      getLoaderMethod.addStatement("return new $T()",
+      getLoaderMethod.addStatement("$T loader = new $T()",
                                    ClassName.get(this.metaModel.getModuleModel()
                                                                .getModuleLoader()
                                                                .getPackage(),
                                                  this.metaModel.getModuleModel()
                                                                .getModuleLoader()
-                                                               .getSimpleName()));
+                                                               .getSimpleName()),
+                                   ClassName.get(this.metaModel.getModuleModel()
+                                                               .getModuleLoader()
+                                                               .getPackage(),
+                                                 this.metaModel.getModuleModel()
+                                                               .getModuleLoader()
+                                                               .getSimpleName()))
+                     .addStatement("loader.setContext(super.moduleContext)")
+                     .addStatement("return loader");
     } else {
       getLoaderMethod.addStatement("return null");
     }
     typeSpec.addMethod(getLoaderMethod.build());
   }
-  
+
   private List<ControllerModel> getAllComponents(List<ControllerModel> routes) {
     List<ControllerModel> models = new ArrayList<>();
     routes.forEach(route -> {
@@ -481,13 +489,13 @@ public class ModuleGenerator {
     });
     return models;
   }
-  
+
   private String setFirstCharacterToLowerCase(String className) {
     return className.substring(0,
                                1)
                     .toLowerCase() + className.substring(1);
   }
-  
+
   private String createRoute(String route) {
     if (route.startsWith("/")) {
       return route;
@@ -495,7 +503,7 @@ public class ModuleGenerator {
       return "/" + route;
     }
   }
-  
+
   private String createParaemter(List<String> parameters) {
     StringBuilder sb = new StringBuilder();
     IntStream.range(0,
@@ -510,20 +518,20 @@ public class ModuleGenerator {
              });
     return sb.toString();
   }
-  
+
   private boolean contains(List<ControllerModel> models,
                            ControllerModel controllerModel) {
     return models.stream()
                  .anyMatch(model -> model.getProvider()
                                          .equals(controllerModel.getProvider()));
   }
-  
+
   public static final class Builder {
-    
+
     MetaModel metaModel;
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -534,16 +542,16 @@ public class ModuleGenerator {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public ModuleGenerator build() {
       return new ModuleGenerator(this);
     }
-    
+
   }
-  
+
 }

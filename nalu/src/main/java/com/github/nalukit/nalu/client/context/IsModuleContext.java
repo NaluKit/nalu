@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.client.context;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 /**
  * Marks a class as Nalu application context used inside a multi module project.
  * <p>
@@ -31,5 +33,17 @@ public interface IsModuleContext
    * @return application context
    */
   Context getApplicationContext();
-  
+
+  /**
+   * Sets the application context.
+   *
+   * <b>DO NOT USE IT. THIS METHOD IS USED BY
+   * THE FRAMEWORK AND USING IT MIGHT LEAD TO
+   * UNEXPECTED RESULTS!</b>
+   *
+   * @param applicationContext context of the parent module
+   */
+  @NaluInternalUse
+  void setApplicationContext(Context applicationContext);
+
 }

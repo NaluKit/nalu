@@ -15,6 +15,7 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
+import com.github.nalukit.nalu.client.context.AbstractModuleContext;
 import com.github.nalukit.nalu.client.module.IsModuleLoader;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.model.MetaModel;
@@ -69,7 +70,7 @@ public class ModulesGenerator {
                           ClassNameModel contextModel,
                           ClassNameModel moduleModel) {
     String moduleImplVariableName = this.createPackageName(moduleModel.getPackage()) + "_" + moduleModel.getSimpleName() + ProcessorConstants.MODULE_IMPL;
-    loadModuleMethodBuilder.addStatement("$T $L = new $T(super.context)",
+    loadModuleMethodBuilder.addStatement("$T $L = new $T(super.context.getApplicationContext())",
                                          ClassName.get(moduleModel.getPackage(),
                                                        moduleModel.getSimpleName() + ProcessorConstants.MODULE_IMPL),
                                          moduleImplVariableName,
@@ -78,12 +79,17 @@ public class ModulesGenerator {
     loadModuleMethodBuilder.addStatement("this.router.addModule($L)",
                                          moduleImplVariableName);
     String moduleLoaderVariableName = this.createPackageName(moduleModel.getPackage()) + "_" + moduleModel.getSimpleName() + ProcessorConstants.LOADER_IMPL;
-    loadModuleMethodBuilder.addStatement("$T<$T> $L = $L.createModuleLoader()",
+    loadModuleMethodBuilder.addStatement("$T<? extends $T> $L = $L.createModuleLoader()",
                                          ClassName.get(IsModuleLoader.class),
-                                         ClassName.get(contextModel.getPackage(),
-                                                       contextModel.getSimpleName()),
+                                         ClassName.get(AbstractModuleContext.class),
                                          moduleLoaderVariableName,
                                          moduleImplVariableName);
+//    loadModuleMethodBuilder.addStatement("$T<$T> $L = $L.createModuleLoader()",
+//                                         ClassName.get(IsModuleLoader.class),
+//                                         ClassName.get(contextModel.getPackage(),
+//                                                       contextModel.getSimpleName()),
+//                                         moduleLoaderVariableName,
+//                                         moduleImplVariableName);
     loadModuleMethodBuilder.beginControlFlow("if ($L == null)",
                                              moduleLoaderVariableName)
                            .addStatement("this.handleSuccess()")
@@ -92,8 +98,8 @@ public class ModulesGenerator {
                                          moduleLoaderVariableName)
                            .addStatement("$L.setEventBus(super.eventBus)",
                                          moduleLoaderVariableName)
-                           .addStatement("$L.setContext(super.context)",
-                                         moduleLoaderVariableName)
+//                           .addStatement("$L.setContext(super.context)",
+//                                         moduleLoaderVariableName)
                            .addStatement("$L.load(() -> this.handleSuccess())",
                                          moduleLoaderVariableName)
                            .endControlFlow();

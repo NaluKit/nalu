@@ -579,7 +579,7 @@ abstract class AbstractRouter
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
-  
+
   /**
    * Add a module to the application.
    * <p>

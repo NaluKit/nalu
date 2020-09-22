@@ -1,7 +1,5 @@
 package com.github.nalukit.nalu.client.context;
 
-import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-
 /**
  * <p>
  * Abstract context base class to use inside modules.
@@ -11,17 +9,17 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
  */
 public abstract class AbstractModuleContext
     implements IsModuleContext {
-  
+
   /* context - available in main- and sub-modules */
   private Context applicationContext;
   /* context - not manged by Nalu */
   private Context context;
-  
+
   public AbstractModuleContext() {
     this.applicationContext = new Context();
-    this.context            = new Context();
+    this.context = new Context();
   }
-  
+
   /**
    * Gets the application context
    *
@@ -31,17 +29,21 @@ public abstract class AbstractModuleContext
   public Context getApplicationContext() {
     return this.applicationContext;
   }
-  
+
   /**
-   * Sets the application context
+   * Sets the application context.
    *
-   * @param context application context
+   * <b>DO NOT USE IT. THIS METHOD IS USED BY
+   * THE FRAMEWORK AND USING IT MIGHT LEAD TO
+   * UNEXPECTED RESULTS!</b>
+   *
+   * @param applicationContext context of the parent module
    */
-  @NaluInternalUse
-  public final void setApplicationContext(Context context) {
-    this.applicationContext = context;
+  @Override
+  public void setApplicationContext(Context applicationContext) {
+    this.applicationContext = applicationContext;
   }
-  
+
   /**
    * Gets the local, not by Nalu managed, context
    *
@@ -50,5 +52,5 @@ public abstract class AbstractModuleContext
   public Context getContext() {
     return context;
   }
-  
+
 }
