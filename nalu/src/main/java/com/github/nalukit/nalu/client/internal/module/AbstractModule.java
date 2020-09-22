@@ -93,7 +93,7 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
   
   private void setUpContext() {
     this.moduleContext = createModuleContext();
-    this.moduleContext.setApplicationContext(this.applicationContext.getContext());
+    this.moduleContext.setApplicationContext(this.applicationContext.getApplicationContext());
   }
   
   protected abstract void loadShellFactory();

@@ -30,6 +30,6 @@ public interface IsModuleContext
    *
    * @return application context
    */
-  GlobalContext getContext();
+  Context getApplicationContext();
   
 }

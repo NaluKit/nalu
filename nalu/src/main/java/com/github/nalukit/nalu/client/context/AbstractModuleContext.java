@@ -13,10 +13,13 @@ public abstract class AbstractModuleContext
     implements IsModuleContext {
   
   /* context - available in main- and sub-modules */
-  private GlobalContext globalContext;
+  private Context applicationContext;
+  /* context - not manged by Nalu */
+  private Context context;
   
   public AbstractModuleContext() {
-    this.globalContext = new GlobalContext();
+    this.applicationContext = new Context();
+    this.context            = new Context();
   }
   
   /**
@@ -25,18 +28,27 @@ public abstract class AbstractModuleContext
    * @return application context
    */
   @Override
-  public GlobalContext getContext() {
-    return this.globalContext;
+  public Context getApplicationContext() {
+    return this.applicationContext;
   }
   
   /**
    * Sets the application context
    *
-   * @param globalContext application context
+   * @param context application context
    */
   @NaluInternalUse
-  public final void setApplicationContext(GlobalContext globalContext) {
-    this.globalContext = globalContext;
+  public final void setApplicationContext(Context context) {
+    this.applicationContext = context;
+  }
+  
+  /**
+   * Gets the local, not by Nalu managed, context
+   *
+   * @return local context
+   */
+  public Context getContext() {
+    return context;
   }
   
 }
