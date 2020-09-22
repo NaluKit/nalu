@@ -80,3 +80,67 @@ this.eventBus.adddHandler(NaluApplicationEvent.TYPE,
 **Note: Keep in mind, that you have to cast the stored object to the right type before using it.**
 
 **Important Note: When working with `NaluApplicationEvent`-class, you need to check the event type before handling the event, cause this event will be used for all events!**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Multi Module Implementation
+Inside a multi module application you need a different implementation of the context. (See the Module wiki page for more information). One motivation for the choosen implementation is to avoid a common project which contains the context class. You can reuse the context class, but you do not have to. This will improve the reuse of child modules in Nalu.
+
+In a multi module application you need to define a context, taht extends the 'AbstractModuleContext'-class.
+
+### MainContext
+To define a 'MainContext' for the root application you need to extend the `AbstractMainContext`-class. The `AbstractMainContext`-class uses a data store (implemented as Map) to store the application data.
+
+Here an example of a multi module context:
+To access the data store, the `AbstractMainContext`-class provides a `getContext`-method. The above example of the implementation of a single module context will look like that:
+```Java
+public class MyApplicationContext
+  extends AbstractMainContext {
+  
+  private final static String ATTRIBUTE_KEY = "attribute";
+  
+  /* only visible inside the main module */
+  private MyDataObject myDataObject;
+  
+  public MyApplicationContext() {
+  }
+  
+  public String getAttribute() {
+    return (String) this.getContext().get(MyApplicationContext.ATTRIBUTE_KEY);
+  }
+  
+  public void setAttribute(String attribute) {
+    this.getContext().put(MyApplicationContext.ATTRIBUTE_KEY, attribute);
+  }
+  
+  public MyDataObject getMyDataObject() {
+    return this.myDataObject;
+  }
+  
+  public void setMyDataObject(MyDataObject myDataObject) {
+    this.myDataObject = myDataObject;
+  }
+}
+```
+Of course you can save the code for the getter- and setter-methods and access directly the map:
+```java_holder_method_tree
+String attribute = (String) myApplicationContext.getContext().get(MyApplicationContext.ATTRIBUTE_KEY);
+```
+every where in your module, but in this case you need to do a cast every time you access the variable!
+
+### Note
+This implementation might look a little bit boiler-plated, but it helps you to avoid a common project where all modules and the main module depend on!
