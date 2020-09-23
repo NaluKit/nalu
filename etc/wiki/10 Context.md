@@ -1,21 +1,21 @@
 # Application Context
 Inside a Nalu application the context is the store of all shared application information.
 
-The context will be instantiated by the framework and **can not be overriden or set by the application** with another instance!  
-It is injected in every controller, filter, handler and the loader. All controllers, handlers, filters and the loader will have access to the same instance.
+The context will be instantiated by the framework and **can not be overriden or set by the developer implementation** with another instance!  
+It is injected in every controller, filter, handler, module and loader. All controllers, handlers, filters, module and the loader will have access to the same instance.
 
-This is a good place to store information that should be application wide available.
+This is a good place to store information that should be available application wide.
 
 The context is a required attribute of the `@Application`- and (in case of a multi module project) `@Module`-annotation.
 
 There are two different ways of implementing the context depending of the type of the Nalu application:
 
-* a single module project
+* a single module implementation
 
-* a multi module project
+* a multi module implementation
 
 ## Single Module Implementation
-Inside a single module application you can use any Pojo you like. You only need to add the `IsContext`-interface. The simplest implementation of a context looks like that:
+Inside a single module implementation you can use any POJO you like. You only need to add the `IsContext`-interface. The simplest implementation of a context looks like that:
 
 ```java
 public class MyApplicationContext
@@ -46,9 +46,9 @@ interface MyApplication
 }
 ```
 
-In case you plan to add modules in the future, you should consider the use of the `AbstractMainContext`-class.
+In case you plan to add modules in the future, you should consider the use of the `AbstractModuleContext`-class.
 
 See **Multi Module Implementation** for more information.
 
 ## Multi Module Implementation
-Inside a multi module application you need a different implementation of the context. (See the [Module wiki page](https://github.com/NaluKit/nalu/wiki/15.-Multi-Module-Project) for more information).
+Inside a multi module implementation you need a different kind of the context. (See the [Module wiki page](https://github.com/NaluKit/nalu/wiki/15.-Multi-Module-Project) for more information).
