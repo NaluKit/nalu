@@ -11,13 +11,13 @@ public abstract class AbstractModuleContext
     implements IsModuleContext {
 
   /* context - available in main- and sub-modules */
-  private Context applicationContext;
+  private ContextDataStore applicationContext;
   /* context - not manged by Nalu */
-  private Context context;
+  private ContextDataStore context;
 
   public AbstractModuleContext() {
-    this.applicationContext = new Context();
-    this.context = new Context();
+    this.applicationContext = new ContextDataStore();
+    this.context = new ContextDataStore();
   }
 
   /**
@@ -26,7 +26,7 @@ public abstract class AbstractModuleContext
    * @return application context
    */
   @Override
-  public Context getApplicationContext() {
+  public ContextDataStore getApplicationContext() {
     return this.applicationContext;
   }
 
@@ -40,7 +40,7 @@ public abstract class AbstractModuleContext
    * @param applicationContext context of the parent module
    */
   @Override
-  public void setApplicationContext(Context applicationContext) {
+  public void setApplicationContext(ContextDataStore applicationContext) {
     this.applicationContext = applicationContext;
   }
 
@@ -49,7 +49,7 @@ public abstract class AbstractModuleContext
    *
    * @return local context
    */
-  public Context getContext() {
+  public ContextDataStore getContext() {
     return context;
   }
 

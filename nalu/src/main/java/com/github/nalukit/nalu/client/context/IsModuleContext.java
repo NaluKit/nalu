@@ -32,7 +32,7 @@ public interface IsModuleContext
    *
    * @return application context
    */
-  Context getApplicationContext();
+  ContextDataStore getApplicationContext();
 
   /**
    * Sets the application context.
@@ -44,6 +44,6 @@ public interface IsModuleContext
    * @param applicationContext context of the parent module
    */
   @NaluInternalUse
-  void setApplicationContext(Context applicationContext);
+  void setApplicationContext(ContextDataStore applicationContext);
 
 }

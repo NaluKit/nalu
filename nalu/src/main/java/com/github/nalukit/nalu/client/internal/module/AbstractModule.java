@@ -19,8 +19,7 @@ package com.github.nalukit.nalu.client.internal.module;
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.context.AbstractModuleContext;
-import com.github.nalukit.nalu.client.context.Context;
-import com.github.nalukit.nalu.client.context.IsModuleContext;
+import com.github.nalukit.nalu.client.context.ContextDataStore;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.module.IsModule;
@@ -40,7 +39,7 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
   
   protected AlwaysLoadComposite alwaysLoadComposite;
   
-  public AbstractModule(Context applicationContext) {
+  public AbstractModule(ContextDataStore applicationContext) {
     super();
     this.moduleContext = createModuleContext();
     this.moduleContext.setApplicationContext(applicationContext);

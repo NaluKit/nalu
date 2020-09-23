@@ -17,7 +17,7 @@
 package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
-import com.github.nalukit.nalu.client.context.Context;
+import com.github.nalukit.nalu.client.context.ContextDataStore;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.internal.module.AbstractModule;
@@ -87,7 +87,7 @@ public class ModuleGenerator {
     // constructor ...
     MethodSpec constructor = MethodSpec.constructorBuilder()
                                        .addModifiers(Modifier.PUBLIC)
-                                       .addParameter(ParameterSpec.builder(ClassName.get(Context.class),
+                                       .addParameter(ParameterSpec.builder(ClassName.get(ContextDataStore.class),
                                                                            "context")
                                                                   .build())
                                        .addStatement("super(context)")

@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.context.AbstractModuleContext;
-import com.github.nalukit.nalu.client.context.Context;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 /**
