@@ -88,9 +88,9 @@ public class ModuleGenerator {
     MethodSpec constructor = MethodSpec.constructorBuilder()
                                        .addModifiers(Modifier.PUBLIC)
                                        .addParameter(ParameterSpec.builder(ClassName.get(ContextDataStore.class),
-                                                                           "context")
+                                                                           "contextDataStore")
                                                                   .build())
-                                       .addStatement("super(context)")
+                                       .addStatement("super(contextDataStore)")
                                        .build();
     typeSpec.addMethod(constructor);
 
