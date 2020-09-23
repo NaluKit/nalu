@@ -230,29 +230,26 @@ public class MyApplicationContext
 
 ### Note
 This implementation might look a little bit boiler-plated, but it helps you to avoid a common project where all modules and the main module depend on!
-
+```java
   private String localAttribute;
-
+  
   public MyApplicationContext() {
   }
-
+  
   public String getAttribute() {
     return (String) this.getContext().get(MyApplicationContext.ATTRIBUTE_KEY);
   }
-
+  
   public void setAttribute(String attribute) {
     this.getContext().put(MyApplicationContext.ATTRIBUTE_KEY, attribute);
   }
-
+  
   public String getLocalAttribute() {
     return this.localAttribute;
   }
-
+  
   public void setLocalAttribute(String localAttribute) {
     this.localAttribute = localAttribute;
   }
 }
 ```
-
-### Note
-This implementation might look a little bit boiler-plated, but it helps you to avoid a common project where all modules and the main module depend on!
