@@ -489,7 +489,7 @@ This implementation might look a little bit boiler-plated, but it helps you to a
 There are several ways to set up a Nalu multi module project.
 
 ### Thomas Broyer GWT Architype
-In case your project is based on the [Thomas Broyer GWT Maven Archetype](https://github.com/tbroyer/gwt-maven-archetypes) it is quite easy to work with Nalu modules. Use the **shared**-module as copy base for your modules and add them as source projects to your **client**-module.
+In case your project is based on the [Thomas Broyer GWT Maven Archetype](https://github.com/tbroyer/gwt-maven-archetypes) it is quite easy to work with Nalu modules. Use the **shared**-module as copy base for your new module and add it as source project to your **client**-module pom (similar to the **shared**-module).
 
 Keep in mind, that your package inside the modules should be the same as the one inside the **client**-module.
 
@@ -502,47 +502,3 @@ For example:
 Keep in mind, you need to add: **<source path='module'/>** to your module descriptor.
 
 Using this set up, you can edit sources inside your module. Reloading the browser will recompile this sources too!
-
-
-```java
-  private String localAttribute;
-  
-  public MyApplicationContext() {
-  }
-  
-  public String getAttribute() {
-    return (String) this.getContext().get(MyApplicationContext.ATTRIBUTE_KEY);
-  }
-  
-  public void setAttribute(String attribute) {
-    this.getContext().put(MyApplicationContext.ATTRIBUTE_KEY, attribute);
-  }
-  
-  public String getLocalAttribute() {
-    return this.localAttribute;
-  }
-  
-  public void setLocalAttribute(String localAttribute) {
-    this.localAttribute = localAttribute;
-  }
-}
-```
-
-## Set Up a Multi Module Project
-There are several ways to set up a Nalu multi module project.
-
-### Thomas Broyer GWT Architype
-In case your project is based on the [Thomas Broyer GWT Maven Archetype](https://github.com/tbroyer/gwt-maven-archetypes) it is quite easy to work with Nalu modules. Use the **shared**-module as copy base for your new module and add it as source project to your **client**-module pom (similar hte **shared**-module).
-
-Keep in mind, that your package inside the modules should be the same as the one inside the **client**-module.
-
-For example:
-
-* **client**-module-package: `com.github.nalukit.app.client`
-* **shared**-module-package: `com.github.nalukit.app.shared`
-* **modules**-module-package: `com.github.nalukit.app.module`
-
-Keep in mind, you need to add: **<source path='module'/>** to your module descriptor.
-
-Using this set up, you can edit sources inside your module. Reloading the browser will recompile this sources too!
-
