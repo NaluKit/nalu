@@ -532,7 +532,7 @@ Using this set up, you can edit sources inside your module. Reloading the browse
 There are several ways to set up a Nalu multi module project.
 
 ### Thomas Broyer GWT Architype
-In case your project is based on the [Thomas Broyer GWT Maven Archetype](https://github.com/tbroyer/gwt-maven-archetypes) it is quite easy to work with Nalu modules. Use the **shared**-module as copy base for your modules and add them as source projects to your **client**-module.
+In case your project is based on the [Thomas Broyer GWT Maven Archetype](https://github.com/tbroyer/gwt-maven-archetypes) it is quite easy to work with Nalu modules. Use the **shared**-module as copy base for your new module and add it as source project to your **client**-module pom (similar hte **shared**-module).
 
 Keep in mind, that your package inside the modules should be the same as the one inside the **client**-module.
 
