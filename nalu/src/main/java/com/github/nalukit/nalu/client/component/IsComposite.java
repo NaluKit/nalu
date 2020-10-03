@@ -115,13 +115,4 @@ public interface IsComposite<W> {
    */
   void stop();
   
-  /**
-   * Removes all composite from the DOM by calling
-   * the remove method of the composite component!
-   *
-   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
-   */
-  @NaluInternalUse
-  void remove();
-  
 }

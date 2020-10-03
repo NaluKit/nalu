@@ -49,7 +49,6 @@ public class Utils {
     if (!compositeController.isCached()) {
       compositeController.stop();
     }
-    compositeController.remove();
     compositeController.onDetach();
     compositeController.getComponent()
                        .onDetach();

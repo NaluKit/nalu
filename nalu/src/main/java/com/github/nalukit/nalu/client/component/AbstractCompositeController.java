@@ -161,17 +161,6 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   }
   
   /**
-   * Removes all composite from the DOM by calling
-   * the remove method of the composite component!
-   *
-   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
-   */
-  @Override
-  public void remove() {
-    this.component.remove();
-  }
-  
-  /**
    * Get the component
    *
    * @return the component of the controller

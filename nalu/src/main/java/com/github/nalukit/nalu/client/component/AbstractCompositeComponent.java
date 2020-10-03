@@ -20,10 +20,4 @@ public abstract class AbstractCompositeComponent<C extends IsComponent.Controlle
     extends AbstractComponent<C, W>
     implements IsCompositeComponent<C, W> {
   
-  @Override
-  public void remove() {
-    // In case you have to remove something on screen change
-    // this is a good place to do so!
-  }
-  
 }
