@@ -66,13 +66,11 @@
   </issueManagement>
 
   <dependencies>
-    <!-- gwt-events: once it is on maven central, use it!
     <dependency>
       <groupId>org.gwtproject.event</groupId>
       <artifactId>gwt-event</artifactId>
-      <version>${gwt-events.version}</version>
+      <version>${gwt-event.version}</version>
     </dependency>
-    -->
 
     <!-- only for testing -->
     <dependency>
