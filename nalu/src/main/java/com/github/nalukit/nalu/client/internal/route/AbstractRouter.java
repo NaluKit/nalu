@@ -465,7 +465,7 @@ abstract class AbstractRouter
     if (replaceShell) {
       controllerList.addAll(this.activeComponents.values()
                                                  .stream()
-                                                 .map(ci -> ci.getController())
+                                                 .map(ControllerInstance::getController)
                                                  .collect(Collectors.toList()));
     } else {
       controllerList.addAll(routeConfigurations.stream()
