@@ -20,7 +20,6 @@ import com.github.nalukit.nalu.client.application.IsClientLogger;
 import com.github.nalukit.nalu.client.application.IsLogger;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.context.IsContext;
-import com.github.nalukit.nalu.client.internal.NoCustomLogger;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.SimpleEventBus;
 
