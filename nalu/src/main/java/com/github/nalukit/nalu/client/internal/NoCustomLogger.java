@@ -19,8 +19,6 @@ package com.github.nalukit.nalu.client.internal;
 import com.github.nalukit.nalu.client.application.AbstractLogger;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
-import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.ConfirmHandler;
 
 import java.util.List;
 

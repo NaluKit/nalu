@@ -26,7 +26,7 @@ public class LogEvent
    * Adds a message to the list of messages.
    *
    * @param message the message to add
-   * @return instnace fo this event
+   * @return instance of this event
    */
   public LogEvent addMessage(String message) {
     this.messages.add(message);
@@ -44,7 +44,7 @@ public class LogEvent
    * Default is <b>true</b>.
    *
    * @param sdmOnly defines if the message is only logged in SDM or not
-   * @return instnace fo this event
+   * @return instance of this event
    */
   public LogEvent sdmOnly(boolean sdmOnly) {
     this.sdmOnly = sdmOnly;

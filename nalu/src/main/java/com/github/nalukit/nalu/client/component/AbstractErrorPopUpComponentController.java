@@ -49,7 +49,7 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
    * Sets the component inside the controller
    * <b>Do not use this method. This will lead to unexpected results</b>
    *
-   * @param component instance fo the component
+   * @param component instance of the component
    */
   @Override
   public void setComponent(V component) {

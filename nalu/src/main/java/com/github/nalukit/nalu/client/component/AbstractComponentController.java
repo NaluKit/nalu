@@ -140,7 +140,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * Sets the component inside the controller
    * <b>Do not use this method. This will lead to unexpected results</b>
    *
-   * @param component instance fo the component
+   * @param component instance of the component
    */
   @Override
   @NaluInternalUse
