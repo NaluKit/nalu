@@ -33,7 +33,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   protected V                                                 component;
   /* list of registered handlers */
   protected HandlerRegistrations                              handlerRegistrations = new HandlerRegistrations();
-  /* list fo composite controllers */
+  /* list of composite controllers */
   private   Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
   /* the route the controller is related to */
   private   String                                            relatedRoute;
@@ -138,7 +138,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * Sets the component inside the controller
    * <b>Do not use this method. This will lead to unexpected results</b>
    *
-   * @param component instance fo the component
+   * @param component instance of the component
    */
   @Override
   @NaluInternalUse

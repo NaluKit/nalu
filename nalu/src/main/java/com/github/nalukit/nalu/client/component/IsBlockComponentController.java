@@ -25,7 +25,7 @@ public interface IsBlockComponentController<V> {
   void setComponent(V component);
   
   /**
-   * gets the name of teh block controller
+   * gets the name of the block controller
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    *

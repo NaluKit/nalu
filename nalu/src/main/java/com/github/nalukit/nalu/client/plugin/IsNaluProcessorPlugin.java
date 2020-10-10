@@ -26,7 +26,7 @@ public interface IsNaluProcessorPlugin {
    * Display an alert message.
    * <p>
    * Note:<br>
-   * apllication flow needs to stop after calling this method.
+   * application flow needs to stop after calling this method.
    * </p>
    *
    * @param message message to display
