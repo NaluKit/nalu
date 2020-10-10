@@ -148,7 +148,7 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadCompositeController();
     // load the controllers of the application
     this.loadComponents();
-    // load the handlers fo the application
+    // load the handlers of the application
     this.loadHandlers();
     // validate
     if (!RouteValidation.validateStartRoute(this.shellConfiguration,

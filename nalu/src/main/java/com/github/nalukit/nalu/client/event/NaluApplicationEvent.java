@@ -16,7 +16,7 @@ import java.util.Map;
  * <p>
  * The store will save the parameters as objects. It is the
  * responsibility of the developer to cast the parameters to the
- * correct class when reading teh parameters.
+ * correct class when reading the parameters.
  */
 public class NaluApplicationEvent
     extends Event<NaluApplicationEvent.NaluApplicationEventHandler> {

@@ -49,7 +49,7 @@ public @interface Application {
   
   /**
    * the application loader of the application. Will be executed in case the
-   * application is started. This is a good place to load apllication data.
+   * application is started. This is a good place to load application data.
    * F.e.: Meta-data, store values, etc.
    * <br>
    * The application loader is optional.
