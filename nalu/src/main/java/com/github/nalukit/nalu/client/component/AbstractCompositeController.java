@@ -27,8 +27,10 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   
   /* component of the controller */
   protected V                    component;
+  /* list of registered global handlers */
+  protected HandlerRegistrations globalHandlerRegistrations = new HandlerRegistrations();
   /* list of registered handlers */
-  protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
+  protected HandlerRegistrations handlerRegistrations       = new HandlerRegistrations();
   /* component of the controller */
   private   String               parentClassName;
   /* flag, if the controller is cached or not */
@@ -96,6 +98,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
+  @NaluInternalUse
   @Override
   public final void onDetach() {
     component.onDetach();
@@ -112,6 +115,20 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
+  @NaluInternalUse
+  @Override
+  public final void removeGlobalHandlers() {
+    this.globalHandlerRegistrations.removeHandler();
+    this.globalHandlerRegistrations = new HandlerRegistrations();
+  }
+  
+  /**
+   * internal framework method! Will be called by the framework after the
+   * deactivate-method of the controller is called
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   */
+  @NaluInternalUse
   @Override
   public final void removeHandlers() {
     this.handlerRegistrations.removeHandler();

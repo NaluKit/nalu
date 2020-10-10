@@ -157,177 +157,70 @@ Nalu will call the `bind` method before the component is created. This is an int
 A controller has access to the application event bus. Nalu uses the classes of the module `org.gwtproject.events`. This artifact is ready for GWT 3/J2CL and works similar like the event bus from GWT. You can add handler to the event bus and fire events. A good place to register a handler on the event bus is the `bind`-method or `start` method.
 
 #### Handler Management
-Nalu supports automatic handler removing.
+Nalu supports an automatic handler removing.
 
-In case the controller adds a handler to the event bus, add the `HandlerRegistration` to the controller handler registration list. Once the controller is stopped, all handlers will be removed from the event bus. Use the `active`-method to add a handler. Nalu will remove the handlers in case of a deactivation of the controller. So, in case the controller is cached the handlers will be removed and once the cached controller gets active, the `activate`-method gets called again.
+There are three types of handler registrations managment Nalu supports:
 
-```Java
-@Override
- public void active() {
-   // add the handler registration to the HandlerRegistrations class of this controller
-   // Doing that will help that once the controller gets stops all handler registrations
-   // will be removed!
+1. handler registrations inside a component (f.e.: ClickHandlers, etc.)
+2. handler registrations inside a ComponntController or CompositeController
+3. global handler registrations inside a ComponntController or CompositeController
+
+Depending on the type of the handler registration you are using, the handler will be removed at different times.
+
+##### Handler Registrations inside a Component
+Inside a component, you can add a `HandlerRegistration` like this:
+
+```java_holder_method_tree
+   this.handlerRegistrations.add(this.myWidget.addClickHandler(e -> doSomething()));
+```
+
+After the `stop`-method of the associated controller gets called, all added handler registrations will be removed. This behavior is the same for normal components and composite components.
+
+##### Handler Registrations inside a ComponntController or CompositeController
+Inside a ComponntController or CompositeController, you can add a `HandlerRegistration` like this:
+
+```java_holder_method_tree
    this.handlerRegistrations.add(this.eventBus.addHandler(MyEvent.TYPE,
-                                                          e -> doSomething())));
- }
- ```
-
-#
-# Controllers and Components
-Nalu mainly helps you to define three types of elements:
-
-* Handler (a class, without visual components see [Handler](https://github.com/NaluKit/nalu/wiki/13.-Handler))
-* Controller
-* Components
-
-This page will show you how to build Controllers and Components.
-
-If you are familiar with the MVP pattern:
-In Nalu a controller can be compared with the presenter and the component with the view of the MVP pattern.
-
-Nalu requires to use the view delegate pattern.
-
-## Controller
-A visual part in Nalu will always be a combination of a controller and a component. The Controller will load data, fire events, handle events and routes to other controllers. A Controller should never contain classes and interfaces of a widget library.
-
-### Defining a Controller
-To create a controller, you have to:
-
-* extend AbstractComponentController<C, V, W>
-   - C: type of the context
-   - V: type of the view (interface) that will be injected in the controller
-   - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
-
-By extending AbstractComponentController you will have access to the allowing instances:
-
-* C context: instance of the application context (Singleton)
-* V view: instance of the view
-* eventBus: instance of the application wide event bus
-* router: instance of the router
-
-To tell Nalu, that this class is a controller, you have to annotate the class with `Controller`. Nalu will automatically create an instance for each class annotated with `@Controller` in case the route of the controller gets triggered. (except in cases where the controller is cached.)
-
-A controller requires a
-
-* a public, zero-argument constructor
-* annotate the controller with `@Controller`
-
-Here is an example of a controller:
-
-```Java
-@Controller(route = "/shell/route01/route02/:id",
-            selector = "content",
-            componentInterface = IMyComponent.class,
-            component = MyComponent.class)
-public class DetailController
- extends AbstractComponentController<MyApplicationContext, IMyComponent, HTMLElement>
- implements IMyComponent.Controller {
-
-
- public MyController() {
- }
-
- ...
-
-}
+                                                          e -> doSomething()));
 ```
 
-### Controller annotation
-To let Nalu automatically create a controller the controller class (which extend `AbstractComponentController`) needs to be annotated with `@Controller`.
+or, in case you want to add more than one:
 
-The `@Controller` annotation has four required attributes:
-
-* route: the route which activates the controller. A route has two parts:
-   - the first part contains the path to the controller. A route starts always with a '/' and is used to separate routes
-   - the second part are the parameters that will be injected in the controller. To define a parameter inside a route, use '/:parameter name'. Parameters are optional
-* selector: a selector defines an ID inside the DOM (using the element plugin) or an `add`-method (using the GWT-plugin) which will be called to add a widget to the DOM.
-* componentInterface: the type of the interface for your component
-* component: the type of the component
-
-The 'componentInterface'-attribute will be used inside the controller as reference of the component interface, where as the 'component'-attribute will be used to instantiate the component. By default Nalu uses `new` to create an instance of a component. (`GWT-create()` will no longer be available in J2CL / GWT 3! And, to be ready for J2CL / GWT 3 Nalu has to avoid using `GWT.create`.).
-
-### Parameters
-In case a controller accepts parameters, you have to add the parameters to the route attribute. Parameters are defined by using '/:parameterName'.
-
-To let Nalu inject a parameter from the route into the controller, you have to create a method, which accepts a String parameter and annotate the method using the `@AcceptParameter("parameterName")` annotation.
-
-For example, if the controller requires an 'id', the controller class will look like this:
-
-```Java
-@Controller(route = "/shell/route01/route02/:id",
-                    selector = "content",
-                    componentInterface = IMyComponent.class,
-                    component = MyComponent.class)
-public class MyController
- extends AbstractComponentController<MyApplicationContext, IMyComponent, HTMLElement>
- implements IMylComponent.Controller {
-
- private long id;
-
- public DetailController() {
- }
-
- @AcceptParameter("id")
- public void setId(String id)
-   throws RoutingInterceptionException {
-   try {
-     this.id = Long.parseLong(id);
-   } catch (NumberFormatException e) {
-     // in case of an exception route to another page ...
-     throw new RoutingInterceptionException(this.getClass()
-                                                .getCanonicalName(),
-                                            "/person/search",
-                                            this.context.getSearchName(),
-                                            this.context.getSearchCity());
-   }
- }
-}
+```java_holder_method_tree
+   this.handlerRegistrations.compose(this.eventBus.addHandler(MyEvent01.TYPE,
+                                                          e -> doSomething01()),
+                                     this.eventBus.addHandler(MyEvent02.TYPE,
+                                                          e -> doSomething02()));
 ```
 
-**Note:**
-At the time parameters are set by Nalu, the component is not rendered! Rendering of the component will occur after all parameters are set!
+Place the adding into the `active`-method, because after the `deactive`-method of the associated controller gets called, all added handler registrations will be removed. This behavior is the same for normal components and composite components.
 
+**Note**:
 
-### Life Cycle
-A Nalu controller has a life cycle. Nalu supports the methods:
+**If you are using cached componets, then the handler will only be active in case the component is visible.**
 
-* `start`: will be called after the component is created. This method will not be called in case a controller is cached.
-* `active`: will be called after the `start`-method. This method will be called in case a controller is cached.
-* `mayStop`: will be called before a new routing occurs. In case the method return a String and not a null value, Nalu will display the String and abort the routing.
-* `deactive`: will be called before the `stop`-method. This method will be called in case a controller is cached.
-* `stop`: in case of a successful routing (not interrupted by a filter or the `mayStop` method) this method will be called. This method will not be called in case a controller is cached.
+##### Global Handler Registrations inside a ComponntController or CompositeController
+Inside a ComponntController or CompositeController, you can add a `HandlerRegistration` like this:
 
-Every time the application gets a new route, Nalu will create a new instance of the controller (and of course of the component). In case a controller is cached Nalu will use the cached instance of the controller.
-
-#### onAttach Method
-Nalu will call the `onAttach` method, after the component is added to the DOM. **This is an internal method, that should not be overwritten. Use the `active`-method inside the controller instead.**
-
-#### onDetach Method
-Nalu will call the `onDetach` method, after the component is removed to the DOM. **This is an internal method, that should not be overwritten. Use the `deactive`-method inside the controller instead.**
-
-
-#### bind Method (since v1.2.1)
-Nalu will call the `bind` method before the component is created. This is an internal method, that can be overwritten. That's a good place to do some preparing actions. The method is asynchronous. This makes it possible to do a server call before Nalu will continue. To tell Nalu to continue, call `loader.continueLoading()`. In case you want to interrupt the loading, just do not call `loader.continueLoading()` and use the router to route to another place.
-
-
-#### Event Bus
-A controller has access to the application event bus. Nalu uses the classes of the module `org.gwtproject.events`. This artifact is ready for GWT 3/J2CL and works similar like the event bus from GWT. You can add handler to the event bus and fire events. A good place to register a handler on the event bus is the `bind`-method or `start` method.
-
-#### Handler Management
-Nalu supports automatic handler removing.
-
-In case the controller adds a handler to the event bus, add the `HandlerRegistration` to the controller handler registration list. Once the controller is stopped, all handlers will be removed from the event bus. Use the `active`-method to add a handler. Nalu will remove the handlers in case of a deactivation of the controller. So, in case the controller is cached the handlers will be removed and once the cached controller gets active, the `activate`-method gets called again.
-
-```Java
-@Override
- public void active() {
-   // add the handler registration to the HandlerRegistrations class of this controller
-   // Doing that will help that once the controller gets stops all handler registrations
-   // will be removed!
-   this.handlerRegistrations.add(this.eventBus.addHandler(MyEvent.TYPE,
-                                                          e -> doSomething())));
- }
+```java_holder_method_tree
+   this.globalHandlerRegistrations.add(this.eventBus.addHandler(MyEvent.TYPE,
+                                                                e -> doSomething()));
 ```
+
+or, in case you want to add more than one:
+
+```java_holder_method_tree
+   this.globalHandlerRegistrations.compose(this.eventBus.addHandler(MyEvent01.TYPE,
+                                                                    e -> doSomething01()),
+                                           this.eventBus.addHandler(MyEvent02.TYPE,
+                                                                    e -> doSomething02()));
+```
+
+Place the adding into the `start`-method, because after the `stop`-method of the associated controller gets called, all added handler registrations will be removed. This behavior is the same for normal components and composite components.
+
+**Note**:
+
+**If you are using cached componets, then the handler will only be always active!**
 
 #### Component Creation
 Nalu will automatically create a component using the Java 'new'-command and inject the component into the controller. Therefore the component needs to have a zero argument constructor.
@@ -471,7 +364,7 @@ Nalu supports automatic handler removing.
 
 In case the controller adds a handler to the event bus, add the `HandlerRegistration` to the controller handler registration list. Once the controller is stopped, all handlers will be removed from the event bus. Use the `active`-method to add a handler. Nalu will remove the handlers in case of a deactivation of the controller. So, in case the controller is cached the handlers will be removed and once the cached controller gets active again, the `activate`-method gets called again.
 
-```Java
+```java_holder_method_tree
 @Override
  public void activate() {
    // add the handler registration to the HandlerRegistrations class of this controller
@@ -722,19 +615,19 @@ Note: At the time Nalu calls the createBlockComponent-method, the context is alr
 Starting with version 2.1.0 Nalu will provide events to control the visibility of a block.
 
 To make a BlockComponent visible, just fire the `ShowBlockComponentEvent` by calling:
-```java
+```java_holder_method_tree
 this.eventBus.fireEvent(ShowBlockComponentEvent.show("MyBlockControllerName"));
 ```
 The `show`-method will take the name of the BlockController to show.
 
 To make a BlockComponent invisible, just fire the `HideBlockComponentEvent`:
-```java
+```java_holder_method_tree
 this.eventBus.fireEvent(HideBlockComponentEvent.hide("MyBlockControllerName"));
 ```
 The `hide`-method will take the name of the BlockController to hide.
 
 Both events accept parameters. To add a parameter to the event, use:
-```java
+```java_holder_method_tree
 this.eventBus.fireEvent(ShowBlockComponentEvent.show("MyBlockControllerName")
                                                .using("myParameter01", "myValue01")
                                                .using("myParameter02", "myValue02"));
@@ -818,7 +711,7 @@ A PopUpController is not bound to a route. To trigger a PopUpController fire the
 
 The following code shows how to trigger a PopUpController in Nalu:
 
-```java
+```java_holder_method_tree
 this.eventBus.fireEvent(ShowPopUpEvent.show("PopUpEditor")
                                       .using("id",
                                              "4711"));
@@ -988,34 +881,3 @@ In case the last used hash is equal to the current hash, Nalu will execute the f
 * inject the new parameter values into the controller
 
 * call the `activate`-method
-```
-
-#### Component Creation
-Nalu will automatically create a component using the Java 'new'-command and inject the component into the controller. Therefore the component needs to have a zero argument constructor.
-
-In some cases this might be a problem.
-
-You can tell Nalu to use a method inside the controller and create the component by your own. To do so, you have to annotate the controller with `IsComponentCreator<V>` and implement a `createComponent`-method.
-
-```Java
-@Controller(...)
-public class MyController
-  extends AbstractComponentController<MyContext, IMyComponent, HTMLElement>
-  implements IMyComponent.Controller,
-             IsComponentCreator<IMyComponent> {
-
-  ...
-
-
-  @Override
-  public IMyComponent createComponent() {
-    return new MyComponent();
-  }
-}
-
-```
-
-The `IsComponentCreator`-interface will also work with Nalu's composites!
-
-Note: At the time Nalu calls the `createComponent`-method, the context is already injected.
-

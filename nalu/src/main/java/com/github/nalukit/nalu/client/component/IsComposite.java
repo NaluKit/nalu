@@ -77,6 +77,15 @@ public interface IsComposite<W> {
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
   @NaluInternalUse
+  void removeGlobalHandlers();
+  
+  /**
+   * internal framework method! Will be called by the framework after the
+   * deactivate-method of the controller is called
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   */
+  @NaluInternalUse
   void removeHandlers();
   
   /**

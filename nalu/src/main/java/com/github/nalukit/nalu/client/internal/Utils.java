@@ -21,6 +21,7 @@ public class Utils {
                                    boolean handlingModeReuse) {
     // deactivate controller
     controller.deactivate();
+    // remove handlers
     controller.removeHandlers();
     if (!handlingModeReuse) {
       controller.onDetach();
@@ -33,25 +34,32 @@ public class Utils {
     controller.onDetach();
     // stop controller
     controller.stop();
+    // remove global handlers
+    controller.removeGlobalHandlers();
     controller.onDetach();
     controller.getComponent()
               .onDetach();
+    // remove handlers on component elements
     controller.getComponent()
               .removeHandlers();
   }
   
   public void deactivateCompositeController(AbstractCompositeController<?, ?, ?> compositeController) {
     compositeController.deactivate();
+    // remove handlers
     compositeController.removeHandlers();
   }
   
   public void stopCompositeController(AbstractCompositeController<?, ?, ?> compositeController) {
     if (!compositeController.isCached()) {
       compositeController.stop();
+      // remove global handlers
+      compositeController.removeGlobalHandlers();
     }
     compositeController.onDetach();
     compositeController.getComponent()
                        .onDetach();
+    // remove handlers on component elements
     compositeController.getComponent()
                        .removeHandlers();
   }

@@ -31,8 +31,10 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   
   /* component of the controller */
   protected V                                                 component;
+  /* list of registered global handlers */
+  protected HandlerRegistrations                              globalHandlerRegistrations = new HandlerRegistrations();
   /* list of registered handlers */
-  protected HandlerRegistrations                              handlerRegistrations = new HandlerRegistrations();
+  protected HandlerRegistrations                              handlerRegistrations       = new HandlerRegistrations();
   /* list fo composite controllers */
   private   Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
   /* the route the controller is related to */
@@ -186,7 +188,20 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   
   /**
    * internal framework method! Will be called by the framework after the
-   * stop-method f the controller is called
+   * stop-method of the controller is called
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   */
+  @NaluInternalUse
+  @Override
+  public final void removeGlobalHandlers() {
+    this.globalHandlerRegistrations.removeHandler();
+    this.globalHandlerRegistrations = new HandlerRegistrations();
+  }
+  
+  /**
+   * internal framework method! Will be called by the framework after the
+   * deactivate-method of the controller is called
    * <p>
    * The method is used by the framework!
    * <p>
