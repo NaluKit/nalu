@@ -100,9 +100,8 @@
     <gwt-events.version>HEAD-SNAPSHOT</gwt-events.version>  -->
     <hamcrest-core.version>2.2</hamcrest-core.version>
     <javapoet.version>1.13.0</javapoet.version>
-    <junit.version>4.12</junit.version>
-    <junit-jupiter.version>5.4.0</junit-jupiter.version>
-    <junit-jupiter-platform.version>1.4.0</junit-jupiter-platform.version>
+    <junit-jupiter.version>5.7.0</junit-jupiter.version>
+    <junit-jupiter-platform.version>1.7.0</junit-jupiter-platform.version>
     <truth.version>1.0.1</truth.version>
 
     <maven.compiler.source>1.8</maven.compiler.source>
