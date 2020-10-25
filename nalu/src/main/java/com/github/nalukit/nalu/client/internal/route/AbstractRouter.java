@@ -314,6 +314,11 @@ abstract class AbstractRouter
     if (hash.contains("#")) {
       hash = hash.substring(hash.indexOf("#") + 1);
     }
+    // Keycloak add parameters at the end of the hash ... we need to ignore them!
+    if (hash.contains("&")) {
+      hash = hash.substring(0,
+                            hash.indexOf("&") + 1);
+    }
     // save hash to loop detector list ...
     if (this.loopDetectionList.contains(pimpUpHashForLoopDetection(hash))) {
       // fire Router StateEvent
