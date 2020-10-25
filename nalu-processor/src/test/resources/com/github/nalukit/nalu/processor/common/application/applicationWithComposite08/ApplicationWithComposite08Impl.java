@@ -122,7 +122,7 @@ public final class ApplicationWithComposite07Impl extends AbstractApplication<Mo
   @Override
   public void loadErrorPopUpController() {
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("no ErrorPopUpController found!°");
+    sb01.append("no ErrorPopUpController found!");
   }
 
   @Override

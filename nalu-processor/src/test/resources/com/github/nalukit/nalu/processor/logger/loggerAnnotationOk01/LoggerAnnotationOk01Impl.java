@@ -78,7 +78,7 @@ public final class LoggerAnnotationOk01Impl extends AbstractApplication<MockCont
   
   @Override
   public void loadErrorPopUpController() {
-    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("no ErrorPopUpController found!°"));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("no ErrorPopUpController found!"));
   }
   
   @Override

@@ -50,7 +50,7 @@ public class ErrorPopUpControllerGenerator {
     if (Objects.isNull(this.metaModel.getErrorPopUpController())) {
       createErrorPopUpControllerMethodBuilder.addStatement("this.eventBus.fireEvent($T.create()" +
                                                            ".sdmOnly(true)" +
-                                                           ".addMessage(\"no ErrorPopUpController found!°\"))",
+                                                           ".addMessage(\"no ErrorPopUpController found!\"))",
                                                            ClassName.get(LogEvent.class));
     } else {
       createErrorPopUpControllerMethodBuilder.addStatement("$T errorPopUpController = new $T()",

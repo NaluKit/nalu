@@ -71,7 +71,7 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
   
   @Override
   public void loadErrorPopUpController() {
-    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("no ErrorPopUpController found!°"));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("no ErrorPopUpController found!"));
   }
   
   @Override

@@ -73,7 +73,7 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
   
   @Override
   public void loadErrorPopUpController() {
-    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("no ErrorPopUpController found!°"));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("no ErrorPopUpController found!"));
   }
   
   @Override
