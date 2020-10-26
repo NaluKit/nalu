@@ -153,7 +153,7 @@ public class CompositeFactory {
    * If you are inside a cached controller, call
    * <code>removeFromCache(this)</code> first!
    */
-  public void clearControllerCache() {
+  public void clearCompositeControllerCache() {
     this.compositeControllerStore.values()
                                  .forEach(controller -> {
                                    Utils.get()
