@@ -45,20 +45,21 @@ public interface IsApplicationLoader<C extends IsContext> {
    * @param finishLoadCommand use this command to give the control back to Nalu
    */
   void load(FinishLoadCommand finishLoadCommand);
-  
+
   @NaluInternalUse
   void setContext(C context);
-  
+
   @NaluInternalUse
   void setEventBus(SimpleEventBus eventBus);
-  
+
   @NaluInternalUse
   void setRouter(Router router);
-  
+
+  @FunctionalInterface
   interface FinishLoadCommand {
-    
+
     void finishLoading();
-    
+
   }
-  
+
 }

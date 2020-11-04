@@ -34,10 +34,6 @@ public class PopUpController01
   }
 
   @Override
-  public void onBeforeShow() {
-  }
-
-  @Override
   public void show() {
   }
 

@@ -145,9 +145,12 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
    * <p>
    * If you want to do some initialization before you get the
    * control, just override the method.
+   *
+   * @param finishLoadCommand needs to be executed to give the control back to Nalu
    */
   @Override
-  public void onBeforeShow() {
+  public void onBeforeShow(FinishLoadCommand finishLoadCommand) {
+    finishLoadCommand.finishLoading();
   }
-  
+
 }

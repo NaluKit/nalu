@@ -73,10 +73,6 @@ public class PopUpControllerFactory {
           LogEvent.create()
                   .sdmOnly(false)
                   .addMessage("PopUpControllerFactory: PopUpController for name >>" + e.getName() + "<< not found");
-          // TODO Remove!
-          //          ClientLogger.get()
-          //                      .logDetailed("PopUpControllerFactory: PopUpController for name >>" + e.getName() + "<< not found",
-          //                                   0);
           return;
         }
         instance = creator.create();
@@ -89,10 +85,10 @@ public class PopUpControllerFactory {
                             .setDataStore(e.getDataStore());
     popUpComponentController.getController()
                             .setCommandStore(e.getCommandStore());
+    PopUpControllerInstance finalPopUpComponentController = popUpComponentController;
     popUpComponentController.getController()
-                            .onBeforeShow();
-    popUpComponentController.getController()
-                            .show();
+                            .onBeforeShow(() -> finalPopUpComponentController.getController()
+                                                                             .show());
   }
   
 }

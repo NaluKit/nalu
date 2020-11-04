@@ -1,4 +1,4 @@
-# Controllers and Components
+# Controllers and Composites
 Nalu mainly helps you to define three types of elements:
 
 * Handler (a class, without visual components see [Handler](https://github.com/NaluKit/nalu/wiki/13.-Handler))
@@ -39,7 +39,7 @@ A controller requires a
 
 Here is an example of a controller:
 
-```Java
+```java_holder_method_tree
 @Controller(route = "/shell/route01/route02/:id",
             selector = "content",
             componentInterface = IMyComponent.class,
@@ -229,7 +229,7 @@ In some cases this might be a problem.
 
 You can tell Nalu to use a method inside the controller and create the component by your own. To do so, you have to annotate the controller with `IsComponentCreator<V>` and implement a `createComponent`-method.
 
-```Java
+```java_holder_method_tree
 @Controller(...)
 public class MyController
   extends AbstractComponentController<MyContext, IMyComponent, HTMLElement>
@@ -310,7 +310,7 @@ A composite requires a
 
 Here is an example of a composite:
 
-```Java
+```java_holder_method_tree
 @@CompositeController(componentInterface = IMyCompositeComponent.class,
                       component = MyCompositeComponent.class)
 public class MyComposite
@@ -399,7 +399,7 @@ In order to use composite controllers in Nalu, you have to add the `Composite` a
 
 Here an example of how to use composites in a controller. This example shows a controller, which uses two composites:
 
-```Java
+```java_holder_method_tree
 @Controller(route = "/shell/route01/route02/:parameter01",
             selector = "selector01",
             componentInterface = IMyComponent.class,
@@ -423,7 +423,7 @@ public class MyCompositeUsingController
 
 Nalu will inject the instance of the created composite controllers into the controller. So, the controller can easily access the composite. To access the instance of a composite, use this statement:
 
-```Java
+```java_holder_method_tree
 
  MyComposite01 instanceOfComposite01 = super.<MyComposite01>getComposite("composite01");
 
@@ -441,7 +441,7 @@ The conditional class is another attribute of the `Composite` - annotation calle
 Here is an example of the usage of a conditional composite.
 
 First, create the condition:
-```java
+```java_holder_method_tree
 public class MyCompositeCondition
     extends AbstractCompositeCondition<MyApplicationContext> {
 
@@ -461,7 +461,7 @@ public class MyCompositeCondition
 Use the condition inside the `Composite`-annotation:
 
 
-```Java
+```java_holder_method_tree
 @Controller(route = "/shell/route01/route02/:parameter01",
             selector = "selector01",
             componentInterface = IMyComponent.class,
@@ -524,7 +524,7 @@ A controller requires a
 * 
 Here is an example of a controller:
 
-```java
+```java_holder_method_tree
 @BlockController(name = "fork",
                  componentInterface = IForkBlockComponent.class,
                  component = ForkBlockComponent.class)
@@ -587,7 +587,7 @@ In some cases this might be a problem.
 
 You can tell Nalu to use a method inside the controller and create the component by your own. To do so, you have to annotate the controller with `IsBlockComponentCreator<V>` and implement a createBlockComponent-method.
 
-```java
+```java_holder_method_tree
 @BlockController(name = "fork",
                  componentInterface = IForkBlockComponent.class,
                  component = ForkBlockComponent.class)
@@ -668,7 +668,7 @@ A controller requires a
 
 Here is an example of a controller:
 
-```Java
+```java_holder_method_tree
 @PopUpController(name = "PopUpEditor",
                  componentInterface = IMyComponent.class,
                  component = MyComponent.class)
@@ -720,7 +720,7 @@ The code above triggers the PopUpController using the name 'PopUpEditor' and add
 
 Nalu will inject the parameters into the `dataStore` inside the `AbstractPopUpComponentController`-class. To retrieve the value use:
 
-```java
+```java_holder_method_tree
 String id = super.dataStore.get("id");
 ```
 
@@ -729,7 +729,7 @@ A Nalu pup-up controller has no life cycle. The controller (and it's component) 
 
 Nalu will call two methods inside the `PopUpController`:
 
-* `onBeforeShow`: will be called before the `show`-method. (A good place to initialize the controller and component)
+* `onBeforeShow`: will be called before the `show`-method. (A good place to initialize the controller and component) The method is asynchronous. To give the conroll back to Nalu, just call: `finishLoadCommand.finishLoading`.
 * `show`: to show the controller.
 
 **It is up to the controller to show the pop-up and hide it.**
@@ -741,7 +741,7 @@ In some cases this might be a problem.
 
 You can tell Nalu to use a method inside the controller and create the component by your own. To do so, you have to annotate the controller with `IsPopUpComponentCreator<V>` and implement a `createPopUpComponent`-method.
 
-```Java
+```java_holder_method_tree
 @PopUpController(...)
 public class MyController
   extends AbstractPopUpComponentController<MyContext, IMyComponent>
@@ -765,7 +765,7 @@ Note: At the time Nalu calls the `createPopUpComponent`-method, the context is a
 A controller in Nalu can be atteched to more than one route. To define a controller for several routes, use a list of Strings for the `route`-attribute.
 
 
-```Java
+```java_holder_method_tree
 @Controller(route = { "/shell/route01/route02/:id",
                       "/shell/route03/:id/route04",
                       "/shell/route01/route02/route03/:id" },
@@ -803,7 +803,7 @@ You can also cache composites.
 
 Since 1.3.2 there is also a possibility to cache a composite as a singleton, so different sites can share a composite with the same state. You can configure this with the attribute scope in the annotation @Composites of the controllers which contain the composites:
 
-```java
+```java_holder_method_tree
   @Composites({ @Composite(name = "myComposite",
                            compositeController = MyComposite.class,
                            selector = "my-composite",
@@ -825,7 +825,7 @@ In case you have a controller/component pair (using a route f.e. like this: `/ap
 
 Starting with version 2.1.0, Nalu will offer a new way to deal with this use case. Instead of always creating new components, you can tell Nalu to reuse them. To do so, just use `super.setMode(Mode.REUSE);`. this is the example code of a controller:
 
-```java
+```java_holder_method_tree
 @Controller(route = "/application/person/detail/:id",
             selector = "content",
             componentInterface = IDetailComponent.class,
