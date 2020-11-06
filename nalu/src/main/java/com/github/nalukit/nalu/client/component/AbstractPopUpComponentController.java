@@ -132,11 +132,16 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   
   /**
    * will be called, one time, when a popup-controller is created.
+   *
+   * @param finishLoadCommand needs to be executed to give the control back to Nalu
    */
   @Override
-  public void bind() {
+  public void bind(FinishLoadCommand finishLoadCommand) {
     // if you need to bind some handlers and would like to do this in a separate method
     // just override this method.
+    //
+    // Attention: DON'T FORGET TO CALL:
+    finishLoadCommand.finishLoading();
   }
   
   /**
@@ -152,5 +157,5 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   public void onBeforeShow(FinishLoadCommand finishLoadCommand) {
     finishLoadCommand.finishLoading();
   }
-
+  
 }

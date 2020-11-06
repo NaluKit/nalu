@@ -23,4 +23,6 @@ public interface IsPopUpControllerCreator {
   
   PopUpControllerInstance create();
   
+  void onFinishCreating(Object object);
+  
 }

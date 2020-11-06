@@ -64,11 +64,12 @@ public class PopUpControllerFactory {
   }
   
   private void onShowPopUp(ShowPopUpEvent e) {
-    PopUpControllerInstance popUpComponentController = this.popUpControllerStore.get(e.getName());
+    IsPopUpControllerCreator creator                  = null;
+    PopUpControllerInstance  popUpComponentController = this.popUpControllerStore.get(e.getName());
     if (Objects.isNull(popUpComponentController)) {
       PopUpControllerInstance instance = this.popUpControllerStore.get(e.getName());
       if (Objects.isNull(instance)) {
-        IsPopUpControllerCreator creator = this.creatorStore.get(e.getName());
+        creator = this.creatorStore.get(e.getName());
         if (Objects.isNull(creator)) {
           LogEvent.create()
                   .sdmOnly(false)
@@ -86,9 +87,20 @@ public class PopUpControllerFactory {
     popUpComponentController.getController()
                             .setCommandStore(e.getCommandStore());
     PopUpControllerInstance finalPopUpComponentController = popUpComponentController;
-    popUpComponentController.getController()
-                            .onBeforeShow(() -> finalPopUpComponentController.getController()
-                                                                             .show());
+    if (creator == null) {
+      finalPopUpComponentController.getController()
+                                   .onBeforeShow(() -> finalPopUpComponentController.getController()
+                                                                                    .show());
+    } else {
+      IsPopUpControllerCreator finalCreator = creator;
+      finalPopUpComponentController.getController()
+                                   .bind(() -> {
+                                     finalCreator.onFinishCreating(finalPopUpComponentController.getController());
+                                     finalPopUpComponentController.getController()
+                                                                  .onBeforeShow(() -> finalPopUpComponentController.getController()
+                                                                                                                   .show());
+                                   });
+    }
   }
   
 }

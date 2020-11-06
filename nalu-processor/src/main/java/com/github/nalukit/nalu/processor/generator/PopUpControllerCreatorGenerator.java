@@ -104,146 +104,47 @@ public class PopUpControllerCreatorGenerator {
                                                 .addStatement("controller.setRouter(router)")
                                                 .addStatement("controller.setName($S)",
                                                               popUpControllerModel.getName());
-    if (popUpControllerModel.isComponentCreator()) {
-      createMethod.addStatement("$T component = controller.createPopUpComponent()",
-                                ClassName.get(popUpControllerModel.getComponentInterface()
-                                                                  .getPackage(),
-                                              popUpControllerModel.getComponentInterface()
-                                                                  .getSimpleName()));
-    } else {
-      createMethod.addStatement("$T component = new $T()",
-                                ClassName.get(popUpControllerModel.getComponentInterface()
-                                                                  .getPackage(),
-                                              popUpControllerModel.getComponentInterface()
-                                                                  .getSimpleName()),
-                                ClassName.get(popUpControllerModel.getComponent()
-                                                                  .getPackage(),
-                                              popUpControllerModel.getComponent()
-                                                                  .getSimpleName()));
-    }
-    createMethod.addStatement("component.setController(controller)")
-                .addStatement("controller.setComponent(component)")
-                .addStatement("component.render()")
-                .addStatement("component.bind()")
-                .addStatement("controller.bind()");
-  
     createMethod.addStatement("return popUpControllerInstance");
     typeSpec.addMethod(createMethod.build());
   
-    //        MethodSpec.Builder finishCreateMethod = MethodSpec.methodBuilder("onFinishCreating")
-    //                                                          .addAnnotation(ClassName.get(Override.class))
-    //                                                      .addModifiers(Modifier.PUBLIC)
-    //                                                      .addParameter(ParameterSpec.builder(ClassName.get(Object.class),
-    //                                                                                          "object")
-    //                                                                                 .build())
-    //                                                      .addParameter(ParameterSpec.builder(String[].class,
-    //                                                                                          "params")
-    //                                                                                 .build())
-    //                                                      .varargs()
-    //                                                      .addException(ClassName.get(RoutingInterceptionException.class))
-    //                                                      .addStatement("$T controller = ($T) object",
-    //                                                                    ClassName.get(popUpControllerModel.getProvider()
-    //                                                                                                 .getPackage(),
-    //                                                                                  popUpControllerModel.getProvider()
-    //                                                                                                 .getSimpleName()),
-    //                                                                    ClassName.get(popUpControllerModel.getProvider()
-    //                                                                                                 .getPackage(),
-    //                                                                                  popUpControllerModel.getProvider()
-    //                                                                                                 .getSimpleName()))
-    //                                                      .addStatement("$T sb01 = new $T()",
-    //                                                                    ClassName.get(StringBuilder.class),
-    //                                                                    ClassName.get(StringBuilder.class));
-    //    if (popUpControllerModel.isComponentCreator()) {
-    //      finishCreateMethod.addStatement("$T component = controller.createComponent()",
-    //                                      ClassName.get(popUpControllerModel.getComponentInterface()
-    //                                                                   .getPackage(),
-    //                                                    popUpControllerModel.getComponentInterface()
-    //                                                                   .getSimpleName()))
-    //                        .addStatement("sb01 = new $T()",
-    //                                      ClassName.get(StringBuilder.class))
-    //                        .addStatement("sb01.append(\"component >>$L<< --> created using createComponent-Method of controller\")",
-    //                                      popUpControllerModel.getComponent()
-    //                                                     .getClassName())
-    //                        .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-    //                                      ClassName.get(ClientLogger.class));
-    //    } else {
-    //      finishCreateMethod.addStatement("$T component = new $T()",
-    //                                      ClassName.get(popUpControllerModel.getComponentInterface()
-    //                                                                   .getPackage(),
-    //                                                    popUpControllerModel.getComponentInterface()
-    //                                                                   .getSimpleName()),
-    //                                      ClassName.get(popUpControllerModel.getComponent()
-    //                                                                   .getPackage(),
-    //                                                    popUpControllerModel.getComponent()
-    //                                                                   .getSimpleName()))
-    //                        .addStatement("sb01 = new $T()",
-    //                                      ClassName.get(StringBuilder.class))
-    //                        .addStatement("sb01.append(\"component >>$L<< --> created using new\")",
-    //                                      popUpControllerModel.getComponent()
-    //                                                     .getClassName())
-    //                        .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-    //                                      ClassName.get(ClientLogger.class));
-    //    }
-    //    finishCreateMethod.addStatement("component.setController(controller)")
-    //                      .addStatement("sb01 = new $T()",
-    //                                    ClassName.get(StringBuilder.class))
-    //                      .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> created and controller instance injected\")")
-    //                      .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-    //                                    ClassName.get(ClientLogger.class))
-    //                      .addStatement("controller.setComponent(component)")
-    //                      .addStatement("sb01 = new $T()",
-    //                                    ClassName.get(StringBuilder.class))
-    //                      .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> instance of >>\").append(component.getClass().getCanonicalName()).append(\"<< injected\")")
-    //                      .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-    //                                    ClassName.get(ClientLogger.class))
-    //                      .addStatement("component.render()")
-    //                      .addStatement("sb01 = new $T()",
-    //                                    ClassName.get(StringBuilder.class))
-    //                      .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> rendered\")")
-    //                      .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-    //                                    ClassName.get(ClientLogger.class))
-    //                      .addStatement("component.bind()")
-    //                      .addStatement("sb01 = new $T()",
-    //                                    ClassName.get(StringBuilder.class))
-    //                      .addStatement("sb01.append(\"component >>\").append(component.getClass().getCanonicalName()).append(\"<< --> bound\")")
-    //                      .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-    //                                    ClassName.get(ClientLogger.class))
-    //                      .addStatement("$T.get().logSimple(\"controller >>$L<< created for route >>$L<<\", 3)",
-    //                                    ClassName.get(ClientLogger.class),
-    //                                    popUpControllerModel.getComponent()
-    //                                                   .getClassName(),
-    //                                    popUpControllerModel.getRoute());
-    //    if (popUpControllerModel.getParameters()
-    //                       .size() > 0) {
-    //      // has the model AcceptParameter ?
-    //      if (popUpControllerModel.getParameterAcceptors()
-    //                         .size() > 0) {
-    //        finishCreateMethod.beginControlFlow("if (params != null)");
-    //        for (int i = 0; i <
-    //                        popUpControllerModel.getParameters()
-    //                                       .size(); i++) {
-    //          String methodName = popUpControllerModel.getParameterAcceptors(popUpControllerModel.getParameters()
-    //                                                                                   .get(i));
-    //          if (methodName != null) {
-    //            finishCreateMethod.beginControlFlow("if (params.length >= " + (i + 1) + ")")
-    //                              .addStatement("sb01 = new $T()",
-    //                                            ClassName.get(StringBuilder.class))
-    //                              .addStatement("sb01.append(\"controller >>\").append(controller.getClass().getCanonicalName()).append(\"<< --> using method >>" +
-    //                                            methodName +
-    //                                            "<< to set value >>\").append(params[" +
-    //                                            Integer.toString(i) +
-    //                                            "]).append(\"<<\")")
-    //                              .addStatement("$T.get().logDetailed(sb01.toString(), 4)",
-    //                                            ClassName.get(ClientLogger.class))
-    //                              .addStatement("controller." + methodName + "(params[" + i + "])")
-    //                              .endControlFlow();
-    //          }
-    //        }
-    //        finishCreateMethod.endControlFlow();
-    //      }
-    //    }
-    //    typeSpec.addMethod(finishCreateMethod.build());
-    
+    MethodSpec.Builder onFinishCreatingMethod = MethodSpec.methodBuilder("onFinishCreating")
+                                                          .addParameter(ParameterSpec.builder(ClassName.get(Object.class),
+                                                                                              "object")
+                                                                                     .build())
+                                                          .addAnnotation(ClassName.get(Override.class))
+                                                          .addModifiers(Modifier.PUBLIC)
+                                                          .addStatement("$T controller = ($T) object",
+                                                                        ClassName.get(popUpControllerModel.getProvider()
+                                                                                                          .getPackage(),
+                                                                                      popUpControllerModel.getProvider()
+                                                                                                          .getSimpleName()),
+                                                                        ClassName.get(popUpControllerModel.getProvider()
+                                                                                                          .getPackage(),
+                                                                                      popUpControllerModel.getProvider()
+                                                                                                          .getSimpleName()));
+    if (popUpControllerModel.isComponentCreator()) {
+      onFinishCreatingMethod.addStatement("$T component = controller.createPopUpComponent()",
+                                          ClassName.get(popUpControllerModel.getComponentInterface()
+                                                                            .getPackage(),
+                                                        popUpControllerModel.getComponentInterface()
+                                                                            .getSimpleName()));
+    } else {
+      onFinishCreatingMethod.addStatement("$T component = new $T()",
+                                          ClassName.get(popUpControllerModel.getComponentInterface()
+                                                                            .getPackage(),
+                                                        popUpControllerModel.getComponentInterface()
+                                                                            .getSimpleName()),
+                                          ClassName.get(popUpControllerModel.getComponent()
+                                                                            .getPackage(),
+                                                        popUpControllerModel.getComponent()
+                                                                            .getSimpleName()));
+    }
+    onFinishCreatingMethod.addStatement("component.setController(controller)")
+                          .addStatement("controller.setComponent(component)")
+                          .addStatement("component.render()")
+                          .addStatement("component.bind()");
+    typeSpec.addMethod(onFinishCreatingMethod.build());
+  
     JavaFile javaFile = JavaFile.builder(popUpControllerModel.getController()
                                                              .getPackage(),
                                          typeSpec.build())

@@ -5,11 +5,12 @@ import com.github.nalukit.nalu.client.internal.AbstractPopUpControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.IsPopUpControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.PopUpControllerInstance;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import java.lang.Object;
 import java.lang.Override;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.08.31-11:43:48<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.11.05-23:12:17<<
  */
 public final class PopUpController01CreatorImpl extends AbstractPopUpControllerCreator<MockContext> implements IsPopUpControllerCreator {
   public PopUpController01CreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
@@ -26,12 +27,16 @@ public final class PopUpController01CreatorImpl extends AbstractPopUpControllerC
     controller.setEventBus(eventBus);
     controller.setRouter(router);
     controller.setName("PopUpController01");
+    return popUpControllerInstance;
+  }
+  
+  @Override
+  public void onFinishCreating(Object object) {
+    PopUpController01 controller = (PopUpController01) object;
     IPopUpComponent01 component = new PopUpComponent01();
     component.setController(controller);
     controller.setComponent(component);
     component.render();
     component.bind();
-    controller.bind();
-    return popUpControllerInstance;
   }
 }
