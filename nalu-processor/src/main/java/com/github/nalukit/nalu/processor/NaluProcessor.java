@@ -19,6 +19,7 @@ package com.github.nalukit.nalu.processor;
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.application.annotation.Filters;
 import com.github.nalukit.nalu.client.application.annotation.Logger;
+import com.github.nalukit.nalu.client.application.annotation.Version;
 import com.github.nalukit.nalu.client.component.annotation.*;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.client.module.annotation.Module;
@@ -80,7 +81,8 @@ public class NaluProcessor
                      Modules.class.getCanonicalName(),
                      PopUpController.class.getCanonicalName(),
                      Shell.class.getCanonicalName(),
-                     Tracker.class.getCanonicalName())
+                     Tracker.class.getCanonicalName(),
+                     Version.class.getCanonicalName())
                  .collect(toSet());
   }
   
@@ -153,6 +155,9 @@ public class NaluProcessor
             } else if (Tracker.class.getCanonicalName()
                                     .equals(annotation.toString())) {
               handleTrackerAnnotation(roundEnv);
+            } else if (Version.class.getCanonicalName()
+                                    .equals(annotation.toString())) {
+              handleVersionAnnotation(roundEnv);
             }
           }
         }
@@ -603,7 +608,7 @@ public class NaluProcessor
       optional.ifPresent(optionalShellModel -> this.metaModel.getShells()
                                                              .remove(optionalShellModel));
     });
-    // save handler data in metaModel
+    // save shell data in metaModel
     this.metaModel.getShells()
                   .addAll(shellsModels);
   }
@@ -618,11 +623,32 @@ public class NaluProcessor
                                 .trackerElement(trackerElement)
                                 .build()
                                 .validate();
-      // scan filter element and save data in metaModel
+      // scan tracker element and save data in metaModel
       this.metaModel = TrackerAnnotationScanner.builder()
                                                .processingEnvironment(processingEnv)
                                                .metaModel(this.metaModel)
                                                .trackerElement(trackerElement)
+                                               .build()
+                                               .scan(roundEnv);
+  
+    }
+  }
+  
+  private void handleVersionAnnotation(RoundEnvironment roundEnv)
+      throws ProcessorException {
+    for (Element trackerElement : roundEnv.getElementsAnnotatedWith(Version.class)) {
+      // validate filter element
+      VersionAnnotationValidator.builder()
+                                .roundEnvironment(roundEnv)
+                                .processingEnvironment(processingEnv)
+                                .versionElement(trackerElement)
+                                .build()
+                                .validate();
+      // scan version element and save data in metaModel
+      this.metaModel = VersionAnnotationScanner.builder()
+                                               .processingEnvironment(processingEnv)
+                                               .metaModel(this.metaModel)
+                                               .versionElement(trackerElement)
                                                .build()
                                                .scan(roundEnv);
       

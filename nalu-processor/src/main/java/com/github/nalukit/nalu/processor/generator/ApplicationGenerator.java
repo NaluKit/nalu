@@ -34,6 +34,7 @@ import com.squareup.javapoet.*;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
+import java.sql.Timestamp;
 
 public class ApplicationGenerator {
   
@@ -82,16 +83,22 @@ public class ApplicationGenerator {
                                                                     .getTypeName());
     
     // constructor ...
-    MethodSpec constructor = MethodSpec.constructorBuilder()
-                                       .addModifiers(Modifier.PUBLIC)
-                                       .addStatement("super()")
-                                       .addStatement("super.context = new $N.$N()",
-                                                     metaModel.getContext()
-                                                              .getPackage(),
-                                                     metaModel.getContext()
-                                                              .getSimpleName())
-                                       .build();
-    typeSpec.addMethod(constructor);
+    MethodSpec.Builder constructor = MethodSpec.constructorBuilder()
+                                               .addModifiers(Modifier.PUBLIC)
+                                               .addStatement("super()")
+                                               .addStatement("super.context = new $N.$N()",
+                                                             metaModel.getContext()
+                                                                      .getPackage(),
+                                                             metaModel.getContext()
+                                                                      .getSimpleName());
+    if (metaModel.isExtendingIsModuleContext()) {
+      constructor.addStatement("super.context.setApplicationVersion($S)",
+                               metaModel.getApplicationVersion())
+                 .addStatement("super.context.setApplicationBuildTime(new $T($LL))",
+                               ClassName.get(Timestamp.class),
+                               System.currentTimeMillis());
+    }
+    typeSpec.addMethod(constructor.build());
     
     LoggerGenerator.builder()
                    .metaModel(metaModel)

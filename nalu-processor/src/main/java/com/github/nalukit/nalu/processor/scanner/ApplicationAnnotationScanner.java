@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.application.annotation.Application;
+import com.github.nalukit.nalu.client.context.IsModuleContext;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
@@ -30,41 +31,41 @@ import javax.lang.model.type.MirroredTypeException;
 import static java.util.Objects.isNull;
 
 public class ApplicationAnnotationScanner {
-  
+
   private ProcessorUtils processorUtils;
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private MetaModel metaModel;
-  
+
   private Element applicationElement;
-  
+
   @SuppressWarnings("unused")
   private ApplicationAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.metaModel             = builder.metaModel;
-    this.applicationElement    = builder.applicationElement;
+    this.metaModel = builder.metaModel;
+    this.applicationElement = builder.applicationElement;
     setUp();
   }
-  
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   public void scan()
       throws ProcessorException {
     Application applicationAnnotation = applicationElement.getAnnotation(Application.class);
     if (!isNull(applicationAnnotation)) {
-      TypeElement applicationLoaderTypeElement      = this.getApplicationLoaderTypeElement(applicationAnnotation);
-      TypeElement contextTypeElement                = this.getContextTypeElement(applicationAnnotation);
-      TypeElement customAlertPresenterTypeElement   = this.getCustomAlertPresenterTypeElement(applicationAnnotation);
+      TypeElement applicationLoaderTypeElement = this.getApplicationLoaderTypeElement(applicationAnnotation);
+      TypeElement contextTypeElement = this.getContextTypeElement(applicationAnnotation);
+      TypeElement customAlertPresenterTypeElement = this.getCustomAlertPresenterTypeElement(applicationAnnotation);
       TypeElement customConfirmPresenterTypeElement = this.getCustomConfirmPresenterTypeElement(applicationAnnotation);
       metaModel.setGenerateToPackage(this.processorUtils.getPackageAsString(applicationElement));
       metaModel.setApplication(new ClassNameModel(applicationElement.toString()));
@@ -81,9 +82,14 @@ public class ApplicationAnnotationScanner {
       metaModel.setHistory(applicationAnnotation.history());
       metaModel.setCustomAlertPresenter(new ClassNameModel(isNull(customAlertPresenterTypeElement) ? "" : customAlertPresenterTypeElement.toString()));
       metaModel.setCustomConfirmPresenter(new ClassNameModel(isNull(customConfirmPresenterTypeElement) ? "" : customConfirmPresenterTypeElement.toString()));
+      metaModel.setExtendingIsModuleContext(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+                                                                                        contextTypeElement.asType(),
+                                                                                        this.processingEnvironment.getElementUtils()
+                                                                                                                  .getTypeElement(IsModuleContext.class.getCanonicalName())
+                                                                                                                  .asType()));
     }
   }
-  
+
   private TypeElement getApplicationLoaderTypeElement(Application applicationAnnotation) {
     try {
       applicationAnnotation.loader();
@@ -93,7 +99,7 @@ public class ApplicationAnnotationScanner {
     }
     return null;
   }
-  
+
   private TypeElement getContextTypeElement(Application applicationAnnotation) {
     try {
       applicationAnnotation.context();
@@ -103,7 +109,7 @@ public class ApplicationAnnotationScanner {
     }
     return null;
   }
-  
+
   private TypeElement getCustomAlertPresenterTypeElement(Application applicationAnnotation) {
     try {
       applicationAnnotation.alertPresenter();
@@ -113,7 +119,7 @@ public class ApplicationAnnotationScanner {
     }
     return null;
   }
-  
+
   private TypeElement getCustomConfirmPresenterTypeElement(Application applicationAnnotation) {
     try {
       applicationAnnotation.confirmPresenter();
@@ -123,34 +129,34 @@ public class ApplicationAnnotationScanner {
     }
     return null;
   }
-  
+
   public static class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     MetaModel metaModel;
-    
+
     Element applicationElement;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public Builder applicationElement(Element applicationElement) {
       this.applicationElement = applicationElement;
       return this;
     }
-    
+
     public ApplicationAnnotationScanner build() {
       return new ApplicationAnnotationScanner(this);
     }
-    
+
   }
-  
+
 }

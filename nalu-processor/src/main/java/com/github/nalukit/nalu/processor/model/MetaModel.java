@@ -87,22 +87,32 @@ public class MetaModel {
   private List<CompositeModel> compositeModels;
   
   private ClassNameModel logger;
-  
+
   private ClassNameModel clientLogger;
-  
+
   /* flag, that indicates, if a Nalu application */
   /* uses a history token or not.                */
   private boolean history;
-  
+
+  /* Version of the applicaiton set by the       */
+  /* Version annotation                          */
+  private String  applicationVersion;
+  /* does the context extends                    */
+  /* AbstractModuleContext?                      */
+  private boolean extendingIsModuleContext;
+
   public MetaModel() {
-    this.modules          = new ArrayList<>();
-    this.shells           = new ArrayList<>();
-    this.controllers      = new ArrayList<>();
+    this.modules = new ArrayList<>();
+    this.shells = new ArrayList<>();
+    this.controllers = new ArrayList<>();
     this.blockControllers = new ArrayList<>();
     this.popUpControllers = new ArrayList<>();
-    this.filters          = new ArrayList<>();
-    this.handlers         = new ArrayList<>();
-    this.compositeModels  = new ArrayList<>();
+    this.filters = new ArrayList<>();
+    this.handlers = new ArrayList<>();
+    this.compositeModels = new ArrayList<>();
+
+    this.applicationVersion = "APPLCIATIOPN-VERSION-NOT-AVAILABLE";
+    this.extendingIsModuleContext = false;
   }
   
   public ModuleModel getModuleModel() {
@@ -364,5 +374,20 @@ public class MetaModel {
   public void setClientLogger(ClassNameModel clientLogger) {
     this.clientLogger = clientLogger;
   }
-  
+
+  public String getApplicationVersion() {
+    return applicationVersion;
+  }
+
+  public void setApplicationVersion(String applicationVersion) {
+    this.applicationVersion = applicationVersion;
+  }
+
+  public boolean isExtendingIsModuleContext() {
+    return extendingIsModuleContext;
+  }
+
+  public void setExtendingIsModuleContext(boolean extendingIsModuleContext) {
+    this.extendingIsModuleContext = extendingIsModuleContext;
+  }
 }

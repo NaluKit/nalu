@@ -3,7 +3,7 @@ Every Nalu application needs one application interface. The application interfac
 
 ## Application interface
 To implement Nalu in your application, first create an application interface:
-```Java
+```java_holder_method_tree
 @Application(loader = MyLoader.class,
              startRoute = "/application/search",
              context = MyApplicationContext.class)
@@ -171,13 +171,30 @@ This example uses [Domino-rest](https://github.com/DominoKit/domino-rest) to sen
 
 A log message can be triggered by firing a `LogEvent`.
 
+## Version and Build Time
+Nalu supports setting a version String using an annotation and storing the build time. To get this feature, the context needs to extend `AbstractModuleContext` and inside the application interface you have to add the **Version**-annotation.
+
+```java_holder_method_tree
+@Application(loader = MyLoader.class,
+             startRoute = "/application/search",
+             context = MyApplicationContext.class)
+@Version("HEAD-SNAPSHOT")             
+interface MyApplication
+    extends IsApplication {
+}
+```
+
+The example above will set the version of the application to 'HEAD-SNAPSHOT'.
+To access the application version, use: `context.getApplicationVersion()`. To access the build timestamp call `context.getApplicationBuildTime()`.
+
+
 ## Debug Annotation (removed in version v2.1.0)
 Nalu integrates a log feature that let you trace the routes handled, controllers used, fired events, etc. The debug messages will be displayed using the browser's console.
 
-**This feature is only available during development!***
+**This feature is only available during development!**
 
 To activate the log feature, you need to annotate your application class with `@Debug`:
-```Java
+```java_holder_method_tree
 @Debug()
 interface MyApplication
     extends IsApplication {

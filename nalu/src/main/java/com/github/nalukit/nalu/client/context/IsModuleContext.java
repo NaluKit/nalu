@@ -18,6 +18,8 @@ package com.github.nalukit.nalu.client.context;
 
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
+import java.sql.Timestamp;
+
 /**
  * Marks a class as Nalu application context used inside a multi module project.
  * <p>
@@ -45,5 +47,44 @@ public interface IsModuleContext
    */
   @NaluInternalUse
   void setApplicationContext(ContextDataStore applicationContext);
+
+  /**
+   * Returns the application build time set by the Nalu processor.
+   *
+   * @return build time of the application set by the Nalu processor
+   */
+  Timestamp getApplicationBuildTime();
+
+  /**
+   * Sets the application build time.
+   * <p>
+   * Note:
+   * Keep in mind, that Nalu will use the method.
+   * Using the method inside your application will lead to
+   * unexpected results.
+   *
+   * @param applicationBuildTime the application build time
+   */
+  void setApplicationBuildTime(Timestamp applicationBuildTime);
+
+  /**
+   * Returns the application version. The value can be set by using
+   * the @Version annotation.
+   *
+   * @return version of the applicaiton set by the Version annotation
+   */
+  String getApplicationVersion();
+
+  /**
+   * Sets the application version.
+   * <p>
+   * Note:
+   * Keep in mind, that Nalu will use the method.
+   * Using the method inside your application will lead to
+   * unexpected results.
+   *
+   * @param applicationVersion the application version
+   */
+  void setApplicationVersion(String applicationVersion);
 
 }

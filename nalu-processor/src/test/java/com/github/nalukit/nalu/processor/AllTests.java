@@ -34,17 +34,6 @@ import org.junit.runner.RunWith;
                    ConsistenceTest.class,
                    ControllerCreatorTest.class,
                    ControllerModelTest.class,
-                   ControllerTest.class,
-                   ErrorPopUpControllerTest.class,
-                   FiltersTest.class,
-                   HandlerTest.class,
-                   LoggerTest.class,
-                   MetaModelTest.class,
-                   ModuleTest.class,
-                   PopUpControllerCreatorTest.class,
-                   PropertiesTest.class,
-                   ShellCreatorTest.class,
-                   ShellTest.class,
-                   TrackerTest.class })
+                   ControllerTest.class, ErrorPopUpControllerTest.class, FiltersTest.class, HandlerTest.class, LoggerTest.class, MetaModelTest.class, ModuleTest.class, PopUpControllerCreatorTest.class, PropertiesTest.class, ShellCreatorTest.class, ShellTest.class, TrackerTest.class, VersionTest.class })
 public class AllTests {
 }

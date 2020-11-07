@@ -1,5 +1,9 @@
 package com.github.nalukit.nalu.client.context;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
+import java.sql.Timestamp;
+
 /**
  * <p>
  * Abstract context base class to use inside modules.
@@ -9,17 +13,20 @@ package com.github.nalukit.nalu.client.context;
  */
 public abstract class AbstractModuleContext
     implements IsModuleContext {
-
+  
+  private final static String APPLICATION_BUILD_TIME = "APPLICATION_BUILD_TIME";
+  private final static String APPLICATION_VERSION    = "APPLICATION_VERSION";
+  
   /* context - available in main- and sub-modules */
   private ContextDataStore applicationContext;
   /* context - not manged by Nalu */
   private ContextDataStore context;
-
+  
   public AbstractModuleContext() {
     this.applicationContext = new ContextDataStore();
-    this.context = new ContextDataStore();
+    this.context            = new ContextDataStore();
   }
-
+  
   /**
    * Gets the application context
    *
@@ -29,7 +36,7 @@ public abstract class AbstractModuleContext
   public ContextDataStore getApplicationContext() {
     return this.applicationContext;
   }
-
+  
   /**
    * Sets the application context.
    *
@@ -43,7 +50,7 @@ public abstract class AbstractModuleContext
   public void setApplicationContext(ContextDataStore applicationContext) {
     this.applicationContext = applicationContext;
   }
-
+  
   /**
    * Gets the local, not by Nalu managed, context
    *
@@ -53,4 +60,57 @@ public abstract class AbstractModuleContext
     return context;
   }
 
+  /**
+   * Returns the application build time set by the Nalu processor.
+   *
+   * @return build time of the application set by the Nalu processor
+   */
+  public Timestamp getApplicationBuildTime() {
+    return (Timestamp) this.applicationContext.get(AbstractModuleContext.APPLICATION_BUILD_TIME);
+  }
+  
+  /**
+   * Sets the application build time.
+   * <p>
+   * Note:
+   * Keep in mind, that Nalu will use the method.
+   * Using the method inside your application will lead to
+   * unexpected results.
+   *
+   * @param applicationBuildTime the application build time
+   */
+  @NaluInternalUse
+  public void setApplicationBuildTime(Timestamp applicationBuildTime) {
+    this.applicationContext.put(AbstractModuleContext.APPLICATION_BUILD_TIME,
+                                applicationBuildTime);
+  }
+  
+  /**
+   * Returns the application version. The value can be set by using
+   * the @Version annotation.
+   *
+   * @return version of the applicaiton set by the Version annotation
+   */
+  public String getApplicationVersion() {
+    return (String) this.applicationContext
+        .get(AbstractModuleContext.APPLICATION_VERSION);
+  }
+  
+  /**
+   * Sets the application version.
+   * <p>
+   * Note:
+   * Keep in mind, that Nalu will use the method.
+   * Using the method inside your application will lead to
+   * unexpected results.
+   *
+   * @param applicationVersion the application version
+   */
+  @NaluInternalUse
+  public void setApplicationVersion(String applicationVersion) {
+    this.applicationContext
+        .put(AbstractModuleContext.APPLICATION_VERSION,
+             applicationVersion);
+  }
+  
 }
