@@ -812,6 +812,7 @@ abstract class AbstractRouter
                 CompositeInstance compositeInstance = CompositeFactory.get()
                                                                       .getComposite(controllerInstance.getControllerClassName(),
                                                                                     s.getComposite(),
+                                                                                    s.getSelector(),
                                                                                     s.isScopeGlobal(),
                                                                                     routeResult.getParameterValues()
                                                                                                .toArray(new String[0]));
@@ -855,15 +856,34 @@ abstract class AbstractRouter
                     controllerInstance);
       }
       if (!controllerInstance.isCached() && !handlingModeReuse) {
-        // append composite
+        // try to find a reference with selector check
         for (AbstractCompositeController<?, ?, ?> compositeController : compositeControllers) {
           CompositeControllerReference reference = null;
           for (CompositeControllerReference sfc : compositeForController) {
             if (compositeController.getClass()
                                    .getCanonicalName()
                                    .equals(sfc.getComposite())) {
-              reference = sfc;
-              break;
+              if (compositeController.getSelector() != null) {
+                if (compositeController.getSelector()
+                                       .equals(sfc.getSelector())) {
+                  reference = sfc;
+                  break;
+                }
+              }
+            }
+          }
+          // uiiih nothiung found ... do it again without checking selector
+          if (reference == null) {
+            // try to find a reference without selector check
+            for (CompositeControllerReference sfc : compositeForController) {
+              if (compositeController.getClass()
+                                     .getCanonicalName()
+                                     .equals(sfc.getComposite())) {
+                if (compositeController.getSelector() == null) {
+                  reference = sfc;
+                  break;
+                }
+              }
             }
           }
           if (reference != null) {
@@ -890,6 +910,7 @@ abstract class AbstractRouter
                 CompositeInstance compositeInstance = CompositeFactory.get()
                                                                       .getComposite(controllerInstance.getControllerClassName(),
                                                                                     compositeControllerReference.getComposite(),
+                                                                                    compositeControllerReference.getSelector(),
                                                                                     true,
                                                                                     routeResult.getParameterValues()
                                                                                                .toArray(new String[0]));

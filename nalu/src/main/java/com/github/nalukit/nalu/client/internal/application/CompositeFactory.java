@@ -60,6 +60,7 @@ public class CompositeFactory {
   
   public CompositeInstance getComposite(String parentControllerClassName,
                                         String compositeControllerClassName,
+                                        String selector,
                                         boolean scopeGlobal,
                                         String... params)
       throws RoutingInterceptionException {
@@ -71,13 +72,17 @@ public class CompositeFactory {
     }
     // ok, global cache is empty ... create it!
     if (this.compositeCreatorFactory.containsKey(compositeControllerClassName)) {
-      IsCompositeCreator compositeCreator  = this.compositeCreatorFactory.get(compositeControllerClassName);
-      CompositeInstance  compositeInstance = compositeCreator.create(parentControllerClassName);
+      IsCompositeCreator compositeCreator = this.compositeCreatorFactory.get(compositeControllerClassName);
+      CompositeInstance compositeInstance = compositeCreator.create(parentControllerClassName,
+                                                                    selector,
+                                                                    scopeGlobal);
       if (scopeGlobal) {
         // oh ... global scope! store the compositeInstance
         compositeInstance.setCached(true);
         compositeInstance.getComposite()
                          .setCachedGlobal(true);
+        compositeInstance.getComposite()
+                         .setSelector(null);
         this.cachedGlobalCompositeInstances.put(compositeControllerClassName,
                                                 compositeInstance);
       }
@@ -89,15 +94,29 @@ public class CompositeFactory {
   }
   
   public AbstractCompositeController<?, ?, ?> getCompositeFormStore(String parentControllerClassName,
-                                                                    String controllerClassName) {
+                                                                    String controllerClassName,
+                                                                    String selector) {
     String key = this.createKey(parentControllerClassName,
-                                controllerClassName);
+                                controllerClassName,
+                                selector);
     return this.compositeControllerStore.get(key);
   }
   
   private String createKey(String parentClassName,
-                           String compositeClassName) {
-    return this.classFormatter(parentClassName) + CompositeFactory.DELIMITER + this.classFormatter(compositeClassName);
+                           String compositeClassName,
+                           String selector) {
+    StringBuilder sb = new StringBuilder();
+    sb.append(this.classFormatter(parentClassName))
+      .append(CompositeFactory.DELIMITER);
+    if (selector != null) {
+      sb.append(selector)
+        .append(CompositeFactory.DELIMITER);
+    } else {
+      sb.append("*")
+        .append(CompositeFactory.DELIMITER);
+    }
+    sb.append(this.classFormatter(compositeClassName));
+    return sb.toString();
   }
   
   private String classFormatter(String className) {
@@ -118,7 +137,8 @@ public class CompositeFactory {
   public <C extends AbstractCompositeController<?, ?, ?>> void storeInCache(C controller) {
     String key = this.createKey(controller.getParentClassName(),
                                 controller.getClass()
-                                          .getCanonicalName());
+                                          .getCanonicalName(),
+                                controller.getSelector());
     this.compositeControllerStore.put(key,
                                       controller);
   }
@@ -137,7 +157,8 @@ public class CompositeFactory {
   public <C extends AbstractCompositeController<?, ?, ?>> void removeFromCache(C controller) {
     String key = this.createKey(controller.getParentClassName(),
                                 controller.getClass()
-                                          .getCanonicalName());
+                                          .getCanonicalName(),
+                                controller.getSelector());
     this.compositeControllerStore.remove(key);
   }
   

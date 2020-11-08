@@ -33,6 +33,8 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   protected HandlerRegistrations handlerRegistrations       = new HandlerRegistrations();
   /* component of the controller */
   private   String               parentClassName;
+  /* selector */
+  private   String               selector;
   /* flag, if the controller is cached or not */
   private   boolean              cached;
   /* flag, if the controller is cached or not in Scope GLOBAL! */
@@ -227,6 +229,31 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
    */
   public void setCachedGlobal(boolean cachedGlobal) {
     this.cachedGlobal = cachedGlobal;
+  }
+  
+  /**
+   * Returns the selector of the composite.
+   * <p>
+   * Attention:
+   * Not set in case of global caching is turned on!
+   *
+   * @return selector
+   */
+  public String getSelector() {
+    return selector;
+  }
+  
+  /**
+   * sets the selector
+   * <p>
+   * Attention:
+   * Not set in case of global caching is turned on!
+   *
+   * @param selector THe selector, the composite is ocated inside the DOM
+   */
+  @NaluInternalUse
+  public void setSelector(String selector) {
+    this.selector = selector;
   }
   
 }

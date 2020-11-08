@@ -22,7 +22,9 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 @NaluInternalUse
 public interface IsCompositeCreator {
   
-  CompositeInstance create(String parentControllerClassName)
+  CompositeInstance create(String parentControllerClassName,
+                           String selctor,
+                           boolean scopeGlobal)
       throws RoutingInterceptionException;
   
   void setParameter(Object object,

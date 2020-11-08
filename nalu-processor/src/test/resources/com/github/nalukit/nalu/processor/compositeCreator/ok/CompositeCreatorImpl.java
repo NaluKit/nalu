@@ -13,18 +13,18 @@ import java.lang.String;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.08.31-11:45:58<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.11.08-16:38:33<<
  */
 public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockContext> implements IsCompositeCreator {
   public CompositeCreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
     super(router, context, eventBus);
   }
   
-  public CompositeInstance create(String parentControllerClassName) throws
-                                                                    RoutingInterceptionException {
+  public CompositeInstance create(String parentControllerClassName, String selector,
+                                  boolean scopeGlobal) throws RoutingInterceptionException {
     CompositeInstance compositeInstance = new CompositeInstance();
     compositeInstance.setCompositeClassName("com.github.nalukit.nalu.processor.compositeCreator.ok.Composite");
-    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.get().getCompositeFormStore(parentControllerClassName, "com.github.nalukit.nalu.processor.compositeCreator.ok.Composite");
+    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.get().getCompositeFormStore(parentControllerClassName, "com.github.nalukit.nalu.processor.compositeCreator.ok.Composite", selector);
     if (storedComposite == null) {
       Composite composite = new Composite();
       compositeInstance.setComposite(composite);
@@ -34,6 +34,9 @@ public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockCon
       composite.setEventBus(eventBus);
       composite.setRouter(router);
       composite.setCached(false);
+      if (!scopeGlobal) {
+        composite.setSelector(selector);
+      }
       ICompositeComponent component = new CompositeComponent();
       component.setController(composite);
       composite.setComponent(component);

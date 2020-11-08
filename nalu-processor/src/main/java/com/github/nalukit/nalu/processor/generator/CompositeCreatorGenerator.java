@@ -108,6 +108,12 @@ public class CompositeCreatorGenerator {
                                                 .addParameter(ParameterSpec.builder(String.class,
                                                                                     "parentControllerClassName")
                                                                            .build())
+                                                .addParameter(ParameterSpec.builder(String.class,
+                                                                                    "selector")
+                                                                           .build())
+                                                .addParameter(ParameterSpec.builder(boolean.class,
+                                                                                    "scopeGlobal")
+                                                                           .build())
                                                 .returns(ClassName.get(CompositeInstance.class))
                                                 .addException(ClassName.get(RoutingInterceptionException.class))
                                                 .addStatement("$T compositeInstance = new $T()",
@@ -116,7 +122,7 @@ public class CompositeCreatorGenerator {
                                                 .addStatement("compositeInstance.setCompositeClassName($S)",
                                                               compositeModel.getProvider()
                                                                             .getClassName())
-                                                .addStatement("$T<?, ?, ?> storedComposite = $T.get().getCompositeFormStore(parentControllerClassName, $S)",
+                                                .addStatement("$T<?, ?, ?> storedComposite = $T.get().getCompositeFormStore(parentControllerClassName, $S, selector)",
                                                               ClassName.get(AbstractCompositeController.class),
                                                               ClassName.get(CompositeFactory.class),
                                                               compositeModel.getProvider()
@@ -137,7 +143,10 @@ public class CompositeCreatorGenerator {
                 .addStatement("composite.setContext(context)")
                 .addStatement("composite.setEventBus(eventBus)")
                 .addStatement("composite.setRouter(router)")
-                .addStatement("composite.setCached(false)");
+                .addStatement("composite.setCached(false)")
+                .beginControlFlow("if (!scopeGlobal)")
+                .addStatement("composite.setSelector(selector)")
+                .endControlFlow();
     if (compositeModel.isComponentCreator()) {
       createMethod.addStatement("$T component = composite.createComponent()",
                                 ClassName.get(compositeModel.getComponentInterface()
