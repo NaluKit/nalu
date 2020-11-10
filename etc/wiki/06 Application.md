@@ -184,10 +184,10 @@ interface MyApplication
 }
 ```
 
-It is possible to override the value from the version annotation from the command line. Nalu will look for a property called "nalu.application.version". If the property exists, Nalu will use this value.
-
 The example above will set the version of the application to 'HEAD-SNAPSHOT'.
 To access the application version, use: `context.getApplicationVersion()`. To access the build timestamp call `context.getApplicationBuildTime()`.
+
+It is possible to override the value from the version annotation from the command line. Nalu will look for a property called "nalu.application.version". If the property exists, Nalu will use this value.
 
 
 ## Debug Annotation (removed in version v2.1.0)
