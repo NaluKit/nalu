@@ -92,8 +92,12 @@ public class ApplicationGenerator {
                                                              metaModel.getContext()
                                                                       .getSimpleName());
     if (metaModel.isExtendingIsModuleContext()) {
+      String applicationVersion = System.getProperty("nalu.application.version");
+      if (applicationVersion == null) {
+        applicationVersion = metaModel.getApplicationVersion();
+      }
       constructor.addStatement("super.context.setApplicationVersion($S)",
-                               metaModel.getApplicationVersion())
+                               applicationVersion)
                  .addStatement("super.context.setApplicationBuildTime(new $T($LL))",
                                ClassName.get(Timestamp.class),
                                System.currentTimeMillis());
