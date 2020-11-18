@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithLoaderAsInnerInterface;
 
-import com.github.nalukit.nalu.client.application.IsApplicationLoader;
+import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
@@ -16,7 +16,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.16-22:30:40<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.11.18-07:08:28<<
  */
 public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithLoaderAsInnerInterface {
   public ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl() {
@@ -93,8 +93,13 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   }
   
   @Override
-  public IsApplicationLoader<MockContext> getApplicationLoader() {
+  public IsLoader<MockContext> getLoader() {
     return new MyApplicationLoader();
+  }
+  
+  @Override
+  public IsLoader<MockContext> getPostLoader() {
+    return null;
   }
   
   @Override

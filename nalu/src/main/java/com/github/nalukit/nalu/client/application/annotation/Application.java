@@ -16,11 +16,11 @@
 
 package com.github.nalukit.nalu.client.application.annotation;
 
-import com.github.nalukit.nalu.client.application.AbstractApplicationLoader;
+import com.github.nalukit.nalu.client.application.AbstractLoader;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.NoCustomAlertPresenter;
 import com.github.nalukit.nalu.client.internal.NoCustomConfirmPresenter;
-import com.github.nalukit.nalu.client.internal.application.NoApplicationLoader;
+import com.github.nalukit.nalu.client.internal.application.DefaultLoader;
 import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 
@@ -52,11 +52,29 @@ public @interface Application {
    * application is started. This is a good place to load application data.
    * F.e.: Meta-data, store values, etc.
    * <br>
+   * This loader will be executed before any module is loaded!
+   * <br>
    * The application loader is optional.
    *
    * @return the application loader
    */
-  Class<? extends AbstractApplicationLoader<?>> loader() default NoApplicationLoader.class;
+  Class<? extends AbstractLoader<?>> loader() default DefaultLoader.class;
+ 
+  /**
+   * the post application start loader of the application. Will be executed in
+   * case the application is started and after all modules have loaded. This is
+   * a good place to load application data that is relevant also for modules.
+   * F.e.: Meta-data, store values, etc.
+   * <br>
+   * This loader will be executed after all modules are loaded! If the Nalu
+   * application does not have modules, the loader is executed immediately
+   * after the loader (if exists).
+   * <br>
+   * The application loader is optional.
+   *
+   * @return the post application laoder loader
+   */
+  Class<? extends AbstractLoader<?>> postLoader() default DefaultLoader.class;
   
   /**
    * Start route used by Nalu in case the application is started

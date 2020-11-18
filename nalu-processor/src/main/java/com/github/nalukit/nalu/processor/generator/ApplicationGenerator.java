@@ -16,12 +16,12 @@
 
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.application.IsApplicationLoader;
+import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.internal.NoCustomAlertPresenter;
 import com.github.nalukit.nalu.client.internal.NoCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
-import com.github.nalukit.nalu.client.internal.application.NoApplicationLoader;
+import com.github.nalukit.nalu.client.internal.application.DefaultLoader;
 import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
@@ -193,23 +193,41 @@ public class ApplicationGenerator {
                     .build()
                     .generate();
     
-    // method "getApplicationLoader"
-    MethodSpec.Builder getApplicationLoaderMethod = MethodSpec.methodBuilder("getApplicationLoader")
-                                                              .addModifiers(Modifier.PUBLIC)
-                                                              .addAnnotation(Override.class)
-                                                              .returns(ParameterizedTypeName.get(ClassName.get(IsApplicationLoader.class),
-                                                                                                 metaModel.getContext()
-                                                                                                          .getTypeName()));
-    if (NoApplicationLoader.class.getCanonicalName()
-                                 .equals(metaModel.getLoader()
-                                                  .getClassName())) {
-      getApplicationLoaderMethod.addStatement("return null");
+    // method "getLoader"
+    MethodSpec.Builder getLoaderMethod = MethodSpec.methodBuilder("getLoader")
+                                                   .addModifiers(Modifier.PUBLIC)
+                                                   .addAnnotation(Override.class)
+                                                   .returns(ParameterizedTypeName.get(ClassName.get(IsLoader.class),
+                                                                                      metaModel.getContext()
+                                                                                               .getTypeName()));
+    if (DefaultLoader.class.getCanonicalName()
+                           .equals(metaModel.getLoader()
+                                            .getClassName())) {
+      getLoaderMethod.addStatement("return null");
     } else {
-      getApplicationLoaderMethod.addStatement("return new $T()",
-                                              metaModel.getLoader()
-                                                       .getTypeName());
+      getLoaderMethod.addStatement("return new $T()",
+                                   metaModel.getLoader()
+                                            .getTypeName());
     }
-    typeSpec.addMethod(getApplicationLoaderMethod.build());
+    typeSpec.addMethod(getLoaderMethod.build());
+    
+    // method "getPostLoader"
+    MethodSpec.Builder getPostLoaderMethod = MethodSpec.methodBuilder("getPostLoader")
+                                                       .addModifiers(Modifier.PUBLIC)
+                                                       .addAnnotation(Override.class)
+                                                       .returns(ParameterizedTypeName.get(ClassName.get(IsLoader.class),
+                                                                                          metaModel.getContext()
+                                                                                                   .getTypeName()));
+    if (DefaultLoader.class.getCanonicalName()
+                           .equals(metaModel.getPostLoader()
+                                            .getClassName())) {
+      getPostLoaderMethod.addStatement("return null");
+    } else {
+      getPostLoaderMethod.addStatement("return new $T()",
+                                       metaModel.getPostLoader()
+                                                .getTypeName());
+    }
+    typeSpec.addMethod(getPostLoaderMethod.build());
     
     // method "getCustomAlertPresenter"
     MethodSpec.Builder getCustomAlertPresenterMethod = MethodSpec.methodBuilder("getCustomAlertPresenter")

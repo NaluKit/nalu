@@ -1,4 +1,4 @@
-package com.github.nalukit.nalu.processor.logger.loggerAnnotationOk02;
+package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithPostLoader;
 
 import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
@@ -15,10 +15,10 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.11.18-06:48:30<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.11.18-07:18:21<<
  */
-public final class LoggerAnnotationOk02Impl extends AbstractApplication<MockContext> implements LoggerAnnotationOk02 {
-  public LoggerAnnotationOk02Impl() {
+public final class ApplicationAnnotationOkWithPostLoaderImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithPostLoader {
+  public ApplicationAnnotationOkWithPostLoaderImpl() {
     super();
     super.context = new com.github.nalukit.nalu.processor.common.MockContext();
   }
@@ -98,7 +98,7 @@ public final class LoggerAnnotationOk02Impl extends AbstractApplication<MockCont
   
   @Override
   public IsLoader<MockContext> getPostLoader() {
-    return null;
+    return new MockApplicationPostLoader();
   }
   
   @Override

@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.processor.version.applicationWithVersionExtendingIsModuleContest;
 
-import com.github.nalukit.nalu.client.application.IsApplicationLoader;
+import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
@@ -95,7 +95,7 @@ public final class VersionAnnotationImpl extends AbstractApplication<MockModuleC
   }
 
   @Override
-  public IsApplicationLoader<MockModuleContext> getApplicationLoader() {
+  public IsLoader<MockModuleContext> getApplicationLoader() {
     return null;
   }
 

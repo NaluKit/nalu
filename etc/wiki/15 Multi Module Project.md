@@ -16,7 +16,7 @@ The `@Module`-annotation takes two attributes:
 2. **context**: the context of the module
 
 Example:
-```java
+```java_holder_method_tree
 @Module(name = "myModule01",
         context = MyModule01Context.class)
 public interface MyModule01
@@ -27,7 +27,7 @@ public interface MyModule01
 Next we need to tell the application, that there are modules to load. To do so, we add the `@Modules`-annotation to the `IsApplication`-interface.
 
 Example:
-```java
+```java_holder_method_tree
 @Application(startRoute = "/loginShell/login",
              context = MyApplicationContext.class)
 @Modules({ MyModule01.class,
@@ -73,7 +73,7 @@ this.eventBus.addHandler(NaluApplicationEvent.TYPE,
 To avoid the need of a common module which contains a application wide context, all of your contexts need to extend `AbstractModuleContext`. The `AbstractModuleContext`-class owns a data map object wrapped inside a `ContextDataStore`. This data map object will be injected in every context. All data contained in this store is appllication wide available.
 
 A simple context might look like that:
-```Java
+```java_holder_method_tree
 public class MyApplicationContext
   extends AbstractModuleContext {
   
@@ -127,6 +127,9 @@ public class MyApplicationContext
 
 ### Note
 This implementation might look a little bit boiler-plated, but it helps you to avoid a common project where all modules and the main module depend on!
+
+## Loader
+The module loaders will be called after tha loader of the main module!
 
 ## Set Up a Multi Module Project
 There are several ways to set up a Nalu multi module project.

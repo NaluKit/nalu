@@ -63,13 +63,15 @@ public class ApplicationAnnotationScanner {
       throws ProcessorException {
     Application applicationAnnotation = applicationElement.getAnnotation(Application.class);
     if (!isNull(applicationAnnotation)) {
-      TypeElement applicationLoaderTypeElement = this.getApplicationLoaderTypeElement(applicationAnnotation);
+      TypeElement loaderTypeElement = this.getLoaderTypeElement(applicationAnnotation);
+      TypeElement postLoaderTypeElement = this.getPostLoaderTypeElement(applicationAnnotation);
       TypeElement contextTypeElement = this.getContextTypeElement(applicationAnnotation);
       TypeElement customAlertPresenterTypeElement = this.getCustomAlertPresenterTypeElement(applicationAnnotation);
       TypeElement customConfirmPresenterTypeElement = this.getCustomConfirmPresenterTypeElement(applicationAnnotation);
       metaModel.setGenerateToPackage(this.processorUtils.getPackageAsString(applicationElement));
       metaModel.setApplication(new ClassNameModel(applicationElement.toString()));
-      metaModel.setLoader(new ClassNameModel(isNull(applicationLoaderTypeElement) ? "" : applicationLoaderTypeElement.toString()));
+      metaModel.setLoader(new ClassNameModel(isNull(loaderTypeElement) ? "" : loaderTypeElement.toString()));
+      metaModel.setPostLoader(new ClassNameModel(isNull(postLoaderTypeElement) ? "" : postLoaderTypeElement.toString()));
       if (isNull(contextTypeElement)) {
         throw new ProcessorException("Nalu-Processor: context in application annotation is null!");
       } else {
@@ -90,9 +92,19 @@ public class ApplicationAnnotationScanner {
     }
   }
 
-  private TypeElement getApplicationLoaderTypeElement(Application applicationAnnotation) {
+  private TypeElement getLoaderTypeElement(Application applicationAnnotation) {
     try {
       applicationAnnotation.loader();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
+  }
+
+  private TypeElement getPostLoaderTypeElement(Application applicationAnnotation) {
+    try {
+      applicationAnnotation.postLoader();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());

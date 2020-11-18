@@ -18,7 +18,7 @@ package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.application.IsApplication;
-import com.github.nalukit.nalu.client.application.IsApplicationLoader;
+import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.component.IsShell;
@@ -162,14 +162,14 @@ public abstract class AbstractApplication<C extends IsContext>
       return;
     }
     // handling application loading
-    IsApplicationLoader<C> applicationLoader = getApplicationLoader();
-    if (getApplicationLoader() == null) {
-      this.onFinishApplicationLoading();
+    IsLoader<C> loader = getLoader();
+    if (loader == null) {
+      this.onFinishLoading();
     } else {
-      applicationLoader.setContext(this.context);
-      applicationLoader.setEventBus(this.eventBus);
-      applicationLoader.setRouter(this.router);
-      applicationLoader.load(this::onFinishApplicationLoading);
+      loader.setContext(this.context);
+      loader.setEventBus(this.eventBus);
+      loader.setRouter(this.router);
+      loader.load(this::onFinishLoading);
     }
   }
   
@@ -215,12 +215,14 @@ public abstract class AbstractApplication<C extends IsContext>
   
   protected abstract void loadHandlers();
   
-  protected abstract IsApplicationLoader<C> getApplicationLoader();
+  protected abstract IsLoader<C> getLoader();
+  
+  protected abstract IsLoader<C> getPostLoader();
   
   /**
    * Once the loader did his job, we will continue
    */
-  private void onFinishApplicationLoading() {
+  private void onFinishLoading() {
     // load modules, now we have started everything, it's tiem to deal with mdoules ...
     this.loadModules();
   }
@@ -235,9 +237,26 @@ public abstract class AbstractApplication<C extends IsContext>
   }
   
   /**
-   * Once the loader did his job, we will continue
+   * Once the loader did his job, we will execute the post loader
    */
   protected void onFinishModuleLoading() {
+    // now, let's execute the 'postloader'
+    // handling application loading
+    IsLoader<C> postLoader = getPostLoader();
+    if (postLoader == null) {
+      this.onFinishPostLoading();
+    } else {
+      postLoader.setContext(this.context);
+      postLoader.setEventBus(this.eventBus);
+      postLoader.setRouter(this.router);
+      postLoader.load(this::onFinishPostLoading);
+    }
+  }
+  
+  /**
+   * Once the post loader did his job, we will start the application
+   */
+  protected void onFinishPostLoading() {
     // save the current hash
     String hashOnStart = this.plugin.getStartRoute();
     // check if the url contains a hash.

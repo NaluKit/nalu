@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.simpleapplication02.client;
 
-import com.github.nalukit.nalu.client.application.IsApplicationLoader;
+import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
@@ -191,8 +191,13 @@ public final class NaluSimpleApplicationImpl
   }
   
   @Override
-  public IsApplicationLoader<NaluSimpleApplicationContext> getApplicationLoader() {
+  public IsLoader<NaluSimpleApplicationContext> getLoader() {
     return new NaluSimpleApplicationLoader();
+  }
+  
+  @Override
+  public IsLoader<NaluSimpleApplicationContext> getPostLoader() {
+    return null;
   }
   
 }
