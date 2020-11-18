@@ -8,7 +8,7 @@ In case you will run into problems and you do not find a solution, feel free to 
 After updating Nalu, compilation fails.
 ### Solutions
 In this case please try the following steps:
-* run `mvn clean install`: After updating Nalu the old compiled sources have to be newly created.
+* run `mvn clean verify`: After updating Nalu the old compiled sources have to be newly created.
 * check the factory path that you also use the new processor version.
 
 # Eclipse
