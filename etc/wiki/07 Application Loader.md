@@ -5,20 +5,21 @@ This is a good place, to
 
 * load data from the server and store them f. e.: in the context or a cache for later use
 * load application wide style sheets and provide them via the application context
+* initialize the applicaiton
 * do anything else, you want to do at application start ...
 
 Once all asynchronous action(s) are executed, the control will be return to Nalu by calling `finishLoadCommand.finishLoading();`.
 
-## Creating an Application Loader
-To create an application loader, just create a class, that extend `AbstractApplicationLoader`. Extending `AbstractApplicationLoader` will force the implementation to add a `load`-method.
+## Creating a Loader
+To create a loader, just create a class, that extend `AbstractLoader`. Extending `AbstractLoader` will force the implementation to add a `load`-method.
 
 * **load**: this method will be called during application start and before the initial route is called. When all loadings are done, the method `finishLoadCommand.finishLoading();` has to be called to return the control to Nalu. After returning the control to Nalu, Nalu will continue the start process of the application.
 
 Example of an application loader:
 
 ```java
-public class MyApplicationLoader
-  extends AbstractApplicationLoader<MyContext> {
+public class MyLoader
+  extends AbstractLoader<MyContext> {
 
   @Override
   public void load(FinishLoadCommand finishLoadCommand) {
@@ -39,19 +40,28 @@ A loader has a reference to the instances of:
 
 **Do not use the router inside the application loader! Do not route.**
 
-**Because the loader is called during the start phase of a Nalu application, some things might not be set correctly. Use the router instance only to inject something for later use.**
+**Because the loader is called during the start phase of a Nalu application, some things might not be set correctly. Use the router instance only to inject the router into other classes for later use.**
 
 ## Setting a loader
 To set a loader for an application, you need to add your loader to the @Application annotation and set the value of the loader attribute to your loader class.
 
 ```java
-@Application(loader = MyApplicationLoader.class,
+@Application(loader = MyLoader.class,
              startRoute = "/application/search",
              context = MyApplicationContext.class)
 interface MyApplication
   extends IsApplication {
 }
 ```
+
+## Loader types and execution order
+Nalu has several loader types:
+
+1. a loader that will be executed at application start
+2. in case the application has modules, the module loaders are executed (if they exist)
+3. a post loader, that will be called after all modules are loaded and (optional) loaders are executed
+
+In case the application has no modules you can use the loader or postLoader attribute to add your loader to the application.
 
 ## Handling application loader failure
 In case a loading error occurs that prevent the application from starting, it is a good practice to inform the user about the error using a popup (or something else) and route the application to a technical error page.
