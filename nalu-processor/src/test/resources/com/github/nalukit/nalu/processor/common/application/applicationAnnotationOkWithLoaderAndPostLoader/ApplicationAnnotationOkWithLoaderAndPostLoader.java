@@ -14,27 +14,16 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithLoaderAsInnerInterface;
+package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithLoaderAndPostLoader;
 
-import com.github.nalukit.nalu.client.application.AbstractLoader;
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
-import com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithLoaderAsInnerInterface.ApplicationAnnotationOkWithLoaderAsInnerInterface.MyApplicationLoader;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
-@Application(loader = MyApplicationLoader.class,
+@Application(loader = MockApplicationLoader.class,
+             postLoader = MockApplicationPostLoader.class,
              startRoute = "/mockShell/route01",
              context = MockContext.class)
-public interface ApplicationAnnotationOkWithLoaderAsInnerInterface
+public interface ApplicationAnnotationOkWithLoaderAndPostLoader
     extends IsApplication {
-
-  public static class MyApplicationLoader
-      extends AbstractLoader<MockContext> {
-
-    @Override
-    public void load(FinishLoadCommand finishLoadCommand) {
-      finishLoadCommand.finishLoading();
-    }
-
-  }
 }

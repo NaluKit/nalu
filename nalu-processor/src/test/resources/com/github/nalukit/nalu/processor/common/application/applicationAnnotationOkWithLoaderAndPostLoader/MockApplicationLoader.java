@@ -15,7 +15,7 @@
  *
  */
 
-package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithLoader;
+package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithLoaderAndPostLoader;
 
 import com.github.nalukit.nalu.client.application.AbstractLoader;
 import com.github.nalukit.nalu.processor.common.MockContext;

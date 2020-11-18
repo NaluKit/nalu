@@ -14,24 +14,21 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.simpleapplication02.client;
+package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.application.AbstractLoader;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 /**
- * A application loader of the NaluSimpleApplication
+ * Default application loader
+ * <p>does nothing</p>
+ * <p>Used by the framework</p>
+ * <p><b>DO NOT USE THIS CLASS</b></p>
  */
-public class NaluSimpleApplicationLoader
-    extends AbstractLoader<NaluSimpleApplicationContext> {
+@NaluInternalUse
+public final class DefaultLoader
+    extends AbstractLoader<DefaultContext> {
   
-  /**
-   * The loader of the application.
-   * <p>
-   * Will be executed at the start of the application
-   * and before the first event is executed.
-   *
-   * @param finishLoadCommand has to be called after the application has finieshed loading
-   */
   @Override
   public void load(FinishLoadCommand finishLoadCommand) {
     finishLoadCommand.finishLoading();

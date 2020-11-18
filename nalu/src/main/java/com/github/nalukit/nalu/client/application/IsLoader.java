@@ -29,7 +29,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
  * <p>Once the work is done call finishLoadCommand.finishLoad() to resume with the normal processing.</p>
  * <p><b>Caution: Do not use the router to route inside the loader!Just use it only to inject it!</b></p>
  */
-public interface IsApplicationLoader<C extends IsContext> {
+public interface IsLoader<C extends IsContext> {
   
   /**
    * Calls the application loader.

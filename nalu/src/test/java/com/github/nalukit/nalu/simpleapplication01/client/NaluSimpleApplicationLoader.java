@@ -16,13 +16,13 @@
 
 package com.github.nalukit.nalu.simpleapplication01.client;
 
-import com.github.nalukit.nalu.client.application.AbstractApplicationLoader;
+import com.github.nalukit.nalu.client.application.AbstractLoader;
 
 /**
  * A application loader of the NaluSimpleApplication
  */
 public class NaluSimpleApplicationLoader
-    extends AbstractApplicationLoader<NaluSimpleApplicationContext> {
+    extends AbstractLoader<NaluSimpleApplicationContext> {
   
   /**
    * The loader of the application.

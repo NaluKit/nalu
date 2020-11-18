@@ -14,24 +14,15 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.internal.application;
+package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithPostLoader;
 
-import com.github.nalukit.nalu.client.application.AbstractApplicationLoader;
-import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+import com.github.nalukit.nalu.client.application.IsApplication;
+import com.github.nalukit.nalu.client.application.annotation.Application;
+import com.github.nalukit.nalu.processor.common.MockContext;
 
-/**
- * Default application loader
- * <p>does nothing</p>
- * <p>Used by the framework</p>
- * <p><b>DO NOT USE THIS CLASS</b></p>
- */
-@NaluInternalUse
-public final class NoApplicationLoader
-    extends AbstractApplicationLoader<DefaultContext> {
-  
-  @Override
-  public void load(FinishLoadCommand finishLoadCommand) {
-    finishLoadCommand.finishLoading();
-  }
-  
+@Application(postLoader = MockApplicationPostLoader.class,
+             startRoute = "/mockShell/route01",
+             context = MockContext.class)
+public interface ApplicationAnnotationOkWithPostLoader
+    extends IsApplication {
 }

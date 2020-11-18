@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithLoader;
 
-import com.github.nalukit.nalu.client.application.IsApplicationLoader;
+import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
@@ -15,7 +15,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.22-07:07:44<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.11.18-07:07:38<<
  */
 public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithLoader {
   public ApplicationAnnotationOkWithLoaderImpl() {
@@ -92,8 +92,13 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
   }
   
   @Override
-  public IsApplicationLoader<MockContext> getApplicationLoader() {
+  public IsLoader<MockContext> getLoader() {
     return new MockApplicationLoader();
+  }
+  
+  @Override
+  public IsLoader<MockContext> getPostLoader() {
+    return null;
   }
   
   @Override

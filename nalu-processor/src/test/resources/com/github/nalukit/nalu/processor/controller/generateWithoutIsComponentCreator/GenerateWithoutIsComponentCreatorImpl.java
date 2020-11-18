@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.processor.controller.generateWithoutIsComponentCreator;
 
-import com.github.nalukit.nalu.client.application.IsApplicationLoader;
+import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
@@ -15,7 +15,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.22-07:03:58<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.11.18-06:49:25<<
  */
 public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplication<MockContext> implements GenerateWithoutIsComponentCreator {
   public GenerateWithoutIsComponentCreatorImpl() {
@@ -92,7 +92,12 @@ public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplica
   }
   
   @Override
-  public IsApplicationLoader<MockContext> getApplicationLoader() {
+  public IsLoader<MockContext> getLoader() {
+    return null;
+  }
+  
+  @Override
+  public IsLoader<MockContext> getPostLoader() {
     return null;
   }
   

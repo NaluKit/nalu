@@ -15,12 +15,12 @@
  *
  */
 
-package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithLoader;
+package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithPostLoader;
 
 import com.github.nalukit.nalu.client.application.AbstractLoader;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
-public class MockApplicationLoader
+public class MockApplicationPostLoader
     extends AbstractLoader<MockContext> {
 
   @Override

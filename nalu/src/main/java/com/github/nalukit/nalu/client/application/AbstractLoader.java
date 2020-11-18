@@ -20,8 +20,8 @@ import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.context.IsContext;
 import org.gwtproject.event.shared.SimpleEventBus;
 
-public abstract class AbstractApplicationLoader<C extends IsContext>
-    implements IsApplicationLoader<C> {
+public abstract class AbstractLoader<C extends IsContext>
+    implements IsLoader<C> {
   
   protected C context;
   

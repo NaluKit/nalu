@@ -30,6 +30,8 @@ public class MetaModel {
   
   private ClassNameModel loader;
   
+  private ClassNameModel postLoader;
+  
   private ClassNameModel customAlertPresenter;
   
   private ClassNameModel customConfirmPresenter;
@@ -139,27 +141,12 @@ public class MetaModel {
     this.loader = loader;
   }
   
-  @Deprecated
-  public boolean isHasDebugAnnotation() {
-    return hasDebugAnnotation;
+  public ClassNameModel getPostLoader() {
+    return postLoader;
   }
   
-  @Deprecated
-  public void setHasDebugAnnotation(boolean hasDebugAnnotation) {
-    this.hasDebugAnnotation = hasDebugAnnotation;
-  }
-  
-  @Deprecated
-  public String getDebugLogLevel() {
-    if (debugLogLevel == null || "".equals(debugLogLevel)) {
-      return "SIMPLE";
-    }
-    return debugLogLevel;
-  }
-  
-  @Deprecated
-  public void setDebugLogLevel(String debugLogLevel) {
-    this.debugLogLevel = debugLogLevel;
+  public void setPostLoader(ClassNameModel postLoader) {
+    this.postLoader = postLoader;
   }
   
   public String getGenerateToPackage() {
@@ -184,16 +171,6 @@ public class MetaModel {
   
   public void setStartRoute(String startRoute) {
     this.startRoute = startRoute;
-  }
-  
-  @Deprecated
-  public ClassNameModel getDebugLogger() {
-    return debugLogger;
-  }
-  
-  @Deprecated
-  public void setDebugLogger(ClassNameModel debugLogger) {
-    this.debugLogger = debugLogger;
   }
   
   public List<ControllerModel> getControllers() {
@@ -260,20 +237,8 @@ public class MetaModel {
     return shells;
   }
   
-  public boolean hasPluginsAnnotation() {
-    return hasPluginsAnnotation;
-  }
-  
-  public void setHasPluginsAnnotation(boolean hasPluginsAnnotation) {
-    this.hasPluginsAnnotation = hasPluginsAnnotation;
-  }
-  
   public List<ClassNameModel> getModules() {
     return modules;
-  }
-  
-  public void setModules(List<ClassNameModel> modules) {
-    this.modules = modules;
   }
   
   public boolean isUsingHash() {

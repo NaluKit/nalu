@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.processor.common.application.applicationWithComposite03;
 
-import com.github.nalukit.nalu.client.application.IsApplicationLoader;
+import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
@@ -19,7 +19,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.16-22:22:53<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.11.18-06:55:58<<
  */
 public final class ApplicationWithComposite03Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite03 {
   public ApplicationWithComposite03Impl() {
@@ -103,7 +103,12 @@ public final class ApplicationWithComposite03Impl extends AbstractApplication<Mo
   }
   
   @Override
-  public IsApplicationLoader<MockContext> getApplicationLoader() {
+  public IsLoader<MockContext> getLoader() {
+    return null;
+  }
+  
+  @Override
+  public IsLoader<MockContext> getPostLoader() {
     return null;
   }
   

@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.processor.errorPopUpController.errorPopUpAnnotationOk;
 
-import com.github.nalukit.nalu.client.application.IsApplicationLoader;
+import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
@@ -18,7 +18,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.22-07:05:48<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.11.18-06:45:03<<
  */
 public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockContext> implements ErrorPopUpAnnotationOk {
   public ErrorPopUpAnnotationOkImpl() {
@@ -107,7 +107,12 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
   }
   
   @Override
-  public IsApplicationLoader<MockContext> getApplicationLoader() {
+  public IsLoader<MockContext> getLoader() {
+    return null;
+  }
+  
+  @Override
+  public IsLoader<MockContext> getPostLoader() {
     return null;
   }
   

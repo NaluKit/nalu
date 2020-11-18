@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.processor.application.startRouteOK;
 
-import com.github.nalukit.nalu.client.application.IsApplicationLoader;
+import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
@@ -15,7 +15,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.09.16-22:27:30<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.11.18-06:50:45<<
  */
 public final class StartRouteOKImpl extends AbstractApplication<MockContext> implements StartRouteOK {
   public StartRouteOKImpl() {
@@ -94,7 +94,12 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
   }
   
   @Override
-  public IsApplicationLoader<MockContext> getApplicationLoader() {
+  public IsLoader<MockContext> getLoader() {
+    return null;
+  }
+  
+  @Override
+  public IsLoader<MockContext> getPostLoader() {
     return null;
   }
   
