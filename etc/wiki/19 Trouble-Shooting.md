@@ -3,10 +3,22 @@ In some cases, you might run into troubles using Nalu. This side will provide so
 
 In case you will run into problems and you do not find a solution, feel free to use the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
 
+## Common Mistakes
+Here I will add a list of common mistakes made when using Nalu and which are hard to discover.
+
+### Controller or Composite does not get added to the DOM
+Sometimes, when building new componets in your Nalu project, you will not see the new components without seeing a compile or runtime error.
+
+#### Possible Solution:
+Check, if you are using the ***bind***-method in the controller and forgot to call ***loader.continueLoading();***
+
+For more informations, see: [bind Method](https://github.com/NaluKit/nalu/wiki/14.-Controllers-&-Composites#bind-method-since-v121) 
+
+
 ## Compilation errors after updating Nalu
-### Problem
+### Problems
 After updating Nalu, compilation fails.
-### Solutions
+### Solution
 In this case please try the following steps:
 * run `mvn clean verify`: After updating Nalu the old compiled sources have to be newly created.
 * check the factory path that you also use the new processor version.
