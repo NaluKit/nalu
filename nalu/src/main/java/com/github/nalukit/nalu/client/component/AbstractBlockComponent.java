@@ -16,8 +16,6 @@
 
 package com.github.nalukit.nalu.client.component;
 
-import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-
 public abstract class AbstractBlockComponent<C extends IsBlockComponent.Controller>
     extends AbstractCommonComponent<C>
     implements IsBlockComponent<C>, IsAbstractBlockComponent {

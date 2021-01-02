@@ -16,7 +16,6 @@
 
 package com.github.nalukit.nalu.client.component.annotation;
 
-import com.github.nalukit.nalu.client.component.AbstractComponent;
 import com.github.nalukit.nalu.client.component.IsAbstractComponent;
 import com.github.nalukit.nalu.client.component.IsComponent;
 
