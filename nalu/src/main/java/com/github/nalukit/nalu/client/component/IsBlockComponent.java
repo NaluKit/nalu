@@ -16,8 +16,6 @@
 
 package com.github.nalukit.nalu.client.component;
 
-import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-
 public interface IsBlockComponent<C extends IsBlockComponent.Controller>
     extends IsCommonComponent<C> {
 
