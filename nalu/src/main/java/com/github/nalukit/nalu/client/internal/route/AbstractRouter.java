@@ -42,7 +42,7 @@ import java.util.stream.Stream;
 
 abstract class AbstractRouter
     implements ConfigurableRouter {
-  
+
   /* instance of AlwaysLoadComposite-class */
   protected AlwaysLoadComposite alwaysLoadComposite;
   // the plugin
@@ -59,8 +59,6 @@ abstract class AbstractRouter
   private String                             lastExecutedHash = "";
   // current route
   private String                             currentRoute     = "";
-  // last successful route
-  private String                             lastRoute        = "";
   // current parameters
   private String[]                           currentParameters;
   // last added shell - used, to check if the shell needs an shell replacement
@@ -73,7 +71,7 @@ abstract class AbstractRouter
   private IsTracker                          tracker;
   // the application event bus
   private SimpleEventBus                     eventBus;
-  
+
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
                  ShellConfiguration shellConfiguration,
                  RouterConfiguration routerConfiguration,
@@ -105,7 +103,7 @@ abstract class AbstractRouter
                              usingColonForParametersInUrl,
                              stayOnSite);
   }
-  
+
   /**
    * clears the cache
    */
@@ -116,7 +114,7 @@ abstract class AbstractRouter
     CompositeFactory.get()
                     .clearCompositeControllerCache();
   }
-  
+
   /**
    * Generates a new route!
    * <p>
@@ -134,7 +132,7 @@ abstract class AbstractRouter
                       .generate(route,
                                 params);
   }
-  
+
   /**
    * The method routes to another screen. In case it is called,
    * it will:
@@ -165,7 +163,7 @@ abstract class AbstractRouter
                false,
                params);
   }
-  
+
   /**
    * The method routes to another screen. In case it is called,
    * it will:
@@ -198,7 +196,7 @@ abstract class AbstractRouter
                false,
                params);
   }
-  
+
   /**
    * Removes a controller from the cache
    *
@@ -211,7 +209,7 @@ abstract class AbstractRouter
                      .removeFromCache(controller);
     controller.setCached(false);
   }
-  
+
   /**
    * Removes a controller from the cache
    *
@@ -224,7 +222,7 @@ abstract class AbstractRouter
                     .removeFromCache(compositeController);
     compositeController.setCached(false);
   }
-  
+
   /**
    * Stores the instance of the controller in the cache, so that it can be reused the next time
    * the route is called.
@@ -238,7 +236,7 @@ abstract class AbstractRouter
                      .storeInCache(controller);
     controller.setCached(true);
   }
-  
+
   /**
    * Stores the instance of the controller in the cache, so that it can be reused the next time
    * the route is called.
@@ -252,7 +250,7 @@ abstract class AbstractRouter
                     .storeInCache(compositeController);
     compositeController.setCached(true);
   }
-  
+
   /**
    * Returns a map of query parameters that was available at application start.
    *
@@ -262,7 +260,7 @@ abstract class AbstractRouter
   public Map<String, String> getStartQueryParameters() {
     return this.plugin.getQueryParameters();
   }
-  
+
   /**
    * Returns the current route.
    * <br>
@@ -278,7 +276,7 @@ abstract class AbstractRouter
   public String getCurrentRoute() {
     return this.currentRoute;
   }
-  
+
   /**
    * Returns the current parameters from the last executed route..
    * <br>
@@ -293,7 +291,7 @@ abstract class AbstractRouter
   public String[] getCurrentParameters() {
     return this.currentParameters;
   }
-  
+
   /**
    * Returns the last executed hash.
    * <br>
@@ -309,7 +307,7 @@ abstract class AbstractRouter
   public String getLastExecutetdHash() {
     return this.lastExecutedHash;
   }
-  
+
   void handleRouting(String hash,
                      boolean forceRouting) {
     // in some cases the hash contains protocol, port and URI, we clean it
@@ -357,7 +355,7 @@ abstract class AbstractRouter
       this.loopDetectionList.add(pimpUpHashForLoopDetection(hash));
     }
     // parse hash ...
-    
+
     // TODO LIste an routes
     //  // TODO currentRoute
     RouteResult routeResult;
@@ -424,16 +422,16 @@ abstract class AbstractRouter
       String finalHash = hash;
       this.confirmRouting(routeConfigurations,
                           new ConfirmHandler() {
-  
+
                             @Override
                             public void onOk() {
                               // in case of 'forceRouting' we route without confirmation!
                               doRouting(finalHash,
                                         routeResult,
                                         routeConfigurations);
-    
+
                             }
-  
+
                             @Override
                             public void onCancel() {
                               plugin.route(lastExecutedHash,
@@ -444,7 +442,7 @@ abstract class AbstractRouter
                           });
     }
   }
-  
+
   private void doRouting(String hash,
                          RouteResult routeResult,
                          List<RouteConfig> routeConfigurations) {
@@ -465,7 +463,7 @@ abstract class AbstractRouter
                                routeConfigurations);
     }
   }
-  
+
   private void confirmRouting(List<RouteConfig> routeConfigurations,
                               ConfirmHandler confirmHandler) {
     List<String> messageList = new ArrayList<>();
@@ -482,7 +480,7 @@ abstract class AbstractRouter
                                                       .findFirst();
                          optional.ifPresent(messageList::add);
                        });
-    
+
     Optional<String> optionalConfirm = routeConfigurations.stream()
                                                           .map(config -> this.activeComponents.get(config.getSelector()))
                                                           .filter(Objects::nonNull)
@@ -490,7 +488,7 @@ abstract class AbstractRouter
                                                                      .mayStop())
                                                           .filter(Objects::nonNull)
                                                           .findFirst();
-    
+
     if (optionalConfirm.isPresent() || messageList.size() > 0) {
       this.plugin.confirm(optionalConfirm.orElseGet(() -> messageList.get(0)),
                           confirmHandler);
@@ -498,7 +496,7 @@ abstract class AbstractRouter
       confirmHandler.onOk();
     }
   }
-  
+
   @Override
   public void handleRouterException(String hash,
                                     RouterException e) {
@@ -526,7 +524,7 @@ abstract class AbstractRouter
                                           .message(sb.toString())
                                           .route(hash));
   }
-  
+
   /**
    * Parse the hash and divides it into shellCreator, route and parameters
    *
@@ -543,7 +541,7 @@ abstract class AbstractRouter
                              this.shellConfiguration,
                              this.routerConfiguration);
   }
-  
+
   /**
    * Sets the alwaysLoadComposite flag inside the router
    *
@@ -554,7 +552,7 @@ abstract class AbstractRouter
   public void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite) {
     this.alwaysLoadComposite = alwaysLoadComposite;
   }
-  
+
   /**
    * sets the event bus inside the router
    *
@@ -565,7 +563,7 @@ abstract class AbstractRouter
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
-  
+
   /**
    * Add a module to the application.
    * <p>
@@ -590,7 +588,7 @@ abstract class AbstractRouter
                             .addAll(module.getRouteConfigs());
     this.compositeControllerReferences.addAll(module.getCompositeReferences());
   }
-  
+
   private void postProcessHandleRouting(String hash,
                                         RouteResult routeResult,
                                         List<RouteConfig> routeConfigurations) {
@@ -619,7 +617,7 @@ abstract class AbstractRouter
                               routeResult.getParameterValues()
                                          .toArray(new String[0]));
   }
-  
+
   private void stopController(List<RouteConfig> routeConfigurations,
                               boolean replaceShell) {
     List<AbstractComponentController<?, ?, ?>> controllerList = new ArrayList<>();
@@ -634,7 +632,7 @@ abstract class AbstractRouter
                                                .filter(Objects::nonNull)
                                                .map(ControllerInstance::getController)
                                                .collect(Collectors.toList()));
-      
+
     }
     controllerList.forEach(controller -> {
       // check, if it is a redraw case
@@ -655,7 +653,7 @@ abstract class AbstractRouter
                     }
                   }
                 });
-      
+
       Utils.get()
            .deactivateController(controller,
                                  handlingModeReuse);
@@ -673,7 +671,7 @@ abstract class AbstractRouter
                     });
     });
   }
-  
+
   private void updateShell(String hash,
                            RouteResult routeResult,
                            List<RouteConfig> routeConfigurations) {
@@ -683,7 +681,7 @@ abstract class AbstractRouter
       ShellFactory.get()
                   .shell(shellConfig.getClassName(),
                          new ShellCallback() {
-        
+
                            @Override
                            public void onFinish(ShellInstance shellInstance) {
                              // in case there is an instance of an shellCreator existing, call the onDetach method inside the shellCreator
@@ -707,19 +705,21 @@ abstract class AbstractRouter
                                                       routeResult,
                                                       routeConfigurations);
                            }
-        
+
                            private void detachShell() {
                              shell.detachShell();
                            }
-        
+
                            @Override
                            public void onShellNotFound() {
                              eventBus.fireEvent(NaluErrorEvent.createNaluError()
                                                               .errorId(NaluConstants.NALU_ERROR_SHELL_NOT_FOUND)
-                                                              .message("no shell found for route: >>" + shellConfig.getRoute() + "<<")
+                                                              .message("no shell found for route: >>" +
+                                                                       shellConfig.getRoute() +
+                                                                       "<<")
                                                               .route(shellConfig.getRoute()));
                            }
-        
+
                            @Override
                            public void onRoutingInterceptionException(RoutingInterceptionException e) {
                              logControllerInterceptsRouting(e.getControllerClassName(),
@@ -729,14 +729,14 @@ abstract class AbstractRouter
                          });
     }
   }
-  
+
   private String addLeadingSlash(String value) {
     if (value.startsWith("/")) {
       return value;
     }
     return "/" + value;
   }
-  
+
   private void handleRouteConfig(RouteConfig routeConfiguration,
                                  RouteResult routeResult,
                                  String hash) {
@@ -744,7 +744,7 @@ abstract class AbstractRouter
                      .controller(routeConfiguration.getRoute(),
                                  routeConfiguration.getClassName(),
                                  new ControllerCallback() {
-      
+
                                    @Override
                                    public void onRoutingInterceptionException(RoutingInterceptionException e) {
                                      logControllerInterceptsRouting(e.getControllerClassName(),
@@ -755,7 +755,7 @@ abstract class AbstractRouter
                                            true,
                                            e.getParameter());
                                    }
-      
+
                                    @Override
                                    public void onFinish(ControllerInstance controller) {
                                      doRouting(hash,
@@ -767,7 +767,7 @@ abstract class AbstractRouter
                                  routeResult.getParameterValues()
                                             .toArray(new String[0]));
   }
-  
+
   private void doRouting(String hash,
                          RouteResult routeResult,
                          RouteConfig routeConfiguration,
@@ -989,7 +989,7 @@ abstract class AbstractRouter
       this.loopDetectionList.clear();
     }
   }
-  
+
   /**
    * Inspects whether the controller is in REDRAW or CREATE mode.
    *
@@ -999,12 +999,14 @@ abstract class AbstractRouter
   private boolean isHandlingModeReuse(IsController<?, ?> controller) {
     return this.currentRoute.equals(controller.getRelatedRoute()) && IsController.Mode.REUSE == controller.getMode();
   }
-  
+
   private void append(String selector,
                       ControllerInstance controllerInstance) {
     if (controllerInstance.getController()
                           .asElement() == null) {
-      String sb = "controller element of controller >>" + controllerInstance.getControllerClassName() + "<< is null! --> Routing aborted!";
+      String sb = "controller element of controller >>" +
+                  controllerInstance.getControllerClassName() +
+                  "<< is null! --> Routing aborted!";
       this.eventBus.fireEvent(LogEvent.create()
                                       .sdmOnly(false)
                                       .addMessage(sb));
@@ -1030,7 +1032,7 @@ abstract class AbstractRouter
                                        .route("NoRouteAvailable"));
     }
   }
-  
+
   private void append(String selector,
                       AbstractCompositeController<?, ?, ?> compositeController) {
     if (compositeController.asElement() == null) {
@@ -1055,13 +1057,13 @@ abstract class AbstractRouter
                                        .route("NoRouteAvailable"));
     }
   }
-  
+
   private List<CompositeControllerReference> getCompositeForController(String controllerClassName) {
     return this.compositeControllerReferences.stream()
                                              .filter(s -> controllerClassName.equals(s.getController()))
                                              .collect(Collectors.toList());
   }
-  
+
   private void route(String newRoute,
                      boolean forceRouting,
                      boolean replaceState,
@@ -1078,7 +1080,7 @@ abstract class AbstractRouter
     this.handleRouting(newRouteWithParams,
                        forceRouting);
   }
-  
+
   private String pimpUpHashForLoopDetection(String hash) {
     String value = hash;
     if (value.startsWith("#")) {
@@ -1089,7 +1091,7 @@ abstract class AbstractRouter
     }
     return value;
   }
-  
+
   /**
    * Fires a router state event to inform the application about the state
    * of routing.
@@ -1103,7 +1105,7 @@ abstract class AbstractRouter
                               route,
                               new String[0]);
   }
-  
+
   /**
    * Fires a router state event to inform the application about the state
    * of routing.
@@ -1119,7 +1121,7 @@ abstract class AbstractRouter
                                                  route,
                                                  params));
   }
-  
+
   private void logControllerInterceptsRouting(String controllerClassName,
                                               String route,
                                               String[] parameter) {
@@ -1141,5 +1143,5 @@ abstract class AbstractRouter
                                     .sdmOnly(true)
                                     .addMessage(sb.toString()));
   }
-  
+
 }
