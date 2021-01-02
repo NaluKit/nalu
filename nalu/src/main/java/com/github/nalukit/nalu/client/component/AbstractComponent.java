@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
-import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public abstract class AbstractComponent<C extends IsComponent.Controller, W>
     extends AbstractCommonComponent<C>
