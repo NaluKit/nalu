@@ -63,7 +63,7 @@ where
 
 The following flow shows the steps, once a routing is initiated. The flow will end with appending the new component to the DOM.
 
-![Route Flow](https://github.com/NaluKit/nalu/blob/master/etc/images/routeFlow.png)
+![Route Flow](https://github.com/NaluKit/nalu/blob/main/etc/images/routeFlow.png)
 
 To connect a component to a route, just create a controller class which extend
 `AbstractComponentController` and add the controller annotation `@Controller`.

@@ -92,4 +92,4 @@ In many cases the routing information is not enough to track. To track these thi
 
 * handle the event
 
-Inside the NaluDominoLoginPluginNoHashApplication example, a tracking is implemented. The implementation can be found here: [NaluDominoLoginPluginNoHashApplication](https://github.com/NaluKit/nalu-examples/tree/master/NaluDominoLoginPluginNoHashApplication)
+Inside the NaluDominoLoginPluginNoHashApplication example, a tracking is implemented. The implementation can be found here: [NaluDominoLoginPluginNoHashApplication](https://github.com/NaluKit/nalu-examples/tree/main/NaluDominoLoginPluginNoHashApplication)

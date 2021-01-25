@@ -273,12 +273,12 @@ It is possible to call the `getController`-method inside the `render`-method to 
 ### Execution Order
 The following image shows the execution order in case a new controller is created:
 
-![Execution Order](https://github.com/NaluKit/nalu/raw/master/etc/images/controllerFlow.png)
+![Execution Order](https://github.com/NaluKit/nalu/raw/main/etc/images/controllerFlow.png)
 
 ## Composite
 Imagine, you have a view, that looks like that:
 
-![Route Flow](https://github.com/NaluKit/nalu/raw/master/etc/images/view-mock-up.png)
+![Route Flow](https://github.com/NaluKit/nalu/raw/main/etc/images/view-mock-up.png)
 
 Of course it is possible to render this view inside one component. In some cases, where your controller and component will have to much code or you want to reuse one of the composite01 component, composite02 component and composite03 component, you can extract them in separate controller and component pairs. But this would not be handled but Nalu.
 
@@ -1009,12 +1009,12 @@ It is possible to call the `getController`-method inside the `render`-method to 
 ### Execution Order
 The following image shows the execution order in case a new controller is created:
 
-![Execution Order](https://github.com/NaluKit/nalu/raw/master/etc/images/controllerFlow.png)
+![Execution Order](https://github.com/NaluKit/nalu/raw/main/etc/images/controllerFlow.png)
 
 ## Composite
 Imagine, you have a view, that looks like that:
 
-![Route Flow](https://github.com/NaluKit/nalu/raw/master/etc/images/view-mock-up.png)
+![Route Flow](https://github.com/NaluKit/nalu/raw/main/etc/images/view-mock-up.png)
 
 Of course it is possible to render this view inside one component. In some cases, where your controller and component will have to much code or you want to reuse one of the composite01 component, composite02 component and composite03 component, you can extract them in separate controller and component pairs. But this would not be handled but Nalu.
 

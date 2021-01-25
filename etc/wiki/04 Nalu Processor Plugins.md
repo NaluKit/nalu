@@ -202,6 +202,6 @@ Creating a new plugin is quite simple. One of Nalu's junit tests needed a plugin
 
 You will find the test case here:
 
-[JUnit test case with a custom plugin](https://github.com/NaluKit/nalu/blob/master/nalu/src/test/java/com/github/nalukit/nalu/client/RoutingTest.java)
+[JUnit test case with a custom plugin](https://github.com/NaluKit/nalu/blob/main/nalu/src/test/java/com/github/nalukit/nalu/client/RoutingTest.java)
 
 One interesting point of the test case is, that Nalu works outside the GWT eco system. So, it can be expected, that Nalu can be used on server side (with servlets) or with Android, etc.
