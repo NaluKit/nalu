@@ -10,7 +10,7 @@ public class SeoDataProvider {
   private static SeoDataProvider       instance;
   /* Nalu plugin */
   private        IsNaluProcessorPlugin plugin;
-  /* data dor next update */
+  /* data for next update */
   private        SeoData               seoData;
   
   private SeoDataProvider() {
