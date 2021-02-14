@@ -304,7 +304,7 @@ abstract class AbstractRouter
    * @return the current route
    */
   @Override
-  public String getLastExecutetdHash() {
+  public String getLastExecutedHash() {
     return this.lastExecutedHash;
   }
 
