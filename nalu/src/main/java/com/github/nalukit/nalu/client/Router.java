@@ -134,6 +134,6 @@ public interface Router {
    *
    * @return the current route
    */
-  String getLastExecutetdHash();
+  String getLastExecutedHash();
   
 }
