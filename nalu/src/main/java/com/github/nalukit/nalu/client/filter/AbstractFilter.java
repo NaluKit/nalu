@@ -23,14 +23,14 @@ import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractFilter<C extends IsContext>
     implements IsFilter {
-  
+
   protected C              context;
-  private   SimpleEventBus eventBus;
-  
+  protected SimpleEventBus eventBus;
+
   public AbstractFilter() {
     super();
   }
-  
+
   /**
    * Sets the context instance
    * <p>
@@ -42,7 +42,7 @@ public abstract class AbstractFilter<C extends IsContext>
   public void setContext(C context) {
     this.context = context;
   }
-  
+
   /**
    * Sets the event bus instance (used to set application error message)
    * <p>
@@ -54,7 +54,7 @@ public abstract class AbstractFilter<C extends IsContext>
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
-  
+
   /**
    * Fires a NaluError event.
    * <p>
@@ -65,5 +65,5 @@ public abstract class AbstractFilter<C extends IsContext>
   public void fireNaluErrorEvent(NaluErrorEvent event) {
     this.eventBus.fireEvent(event);
   }
-  
+
 }
