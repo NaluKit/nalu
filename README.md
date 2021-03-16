@@ -5,7 +5,7 @@
 [![Join the chat at https://gitter.im/Nalukit42/Lobby](https://badges.gitter.im/Nalukit42/Lobby.svg)](https://gitter.im/Nalukit42/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.nalukit/nalu.svg?colorB=44cc11)](https://search.maven.org/artifact/com.github.nalukit/nalu)
 [![CI](https://github.com/NaluKit/nalu/workflows/CI/badge.svg)](https://github.com/NaluKit/nalu/actions)
-![Test](https://github.com/Paylib-Services/nalu/workflows/Test/badge.svg)
+![Test](https://github.com/NaluKit/nalu/workflows/Test/badge.svg)
 
 
 Nalu is a tiny framework that helps you to create GWT based applications quite easily. Using the HTML 5 history for routing and navigation, Nalu supports the browser's back-, forward-, and reload-button by default and without any need to implement anything.
