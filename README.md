@@ -89,7 +89,7 @@ The router is injected in the controller. To route to a new component call the r
 ## Using
 To use Nalu add the following dependencies to your pom:
 
-* GWT 2.8.2
+* **GWT 2.8.2**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -103,7 +103,7 @@ To use Nalu add the following dependencies to your pom:
     <scope>provided</scope>
 </dependency>
 ```
-* GWT 2.9.0 - SNAPSHOT
+* **GWT 2.9.0 - SNAPSHOT**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -117,7 +117,7 @@ To use Nalu add the following dependencies to your pom:
     <scope>provided</scope>
 </dependency>
 ```
-* GWT 2.9.0 - Release
+* **GWT 2.9.0 - Release**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -136,7 +136,7 @@ Depending on the widget set your project is using, add one of the following plug
 
 If the project uses a widget set based on **Elemental2**, **Elemento** or **Domino-UI**, use the **Nalu-Plugin-Elemental2** by adding the following lines to your pom:
 
-* GWT 2.8.2
+* **GWT 2.8.2**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -144,7 +144,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
     <version>2.2.1-gwt-2.8.2</version>
 ```
 
-* GWT 2.9.0 - SNAPSHOT
+* **GWT 2.9.0 - SNAPSHOT**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -152,7 +152,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
     <version>HEAD-SNAPSHOT</version>
 ```
 
-* GWT 2.9.0 - Release
+* **GWT 2.9.0 - Release**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -163,7 +163,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
 
 For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.core.IsElement<E>` as widget type:
 
-* GWT 2.8.2
+* **GWT 2.8.2**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -171,7 +171,7 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
     <version>2.2.1-gwt-2.8.2</version>
 ```
 
-* GWT 2.9.0 - SNAPSHOT
+* **GWT 2.9.0 - SNAPSHOT**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -179,7 +179,7 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
     <version>HEAD-SNAPSHOT</version>
 ```
 
-* GWT 2.9.0 - Release
+* **GWT 2.9.0 - Release**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -194,7 +194,7 @@ The **nalu-plugin-elemento** can also be used with Domino-ui.
 
 If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nalu-Plugin-GWT** by adding the following lines to your pom:
 
-* GWT 2.8.2
+* **GWT 2.8.2**
 ```XML
    <dependency>
      <groupId>com.github.nalukit</groupId>
@@ -209,7 +209,7 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
    </dependency>
 ```
 
-* GWT 2.9.0 - SNAPSHOT
+* **GWT 2.9.0 - SNAPSHOT**
 ```XML
    <dependency>
       <groupId>com.github.nalukit</groupId>
@@ -224,7 +224,7 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
    </dependency>
 ```
 
-* GWT 2.9.0 - Release
+* **GWT 2.9.0 - Release**
 ```XML
    <dependency>
       <groupId>com.github.nalukit</groupId>
