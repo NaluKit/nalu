@@ -88,6 +88,36 @@ The router is injected in the controller. To route to a new component call the r
 
 ## Using
 To use Nalu add the following dependencies to your pom:
+
+* GWT 2.8.2
+```XML
+<dependency>
+    <groupId>com.github.nalukit</groupId>
+    <artifactId>nalu</artifactId>
+    <version>2.2.1-gwt-2.8.2</version>
+</dependency>
+<dependency>
+    <groupId>com.github.nalukit</groupId>
+    <artifactId>nalu-processor</artifactId>
+    <version>2.2.1-gwt-2.8.2</version>
+    <scope>provided</scope>
+</dependency>
+```
+* GWT 2.9.0 - SNAPSHOT
+```XML
+<dependency>
+    <groupId>com.github.nalukit</groupId>
+    <artifactId>nalu</artifactId>
+    <version>HEAD-SNAPSHOT</version>
+</dependency>
+<dependency>
+    <groupId>com.github.nalukit</groupId>
+    <artifactId>nalu-processor</artifactId>
+    <version>HEAD-SNAPSHOT</version>
+    <scope>provided</scope>
+</dependency>
+```
+* GWT 2.9.0 - Release
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -101,9 +131,28 @@ To use Nalu add the following dependencies to your pom:
     <scope>provided</scope>
 </dependency>
 ```
+
 Depending on the widget set your project is using, add one of the following plugins:
 
 If the project uses a widget set based on **Elemental2**, **Elemento** or **Domino-UI**, use the **Nalu-Plugin-Elemental2** by adding the following lines to your pom:
+
+* GWT 2.8.2
+```XML
+<dependency>
+    <groupId>com.github.nalukit</groupId>
+    <artifactId>nalu-plugin-elemental2</artifactId>
+    <version>2.2.1-gwt-2.8.2</version>
+```
+
+* GWT 2.9.0 - SNAPSHOT
+```XML
+<dependency>
+    <groupId>com.github.nalukit</groupId>
+    <artifactId>nalu-plugin-elemental2</artifactId>
+    <version>HEAD-SNAPSHOT</version>
+```
+
+* GWT 2.9.0 - Release
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -111,7 +160,26 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
     <version>2.2.1</version>
 </dependency>
 ```
+
 For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.core.IsElement<E>` as widget type:
+
+* GWT 2.8.2
+```XML
+<dependency>
+    <groupId>com.github.nalukit</groupId>
+    <artifactId>nalu-plugin-elemento</artifactId>
+    <version>2.2.1-gwt-2.8.2</version>
+```
+
+* GWT 2.9.0 - SNAPSHOT
+```XML
+<dependency>
+    <groupId>com.github.nalukit</groupId>
+    <artifactId>nalu-plugin-elemento</artifactId>
+    <version>HEAD-SNAPSHOT</version>
+```
+
+* GWT 2.9.0 - Release
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -119,24 +187,58 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
     <version>2.2.1</version>
 </dependency>
 ```
+
 The **nalu-plugin-elemento** can also be used with Domino-ui.
 
 **(These plugins are ready to use with J2CL / GWT 3)**
 
 If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nalu-Plugin-GWT** by adding the following lines to your pom:
+
+* GWT 2.8.2
 ```XML
-    <dependency>
+   <dependency>
+     <groupId>com.github.nalukit</groupId>
+     <artifactId>nalu-plugin-gwt</artifactId>
+     <version>2.2.1-gwt-2.8.2</version>
+   </dependency>
+   <dependency>
+      <groupId>com.github.nalukit</groupId>
+      <artifactId>nalu-plugin-gwt-processor</artifactId>
+      <version>2.2.1-gwt-2.8.2</version>
+      <scope>provided</scope>
+   </dependency>
+```
+
+* GWT 2.9.0 - SNAPSHOT
+```XML
+   <dependency>
+      <groupId>com.github.nalukit</groupId>
+      <artifactId>nalu-plugin-gwt</artifactId>
+      <version>HEAD-SNAPSHOT</version>
+   </dependency>
+   <dependency>
+      <groupId>com.github.nalukit</groupId>
+      <artifactId>nalu-plugin-gwt-processor</artifactId>
+      <version>HEAD-SNAPSHOT</version>
+      <scope>provided</scope>
+   </dependency>
+```
+
+* GWT 2.9.0 - Release
+```XML
+   <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
       <version>2.2.1</version>
-    </dependency>
-    <dependency>
+   </dependency>
+   <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
       <version>2.2.1</version>
       <scope>provided</scope>
-    </dependency>
+   </dependency>
 ```
+
 **(This plugin will not work with J2CL / GWT 3)**
 
 See the wiki for more information about Nalu and how to use it.
