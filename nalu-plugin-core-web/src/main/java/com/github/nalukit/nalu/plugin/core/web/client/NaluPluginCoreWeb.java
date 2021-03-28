@@ -29,12 +29,12 @@ import jsinterop.base.Js;
 import java.util.*;
 
 public class NaluPluginCoreWeb {
-  
+
   public static boolean isSuperDevMode() {
     return "on".equals(System.getProperty("superdevmode",
                                           "off"));
   }
-  
+
   @SuppressWarnings("StringSplitter")
   public static void getContextPath(ShellConfiguration shellConfiguration) {
     if (PropertyFactory.get()
@@ -42,7 +42,7 @@ public class NaluPluginCoreWeb {
       return;
     }
     Location location = Js.uncheckedCast(DomGlobal.location);
-    String   pathName = location.getPathname();
+    String   pathName = location.pathname;
     if (pathName.startsWith("/") && pathName.length() > 1) {
       pathName = pathName.substring(1);
     }
@@ -76,12 +76,12 @@ public class NaluPluginCoreWeb {
     PropertyFactory.get()
                    .setContextPath("");
   }
-  
+
   @SuppressWarnings("StringSplitter")
   public static NaluStartModel getNaluStartModel() {
     Location            location        = Js.uncheckedCast(DomGlobal.location);
     Map<String, String> queryParameters = new HashMap<>();
-    String              search          = location.getSearch();
+    String              search          = location.search;
     if (!Objects.isNull(search)) {
       if (search.startsWith("?")) {
         search = search.substring(1);
@@ -95,14 +95,14 @@ public class NaluPluginCoreWeb {
               } else if (split.length == 2) {
                 queryParameters.put(split[0],
                                     split[1]);
-          
+
               }
             });
     }
     String startRoute;
     if (PropertyFactory.get()
                        .isUsingHash()) {
-      startRoute = getHashValue(location.getHash());
+      startRoute = getHashValue(location.hash);
     } else {
       startRoute = queryParameters.get("uri");
       if (!Objects.isNull(startRoute)) {
@@ -127,11 +127,10 @@ public class NaluPluginCoreWeb {
       } else {
         startRoute = "";
       }
-    }
-    return new NaluStartModel(startRoute,
-                              queryParameters);
+    } return new NaluStartModel(startRoute,
+                                queryParameters);
   }
-  
+
   private static String getHashValue(String hash) {
     if (!Objects.isNull(hash)) {
       if (hash.startsWith("#")) {
@@ -144,7 +143,7 @@ public class NaluPluginCoreWeb {
     }
     return null;
   }
-  
+
   public static void addPopStateHandler(RouteChangeHandler handler,
                                         String contextPath) {
     DomGlobal.window.onpopstate = e -> {
@@ -152,7 +151,7 @@ public class NaluPluginCoreWeb {
       if (PropertyFactory.get()
                          .isUsingHash()) {
         Location location = Js.uncheckedCast(DomGlobal.location);
-        newUrl = location.getHash();
+        newUrl = location.hash;
       } else {
         PopStateEvent event = (PopStateEvent) e;
         newUrl = (String) event.state;
@@ -180,7 +179,7 @@ public class NaluPluginCoreWeb {
       return null;
     };
   }
-  
+
   private static void handleChange(RouteChangeHandler handler,
                                    String newUrl) {
     if (newUrl.startsWith("#")) {
@@ -198,7 +197,7 @@ public class NaluPluginCoreWeb {
       handler.onRouteChange(newUrl);
     }
   }
-  
+
   public static void route(String newRoute,
                            boolean replace,
                            RouteChangeHandler handler) {
@@ -231,16 +230,16 @@ public class NaluPluginCoreWeb {
       }
     }
   }
-  
+
   public static void addOnHashChangeHandler(RouteChangeHandler handler) {
     DomGlobal.window.onhashchange = e -> {
       String   newUrl;
       Location location = Js.uncheckedCast(DomGlobal.location);
-      newUrl = location.getHash();
+      newUrl = location.hash;
       NaluPluginCoreWeb.handleChange(handler,
                                      newUrl);
       return null;
     };
   }
-  
+
 }

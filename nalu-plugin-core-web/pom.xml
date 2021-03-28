@@ -25,7 +25,7 @@
   <parent>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-parent</artifactId>
-    <version>HEAD-SNAPSHOT</version>
+    <version>2.2.1</version>
   </parent>
 
   <artifactId>nalu-plugin-core-web</artifactId>
@@ -75,6 +75,12 @@
       <groupId>com.google.elemental2</groupId>
       <artifactId>elemental2-dom</artifactId>
       <version>${elemental2.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>jsinterop-annotations</artifactId>
+          <groupId>com.google.jsinterop</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <!-- only for testing -->

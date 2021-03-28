@@ -25,7 +25,7 @@
   <parent>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-parent</artifactId>
-    <version>HEAD-SNAPSHOT</version>
+    <version>2.2.1</version>
   </parent>
 
   <artifactId>nalu-plugin-elemento</artifactId>
@@ -66,7 +66,7 @@
   </issueManagement>
 
   <properties>
-    <elemento.version>1.0.0-rc3</elemento.version>
+    <elemento.version>1.0.3</elemento.version>
   </properties>
 
   <dependencies>
@@ -84,6 +84,12 @@
       <groupId>com.google.elemental2</groupId>
       <artifactId>elemental2-core</artifactId>
       <version>${elemental2.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>jsinterop-annotations</artifactId>
+          <groupId>com.google.jsinterop</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.google.elemental2</groupId>
@@ -94,6 +100,16 @@
       <groupId>org.jboss.elemento</groupId>
       <artifactId>elemento-core</artifactId>
       <version>${elemento.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>elemental2-core</artifactId>
+          <groupId>com.google.elemental2</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>elemental2-dom</artifactId>
+          <groupId>com.google.elemental2</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <!-- gwt-events: once it is on maven central, use it!
     <dependency>
