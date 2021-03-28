@@ -24,7 +24,7 @@
 
   <groupId>com.github.nalukit</groupId>
   <artifactId>nalu-parent</artifactId>
-  <version>2.2.1</version>
+  <version>HEAD-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>nalu-parent</name>
@@ -97,7 +97,7 @@
     <gwt-event.version>1.0.0-RC1</gwt-event.version>
     <gwt.version>2.9.0</gwt.version>
     <!-- gwt-events: once it is on maven central, use it!
-    <gwt-events.version>2.2.1</gwt-events.version>  -->
+    <gwt-events.version>HEAD-SNAPSHOT</gwt-events.version>  -->
     <hamcrest-core.version>2.2</hamcrest-core.version>
     <javapoet.version>1.13.0</javapoet.version>
     <jsinterop-annotations.version>2.0.0</jsinterop-annotations.version>
