@@ -37,32 +37,32 @@ import java.io.IOException;
 import java.sql.Timestamp;
 
 public class ApplicationGenerator {
-  
+
   private final static String IMPL_NAME = "Impl";
-  
+
   private ProcessorUtils processorUtils;
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   @SuppressWarnings("unused")
   private ApplicationGenerator(Builder builder) {
     super();
-    
+
     this.processingEnvironment = builder.processingEnvironment;
-    
+
     setUp();
   }
-  
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   public void generate(MetaModel metaModel)
       throws ProcessorException {
     // check if element is existing (to avoid generating code for deleted items)
@@ -81,7 +81,7 @@ public class ApplicationGenerator {
                                                       Modifier.FINAL)
                                         .addSuperinterface(metaModel.getApplication()
                                                                     .getTypeName());
-    
+
     // constructor ...
     MethodSpec.Builder constructor = MethodSpec.constructorBuilder()
                                                .addModifiers(Modifier.PUBLIC)
@@ -103,13 +103,13 @@ public class ApplicationGenerator {
                                System.currentTimeMillis());
     }
     typeSpec.addMethod(constructor.build());
-    
+
     LoggerGenerator.builder()
                    .metaModel(metaModel)
                    .typeSpec(typeSpec)
                    .build()
                    .generate();
-    
+
     typeSpec.addMethod(MethodSpec.methodBuilder("logProcessorVersion")
                                  .addAnnotation(ClassName.get(Override.class))
                                  .addModifiers(Modifier.PUBLIC)
@@ -122,63 +122,70 @@ public class ApplicationGenerator {
                                                ClassName.get(LogEvent.class),
                                                ProcessorConstants.PROCESSOR_VERSION)
                                  .build());
-    
+
     TrackerGenerator.builder()
                     .metaModel(metaModel)
                     .typeSpec(typeSpec)
                     .build()
                     .generate();
-    
+
     ShellGenerator.builder()
                   .metaModel(metaModel)
                   .typeSpec(typeSpec)
                   .build()
                   .generate();
-    
+
     CompositeControllerGenerator.builder()
                                 .metaModel(metaModel)
                                 .typeSpec(typeSpec)
                                 .build()
                                 .generate();
-    
+
     ControllerGenerator.builder()
                        .metaModel(metaModel)
                        .typeSpec(typeSpec)
                        .build()
                        .generate();
-    
+
     BlockControllerGenerator.builder()
                             .metaModel(metaModel)
                             .typeSpec(typeSpec)
                             .build()
                             .generate();
-    
+
     PopUpControllerGenerator.builder()
                             .metaModel(metaModel)
                             .typeSpec(typeSpec)
                             .build()
                             .generate();
-    
+
+    PopUpFiltersGenerator.builder()
+                         .processingEnvironment(this.processingEnvironment)
+                         .metaModel(metaModel)
+                         .typeSpec(typeSpec)
+                         .build()
+                         .generate();
+
     ErrorPopUpControllerGenerator.builder()
                                  .metaModel(metaModel)
                                  .typeSpec(typeSpec)
                                  .build()
                                  .generate();
-    
+
     FiltersGenerator.builder()
                     .processingEnvironment(this.processingEnvironment)
                     .metaModel(metaModel)
                     .typeSpec(typeSpec)
                     .build()
                     .generate();
-    
+
     HandlerGenerator.builder()
                     .processingEnvironment(this.processingEnvironment)
                     .metaModel(metaModel)
                     .typeSpec(typeSpec)
                     .build()
                     .generate();
-    
+
     CompositesGenerator.builder()
                        .metaModel(metaModel)
                        .typeSpec(typeSpec)
@@ -192,7 +199,7 @@ public class ApplicationGenerator {
                     .typeSpec(typeSpec)
                     .build()
                     .generate();
-    
+
     // method "getLoader"
     MethodSpec.Builder getLoaderMethod = MethodSpec.methodBuilder("getLoader")
                                                    .addModifiers(Modifier.PUBLIC)
@@ -210,7 +217,7 @@ public class ApplicationGenerator {
                                             .getTypeName());
     }
     typeSpec.addMethod(getLoaderMethod.build());
-    
+
     // method "getPostLoader"
     MethodSpec.Builder getPostLoaderMethod = MethodSpec.methodBuilder("getPostLoader")
                                                        .addModifiers(Modifier.PUBLIC)
@@ -228,7 +235,7 @@ public class ApplicationGenerator {
                                                 .getTypeName());
     }
     typeSpec.addMethod(getPostLoaderMethod.build());
-    
+
     // method "getCustomAlertPresenter"
     MethodSpec.Builder getCustomAlertPresenterMethod = MethodSpec.methodBuilder("getCustomAlertPresenter")
                                                                  .addModifiers(Modifier.PUBLIC)
@@ -244,7 +251,7 @@ public class ApplicationGenerator {
                                                           .getTypeName());
     }
     typeSpec.addMethod(getCustomAlertPresenterMethod.build());
-    
+
     // method "getCustomConfirmPresenter"
     MethodSpec.Builder getCustomConfirmPresenterMethod = MethodSpec.methodBuilder("getCustomConfirmPresenter")
                                                                    .addModifiers(Modifier.PUBLIC)
@@ -260,7 +267,7 @@ public class ApplicationGenerator {
                                                             .getTypeName());
     }
     typeSpec.addMethod(getCustomConfirmPresenterMethod.build());
-    
+
     generateLoadDefaultsRoutes(typeSpec,
                                metaModel);
     generateHasHistoryMethod(typeSpec,
@@ -271,7 +278,7 @@ public class ApplicationGenerator {
                                            metaModel);
     generateIsStayOnSide(typeSpec,
                          metaModel);
-    
+
     JavaFile javaFile = JavaFile.builder(metaModel.getGenerateToPackage(),
                                          typeSpec.build())
                                 .build();
@@ -297,7 +304,7 @@ public class ApplicationGenerator {
                                    e.getMessage());
     }
   }
-  
+
   private void generateLoadDefaultsRoutes(TypeSpec.Builder typeSpec,
                                           MetaModel metaModel) {
     typeSpec.addMethod(MethodSpec.methodBuilder("loadDefaultRoutes")
@@ -307,7 +314,7 @@ public class ApplicationGenerator {
                                                metaModel.getStartRoute())
                                  .build());
   }
-  
+
   private void generateHasHistoryMethod(TypeSpec.Builder typeSpec,
                                         MetaModel metaModel) {
     typeSpec.addMethod(MethodSpec.methodBuilder("hasHistory")
@@ -318,7 +325,7 @@ public class ApplicationGenerator {
                                                metaModel.hasHistory() ? "true" : "false")
                                  .build());
   }
-  
+
   private void generateIsUsingHashMethod(TypeSpec.Builder typeSpec,
                                          MetaModel metaModel) {
     typeSpec.addMethod(MethodSpec.methodBuilder("isUsingHash")
@@ -329,7 +336,7 @@ public class ApplicationGenerator {
                                                metaModel.isUsingHash() ? "true" : "false")
                                  .build());
   }
-  
+
   private void generateIsUsingColonForParametersInUrl(TypeSpec.Builder typeSpec,
                                                       MetaModel metaModel) {
     typeSpec.addMethod(MethodSpec.methodBuilder("isUsingColonForParametersInUrl")
@@ -340,7 +347,7 @@ public class ApplicationGenerator {
                                                metaModel.isUsingColonForParametersInUrl() ? "true" : "false")
                                  .build());
   }
-  
+
   private void generateIsStayOnSide(TypeSpec.Builder typeSpec,
                                     MetaModel metaModel) {
     typeSpec.addMethod(MethodSpec.methodBuilder("isStayOnSide")
@@ -351,20 +358,20 @@ public class ApplicationGenerator {
                                                metaModel.isStayOnSide() ? "true" : "false")
                                  .build());
   }
-  
+
   public static class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public ApplicationGenerator build() {
       return new ApplicationGenerator(this);
     }
-    
+
   }
-  
+
 }

@@ -32,45 +32,45 @@ import java.util.Arrays;
 public final class NaluSimpleApplicationImpl
     extends AbstractApplication<NaluSimpleApplicationContext>
     implements NaluSimpleApplication {
-  
+
   public NaluSimpleApplicationImpl() {
     super();
     super.context = new NaluSimpleApplicationContext();
   }
-  
+
   @Override
   protected IsCustomAlertPresenter getCustomAlertPresenter() {
     return null;
   }
-  
+
   @Override
   protected IsCustomConfirmPresenter getCustomConfirmPresenter() {
     return null;
   }
-  
+
   @Override
   public void loadLoggerConfiguration() {
   }
-  
+
   @Override
   protected void logProcessorVersion() {
   }
-  
+
   @Override
   public void loadDefaultRoutes() {
     this.startRoute = "/search";
   }
-  
+
   @Override
   protected void loadModules() {
-  
+
   }
-  
+
   @Override
   protected void loadShells() {
-  
+
   }
-  
+
   @Override
   public void loadRoutes() {
     super.routerConfiguration.getRouters()
@@ -101,7 +101,7 @@ public final class NaluSimpleApplicationImpl
                                                   "content",
                                                   "SearchController"));
   }
-  
+
   @Override
   public void loadFilters() {
     BartSimpsonFilter com_github_nalukit_example_nalu_simpleapplication_client_filters_BartSimpsonFilter = new BartSimpsonFilter();
@@ -109,59 +109,64 @@ public final class NaluSimpleApplicationImpl
     super.routerConfiguration.getFilters()
                              .add(com_github_nalukit_example_nalu_simpleapplication_client_filters_BartSimpsonFilter);
   }
-  
+
   @Override
   public void loadCompositeReferences() {
   }
-  
+
   @Override
   protected IsTracker loadTrackerConfiguration() {
     return null;
   }
-  
+
   @Override
   protected boolean hasHistory() {
     return true;
   }
-  
+
   @Override
   protected boolean isUsingHash() {
     return true;
   }
-  
+
   @Override
   protected boolean isUsingColonForParametersInUrl() {
     return false;
   }
-  
+
   @Override
   protected boolean isStayOnSide() {
     return false;
   }
-  
+
   @Override
   protected void loadShellFactory() {
-  
+
   }
-  
+
   @Override
   protected void loadBlockControllerFactory() {
   }
-  
+
   @Override
   protected void loadPopUpControllerFactory() {
-  
+
   }
-  
+
+  @Override
+  protected void loadPopUpFilters() {
+
+  }
+
   @Override
   protected void loadErrorPopUpController() {
-  
+
   }
-  
+
   @Override
   public void loadCompositeController() {
   }
-  
+
   @Override
   @SuppressWarnings("CatchAndPrintStackTrace")
   public void loadComponents() {
@@ -178,7 +183,7 @@ public final class NaluSimpleApplicationImpl
       e.printStackTrace();
     }
   }
-  
+
   @Override
   public void loadHandlers() {
     // create handler for: SimpleApplicationHandler01
@@ -188,15 +193,15 @@ public final class NaluSimpleApplicationImpl
     com_github_nalukit_example_nalu_simpleapplication_client_handler_SimpleApplicationHandler01.setRouter(super.router);
     com_github_nalukit_example_nalu_simpleapplication_client_handler_SimpleApplicationHandler01.bind();
   }
-  
+
   @Override
   public IsLoader<NaluSimpleApplicationContext> getLoader() {
     return new NaluSimpleApplicationLoader();
   }
-  
+
   @Override
   public IsLoader<NaluSimpleApplicationContext> getPostLoader() {
     return null;
   }
-  
+
 }

@@ -77,6 +77,7 @@ public class NaluProcessor
                      Module.class.getCanonicalName(),
                      Modules.class.getCanonicalName(),
                      PopUpController.class.getCanonicalName(),
+                     PopUpFilters.class.getCanonicalName(),
                      Shell.class.getCanonicalName(),
                      Tracker.class.getCanonicalName(),
                      Version.class.getCanonicalName())

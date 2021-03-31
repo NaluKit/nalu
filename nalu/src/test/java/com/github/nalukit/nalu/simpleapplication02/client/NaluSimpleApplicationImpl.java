@@ -153,7 +153,11 @@ public final class NaluSimpleApplicationImpl
   @Override
   protected void loadPopUpControllerFactory() {
   }
-  
+
+  @Override
+  protected void loadPopUpFilters() {
+  }
+
   @Override
   protected void loadErrorPopUpController() {
   

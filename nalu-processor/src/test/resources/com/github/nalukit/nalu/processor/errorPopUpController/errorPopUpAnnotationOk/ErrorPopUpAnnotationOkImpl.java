@@ -73,7 +73,11 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
   @Override
   public void loadPopUpControllerFactory() {
   }
-  
+
+  @Override
+  public void loadPopUpFilters() {
+  }
+
   @Override
   public void loadErrorPopUpController() {
     ErrorEventController01 errorPopUpController = new ErrorEventController01();
