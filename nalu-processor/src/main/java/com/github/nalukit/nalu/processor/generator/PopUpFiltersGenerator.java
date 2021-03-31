@@ -44,53 +44,53 @@ public class PopUpFiltersGenerator {
     this.processingEnvironment = builder.processingEnvironment;
     this.metaModel             = builder.metaModel;
     this.typeSpec              = builder.typeSpec;
-    
+
     setUp();
   }
-  
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   void generate() {
     // method must always be created!
-    MethodSpec.Builder loadFiltersMethod = MethodSpec.methodBuilder("loadPopUpFilters")
-                                                     .addAnnotation(Override.class)
-                                                     .addModifiers(Modifier.PUBLIC);
-    
-    this.metaModel.getFilters()
-                  .forEach(classNameModel -> loadFiltersMethod.addStatement("$T $L = new $T()",
-                                                                            ClassName.get(classNameModel.getPackage(),
-                                                                                          classNameModel.getSimpleName()),
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()),
-                                                                            ClassName.get(classNameModel.getPackage(),
-                                                                                          classNameModel.getSimpleName()))
-                                                              .addStatement("$L.setContext(super.context)",
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()))
-                                                              .addStatement("$L.setEventBus(super.eventBus)",
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()))
-                                                              .addStatement("$T.get().registerPopUpFilter($S, $L)",
-                                                                            ClassName.get(PopUpControllerFactory.class),
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()),
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName())));
-    
-    typeSpec.addMethod(loadFiltersMethod.build());
+    MethodSpec.Builder loadPopUpFiltersMethod = MethodSpec.methodBuilder("loadPopUpFilters")
+                                                          .addAnnotation(Override.class)
+                                                          .addModifiers(Modifier.PUBLIC);
+
+    this.metaModel.getPopUpFilters()
+                  .forEach(classNameModel -> loadPopUpFiltersMethod.addStatement("$T $L = new $T()",
+                                                                                 ClassName.get(classNameModel.getPackage(),
+                                                                                               classNameModel.getSimpleName()),
+                                                                                 this.processorUtils.createFullClassName(classNameModel.getClassName()),
+                                                                                 ClassName.get(classNameModel.getPackage(),
+                                                                                               classNameModel.getSimpleName()))
+                                                                   .addStatement("$L.setContext(super.context)",
+                                                                                 this.processorUtils.createFullClassName(classNameModel.getClassName()))
+                                                                   .addStatement("$L.setEventBus(super.eventBus)",
+                                                                                 this.processorUtils.createFullClassName(classNameModel.getClassName()))
+                                                                   .addStatement("$T.get().registerPopUpFilter($S, $L)",
+                                                                                 ClassName.get(PopUpControllerFactory.class),
+                                                                                 this.processorUtils.createFullClassName(classNameModel.getClassName()),
+                                                                                 this.processorUtils.createFullClassName(classNameModel.getClassName())));
+
+    typeSpec.addMethod(loadPopUpFiltersMethod.build());
   }
-  
+
   public static final class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     MetaModel metaModel;
-    
+
     TypeSpec.Builder typeSpec;
-    
+
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -101,7 +101,7 @@ public class PopUpFiltersGenerator {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -112,16 +112,16 @@ public class PopUpFiltersGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public PopUpFiltersGenerator build() {
       return new PopUpFiltersGenerator(this);
     }
-    
+
   }
-  
+
 }
