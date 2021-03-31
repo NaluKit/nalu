@@ -58,22 +58,13 @@ public class MetaModel {
   private ErrorPopUpControllerModel errorPopUpController;
   
   private boolean hasPluginsAnnotation;
-  
-  @Deprecated
-  private boolean hasDebugAnnotation;
-  
+
   private boolean hasLoggerAnnotation;
   
   private boolean hasTrackerAnnotation;
   
   private ClassNameModel tracker;
-  
-  @Deprecated
-  private String debugLogLevel;
-  
-  @Deprecated
-  private ClassNameModel debugLogger;
-  
+
   private List<ControllerModel> controllers;
   
   private List<BlockControllerModel> blockControllers;
@@ -81,7 +72,9 @@ public class MetaModel {
   private List<PopUpControllerModel> popUpControllers;
   
   private List<ClassNameModel> filters;
-  
+
+  private List<ClassNameModel> popUpFilters;
+
   private List<ClassNameModel> handlers;
   
   private ClassNameModel componentType;
@@ -110,6 +103,7 @@ public class MetaModel {
     this.blockControllers = new ArrayList<>();
     this.popUpControllers = new ArrayList<>();
     this.filters = new ArrayList<>();
+    this.popUpFilters = new ArrayList<>();
     this.handlers = new ArrayList<>();
     this.compositeModels = new ArrayList<>();
 
@@ -280,7 +274,15 @@ public class MetaModel {
   public void setCustomConfirmPresenter(ClassNameModel customConfirmPresenter) {
     this.customConfirmPresenter = customConfirmPresenter;
   }
-  
+
+  public List<ClassNameModel> getPopUpFilters() {
+    return popUpFilters;
+  }
+
+  public void setPopUpFilters(List<ClassNameModel> popUpFilters) {
+    this.popUpFilters = popUpFilters;
+  }
+
   public String getShellOfStartRoute() {
     if (Objects.isNull(this.startRoute)) {
       return "";

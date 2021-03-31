@@ -16,10 +16,7 @@
 
 package com.github.nalukit.nalu.processor;
 
-import com.github.nalukit.nalu.client.application.annotation.Application;
-import com.github.nalukit.nalu.client.application.annotation.Filters;
-import com.github.nalukit.nalu.client.application.annotation.Logger;
-import com.github.nalukit.nalu.client.application.annotation.Version;
+import com.github.nalukit.nalu.client.application.annotation.*;
 import com.github.nalukit.nalu.client.component.annotation.*;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.client.module.annotation.Module;
@@ -56,17 +53,17 @@ import static java.util.stream.Collectors.toSet;
 @AutoService(Processor.class)
 public class NaluProcessor
     extends AbstractProcessor {
-  
+
   private final static String APPLICATION_PROPERTIES = "nalu.properties";
-  
+
   private ProcessorUtils processorUtils;
   private Stopwatch      stopwatch;
   private MetaModel      metaModel = new MetaModel();
-  
+
   public NaluProcessor() {
     super();
   }
-  
+
   @Override
   public Set<String> getSupportedAnnotationTypes() {
     return Stream.of(Application.class.getCanonicalName(),
@@ -85,12 +82,12 @@ public class NaluProcessor
                      Version.class.getCanonicalName())
                  .collect(toSet());
   }
-  
+
   @Override
   public SourceVersion getSupportedSourceVersion() {
     return SourceVersion.latestSupported();
   }
-  
+
   @Override
   public synchronized void init(ProcessingEnvironment processingEnv) {
     super.init(processingEnv);
@@ -99,7 +96,7 @@ public class NaluProcessor
     this.processorUtils.createNoteMessage("Nalu-Processor started ...");
     this.processorUtils.createNoteMessage("Nalu-Processor version >>" + ProcessorConstants.PROCESSOR_VERSION + "<<");
   }
-  
+
   @Override
   public boolean process(Set<? extends TypeElement> annotations,
                          RoundEnvironment roundEnv) {
@@ -149,6 +146,9 @@ public class NaluProcessor
             } else if (PopUpController.class.getCanonicalName()
                                             .equals(annotation.toString())) {
               handlePopUpControllerAnnotation(roundEnv);
+            } else if (PopUpFilters.class.getCanonicalName()
+                                         .equals(annotation.toString())) {
+              handlePopUpFiltersAnnotation(roundEnv);
             } else if (Shell.class.getCanonicalName()
                                   .equals(annotation.toString())) {
               handleShellAnnotation(roundEnv);
@@ -168,7 +168,7 @@ public class NaluProcessor
     }
     return true;
   }
-  
+
   private void validate(RoundEnvironment roundEnv)
       throws ProcessorException {
     if (!isNull(this.metaModel)) {
@@ -180,7 +180,7 @@ public class NaluProcessor
                           .validate();
     }
   }
-  
+
   private void generateLastRound()
       throws ProcessorException {
     if (!isNull(this.metaModel)) {
@@ -200,7 +200,7 @@ public class NaluProcessor
       }
     }
   }
-  
+
   private void store(MetaModel model)
       throws ProcessorException {
     Gson gson = new Gson();
@@ -215,10 +215,13 @@ public class NaluProcessor
       printWriter.flush();
       printWriter.close();
     } catch (IOException e) {
-      throw new ProcessorException("NaluProcessor: Unable to write file: >>" + this.createRelativeFileName() + "<< -> exception: " + e.getMessage());
+      throw new ProcessorException("NaluProcessor: Unable to write file: >>" +
+                                   this.createRelativeFileName() +
+                                   "<< -> exception: " +
+                                   e.getMessage());
     }
   }
-  
+
   private void handleApplicationAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     for (Element applicationElement : roundEnv.getElementsAnnotatedWith(Application.class)) {
@@ -237,7 +240,7 @@ public class NaluProcessor
                                   .scan();
     }
   }
-  
+
   private void handleBlockControllerAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     List<BlockControllerModel> blockControllerModels = new ArrayList<>();
@@ -283,7 +286,7 @@ public class NaluProcessor
     this.metaModel.getBlockControllers()
                   .addAll(blockControllerModels);
   }
-  
+
   private void handleCompositeControllerAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     for (Element compositeElement : roundEnv.getElementsAnnotatedWith(CompositeController.class)) {
@@ -301,7 +304,7 @@ public class NaluProcessor
                                                                           .compositeElement(compositeElement)
                                                                           .build()
                                                                           .scan(roundEnv);
-      
+
       // create the ControllerCreator
       CompositeCreatorGenerator.builder()
                                .metaModel(this.metaModel)
@@ -311,7 +314,7 @@ public class NaluProcessor
                                .generate();
     }
   }
-  
+
   private void handleControllerAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     for (Element controllerElement : roundEnv.getElementsAnnotatedWith(Controller.class)) {
@@ -329,7 +332,7 @@ public class NaluProcessor
                                                                    .controllerElement(controllerElement)
                                                                    .build()
                                                                    .scan(roundEnv);
-      
+
       // Composites-Annotation in controller
       controllerModel = CompositesAnnotationScanner.builder()
                                                    .processingEnvironment(processingEnv)
@@ -362,7 +365,7 @@ public class NaluProcessor
                     .add(controllerModel);
     }
   }
-  
+
   private void handleErrorPopUpControllerAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     Set<? extends Element> listOfAnnotatedElements = roundEnv.getElementsAnnotatedWith(ErrorPopUpController.class);
@@ -391,7 +394,7 @@ public class NaluProcessor
       this.metaModel.setErrorPopUpController(errorPopUpControllerModels.get(0));
     }
   }
-  
+
   private void handleFiltersAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     for (Element filtersElement : roundEnv.getElementsAnnotatedWith(Filters.class)) {
@@ -424,10 +427,10 @@ public class NaluProcessor
       // save filter data in metaModel
       this.metaModel.getFilters()
                     .addAll(filterModels);
-      
+
     }
   }
-  
+
   private void handleHandlerAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     for (Element handlerElement : roundEnv.getElementsAnnotatedWith(Handler.class)) {
@@ -461,7 +464,7 @@ public class NaluProcessor
                     .add(handlerModel);
     }
   }
-  
+
   private void handleLoggerAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     for (Element loggerElement : roundEnv.getElementsAnnotatedWith(Logger.class)) {
@@ -478,10 +481,10 @@ public class NaluProcessor
                                               .loggerElement(loggerElement)
                                               .build()
                                               .scan(roundEnv);
-      
+
     }
   }
-  
+
   private void handleModuleAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     for (Element moduleElement : roundEnv.getElementsAnnotatedWith(Module.class)) {
@@ -501,7 +504,7 @@ public class NaluProcessor
       this.metaModel.setModuleModel(moduleModel);
     }
   }
-  
+
   private void handleModulesAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     for (Element modulesElement : roundEnv.getElementsAnnotatedWith(Modules.class)) {
@@ -520,7 +523,7 @@ public class NaluProcessor
                               .scan(roundEnv);
     }
   }
-  
+
   private void handlePopUpControllerAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     List<PopUpControllerModel> popUpControllerModels = new ArrayList<>();
@@ -566,7 +569,43 @@ public class NaluProcessor
     this.metaModel.getPopUpControllers()
                   .addAll(popUpControllerModels);
   }
-  
+
+  private void handlePopUpFiltersAnnotation(RoundEnvironment roundEnv)
+      throws ProcessorException {
+    for (Element popUpFiltersElement : roundEnv.getElementsAnnotatedWith(PopUpFilters.class)) {
+      // validate filter element
+      PopUpFiltersAnnotationValidator.builder()
+                                     .roundEnvironment(roundEnv)
+                                     .processingEnvironment(processingEnv)
+                                     .build()
+                                     .validate(popUpFiltersElement);
+      // scan filter element
+      List<ClassNameModel> popUpFilterModels = PopUpFiltersAnnotationScanner.builder()
+                                                                            .processingEnvironment(processingEnv)
+                                                                            .metaModel(this.metaModel)
+                                                                            .filtersElement(popUpFiltersElement)
+                                                                            .build()
+                                                                            .scan(roundEnv);
+      // check, if the one of the shell in the list is already
+      // added to the the meta model
+      //
+      // in case it is, remove it.
+      popUpFilterModels.forEach(model -> {
+        Optional<ClassNameModel> optional = this.metaModel.getPopUpFilters()
+                                                          .stream()
+                                                          .filter(s -> model.getClassName()
+                                                                            .equals(s.getClassName()))
+                                                          .findFirst();
+        optional.ifPresent(optionalFilter -> this.metaModel.getPopUpFilters()
+                                                           .remove(optionalFilter));
+      });
+      // save filter data in metaModel
+      this.metaModel.getPopUpFilters()
+                    .addAll(popUpFilterModels);
+
+    }
+  }
+
   private void handleShellAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     List<ShellModel> shellsModels = new ArrayList<>();
@@ -612,7 +651,7 @@ public class NaluProcessor
     this.metaModel.getShells()
                   .addAll(shellsModels);
   }
-  
+
   private void handleTrackerAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     for (Element trackerElement : roundEnv.getElementsAnnotatedWith(Tracker.class)) {
@@ -630,10 +669,10 @@ public class NaluProcessor
                                                .trackerElement(trackerElement)
                                                .build()
                                                .scan(roundEnv);
-  
+
     }
   }
-  
+
   private void handleVersionAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
     for (Element trackerElement : roundEnv.getElementsAnnotatedWith(Version.class)) {
@@ -651,10 +690,10 @@ public class NaluProcessor
                                                .versionElement(trackerElement)
                                                .build()
                                                .scan(roundEnv);
-      
+
     }
   }
-  
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(processingEnv)
@@ -665,7 +704,7 @@ public class NaluProcessor
       this.metaModel = restoredModel;
     }
   }
-  
+
   private MetaModel restore() {
     Gson gson = new Gson();
     try {
@@ -681,9 +720,9 @@ public class NaluProcessor
       return null;
     }
   }
-  
+
   private String createRelativeFileName() {
     return ProcessorConstants.META_INF + "/" + ProcessorConstants.NALU_FOLDER_NAME + "/" + NaluProcessor.APPLICATION_PROPERTIES;
   }
-  
+
 }
