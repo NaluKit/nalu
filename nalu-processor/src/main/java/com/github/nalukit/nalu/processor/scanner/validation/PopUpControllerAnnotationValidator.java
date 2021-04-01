@@ -28,9 +28,7 @@ import javax.lang.model.element.TypeElement;
 public class PopUpControllerAnnotationValidator {
   
   private ProcessorUtils processorUtils;
-  
   private ProcessingEnvironment processingEnvironment;
-  
   private Element popUpControllerElement;
   
   @SuppressWarnings("unused")
@@ -81,9 +79,7 @@ public class PopUpControllerAnnotationValidator {
   public static final class Builder {
     
     ProcessingEnvironment processingEnvironment;
-    
     RoundEnvironment roundEnvironment;
-    
     Element popUpControllerElement;
     
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {

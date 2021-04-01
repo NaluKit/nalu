@@ -22,4 +22,13 @@ public interface IsPopUpFilter {
   
   boolean filter(ShowPopUpEvent event);
 
+  IsPopUpFilter.CancelHandler getCancelHandler();
+
+  @FunctionalInterface
+  interface CancelHandler {
+
+    void onCancel();
+
+  }
+
 }

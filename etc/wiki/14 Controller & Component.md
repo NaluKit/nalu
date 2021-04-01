@@ -784,6 +784,31 @@ public class MyPopUpFilter
 }
 ```
 
+It is possible to add a (optinal) cancel handler, which gets executed in case the `ShowPopUpEvent` is canceled:
+
+```java
+public class MyPopUpFilter
+    extends AbstractPopUpFilter<MyContext> {
+
+  public IolaniEditPopUpFilter() {
+  }
+
+  @Override
+  public boolean filter(ShowPopUpEvent event) {
+    if ("MyDoNotShowPopUp".equals(event.getName())) {
+      return false; // never show this popup
+    }
+    return true; // we are happy to continue
+  }
+
+  @Override
+  public IsPopUpFilter.CancelHandler getCancelHandler() {
+    return () -> [Do something ... ];
+  }
+
+}
+```
+
 By using the `PopUpFilter`-annotation, you can register the popup filter:
 ```java
 @Application(context = MyContext.class,

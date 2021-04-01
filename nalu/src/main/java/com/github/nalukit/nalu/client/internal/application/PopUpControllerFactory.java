@@ -17,14 +17,13 @@
 package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.application.event.LogEvent;
+import com.github.nalukit.nalu.client.component.AbstractPopUpFilter;
 import com.github.nalukit.nalu.client.component.event.ShowPopUpEvent;
 import com.github.nalukit.nalu.client.filter.IsPopUpFilter;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.EventBus;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @NaluInternalUse
 public class PopUpControllerFactory {
@@ -34,11 +33,11 @@ public class PopUpControllerFactory {
   /* map of components (key: name of class, Value: ControllerCreator */
   private final  Map<String, IsPopUpControllerCreator> creatorStore;
   /* map of components (key: name of class, Value: controller instance */
-  private final  Map<String, PopUpControllerInstance>  popUpControllerStore;
+  private final  Map<String, PopUpControllerInstance> popUpControllerStore;
   /* map of filters (key: name of class, Value: filter instance */
-  private final  Map<String, IsPopUpFilter>            popUpFilterStore;
+  private final  Map<String, AbstractPopUpFilter<?>>     popUpFilterStore;
   /* Nalu event bus to catch the ShowPopUpEvents */
-  private        EventBus                              eventBus;
+  private        EventBus                             eventBus;
 
   private PopUpControllerFactory() {
     this.creatorStore         = new HashMap<>();
@@ -60,7 +59,7 @@ public class PopUpControllerFactory {
   }
 
   public void registerPopUpFilter(String popUpName,
-                                  IsPopUpFilter filter) {
+                                  AbstractPopUpFilter<?> filter) {
     this.popUpFilterStore.put(popUpName,
                               filter);
   }
@@ -73,32 +72,48 @@ public class PopUpControllerFactory {
     }
   }
 
-  private void onShowPopUp(ShowPopUpEvent e) {
-    if (!filterEvent(e)) {
+  private void onShowPopUp(ShowPopUpEvent event) {
+    List<String> cancelHandelerKeys = new ArrayList<>();
+    boolean cancelEvent = false;
+    for (String popUpFilterKey : this.popUpFilterStore.keySet()) {
+      if (!this.popUpFilterStore.get(popUpFilterKey).filter(event)) {
+        cancelHandelerKeys.add(popUpFilterKey);
+      }
+    }
+    if (cancelHandelerKeys.size() > 0) {
+      for (String key : cancelHandelerKeys) {
+        IsPopUpFilter.CancelHandler handler = this.popUpFilterStore.get(key).getCancelHandler();
+        if (handler != null) {
+          this.popUpFilterStore.get(key)
+                               .getCancelHandler()
+                               .onCancel();
+        }
+      }
       return;
     }
+
     IsPopUpControllerCreator creator                  = null;
-    PopUpControllerInstance  popUpComponentController = this.popUpControllerStore.get(e.getName());
+    PopUpControllerInstance  popUpComponentController = this.popUpControllerStore.get(event.getName());
     if (Objects.isNull(popUpComponentController)) {
-      PopUpControllerInstance instance = this.popUpControllerStore.get(e.getName());
+      PopUpControllerInstance instance = this.popUpControllerStore.get(event.getName());
       if (Objects.isNull(instance)) {
-        creator = this.creatorStore.get(e.getName());
+        creator = this.creatorStore.get(event.getName());
         if (Objects.isNull(creator)) {
           LogEvent.create()
                   .sdmOnly(false)
-                  .addMessage("PopUpControllerFactory: PopUpController for name >>" + e.getName() + "<< not found");
+                  .addMessage("PopUpControllerFactory: PopUpController for name >>" + event.getName() + "<< not found");
           return;
         }
         instance = creator.create();
-        this.popUpControllerStore.put(e.getName(),
+        this.popUpControllerStore.put(event.getName(),
                                       instance);
         popUpComponentController = instance;
       }
     }
     popUpComponentController.getController()
-                            .setDataStore(e.getDataStore());
+                            .setDataStore(event.getDataStore());
     popUpComponentController.getController()
-                            .setCommandStore(e.getCommandStore());
+                            .setCommandStore(event.getCommandStore());
     PopUpControllerInstance finalPopUpComponentController = popUpComponentController;
     if (creator == null) {
       finalPopUpComponentController.getController()
@@ -114,12 +129,6 @@ public class PopUpControllerFactory {
                                                                                                                    .show());
                                    });
     }
-  }
-
-  private boolean filterEvent(ShowPopUpEvent e) {
-    return this.popUpFilterStore.values()
-                                .stream()
-                                .allMatch(popUpFilter -> popUpFilter.filter(e));
   }
 
 }
