@@ -73,7 +73,11 @@ public final class ApplicationWithComposite01Impl extends AbstractApplication<Mo
   @Override
   public void loadPopUpControllerFactory() {
   }
-  
+
+  @Override
+  public void loadPopUpFilters() {
+  }
+
   @Override
   public void loadErrorPopUpController() {
     this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("no ErrorPopUpController found!"));

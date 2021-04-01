@@ -142,6 +142,7 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadBlockControllerFactory();
     // load popup factory
     this.loadPopUpControllerFactory();
+    this.loadPopUpFilters();
     // load popup factory
     this.loadErrorPopUpController();
     // load the composite of the application
@@ -206,7 +207,9 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract void loadBlockControllerFactory();
   
   protected abstract void loadPopUpControllerFactory();
-  
+
+  protected abstract void loadPopUpFilters();
+
   protected abstract void loadErrorPopUpController();
   
   protected abstract void loadCompositeController();

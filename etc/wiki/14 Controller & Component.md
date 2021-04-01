@@ -762,6 +762,40 @@ public class MyController
 
 Note: At the time Nalu calls the `createPopUpComponent`-method, the context is already injected.
 
+### ShowPopUpEvent-Filtering
+Similar to the route filter feature Nalu offers a ShowPopUpEvent-Filter. Any time a `ShowPopUpEvent` is fired all `filter`-methods of the popup filters are executed. In case that at least one of filters returns `false`, the event gets canceled. A popup filter has access to the event. So it is possible to check the name of the requested popup and can access all values.
+
+Creating a PopUpFilter is quite easy:
+```java
+public class MyPopUpFilter
+    extends AbstractPopUpFilter<MyContext> {
+
+  public IolaniEditPopUpFilter() {
+  }
+
+  @Override
+  public boolean filter(ShowPopUpEvent event) {
+    if ("MyDoNotShowPopUp".equals(event.getName())) {
+      return false; // never show this popup
+    }
+    return true; // we are happy to continue
+  }
+
+}
+```
+
+By using the `PopUpFilter`-annotation, you can register the popup filter:
+```java
+@Application(context = MyContext.class,
+             startRoute = MyRoutes.ROUTE_START)
+@PopUpFilters(filterClasses = MyPopUpFilter.class)
+public interface IolaniApplication
+    extends IsApplication {
+}
+```
+
+An application can have more than one popup filter.
+
 ## Multiple Route Support
 A controller in Nalu can be atteched to more than one route. To define a controller for several routes, use a list of Strings for the `route`-attribute.
 

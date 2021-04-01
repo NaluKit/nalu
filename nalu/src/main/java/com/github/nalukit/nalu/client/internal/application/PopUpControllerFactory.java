@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.component.event.ShowPopUpEvent;
+import com.github.nalukit.nalu.client.filter.IsPopUpFilter;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.EventBus;
 
@@ -27,34 +28,43 @@ import java.util.Objects;
 
 @NaluInternalUse
 public class PopUpControllerFactory {
-  
+
   /* instance of the popup controller factory */
   private static PopUpControllerFactory                instance;
   /* map of components (key: name of class, Value: ControllerCreator */
   private final  Map<String, IsPopUpControllerCreator> creatorStore;
   /* map of components (key: name of class, Value: controller instance */
   private final  Map<String, PopUpControllerInstance>  popUpControllerStore;
+  /* map of filters (key: name of class, Value: filter instance */
+  private final  Map<String, IsPopUpFilter>            popUpFilterStore;
   /* Nalu event bus to catch the ShowPopUpEvents */
   private        EventBus                              eventBus;
-  
+
   private PopUpControllerFactory() {
     this.creatorStore         = new HashMap<>();
     this.popUpControllerStore = new HashMap<>();
+    this.popUpFilterStore     = new HashMap<>();
   }
-  
+
   public static PopUpControllerFactory get() {
     if (instance == null) {
       instance = new PopUpControllerFactory();
     }
     return instance;
   }
-  
+
   public void registerPopUpController(String popUpName,
                                       IsPopUpControllerCreator creator) {
     this.creatorStore.put(popUpName,
                           creator);
   }
-  
+
+  public void registerPopUpFilter(String popUpName,
+                                  IsPopUpFilter filter) {
+    this.popUpFilterStore.put(popUpName,
+                              filter);
+  }
+
   public void register(EventBus eventBus) {
     this.eventBus = eventBus;
     if (!Objects.isNull(this.eventBus)) {
@@ -62,8 +72,11 @@ public class PopUpControllerFactory {
                                this::onShowPopUp);
     }
   }
-  
+
   private void onShowPopUp(ShowPopUpEvent e) {
+    if (!filterEvent(e)) {
+      return;
+    }
     IsPopUpControllerCreator creator                  = null;
     PopUpControllerInstance  popUpComponentController = this.popUpControllerStore.get(e.getName());
     if (Objects.isNull(popUpComponentController)) {
@@ -102,5 +115,11 @@ public class PopUpControllerFactory {
                                    });
     }
   }
-  
+
+  private boolean filterEvent(ShowPopUpEvent e) {
+    return this.popUpFilterStore.values()
+                                .stream()
+                                .allMatch(popUpFilter -> popUpFilter.filter(e));
+  }
+
 }
