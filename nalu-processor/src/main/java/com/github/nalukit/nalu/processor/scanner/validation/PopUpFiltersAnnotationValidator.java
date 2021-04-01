@@ -15,13 +15,20 @@
  */
 package com.github.nalukit.nalu.processor.scanner.validation;
 
+import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.processor.ProcessorException;
+import com.github.nalukit.nalu.processor.ProcessorUtils;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
 
 public class PopUpFiltersAnnotationValidator {
+
+  private ProcessorUtils        processorUtils;
+  private ProcessingEnvironment processingEnvironment;
+  private Element               popUpFilterElement;
 
   @SuppressWarnings("unused")
   private PopUpFiltersAnnotationValidator() {
@@ -29,6 +36,12 @@ public class PopUpFiltersAnnotationValidator {
 
   @SuppressWarnings("unused")
   private PopUpFiltersAnnotationValidator(Builder builder) {
+    this.popUpFilterElement    = builder.popUpFilterElement;
+    this.processingEnvironment = builder.processingEnvironment;
+    this.processorUtils        = ProcessorUtils.builder()
+                                               .processingEnvironment(processingEnvironment)
+                                               .build();
+    ;
 
     setUp();
   }
@@ -46,13 +59,32 @@ public class PopUpFiltersAnnotationValidator {
                          .isInterface()) {
       throw new ProcessorException("Nalu-Processor: @PopUpFilters can only be used on a type (interface)");
     }
+    TypeElement typeElement = (TypeElement) this.popUpFilterElement;
+    // @PopUpController can only be used on a class
+    if (!typeElement.getKind()
+                    .isInterface()) {
+      throw new ProcessorException("Nalu-Processor: @PopUpController can only be used with an interface");
+    }
+    // @PopUpController can only be used on a interface that extends IsApplication
+    if (!this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
+                                                     typeElement.asType(),
+                                                     this.processingEnvironment.getElementUtils()
+                                                                               .getTypeElement(IsApplication.class.getCanonicalName())
+                                                                               .asType())) {
+      throw new ProcessorException("Nalu-Processor: @PopUpController can only be used on a class that extends IsApplication");
+    }
   }
 
   public static final class Builder {
 
     ProcessingEnvironment processingEnvironment;
+    RoundEnvironment      roundEnvironment;
+    Element               popUpFilterElement;
 
-    RoundEnvironment roundEnvironment;
+    public Builder popUpFilterElement(Element popUpFilterrElement) {
+      this.popUpFilterElement = popUpFilterrElement;
+      return this;
+    }
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;

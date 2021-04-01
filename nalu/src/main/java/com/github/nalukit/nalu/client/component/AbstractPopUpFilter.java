@@ -25,11 +25,33 @@ import org.gwtproject.event.shared.SimpleEventBus;
 public abstract class AbstractPopUpFilter<C extends IsContext>
     implements IsPopUpFilter {
 
-  protected C              context;
-  protected SimpleEventBus eventBus;
+  protected C                           context;
+  protected SimpleEventBus              eventBus;
 
   public AbstractPopUpFilter() {
     super();
+  }
+
+  /**
+   * Default implementation for getting the CancelHandler.
+   * The eturn value is null.
+   *
+   * @return always null
+   */
+  @Override
+  public IsPopUpFilter.CancelHandler getCancelHandler() {
+    return null;
+  }
+
+  /**
+   * Fires a NaluError event.
+   * <p>
+   * Use this method to communicate an error inside a filter.
+   *
+   * @param event the error event
+   */
+  public void fireNaluErrorEvent(NaluErrorEvent event) {
+    this.eventBus.fireEvent(event);
   }
 
   /**
@@ -54,17 +76,6 @@ public abstract class AbstractPopUpFilter<C extends IsContext>
   @NaluInternalUse
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
-  }
-
-  /**
-   * Fires a NaluError event.
-   * <p>
-   * Use this method to communicate an error inside a filter.
-   *
-   * @param event the error event
-   */
-  public void fireNaluErrorEvent(NaluErrorEvent event) {
-    this.eventBus.fireEvent(event);
   }
 
 }

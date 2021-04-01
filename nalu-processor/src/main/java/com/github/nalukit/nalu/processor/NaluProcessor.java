@@ -578,6 +578,7 @@ public class NaluProcessor
       PopUpFiltersAnnotationValidator.builder()
                                      .roundEnvironment(roundEnv)
                                      .processingEnvironment(processingEnv)
+                                     .popUpFilterElement(popUpFiltersElement)
                                      .build()
                                      .validate(popUpFiltersElement);
       // scan filter element
