@@ -16,8 +16,7 @@
 
 package com.github.nalukit.nalu.client.component.annotation;
 
-import com.github.nalukit.nalu.client.component.IsAbstractPopUpComponent;
-import com.github.nalukit.nalu.client.component.IsPopUpComponent;
+import com.github.nalukit.nalu.client.component.*;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -45,5 +44,17 @@ public @interface PopUpController {
   Class<? extends IsPopUpComponent<?>> componentInterface();
 
   Class<? extends IsAbstractPopUpComponent> component();
+
+  /**
+   * Conditional class to show the popup depending on the return result
+   * of the showPopUp()-method.
+   * <p>
+   * This parameter is optional.
+   * <p>
+   * Default is AlwaysShowPopUp.class, which will always show hte popup.
+   *
+   * @return the showp popup condition class
+   */
+  Class<? extends IsShowPopUpCondition> condition() default AlwaysShowPopUp.class;
 
 }

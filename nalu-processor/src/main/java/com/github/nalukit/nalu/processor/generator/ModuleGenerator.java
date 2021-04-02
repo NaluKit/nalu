@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
+import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import com.github.nalukit.nalu.client.context.ContextDataStore;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.*;
@@ -30,6 +31,7 @@ import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
+import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.squareup.javapoet.*;
@@ -37,25 +39,24 @@ import com.squareup.javapoet.*;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class ModuleGenerator {
 
-  private final MetaModel metaModel;
-
+  private final MetaModel             metaModel;
   private final ProcessingEnvironment processingEnvironment;
-
-  private ProcessorUtils processorUtils;
+  private       ProcessorUtils        processorUtils;
+  private       Map<String, Integer>  variableCounterMap;
 
   @SuppressWarnings("unused")
   private ModuleGenerator(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.metaModel = builder.metaModel;
+    this.metaModel             = builder.metaModel;
     setUp();
+
+    this.variableCounterMap = new HashMap<>();
   }
 
   private void setUp() {
@@ -130,12 +131,12 @@ public class ModuleGenerator {
       //      writer.close();
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
-                                       this.metaModel.getModuleModel()
-                                                     .getModule()
-                                                     .getClassName() +
-                                       ProcessorConstants.MODULE_IMPL +
-                                       "<< -> exception: " +
-                                       e.getMessage());
+                                   this.metaModel.getModuleModel()
+                                                 .getModule()
+                                                 .getClassName() +
+                                   ProcessorConstants.MODULE_IMPL +
+                                   "<< -> exception: " +
+                                   e.getMessage());
     }
   }
 
@@ -171,13 +172,14 @@ public class ModuleGenerator {
                                                                ClassName.get(ShellFactory.class),
                                                                shellModel.getShell()
                                                                          .getPackage() +
-                                                                   "." +
-                                                                   shellModel.getShell()
-                                                                             .getSimpleName(),
+                                                               "." +
+                                                               shellModel.getShell()
+                                                                         .getSimpleName(),
                                                                ClassName.get(shellModel.getShell()
                                                                                        .getPackage(),
                                                                              shellModel.getShell()
-                                                                                       .getSimpleName() + ProcessorConstants.CREATOR_IMPL));
+                                                                                       .getSimpleName() +
+                                                                             ProcessorConstants.CREATOR_IMPL));
 
                   });
     typeSpec.addMethod(loadShellFactoryMethodBuilder.build());
@@ -193,9 +195,9 @@ public class ModuleGenerator {
                                                ClassName.get(CompositeFactory.class),
                                                compositeModel.getProvider()
                                                              .getPackage() +
-                                                   "." +
-                                                   compositeModel.getProvider()
-                                                                 .getSimpleName(),
+                                               "." +
+                                               compositeModel.getProvider()
+                                                             .getSimpleName(),
                                                ClassName.get(compositeModel.getProvider()
                                                                            .getPackage(),
                                                              compositeModel.getProvider()
@@ -215,13 +217,14 @@ public class ModuleGenerator {
                                                    ClassName.get(ControllerFactory.class),
                                                    controllerModel.getProvider()
                                                                   .getPackage() +
-                                                       "." +
-                                                       controllerModel.getProvider()
-                                                                      .getSimpleName(),
+                                                   "." +
+                                                   controllerModel.getProvider()
+                                                                  .getSimpleName(),
                                                    ClassName.get(controllerModel.getController()
                                                                                 .getPackage(),
                                                                  controllerModel.getController()
-                                                                                .getSimpleName() + ProcessorConstants.CREATOR_IMPL));
+                                                                                .getSimpleName() +
+                                                                 ProcessorConstants.CREATOR_IMPL));
 
           if (controllerModel.getComposites()
                              .size() > 0) {
@@ -235,14 +238,14 @@ public class ModuleGenerator {
                                                                         ClassName.get(ControllerCompositeConditionFactory.class),
                                                                         controllerModel.getProvider()
                                                                                        .getPackage() +
-                                                                            "." +
-                                                                            controllerModel.getProvider()
-                                                                                           .getSimpleName(),
+                                                                        "." +
+                                                                        controllerModel.getProvider()
+                                                                                       .getSimpleName(),
                                                                         controllerCompositeModel.getComposite()
                                                                                                 .getPackage() +
-                                                                            "." +
-                                                                            controllerCompositeModel.getComposite()
-                                                                                                    .getSimpleName());
+                                                                        "." +
+                                                                        controllerCompositeModel.getComposite()
+                                                                                                .getSimpleName());
                              } else {
                                if (!generatedConditionClassNames.contains(controllerCompositeModel.getCondition()
                                                                                                   .getClassName())) {
@@ -268,14 +271,14 @@ public class ModuleGenerator {
                                                                         ClassName.get(ControllerCompositeConditionFactory.class),
                                                                         controllerModel.getProvider()
                                                                                        .getPackage() +
-                                                                            "." +
-                                                                            controllerModel.getProvider()
-                                                                                           .getSimpleName(),
+                                                                        "." +
+                                                                        controllerModel.getProvider()
+                                                                                       .getSimpleName(),
                                                                         controllerCompositeModel.getComposite()
                                                                                                 .getPackage() +
-                                                                            "." +
-                                                                            controllerCompositeModel.getComposite()
-                                                                                                    .getSimpleName(),
+                                                                        "." +
+                                                                        controllerCompositeModel.getComposite()
+                                                                                                .getSimpleName(),
                                                                         this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
                                                                                                                                   .getSimpleName()));
                              }
@@ -343,14 +346,58 @@ public class ModuleGenerator {
     MethodSpec.Builder loadPopUpControllersMethod = MethodSpec.methodBuilder("loadPopUpControllers")
                                                               .addAnnotation(Override.class)
                                                               .addModifiers(Modifier.PUBLIC);
+    List<String> generatedConditionClassNames = new ArrayList<>();
     this.metaModel.getPopUpControllers()
-                  .forEach(popUpControllerModel -> loadPopUpControllersMethod.addStatement("$T.get().registerPopUpController($S, new $L(super.router, super.moduleContext, super.eventBus))",
-                                                                                           ClassName.get(PopUpControllerFactory.class),
-                                                                                           popUpControllerModel.getName(),
-                                                                                           ClassName.get(popUpControllerModel.getController()
-                                                                                                                             .getPackage(),
-                                                                                                         popUpControllerModel.getController()
-                                                                                                                             .getSimpleName() + ProcessorConstants.CREATOR_IMPL)));
+                  .forEach(popUpControllerModel -> {
+                    loadPopUpControllersMethod.addStatement("$T.get().registerPopUpController($S, new $L(super.router, super.moduleContext, super.eventBus))",
+                                                            ClassName.get(PopUpControllerFactory.class),
+                                                            popUpControllerModel.getName(),
+                                                            ClassName.get(popUpControllerModel.getController()
+                                                                                              .getPackage(),
+                                                                          popUpControllerModel.getController()
+                                                                                              .getSimpleName() +
+                                                                          ProcessorConstants.CREATOR_IMPL));
+                    if (AlwaysShowPopUp.class.getSimpleName()
+                                             .equals(popUpControllerModel.getCondition()
+                                                                         .getSimpleName())) {
+                      loadPopUpControllersMethod.addStatement("$T.get().registerCondition($S,  super.alwaysShowPopUp)",
+                                                              ClassName.get(PopUpConditionFactory.class),
+                                                              popUpControllerModel.getName());
+                    } else {
+                      String conditionVariableName;
+                      if (generatedConditionClassNames.contains(popUpControllerModel.getCondition()
+                                                                                    .getClassName())) {
+                        conditionVariableName = this.setFirstCharacterToLowerCase(popUpControllerModel.getCondition()
+                                                                                                      .getSimpleName()) +
+                                                this.getNameWithVariableCount(popUpControllerModel.getCondition(),
+                                                                              false);
+                      } else {
+                        conditionVariableName = this.setFirstCharacterToLowerCase(popUpControllerModel.getCondition()
+                                                                                                      .getSimpleName()) +
+                                                this.getNameWithVariableCount(popUpControllerModel.getCondition(),
+                                                                              true);
+
+                        loadPopUpControllersMethod.addStatement("$T $L = new $T()",
+                                                                ClassName.get(popUpControllerModel.getCondition()
+                                                                                                  .getPackage(),
+                                                                              popUpControllerModel.getCondition()
+                                                                                                  .getSimpleName()),
+                                                                conditionVariableName,
+                                                                ClassName.get(popUpControllerModel.getCondition()
+                                                                                                  .getPackage(),
+                                                                              popUpControllerModel.getCondition()
+                                                                                                  .getSimpleName()))
+                                                  .addStatement("$L.setContext(super.context)",
+                                                                conditionVariableName);
+                        // remember generated condition to avoid creating the same class again!
+                        generatedConditionClassNames.add(popUpControllerModel.getCondition()
+                                                                             .getClassName());
+                      }
+                      loadPopUpControllersMethod.addStatement("$T.get().registerCondition($S,  $L)",
+                                                              ClassName.get(PopUpConditionFactory.class),
+                                                              conditionVariableName);
+                    }
+                  });
     typeSpec.addMethod(loadPopUpControllersMethod.build());
   }
 
@@ -366,7 +413,8 @@ public class ModuleGenerator {
                                                                                            ClassName.get(blockControllerModel.getController()
                                                                                                                              .getPackage(),
                                                                                                          blockControllerModel.getController()
-                                                                                                                             .getSimpleName() + ProcessorConstants.CREATOR_IMPL)));
+                                                                                                                             .getSimpleName() +
+                                                                                                         ProcessorConstants.CREATOR_IMPL)));
     typeSpec.addMethod(loadBlockControllersMethod.build());
   }
 
@@ -490,12 +538,6 @@ public class ModuleGenerator {
     return models;
   }
 
-  private String setFirstCharacterToLowerCase(String className) {
-    return className.substring(0,
-                               1)
-                    .toLowerCase() + className.substring(1);
-  }
-
   private String createRoute(String route) {
     if (route.startsWith("/")) {
       return route;
@@ -524,6 +566,40 @@ public class ModuleGenerator {
     return models.stream()
                  .anyMatch(model -> model.getProvider()
                                          .equals(controllerModel.getProvider()));
+  }
+
+  private String setFirstCharacterToLowerCase(String className) {
+    return className.substring(0,
+                               1)
+                    .toLowerCase() + className.substring(1);
+  }
+
+  /**
+   * Created a String with a number at the end to get unique condition
+   * variable names
+   *
+   * @param classNameModel the condition class name
+   * @return uniques string with number
+   */
+  private String getNameWithVariableCount(ClassNameModel classNameModel,
+                                          boolean createNew) {
+    if (createNew) {
+      // new condition class!
+      if (this.variableCounterMap.get(classNameModel.getClassName()) == null) {
+        this.variableCounterMap.put(classNameModel.getClassName(),
+                                    1);
+        return "_1";
+      }
+      // already used condition class
+      Integer counter    = this.variableCounterMap.get(classNameModel.getClassName());
+      Integer newCounter = counter + 1;
+      this.variableCounterMap.put(classNameModel.getClassName(),
+                                  newCounter);
+      return "_" + newCounter;
+    } else {
+      Integer count = this.variableCounterMap.get(classNameModel.getClassName());
+      return "_" + count;
+    }
   }
 
   public static final class Builder {

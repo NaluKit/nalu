@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.component.AbstractPopUpFilter;
+import com.github.nalukit.nalu.client.component.IsShowPopUpCondition;
 import com.github.nalukit.nalu.client.component.event.ShowPopUpEvent;
 import com.github.nalukit.nalu.client.filter.IsPopUpFilter;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
@@ -33,11 +34,11 @@ public class PopUpControllerFactory {
   /* map of components (key: name of class, Value: ControllerCreator */
   private final  Map<String, IsPopUpControllerCreator> creatorStore;
   /* map of components (key: name of class, Value: controller instance */
-  private final  Map<String, PopUpControllerInstance> popUpControllerStore;
+  private final  Map<String, PopUpControllerInstance>  popUpControllerStore;
   /* map of filters (key: name of class, Value: filter instance */
-  private final  Map<String, AbstractPopUpFilter<?>>     popUpFilterStore;
+  private final  Map<String, AbstractPopUpFilter<?>>   popUpFilterStore;
   /* Nalu event bus to catch the ShowPopUpEvents */
-  private        EventBus                             eventBus;
+  private        EventBus                              eventBus;
 
   private PopUpControllerFactory() {
     this.creatorStore         = new HashMap<>();
@@ -74,21 +75,26 @@ public class PopUpControllerFactory {
 
   private void onShowPopUp(ShowPopUpEvent event) {
     List<String> cancelHandelerKeys = new ArrayList<>();
-    boolean cancelEvent = false;
     for (String popUpFilterKey : this.popUpFilterStore.keySet()) {
-      if (!this.popUpFilterStore.get(popUpFilterKey).filter(event)) {
+      if (!this.popUpFilterStore.get(popUpFilterKey)
+                                .filter(event)) {
         cancelHandelerKeys.add(popUpFilterKey);
       }
     }
     if (cancelHandelerKeys.size() > 0) {
       for (String key : cancelHandelerKeys) {
-        IsPopUpFilter.CancelHandler handler = this.popUpFilterStore.get(key).getCancelHandler();
+        IsPopUpFilter.CancelHandler handler = this.popUpFilterStore.get(key)
+                                                                   .getCancelHandler();
         if (handler != null) {
           this.popUpFilterStore.get(key)
                                .getCancelHandler()
                                .onCancel();
         }
       }
+      return;
+    }
+
+    if (!PopUpConditionFactory.get().showPopUp(event)) {
       return;
     }
 

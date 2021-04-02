@@ -43,34 +43,37 @@ import java.util.stream.Stream;
 abstract class AbstractRouter
     implements ConfigurableRouter {
 
-  /* instance of AlwaysLoadComposite-class */
-  protected AlwaysLoadComposite alwaysLoadComposite;
   // the plugin
   IsNaluProcessorPlugin plugin;
+
+  /* instance of AlwaysLoadComposite-class */
+  protected AlwaysLoadComposite                alwaysLoadComposite;
+  /* instance of AlwaysShowPopUp-class */
+  protected AlwaysShowPopUp                    alwaysShowPopUp;
   // composite configuration
-  private List<CompositeControllerReference> compositeControllerReferences;
+  private   List<CompositeControllerReference> compositeControllerReferences;
   // List of the application shells
-  private ShellConfiguration                 shellConfiguration;
+  private   ShellConfiguration                 shellConfiguration;
   // List of the routes of the application
-  private RouterConfiguration                routerConfiguration;
+  private   RouterConfiguration                routerConfiguration;
   // List of active components
-  private Map<String, ControllerInstance>    activeComponents;
+  private   Map<String, ControllerInstance>    activeComponents;
   // hash of last successful routing
-  private String                             lastExecutedHash = "";
+  private   String                             lastExecutedHash = "";
   // current route
-  private String                             currentRoute     = "";
+  private   String                             currentRoute     = "";
   // current parameters
-  private String[]                           currentParameters;
+  private   String[]                           currentParameters;
   // last added shell - used, to check if the shell needs an shell replacement
-  private String                             lastAddedShell;
+  private   String                             lastAddedShell;
   // instance of the current shell
-  private IsShell                            shell;
+  private   IsShell                            shell;
   // list of routes used for handling the current route - used to detect loops
-  private List<String>                       loopDetectionList;
+  private   List<String>                       loopDetectionList;
   // the tracker: if not null, track the users routing
-  private IsTracker                          tracker;
+  private   IsTracker                          tracker;
   // the application event bus
-  private SimpleEventBus                     eventBus;
+  private   SimpleEventBus                     eventBus;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
                  ShellConfiguration shellConfiguration,
@@ -543,14 +546,25 @@ abstract class AbstractRouter
   }
 
   /**
-   * Sets the alwaysLoadComposite flag inside the router
+   * Sets the alwaysLoadComposite instance
    *
-   * @param alwaysLoadComposite the alwaysLoadComposite flag
+   * @param alwaysLoadComposite the alwaysLoadComposite instance
    */
   @NaluInternalUse
   @Override
   public void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite) {
     this.alwaysLoadComposite = alwaysLoadComposite;
+  }
+
+  /**
+   * Sets the alwaysShowPopUp instance
+   *
+   * @param alwaysShowPopUp the alwaysShowPopUp instance
+   */
+  @NaluInternalUse
+  @Override
+  public void setAlwaysShowPopUp(AlwaysShowPopUp alwaysShowPopUp) {
+    this.alwaysShowPopUp = alwaysShowPopUp;
   }
 
   /**
@@ -581,6 +595,7 @@ abstract class AbstractRouter
     module.setRouter(this);
     module.setEventBus(this.eventBus);
     module.setAlwaysLoadComposite(this.alwaysLoadComposite);
+    module.setAlwaysShowPopUp(this.alwaysShowPopUp);
     module.loadModule(this.routerConfiguration);
     this.shellConfiguration.getShells()
                            .addAll(module.getShellConfigs());

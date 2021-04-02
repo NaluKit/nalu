@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.module;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
+import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import com.github.nalukit.nalu.client.context.IsModuleContext;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
@@ -30,14 +31,22 @@ import java.util.List;
 
 public interface IsModule<C extends IsModuleContext> {
 
-    /**
-     * Sets the alwaysLoadComposite flag inside the router
-     *
-     * @param alwaysLoadComposite the alwaysLoadComposite flag
-     */
+  /**
+   * Sets the alwaysLoadComposite instance
+   *
+   * @param alwaysLoadComposite the alwaysLoadComposite instance
+   */
   @NaluInternalUse
   void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite);
-  
+
+  /**
+   * Sets the alwaysShowPupUp instance
+   *
+   * @param alwaysShowPupUp the alwaysShowPupUp instance
+   */
+  @NaluInternalUse
+  void setAlwaysShowPopUp(AlwaysShowPopUp alwaysShowPupUp);
+
   /**
    * Sets the event bus inside the router
    *
@@ -45,7 +54,7 @@ public interface IsModule<C extends IsModuleContext> {
    */
   @NaluInternalUse
   void setEventBus(SimpleEventBus eventBus);
-  
+
   /**
    * Sets the router inside the router
    *
@@ -53,17 +62,17 @@ public interface IsModule<C extends IsModuleContext> {
    */
   @NaluInternalUse
   void setRouter(Router router);
-  
+
   @NaluInternalUse
   void loadModule(RouterConfiguration routeConfiguration);
-  
+
   @NaluInternalUse
   List<ShellConfig> getShellConfigs();
-  
+
   @NaluInternalUse
   List<RouteConfig> getRouteConfigs();
-  
+
   @NaluInternalUse
   List<CompositeControllerReference> getCompositeReferences();
-  
+
 }
