@@ -106,6 +106,7 @@ public abstract class AbstractApplication<C extends IsContext>
     this.logProcessorVersion();
     // load default routes!
     this.loadDefaultRoutes();
+    // Register plugin
     SeoDataProvider.get()
                    .register(this.plugin);
     // load everything you need to start
@@ -151,17 +152,6 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadComponents();
     // load the handlers of the application
     this.loadHandlers();
-    // validate
-    if (!RouteValidation.validateStartRoute(this.shellConfiguration,
-                                            this.routerConfiguration,
-                                            this.startRoute)) {
-      String sb = "value of start route >>" + this.startRoute + "<< does not exist!";
-      eventBus.fireEvent(LogEvent.create()
-                                 .sdmOnly(false)
-                                 .addMessage(sb));
-      this.plugin.alert("startRoute not valid - application stopped!");
-      return;
-    }
     // handling application loading
     IsLoader<C> loader = getLoader();
     if (loader == null) {
@@ -226,7 +216,7 @@ public abstract class AbstractApplication<C extends IsContext>
    * Once the loader did his job, we will continue
    */
   private void onFinishLoading() {
-    // load modules, now we have started everything, it's tiem to deal with mdoules ...
+    // load modules, now we have started everything, it's time to deal with modules ...
     this.loadModules();
   }
   
@@ -243,6 +233,17 @@ public abstract class AbstractApplication<C extends IsContext>
    * Once the loader did his job, we will execute the post loader
    */
   protected void onFinishModuleLoading() {
+    // validate start route
+    if (!RouteValidation.validateStartRoute(this.shellConfiguration,
+                                            this.routerConfiguration,
+                                            this.startRoute)) {
+      String sb = "value of start route >>" + this.startRoute + "<< does not exist!";
+      eventBus.fireEvent(LogEvent.create()
+                                 .sdmOnly(false)
+                                 .addMessage(sb));
+      this.plugin.alert("startRoute not valid - application stopped!");
+      return;
+    }
     // now, let's execute the 'postloader'
     // handling application loading
     IsLoader<C> postLoader = getPostLoader();
