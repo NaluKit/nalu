@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.internal.module;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
+import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import com.github.nalukit.nalu.client.context.AbstractModuleContext;
 import com.github.nalukit.nalu.client.context.ContextDataStore;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
@@ -32,13 +33,14 @@ import org.gwtproject.event.shared.SimpleEventBus;
 @NaluInternalUse
 public abstract class AbstractModule<C extends AbstractModuleContext>
     implements IsModule<C> {
-  
-  protected Router          router;
-  protected C               moduleContext;
-  protected SimpleEventBus  eventBus;
-  
+
+  protected Router         router;
+  protected C              moduleContext;
+  protected SimpleEventBus eventBus;
+
   protected AlwaysLoadComposite alwaysLoadComposite;
-  
+  protected AlwaysShowPopUp     alwaysShowPopUp;
+
   public AbstractModule(ContextDataStore applicationContext) {
     super();
     this.moduleContext = createModuleContext();
@@ -46,14 +48,25 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
   }
 
   /**
-   * Sets the alwaysLoadComposite flag inside the router
+   * Sets the alwaysLoadComposite instance
    *
-   * @param alwaysLoadComposite the alwaysLoadComposite flag
+   * @param alwaysLoadComposite the alwaysLoadComposite instance
    */
   @Override
   @NaluInternalUse
   public void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite) {
     this.alwaysLoadComposite = alwaysLoadComposite;
+  }
+
+  /**
+   * Sets the alwaysShowPopUp instnace
+   *
+   * @param alwaysShowPopUp the alwaysShowPopUp instance
+   */
+  @Override
+  @NaluInternalUse
+  public void setAlwaysShowPopUp(AlwaysShowPopUp alwaysShowPopUp) {
+    this.alwaysShowPopUp = alwaysShowPopUp;
   }
 
   /**
@@ -66,7 +79,7 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
-  
+
   /**
    * Sets the router inside the router
    *
@@ -77,7 +90,7 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
   public void setRouter(Router router) {
     this.router = router;
   }
-  
+
   @Override
   @NaluInternalUse
   public void loadModule(RouterConfiguration routeConfiguration) {
@@ -90,26 +103,26 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
     this.loadPopUpControllers();
     this.loadBlockControllers();
   }
-  
+
   private void setUpContext() {
   }
-  
+
   protected abstract void loadShellFactory();
-  
+
   protected abstract void loadCompositeController();
-  
+
   protected abstract void loadComponents();
-  
+
   protected abstract void loadFilters(RouterConfiguration routeConfiguration);
-  
+
   protected abstract void loadHandlers();
-  
+
   protected abstract void loadPopUpControllers();
-  
+
   protected abstract void loadBlockControllers();
-  
+
   protected abstract C createModuleContext();
-  
+
   protected abstract IsModuleLoader<C> createModuleLoader();
-  
+
 }

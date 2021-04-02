@@ -21,6 +21,7 @@ import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
+import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
@@ -43,7 +44,7 @@ import java.util.List;
 @NaluInternalUse
 public abstract class AbstractApplication<C extends IsContext>
     implements IsApplication {
-  
+
   /* start route */
   protected String                             startRoute;
   /* Shell */
@@ -61,21 +62,23 @@ public abstract class AbstractApplication<C extends IsContext>
   /* plugin */
   protected IsNaluProcessorPlugin              plugin;
   /* Tracker instance */
-  protected IsTracker                          tracker;
+  protected IsTracker           tracker;
   /* instance of AlwaysLoadComposite-class */
-  protected AlwaysLoadComposite                alwaysLoadComposite;
+  protected AlwaysLoadComposite alwaysLoadComposite;
+  /* instance of AlwaysShowPopUp-class */
+  protected AlwaysShowPopUp     alwaysShowPopUp;
   /* List of CompositeControllerReferences */
   protected List<CompositeControllerReference> compositeControllerReferences;
   /* Nalu Logger instance */
   protected NaluLogger<C>                      naluLogger;
   /* The call counter */
   protected int                                callCounter;
-  
+
   public AbstractApplication() {
     super();
     this.compositeControllerReferences = new ArrayList<>();
   }
-  
+
   @Override
   public void run(IsNaluProcessorPlugin plugin) {
     // save the plugin
@@ -85,6 +88,7 @@ public abstract class AbstractApplication<C extends IsContext>
     this.shellConfiguration  = new ShellConfiguration();
     this.routerConfiguration = new RouterConfiguration();
     this.alwaysLoadComposite = new AlwaysLoadComposite();
+    this.alwaysShowPopUp     = new AlwaysShowPopUp();
     // set custom presenter - if available
     this.plugin.setCustomAlertPresenter(getCustomAlertPresenter());
     this.plugin.setCustomConfirmPresenter(getCustomConfirmPresenter());
@@ -134,6 +138,7 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.isUsingColonForParametersInUrl(),
                                  this.isStayOnSide());
     this.router.setAlwaysLoadComposite(this.alwaysLoadComposite);
+    this.router.setAlwaysShowPopUp(this.alwaysShowPopUp);
     this.router.setEventBus(this.eventBus);
     // initialize plugin
     this.plugin.initialize(this.shellConfiguration);
@@ -163,55 +168,55 @@ public abstract class AbstractApplication<C extends IsContext>
       loader.load(this::onFinishLoading);
     }
   }
-  
+
   protected abstract IsCustomAlertPresenter getCustomAlertPresenter();
-  
+
   protected abstract IsCustomConfirmPresenter getCustomConfirmPresenter();
-  
+
   protected abstract void loadLoggerConfiguration();
-  
+
   protected abstract void logProcessorVersion();
-  
+
   protected abstract void loadDefaultRoutes();
-  
+
   protected abstract void loadShells();
-  
+
   protected abstract void loadRoutes();
-  
+
   protected abstract void loadFilters();
-  
+
   protected abstract void loadCompositeReferences();
-  
+
   protected abstract IsTracker loadTrackerConfiguration();
-  
+
   protected abstract boolean hasHistory();
-  
+
   protected abstract boolean isUsingHash();
-  
+
   protected abstract boolean isUsingColonForParametersInUrl();
-  
+
   protected abstract boolean isStayOnSide();
-  
+
   protected abstract void loadShellFactory();
-  
+
   protected abstract void loadBlockControllerFactory();
-  
+
   protected abstract void loadPopUpControllerFactory();
 
   protected abstract void loadPopUpFilters();
 
   protected abstract void loadErrorPopUpController();
-  
+
   protected abstract void loadCompositeController();
-  
+
   protected abstract void loadComponents();
-  
+
   protected abstract void loadHandlers();
-  
+
   protected abstract IsLoader<C> getLoader();
-  
+
   protected abstract IsLoader<C> getPostLoader();
-  
+
   /**
    * Once the loader did his job, we will continue
    */
@@ -219,16 +224,16 @@ public abstract class AbstractApplication<C extends IsContext>
     // load modules, now we have started everything, it's time to deal with modules ...
     this.loadModules();
   }
-  
+
   protected abstract void loadModules();
-  
+
   protected void handleSuccess() {
     callCounter--;
     if (callCounter == 0) {
       this.onFinishModuleLoading();
     }
   }
-  
+
   /**
    * Once the loader did his job, we will execute the post loader
    */
@@ -256,7 +261,7 @@ public abstract class AbstractApplication<C extends IsContext>
       postLoader.load(this::onFinishPostLoading);
     }
   }
-  
+
   /**
    * Once the post loader did his job, we will start the application
    */
@@ -284,5 +289,5 @@ public abstract class AbstractApplication<C extends IsContext>
       this.router.route(this.startRoute);
     }
   }
-  
+
 }

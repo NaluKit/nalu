@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.component.AbstractController;
 import com.github.nalukit.nalu.client.component.IsPopUpComponentCreator;
+import com.github.nalukit.nalu.client.component.annotation.Composite;
 import com.github.nalukit.nalu.client.component.annotation.PopUpController;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
@@ -97,6 +98,8 @@ public class PopUpControllerAnnotationScanner {
                                     new ClassNameModel(componentInterfaceTypeElement.toString()),
                                     new ClassNameModel(componentTypeElement.toString()),
                                     new ClassNameModel(popUpControllerElement.toString()),
+                                    new ClassNameModel(Objects.requireNonNull(getPopUpConditionElement(annotation))
+                                                              .toString()),
                                     componentController);
   }
   
@@ -119,7 +122,17 @@ public class PopUpControllerAnnotationScanner {
     }
     return null;
   }
-  
+
+  private TypeElement getPopUpConditionElement(PopUpController annotation) {
+    try {
+      annotation.condition();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
+  }
+
   private boolean checkIsComponentCreator(Element element,
                                           TypeElement componentInterfaceTypeElement)
       throws ProcessorException {

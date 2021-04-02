@@ -18,13 +18,14 @@ package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
+import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.module.IsModule;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public interface ConfigurableRouter
     extends Router {
-  
+
   /**
    * handle router exception.
    *
@@ -33,7 +34,7 @@ public interface ConfigurableRouter
    */
   void handleRouterException(String hash,
                              RouterException e);
-  
+
   /**
    * Parse the route!
    *
@@ -43,15 +44,23 @@ public interface ConfigurableRouter
    */
   RouteResult parse(String route)
       throws RouterException;
-  
+
   /**
-   * Sets the alwaysLoadComposite flag inside the router
+   * Sets the alwaysLoadComposite instance
    *
-   * @param alwaysLoadComposite the alwaysLoadComposite flag
+   * @param alwaysLoadComposite the alwaysLoadComposite instance
    */
   @NaluInternalUse
   void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite);
-  
+
+  /**
+   * Sets the alwaysShowPopUp instance
+   *
+   * @param alwaysShowPopUp the alwaysShowPopUp instance
+   */
+  @NaluInternalUse
+  void setAlwaysShowPopUp(AlwaysShowPopUp alwaysShowPopUp);
+
   /**
    * Sets the event bus inside the router
    *
@@ -59,7 +68,7 @@ public interface ConfigurableRouter
    */
   @NaluInternalUse
   void setEventBus(SimpleEventBus eventBus);
-  
+
   /**
    * Add a module to the application.
    * <p>
@@ -73,5 +82,5 @@ public interface ConfigurableRouter
    * @param <M>    Type of the module.
    */
   <M extends IsModule<?>> void addModule(M module);
-  
+
 }

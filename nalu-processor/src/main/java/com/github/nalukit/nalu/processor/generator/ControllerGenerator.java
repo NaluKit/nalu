@@ -34,9 +34,7 @@ import java.util.stream.IntStream;
 public class ControllerGenerator {
   
   private MetaModel metaModel;
-  
   private TypeSpec.Builder typeSpec;
-  
   private Map<String, Integer> variableCounterMap;
   
   @SuppressWarnings("unused")

@@ -19,17 +19,13 @@ package com.github.nalukit.nalu.processor.model.intern;
 public class PopUpControllerModel {
   
   private String name;
-  
   private ClassNameModel context;
-  
   private ClassNameModel controller;
-  
   private ClassNameModel componentInterface;
-  
   private ClassNameModel component;
-  
   private ClassNameModel provider;
-  
+  public  ClassNameModel condition;
+
   private boolean componentCreator;
   
   public PopUpControllerModel(String name,
@@ -38,6 +34,7 @@ public class PopUpControllerModel {
                               ClassNameModel componentInterface,
                               ClassNameModel component,
                               ClassNameModel provider,
+                              ClassNameModel condition,
                               boolean componentCreator) {
     this.name               = name;
     this.context            = context;
@@ -46,6 +43,7 @@ public class PopUpControllerModel {
     this.component          = component;
     this.provider           = provider;
     this.componentCreator   = componentCreator;
+    this.condition= condition;
   }
   
   public String getName() {
@@ -87,7 +85,11 @@ public class PopUpControllerModel {
   public void setComponent(ClassNameModel component) {
     this.component = component;
   }
-  
+
+  public ClassNameModel getCondition() {
+    return condition;
+  }
+
   public ClassNameModel getProvider() {
     return provider;
   }

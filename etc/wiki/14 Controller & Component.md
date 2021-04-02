@@ -821,6 +821,58 @@ public interface IolaniApplication
 
 An application can have more than one popup filter.
 
+#### Conditional PopUps (since v2.3.0)
+Starting with version 2.3.0 Nalu will support conditional popups. A conditional popup is a popup that will be visible depending on a condition. So, it is possible to decide whether to show or not show a popup depending on information stored inside the context.
+
+A conditional popup requires a class that extends `AbstractPopUpCondition`. Inside this class the `boolean showPopUp(ShowPopUpEvent event)`-method must be implemented. Returning **true** will tell Nalu to show the popup. In case the value **false** is returned, Nalu will not show the popup.
+
+The conditional class is another attribute of the `PopUpController` - annotation called 'condition'.
+
+Here is an example of the usage of a conditional composite.
+
+First, create the condition:
+```java_holder_method_tree
+public class MyShowPopUpCondition
+    extends AbstractPopUpCondition {
+
+  public AlwaysShowPopUp() {
+  }
+
+  @Override
+  public boolean showPopUp(ShowPopUpEvent event) {
+    if ([condition]) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+}
+
+```
+
+Use the condition inside the `PopUpController`-annotation:
+
+
+```java_holder_method_tree
+@PopUpController(name = "MyPopUpName",
+                 componentInterface = IMyPopUpComponent.class,
+                 component = MyPopUpComponent.class,
+                 condition = MyPopUpCondition.class)
+public class ApplicationSettingsEditController
+    extends AbstractIolaniPopUpController<IMyPopUpComponent>
+    implements IMyPopUpComponent.Controller {
+
+ ...
+
+}
+```
+
+Now, depending of the return value of the `showPopUp`-method, the popup will be shown or not.
+
+**Keep in mind: in case the showPopUp method of the condition returns false, Nalu had already created the popup!**
+
+
 ## Multiple Route Support
 A controller in Nalu can be atteched to more than one route. To define a controller for several routes, use a list of Strings for the `route`-attribute.
 
