@@ -31,17 +31,13 @@ public class RouteValidation {
                                            String route) {
     return validateRoute(shellConfiguration,
                          routerConfiguration,
-                         route,
-                         true,
-                         false);
-    
+                         route);
+
   }
   
   private static boolean validateRoute(ShellConfiguration shellConfiguration,
                                        RouterConfiguration routerConfiguration,
-                                       String route,
-                                       boolean startRoute,
-                                       boolean routeError) {
+                                       String route) {
     String shellOfRoute      = getShellFromRoute(route);
     String routeWithoutShell = getRouteWithoutShellAndParameter(route);
     // check shell
@@ -65,10 +61,7 @@ public class RouteValidation {
                                                              .filter(r -> Nalu.match(finalSearchRoute,
                                                                                      r.getRoute()))
                                                              .findFirst();
-    if (!optionalRoute.isPresent()) {
-      return false;
-    }
-    return true;
+    return optionalRoute.isPresent();
   }
   
   private static String getShellFromRoute(String route) {
