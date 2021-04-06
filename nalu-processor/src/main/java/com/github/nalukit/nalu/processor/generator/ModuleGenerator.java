@@ -101,6 +101,7 @@ public class ModuleGenerator {
     this.generateLoadComposites(typeSpec);
     this.generateLoadContollers(typeSpec);
     this.generateLoadFilters(typeSpec);
+    this.generateLoadPopUpFilters(typeSpec);
     this.generateLoadHandlers(typeSpec);
     this.generateLoadPopUpControllers(typeSpec);
     this.generateLoadBlockControllers(typeSpec);
@@ -306,10 +307,40 @@ public class ModuleGenerator {
                                                                                           classNameModel.getSimpleName()))
                                                               .addStatement("$L.setContext(super.moduleContext)",
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName()))
+                                                              .addStatement("$L.setEventBus(super.eventBus)",
+                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()))
                                                               .addStatement("routerConfiguration.getFilters().add($L)",
                                                                             this.processorUtils.createFullClassName(classNameModel.getClassName())));
 
     typeSpec.addMethod(loadFiltersMethod.build());
+  }
+
+  private void generateLoadPopUpFilters(TypeSpec.Builder typeSpec) {
+    // method must always be created!
+    MethodSpec.Builder loadPopUpFiltersMethod = MethodSpec.methodBuilder("loadPopUpFilters")
+                                                          .addAnnotation(Override.class)
+                                                          .addModifiers(Modifier.PUBLIC)
+                                                          .addParameter(ParameterSpec.builder(ClassName.get(RouterConfiguration.class),
+                                                                                              "routerConfiguration")
+                                                                                     .build());
+
+    this.metaModel.getPopUpFilters()
+                  .forEach(classNameModel -> loadPopUpFiltersMethod.addStatement("$T $L = new $T()",
+                                                                                 ClassName.get(classNameModel.getPackage(),
+                                                                                               classNameModel.getSimpleName()),
+                                                                                 this.processorUtils.createFullClassName(classNameModel.getClassName()),
+                                                                                 ClassName.get(classNameModel.getPackage(),
+                                                                                               classNameModel.getSimpleName()))
+                                                                   .addStatement("$L.setContext(super.context)",
+                                                                                 this.processorUtils.createFullClassName(classNameModel.getClassName()))
+                                                                   .addStatement("$L.setEventBus(super.eventBus)",
+                                                                                 this.processorUtils.createFullClassName(classNameModel.getClassName()))
+                                                                   .addStatement("$T.get().registerPopUpFilter($S, $L)",
+                                                                                 ClassName.get(PopUpControllerFactory.class),
+                                                                                 this.processorUtils.createFullClassName(classNameModel.getClassName()),
+                                                                                 this.processorUtils.createFullClassName(classNameModel.getClassName())));
+
+    typeSpec.addMethod(loadPopUpFiltersMethod.build());
   }
 
   private void generateLoadHandlers(TypeSpec.Builder typeSpec) {
