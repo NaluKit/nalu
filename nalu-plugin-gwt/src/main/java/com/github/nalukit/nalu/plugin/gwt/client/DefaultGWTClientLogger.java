@@ -19,43 +19,12 @@ package com.github.nalukit.nalu.plugin.gwt.client;
 import com.github.nalukit.nalu.client.application.IsClientLogger;
 import com.google.gwt.core.client.GWT;
 
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 public class DefaultGWTClientLogger
     implements IsClientLogger {
-  
-  static final String INDENT = "..";
-  
+
   @Override
   public void log(String message) {
     GWT.log(message);
   }
-  
-  @Override
-  public void log(String message,
-                  int depth) {
-    if ("on".equals(System.getProperty("superdevmode",
-                                       "off"))) {
-      GWT.log(createLog(message,
-                        depth));
-    }
-  }
-  
-  @Deprecated
-  private String createLog(String message,
-                           int depth) {
-    if (depth == 0) {
-      return "Nalu-Logger -> " + message;
-    } else {
-      String indent = IntStream.range(0,
-                                      depth)
-                               .mapToObj(i -> INDENT)
-                               .collect(Collectors.joining("",
-                                                           "",
-                                                           message));
-      return "Nalu-Logger -> " + indent;
-    }
-  }
-  
+
 }

@@ -18,29 +18,7 @@ package com.github.nalukit.nalu.plugin.core.web.client;
 
 import com.github.nalukit.nalu.client.application.IsClientLogger;
 
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 public abstract class AbstractClientLogger
     implements IsClientLogger {
-  
-  @Deprecated
-  protected static final String INDENT = "..";
-  
-  @Deprecated
-  protected String createLog(String message,
-                             int depth) {
-    if (depth == 0) {
-      return "Nalu-Logger -> " + message;
-    } else {
-      String indent = IntStream.range(0,
-                                      depth)
-                               .mapToObj(i -> INDENT)
-                               .collect(Collectors.joining("",
-                                                           "",
-                                                           message));
-      return "Nalu-Logger -> " + indent;
-    }
-  }
-  
+
 }

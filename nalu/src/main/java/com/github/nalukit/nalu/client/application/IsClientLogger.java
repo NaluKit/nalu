@@ -28,15 +28,5 @@ public interface IsClientLogger {
    * @param message message to log
    */
   void log(String message);
-  
-  /**
-   * Writes a log message to the browser console during development
-   *
-   * @param message message to log
-   * @param depth   depth of the log
-   */
-  @Deprecated
-  void log(String message,
-           int depth);
-  
+
 }

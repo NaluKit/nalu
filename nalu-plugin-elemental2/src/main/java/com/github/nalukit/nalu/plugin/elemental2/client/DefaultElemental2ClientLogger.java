@@ -16,7 +16,6 @@
 package com.github.nalukit.nalu.plugin.elemental2.client;
 
 import com.github.nalukit.nalu.plugin.core.web.client.AbstractClientLogger;
-import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
 import elemental2.dom.DomGlobal;
 
 public class DefaultElemental2ClientLogger
@@ -28,15 +27,5 @@ public class DefaultElemental2ClientLogger
   public void log(String message) {
     DomGlobal.window.console.log(message);
   }
-  
-  @Override
-  @Deprecated
-  public void log(String message,
-                  int depth) {
-    if (NaluPluginCoreWeb.isSuperDevMode()) {
-      DomGlobal.window.console.log(createLog(message,
-                                             depth));
-    }
-  }
-  
+
 }

@@ -16,26 +16,14 @@
 package com.github.nalukit.nalu.plugin.elemento.client;
 
 import com.github.nalukit.nalu.plugin.core.web.client.AbstractClientLogger;
-import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
 import elemental2.dom.DomGlobal;
 
 public class DefaultElementoClientLogger
     extends AbstractClientLogger {
-  
-  static final String INDENT = "..";
-  
+
   @Override
   public void log(String message) {
     DomGlobal.window.console.log(message);
   }
-  
-  @Deprecated
-  public void log(String message,
-                  int depth) {
-    if (NaluPluginCoreWeb.isSuperDevMode()) {
-      DomGlobal.window.console.log(createLog(message,
-                                             depth));
-    }
-  }
-  
+
 }

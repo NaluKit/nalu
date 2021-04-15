@@ -33,30 +33,5 @@ public class DefaultClientLogger
       System.out.println(message);
     }
   }
-  
-  @Override
-  public void log(String message,
-                  int depth) {
-    if ("on".equals(System.getProperty("superdevmode",
-                                       "off"))) {
-      System.out.println(createLog(message,
-                                   depth));
-    }
-  }
-  
-  private String createLog(String message,
-                           int depth) {
-    if (depth == 0) {
-      return "Nalu-Logger -> " + message;
-    } else {
-      String indent = IntStream.range(0,
-                                      depth)
-                               .mapToObj(i -> INDENT)
-                               .collect(Collectors.joining("",
-                                                           "",
-                                                           message));
-      return "Nalu-Logger -> " + indent;
-    }
-  }
-  
+
 }
