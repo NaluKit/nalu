@@ -270,6 +270,8 @@ public class ApplicationGenerator {
 
     generateLoadDefaultsRoutes(typeSpec,
                                metaModel);
+    generateLoadIllegalRouteTarget(typeSpec,
+                                   metaModel);
     generateHasHistoryMethod(typeSpec,
                              metaModel);
     generateIsUsingHashMethod(typeSpec,
@@ -312,6 +314,16 @@ public class ApplicationGenerator {
                                  .addAnnotation(Override.class)
                                  .addStatement("this.startRoute = $S",
                                                metaModel.getStartRoute())
+                                 .build());
+  }
+
+  private void generateLoadIllegalRouteTarget(TypeSpec.Builder typeSpec,
+                                              MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("loadIllegalRouteTarget")
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .addAnnotation(Override.class)
+                                 .addStatement("this.illegalRouteTarget = $S",
+                                               metaModel.getIllegalRouteTarget())
                                  .build());
   }
 

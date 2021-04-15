@@ -144,5 +144,16 @@ public @interface Application {
    * @return the custom confirm presenter
    */
   Class<? extends IsCustomConfirmPresenter> confirmPresenter() default NoCustomConfirmPresenter.class;
+
+  /**
+   * This attribute will tell Nalu to route to a specific route in case the route is illegal. Using
+   * the default value will cause an error messages. Setting a value will route to that target.
+   * <br>
+   * Defaul is <b>empty route</b>
+   *
+   *
+   * @return empty String (default) or the route to go to in case the route is illegal.
+   */
+  String illegalRouteTarget() default "";
   
 }

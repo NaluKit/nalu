@@ -81,6 +81,7 @@ abstract class AbstractRouter
                  IsNaluProcessorPlugin plugin,
                  IsTracker tracker,
                  String startRoute,
+                 String illegalRouteTarget,
                  boolean hasHistory,
                  boolean usingHash,
                  boolean usingColonForParametersInUrl,
@@ -101,6 +102,7 @@ abstract class AbstractRouter
     // set up PropertyFactory
     PropertyFactory.get()
                    .register(startRoute,
+                             illegalRouteTarget,
                              hasHistory,
                              usingHash,
                              usingColonForParametersInUrl,
