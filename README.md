@@ -267,7 +267,7 @@ You will find a session about Nalu at the GWT Community Channel [here](https://w
 ## Project Generator
 To speed up creating a Nalu project, the [Nalu Boot Starter Project Generator](http://www.mvp4g.org/boot-starter-nalu/BootStarterNalu.html) (which is also based on Nalu) can be used to create a Nalu based project with a few clicks. The project generator will generate a Maven project, which can be imported to your preferred IDE. The project is ready to use.
 
-Just run **mvn clean install** and **mvn gwt:devmode** to start the project.
+Look into the **readme.txt** how to run the project.
 
 More information about the generator and the source code can be found here: [Nalu Project Generator](https://github.com/nalukit/gwt-boot-starter-nalu).
 
