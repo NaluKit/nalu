@@ -119,6 +119,11 @@ public final class VersionAnnotationImpl extends AbstractApplication<MockModuleC
   }
 
   @Override
+  public void loadIllegalRouteTarget() {
+    this.illegalRouteTarget = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }

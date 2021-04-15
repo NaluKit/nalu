@@ -62,7 +62,12 @@ public final class NaluSimpleApplicationImpl
   public void loadDefaultRoutes() {
     this.startRoute = "/search";
   }
-  
+
+  @Override
+  public void loadIllegalRouteTarget() {
+    this.startRoute = "";
+  }
+
   @Override
   protected void loadModules() {
   

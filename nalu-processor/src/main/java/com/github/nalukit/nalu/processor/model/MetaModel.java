@@ -25,70 +25,41 @@ import java.util.Objects;
 public class MetaModel {
   
   private String generateToPackage;
-  
   private ClassNameModel application;
-  
   private ClassNameModel loader;
-  
   private ClassNameModel postLoader;
-  
   private ClassNameModel customAlertPresenter;
-  
   private ClassNameModel customConfirmPresenter;
-  
   private List<ClassNameModel> modules;
-  
   private boolean usingHash;
-  
   private boolean usingColonForParametersInUrl;
-  
   private boolean stayOnSide;
-  
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
   /* with a a plugin and not with application  */
   private ModuleModel moduleModel;
-  
   private List<ShellModel> shells;
-  
   private ClassNameModel context;
-  
   private String startRoute;
-  
+  private String illegalRouteTarget;
   private ErrorPopUpControllerModel errorPopUpController;
-  
   private boolean hasPluginsAnnotation;
-
   private boolean hasLoggerAnnotation;
-  
   private boolean hasTrackerAnnotation;
-  
   private ClassNameModel tracker;
-
   private List<ControllerModel> controllers;
-  
   private List<BlockControllerModel> blockControllers;
-  
   private List<PopUpControllerModel> popUpControllers;
-  
   private List<ClassNameModel> filters;
-
   private List<ClassNameModel> popUpFilters;
-
   private List<ClassNameModel> handlers;
-  
   private ClassNameModel componentType;
-  
   private List<CompositeModel> compositeModels;
-  
   private ClassNameModel logger;
-
   private ClassNameModel clientLogger;
-
   /* flag, that indicates, if a Nalu application */
   /* uses a history token or not.                */
   private boolean history;
-
   /* Version of the applicaiton set by the       */
   /* Version annotation                          */
   private String  applicationVersion;
@@ -356,5 +327,13 @@ public class MetaModel {
 
   public void setExtendingIsModuleContext(boolean extendingIsModuleContext) {
     this.extendingIsModuleContext = extendingIsModuleContext;
+  }
+
+  public String getIllegalRouteTarget() {
+    return illegalRouteTarget;
+  }
+
+  public void setIllegalRouteTarget(String illegalRouteTarget) {
+    this.illegalRouteTarget = illegalRouteTarget;
   }
 }

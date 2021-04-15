@@ -128,7 +128,12 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
   public void loadDefaultRoutes() {
     this.startRoute = "/mockShell/route02";
   }
-  
+
+  @Override
+  public void loadIllegalRouteTarget() {
+    this.illegalRouteTarget = "";
+  }
+
   @Override
   public boolean hasHistory() {
     return true;

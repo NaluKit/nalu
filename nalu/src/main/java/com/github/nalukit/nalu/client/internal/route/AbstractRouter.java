@@ -81,6 +81,7 @@ abstract class AbstractRouter
                  IsNaluProcessorPlugin plugin,
                  IsTracker tracker,
                  String startRoute,
+                 String illegalRouteTarget,
                  boolean hasHistory,
                  boolean usingHash,
                  boolean usingColonForParametersInUrl,
@@ -101,6 +102,7 @@ abstract class AbstractRouter
     // set up PropertyFactory
     PropertyFactory.get()
                    .register(startRoute,
+                             illegalRouteTarget,
                              hasHistory,
                              usingHash,
                              usingColonForParametersInUrl,
@@ -359,8 +361,6 @@ abstract class AbstractRouter
     }
     // parse hash ...
 
-    // TODO LIste an routes
-    //  // TODO currentRoute
     RouteResult routeResult;
     try {
       routeResult = this.parse(hash);
@@ -500,32 +500,52 @@ abstract class AbstractRouter
     }
   }
 
+  /**
+   * In case a routing exception occurs, Nalu will check weather there is
+   * a <b>illegalRouteTarget</b> is set or not.
+   * <br><br>
+   * In case the <b>illegalRouteTarget</b> is not set, a NaluErrorEvent gets fired.
+   * <br><br>
+   * In case the <b>illegalRouteTarget</b> is set, Nalu will use this route.
+   *
+   * @param hash hash on start
+   * @param e    the RouterException
+   */
   @Override
   public void handleRouterException(String hash,
                                     RouterException e) {
-    // fire Router StateEvent
-    try {
-      RouteResult routeResult = this.parse(hash);
-      this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
-                                routeResult.getRoute(),
-                                routeResult.getParameterValues()
-                                           .toArray(new String[0]));
-    } catch (RouterException e1) {
-      this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
-                                hash);
+    if (PropertyFactory.get()
+                       .getIllegalRouteTarget() == null ||
+        PropertyFactory.get()
+                       .getIllegalRouteTarget()
+                       .isEmpty()) {
+      // fire Router StateEvent
+      try {
+        RouteResult routeResult = this.parse(hash);
+        this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
+                                  routeResult.getRoute(),
+                                  routeResult.getParameterValues()
+                                             .toArray(new String[0]));
+      } catch (RouterException e1) {
+        this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
+                                  hash);
+      }
+      // Fire error event ....
+      StringBuilder sb = new StringBuilder();
+      sb.append("no matching route for hash >>")
+        .append(hash)
+        .append("<< --> Routing aborted!");
+      this.eventBus.fireEvent(LogEvent.create()
+                                      .sdmOnly(true)
+                                      .addMessage(sb.toString()));
+      this.eventBus.fireEvent(NaluErrorEvent.createNaluError()
+                                            .errorId(NaluConstants.NALU_ERROR_ROUTING_EXCEPTION)
+                                            .message(sb.toString())
+                                            .route(hash));
+    } else {
+      this.route(PropertyFactory.get()
+                                .getIllegalRouteTarget());
     }
-    // Fire error event ....
-    StringBuilder sb = new StringBuilder();
-    sb.append("no matching route for hash >>")
-      .append(hash)
-      .append("<< --> Routing aborted!");
-    this.eventBus.fireEvent(LogEvent.create()
-                                    .sdmOnly(true)
-                                    .addMessage(sb.toString()));
-    this.eventBus.fireEvent(NaluErrorEvent.createNaluError()
-                                          .errorId(NaluConstants.NALU_ERROR_ROUTING_EXCEPTION)
-                                          .message(sb.toString())
-                                          .route(hash));
   }
 
   /**

@@ -123,6 +123,11 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
   }
 
   @Override
+  public void loadIllegalRouteTarget() {
+    this.illegalRouteTarget = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }

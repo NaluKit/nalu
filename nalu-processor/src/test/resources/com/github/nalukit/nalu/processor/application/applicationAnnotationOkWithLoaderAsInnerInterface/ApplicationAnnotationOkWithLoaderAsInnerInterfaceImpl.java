@@ -124,6 +124,11 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   }
 
   @Override
+  public void loadIllegalRouteTarget() {
+    this.illegalRouteTarget = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }

@@ -47,6 +47,8 @@ public abstract class AbstractApplication<C extends IsContext>
 
   /* start route */
   protected String                             startRoute;
+  /* illegat route target */
+  protected String                             illegalRouteTarget;
   /* Shell */
   protected IsShell                            shell;
   /* Shell Configuration */
@@ -110,6 +112,8 @@ public abstract class AbstractApplication<C extends IsContext>
     this.logProcessorVersion();
     // load default routes!
     this.loadDefaultRoutes();
+    // load illegal route target
+    this.loadIllegalRouteTarget();
     // Register plugin
     SeoDataProvider.get()
                    .register(this.plugin);
@@ -133,6 +137,7 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.compositeControllerReferences,
                                  this.tracker,
                                  this.startRoute,
+                                 this.illegalRouteTarget,
                                  this.hasHistory(),
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl(),
@@ -178,6 +183,8 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract void logProcessorVersion();
 
   protected abstract void loadDefaultRoutes();
+
+  protected abstract void loadIllegalRouteTarget();
 
   protected abstract void loadShells();
 

@@ -188,6 +188,11 @@ public final class ApplicationWithComposite07Impl extends AbstractApplication<Mo
   }
 
   @Override
+  public void loadIllegalRouteTarget() {
+    this.illegalRouteTarget = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }
