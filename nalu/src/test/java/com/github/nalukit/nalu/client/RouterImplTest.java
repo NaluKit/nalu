@@ -29,6 +29,7 @@ public class RouterImplTest {
                                  Utils.createCompositeConfiguration(),
                                  null,
                                  "startShell/startRoute",
+                                 "",
                                  true,
                                  true,
                                  false,

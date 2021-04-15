@@ -62,6 +62,11 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
+  public void loadIllegalRouteTarget() {
+    this.startRoute = "";
+  }
+
+  @Override
   protected void loadModules() {
 
   }

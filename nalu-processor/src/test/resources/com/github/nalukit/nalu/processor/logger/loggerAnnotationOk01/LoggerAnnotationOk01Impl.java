@@ -126,7 +126,12 @@ public final class LoggerAnnotationOk01Impl extends AbstractApplication<MockCont
   public void loadDefaultRoutes() {
     this.startRoute = "/mockShell/route01";
   }
-  
+
+  @Override
+  public void loadIllegalRouteTarget() {
+    this.illegalRouteTarget = "";
+  }
+
   @Override
   public boolean hasHistory() {
     return true;
