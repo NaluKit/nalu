@@ -42,7 +42,7 @@ public class NaluPluginCoreWeb {
       return;
     }
     Location location = Js.uncheckedCast(DomGlobal.location);
-    String   pathName = location.pathname;
+    String   pathName = location.getPathname();
     if (pathName.startsWith("/") && pathName.length() > 1) {
       pathName = pathName.substring(1);
     }
@@ -81,7 +81,7 @@ public class NaluPluginCoreWeb {
   public static NaluStartModel getNaluStartModel() {
     Location            location        = Js.uncheckedCast(DomGlobal.location);
     Map<String, String> queryParameters = new HashMap<>();
-    String              search          = location.search;
+    String              search          = location.getSearch();
     if (!Objects.isNull(search)) {
       if (search.startsWith("?")) {
         search = search.substring(1);
@@ -102,7 +102,7 @@ public class NaluPluginCoreWeb {
     String startRoute;
     if (PropertyFactory.get()
                        .isUsingHash()) {
-      startRoute = getHashValue(location.hash);
+      startRoute = getHashValue(location.getHash());
     } else {
       startRoute = queryParameters.get("uri");
       if (!Objects.isNull(startRoute)) {
@@ -151,7 +151,7 @@ public class NaluPluginCoreWeb {
       if (PropertyFactory.get()
                          .isUsingHash()) {
         Location location = Js.uncheckedCast(DomGlobal.location);
-        newUrl = location.hash;
+        newUrl = location.getHash();
       } else {
         PopStateEvent event = (PopStateEvent) e;
         newUrl = (String) event.state;
@@ -235,7 +235,7 @@ public class NaluPluginCoreWeb {
     DomGlobal.window.onhashchange = e -> {
       String   newUrl;
       Location location = Js.uncheckedCast(DomGlobal.location);
-      newUrl = location.hash;
+      newUrl = location.getHash();
       NaluPluginCoreWeb.handleChange(handler,
                                      newUrl);
       return null;
