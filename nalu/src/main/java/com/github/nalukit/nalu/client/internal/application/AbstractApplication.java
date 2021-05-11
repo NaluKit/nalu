@@ -141,7 +141,8 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.hasHistory(),
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl(),
-                                 this.isStayOnSide());
+                                 this.isStayOnSide(),
+                                 this.isRemoveUrlParameterAtStart());
     this.router.setAlwaysLoadComposite(this.alwaysLoadComposite);
     this.router.setAlwaysShowPopUp(this.alwaysShowPopUp);
     this.router.setEventBus(this.eventBus);
@@ -203,6 +204,8 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract boolean isUsingColonForParametersInUrl();
 
   protected abstract boolean isStayOnSide();
+
+  protected abstract boolean isRemoveUrlParameterAtStart();
 
   protected abstract void loadShellFactory();
 
