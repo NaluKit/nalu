@@ -213,7 +213,12 @@ public final class ApplicationWithComposite07Impl extends AbstractApplication<Mo
   }
 
   @Override
-  public PropertyFactory.ErrorHandlingMethod getErrorHandlingMethod() {
-    return PropertyFactory.ErrorHandlingMethod.ROUTING;
+  public boolean isStayOnSide() {
+    return false;
+  }
+
+  @Override
+  public boolean isRemoveUrlParameterAtStart() {
+    return false;
   }
 }

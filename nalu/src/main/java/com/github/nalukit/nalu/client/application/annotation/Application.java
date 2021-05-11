@@ -157,13 +157,12 @@ public @interface Application {
   String illegalRouteTarget() default "";
 
   /**
-   * This attribute will tell Nalu to route to a specific route in case the route is illegal. Using
-   * the default value will cause an error messages. Setting a value will route to that target.
+   * This attribute will tell Nalu to remove all URL-parameter from the URL at start.
    * <br>
-   * Defaul is <b>empty route</b>
+   * Defaul is <b>false</b>
    *
    *
-   * @return empty String (default) or the route to go to in case the route is illegal.
+   * @return true -&gt; remove URL-parameter at application start
    */
   boolean removeUrlParameterAtStart() default false;
 

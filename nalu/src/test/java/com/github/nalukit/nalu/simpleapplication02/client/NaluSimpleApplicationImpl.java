@@ -145,7 +145,12 @@ public final class NaluSimpleApplicationImpl
   protected boolean isStayOnSide() {
     return false;
   }
-  
+
+  @Override
+  protected boolean isRemoveUrlParameterAtStart() {
+    return false;
+  }
+
   @Override
   protected void loadShellFactory() {
   
