@@ -151,9 +151,14 @@ public final class ApplicationWithComposite05Impl extends AbstractApplication<Mo
   public boolean isUsingColonForParametersInUrl() {
     return false;
   }
-  
+
   @Override
   public boolean isStayOnSide() {
+    return false;
+  }
+
+  @Override
+  public boolean isRemoveUrlParameterAtStart() {
     return false;
   }
 }

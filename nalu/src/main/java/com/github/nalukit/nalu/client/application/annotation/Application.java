@@ -155,5 +155,15 @@ public @interface Application {
    * @return empty String (default) or the route to go to in case the route is illegal.
    */
   String illegalRouteTarget() default "";
-  
+
+  /**
+   * This attribute will tell Nalu to remove all URL-parameter from the URL at start.
+   * <br>
+   * Defaul is <b>false</b>
+   *
+   *
+   * @return true -&gt; remove URL-parameter at application start
+   */
+  boolean removeUrlParameterAtStart() default false;
+
 }

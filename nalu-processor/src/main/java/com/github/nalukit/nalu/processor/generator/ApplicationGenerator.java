@@ -280,6 +280,8 @@ public class ApplicationGenerator {
                                            metaModel);
     generateIsStayOnSide(typeSpec,
                          metaModel);
+    generateIsRemoveUrlParameterAtStart(typeSpec,
+                                        metaModel);
 
     JavaFile javaFile = JavaFile.builder(metaModel.getGenerateToPackage(),
                                          typeSpec.build())
@@ -368,6 +370,17 @@ public class ApplicationGenerator {
                                  .returns(boolean.class)
                                  .addStatement("return $L",
                                                metaModel.isStayOnSide() ? "true" : "false")
+                                 .build());
+  }
+
+  private void generateIsRemoveUrlParameterAtStart(TypeSpec.Builder typeSpec,
+                                                   MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("isRemoveUrlParameterAtStart")
+                                 .addAnnotation(Override.class)
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .returns(boolean.class)
+                                 .addStatement("return $L",
+                                               metaModel.isRemoveUrlParameterAtStart() ? "true" : "false")
                                  .build());
   }
 

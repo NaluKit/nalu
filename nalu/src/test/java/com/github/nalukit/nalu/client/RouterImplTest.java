@@ -33,6 +33,7 @@ public class RouterImplTest {
                                  true,
                                  true,
                                  false,
+                                 false,
                                  false);
     RouteParser.get()
                .setEventBus(new SimpleEventBus());

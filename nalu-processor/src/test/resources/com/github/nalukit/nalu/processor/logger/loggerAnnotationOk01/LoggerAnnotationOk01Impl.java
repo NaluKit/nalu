@@ -146,9 +146,14 @@ public final class LoggerAnnotationOk01Impl extends AbstractApplication<MockCont
   public boolean isUsingColonForParametersInUrl() {
     return false;
   }
-  
+
   @Override
   public boolean isStayOnSide() {
+    return false;
+  }
+
+  @Override
+  public boolean isRemoveUrlParameterAtStart() {
     return false;
   }
 }
