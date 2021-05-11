@@ -133,7 +133,7 @@ public class NaluPluginCoreWeb {
 
     // in case we need to remove the parameter, update histry ...
     if (PropertyFactory.get().isRemoveUrlParameterAtStart()) {
-      String href = location.href;
+      String href = location.getHref();
       String newUrl = "";
       if (href.contains("?")) {
         newUrl = href.substring(0, href.indexOf("?"));
