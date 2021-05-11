@@ -79,6 +79,7 @@ public class NaluPluginCoreWeb {
 
   @SuppressWarnings("StringSplitter")
   public static NaluStartModel getNaluStartModel() {
+    Js.debugger();
     Location            location        = Js.uncheckedCast(DomGlobal.location);
     Map<String, String> queryParameters = new HashMap<>();
     String              search          = location.search;
@@ -127,8 +128,9 @@ public class NaluPluginCoreWeb {
       } else {
         startRoute = "";
       }
-    } return new NaluStartModel(startRoute,
-                                queryParameters);
+    }
+    return new NaluStartModel(startRoute,
+                              queryParameters);
   }
 
   private static String getHashValue(String hash) {
