@@ -66,6 +66,9 @@ public class MetaModel {
   /* does the context extends                    */
   /* AbstractModuleContext?                      */
   private boolean extendingIsModuleContext;
+  /* do we have to remove the URL parameter      */
+  /* from the URL                                */
+  private boolean removeUrlParameterAtStart;
 
   public MetaModel() {
     this.modules = new ArrayList<>();
@@ -80,6 +83,7 @@ public class MetaModel {
 
     this.applicationVersion = "APPLCIATIOPN-VERSION-NOT-AVAILABLE";
     this.extendingIsModuleContext = false;
+    this.removeUrlParameterAtStart = false;
   }
   
   public ModuleModel getModuleModel() {
@@ -335,5 +339,13 @@ public class MetaModel {
 
   public void setIllegalRouteTarget(String illegalRouteTarget) {
     this.illegalRouteTarget = illegalRouteTarget;
+  }
+
+  public boolean isRemoveUrlParameterAtStart() {
+    return removeUrlParameterAtStart;
+  }
+
+  public void setRemoveUrlParameterAtStart(boolean removeUrlParameterAtStart) {
+    this.removeUrlParameterAtStart = removeUrlParameterAtStart;
   }
 }
