@@ -184,13 +184,13 @@ Nalu supports setting a version String using an annotation and storing the build
 @Application(loader = MyLoader.class,
              startRoute = "/application/search",
              context = MyApplicationContext.class)
-@Version("HEAD-SNAPSHOT")             
+@Version("2.4.0")             
 interface MyApplication
     extends IsApplication {
 }
 ```
 
-The example above will set the version of the application to 'HEAD-SNAPSHOT'.
+The example above will set the version of the application to '2.4.0'.
 To access the application version, use: `context.getApplicationVersion()`. To access the build timestamp call `context.getApplicationBuildTime()`.
 
 It is possible to override the value from the version annotation from the command line. Nalu will look for a property called "nalu.application.version". If the property exists, Nalu will use this value. This will only work, in case the Version annotation is used.

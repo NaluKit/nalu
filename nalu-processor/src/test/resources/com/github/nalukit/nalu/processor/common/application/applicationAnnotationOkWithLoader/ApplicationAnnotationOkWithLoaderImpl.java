@@ -15,7 +15,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.11.18-07:07:38<<
+ * Build with Nalu version >>2.4.0<< at >>2020.11.18-07:07:38<<
  */
 public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithLoader {
   public ApplicationAnnotationOkWithLoaderImpl() {
@@ -29,7 +29,7 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
   
   @Override
   public void logProcessorVersion() {
-    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source").addMessage("=================================================================================").addMessage(""));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>2.4.0<< used to generate this source").addMessage("=================================================================================").addMessage(""));
   }
   
   @Override
