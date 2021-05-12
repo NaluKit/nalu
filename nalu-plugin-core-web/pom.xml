@@ -25,7 +25,7 @@
   <parent>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-parent</artifactId>
-    <version>HEAD-SNAPSHOT-gwt-2.8.2</version>
+    <version>2.4.0-gwt-2.8.2</version>
   </parent>
 
   <artifactId>nalu-plugin-core-web</artifactId>

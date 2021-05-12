@@ -22,7 +22,7 @@ import com.github.nalukit.nalu.client.application.annotation.Version;
 import com.github.nalukit.nalu.processor.common.MockLogger;
 import com.github.nalukit.nalu.processor.common.MockDebug;
 
-@Version("TEST-SNAPSHOT")
+@Version("2.4.0-gwt-2.8.2")
 public interface VersionAnnotationOnClassWithoutApplicationAnnotation
     extends IsApplication {
 }
