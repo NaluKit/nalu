@@ -26,7 +26,6 @@ import elemental2.dom.Location;
 import elemental2.dom.PopStateEvent;
 import jsinterop.base.Js;
 
-import javax.naming.spi.DirObjectFactory;
 import java.util.*;
 
 public class NaluPluginCoreWeb {
@@ -80,7 +79,6 @@ public class NaluPluginCoreWeb {
 
   @SuppressWarnings("StringSplitter")
   public static NaluStartModel getNaluStartModel() {
-    Js.debugger();
     Location            location        = Js.uncheckedCast(DomGlobal.location);
     Map<String, String> queryParameters = new HashMap<>();
     String              search          = location.search;
@@ -132,14 +130,18 @@ public class NaluPluginCoreWeb {
     }
 
     // in case we need to remove the parameter, update histry ...
-    if (PropertyFactory.get().isRemoveUrlParameterAtStart()) {
-      String href = location.href;
+    if (PropertyFactory.get()
+                       .isRemoveUrlParameterAtStart()) {
+      String href   = location.href;
       String newUrl = "";
       if (href.contains("?")) {
-        newUrl = href.substring(0, href.indexOf("?"));
+        newUrl = href.substring(0,
+                                href.indexOf("?"));
         if (startRoute.length() > 0) {
           newUrl = newUrl + "#" + startRoute;
-          DomGlobal.window.history.replaceState(newUrl, DomGlobal.document.title, newUrl);
+          DomGlobal.window.history.replaceState(newUrl,
+                                                DomGlobal.document.title,
+                                                newUrl);
         }
       }
     }
