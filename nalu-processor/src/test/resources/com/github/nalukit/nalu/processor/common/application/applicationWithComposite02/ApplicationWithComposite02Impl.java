@@ -19,7 +19,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT-gwt-2.8.2<< at >>2020.11.18-06:55:31<<
+ * Build with Nalu version >>2.4.1-gwt-2.8.2<< at >>2020.11.18-06:55:31<<
  */
 public final class ApplicationWithComposite02Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite02 {
   public ApplicationWithComposite02Impl() {
@@ -33,7 +33,7 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
   
   @Override
   public void logProcessorVersion() {
-    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>HEAD-SNAPSHOT-gwt-2.8.2<< used to generate this source").addMessage("=================================================================================").addMessage(""));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>2.4.1-gwt-2.8.2<< used to generate this source").addMessage("=================================================================================").addMessage(""));
   }
   
   @Override

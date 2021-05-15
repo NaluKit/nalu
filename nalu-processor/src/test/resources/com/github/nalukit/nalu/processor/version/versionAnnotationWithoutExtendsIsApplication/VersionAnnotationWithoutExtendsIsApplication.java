@@ -25,6 +25,6 @@ import com.github.nalukit.nalu.processor.common.MockDebug;
 
 @Application(startRoute = "/search",
              context = MockModuleContext.class)
-@Version("HEAD-SNAPSHOT-gwt-2.8.2")
+@Version("2.4.1-gwt-2.8.2")
 public interface VersionAnnotationWithoutExtendsIsApplication {
 }
