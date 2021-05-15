@@ -47,3 +47,7 @@ To enable parameters, just add: **/:parameterName** to the route. Parameters can
 **The type of the parameter is always String.**
 
 You can add as much parameters as you like. Every parameter has to Start with '/:'.
+
+**Note**
+
+Chracters like '?', '&' and '#' are characters that can not be used inside a route, nor as a parameter value. A parameter value containing a '/'-character is also illegal. If you wound to use this values, you need to escape them.
