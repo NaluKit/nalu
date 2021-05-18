@@ -46,7 +46,7 @@ public final class ControllerC06CreatorImpl extends AbstractControllerCreator<Mo
   }
   
   @Override
-  public void onFinishCreating(Object object, String route) throws RoutingInterceptionException {
+  public void onFinishCreating(Object object) throws RoutingInterceptionException {
     ControllerC06 controller = (ControllerC06) object;
     IComponent06 component = new Component06();
     component.setController(controller);

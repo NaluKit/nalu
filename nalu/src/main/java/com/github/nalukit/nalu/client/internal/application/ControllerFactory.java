@@ -72,8 +72,7 @@ public class ControllerFactory {
           controllerInstance.getController()
                             .bind(() -> {
                               try {
-                                controllerCreator.onFinishCreating(controllerInstance.getController(),
-                                                                   route);
+                                controllerCreator.onFinishCreating(controllerInstance.getController());
                                 controllerCreator.setParameter(controllerInstance.getController(),
                                                                params);
                                 callback.onFinish(controllerInstance);
