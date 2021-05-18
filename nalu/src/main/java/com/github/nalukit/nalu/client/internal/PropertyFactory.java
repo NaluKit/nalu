@@ -119,6 +119,7 @@ public class PropertyFactory {
    * Do NOT call this method!
    *
    * @param startRoute                   Start route of the application
+   * @param illegalRouteTarget           illegal route target used, in case of a illegal route
    * @param hasHistory                   Will Nalu support a history token?
    * @param usingHash                    Will Nalu use a hash for Navigation?
    * @param usingColonForParametersInUrl Will Nalu use colons to mark parameters inside the url?
