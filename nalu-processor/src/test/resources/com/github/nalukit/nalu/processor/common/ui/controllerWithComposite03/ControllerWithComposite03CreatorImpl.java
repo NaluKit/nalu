@@ -47,7 +47,7 @@ public final class ControllerWithComposite03CreatorImpl extends AbstractControll
   }
   
   @Override
-  public void onFinishCreating(Object object) throws RoutingInterceptionException {
+  public void onFinishCreating(Object object) {
     ControllerWithComposite03 controller = (ControllerWithComposite03) object;
     IComponent03 component = new Component03();
     component.setController(controller);

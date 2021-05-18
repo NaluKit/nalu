@@ -59,26 +59,20 @@ public class ControllerFactory {
     if (this.controllerFactory.containsKey(controller)) {
       IsControllerCreator controllerCreator  = this.controllerFactory.get(controller);
       ControllerInstance  controllerInstance = controllerCreator.create(route);
+      try {
+        controllerCreator.setParameter(controllerInstance.getController(),
+                                       params);
+      } catch (RoutingInterceptionException e) {
+        callback.onRoutingInterceptionException(e);
+      }
       if (controllerInstance.isCached()) {
-        try {
-          controllerCreator.setParameter(controllerInstance.getController(),
-                                         params);
-        } catch (RoutingInterceptionException e) {
-          callback.onRoutingInterceptionException(e);
-        }
         callback.onFinish(controllerInstance);
       } else {
         try {
           controllerInstance.getController()
                             .bind(() -> {
-                              try {
                                 controllerCreator.onFinishCreating(controllerInstance.getController());
-                                controllerCreator.setParameter(controllerInstance.getController(),
-                                                               params);
                                 callback.onFinish(controllerInstance);
-                              } catch (RoutingInterceptionException e) {
-                                callback.onRoutingInterceptionException(e);
-                              }
                             });
         } catch (RoutingInterceptionException e) {
           callback.onRoutingInterceptionException(e);

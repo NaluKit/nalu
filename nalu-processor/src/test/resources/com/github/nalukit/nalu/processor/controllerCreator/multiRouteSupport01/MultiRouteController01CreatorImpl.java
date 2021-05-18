@@ -47,7 +47,7 @@ public final class MultiRouteController01CreatorImpl extends AbstractControllerC
   }
   
   @Override
-  public void onFinishCreating(Object object) throws RoutingInterceptionException {
+  public void onFinishCreating(Object object) {
     MultiRouteController01 controller = (MultiRouteController01) object;
     IMultiRouteComponent01 component = new MultiRouteComponent01();
     component.setController(controller);

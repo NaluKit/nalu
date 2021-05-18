@@ -159,7 +159,6 @@ public class ControllerCreatorGenerator {
                                           .addParameter(ParameterSpec.builder(ClassName.get(Object.class),
                                                                               "object")
                                                                      .build())
-                                          .addException(ClassName.get(RoutingInterceptionException.class))
                                           .addStatement("$T controller = ($T) object",
                                                         ClassName.get(controllerModel.getProvider()
                                                                                      .getPackage(),

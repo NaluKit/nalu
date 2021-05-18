@@ -24,8 +24,7 @@ public interface IsControllerCreator {
   
   ControllerInstance create(String route);
   
-  void onFinishCreating(Object object)
-      throws RoutingInterceptionException;
+  void onFinishCreating(Object object);
   
   void setParameter(Object object,
                     String... params)
