@@ -25,7 +25,7 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
     ClientLogger.get().logDetailed("", 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>2.4.1-gwt-2.8.2<< used to generate this source");
+    sb01.append("Nalu processor version  >>2.4.2-gwt-2.8.2<< used to generate this source");
     ClientLogger.get().logDetailed(sb01.toString(), 0);
     ClientLogger.get().logDetailed("=================================================================================", 0);
     ClientLogger.get().logDetailed("", 0);
