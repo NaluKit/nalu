@@ -20,7 +20,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.4.2<< at >>2020.11.18-06:57:58<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.11.18-06:57:58<<
  */
 public final class ApplicationWithComposite07Impl extends AbstractApplication<MockContext> implements ApplicationWithComposite07 {
   public ApplicationWithComposite07Impl() {
@@ -34,7 +34,7 @@ public final class ApplicationWithComposite07Impl extends AbstractApplication<Mo
   
   @Override
   public void logProcessorVersion() {
-    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>2.4.2<< used to generate this source").addMessage("=================================================================================").addMessage(""));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source").addMessage("=================================================================================").addMessage(""));
   }
   
   @Override
