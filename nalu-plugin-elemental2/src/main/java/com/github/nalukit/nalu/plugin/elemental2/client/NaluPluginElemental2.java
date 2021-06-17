@@ -124,9 +124,11 @@ public class NaluPluginElemental2
   
   @Override
   public void route(String newRoute,
-                    boolean replace) {
+                    boolean replace,
+                    boolean stealthMode) {
     NaluPluginCoreWeb.route(newRoute,
                             replace,
+                            stealthMode,
                             this.routeChangeHandler);
   }
   

@@ -48,7 +48,8 @@ public interface IsNaluProcessorPlugin {
   void remove(String selector);
   
   void route(String newRoute,
-             boolean replace);
+             boolean replace,
+             boolean stealthMode);
   
   void initialize(ShellConfiguration shellConfiguration);
   
