@@ -78,7 +78,8 @@ public class RoutingTest {
       
       @Override
       public void route(String newRoute,
-                        boolean replace) {
+                        boolean replace,
+                        boolean stealthMode) {
         Assertions.assertTrue(routeHandler.compare(newRoute,
                                                    replace),
                               "route mismatch!");

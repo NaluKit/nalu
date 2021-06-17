@@ -168,6 +168,7 @@ abstract class AbstractRouter
     this.route(newRoute,
                false,
                false,
+               false,
                params);
   }
 
@@ -201,6 +202,75 @@ abstract class AbstractRouter
     this.route(newRoute,
                true,
                false,
+               false,
+               params);
+  }
+
+  /**
+   * The method routes to another screen. In case it is called,
+   * it will:
+   * <ul>
+   * <li>not create a new hash</li>
+   * <li>not update the url (in case history is desired)</li>
+   * </ul>
+   * Once the url gets updated, it triggers the onhashchange event
+   * and Nalu starts to work
+   * <p>
+   * in opposite to the route-method, the forceStealthRoute-method
+   * does not confirm the new route!
+   *
+   * @param newRoute routing goal
+   * @param params   list of parameters [0 - n]
+   */
+  @Override
+  public void forceStealthRoute(String newRoute,
+                                String... params) {
+    // fire souring event ...
+    this.fireRouterStateEvent(RouterState.START_ROUTING,
+                              newRoute,
+                              params);
+    // first, we track the new route (if there is a tracker!)
+    if (!Objects.isNull(this.tracker)) {
+      this.tracker.track(newRoute,
+                         params);
+    }
+    // let's do the routing!
+    this.route(newRoute,
+               true,
+               false,
+               true,
+               params);
+  }
+
+  /**
+   * The method routes to another screen. In case it is called,
+   * it will:
+   * <ul>
+   * <li>not create a new hash</li>
+   * <li>not update the url (in case history is desired)</li>
+   * </ul>
+   * Once the url gets updated, it triggers the onhashchange event and Nalu starts to work
+   *
+   * @param newRoute routing goal
+   * @param params   list of parameters [0 - n]
+   */
+  @Override
+  public void stealthRoute(String newRoute,
+                           String... params) {
+    // fire souring event ...
+    this.fireRouterStateEvent(RouterState.START_ROUTING,
+                              newRoute,
+                              params);
+    // first, we track the new route (if there is a tracker!)
+    if (!Objects.isNull(this.tracker)) {
+      this.tracker.track(newRoute,
+                         params);
+    }
+    // let's do the routing!
+    this.route(newRoute,
+               false,
+               false,
+               true,
                params);
   }
 
@@ -411,6 +481,7 @@ abstract class AbstractRouter
         this.route(redirectTo,
                    true,
                    true,
+                   false,
                    parms);
         return;
       }
@@ -440,6 +511,7 @@ abstract class AbstractRouter
                             @Override
                             public void onCancel() {
                               plugin.route(lastExecutedHash,
+                                           false,
                                            false);
                               // clear loop detection list ...
                               loopDetectionList.clear();
@@ -790,6 +862,7 @@ abstract class AbstractRouter
                                      route(e.getRoute(),
                                            true,
                                            true,
+                                           false,
                                            e.getParameter());
                                    }
 
@@ -882,6 +955,7 @@ abstract class AbstractRouter
               this.route(e.getRoute(),
                          true,
                          true,
+                         false,
                          e.getParameter());
             }
           });
@@ -960,6 +1034,7 @@ abstract class AbstractRouter
                 this.route(e.getRoute(),
                            true,
                            true,
+                           false,
                            e.getParameter());
                 return;
               }
@@ -990,6 +1065,7 @@ abstract class AbstractRouter
             route(e.getRoute(),
                   true,
                   true,
+                  false,
                   e.getParameter());
             return;
           }
@@ -1104,16 +1180,13 @@ abstract class AbstractRouter
   private void route(String newRoute,
                      boolean forceRouting,
                      boolean replaceState,
+                     boolean stealthMode,
                      String... params) {
     String newRouteWithParams = this.generate(newRoute,
                                               params);
-    if (replaceState) {
-      this.plugin.route(newRouteWithParams,
-                        true);
-    } else {
-      this.plugin.route(newRouteWithParams,
-                        false);
-    }
+    this.plugin.route(newRouteWithParams,
+                      replaceState,
+                      stealthMode);
     this.handleRouting(newRouteWithParams,
                        forceRouting);
   }

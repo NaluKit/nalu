@@ -21,9 +21,7 @@ public class RoutingInterceptionException
     extends Exception {
   
   private String controllerClassName;
-  
   private String route;
-  
   private String[] parameter;
   
   /**

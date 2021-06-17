@@ -128,9 +128,11 @@ public class NaluPluginGWT
   
   @Override
   public void route(String newRoute,
-                    boolean replace) {
+                    boolean replace,
+                    boolean stealthMode) {
     NaluPluginCoreWeb.route(newRoute,
                             replace,
+                            stealthMode,
                             this.routeChangeHandler);
   }
   

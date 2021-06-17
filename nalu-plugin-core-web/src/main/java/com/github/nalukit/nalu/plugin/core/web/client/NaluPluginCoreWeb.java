@@ -211,6 +211,7 @@ public class NaluPluginCoreWeb {
                                              .getStartRoute(),
                               !PropertyFactory.get()
                                               .isStayOnSide(),
+                              false,
                               handler);
     } else {
       handler.onRouteChange(newUrl);
@@ -219,6 +220,7 @@ public class NaluPluginCoreWeb {
 
   public static void route(String newRoute,
                            boolean replace,
+                           boolean stealthMode,
                            RouteChangeHandler handler) {
     String newRouteToken;
     if (PropertyFactory.get()
@@ -238,14 +240,16 @@ public class NaluPluginCoreWeb {
     }
     if (PropertyFactory.get()
                        .hasHistory()) {
-      if (replace) {
-        DomGlobal.window.history.replaceState(newRouteToken,
-                                              null,
-                                              newRouteToken);
-      } else {
-        DomGlobal.window.history.pushState(newRouteToken,
-                                           null,
-                                           newRouteToken);
+      if (!stealthMode) {
+        if (replace) {
+          DomGlobal.window.history.replaceState(newRouteToken,
+                                                null,
+                                                newRouteToken);
+        } else {
+          DomGlobal.window.history.pushState(newRouteToken,
+                                             null,
+                                             newRouteToken);
+        }
       }
     }
   }
