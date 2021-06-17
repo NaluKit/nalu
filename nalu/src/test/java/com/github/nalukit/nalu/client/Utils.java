@@ -54,7 +54,8 @@ class Utils {
       
       @Override
       public void route(String newRoute,
-                        boolean replace) {
+                        boolean replace,
+                        boolean stealthMode) {
       }
       
       @Override

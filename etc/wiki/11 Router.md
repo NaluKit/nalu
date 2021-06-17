@@ -60,6 +60,14 @@ Starting with version 2.0.1 Nalu offers a new method to route. The name of the n
 
 This might be useful in case of an error and routing to a central error page or a start-page.
 
+### Stealth Routing without calling the mayStop-method (since 2.5.0)
+Starting with version 2.5.0 Nalu offers a new method to route. The name of the new method is `forceStealthRoute`. You can use the `forceStealthRoute`-method similar to the `route-method. The main difference is, that the `stealthRoute`-method will not update the hash and will not call the `mayStop`-method of currently active controllers and composites.
+
+### Stealth Routing (since 2.5.0)
+Starting with version 2.5.0 Nalu offers a new method to route. The name of the new method is `stealthRoute`. You can use the `stealthRoute`-method similar to the `route-method. The main difference is, that the `stealthRoute`-method will not update the hash.
+
+This might be useful in case you have to implement a dispatcher controller and don't want to the dispatcher hash inside the history..
+
 ### Note on routes
 Defining routes in your application needs some attention. Otherwise you will be surprised by some unexpected results.
 

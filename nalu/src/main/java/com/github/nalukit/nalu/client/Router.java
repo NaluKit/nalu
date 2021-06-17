@@ -55,7 +55,26 @@ public interface Router {
    */
   void forceRoute(String route,
                   String... parameter);
-  
+
+  /**
+   * Route to a new page without confirmation
+   * and updating the hash.
+   *
+   * @param route     new route
+   * @param parameter parameters of the route
+   */
+  void forceStealthRoute(String route,
+                         String... parameter);
+
+  /**
+   * Route to a new page without updating the hash.
+   *
+   * @param route     new route
+   * @param parameter parameters of the route
+   */
+  void stealthRoute(String route,
+                    String... parameter);
+
   /**
    * Removes a controller from the cache
    *
