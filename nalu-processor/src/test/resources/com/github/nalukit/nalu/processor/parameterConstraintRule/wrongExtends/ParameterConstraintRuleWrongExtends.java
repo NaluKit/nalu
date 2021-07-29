@@ -14,12 +14,12 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.parameterConstraint;
+package com.github.nalukit.nalu.processor.parameterConstraintRule.wrongExtends;
 
 import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
-import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
+import com.github.nalukit.nalu.client.filter.IsFilter;
 
 @ParameterConstraintRule
-public interface ParameterConstraintRule01
-    extends IsParameterConstraintRule {
+public interface ParameterConstraintRuleWrongExtends
+    implements IsFilter {
 }

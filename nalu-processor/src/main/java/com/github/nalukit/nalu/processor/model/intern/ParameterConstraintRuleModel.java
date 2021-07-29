@@ -19,9 +19,12 @@ package com.github.nalukit.nalu.processor.model.intern;
 public class ParameterConstraintRuleModel {
 
   private ClassNameModel parameterConstraintRule;
+  private boolean        notNull;
 
-  public ParameterConstraintRuleModel(ClassNameModel parameterConstraintRule) {
+  public ParameterConstraintRuleModel(ClassNameModel parameterConstraintRule,
+                                      boolean notNull) {
     this.parameterConstraintRule = parameterConstraintRule;
+    this.notNull                 = notNull;
   }
 
   public ClassNameModel getParameterConstraintRule() {
@@ -30,5 +33,13 @@ public class ParameterConstraintRuleModel {
 
   public void setParameterConstraintRule(ClassNameModel parameterConstraintRule) {
     this.parameterConstraintRule = parameterConstraintRule;
+  }
+
+  public boolean isNotNull() {
+    return notNull;
+  }
+
+  public void setNotNull(boolean notNull) {
+    this.notNull = notNull;
   }
 }

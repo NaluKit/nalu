@@ -14,10 +14,9 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.constrain.annotation;
+package com.github.nalukit.nalu.client.constraint.annotation;
 
-import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
-import com.github.nalukit.nalu.client.constrain.IsParameterConstraintRule;
+import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -25,29 +24,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Adds a parameter constraint to a parameter.
+ * This annotation is used to annotate a parameter constrain rule.
  * <br><br>
- * This annotation can only be used on methods
- * that also have a {@link AcceptParameter}-annotation!
+ * The rules that Nalu will use to validate the parameter are added by
+ * using special annoations like:
+ * <ul>
+ *   <li>TODO add rules for parameter description!</li>
+ * </ul>
+ * The parameter constrain rule interface needs to extend
+ * {@link IsParameterConstraintRule}. Otherwise the processor will
+ * create an error
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface ParameterConstraint {
-
-  /**
-   * The constrain used with this parameter.
-   * Must extend {@link IsParameterConstraintRule}.
-   *
-   * @return the constraint for the parameter
-   */
-  Class<? extends IsParameterConstraintRule> rule();
-
-  /**
-   * In case the parameter does not fit the constraint
-   * Nalu will use this route.
-   *
-   * @return Route for illegal paraemter
-   */
-  String illegalParameterRoute();
-
+@Target(ElementType.TYPE)
+public @interface ParameterConstraintRule {
 }

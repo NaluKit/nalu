@@ -14,12 +14,10 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.parameterConstraintRule.notAnInterface;
+package com.github.nalukit.nalu.processor.parameterConstraintRule.wrongExtends;
 
-import com.github.nalukit.nalu.client.constrain.annotation.ParameterConstraintRule;
-import com.github.nalukit.nalu.client.constrain.IsParameterConstraintRule;
+import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
 
 @ParameterConstraintRule
-public class ParameterConstrainRuleNotAnInterface
-    implements IsParameterConstraintRule {
+public interface ParameterConstraintRuleNoExtends {
 }

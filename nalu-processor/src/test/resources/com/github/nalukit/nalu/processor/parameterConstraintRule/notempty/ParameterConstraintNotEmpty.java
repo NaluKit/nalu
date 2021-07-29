@@ -14,12 +14,14 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.parameterConstraint;
+package com.github.nalukit.nalu.processor.parameterConstraintRule.notempty;
 
+import com.github.nalukit.nalu.client.constraint.annotation.NotEmpty;
 import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
 import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 
 @ParameterConstraintRule
-public interface ParameterConstraintRule01
+@NotEmpty
+public interface ParameterConstraintNotEmpty
     extends IsParameterConstraintRule {
 }

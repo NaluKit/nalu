@@ -16,14 +16,11 @@
 
 package com.github.nalukit.nalu.client.internal.constrain;
 
-import com.github.nalukit.nalu.client.component.IsLoadCompositeCondition;
-import com.github.nalukit.nalu.client.constrain.IsParameterConstraintRule;
+import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @NaluInternalUse
 public class ParameterConstraintRuleFactory {

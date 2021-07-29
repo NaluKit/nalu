@@ -18,7 +18,7 @@ package com.github.nalukit.nalu.processor;
 
 import com.github.nalukit.nalu.client.application.annotation.*;
 import com.github.nalukit.nalu.client.component.annotation.*;
-import com.github.nalukit.nalu.client.constrain.annotation.ParameterConstraintRule;
+import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.client.module.annotation.Module;
 import com.github.nalukit.nalu.client.module.annotation.Modules;

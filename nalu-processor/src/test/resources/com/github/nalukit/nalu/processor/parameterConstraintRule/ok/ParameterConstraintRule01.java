@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.parameterConstraint;
+package com.github.nalukit.nalu.processor.parameterConstraintRule.ok;
 
 import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
 import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;

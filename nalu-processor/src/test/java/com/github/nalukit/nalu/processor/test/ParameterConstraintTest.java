@@ -31,7 +31,7 @@ public class ParameterConstraintTest {
 //  @Test
 //  public void testParaemterConstraintRule01() {
 //    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/parameterConstraintRule/notAnInterface/ParameterConstrainRuleNotAnInterface.java"),
+//                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/parameterConstraintRule/notAnInterface/ParameterConstraintRuleNotAnInterface.java"),
 //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
 //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
 //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
@@ -46,7 +46,7 @@ public class ParameterConstraintTest {
 //  @Test
 //  public void testParaemterConstraintRule02() {
 //    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/parameterConstraintRule/wrongExtends/ParameterConstrainRuleNoExtends.java"),
+//                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/parameterConstraintRule/wrongExtends/ParameterConstraintRuleNoExtends.java"),
 //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
 //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
 //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
@@ -61,7 +61,7 @@ public class ParameterConstraintTest {
 //  @Test
 //  public void testParaemterConstraintRule03() {
 //    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/parameterConstraintRule/wrongExtends/ParameterConstrainRuleNoExtends.java"),
+//                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/parameterConstraintRule/wrongExtends/ParameterConstraintRuleNoExtends.java"),
 //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
 //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
 //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
