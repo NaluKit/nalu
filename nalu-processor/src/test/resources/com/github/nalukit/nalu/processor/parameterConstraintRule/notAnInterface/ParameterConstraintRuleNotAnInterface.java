@@ -20,6 +20,6 @@ import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintR
 import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 
 @ParameterConstraintRule
-public class ParameterConstrainRuleNotAnInterface
+public class ParameterConstraintRuleNotAnInterface
     implements IsParameterConstraintRule {
 }

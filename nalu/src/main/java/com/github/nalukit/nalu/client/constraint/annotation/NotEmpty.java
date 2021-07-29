@@ -14,10 +14,17 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.parameterConstraintRule.wrongExtends;
+package com.github.nalukit.nalu.client.constraint.annotation;
 
-import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-@ParameterConstraintRule
-public interface ParameterConstrainRuleNoExtends {
+/**
+ * Tells teh rule that the value of the parameter shpuld not be empty.
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface NotEmpty {
 }

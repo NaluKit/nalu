@@ -130,23 +130,26 @@ public class MyController
 **Note:**
 At the time parameters are set by Nalu, the component is not rendered! Rendering of the component will occur after all parameters are set!
 
-Starting with version 2.6.0 Nalu will offer a possibility to add constraints to parameter. The constraints will be executed before the parameter gets injected into the controller / composite controller.  
+Starting with version 2.6.0 Nalu will offer a possibility to add constraints to parameter. The constraints will be executed before the parameter gets injected into the controller / composite controller.
 
 In case you would like to use constraits, first you need to define a rule:
 
-```java
+```java_holder_method_tree
 @ParameterConstraintRule
+@NotEmpty
 public interface IdRule
     extends IsParameterConstraintRule {
 }
 ```
-To define a rule, you need to create an interface which extends `IsParameterConstraintRule` and is annotated with `ParameterConstraintRule`. Several annotation can be used to add constraints to the parameter:
+To define a rule, you need to create an interface which extends `IsParameterConstraintRule` and is annotated with `ParameterConstraintRule`.
 
-**TO BE ADDED**
+Several annotation can be used to add constraints to the parameter:
+
+* **NotEmpty**: parameter value should not be null or empty!
 
 Once you have defined a rule, you can use the rule. To use a rule, you need to add the `ParameterConstraint`-annotation to the method which is annoted with `AcceptParameter`:
 
-```java
+```java_holder_method_tree
 @AcceptParameter("id")
 @ParameterConstraint(rule = IdRule.class,
                      illegalParameterRoute = "/app/error/parameter")

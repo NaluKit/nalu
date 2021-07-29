@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
+import com.github.nalukit.nalu.client.constraint.annotation.NotEmpty;
 import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
@@ -70,8 +71,11 @@ public class ParameterConstraintRuleAnnotationScanner {
   {
     // get Annotation ...
     ParameterConstraintRule annotation = parameterConstraintRuleElement.getAnnotation(ParameterConstraintRule.class);
+    NotEmpty                notEmptyAnnotation = parameterConstraintRuleElement.getAnnotation(NotEmpty.class);
+    boolean notNull = notEmptyAnnotation != null;
     // save model ...
-    return new ParameterConstraintRuleModel(new ClassNameModel(parameterConstraintRuleElement.toString()));
+    return new ParameterConstraintRuleModel(new ClassNameModel(parameterConstraintRuleElement.toString()),
+                                            notNull);
   }
 
   //  private void handleAcceptParameters(RoundEnvironment roundEnvironment,

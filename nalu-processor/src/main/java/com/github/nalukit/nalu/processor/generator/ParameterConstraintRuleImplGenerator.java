@@ -65,7 +65,7 @@ public class ParameterConstraintRuleImplGenerator {
                                          typeSpec.build())
                                 .build();
     try {
-//      System.out.println(javaFile.toString());
+      //      System.out.println(javaFile.toString());
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
@@ -116,6 +116,11 @@ public class ParameterConstraintRuleImplGenerator {
                                                                      .build())
                                           .addModifiers(Modifier.PUBLIC)
                                           .returns(boolean.class);
+    if (this.parameterConstraintRuleModel.isNotNull()) {
+      method.beginControlFlow("if (parameter == null || parameter.length() == 0)")
+            .addStatement("return false")
+            .endControlFlow();
+    }
     //                                          .addStatement("$T controllerInstance = new $T()",
     //                                                        ClassName.get(ControllerInstance.class),
     //                                                        ClassName.get(ControllerInstance.class))
