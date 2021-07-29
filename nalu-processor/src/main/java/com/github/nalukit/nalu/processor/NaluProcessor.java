@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.processor;
 
 import com.github.nalukit.nalu.client.application.annotation.*;
 import com.github.nalukit.nalu.client.component.annotation.*;
+import com.github.nalukit.nalu.client.constrain.annotation.ParameterConstraintRule;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.client.module.annotation.Module;
 import com.github.nalukit.nalu.client.module.annotation.Modules;
@@ -76,6 +77,7 @@ public class NaluProcessor
                      Handler.class.getCanonicalName(),
                      Module.class.getCanonicalName(),
                      Modules.class.getCanonicalName(),
+                     ParameterConstraintRule.class.getCanonicalName(),
                      PopUpController.class.getCanonicalName(),
                      PopUpFilters.class.getCanonicalName(),
                      Shell.class.getCanonicalName(),
@@ -144,6 +146,9 @@ public class NaluProcessor
             } else if (Modules.class.getCanonicalName()
                                     .equals(annotation.toString())) {
               handleModulesAnnotation(roundEnv);
+            } else if (ParameterConstraintRule.class.getCanonicalName()
+                                                    .equals(annotation.toString())) {
+              handleParameterConstraintRule(roundEnv);
             } else if (PopUpController.class.getCanonicalName()
                                             .equals(annotation.toString())) {
               handlePopUpControllerAnnotation(roundEnv);
@@ -523,6 +528,36 @@ public class NaluProcessor
                               .build()
                               .scan(roundEnv);
     }
+  }
+
+  private void handleParameterConstraintRule(RoundEnvironment roundEnv)
+      throws ProcessorException {
+    List<ParameterConstraintRuleModel> parameterConstraintRuleModelList = new ArrayList<>();
+    for (Element parameterConstraintRuleElement : roundEnv.getElementsAnnotatedWith(ParameterConstraintRule.class)) {
+      // validate
+      ParameterConstraintRuleAnnotationValidator.builder()
+                                                .processingEnvironment(processingEnv)
+                                                .parameterConstraintRuleElement(parameterConstraintRuleElement)
+                                                .build()
+                                                .validate();
+      // create ParameterConstraintRule-Model
+      ParameterConstraintRuleModel model = ParameterConstraintRuleAnnotationScanner.builder()
+                                                                                   .processingEnvironment(processingEnv)
+                                                                                   .metaModel(this.metaModel)
+                                                                                   .parameterConstraintRuleElement(parameterConstraintRuleElement)
+                                                                                   .build()
+                                                                                   .scan(roundEnv);
+      parameterConstraintRuleModelList.add(model);
+
+      // create the Impl-class
+      ParameterConstraintRuleImplGenerator.builder()
+                                          .metaModel(this.metaModel)
+                                          .processingEnvironment(processingEnv)
+                                          .parameterConstraintRuleModel(model)
+                                          .build()
+                                          .generate();
+    }
+    this.metaModel.setParameterConstraintRules(parameterConstraintRuleModelList);
   }
 
   private void handlePopUpControllerAnnotation(RoundEnvironment roundEnv)

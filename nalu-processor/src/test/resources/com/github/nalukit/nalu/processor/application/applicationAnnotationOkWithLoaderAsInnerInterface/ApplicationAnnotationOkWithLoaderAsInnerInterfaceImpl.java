@@ -102,6 +102,10 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   }
 
   @Override
+  public void loadParameterConstraintRules() {
+  }
+
+  @Override
   public void loadPlugins() {
     StringBuilder sb01 = new StringBuilder();
   }

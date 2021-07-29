@@ -203,7 +203,11 @@ public final class NaluSimpleApplicationImpl
     com_github_nalukit_example_nalu_simpleapplication_client_handler_SimpleApplicationHandler01.setRouter(super.router);
     com_github_nalukit_example_nalu_simpleapplication_client_handler_SimpleApplicationHandler01.bind();
   }
-  
+
+  @Override
+  protected void loadParameterConstraintRules() {
+  }
+
   @Override
   public IsLoader<NaluSimpleApplicationContext> getLoader() {
     return new NaluSimpleApplicationLoader();

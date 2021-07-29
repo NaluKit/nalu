@@ -15,7 +15,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.03.31-21:44:59<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.28-17:01:11<<
  */
 public final class StartRouteOKImpl extends AbstractApplication<MockContext> implements StartRouteOK {
   public StartRouteOKImpl() {
@@ -90,6 +90,10 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
 
   @Override
   public void loadCompositeReferences() {
+  }
+
+  @Override
+  public void loadParameterConstraintRules() {
   }
 
   @Override

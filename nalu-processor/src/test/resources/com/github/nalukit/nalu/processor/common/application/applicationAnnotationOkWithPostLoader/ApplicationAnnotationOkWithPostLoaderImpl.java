@@ -85,11 +85,15 @@ public final class ApplicationAnnotationOkWithPostLoaderImpl extends AbstractApp
   @Override
   public void loadHandlers() {
   }
-  
+
   @Override
   public void loadCompositeReferences() {
   }
-  
+
+  @Override
+  public void loadParameterConstraintRules() {
+  }
+
   @Override
   public void loadModules() {
     super.onFinishModuleLoading();
