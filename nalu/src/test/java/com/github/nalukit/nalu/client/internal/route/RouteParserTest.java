@@ -594,4 +594,14 @@ public class RouteParserTest {
                              is("application/person/list/A"));
   }
 
+  @Test
+  void generate05() {
+    String hash = RouteParser.get()
+                             .generate("/application/person/list/:name/:citty",
+                                       null,
+                                       null);
+    MatcherAssert.assertThat(hash,
+                             is("application/person/list//"));
+  }
+
 }
