@@ -9,22 +9,22 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public class RouteParser {
-  
+
   private static RouteParser instance = new RouteParser();
-  
+
   private SimpleEventBus eventBus;
-  
+
   private RouteParser() {
   }
-  
+
   public static RouteParser get() {
     return instance;
   }
-  
+
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
-  
+
   /**
    * Parse the hash and divides it into shellCreator, route and parameters
    *
@@ -147,7 +147,7 @@ public class RouteParser {
     }
     return routeResult;
   }
-  
+
   /**
    * Generates a new route!
    * <p>
@@ -166,7 +166,7 @@ public class RouteParser {
       routeValue = routeValue.substring(1);
     }
     String[] partsOfRoute = routeValue.split("/");
-    
+
     int parameterIndex = 0;
     for (String s : partsOfRoute) {
       sb.append("/");
@@ -175,21 +175,29 @@ public class RouteParser {
           sb.append(":");
         }
         if (params.length - 1 >= parameterIndex) {
-          sb.append(params[parameterIndex].replace("/",
-                                                   RouterConstants.NALU_SLASH_REPLACEMENT));
+          if (!Objects.isNull(params[parameterIndex])) {
+            sb.append(params[parameterIndex].replace("/",
+                                                     RouterConstants.NALU_SLASH_REPLACEMENT));
+          }
           parameterIndex++;
         }
       } else {
         sb.append(s);
       }
     }
-    
+
     // in case there are more parameters then placesholders, we add them add the end!
     long numberOfPlaceHolders = Stream.of(partsOfRoute)
                                       .filter(s -> "*".equals(s) || s.startsWith(":"))
                                       .count();
     if (params.length > numberOfPlaceHolders) {
-      String sbExeption = "Warning: route >>" + route + "<< has less parameter placeholder >>" + numberOfPlaceHolders + "<< than the number of parameters in the list of parameters >>" + params.length + "<< --> adding Parameters add the end of the url";
+      String sbExeption = "Warning: route >>" +
+                          route +
+                          "<< has less parameter placeholder >>" +
+                          numberOfPlaceHolders +
+                          "<< than the number of parameters in the list of parameters >>" +
+                          params.length +
+                          "<< --> adding Parameters add the end of the url";
       this.eventBus.fireEvent(LogEvent.create()
                                       .sdmOnly(true)
                                       .addMessage(sbExeption));
@@ -207,7 +215,7 @@ public class RouteParser {
         parameterIndex++;
       }
     }
-    
+
     // remove leading '/'
     String generatedRoute = sb.toString();
     if (generatedRoute.startsWith("/")) {
@@ -222,5 +230,5 @@ public class RouteParser {
     }
     return generatedRoute;
   }
-  
+
 }
