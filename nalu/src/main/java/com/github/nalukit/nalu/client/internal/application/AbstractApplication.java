@@ -64,11 +64,11 @@ public abstract class AbstractApplication<C extends IsContext>
   /* plugin */
   protected IsNaluProcessorPlugin              plugin;
   /* Tracker instance */
-  protected IsTracker           tracker;
+  protected IsTracker                          tracker;
   /* instance of AlwaysLoadComposite-class */
-  protected AlwaysLoadComposite alwaysLoadComposite;
+  protected AlwaysLoadComposite                alwaysLoadComposite;
   /* instance of AlwaysShowPopUp-class */
-  protected AlwaysShowPopUp     alwaysShowPopUp;
+  protected AlwaysShowPopUp                    alwaysShowPopUp;
   /* List of CompositeControllerReferences */
   protected List<CompositeControllerReference> compositeControllerReferences;
   /* Nalu Logger instance */
@@ -163,6 +163,8 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadComponents();
     // load the handlers of the application
     this.loadHandlers();
+    // load parameter constraints
+    this.loadParameterConstraintRules();
     // handling application loading
     IsLoader<C> loader = getLoader();
     if (loader == null) {
@@ -222,6 +224,8 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract void loadComponents();
 
   protected abstract void loadHandlers();
+
+  protected abstract void loadParameterConstraintRules();
 
   protected abstract IsLoader<C> getLoader();
 

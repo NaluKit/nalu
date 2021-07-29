@@ -20,13 +20,11 @@ import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.IsComponentCreator;
 import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import com.github.nalukit.nalu.client.component.annotation.CompositeController;
+import com.github.nalukit.nalu.client.constrain.annotation.ParameterConstraint;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
-import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
-import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
-import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.ParameterAcceptor;
+import com.github.nalukit.nalu.processor.model.intern.*;
 import com.github.nalukit.nalu.processor.scanner.validation.AcceptParameterAnnotationValidator;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -42,15 +40,15 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CompositeControllerAnnotationScanner {
-  
+
   private ProcessorUtils processorUtils;
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private MetaModel metaModel;
-  
+
   private Element compositeElement;
-  
+
   @SuppressWarnings("unused")
   private CompositeControllerAnnotationScanner(Builder builder) {
     super();
@@ -59,17 +57,17 @@ public class CompositeControllerAnnotationScanner {
     this.compositeElement      = builder.compositeElement;
     setUp();
   }
-  
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   public CompositeModel scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
     // handle CompositeController-annotation
@@ -83,7 +81,7 @@ public class CompositeControllerAnnotationScanner {
                   .add(compositeModel);
     return compositeModel;
   }
-  
+
   private CompositeModel handleComposite(Element element)
       throws ProcessorException {
     // get Annotation ...
@@ -105,7 +103,9 @@ public class CompositeControllerAnnotationScanner {
       ClassNameModel compareValue = new ClassNameModel(componentTypeTypeMirror.toString());
       if (!metaModel.getComponentType()
                     .equals(compareValue)) {
-        throw new ProcessorException("Nalu-Processor: componentType >>" + compareValue.getClassName() + "<< is different. All composite controllers must implement the componentType!");
+        throw new ProcessorException("Nalu-Processor: componentType >>" +
+                                     compareValue.getClassName() +
+                                     "<< is different. All composite controllers must implement the componentType!");
       }
     }
     // check, if the controller implements IsComponentController
@@ -114,7 +114,7 @@ public class CompositeControllerAnnotationScanner {
     // get context!
     String context = this.getContextType(element);
     if (Objects.isNull(context)) {
-      throw new ProcessorException("Nalu-Processor: composite controller >>" + element.toString() + "<< does not have a context generic!");
+      throw new ProcessorException("Nalu-Processor: composite controller >>" + element + "<< does not have a context generic!");
     }
     // create model ...
     if (Objects.isNull(componentInterfaceTypeElement)) {
@@ -126,10 +126,10 @@ public class CompositeControllerAnnotationScanner {
                               new ClassNameModel(componentTypeElement.toString()),
                               componentController);
   }
-  
+
   private void handleAcceptParameters(RoundEnvironment roundEnvironment,
                                       Element element,
-                                      CompositeModel splitterModel)
+                                      CompositeModel compositeModel)
       throws ProcessorException {
     TypeElement typeElement = (TypeElement) element;
     List<Element> annotatedElements = this.processorUtils.getMethodFromTypeElementAnnotatedWith(this.processingEnvironment,
@@ -148,15 +148,36 @@ public class CompositeControllerAnnotationScanner {
     }
     // add to ControllerModel ...
     for (Element annotatedElement : annotatedElements) {
-      ExecutableElement executableElement = (ExecutableElement) annotatedElement;
-      AcceptParameter   annotation        = executableElement.getAnnotation(AcceptParameter.class);
-      splitterModel.getParameterAcceptors()
-                   .add(new ParameterAcceptor(annotation.value(),
-                                              executableElement.getSimpleName()
-                                                               .toString()));
+      ExecutableElement        executableElement             = (ExecutableElement) annotatedElement;
+      AcceptParameter          acceptParameterAnnotation     = executableElement.getAnnotation(AcceptParameter.class);
+      ParameterConstraint      parameterConstraintAnnotation = executableElement.getAnnotation(ParameterConstraint.class);
+      ParameterConstraintModel parameterConstraintModel      = null;
+      if (parameterConstraintAnnotation != null) {
+        TypeElement parameterConstraintTypeElement = getRuleTypeElement(parameterConstraintAnnotation);
+        if (parameterConstraintTypeElement != null) {
+          parameterConstraintModel = new ParameterConstraintModel(parameterConstraintTypeElement.toString(),
+                                                                  parameterConstraintAnnotation.illegalParameterRoute());
+        }
+      }
+      compositeModel.getParameterAcceptors()
+                    .add(new ParameterAcceptorModel(acceptParameterAnnotation.value(),
+                                                    executableElement.getSimpleName()
+                                                                     .toString(),
+                                                    parameterConstraintModel));
+
     }
   }
-  
+
+  private TypeElement getRuleTypeElement(ParameterConstraint annotation) {
+    try {
+      annotation.rule();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
+  }
+
   private TypeElement getComponentTypeElement(CompositeController annotation) {
     try {
       annotation.component();
@@ -166,7 +187,7 @@ public class CompositeControllerAnnotationScanner {
     }
     return null;
   }
-  
+
   private TypeElement getComponentInterfaceTypeElement(CompositeController annotation) {
     try {
       annotation.componentInterface();
@@ -176,7 +197,7 @@ public class CompositeControllerAnnotationScanner {
     }
     return null;
   }
-  
+
   private TypeMirror getComponentType(final TypeMirror typeMirror) {
     final TypeMirror[] result = { null };
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
@@ -188,25 +209,25 @@ public class CompositeControllerAnnotationScanner {
       return null;
     }
     type.accept(new SimpleTypeVisitor8<Void, Void>() {
-      
+
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
                     throw new UnsupportedOperationException();
                   }
-      
+
                   @Override
                   public Void visitPrimitive(PrimitiveType primitiveType,
                                              Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitArray(ArrayType arrayType,
                                          Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitDeclared(DeclaredType declaredType,
                                             Void v) {
@@ -218,13 +239,13 @@ public class CompositeControllerAnnotationScanner {
                     }
                     return null;
                   }
-      
+
                   @Override
                   public Void visitError(ErrorType errorType,
                                          Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitTypeVariable(TypeVariable typeVariable,
                                                 Void v) {
@@ -234,7 +255,7 @@ public class CompositeControllerAnnotationScanner {
                 null);
     return result[0];
   }
-  
+
   private boolean checkIsComponentCreator(Element element,
                                           TypeElement componentInterfaceTypeElement)
       throws ProcessorException {
@@ -250,25 +271,25 @@ public class CompositeControllerAnnotationScanner {
     }
     // check the generic!
     type.accept(new SimpleTypeVisitor8<Void, Void>() {
-      
+
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
                     throw new UnsupportedOperationException();
                   }
-      
+
                   @Override
                   public Void visitPrimitive(PrimitiveType primitiveType,
                                              Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitArray(ArrayType arrayType,
                                          Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitDeclared(DeclaredType declaredType,
                                             Void v) {
@@ -280,13 +301,13 @@ public class CompositeControllerAnnotationScanner {
                     }
                     return null;
                   }
-      
+
                   @Override
                   public Void visitError(ErrorType errorType,
                                          Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitTypeVariable(TypeVariable typeVariable,
                                                 Void v) {
@@ -297,11 +318,13 @@ public class CompositeControllerAnnotationScanner {
     // check generic!
     if (!componentInterfaceTypeElement.toString()
                                       .equals(result[0].toString())) {
-      throw new ProcessorException("Nalu-Processor: compositeModel controller >>" + element.toString() + "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
+      throw new ProcessorException("Nalu-Processor: compositeModel controller >>" +
+                                   element +
+                                   "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
     }
     return true;
   }
-  
+
   private String getContextType(Element element) {
     final TypeMirror[] result = { null };
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
@@ -315,25 +338,25 @@ public class CompositeControllerAnnotationScanner {
     }
     // check the generic!
     type.accept(new SimpleTypeVisitor8<Void, Void>() {
-      
+
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
                     throw new UnsupportedOperationException();
                   }
-      
+
                   @Override
                   public Void visitPrimitive(PrimitiveType primitiveType,
                                              Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitArray(ArrayType arrayType,
                                          Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitDeclared(DeclaredType declaredType,
                                             Void v) {
@@ -343,13 +366,13 @@ public class CompositeControllerAnnotationScanner {
                     }
                     return null;
                   }
-      
+
                   @Override
                   public Void visitError(ErrorType errorType,
                                          Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitTypeVariable(TypeVariable typeVariable,
                                                 Void v) {
@@ -359,7 +382,7 @@ public class CompositeControllerAnnotationScanner {
                 null);
     return result[0].toString();
   }
-  
+
   private List<ControllerModel> getControllerUsingComposite(Element element) {
     List<ControllerModel> models = new ArrayList<>();
     this.metaModel.getControllers()
@@ -372,34 +395,34 @@ public class CompositeControllerAnnotationScanner {
                                                                            .collect(Collectors.toList())));
     return models;
   }
-  
+
   public static class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     MetaModel metaModel;
-    
+
     Element compositeElement;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public Builder compositeElement(Element compositeElement) {
       this.compositeElement = compositeElement;
       return this;
     }
-    
+
     public CompositeControllerAnnotationScanner build() {
       return new CompositeControllerAnnotationScanner(this);
     }
-    
+
   }
-  
+
 }

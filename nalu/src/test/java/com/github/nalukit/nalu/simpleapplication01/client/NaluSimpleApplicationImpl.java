@@ -28,6 +28,7 @@ import com.github.nalukit.nalu.simpleapplication01.client.handler.SimpleApplicat
 import com.github.nalukit.nalu.simpleapplication01.client.ui.shell.Shell;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public final class NaluSimpleApplicationImpl
     extends AbstractApplication<NaluSimpleApplicationContext>
@@ -80,12 +81,12 @@ public final class NaluSimpleApplicationImpl
   public void loadRoutes() {
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/",
-                                                  Arrays.asList(new String[] {}),
+                                                  Collections.emptyList(),
                                                   "navigation",
                                                   "NavigationController"));
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/detail",
-                                                  Arrays.asList("id"),
+                                                  Collections.singletonList("id"),
                                                   "content",
                                                   "DetailController"));
     super.routerConfiguration.getRouters()
@@ -96,7 +97,7 @@ public final class NaluSimpleApplicationImpl
                                                   "ListController"));
     super.routerConfiguration.getRouters()
                              .add(new RouteConfig("/",
-                                                  Arrays.asList(new String[] {}),
+                                                  Collections.emptyList(),
                                                   "footer",
                                                   "FooterController"));
     super.routerConfiguration.getRouters()
@@ -202,6 +203,10 @@ public final class NaluSimpleApplicationImpl
     com_github_nalukit_example_nalu_simpleapplication_client_handler_SimpleApplicationHandler01.setEventBus(super.eventBus);
     com_github_nalukit_example_nalu_simpleapplication_client_handler_SimpleApplicationHandler01.setRouter(super.router);
     com_github_nalukit_example_nalu_simpleapplication_client_handler_SimpleApplicationHandler01.bind();
+  }
+
+  @Override
+  protected void loadParameterConstraintRules() {
   }
 
   @Override

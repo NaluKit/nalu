@@ -17,15 +17,18 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.constrain.IsParameterConstraintRule;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.AbstractControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
 import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
+import com.github.nalukit.nalu.client.internal.constrain.ParameterConstraintRuleFactory;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
 import com.squareup.javapoet.*;
 import org.gwtproject.event.shared.SimpleEventBus;
@@ -35,24 +38,24 @@ import javax.lang.model.element.Modifier;
 import java.io.IOException;
 
 public class ControllerCreatorGenerator {
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private ControllerModel controllerModel;
-  
+
   @SuppressWarnings("unused")
   private ControllerCreatorGenerator() {
   }
-  
+
   private ControllerCreatorGenerator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.controllerModel       = builder.controllerModel;
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   public void generate()
       throws ProcessorException {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(controllerModel.getController()
@@ -69,13 +72,13 @@ public class ControllerCreatorGenerator {
     typeSpec.addMethod(createCreateMethod());
     typeSpec.addMethod(createFinishCreateMethod());
     typeSpec.addMethod(createSetParameterMethod());
-    
+
     JavaFile javaFile = JavaFile.builder(controllerModel.getController()
                                                         .getPackage(),
                                          typeSpec.build())
                                 .build();
     try {
-      //      System.out.println(javaFile.toString());
+      //            System.out.println(javaFile.toString());
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
@@ -86,7 +89,7 @@ public class ControllerCreatorGenerator {
                                    e.getMessage());
     }
   }
-  
+
   private MethodSpec createConstructor() {
     return MethodSpec.constructorBuilder()
                      .addModifiers(Modifier.PUBLIC)
@@ -103,7 +106,7 @@ public class ControllerCreatorGenerator {
                      .addStatement("super(router, context, eventBus)")
                      .build();
   }
-  
+
   private MethodSpec createCreateMethod() {
     MethodSpec.Builder method = MethodSpec.methodBuilder("create")
                                           .addAnnotation(ClassName.get(Override.class))
@@ -151,7 +154,7 @@ public class ControllerCreatorGenerator {
     method.addStatement("return controllerInstance");
     return method.build();
   }
-  
+
   private MethodSpec createFinishCreateMethod() {
     MethodSpec.Builder method = MethodSpec.methodBuilder("onFinishCreating")
                                           .addAnnotation(ClassName.get(Override.class))
@@ -191,7 +194,7 @@ public class ControllerCreatorGenerator {
           .addStatement("component.bind()");
     return method.build();
   }
-  
+
   private MethodSpec createSetParameterMethod() {
     MethodSpec.Builder method = MethodSpec.methodBuilder("setParameter")
                                           .addAnnotation(ClassName.get(Override.class))
@@ -219,13 +222,31 @@ public class ControllerCreatorGenerator {
                                           controllerModel.getProvider()
                                                          .getSimpleName()))
               .beginControlFlow("if (params != null)");
-        for (int i = 0; i < controllerModel.getParameters()
-                                           .size(); i++) {
+        for (int i = 0; i <
+                        controllerModel.getParameters()
+                                       .size(); i++) {
           String methodName = controllerModel.getParameterAcceptors(controllerModel.getParameters()
                                                                                    .get(i));
           if (methodName != null) {
-            method.beginControlFlow("if (params.length >= " + (i + 1) + ")")
-                  .addStatement("controller." + methodName + "(params[" + i + "])")
+            method.beginControlFlow("if (params.length >= " + (i + 1) + ")");
+            ParameterConstraintModel parameterConstraintModel = controllerModel.getConstraintModelFor(controllerModel.getParameters()
+                                                                                                                     .get(i));
+            if (parameterConstraintModel != null) {
+              method.addStatement("$T rule = $T.get().get($S)",
+                                  ClassName.get(IsParameterConstraintRule.class),
+                                  ClassName.get(ParameterConstraintRuleFactory.class),
+                                  parameterConstraintModel.getKey());
+              method.beginControlFlow("if (rule != null)")
+                    .beginControlFlow("if (!rule.isValid(params[" + i + "]))")
+                    .addStatement("throw new $T($S, $S)",
+                                  ClassName.get(RoutingInterceptionException.class),
+                                  controllerModel.getController()
+                                                 .getSimpleName(),
+                                  parameterConstraintModel.getIllegalParameterRoute())
+                    .endControlFlow()
+                    .endControlFlow();
+            }
+            method.addStatement("controller." + methodName + "(params[" + i + "])")
                   .endControlFlow();
           }
         }
@@ -234,15 +255,15 @@ public class ControllerCreatorGenerator {
     }
     return method.build();
   }
-  
+
   public static final class Builder {
-    
+
     MetaModel metaModel;
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     ControllerModel controllerModel;
-    
+
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -253,21 +274,21 @@ public class ControllerCreatorGenerator {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder controllerModel(ControllerModel controllerModel) {
       this.controllerModel = controllerModel;
       return this;
     }
-    
+
     public ControllerCreatorGenerator build() {
       return new ControllerCreatorGenerator(this);
     }
-    
+
   }
-  
+
 }

@@ -14,26 +14,12 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.model.intern;
+package com.github.nalukit.nalu.processor.parameterConstraintRule.notAnInterface;
 
-public class ParameterAcceptor {
-  
-  private String parameterName;
-  
-  private String methodName;
-  
-  public ParameterAcceptor(String parameterName,
-                           String methodName) {
-    this.parameterName = parameterName;
-    this.methodName    = methodName;
-  }
-  
-  public String getParameterName() {
-    return parameterName;
-  }
-  
-  public String getMethodName() {
-    return methodName;
-  }
-  
+import com.github.nalukit.nalu.client.constrain.annotation.ParameterConstraintRule;
+import com.github.nalukit.nalu.client.constrain.IsParameterConstraintRule;
+
+@ParameterConstraintRule
+public class ParameterConstrainRuleNotAnInterface
+    implements IsParameterConstraintRule {
 }
