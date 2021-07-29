@@ -2,7 +2,7 @@ package com.github.nalukit.nalu.processor.parameterConstraint.ok01;
 
 import com.github.nalukit.nalu.client.Router;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
-import com.github.nalukit.nalu.client.constrain.IsParameterConstraintRule;
+import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.AbstractControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;

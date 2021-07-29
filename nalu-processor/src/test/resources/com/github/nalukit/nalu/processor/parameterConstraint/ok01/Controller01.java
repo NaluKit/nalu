@@ -19,7 +19,7 @@ package com.github.nalukit.nalu.processor.parameterConstraint.ok01;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
-import com.github.nalukit.nalu.client.constrain.annotation.ParameterConstraint;
+import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraint;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01;
 import com.github.nalukit.nalu.processor.parameterConstraint.ParameterConstraintRule01;

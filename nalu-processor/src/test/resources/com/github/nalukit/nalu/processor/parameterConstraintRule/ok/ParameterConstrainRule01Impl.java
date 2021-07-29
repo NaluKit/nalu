@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.processor.parameterConstraintRule.ok;
 
-import com.github.nalukit.nalu.client.constrain.IsParameterConstraintRule;
+import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 import com.github.nalukit.nalu.client.internal.constrain.AbstractParameterConstraintRule;
 import java.lang.Override;
 import java.lang.String;

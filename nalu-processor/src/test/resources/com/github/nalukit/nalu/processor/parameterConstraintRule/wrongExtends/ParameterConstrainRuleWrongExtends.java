@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.processor.parameterConstraintRule.wrongExtends;
 
-import com.github.nalukit.nalu.client.constrain.annotation.ParameterConstraintRule;
+import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
 import com.github.nalukit.nalu.client.filter.IsFilter;
 
 @ParameterConstraintRule

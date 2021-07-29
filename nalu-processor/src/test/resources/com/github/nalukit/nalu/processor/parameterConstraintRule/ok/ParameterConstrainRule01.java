@@ -16,8 +16,8 @@
 
 package com.github.nalukit.nalu.processor.parameterConstraintRule.ok;
 
-import com.github.nalukit.nalu.client.constrain.annotation.ParameterConstraintRule;
-import com.github.nalukit.nalu.client.constrain.IsParameterConstraintRule;
+import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
+import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 
 @ParameterConstraintRule
 public interface ParameterConstrainRule01

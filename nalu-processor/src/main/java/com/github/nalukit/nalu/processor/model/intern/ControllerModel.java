@@ -16,8 +16,6 @@
 
 package com.github.nalukit.nalu.processor.model.intern;
 
-import com.github.nalukit.nalu.client.constrain.annotation.ParameterConstraintRule;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

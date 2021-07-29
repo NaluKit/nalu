@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.constrain;
+package com.github.nalukit.nalu.client.constraint;
 
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.constrain.ParameterConstraintRuleFactory;

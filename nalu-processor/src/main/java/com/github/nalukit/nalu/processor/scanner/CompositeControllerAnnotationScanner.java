@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.IsComponentCreator;
 import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import com.github.nalukit.nalu.client.component.annotation.CompositeController;
-import com.github.nalukit.nalu.client.constrain.annotation.ParameterConstraint;
+import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraint;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
