@@ -14,20 +14,15 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.parameterConstraintRule.complete;
+package com.github.nalukit.nalu.processor.parameterConstraintRule.pattern;
 
-import com.github.nalukit.nalu.client.constraint.annotation.MaxLength;
 import com.github.nalukit.nalu.client.constraint.annotation.NotEmpty;
 import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
 import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 import com.github.nalukit.nalu.client.constraint.annotation.Pattern;
 
-import javax.validation.constraints.NotNull;
-
 @ParameterConstraintRule
-@NotEmpty
-@MaxLength(12)
 @Pattern("^[0-9]{0,8}?$")
-public interface ParameterConstraintComplete
+public interface ParameterConstraintPattern
     extends IsParameterConstraintRule {
 }

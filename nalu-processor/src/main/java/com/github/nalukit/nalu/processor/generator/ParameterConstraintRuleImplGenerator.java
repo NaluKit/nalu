@@ -23,6 +23,8 @@ import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
 import com.squareup.javapoet.*;
+import org.gwtproject.regexp.shared.MatchResult;
+import org.gwtproject.regexp.shared.RegExp;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
@@ -115,6 +117,15 @@ public class ParameterConstraintRuleImplGenerator {
                               this.parameterConstraintRuleModel.getMaxLength() +
                               ")")
             .addStatement("return false")
+            .endControlFlow();
+    }
+    if (this.parameterConstraintRuleModel.isPatternCheck()) {
+      method.beginControlFlow("if (parameter != null)")
+            .addStatement("$T regExp = $T.compile($S)",
+                          ClassName.get(RegExp.class),
+                          ClassName.get(RegExp.class),
+                          this.parameterConstraintRuleModel.getPattern())
+            .addStatement("return regExp.test(parameter)")
             .endControlFlow();
     }
     method.addStatement("return true");

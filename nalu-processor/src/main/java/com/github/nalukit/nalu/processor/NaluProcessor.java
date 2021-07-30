@@ -542,8 +542,6 @@ public class NaluProcessor
                                                 .validate();
       // create ParameterConstraintRule-Model
       ParameterConstraintRuleModel model = ParameterConstraintRuleAnnotationScanner.builder()
-                                                                                   .processingEnvironment(processingEnv)
-                                                                                   .metaModel(this.metaModel)
                                                                                    .parameterConstraintRuleElement(parameterConstraintRuleElement)
                                                                                    .build()
                                                                                    .scan(roundEnv);

@@ -71,6 +71,12 @@
       <artifactId>gwt-event</artifactId>
       <version>${gwt-event.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.gwtproject.regexp</groupId>
+      <artifactId>gwt-regexp</artifactId>
+      <version>${gwt-regexp.version}</version>
+    </dependency>
+
     <!-- only for testing -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
