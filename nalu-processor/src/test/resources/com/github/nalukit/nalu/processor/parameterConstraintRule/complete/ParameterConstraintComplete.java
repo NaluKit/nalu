@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.processor.parameterConstraintRule.complete;
 
+import com.github.nalukit.nalu.client.constraint.annotation.MaxLength;
 import com.github.nalukit.nalu.client.constraint.annotation.NotEmpty;
 import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
 import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
@@ -24,6 +25,7 @@ import javax.validation.constraints.NotNull;
 
 @ParameterConstraintRule
 @NotEmpty
+@MaxLength(12)
 public interface ParameterConstraintComplete
     extends IsParameterConstraintRule {
 }

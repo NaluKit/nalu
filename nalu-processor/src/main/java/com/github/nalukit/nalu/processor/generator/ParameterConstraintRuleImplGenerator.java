@@ -80,17 +80,6 @@ public class ParameterConstraintRuleImplGenerator {
   private MethodSpec createConstructor() {
     return MethodSpec.constructorBuilder()
                      .addModifiers(Modifier.PUBLIC)
-                     //                     .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
-                     //                                                         "router")
-                     //                                                .build())
-                     //                     .addParameter(ParameterSpec.builder(controllerModel.getContext()
-                     //                                                                        .getTypeName(),
-                     //                                                         "context")
-                     //                                                .build())
-                     //                     .addParameter(ParameterSpec.builder(ClassName.get(SimpleEventBus.class),
-                     //                                                         "eventBus")
-                     //                                                .build())
-                     //                     .addStatement("super(router, context, eventBus)")
                      .build();
   }
 
@@ -116,47 +105,18 @@ public class ParameterConstraintRuleImplGenerator {
                                                                      .build())
                                           .addModifiers(Modifier.PUBLIC)
                                           .returns(boolean.class);
-    if (this.parameterConstraintRuleModel.isNotNull()) {
+    if (this.parameterConstraintRuleModel.isNotNullCheck()) {
       method.beginControlFlow("if (parameter == null || parameter.length() == 0)")
             .addStatement("return false")
             .endControlFlow();
     }
-    //                                          .addStatement("$T controllerInstance = new $T()",
-    //                                                        ClassName.get(ControllerInstance.class),
-    //                                                        ClassName.get(ControllerInstance.class))
-    //                                          .addStatement("controllerInstance.setControllerCreator(this)")
-    //                                          .addStatement("controllerInstance.setControllerClassName($S)",
-    //                                                        controllerModel.getController()
-    //                                                                       .getClassName())
-    //                                          .addStatement("$T<?, ?, ?> storedController = $T.get().getControllerFormStore($S)",
-    //                                                        ClassName.get(AbstractComponentController.class),
-    //                                                        ClassName.get(ControllerFactory.class),
-    //                                                        controllerModel.getController()
-    //                                                                       .getClassName())
-    //                                          .beginControlFlow("if (storedController == null)")
-    //                                          .addStatement("$T controller = new $T()",
-    //                                                        ClassName.get(controllerModel.getProvider()
-    //                                                                                     .getPackage(),
-    //                                                                      controllerModel.getProvider()
-    //                                                                                     .getSimpleName()),
-    //                                                        ClassName.get(controllerModel.getProvider()
-    //                                                                                     .getPackage(),
-    //                                                                      controllerModel.getProvider()
-    //                                                                                     .getSimpleName()))
-    //                                          .addStatement("controllerInstance.setController(controller)")
-    //                                          .addStatement("controllerInstance.setCached(false)")
-    //                                          .addStatement("controller.setContext(context)")
-    //                                          .addStatement("controller.setEventBus(eventBus)")
-    //                                          .addStatement("controller.setRouter(router)")
-    //                                          .addStatement("controller.setCached(false)")
-    //                                          .addStatement("controller.setRelatedRoute(route)")
-    //                                          .addStatement("controller.setRelatedSelector($S)",
-    //                                                        controllerModel.getSelector())
-    //                                          .nextControlFlow("else")
-    //                                          .addStatement("controllerInstance.setController(storedController)")
-    //                                          .addStatement("controllerInstance.setCached(true)")
-    //                                          .addStatement("controllerInstance.getController().setCached(true)")
-    //                                          .endControlFlow();
+    if (this.parameterConstraintRuleModel.isMaxLengthCheck()) {
+      method.beginControlFlow("if (parameter != null && parameter.length() > " +
+                              this.parameterConstraintRuleModel.getMaxLength() +
+                              ")")
+            .addStatement("return false")
+            .endControlFlow();
+    }
     method.addStatement("return true");
     return method.build();
   }

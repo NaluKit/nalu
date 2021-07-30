@@ -14,17 +14,14 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.constraint.annotation;
+package com.github.nalukit.nalu.processor.parameterConstraintRule.maxLength;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.github.nalukit.nalu.client.constraint.annotation.MaxLength;
+import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
+import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 
-/**
- * Tells teh rule that the value of the parameter should not be empty.
- */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface NotEmpty {
+@ParameterConstraintRule
+@MaxLength(8)
+public interface ParameterConstraintMaxLength
+    extends IsParameterConstraintRule {
 }
