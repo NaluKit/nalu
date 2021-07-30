@@ -125,7 +125,9 @@ public class ParameterConstraintRuleImplGenerator {
                           ClassName.get(RegExp.class),
                           ClassName.get(RegExp.class),
                           this.parameterConstraintRuleModel.getPattern())
-            .addStatement("return regExp.test(parameter)")
+            .beginControlFlow("if (!regExp.test(parameter))")
+            .addStatement("return false")
+            .endControlFlow()
             .endControlFlow();
     }
     if (this.parameterConstraintRuleModel.isBlackListingCheck()) {

@@ -8,7 +8,7 @@ import java.util.Arrays;
 import org.gwtproject.regexp.shared.RegExp;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.30-14:56:35<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.30-17:57:38<<
  */
 public final class ParameterConstraintCompleteImpl extends AbstractParameterConstraintRule implements IsParameterConstraintRule {
   public ParameterConstraintCompleteImpl() {
@@ -29,7 +29,9 @@ public final class ParameterConstraintCompleteImpl extends AbstractParameterCons
     }
     if (parameter != null) {
       RegExp regExp = RegExp.compile("^[A-Z]?$");
-      return regExp.test(parameter);
+      if (!regExp.test(parameter)) {
+        return false;
+      }
     }
     if (parameter != null) {
       if (Arrays.asList("A", "B", "C", "D", "E", "F").contains(parameter)) {
