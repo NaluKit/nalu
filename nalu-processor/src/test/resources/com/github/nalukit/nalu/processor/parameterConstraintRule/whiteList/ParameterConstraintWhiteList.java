@@ -14,20 +14,14 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.client.constraint.annotation;
+package com.github.nalukit.nalu.processor.parameterConstraintRule.whiteList;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.github.nalukit.nalu.client.constraint.annotation.WhiteListing;
+import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
+import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 
-/**
- * The parameter has to match the regular expression.
- */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Pattern {
-
-  String value();
-
+@ParameterConstraintRule
+@WhiteListing({ "X", "Y", "Z" })
+public interface ParameterConstraintWhiteList
+    extends IsParameterConstraintRule {
 }
