@@ -22,15 +22,21 @@ public class ParameterConstraintRuleModel {
   private boolean        notNullCheck;
   private boolean        maxLengthCheck;
   private int            maxLength;
+  private boolean        patternCheck;
+  private String         pattern;
 
   public ParameterConstraintRuleModel(ClassNameModel parameterConstraintRule,
                                       boolean notNullCheck,
                                       boolean maxLengthCheck,
-                                      int maxLength) {
+                                      int maxLength,
+                                      boolean patternCheck,
+                                      String pattern) {
     this.parameterConstraintRule = parameterConstraintRule;
     this.notNullCheck            = notNullCheck;
     this.maxLengthCheck          = maxLengthCheck;
     this.maxLength               = maxLength;
+    this.patternCheck            = patternCheck;
+    this.pattern                 = pattern;
   }
 
   public ClassNameModel getParameterConstraintRule() {
@@ -63,5 +69,21 @@ public class ParameterConstraintRuleModel {
 
   public void setMaxLength(int maxLength) {
     this.maxLength = maxLength;
+  }
+
+  public boolean isPatternCheck() {
+    return patternCheck;
+  }
+
+  public void setPatternCheck(boolean patternCheck) {
+    this.patternCheck = patternCheck;
+  }
+
+  public String getPattern() {
+    return pattern;
+  }
+
+  public void setPattern(String pattern) {
+    this.pattern = pattern;
   }
 }

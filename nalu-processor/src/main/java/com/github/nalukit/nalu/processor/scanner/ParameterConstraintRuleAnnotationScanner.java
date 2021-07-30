@@ -18,37 +18,26 @@ package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.constraint.annotation.MaxLength;
 import com.github.nalukit.nalu.client.constraint.annotation.NotEmpty;
-import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
+import com.github.nalukit.nalu.client.constraint.annotation.Pattern;
 import com.github.nalukit.nalu.processor.ProcessorException;
-import com.github.nalukit.nalu.processor.ProcessorUtils;
-import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleModel;
 
-import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 
 public class ParameterConstraintRuleAnnotationScanner {
 
-  private final ProcessingEnvironment processingEnvironment;
-  private final MetaModel             metaModel;
-  private final Element               parameterConstraintRuleElement;
-  private       ProcessorUtils        processorUtils;
+  private final Element parameterConstraintRuleElement;
 
   @SuppressWarnings("unused")
   private ParameterConstraintRuleAnnotationScanner(Builder builder) {
     super();
-    this.processingEnvironment          = builder.processingEnvironment;
-    this.metaModel                      = builder.metaModel;
     this.parameterConstraintRuleElement = builder.parameterConstraintRuleElement;
     setUp();
   }
 
   private void setUp() {
-    this.processorUtils = ProcessorUtils.builder()
-                                        .processingEnvironment(this.processingEnvironment)
-                                        .build();
   }
 
   public static Builder builder() {
@@ -60,45 +49,35 @@ public class ParameterConstraintRuleAnnotationScanner {
     return this.handleParameterConstraintRule();
   }
 
-  private ParameterConstraintRuleModel handleParameterConstraintRule()
-  //      throws ProcessorException
-  {
-    // get Annotation ...
-    ParameterConstraintRule annotation = parameterConstraintRuleElement.getAnnotation(ParameterConstraintRule.class);
-
-    NotEmpty                notEmptyAnnotation = parameterConstraintRuleElement.getAnnotation(NotEmpty.class);
-    boolean notNullCheck = notEmptyAnnotation != null;
+  private ParameterConstraintRuleModel handleParameterConstraintRule() {
+    NotEmpty notEmptyAnnotation = parameterConstraintRuleElement.getAnnotation(NotEmpty.class);
+    boolean  notNullCheck       = notEmptyAnnotation != null;
 
     MaxLength maxLengthAnnotation = parameterConstraintRuleElement.getAnnotation(MaxLength.class);
-    boolean   maxLengthCheck            = maxLengthAnnotation != null;
-    int maxLength = 0;
+    boolean   maxLengthCheck      = maxLengthAnnotation != null;
+    int       maxLength           = 0;
     if (maxLengthCheck) {
       maxLength = maxLengthAnnotation.value();
     }
-    // save model ...
+
+    Pattern patternAnnotation = parameterConstraintRuleElement.getAnnotation(Pattern.class);
+    boolean patternCheck      = patternAnnotation != null;
+    String  pattern           = "";
+    if (patternCheck) {
+      pattern = patternAnnotation.value();
+    }
+
     return new ParameterConstraintRuleModel(new ClassNameModel(parameterConstraintRuleElement.toString()),
                                             notNullCheck,
                                             maxLengthCheck,
-                                            maxLength);
+                                            maxLength,
+                                            patternCheck,
+                                            pattern);
   }
-
-
 
   public static class Builder {
 
-    ProcessingEnvironment processingEnvironment;
-    MetaModel             metaModel;
-    Element               parameterConstraintRuleElement;
-
-    public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
-      this.processingEnvironment = processingEnvironment;
-      return this;
-    }
-
-    public Builder metaModel(MetaModel metaModel) {
-      this.metaModel = metaModel;
-      return this;
-    }
+    Element parameterConstraintRuleElement;
 
     public Builder parameterConstraintRuleElement(Element parameterConstraintRuleElement) {
       this.parameterConstraintRuleElement = parameterConstraintRuleElement;
