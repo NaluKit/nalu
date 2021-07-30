@@ -21,12 +21,14 @@ import com.github.nalukit.nalu.client.component.AbstractController;
 import com.github.nalukit.nalu.client.component.IsComponentCreator;
 import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
+import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraint;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.ParameterAcceptor;
+import com.github.nalukit.nalu.processor.model.intern.ParameterAcceptorModel;
+import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintModel;
 import com.github.nalukit.nalu.processor.scanner.validation.AcceptParameterAnnotationValidator;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -43,12 +45,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ControllerAnnotationScanner {
-  
+
   private final ProcessingEnvironment processingEnvironment;
   private final MetaModel             metaModel;
   private final Element               controllerElement;
   private       ProcessorUtils        processorUtils;
-  
+
   @SuppressWarnings("unused")
   private ControllerAnnotationScanner(Builder builder) {
     super();
@@ -57,17 +59,17 @@ public class ControllerAnnotationScanner {
     this.controllerElement     = builder.controllerElement;
     setUp();
   }
-  
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   public ControllerModel scan(RoundEnvironment roundEnvironment)
       throws ProcessorException {
     // handle ProvidesSelector-annotation
@@ -79,7 +81,7 @@ public class ControllerAnnotationScanner {
     // TODO validiere alle controller und Router!
     return controllerModel;
   }
-  
+
   private ControllerModel handleController()
       throws ProcessorException {
     // get Annotation ...
@@ -101,7 +103,9 @@ public class ControllerAnnotationScanner {
       ClassNameModel compareValue = new ClassNameModel(componentTypeTypeMirror.toString());
       if (!metaModel.getComponentType()
                     .equals(compareValue)) {
-        throw new ProcessorException("Nalu-Processor: componentType >>" + compareValue.getClassName() + "<< is different. All controllers must implement the componentType!");
+        throw new ProcessorException("Nalu-Processor: componentType >>" +
+                                     compareValue.getClassName() +
+                                     "<< is different. All controllers must implement the componentType!");
       }
     }
     // check, if the controller implements IsComponentController
@@ -110,7 +114,7 @@ public class ControllerAnnotationScanner {
     // get context!
     String context = this.getContextType(controllerElement);
     if (Objects.isNull(context)) {
-      throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString() + "<< does not have a generic context!");
+      throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement + "<< does not have a generic context!");
     }
     // save model ...
     return new ControllerModel(annotation.route(),
@@ -124,7 +128,7 @@ public class ControllerAnnotationScanner {
                                new ClassNameModel(controllerElement.toString()),
                                componentController);
   }
-  
+
   private void handleAcceptParameters(RoundEnvironment roundEnvironment,
                                       Element element,
                                       ControllerModel controllerModel)
@@ -143,15 +147,35 @@ public class ControllerAnnotationScanner {
                                       .validate();
     // add to ControllerModel ...
     for (Element annotatedElement : annotatedElements) {
-      ExecutableElement executableElement = (ExecutableElement) annotatedElement;
-      AcceptParameter   annotation        = executableElement.getAnnotation(AcceptParameter.class);
+      ExecutableElement        executableElement             = (ExecutableElement) annotatedElement;
+      AcceptParameter          acceptParameterAnnotation     = executableElement.getAnnotation(AcceptParameter.class);
+      ParameterConstraint      parameterConstraintAnnotation = executableElement.getAnnotation(ParameterConstraint.class);
+      ParameterConstraintModel parameterConstraintModel      = null;
+      if (parameterConstraintAnnotation != null) {
+        TypeElement parameterConstraintTypeElement = getRuleTypeElement(parameterConstraintAnnotation);
+        if (parameterConstraintTypeElement != null) {
+          parameterConstraintModel = new ParameterConstraintModel(parameterConstraintTypeElement.toString(),
+                                                                  parameterConstraintAnnotation.illegalParameterRoute());
+        }
+      }
       controllerModel.getParameterAcceptors()
-                     .add(new ParameterAcceptor(annotation.value(),
-                                                executableElement.getSimpleName()
-                                                                 .toString()));
+                     .add(new ParameterAcceptorModel(acceptParameterAnnotation.value(),
+                                                     executableElement.getSimpleName()
+                                                                      .toString(),
+                                                     parameterConstraintModel));
     }
   }
-  
+
+  private TypeElement getRuleTypeElement(ParameterConstraint annotation) {
+    try {
+      annotation.rule();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
+  }
+
   private TypeElement getComponentTypeElement(Controller annotation) {
     try {
       annotation.component();
@@ -161,7 +185,7 @@ public class ControllerAnnotationScanner {
     }
     return null;
   }
-  
+
   private TypeElement getComponentInterfaceTypeElement(Controller annotation) {
     try {
       annotation.componentInterface();
@@ -171,7 +195,7 @@ public class ControllerAnnotationScanner {
     }
     return null;
   }
-  
+
   private TypeMirror getComponentType(final TypeMirror typeMirror) {
     final TypeMirror[] result = { null };
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
@@ -183,25 +207,25 @@ public class ControllerAnnotationScanner {
       return result[0];
     }
     type.accept(new SimpleTypeVisitor8<Void, Void>() {
-      
+
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
                     throw new UnsupportedOperationException();
                   }
-      
+
                   @Override
                   public Void visitPrimitive(PrimitiveType primitiveType,
                                              Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitArray(ArrayType arrayType,
                                          Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitDeclared(DeclaredType declaredType,
                                             Void v) {
@@ -213,13 +237,13 @@ public class ControllerAnnotationScanner {
                     }
                     return null;
                   }
-      
+
                   @Override
                   public Void visitError(ErrorType errorType,
                                          Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitTypeVariable(TypeVariable typeVariable,
                                                 Void v) {
@@ -229,7 +253,7 @@ public class ControllerAnnotationScanner {
                 null);
     return result[0];
   }
-  
+
   private boolean checkIsComponentCreator(Element element,
                                           TypeElement componentInterfaceTypeElement)
       throws ProcessorException {
@@ -245,25 +269,25 @@ public class ControllerAnnotationScanner {
     }
     // check the generic!
     type.accept(new SimpleTypeVisitor8<Void, Void>() {
-      
+
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
                     throw new UnsupportedOperationException();
                   }
-      
+
                   @Override
                   public Void visitPrimitive(PrimitiveType primitiveType,
                                              Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitArray(ArrayType arrayType,
                                          Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitDeclared(DeclaredType declaredType,
                                             Void v) {
@@ -275,13 +299,13 @@ public class ControllerAnnotationScanner {
                     }
                     return null;
                   }
-      
+
                   @Override
                   public Void visitError(ErrorType errorType,
                                          Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitTypeVariable(TypeVariable typeVariable,
                                                 Void v) {
@@ -292,11 +316,13 @@ public class ControllerAnnotationScanner {
     // check generic!
     if (!componentInterfaceTypeElement.toString()
                                       .equals(result[0].toString())) {
-      throw new ProcessorException("Nalu-Processor: controller >>" + element.toString() + "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
+      throw new ProcessorException("Nalu-Processor: controller >>" +
+                                   element +
+                                   "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
     }
     return true;
   }
-  
+
   private String getContextType(Element element) {
     final TypeMirror[] result = { null };
     TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
@@ -310,25 +336,25 @@ public class ControllerAnnotationScanner {
     }
     // check the generic!
     type.accept(new SimpleTypeVisitor8<Void, Void>() {
-      
+
                   @Override
                   protected Void defaultAction(TypeMirror typeMirror,
                                                Void v) {
                     throw new UnsupportedOperationException();
                   }
-      
+
                   @Override
                   public Void visitPrimitive(PrimitiveType primitiveType,
                                              Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitArray(ArrayType arrayType,
                                          Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitDeclared(DeclaredType declaredType,
                                             Void v) {
@@ -338,13 +364,13 @@ public class ControllerAnnotationScanner {
                     }
                     return null;
                   }
-      
+
                   @Override
                   public Void visitError(ErrorType errorType,
                                          Void v) {
                     return null;
                   }
-      
+
                   @Override
                   public Void visitTypeVariable(TypeVariable typeVariable,
                                                 Void v) {
@@ -354,7 +380,7 @@ public class ControllerAnnotationScanner {
                 null);
     return result[0].toString();
   }
-  
+
   private List<String> getRoute(String[] routes) {
     List<String> convertedRoutes = new ArrayList<>();
     for (String tmpRoute : routes) {
@@ -381,7 +407,7 @@ public class ControllerAnnotationScanner {
     }
     return convertedRoutes;
   }
-  
+
   private List<String> getParametersFromRoute(String[] routes) {
     return Stream.of(routes[0].split("/"))
                  .collect(Collectors.toList())
@@ -390,34 +416,34 @@ public class ControllerAnnotationScanner {
                  .map(p -> p.substring(1))
                  .collect(Collectors.toList());
   }
-  
+
   public static class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     MetaModel metaModel;
-    
+
     Element controllerElement;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public Builder controllerElement(Element controllerElement) {
       this.controllerElement = controllerElement;
       return this;
     }
-    
+
     public ControllerAnnotationScanner build() {
       return new ControllerAnnotationScanner(this);
     }
-    
+
   }
-  
+
 }

@@ -92,11 +92,15 @@ public final class LoggerAnnotationOk01Impl extends AbstractApplication<MockCont
   @Override
   public void loadHandlers() {
   }
-  
+
   @Override
   public void loadCompositeReferences() {
   }
-  
+
+  @Override
+  public void loadParameterConstraintRules() {
+  }
+
   @Override
   public void loadModules() {
     super.onFinishModuleLoading();

@@ -23,14 +23,10 @@ import java.util.Optional;
 public class CompositeModel {
   
   private ClassNameModel provider;
-  
   private ClassNameModel componentInterface;
-  
   private ClassNameModel component;
-  
   private ClassNameModel context;
-  
-  private List<ParameterAcceptor> parameterAcceptors;
+  private List<ParameterAcceptorModel> parameterAcceptors;
   
   private boolean componentCreator;
   
@@ -83,15 +79,23 @@ public class CompositeModel {
     this.component = component;
   }
   
-  public List<ParameterAcceptor> getParameterAcceptors() {
+  public List<ParameterAcceptorModel> getParameterAcceptors() {
     return parameterAcceptors;
   }
-  
+
+  public ParameterConstraintModel getConstraintModelFor(String parameterName) {
+    Optional<ParameterAcceptorModel> optional = this.parameterAcceptors.stream()
+                                                                       .filter(a -> parameterName.equals(a.getParameterName()))
+                                                                       .findFirst();
+    return optional.map(ParameterAcceptorModel::getParameterConstrait)
+                   .orElse(null);
+  }
+
   public String getParameterAcceptors(String parameterName) {
-    Optional<ParameterAcceptor> optional = this.parameterAcceptors.stream()
-                                                                  .filter(a -> parameterName.equals(a.getParameterName()))
-                                                                  .findFirst();
-    return optional.map(ParameterAcceptor::getMethodName)
+    Optional<ParameterAcceptorModel> optional = this.parameterAcceptors.stream()
+                                                                       .filter(a -> parameterName.equals(a.getParameterName()))
+                                                                       .findFirst();
+    return optional.map(ParameterAcceptorModel::getMethodName)
                    .orElse(null);
   }
   

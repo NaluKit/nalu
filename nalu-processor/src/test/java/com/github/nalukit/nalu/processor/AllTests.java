@@ -41,6 +41,7 @@ import org.junit.runner.RunWith;
                  LoggerTest.class,
                  MetaModelTest.class,
                  ModuleTest.class,
+                 ParameterConstraintRuleTest.class,
                  PopUpControllerCreatorTest.class,
                  PopUpFiltersTest.class,
                  PropertiesTest.class,
