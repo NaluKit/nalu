@@ -19,12 +19,18 @@ package com.github.nalukit.nalu.processor.model.intern;
 public class ParameterConstraintRuleModel {
 
   private ClassNameModel parameterConstraintRule;
-  private boolean        notNull;
+  private boolean        notNullCheck;
+  private boolean        maxLengthCheck;
+  private int            maxLength;
 
   public ParameterConstraintRuleModel(ClassNameModel parameterConstraintRule,
-                                      boolean notNull) {
+                                      boolean notNullCheck,
+                                      boolean maxLengthCheck,
+                                      int maxLength) {
     this.parameterConstraintRule = parameterConstraintRule;
-    this.notNull                 = notNull;
+    this.notNullCheck            = notNullCheck;
+    this.maxLengthCheck          = maxLengthCheck;
+    this.maxLength               = maxLength;
   }
 
   public ClassNameModel getParameterConstraintRule() {
@@ -35,11 +41,27 @@ public class ParameterConstraintRuleModel {
     this.parameterConstraintRule = parameterConstraintRule;
   }
 
-  public boolean isNotNull() {
-    return notNull;
+  public boolean isNotNullCheck() {
+    return notNullCheck;
   }
 
-  public void setNotNull(boolean notNull) {
-    this.notNull = notNull;
+  public void setNotNullCheck(boolean notNullCheck) {
+    this.notNullCheck = notNullCheck;
+  }
+
+  public boolean isMaxLengthCheck() {
+    return maxLengthCheck;
+  }
+
+  public void setMaxLengthCheck(boolean maxLengthCheck) {
+    this.maxLengthCheck = maxLengthCheck;
+  }
+
+  public int getMaxLength() {
+    return maxLength;
+  }
+
+  public void setMaxLength(int maxLength) {
+    this.maxLength = maxLength;
   }
 }

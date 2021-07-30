@@ -137,6 +137,7 @@ In case you would like to use constraits, first you need to define a rule:
 ```java_holder_method_tree
 @ParameterConstraintRule
 @NotEmpty
+@MaxLength(8)
 public interface IdRule
     extends IsParameterConstraintRule {
 }
@@ -146,6 +147,7 @@ To define a rule, you need to create an interface which extends `IsParameterCons
 Several annotation can be used to add constraints to the parameter:
 
 * **NotEmpty**: parameter value should not be null or empty!
+* **MaxLength**: parameter value is limited to the given value. Longer prameters will cause an error.
 
 Once you have defined a rule, you can use the rule. To use a rule, you need to add the `ParameterConstraint`-annotation to the method which is annoted with `AcceptParameter`:
 

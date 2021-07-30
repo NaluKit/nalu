@@ -6,7 +6,7 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.29-22:27:53<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.30-06:48:37<<
  */
 public final class ParameterConstraintCompleteImpl extends AbstractParameterConstraintRule implements IsParameterConstraintRule {
   public ParameterConstraintCompleteImpl() {
@@ -20,6 +20,9 @@ public final class ParameterConstraintCompleteImpl extends AbstractParameterCons
   @Override
   public boolean isValid(String parameter) {
     if (parameter == null || parameter.length() == 0) {
+      return false;
+    }
+    if (parameter != null && parameter.length() > 12) {
       return false;
     }
     return true;
