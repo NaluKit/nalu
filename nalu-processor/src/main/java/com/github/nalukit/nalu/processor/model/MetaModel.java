@@ -49,6 +49,7 @@ public class MetaModel {
   private ClassNameModel tracker;
   private List<ControllerModel> controllers;
   private List<BlockControllerModel> blockControllers;
+  private List<ParameterConstraintRuleModel> parameterConstraintRules;
   private List<PopUpControllerModel> popUpControllers;
   private List<ClassNameModel> filters;
   private List<ClassNameModel> popUpFilters;
@@ -80,6 +81,7 @@ public class MetaModel {
     this.popUpFilters = new ArrayList<>();
     this.handlers = new ArrayList<>();
     this.compositeModels = new ArrayList<>();
+    this.parameterConstraintRules = new ArrayList<>();
 
     this.applicationVersion = "APPLCIATIOPN-VERSION-NOT-AVAILABLE";
     this.extendingIsModuleContext = false;
@@ -347,5 +349,13 @@ public class MetaModel {
 
   public void setRemoveUrlParameterAtStart(boolean removeUrlParameterAtStart) {
     this.removeUrlParameterAtStart = removeUrlParameterAtStart;
+  }
+
+  public List<ParameterConstraintRuleModel> getParameterConstraintRules() {
+    return parameterConstraintRules;
+  }
+
+  public void setParameterConstraintRules(List<ParameterConstraintRuleModel> parameterConstraintRules) {
+    this.parameterConstraintRules = parameterConstraintRules;
   }
 }

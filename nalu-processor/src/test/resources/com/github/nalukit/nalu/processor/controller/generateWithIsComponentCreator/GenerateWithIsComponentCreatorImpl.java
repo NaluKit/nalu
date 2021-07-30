@@ -89,7 +89,11 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
   @Override
   public void loadCompositeReferences() {
   }
-  
+
+  @Override
+  public void loadParameterConstraintRules() {
+  }
+
   @Override
   public void loadModules() {
     super.onFinishModuleLoading();

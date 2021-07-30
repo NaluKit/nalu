@@ -130,6 +130,47 @@ public class MyController
 **Note:**
 At the time parameters are set by Nalu, the component is not rendered! Rendering of the component will occur after all parameters are set!
 
+Starting with version 2.6.0 Nalu will offer a possibility to add constraints to parameter. The constraints will be executed before the parameter gets injected into the controller / composite controller.
+
+In case you would like to use constraits, first you need to define a rule:
+
+```java_holder_method_tree
+@ParameterConstraintRule
+@NotEmpty
+@MaxLength(8)
+@Pattern("^[0-9]{0,8}?$")
+@BlackListing({ "113", "213", "456", "987", "223", "332" })
+@WhiteListing({ "111", "112", "113" })
+public interface IdRule
+    extends IsParameterConstraintRule {
+}
+```
+To define a rule, you need to create an interface which extends `IsParameterConstraintRule` and is annotated with `ParameterConstraintRule`.
+
+Several annotation can be used to add constraints to the parameter:
+
+* **BlackListing**: parameter value that do match the values of the list are not allowed
+* **MaxLength**: parameter value is limited to the given value. Longer prameters will cause an error.
+* **NotEmpty**: parameter value should not be null or empty!
+* **Pattern**: parameter value has to match the given pattern.
+* **WhiteListing**: parameter value that do match the values of the list are allowed
+
+Once you have defined a rule, you can use the rule. To use a rule, you need to add the `ParameterConstraint`-annotation to the method which is annoted with `AcceptParameter`:
+
+```java_holder_method_tree
+@AcceptParameter("id")
+@ParameterConstraint(rule = IdRule.class,
+                     illegalParameterRoute = "/app/error/parameter")
+public void setId(String id)
+    throws RoutingInterceptionException {
+    this.id = Long.parseLong(id);
+}
+```
+
+Note:
+The **illegalParameterRoute** should be used with a route without parameters!
+
+
 
 ### Life Cycle
 A Nalu controller has a life cycle. Nalu supports the methods:

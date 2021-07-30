@@ -191,6 +191,12 @@ public class ApplicationGenerator {
                        .typeSpec(typeSpec)
                        .build()
                        .generate();
+
+    ParameterConstraintRuleRegisterGenerator.builder()
+                                            .metaModel(metaModel)
+                                            .typeSpec(typeSpec)
+                                            .build()
+                                            .generate();
     // need to be called!
     // even if the app has no modules,
     // a empty method has to be created!

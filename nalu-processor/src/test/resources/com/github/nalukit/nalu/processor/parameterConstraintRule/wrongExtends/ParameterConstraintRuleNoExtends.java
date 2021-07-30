@@ -14,26 +14,10 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.model.intern;
+package com.github.nalukit.nalu.processor.parameterConstraintRule.wrongExtends;
 
-public class ParameterAcceptor {
-  
-  private String parameterName;
-  
-  private String methodName;
-  
-  public ParameterAcceptor(String parameterName,
-                           String methodName) {
-    this.parameterName = parameterName;
-    this.methodName    = methodName;
-  }
-  
-  public String getParameterName() {
-    return parameterName;
-  }
-  
-  public String getMethodName() {
-    return methodName;
-  }
-  
+import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
+
+@ParameterConstraintRule
+public interface ParameterConstraintRuleNoExtends {
 }

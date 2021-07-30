@@ -93,12 +93,16 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
   @Override
   public void loadHandlers() {
   }
-  
+
   @Override
   public void loadCompositeReferences() {
     this.compositeControllerReferences.add(new CompositeControllerReference("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02", "testComposite", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite.CompositeController02", "selector", false));
   }
-  
+
+  @Override
+  public void loadParameterConstraintRules() {
+  }
+
   @Override
   public void loadModules() {
     super.onFinishModuleLoading();

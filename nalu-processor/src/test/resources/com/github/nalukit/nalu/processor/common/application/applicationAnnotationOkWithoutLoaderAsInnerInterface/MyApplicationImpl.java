@@ -86,11 +86,15 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
   @Override
   public void loadHandlers() {
   }
-  
+
   @Override
   public void loadCompositeReferences() {
   }
-  
+
+  @Override
+  public void loadParameterConstraintRules() {
+  }
+
   @Override
   public void loadModules() {
     super.onFinishModuleLoading();

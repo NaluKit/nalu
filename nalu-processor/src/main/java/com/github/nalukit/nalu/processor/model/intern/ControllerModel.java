@@ -21,11 +21,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class ControllerModel {
-  
+
   private final String[]                       originalRoute;
   private final List<String>                   parameters;
   private final ClassNameModel                 provider;
-  private final List<ParameterAcceptor>        parameterAcceptors;
+  private final List<ParameterAcceptorModel>   parameterAcceptors;
   private final boolean                        componentCreator;
   private       List<String>                   route;
   private       String                         selector;
@@ -34,7 +34,7 @@ public class ControllerModel {
   private       ClassNameModel                 componentInterface;
   private       ClassNameModel                 component;
   private       List<ControllerCompositeModel> composites;
-  
+
   public ControllerModel(String[] originalRoute,
                          List<String> route,
                          String selector,
@@ -55,91 +55,99 @@ public class ControllerModel {
     this.component          = component;
     this.provider           = provider;
     this.componentCreator   = componentCreator;
-    
+
     this.parameterAcceptors = new ArrayList<>();
     this.composites         = new ArrayList<>();
   }
-  
+
   public List<String> getRoute() {
     return route;
   }
-  
+
   public void setRoute(List<String> route) {
     this.route = route;
   }
-  
+
   public String getSelector() {
     return selector;
   }
-  
+
   public void setSelector(String selector) {
     this.selector = selector;
   }
-  
+
   public List<String> getParameters() {
     return parameters;
   }
-  
+
   public ClassNameModel getController() {
     return controller;
   }
-  
+
   public void setController(ClassNameModel controller) {
     this.controller = controller;
   }
-  
+
   public ClassNameModel getComponentInterface() {
     return componentInterface;
   }
-  
+
   public void setComponentInterface(ClassNameModel componentInterface) {
     this.componentInterface = componentInterface;
   }
-  
+
   public ClassNameModel getComponent() {
     return component;
   }
-  
+
   public void setComponent(ClassNameModel component) {
     this.component = component;
   }
-  
+
   public ClassNameModel getProvider() {
     return provider;
   }
-  
-  public List<ParameterAcceptor> getParameterAcceptors() {
+
+  public List<ParameterAcceptorModel> getParameterAcceptors() {
     return parameterAcceptors;
   }
-  
+
   public String getParameterAcceptors(String parameterName) {
-    Optional<ParameterAcceptor> optional = this.parameterAcceptors.stream()
-                                                                  .filter(a -> parameterName.equals(a.getParameterName()))
-                                                                  .findFirst();
-    return optional.map(ParameterAcceptor::getMethodName)
+    Optional<ParameterAcceptorModel> optional = this.parameterAcceptors.stream()
+                                                                       .filter(a -> parameterName.equals(a.getParameterName()))
+                                                                       .findFirst();
+    return optional.map(ParameterAcceptorModel::getMethodName)
                    .orElse(null);
   }
-  
+
+  public ParameterConstraintModel getConstraintModelFor(String parameterName) {
+    Optional<ParameterAcceptorModel> optional = this.parameterAcceptors.stream()
+                                                                       .filter(a -> parameterName.equals(a.getParameterName()))
+                                                                       .findFirst();
+    return optional.map(ParameterAcceptorModel::getParameterConstrait)
+                   .orElse(null);
+  }
+
   public ClassNameModel getContext() {
     return context;
   }
-  
+
   public void setContext(ClassNameModel context) {
     this.context = context;
   }
-  
+
   public List<ControllerCompositeModel> getComposites() {
     return composites;
   }
-  
+
   public void setComposites(List<ControllerCompositeModel> composites) {
     this.composites = composites;
   }
-  
+
   public boolean isComponentCreator() {
     return componentCreator;
   }
-  
+
   public boolean match(String route) {
     for (String originalRoute : this.originalRoute) {
       if (this.matchShell(originalRoute,
@@ -153,7 +161,7 @@ public class ControllerModel {
     }
     return false;
   }
-  
+
   private boolean matchShell(String originalRoute,
                              String route) {
     if (originalRoute.startsWith("/*")) {
@@ -163,7 +171,7 @@ public class ControllerModel {
     String shellOfOriginalRoute = this.getShellFromRoute(originalRoute);
     return shellOfOriginalRoute.contains(shellOfRoute);
   }
-  
+
   private String getRouteWithoutShell(String route) {
     String routeWithoutShell = route;
     if (routeWithoutShell.startsWith("/")) {
@@ -180,7 +188,7 @@ public class ControllerModel {
       return "/";
     }
   }
-  
+
   private String getShellFromRoute(String route) {
     String shellOfRoute = route;
     if (shellOfRoute.startsWith("/")) {
@@ -192,7 +200,7 @@ public class ControllerModel {
     }
     return shellOfRoute;
   }
-  
+
   private boolean matchRouteWithoutShell(String route) {
     for (String originalRoute : this.originalRoute) {
       String routeWithoutShell      = this.getRouteWithoutShell(originalRoute);
@@ -203,5 +211,5 @@ public class ControllerModel {
     }
     return false;
   }
-  
+
 }

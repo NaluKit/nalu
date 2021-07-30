@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ProcessorConstants {
-  
+
   public final static String META_DATA           = "MetaData";
   public final static String META_INF            = "META-INF";
   public final static String NALU_FOLDER_NAME    = "nalu-route";
@@ -28,10 +28,11 @@ public class ProcessorConstants {
   public final static String TYPE_DELIMITER      = "_tTt_";
   public final static String PROPERTIES_POSTFIX  = ".properties";
   public final static String CREATOR_IMPL        = "CreatorImpl";
+  public final static String IMPL                = "Impl";
   public final static String LOADER_IMPL         = "LoaderImpl";
   public final static String MODULE_IMPL         = "ModuleImpl";
   public final static String PLUGIN_IMPL         = "PluginImpl";
   public final static String PROCESSOR_VERSION   = "HEAD-SNAPSHOT-gwt-2.8.2";
   public final static String BUILD_TIME          = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(new Date(System.currentTimeMillis()));
-  
+
 }

@@ -94,6 +94,10 @@ public final class VersionAnnotationImpl extends AbstractApplication<MockModuleC
   }
 
   @Override
+  public void loadParameterConstraintRules() {
+  }
+
+  @Override
   public void loadModules() {
     super.onFinishModuleLoading();
   }

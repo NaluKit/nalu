@@ -15,56 +15,56 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT-gwt-2.8.2<< at >>2020.11.18-06:48:30<<
+ * Build with Nalu version >>HEAD-SNAPSHOT-gwt-2.8.2<< at >>2021.07.30-17:18:29<<
  */
 public final class LoggerAnnotationOk02Impl extends AbstractApplication<MockContext> implements LoggerAnnotationOk02 {
   public LoggerAnnotationOk02Impl() {
     super();
     super.context = new com.github.nalukit.nalu.processor.common.MockContext();
   }
-  
+
   @Override
   public void loadLoggerConfiguration() {
   }
-  
+
   @Override
   public void logProcessorVersion() {
     this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>HEAD-SNAPSHOT-gwt-2.8.2<< used to generate this source").addMessage("=================================================================================").addMessage(""));
   }
-  
+
   @Override
   public IsTracker loadTrackerConfiguration() {
     return null;
   }
-  
+
   @Override
   public void loadShells() {
     super.shellConfiguration.getShells().add(new ShellConfig("/mockShell", "com.github.nalukit.nalu.processor.common.MockShell"));
   }
-  
+
   @Override
   public void loadShellFactory() {
     ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockShell", new com.github.nalukit.nalu.processor.common.MockShellCreatorImpl(router, context, eventBus));
   }
-  
+
   @Override
   public void loadCompositeController() {
   }
-  
+
   @Override
   public void loadComponents() {
     ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01", new com.github.nalukit.nalu.processor.common.ui.component01.Controller01CreatorImpl(router, context, eventBus));
   }
-  
+
   @Override
   public void loadRoutes() {
     super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01/*", Arrays.asList(new String[]{"parameter01"}), "selector01", "com.github.nalukit.nalu.processor.common.ui.component01.Controller01"));
   }
-  
+
   @Override
   public void loadBlockControllerFactory() {
   }
-  
+
   @Override
   public void loadPopUpControllerFactory() {
   }
@@ -77,44 +77,48 @@ public final class LoggerAnnotationOk02Impl extends AbstractApplication<MockCont
   public void loadErrorPopUpController() {
     this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("no ErrorPopUpController found!"));
   }
-  
+
   @Override
   public void loadFilters() {
   }
-  
+
   @Override
   public void loadHandlers() {
   }
-  
+
   @Override
   public void loadCompositeReferences() {
   }
-  
+
+  @Override
+  public void loadParameterConstraintRules() {
+  }
+
   @Override
   public void loadModules() {
     super.onFinishModuleLoading();
   }
-  
+
   @Override
   public IsLoader<MockContext> getLoader() {
     return null;
   }
-  
+
   @Override
   public IsLoader<MockContext> getPostLoader() {
     return null;
   }
-  
+
   @Override
   public IsCustomAlertPresenter getCustomAlertPresenter() {
     return null;
   }
-  
+
   @Override
   public IsCustomConfirmPresenter getCustomConfirmPresenter() {
     return null;
   }
-  
+
   @Override
   public void loadDefaultRoutes() {
     this.startRoute = "/mockShell/route01";
@@ -129,12 +133,12 @@ public final class LoggerAnnotationOk02Impl extends AbstractApplication<MockCont
   public boolean hasHistory() {
     return true;
   }
-  
+
   @Override
   public boolean isUsingHash() {
     return true;
   }
-  
+
   @Override
   public boolean isUsingColonForParametersInUrl() {
     return false;
