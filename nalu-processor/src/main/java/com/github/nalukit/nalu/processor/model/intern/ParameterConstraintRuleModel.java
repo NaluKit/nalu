@@ -24,19 +24,31 @@ public class ParameterConstraintRuleModel {
   private int            maxLength;
   private boolean        patternCheck;
   private String         pattern;
+  private boolean        blackListingCheck;
+  private String[]       blackList;
+  private boolean        whiteListingCheck;
+  private String[]       whiteList;
 
   public ParameterConstraintRuleModel(ClassNameModel parameterConstraintRule,
                                       boolean notNullCheck,
                                       boolean maxLengthCheck,
                                       int maxLength,
                                       boolean patternCheck,
-                                      String pattern) {
+                                      String pattern,
+                                      boolean blackListingCheck,
+                                      String[] blackList,
+                                      boolean whiteListingCheck,
+                                      String[] whiteList) {
     this.parameterConstraintRule = parameterConstraintRule;
     this.notNullCheck            = notNullCheck;
     this.maxLengthCheck          = maxLengthCheck;
     this.maxLength               = maxLength;
     this.patternCheck            = patternCheck;
     this.pattern                 = pattern;
+    this.blackListingCheck       = blackListingCheck;
+    this.blackList               = blackList;
+    this.whiteListingCheck       = whiteListingCheck;
+    this.whiteList               = whiteList;
   }
 
   public ClassNameModel getParameterConstraintRule() {
@@ -85,5 +97,37 @@ public class ParameterConstraintRuleModel {
 
   public void setPattern(String pattern) {
     this.pattern = pattern;
+  }
+
+  public boolean isBlackListingCheck() {
+    return blackListingCheck;
+  }
+
+  public void setBlackListingCheck(boolean blackListingCheck) {
+    this.blackListingCheck = blackListingCheck;
+  }
+
+  public String[] getBlackList() {
+    return blackList;
+  }
+
+  public void setBlackList(String[] blackList) {
+    this.blackList = blackList;
+  }
+
+  public boolean isWhiteListingCheck() {
+    return whiteListingCheck;
+  }
+
+  public void setWhiteListingCheck(boolean whiteListingCheck) {
+    this.whiteListingCheck = whiteListingCheck;
+  }
+
+  public String[] getWhiteList() {
+    return whiteList;
+  }
+
+  public void setWhiteList(String[] whiteList) {
+    this.whiteList = whiteList;
   }
 }

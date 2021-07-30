@@ -23,12 +23,12 @@ import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
 import com.squareup.javapoet.*;
-import org.gwtproject.regexp.shared.MatchResult;
 import org.gwtproject.regexp.shared.RegExp;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ParameterConstraintRuleImplGenerator {
 
@@ -128,8 +128,60 @@ public class ParameterConstraintRuleImplGenerator {
             .addStatement("return regExp.test(parameter)")
             .endControlFlow();
     }
+    if (this.parameterConstraintRuleModel.isBlackListingCheck()) {
+      if (this.parameterConstraintRuleModel.getBlackList().length > 0) {
+        method.beginControlFlow("if (parameter != null)")
+              .beginControlFlow("if (" + this.createConditionFromArray(false) + ")",
+                                ClassName.get(Arrays.class))
+              .addStatement("return false")
+              .endControlFlow()
+              .endControlFlow();
+      }
+    }
+    if (this.parameterConstraintRuleModel.isWhiteListingCheck()) {
+      if (this.parameterConstraintRuleModel.getWhiteList().length > 0) {
+        method.beginControlFlow("if (parameter != null)")
+              .beginControlFlow("if (" + this.createConditionFromArray(true) + ")",
+                                ClassName.get(Arrays.class))
+              .addStatement("return false")
+              .endControlFlow()
+              .endControlFlow();
+      }
+    }
     method.addStatement("return true");
     return method.build();
+  }
+
+  private String createConditionFromArray(boolean isWhiteList) {
+    boolean       notFirstComma = false;
+    StringBuilder sb            = new StringBuilder();
+    if (isWhiteList) {
+      sb.append("!");
+    }
+    sb.append("$T.asList(");
+    if (isWhiteList) {
+      for (String s : this.parameterConstraintRuleModel.getWhiteList()) {
+        if (notFirstComma) {
+          sb.append(", ");
+        }
+        notFirstComma = true;
+        sb.append("\"")
+          .append(s)
+          .append("\"");
+      }
+    } else {
+      for (String s : this.parameterConstraintRuleModel.getBlackList()) {
+        if (notFirstComma) {
+          sb.append(", ");
+        }
+        notFirstComma = true;
+        sb.append("\"")
+          .append(s)
+          .append("\"");
+      }
+    }
+    sb.append(").contains(parameter)");
+    return sb.toString();
   }
 
   public static final class Builder {

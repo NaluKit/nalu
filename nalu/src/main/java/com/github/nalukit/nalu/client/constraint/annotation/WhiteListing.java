@@ -22,12 +22,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * The parameter has to match the regular expression.
+ * Defines the legal values for a parameter
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Pattern {
+public @interface WhiteListing {
 
-  String value();
+  String[] value();
 
 }

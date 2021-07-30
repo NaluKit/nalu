@@ -4,10 +4,11 @@ import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 import com.github.nalukit.nalu.client.internal.constrain.AbstractParameterConstraintRule;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Arrays;
 import org.gwtproject.regexp.shared.RegExp;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.30-07:25:37<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.30-14:56:35<<
  */
 public final class ParameterConstraintCompleteImpl extends AbstractParameterConstraintRule implements IsParameterConstraintRule {
   public ParameterConstraintCompleteImpl() {
@@ -27,8 +28,18 @@ public final class ParameterConstraintCompleteImpl extends AbstractParameterCons
       return false;
     }
     if (parameter != null) {
-      RegExp regExp = RegExp.compile("^[0-9]{0,8}?$");
+      RegExp regExp = RegExp.compile("^[A-Z]?$");
       return regExp.test(parameter);
+    }
+    if (parameter != null) {
+      if (Arrays.asList("A", "B", "C", "D", "E", "F").contains(parameter)) {
+        return false;
+      }
+    }
+    if (parameter != null) {
+      if (!Arrays.asList("X", "Y", "Z").contains(parameter)) {
+        return false;
+      }
     }
     return true;
   }

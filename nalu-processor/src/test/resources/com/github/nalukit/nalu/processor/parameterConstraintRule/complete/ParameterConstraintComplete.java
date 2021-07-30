@@ -16,18 +16,17 @@
 
 package com.github.nalukit.nalu.processor.parameterConstraintRule.complete;
 
-import com.github.nalukit.nalu.client.constraint.annotation.MaxLength;
-import com.github.nalukit.nalu.client.constraint.annotation.NotEmpty;
-import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
+import com.github.nalukit.nalu.client.constraint.annotation.*;
 import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
-import com.github.nalukit.nalu.client.constraint.annotation.Pattern;
 
 import javax.validation.constraints.NotNull;
 
 @ParameterConstraintRule
 @NotEmpty
 @MaxLength(12)
-@Pattern("^[0-9]{0,8}?$")
+@Pattern("^[A-Z]?$")
+@BlackListing({ "A", "B", "C", "D", "E", "F" })
+@WhiteListing({ "X", "Y", "Z" })
 public interface ParameterConstraintComplete
     extends IsParameterConstraintRule {
 }

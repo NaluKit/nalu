@@ -16,9 +16,7 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
-import com.github.nalukit.nalu.client.constraint.annotation.MaxLength;
-import com.github.nalukit.nalu.client.constraint.annotation.NotEmpty;
-import com.github.nalukit.nalu.client.constraint.annotation.Pattern;
+import com.github.nalukit.nalu.client.constraint.annotation.*;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleModel;
@@ -67,12 +65,30 @@ public class ParameterConstraintRuleAnnotationScanner {
       pattern = patternAnnotation.value();
     }
 
+    BlackListing blackListing = parameterConstraintRuleElement.getAnnotation(BlackListing.class);
+    boolean      blackListingCheck      = blackListing != null;
+    String[]  blackList           = new String[]{};
+    if (blackListingCheck) {
+      blackList = blackListing.value();
+    }
+
+    WhiteListing whiteListing      = parameterConstraintRuleElement.getAnnotation(WhiteListing.class);
+    boolean      whiteListingCheck = whiteListing != null;
+    String[]  whiteList           = new String[]{};
+    if (whiteListingCheck) {
+      whiteList = whiteListing.value();
+    }
+
     return new ParameterConstraintRuleModel(new ClassNameModel(parameterConstraintRuleElement.toString()),
                                             notNullCheck,
                                             maxLengthCheck,
                                             maxLength,
                                             patternCheck,
-                                            pattern);
+                                            pattern,
+                                            blackListingCheck,
+                                            blackList,
+                                            whiteListingCheck,
+                                            whiteList);
   }
 
   public static class Builder {
