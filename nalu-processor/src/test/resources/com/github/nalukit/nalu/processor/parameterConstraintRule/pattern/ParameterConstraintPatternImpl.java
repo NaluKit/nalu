@@ -7,7 +7,7 @@ import java.lang.String;
 import org.gwtproject.regexp.shared.RegExp;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.30-07:44:57<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.30-17:56:30<<
  */
 public final class ParameterConstraintPatternImpl extends AbstractParameterConstraintRule implements IsParameterConstraintRule {
   public ParameterConstraintPatternImpl() {
@@ -22,7 +22,9 @@ public final class ParameterConstraintPatternImpl extends AbstractParameterConst
   public boolean isValid(String parameter) {
     if (parameter != null) {
       RegExp regExp = RegExp.compile("^[0-9]{0,8}?$");
-      return regExp.test(parameter);
+      if (!regExp.test(parameter)) {
+        return false;
+      }
     }
     return true;
   }
