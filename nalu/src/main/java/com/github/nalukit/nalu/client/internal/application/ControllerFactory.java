@@ -64,6 +64,7 @@ public class ControllerFactory {
                                        params);
       } catch (RoutingInterceptionException e) {
         callback.onRoutingInterceptionException(e);
+        return;
       }
       if (controllerInstance.isCached()) {
         callback.onFinish(controllerInstance);
