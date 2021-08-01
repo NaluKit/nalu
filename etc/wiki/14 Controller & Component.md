@@ -734,7 +734,19 @@ The `@PopUpController` annotation has three required attributes:
 * componentInterface: the type of the interface for your component
 * component: the type of the component
 
-The 'componentInterface'-attribute will be used inside the controller as reference of the component interface, where as the 'component'-attribute will be used to instantiate the component. By default Nalu uses the `new` to create an instance of an component. (`GWT-create()` will no longer be available in J2CL / GWT 3! And, to be ready for J2CL / GWT 3 Nalu has to avoid using `GWT.create`).
+and an optional attribute:
+
+* alwaysRenderComponent.
+
+The **componentInterface**-attribute will be used inside the controller as reference of the component interface, where as the **component**-attribute will be used to instantiate the component. By default Nalu uses the `new` to create an instance of an component. (`GWT-create()` will no longer be available in J2CL / GWT 3! And, to be ready for J2CL / GWT 3 Nalu has to avoid using `GWT.create`).
+
+The optinal **alwaysRenderComponent**-attribute tells Nalu how to handle component rendering. By default, Nalu will render the component at the moment the popup is used the first time. After that, Nalu will always reuse the element. Setting the **alwaysRenderComponent**-attribute to true, Nalu will render the component every time the popup is used. Nalu will call the folling methods:
+
+* removeHandlers
+* render
+* bind
+
+inside the component.
 
 You can use the `IsPopUpComponentCreator`-interface to create the component inside your controller.
 
