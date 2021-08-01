@@ -29,7 +29,7 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
 
   @Override
   public void logProcessorVersion() {
-    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>HEAD-SNAPSHOT-gwt-2.8.2<< used to generate this source").addMessage("=================================================================================").addMessage(""));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>gwt-2.8.2-HEAD-HEADSNAPSHOT<< used to generate this source").addMessage("=================================================================================").addMessage(""));
   }
 
   @Override

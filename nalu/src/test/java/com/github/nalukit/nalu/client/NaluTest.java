@@ -8,7 +8,7 @@ public class NaluTest {
 
   @Test
   void getVersion() {
-    Assertions.assertEquals("HEAD-SNAPSHOT-gwt-2.8.2",
+    Assertions.assertEquals("gwt-2.8.2-HEAD-HEADSNAPSHOT",
                             Nalu.getVersion());
   }
 

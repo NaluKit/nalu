@@ -108,12 +108,12 @@ To use Nalu add the following dependencies to your pom:
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
-    <version>HEAD-SNAPSHOT-gwt-2.8.2</version>
+    <version>gwt-2.8.2-HEAD-HEADSNAPSHOT</version>
 </dependency>
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
-    <version>HEAD-SNAPSHOT-gwt-2.8.2</version>
+    <version>gwt-2.8.2-HEAD-HEADSNAPSHOT</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -163,7 +163,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
-    <version>HEAD-SNAPSHOT-gwt-2.8.2</version>
+    <version>gwt-2.8.2-HEAD-HEADSNAPSHOT</version>
 ```
 
 * **GWT 2.9.0 - Release**
