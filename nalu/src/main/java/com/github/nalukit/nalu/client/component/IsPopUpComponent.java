@@ -34,8 +34,7 @@ public interface IsPopUpComponent<C extends IsPopUpComponent.Controller>
   /**
    * Is called to remove binding.
    *
-   * Note:
-   * The method is called by teh framework. Don't call it!
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
   @NaluInternalUse
   void removeHandlers();

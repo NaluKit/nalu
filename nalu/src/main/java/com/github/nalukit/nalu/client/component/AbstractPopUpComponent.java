@@ -42,8 +42,7 @@ public abstract class AbstractPopUpComponent<C extends IsPopUpComponent.Controll
   public abstract void hide();
 
   /**
-   * internal framework method! Will be called by the framework after the
-   * stop-method f the controller is called
+   * Will only be called in case the popup component get always rendered!
    *
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
