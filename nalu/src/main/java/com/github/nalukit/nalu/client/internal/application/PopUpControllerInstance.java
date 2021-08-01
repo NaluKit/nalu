@@ -21,30 +21,39 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
 public class PopUpControllerInstance {
-  
+
   /* controller's class name */
   private String popUpControllerClassName;
-  
+
+  private boolean alwaysRenderComponent;
+
   /* controller */
   private AbstractPopUpComponentController<?, ?> controller;
-  
+
   public PopUpControllerInstance() {
   }
-  
+
   public String getPopUpControllerClassName() {
     return popUpControllerClassName;
   }
-  
+
   public void setPopUpControllerClassName(String popUpControllerClassName) {
     this.popUpControllerClassName = popUpControllerClassName;
   }
-  
+
   public AbstractPopUpComponentController<?, ?> getController() {
     return controller;
   }
-  
+
   public void setController(AbstractPopUpComponentController<?, ?> controller) {
     this.controller = controller;
   }
-  
+
+  public boolean isAlwaysRenderComponent() {
+    return alwaysRenderComponent;
+  }
+
+  public void setAlwaysRenderComponent(boolean alwaysRenderComponent) {
+    this.alwaysRenderComponent = alwaysRenderComponent;
+  }
 }

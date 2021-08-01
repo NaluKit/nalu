@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public abstract class AbstractComponent<C extends IsComponent.Controller, W>
     extends AbstractCommonComponent<C>
@@ -56,6 +57,7 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
   @Override
+  @NaluInternalUse
   public final void removeHandlers() {
     this.handlerRegistrations.removeHandler();
     this.handlerRegistrations = new HandlerRegistrations();
