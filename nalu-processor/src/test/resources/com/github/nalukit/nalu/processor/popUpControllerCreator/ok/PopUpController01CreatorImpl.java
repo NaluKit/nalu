@@ -10,17 +10,18 @@ import java.lang.Override;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT-gwt-2.8.2<< at >>2020.11.05-23:12:17<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.31-20:00:49<<
  */
 public final class PopUpController01CreatorImpl extends AbstractPopUpControllerCreator<MockContext> implements IsPopUpControllerCreator {
   public PopUpController01CreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
     super(router, context, eventBus);
   }
-  
+
   @Override
   public PopUpControllerInstance create() {
     PopUpControllerInstance popUpControllerInstance = new PopUpControllerInstance();
     popUpControllerInstance.setPopUpControllerClassName("com.github.nalukit.nalu.processor.popUpControllerCreator.ok.PopUpController01");
+    popUpControllerInstance.setAlwaysRenderComponent(false);
     PopUpController01 controller = new PopUpController01();
     popUpControllerInstance.setController(controller);
     controller.setContext(context);
@@ -29,7 +30,7 @@ public final class PopUpController01CreatorImpl extends AbstractPopUpControllerC
     controller.setName("PopUpController01");
     return popUpControllerInstance;
   }
-  
+
   @Override
   public void onFinishCreating(Object object) {
     PopUpController01 controller = (PopUpController01) object;

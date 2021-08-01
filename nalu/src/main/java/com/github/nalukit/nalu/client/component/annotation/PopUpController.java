@@ -57,4 +57,20 @@ public @interface PopUpController {
    */
   Class<? extends IsShowPopUpCondition> condition() default AlwaysShowPopUp.class;
 
+  /**
+   * Defines the behavior, how often the component is created.
+   *
+   * Default is, that the component is created once the controller is created,
+   * at the time the popup event is fired. After that, the component is always
+   * reused.
+   *
+   * In case the popup component should be rendered every time  the popup event
+   * is fired, set this attribute to true.
+   *
+   * (Default is false)
+   *
+   * @return true: always render the component.
+   */
+  boolean alwaysRenderComponent() default false;
+
 }
