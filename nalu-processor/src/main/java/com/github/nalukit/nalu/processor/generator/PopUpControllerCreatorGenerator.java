@@ -32,24 +32,24 @@ import javax.lang.model.element.Modifier;
 import java.io.IOException;
 
 public class PopUpControllerCreatorGenerator {
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private PopUpControllerModel popUpControllerModel;
-  
+
   @SuppressWarnings("unused")
   private PopUpControllerCreatorGenerator() {
   }
-  
+
   private PopUpControllerCreatorGenerator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.popUpControllerModel  = builder.popUpControllerModel;
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   public void generate()
       throws ProcessorException {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(popUpControllerModel.getController()
@@ -78,7 +78,7 @@ public class PopUpControllerCreatorGenerator {
                                        .addStatement("super(router, context, eventBus)")
                                        .build();
     typeSpec.addMethod(constructor);
-    
+
     MethodSpec.Builder createMethod = MethodSpec.methodBuilder("create")
                                                 .addAnnotation(ClassName.get(Override.class))
                                                 .addModifiers(Modifier.PUBLIC)
@@ -89,6 +89,8 @@ public class PopUpControllerCreatorGenerator {
                                                 .addStatement("popUpControllerInstance.setPopUpControllerClassName($S)",
                                                               popUpControllerModel.getController()
                                                                                   .getClassName())
+                                                .addStatement("popUpControllerInstance.setAlwaysRenderComponent($L)",
+                                                              popUpControllerModel.isAlwaysRenderComponent() ? "true" : "false")
                                                 .addStatement("$T controller = new $T()",
                                                               ClassName.get(popUpControllerModel.getProvider()
                                                                                                 .getPackage(),
@@ -106,7 +108,7 @@ public class PopUpControllerCreatorGenerator {
                                                               popUpControllerModel.getName());
     createMethod.addStatement("return popUpControllerInstance");
     typeSpec.addMethod(createMethod.build());
-  
+
     MethodSpec.Builder onFinishCreatingMethod = MethodSpec.methodBuilder("onFinishCreating")
                                                           .addParameter(ParameterSpec.builder(ClassName.get(Object.class),
                                                                                               "object")
@@ -144,7 +146,7 @@ public class PopUpControllerCreatorGenerator {
                           .addStatement("component.render()")
                           .addStatement("component.bind()");
     typeSpec.addMethod(onFinishCreatingMethod.build());
-  
+
     JavaFile javaFile = JavaFile.builder(popUpControllerModel.getController()
                                                              .getPackage(),
                                          typeSpec.build())
@@ -161,15 +163,15 @@ public class PopUpControllerCreatorGenerator {
                                    e.getMessage());
     }
   }
-  
+
   public static final class Builder {
-    
+
     MetaModel metaModel;
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     PopUpControllerModel popUpControllerModel;
-    
+
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -180,21 +182,21 @@ public class PopUpControllerCreatorGenerator {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder popUpControllerModel(PopUpControllerModel popUpControllerModel) {
       this.popUpControllerModel = popUpControllerModel;
       return this;
     }
-    
+
     public PopUpControllerCreatorGenerator build() {
       return new PopUpControllerCreatorGenerator(this);
     }
-    
+
   }
-  
+
 }

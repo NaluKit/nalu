@@ -91,6 +91,8 @@ public class PopUpControllerAnnotationScanner {
     if (Objects.isNull(context)) {
       throw new ProcessorException("Nalu-Processor: controller >>" + popUpControllerElement.toString() + "<< does not have a generic context!");
     }
+    // always render component???
+    boolean alwaysRenderComponent = annotation.alwaysRenderComponent();
     // save model ...
     return new PopUpControllerModel(annotation.name(),
                                     new ClassNameModel(context),
@@ -100,7 +102,8 @@ public class PopUpControllerAnnotationScanner {
                                     new ClassNameModel(popUpControllerElement.toString()),
                                     new ClassNameModel(Objects.requireNonNull(getPopUpConditionElement(annotation))
                                                               .toString()),
-                                    componentController);
+                                    componentController,
+                                    alwaysRenderComponent);
   }
   
   private TypeElement getComponentTypeElement(PopUpController annotation) {

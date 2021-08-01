@@ -27,6 +27,7 @@ public class PopUpControllerModel {
   public  ClassNameModel condition;
 
   private boolean componentCreator;
+  private boolean alwaysRenderComponent;
   
   public PopUpControllerModel(String name,
                               ClassNameModel context,
@@ -35,7 +36,8 @@ public class PopUpControllerModel {
                               ClassNameModel component,
                               ClassNameModel provider,
                               ClassNameModel condition,
-                              boolean componentCreator) {
+                              boolean componentCreator,
+                              boolean alwaysRenderComponent) {
     this.name               = name;
     this.context            = context;
     this.controller         = controller;
@@ -44,6 +46,7 @@ public class PopUpControllerModel {
     this.provider           = provider;
     this.componentCreator   = componentCreator;
     this.condition= condition;
+    this.alwaysRenderComponent = alwaysRenderComponent;
   }
   
   public String getName() {
@@ -105,5 +108,12 @@ public class PopUpControllerModel {
   public void setComponentCreator(boolean componentCreator) {
     this.componentCreator = componentCreator;
   }
-  
+
+  public boolean isAlwaysRenderComponent() {
+    return alwaysRenderComponent;
+  }
+
+  public void setAlwaysRenderComponent(boolean alwaysRenderComponent) {
+    this.alwaysRenderComponent = alwaysRenderComponent;
+  }
 }

@@ -18,7 +18,6 @@ package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.component.AbstractPopUpFilter;
-import com.github.nalukit.nalu.client.component.IsShowPopUpCondition;
 import com.github.nalukit.nalu.client.component.event.ShowPopUpEvent;
 import com.github.nalukit.nalu.client.filter.IsPopUpFilter;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
@@ -94,7 +93,8 @@ public class PopUpControllerFactory {
       return;
     }
 
-    if (!PopUpConditionFactory.get().showPopUp(event)) {
+    if (!PopUpConditionFactory.get()
+                              .showPopUp(event)) {
       return;
     }
 
@@ -122,6 +122,18 @@ public class PopUpControllerFactory {
                             .setCommandStore(event.getCommandStore());
     PopUpControllerInstance finalPopUpComponentController = popUpComponentController;
     if (creator == null) {
+      if (finalPopUpComponentController.isAlwaysRenderComponent()) {
+        finalPopUpComponentController.getController()
+                                     .getComponent()
+                                     .removeHandlers();
+        finalPopUpComponentController.getController()
+                                     .getComponent()
+                                     .render();
+        finalPopUpComponentController.getController()
+                                     .getComponent()
+                                     .bind();
+      }
+
       finalPopUpComponentController.getController()
                                    .onBeforeShow(() -> finalPopUpComponentController.getController()
                                                                                     .show());

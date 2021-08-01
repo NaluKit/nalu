@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 public interface IsPopUpComponent<C extends IsPopUpComponent.Controller>
     extends IsCommonComponent<C> {
 
@@ -28,6 +30,15 @@ public interface IsPopUpComponent<C extends IsPopUpComponent.Controller>
    * Call this method to hide the component
    */
   void hide();
+
+  /**
+   * Is called to remove binding.
+   *
+   * Note:
+   * The method is called by teh framework. Don't call it!
+   */
+  @NaluInternalUse
+  void removeHandlers();
 
   interface Controller
       extends IsCommonComponent.Controller {

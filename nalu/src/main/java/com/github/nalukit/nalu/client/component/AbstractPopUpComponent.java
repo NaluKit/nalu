@@ -16,10 +16,15 @@
 
 package com.github.nalukit.nalu.client.component;
 
+import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 public abstract class AbstractPopUpComponent<C extends IsPopUpComponent.Controller>
     extends AbstractCommonComponent<C>
     implements IsPopUpComponent<C>,
                IsAbstractPopUpComponent {
+
+  protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
 
   public AbstractPopUpComponent() {
   }
@@ -35,5 +40,18 @@ public abstract class AbstractPopUpComponent<C extends IsPopUpComponent.Controll
    */
   @Override
   public abstract void hide();
+
+  /**
+   * internal framework method! Will be called by the framework after the
+   * stop-method f the controller is called
+   *
+   * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
+   */
+  @Override
+  @NaluInternalUse
+  public final void removeHandlers() {
+    this.handlerRegistrations.removeHandler();
+    this.handlerRegistrations = new HandlerRegistrations();
+  }
 
 }
