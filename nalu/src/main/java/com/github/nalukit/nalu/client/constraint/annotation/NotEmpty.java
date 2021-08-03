@@ -22,7 +22,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Tells teh rule that the value of the parameter should not be empty.
+ * Tells the rule that the value of the parameter should not be empty.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

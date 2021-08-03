@@ -14,20 +14,20 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.parameterConstraintRule.complete;
+package com.github.nalukit.nalu.client.constraint.annotation;
 
-import com.github.nalukit.nalu.client.constraint.annotation.*;
-import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import javax.validation.constraints.NotNull;
+/**
+ * Tells the rule that the length of the parameter is at least n characters
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface MinLength {
 
-@ParameterConstraintRule
-@NotEmpty
-@MinLength(2)
-@MaxLength(12)
-@Pattern("^[A-Z]?$")
-@BlackListing({ "A", "B", "C", "D", "E", "F" })
-@WhiteListing({ "X", "Y", "Z" })
-public interface ParameterConstraintComplete
-    extends IsParameterConstraintRule {
+  int value();
+
 }

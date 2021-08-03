@@ -14,20 +14,14 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.parameterConstraintRule.complete;
+package com.github.nalukit.nalu.processor.parameterConstraintRule.minLength;
 
-import com.github.nalukit.nalu.client.constraint.annotation.*;
+import com.github.nalukit.nalu.client.constraint.annotation.MinLength;
+import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
 import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 
-import javax.validation.constraints.NotNull;
-
 @ParameterConstraintRule
-@NotEmpty
 @MinLength(2)
-@MaxLength(12)
-@Pattern("^[A-Z]?$")
-@BlackListing({ "A", "B", "C", "D", "E", "F" })
-@WhiteListing({ "X", "Y", "Z" })
-public interface ParameterConstraintComplete
+public interface ParameterConstraintMinLength
     extends IsParameterConstraintRule {
 }
