@@ -8,7 +8,7 @@ import java.util.Arrays;
 import org.gwtproject.regexp.shared.RegExp;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.30-17:57:38<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.08.03-17:10:15<<
  */
 public final class ParameterConstraintCompleteImpl extends AbstractParameterConstraintRule implements IsParameterConstraintRule {
   public ParameterConstraintCompleteImpl() {
@@ -22,6 +22,9 @@ public final class ParameterConstraintCompleteImpl extends AbstractParameterCons
   @Override
   public boolean isValid(String parameter) {
     if (parameter == null || parameter.length() == 0) {
+      return false;
+    }
+    if (parameter != null && parameter.length() < 2) {
       return false;
     }
     if (parameter != null && parameter.length() > 12) {

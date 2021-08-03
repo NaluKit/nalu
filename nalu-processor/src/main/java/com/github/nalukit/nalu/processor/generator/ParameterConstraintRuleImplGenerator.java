@@ -112,6 +112,13 @@ public class ParameterConstraintRuleImplGenerator {
             .addStatement("return false")
             .endControlFlow();
     }
+    if (this.parameterConstraintRuleModel.isMinLengthCheck()) {
+      method.beginControlFlow("if (parameter != null && parameter.length() < " +
+                              this.parameterConstraintRuleModel.getMinLength() +
+                              ")")
+            .addStatement("return false")
+            .endControlFlow();
+    }
     if (this.parameterConstraintRuleModel.isMaxLengthCheck()) {
       method.beginControlFlow("if (parameter != null && parameter.length() > " +
                               this.parameterConstraintRuleModel.getMaxLength() +
