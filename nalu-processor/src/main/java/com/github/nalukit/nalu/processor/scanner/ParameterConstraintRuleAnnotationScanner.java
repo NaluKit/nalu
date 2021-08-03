@@ -51,6 +51,13 @@ public class ParameterConstraintRuleAnnotationScanner {
     NotEmpty notEmptyAnnotation = parameterConstraintRuleElement.getAnnotation(NotEmpty.class);
     boolean  notNullCheck       = notEmptyAnnotation != null;
 
+    MinLength minLengthAnnotation = parameterConstraintRuleElement.getAnnotation(MinLength.class);
+    boolean   minLengthCheck      = minLengthAnnotation != null;
+    int       minLength           = 0;
+    if (minLengthCheck) {
+      minLength = minLengthAnnotation.value();
+    }
+
     MaxLength maxLengthAnnotation = parameterConstraintRuleElement.getAnnotation(MaxLength.class);
     boolean   maxLengthCheck      = maxLengthAnnotation != null;
     int       maxLength           = 0;
@@ -65,22 +72,24 @@ public class ParameterConstraintRuleAnnotationScanner {
       pattern = patternAnnotation.value();
     }
 
-    BlackListing blackListing = parameterConstraintRuleElement.getAnnotation(BlackListing.class);
-    boolean      blackListingCheck      = blackListing != null;
-    String[]  blackList           = new String[]{};
+    BlackListing blackListing      = parameterConstraintRuleElement.getAnnotation(BlackListing.class);
+    boolean      blackListingCheck = blackListing != null;
+    String[]     blackList         = new String[] {};
     if (blackListingCheck) {
       blackList = blackListing.value();
     }
 
     WhiteListing whiteListing      = parameterConstraintRuleElement.getAnnotation(WhiteListing.class);
     boolean      whiteListingCheck = whiteListing != null;
-    String[]  whiteList           = new String[]{};
+    String[]     whiteList         = new String[] {};
     if (whiteListingCheck) {
       whiteList = whiteListing.value();
     }
 
     return new ParameterConstraintRuleModel(new ClassNameModel(parameterConstraintRuleElement.toString()),
                                             notNullCheck,
+                                            minLengthCheck,
+                                            minLength,
                                             maxLengthCheck,
                                             maxLength,
                                             patternCheck,

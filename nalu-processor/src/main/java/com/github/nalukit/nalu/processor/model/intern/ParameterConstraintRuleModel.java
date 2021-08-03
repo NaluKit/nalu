@@ -19,18 +19,23 @@ package com.github.nalukit.nalu.processor.model.intern;
 public class ParameterConstraintRuleModel {
 
   private ClassNameModel parameterConstraintRule;
-  private boolean        notNullCheck;
-  private boolean        maxLengthCheck;
-  private int            maxLength;
-  private boolean        patternCheck;
-  private String         pattern;
-  private boolean        blackListingCheck;
-  private String[]       blackList;
-  private boolean        whiteListingCheck;
-  private String[]       whiteList;
+
+  private final boolean  notNullCheck;
+  private final boolean  minLengthCheck;
+  private final int      minLength;
+  private final boolean  maxLengthCheck;
+  private final int      maxLength;
+  private final boolean  patternCheck;
+  private final String   pattern;
+  private final boolean  blackListingCheck;
+  private final String[] blackList;
+  private final boolean  whiteListingCheck;
+  private final String[] whiteList;
 
   public ParameterConstraintRuleModel(ClassNameModel parameterConstraintRule,
                                       boolean notNullCheck,
+                                      boolean minLengthCheck,
+                                      int minLength,
                                       boolean maxLengthCheck,
                                       int maxLength,
                                       boolean patternCheck,
@@ -41,6 +46,8 @@ public class ParameterConstraintRuleModel {
                                       String[] whiteList) {
     this.parameterConstraintRule = parameterConstraintRule;
     this.notNullCheck            = notNullCheck;
+    this.minLengthCheck          = minLengthCheck;
+    this.minLength               = minLength;
     this.maxLengthCheck          = maxLengthCheck;
     this.maxLength               = maxLength;
     this.patternCheck            = patternCheck;
@@ -63,71 +70,44 @@ public class ParameterConstraintRuleModel {
     return notNullCheck;
   }
 
-  public void setNotNullCheck(boolean notNullCheck) {
-    this.notNullCheck = notNullCheck;
+  public boolean isMinLengthCheck() {
+    return minLengthCheck;
+  }
+
+  public int getMinLength() {
+    return minLength;
   }
 
   public boolean isMaxLengthCheck() {
     return maxLengthCheck;
   }
 
-  public void setMaxLengthCheck(boolean maxLengthCheck) {
-    this.maxLengthCheck = maxLengthCheck;
-  }
-
   public int getMaxLength() {
     return maxLength;
-  }
-
-  public void setMaxLength(int maxLength) {
-    this.maxLength = maxLength;
   }
 
   public boolean isPatternCheck() {
     return patternCheck;
   }
 
-  public void setPatternCheck(boolean patternCheck) {
-    this.patternCheck = patternCheck;
-  }
-
   public String getPattern() {
     return pattern;
-  }
-
-  public void setPattern(String pattern) {
-    this.pattern = pattern;
   }
 
   public boolean isBlackListingCheck() {
     return blackListingCheck;
   }
 
-  public void setBlackListingCheck(boolean blackListingCheck) {
-    this.blackListingCheck = blackListingCheck;
-  }
-
   public String[] getBlackList() {
     return blackList;
-  }
-
-  public void setBlackList(String[] blackList) {
-    this.blackList = blackList;
   }
 
   public boolean isWhiteListingCheck() {
     return whiteListingCheck;
   }
 
-  public void setWhiteListingCheck(boolean whiteListingCheck) {
-    this.whiteListingCheck = whiteListingCheck;
-  }
-
   public String[] getWhiteList() {
     return whiteList;
   }
 
-  public void setWhiteList(String[] whiteList) {
-    this.whiteList = whiteList;
-  }
 }
