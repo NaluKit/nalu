@@ -101,6 +101,7 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
     this.loadFilters(routeConfiguration);
     this.loadPopUpFilters(routeConfiguration);
     this.loadHandlers();
+    this.loadParameterConstraintRules();
     this.loadPopUpControllers();
     this.loadBlockControllers();
   }
@@ -117,6 +118,8 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
   protected abstract void loadFilters(RouterConfiguration routeConfiguration);
 
   protected abstract void loadHandlers();
+
+  protected abstract void loadParameterConstraintRules();
 
   protected abstract void loadPopUpControllers();
 
