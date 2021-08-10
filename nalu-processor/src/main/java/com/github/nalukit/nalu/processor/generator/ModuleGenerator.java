@@ -21,6 +21,7 @@ import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import com.github.nalukit.nalu.client.context.ContextDataStore;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.application.*;
+import com.github.nalukit.nalu.client.internal.constrain.ParameterConstraintRuleFactory;
 import com.github.nalukit.nalu.client.internal.module.AbstractModule;
 import com.github.nalukit.nalu.client.internal.module.NoModuleLoader;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
@@ -103,6 +104,7 @@ public class ModuleGenerator {
     this.generateLoadFilters(typeSpec);
     this.generateLoadPopUpFilters(typeSpec);
     this.generateLoadHandlers(typeSpec);
+    this.generateLoadParameterCostrainRules(typeSpec);
     this.generateLoadPopUpControllers(typeSpec);
     this.generateLoadBlockControllers(typeSpec);
 
@@ -370,6 +372,27 @@ public class ModuleGenerator {
                   });
 
     typeSpec.addMethod(loadHandlersMethod.build());
+  }
+
+  private void generateLoadParameterCostrainRules(TypeSpec.Builder typeSpec) {
+    // generate method 'generateLoadParameterConstraintRules()'
+    MethodSpec.Builder loadParameterConstraintRulesMethodBuilder = MethodSpec.methodBuilder("loadParameterConstraintRules")
+                                                                             .addModifiers(Modifier.PUBLIC)
+                                                                             .addAnnotation(Override.class);
+    this.metaModel.getParameterConstraintRules()
+                  .forEach(m -> loadParameterConstraintRulesMethodBuilder.addStatement("$T.get().registerParameterConstraintRule($S, new $L())",
+                                                                                       ClassName.get(ParameterConstraintRuleFactory.class),
+                                                                                       m.getParameterConstraintRule()
+                                                                                        .getPackage() +
+                                                                                       "." +
+                                                                                       m.getParameterConstraintRule()
+                                                                                        .getSimpleName(),
+                                                                                       ClassName.get(m.getParameterConstraintRule()
+                                                                                                      .getPackage(),
+                                                                                                     m.getParameterConstraintRule()
+                                                                                                      .getSimpleName() +
+                                                                                                     ProcessorConstants.IMPL)));
+    typeSpec.addMethod(loadParameterConstraintRulesMethodBuilder.build());
   }
 
   private void generateLoadPopUpControllers(TypeSpec.Builder typeSpec) {
