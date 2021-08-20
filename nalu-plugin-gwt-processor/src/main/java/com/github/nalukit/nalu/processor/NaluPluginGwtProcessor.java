@@ -71,7 +71,7 @@ public class NaluPluginGwtProcessor
     this.stopwatch = Stopwatch.createStarted();
     setUp();
     this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor started ...");
-    this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor version >>gwt-2.8.2-HEAD-HEADSNAPSHOT<<");
+    this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor version >>2.6.0-gwt-2.8.2<<");
   }
   
   @SuppressWarnings("unused")

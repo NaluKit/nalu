@@ -18,7 +18,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>gwt-2.8.2-HEAD-HEADSNAPSHOT<< at >>2020.11.18-06:45:03<<
+ * Build with Nalu version >>2.6.0-gwt-2.8.2<< at >>2020.11.18-06:45:03<<
  */
 public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockContext> implements ErrorPopUpAnnotationOk {
   public ErrorPopUpAnnotationOkImpl() {
@@ -32,7 +32,7 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
   
   @Override
   public void logProcessorVersion() {
-    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>gwt-2.8.2-HEAD-HEADSNAPSHOT<< used to generate this source").addMessage("=================================================================================").addMessage(""));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>2.6.0-gwt-2.8.2<< used to generate this source").addMessage("=================================================================================").addMessage(""));
   }
   
   @Override
