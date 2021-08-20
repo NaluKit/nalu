@@ -6,7 +6,7 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.29-22:15:45<<
+ * Build with Nalu version >>2.6.0<< at >>2021.07.29-22:15:45<<
  */
 public final class ParameterConstraintRule01Impl extends AbstractParameterConstraintRule implements IsParameterConstraintRule {
   public ParameterConstraintRule01Impl() {

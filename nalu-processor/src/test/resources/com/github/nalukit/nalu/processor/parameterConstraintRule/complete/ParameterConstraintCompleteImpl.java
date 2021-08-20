@@ -8,7 +8,7 @@ import java.util.Arrays;
 import org.gwtproject.regexp.shared.RegExp;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.08.03-17:10:15<<
+ * Build with Nalu version >>2.6.0<< at >>2021.08.03-17:10:15<<
  */
 public final class ParameterConstraintCompleteImpl extends AbstractParameterConstraintRule implements IsParameterConstraintRule {
   public ParameterConstraintCompleteImpl() {
