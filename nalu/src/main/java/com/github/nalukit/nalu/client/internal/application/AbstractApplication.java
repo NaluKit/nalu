@@ -292,7 +292,7 @@ public abstract class AbstractApplication<C extends IsContext>
       try {
         routeResult = this.router.parse(hashOnStart);
       } catch (RouterException e) {
-        this.router.handleRouterException(hashOnStart,
+        this.router.handleRouterException(this.startRoute,
                                           e);
         return;
       }
