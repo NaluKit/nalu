@@ -243,14 +243,18 @@ public class NaluPluginCoreWeb {
       if (!stealthMode) {
         if (replace) {
           DomGlobal.window.history.replaceState(newRouteToken,
-                                                null,
+                                                DomGlobal.document.title,
                                                 newRouteToken);
         } else {
           DomGlobal.window.history.pushState(newRouteToken,
-                                             null,
+                                             DomGlobal.document.title,
                                              newRouteToken);
         }
       }
+    } else {
+      DomGlobal.window.history.pushState("",
+                                         DomGlobal.document.title,
+                                         DomGlobal.window.location.pathname);
     }
   }
 
