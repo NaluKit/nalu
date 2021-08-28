@@ -48,7 +48,9 @@ public class MockPlugin
   
   @Override
   public void route(String newRoute,
-                    boolean replace) {
+                    boolean replace,
+                    boolean stealthMode,
+                    RouteChangeHandler handler) {
     
   }
   
