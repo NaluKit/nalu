@@ -133,15 +133,17 @@ public class NaluPluginCoreWeb {
     if (PropertyFactory.get()
                        .isRemoveUrlParameterAtStart()) {
       String href   = location.getHref();
-      String newUrl = "";
+      String newUrl;
       if (href.contains("?")) {
         newUrl = href.substring(0,
                                 href.indexOf("?"));
-        if (startRoute.length() > 0) {
-          newUrl = newUrl + "#" + startRoute;
-          DomGlobal.window.history.replaceState(newUrl,
-                                                DomGlobal.document.title,
-                                                newUrl);
+        if (startRoute != null) {
+          if (startRoute.length() > 0) {
+            newUrl = newUrl + "#" + startRoute;
+            DomGlobal.window.history.replaceState(newUrl,
+                                                  DomGlobal.document.title,
+                                                  newUrl);
+          }
         }
       }
     }
