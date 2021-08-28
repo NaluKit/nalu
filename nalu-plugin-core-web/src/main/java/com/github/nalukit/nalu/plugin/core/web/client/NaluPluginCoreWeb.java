@@ -254,7 +254,7 @@ public class NaluPluginCoreWeb {
     } else {
       DomGlobal.window.history.pushState("",
                                          DomGlobal.document.title,
-                                         DomGlobal.window.location.pathname);
+                                         DomGlobal.window.location.getPathname());
     }
   }
 
