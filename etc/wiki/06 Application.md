@@ -195,6 +195,31 @@ To access the application version, use: `context.getApplicationVersion()`. To ac
 
 It is possible to override the value from the version annotation from the command line. Nalu will look for a property called "nalu.application.version". If the property exists, Nalu will use this value. This will only work, in case the Version annotation is used.
 
+The following set up inside the client pom (in a multi module project) will provide the maven project version to Nalu:
+```xml
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>set-system-properties</goal>
+            </goals>
+            <configuration>
+              <properties>
+                <property>
+                  <name>nalu.application.version</name>
+                  <value>${project.version}</value>
+                </property>
+              </properties>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+```
+
+Not sure, if this is the best approach, but it works. In case you find a more elegant implementation, let me know.
 
 ## Debug Annotation (removed in version v2.1.0)
 Nalu integrates a log feature that let you trace the routes handled, controllers used, fired events, etc. The debug messages will be displayed using the browser's console.
