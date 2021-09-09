@@ -83,7 +83,7 @@ public class MetaModel {
     this.compositeModels = new ArrayList<>();
     this.parameterConstraintRules = new ArrayList<>();
 
-    this.applicationVersion = "APPLCIATIOPN-VERSION-NOT-AVAILABLE";
+    this.applicationVersion = "APPLCIATION-VERSION-NOT-AVAILABLE";
     this.extendingIsModuleContext = false;
     this.removeUrlParameterAtStart = false;
   }
