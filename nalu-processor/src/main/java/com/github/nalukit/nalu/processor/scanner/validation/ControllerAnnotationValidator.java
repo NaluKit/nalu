@@ -28,10 +28,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -302,11 +299,32 @@ public class ControllerAnnotationValidator {
     
   }
   
-  private List<String> getParametersFromRoute(String route) {
-    return Stream.of(route.split("/"))
-                 .filter(s -> s.startsWith(":"))
-                 .map(s -> s.substring(1))
-                 .collect(Collectors.toList());
+  private List<String> getParametersFromRoute(String route)
+      throws ProcessorException {
+    List<String> list   = Arrays.asList(route.split("/"));
+    List<String> result = new ArrayList<>();
+    for (String s : list) {
+      if (s.startsWith(":")) {
+        String substring = s.substring(1);
+        result.add(substring);
+      } else if (s.startsWith("{")) {
+        String lastChar = s.substring(s.length() - 1);
+        if (lastChar.equals("}")) {
+          result.add(s.substring(1,
+                                 s.length() - 1));
+        } else {
+          StringBuilder sb = new StringBuilder();
+          sb.append("Nalu-Processor: controller >>")
+            .append(this.controllerElement.getEnclosingElement()
+                                          .toString())
+            .append("<<  - parameter has illegal definition (missing '}' at the end of the parameter) >>")
+            .append(s)
+            .append("<<");
+          throw new ProcessorException(sb.toString());
+        }
+      }
+    }
+    return result;
   }
   
   /**
