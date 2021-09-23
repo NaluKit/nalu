@@ -14,7 +14,7 @@ In case the name of the shell changed, Nalu will remove the last shell and repla
 
 Next Nalu will look for controllers, that match the route part. Matching controllers will be created and added to the shell.
 
-Parameters inside a route are optional. In case a route has parameters, Nalu will inject the parameters into the newly created controllers.
+Parameters inside a route are optional. In case a route has parameters, Nalu will inject the parameters into the newly created controllers. Nalu will identify parameters inside a route in case the part of the route start with ':' or the part is inside '{}'.
 
 Of cause, the route parts can be a combination of several parts. So, routes might look like this:
 ```
@@ -28,9 +28,9 @@ Parameters inside a route can be added to the end of the route or inside the rou
 These are all legal routes:
 ```
 /myShell/routePart01/parameter01
-/myShell/routePart01/routePart02/parameter01
-/myShell/routePart01/parameter01/routePart02/parameter02
-/myShell/routePart01/parameter01/routePart02/parameter02/routePart03
+/myShell/routePart01/routePart02/:parameter01
+/myShell/routePart01/:parameter01/routePart02/{parameter02}
+/myShell/routePart01/{parameter01}/routePart02/{parameter02}/routePart03
 ```
 
 
@@ -47,3 +47,7 @@ To enable parameters, just add: **/:parameterName** to the route. Parameters can
 **The type of the parameter is always String.**
 
 You can add as much parameters as you like. Every parameter has to Start with '/:'.
+
+**Note**
+
+Characters like '?', '&' and '#' are characters that can not be used inside a route, nor as a parameter value. A parameter value containing a '/'-character is also illegal. If you like to use this values, you need to escape them.

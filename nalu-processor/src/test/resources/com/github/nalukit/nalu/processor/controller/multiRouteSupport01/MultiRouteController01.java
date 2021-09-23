@@ -22,7 +22,7 @@ import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
 @Controller(route = { "/mockShell/route01/:parameter01/:parameter02",
-                      "/mockShell/route02/:parameter01/:parameter02",
+                      "/mockShell/route02/:parameter01/{parameter02}",
                       "/mockShell/route03/route04/:parameter02/route05/:parameter01" },
             selector = "selector01",
             component = MultiRouteComponent01.class,
