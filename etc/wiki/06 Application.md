@@ -184,17 +184,45 @@ Nalu supports setting a version String using an annotation and storing the build
 @Application(loader = MyLoader.class,
              startRoute = "/application/search",
              context = MyApplicationContext.class)
-@Version("2.4.0-gwt-2.8.2")             
+@Version("1.0.1")             
 interface MyApplication
     extends IsApplication {
 }
 ```
 
-The example above will set the version of the application to '2.4.0-gwt-2.8.2'.
-To access the application version, use: `context.getApplicationVersion()`. To access the build timestamp call `context.getApplicationBuildTime()`.
+The example above will set the version of the application to '1.0.1'.
+To access the application version, use: `context.getApplicationVersion()`. To access the build time call `context.getApplicationBuildTime()`.
+
+**Important:** \
+To access the  build time, your context need to extend the `AbstractModuleContext`-class.
 
 It is possible to override the value from the version annotation from the command line. Nalu will look for a property called "nalu.application.version". If the property exists, Nalu will use this value. This will only work, in case the Version annotation is used.
 
+The following set up inside the client pom (in a multi module project) will provide the maven project version to Nalu:
+```xml
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>set-system-properties</goal>
+            </goals>
+            <configuration>
+              <properties>
+                <property>
+                  <name>nalu.application.version</name>
+                  <value>${project.version}</value>
+                </property>
+              </properties>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+```
+
+Not sure, if this is the best approach, but it works. In case you find a more elegant implementation, let me know.
 
 ## Debug Annotation (removed in version v2.1.0)
 Nalu integrates a log feature that let you trace the routes handled, controllers used, fired events, etc. The debug messages will be displayed using the browser's console.

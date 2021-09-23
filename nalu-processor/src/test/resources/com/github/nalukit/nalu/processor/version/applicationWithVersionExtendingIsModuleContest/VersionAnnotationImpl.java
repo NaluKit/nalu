@@ -23,7 +23,7 @@ public final class VersionAnnotationImpl extends AbstractApplication<MockModuleC
     super();
     super.context = new com.github.nalukit.nalu.processor.common.MockModuleContext();
     super.context.setApplicationVersion("Nalu-Test-Version");
-    super.context.setApplicationBuildTime(new Timestamp(System.currentTimeMillis()));
+    super.context.setApplicationBuildTime(new Date(System.currentTimeMillis()));
   }
 
   @Override
