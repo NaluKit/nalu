@@ -3,6 +3,7 @@ package com.github.nalukit.nalu.client.context;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * <p>
@@ -65,8 +66,8 @@ public abstract class AbstractModuleContext
    *
    * @return build time of the application set by the Nalu processor
    */
-  public Timestamp getApplicationBuildTime() {
-    return (Timestamp) this.applicationContext.get(AbstractModuleContext.APPLICATION_BUILD_TIME);
+  public Date getApplicationBuildTime() {
+    return (Date) this.applicationContext.get(AbstractModuleContext.APPLICATION_BUILD_TIME);
   }
   
   /**
@@ -80,7 +81,7 @@ public abstract class AbstractModuleContext
    * @param applicationBuildTime the application build time
    */
   @NaluInternalUse
-  public void setApplicationBuildTime(Timestamp applicationBuildTime) {
+  public void setApplicationBuildTime(Date applicationBuildTime) {
     this.applicationContext.put(AbstractModuleContext.APPLICATION_BUILD_TIME,
                                 applicationBuildTime);
   }
