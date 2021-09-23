@@ -34,7 +34,7 @@ import com.squareup.javapoet.*;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class ApplicationGenerator {
 
@@ -99,7 +99,7 @@ public class ApplicationGenerator {
       constructor.addStatement("super.context.setApplicationVersion($S)",
                                applicationVersion)
                  .addStatement("super.context.setApplicationBuildTime(new $T($LL))",
-                               ClassName.get(Timestamp.class),
+                               ClassName.get(Date.class),
                                System.currentTimeMillis());
     }
     typeSpec.addMethod(constructor.build());
