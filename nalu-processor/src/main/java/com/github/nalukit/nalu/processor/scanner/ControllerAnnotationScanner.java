@@ -39,6 +39,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.*;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -408,13 +409,32 @@ public class ControllerAnnotationScanner {
     return convertedRoutes;
   }
 
-  private List<String> getParametersFromRoute(String[] routes) {
-    return Stream.of(routes[0].split("/"))
-                 .collect(Collectors.toList())
-                 .stream()
-                 .filter(s -> s.startsWith(":"))
-                 .map(p -> p.substring(1))
-                 .collect(Collectors.toList());
+  private List<String> getParametersFromRoute(String[] routes)
+      throws ProcessorException {
+    List<String> list   = new ArrayList<>(Arrays.asList(routes[0].split("/")));
+    List<String> result = new ArrayList<>();
+    for (String s : list) {
+      if (s.startsWith(":")) {
+        String substring = s.substring(1);
+        result.add(substring);
+      } else if (s.startsWith("{")) {
+        String lastChar = s.substring(s.length() - 1);
+        if (lastChar.equals("}")) {
+          result.add(s.substring(1,
+                                 s.length() - 1));
+        } else {
+          StringBuilder sb = new StringBuilder();
+          sb.append("Nalu-Processor: controller >>")
+            .append(this.controllerElement.getEnclosingElement()
+                                          .toString())
+            .append("<<  - parameter has illegal definition (missing '}' at the end of the parameter) >>")
+            .append(s)
+            .append("<<");
+          throw new ProcessorException(sb.toString());
+        }
+      }
+    }
+    return result;
   }
 
   public static class Builder {

@@ -24,7 +24,7 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 @Controller(route = { "/mockShell/route01/:parameter01/:parameter02",
     "/mockShell/route02/:parameter01/:parameter02",
     "/mockShell/route06/:parameter03",
-    "/mockShell/route03/route04/:parameter02/route05/:parameter01" },
+    "/mockShell/route03/route04/{parameter02}/route05/{parameter01}" },
             selector = "selector01",
             component = MultiRouteComponent02.class,
             componentInterface = IMultiRouteComponent02.class)
