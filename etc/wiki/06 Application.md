@@ -191,7 +191,10 @@ interface MyApplication
 ```
 
 The example above will set the version of the application to '1.0.1'.
-To access the application version, use: `context.getApplicationVersion()`. To access the build timestamp call `context.getApplicationBuildTime()`.
+To access the application version, use: `context.getApplicationVersion()`. To access the build time call `context.getApplicationBuildTime()`.
+
+**Important:** \
+To access the  build time, your context need to extend the `AbstractModuleContext`-class.
 
 It is possible to override the value from the version annotation from the command line. Nalu will look for a property called "nalu.application.version". If the property exists, Nalu will use this value. This will only work, in case the Version annotation is used.
 
