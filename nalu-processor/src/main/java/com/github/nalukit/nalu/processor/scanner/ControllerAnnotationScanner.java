@@ -395,7 +395,7 @@ public class ControllerAnnotationScanner {
         Stream.of(tmpRoute.split("/"))
               .collect(Collectors.toList())
               .forEach(s -> {
-                if (s.startsWith(":")) {
+                if (s.startsWith(":") || (s.startsWith("{") && s.endsWith("}"))) {
                   sbRoute.append("/")
                          .append("*");
                 } else {
