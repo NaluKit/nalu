@@ -177,7 +177,7 @@ public class RouteParser {
         if (params.length - 1 >= parameterIndex) {
           if (!Objects.isNull(params[parameterIndex])) {
             sb.append(params[parameterIndex].replace("/",
-                                                       RouterConstants.NALU_SLASH_REPLACEMENT));
+                                                     RouterConstants.NALU_SLASH_REPLACEMENT));
           }
           parameterIndex++;
         }
@@ -188,7 +188,7 @@ public class RouteParser {
 
     // in case there are more parameters then placesholders, we add them add the end!
     long numberOfPlaceHolders = Stream.of(partsOfRoute)
-                                      .filter(s -> "*".equals(s) || s.startsWith(":"))
+                                      .filter(s -> "*".equals(s) || s.startsWith(":") || (s.startsWith("{") && s.endsWith("}")))
                                       .count();
     if (params.length > numberOfPlaceHolders) {
       String sbExeption = "Warning: route >>" +
