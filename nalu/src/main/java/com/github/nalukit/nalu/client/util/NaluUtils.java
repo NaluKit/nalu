@@ -48,9 +48,9 @@ public class NaluUtils {
     for (int i = 1; i < splits.length; i++) {
       String s = splits[i];
       if (!Objects.isNull(s)) {
-        if ("*".equals(s)) {
+        if ("*".equals(s) || (s.startsWith("{") && s.endsWith("}"))) {
           newRoute.append("/*");
-        } else if (s.startsWith(":")) {
+        } else if (s.startsWith(":") || (s.startsWith("{") && s.endsWith("}"))) {
           newRoute.append("/*");
         } else {
           newRoute.append("/")
