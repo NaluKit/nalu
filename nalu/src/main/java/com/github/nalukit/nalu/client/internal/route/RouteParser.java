@@ -170,14 +170,14 @@ public class RouteParser {
     int parameterIndex = 0;
     for (String s : partsOfRoute) {
       sb.append("/");
-      if ("*".equals(s) || s.startsWith(":")) {
+      if ("*".equals(s) || s.startsWith(":") || (s.startsWith("{") && s.endsWith("}"))) {
         if (Nalu.isUsingColonForParametersInUrl()) {
           sb.append(":");
         }
         if (params.length - 1 >= parameterIndex) {
           if (!Objects.isNull(params[parameterIndex])) {
             sb.append(params[parameterIndex].replace("/",
-                                                     RouterConstants.NALU_SLASH_REPLACEMENT));
+                                                       RouterConstants.NALU_SLASH_REPLACEMENT));
           }
           parameterIndex++;
         }
