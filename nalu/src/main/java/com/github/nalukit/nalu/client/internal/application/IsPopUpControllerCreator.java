@@ -22,7 +22,11 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 public interface IsPopUpControllerCreator {
   
   PopUpControllerInstance create();
-  
+
+  void initialShowDone();
+
+  boolean isInitialShow();
+
   void onFinishCreating(Object object);
-  
+
 }
