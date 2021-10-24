@@ -23,7 +23,11 @@ import com.github.nalukit.nalu.client.filter.IsPopUpFilter;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.EventBus;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @NaluInternalUse
 public class PopUpControllerFactory {
@@ -98,30 +102,33 @@ public class PopUpControllerFactory {
       return;
     }
 
-    IsPopUpControllerCreator creator                  = null;
-    PopUpControllerInstance  popUpComponentController = this.popUpControllerStore.get(event.getName());
+    IsPopUpControllerCreator creator = this.creatorStore.get(event.getName());
+    if (Objects.isNull(creator)) {
+      LogEvent.create()
+              .sdmOnly(false)
+              .addMessage("PopUpControllerFactory: PopUpController for name >>" + event.getName() + "<< not found");
+      return;
+    }
+
+    PopUpControllerInstance popUpComponentController = this.popUpControllerStore.get(event.getName());
+
     if (Objects.isNull(popUpComponentController)) {
       PopUpControllerInstance instance = this.popUpControllerStore.get(event.getName());
       if (Objects.isNull(instance)) {
-        creator = this.creatorStore.get(event.getName());
-        if (Objects.isNull(creator)) {
-          LogEvent.create()
-                  .sdmOnly(false)
-                  .addMessage("PopUpControllerFactory: PopUpController for name >>" + event.getName() + "<< not found");
-          return;
-        }
         instance = creator.create();
         this.popUpControllerStore.put(event.getName(),
                                       instance);
         popUpComponentController = instance;
       }
     }
+
     popUpComponentController.getController()
                             .setDataStore(event.getDataStore());
     popUpComponentController.getController()
                             .setCommandStore(event.getCommandStore());
     PopUpControllerInstance finalPopUpComponentController = popUpComponentController;
-    if (creator == null) {
+
+    if (creator != null && !creator.isInitialShow()) {
       if (finalPopUpComponentController.isAlwaysRenderComponent()) {
         finalPopUpComponentController.getController()
                                      .getComponent()
@@ -133,18 +140,29 @@ public class PopUpControllerFactory {
                                      .getComponent()
                                      .bind();
       }
-
       finalPopUpComponentController.getController()
                                    .onBeforeShow(() -> finalPopUpComponentController.getController()
                                                                                     .show());
     } else {
       IsPopUpControllerCreator finalCreator = creator;
+      creator.initialShowDone();
       finalPopUpComponentController.getController()
                                    .bind(() -> {
+                                     if (Objects.isNull(finalCreator)) {
+                                       LogEvent.create()
+                                               .sdmOnly(false)
+                                               .addMessage("PopUpControllerFactory: PopUpController for name >>" +
+                                                           event.getName() +
+                                                           "<< not found");
+                                       return;
+                                     }
                                      finalCreator.onFinishCreating(finalPopUpComponentController.getController());
                                      finalPopUpComponentController.getController()
-                                                                  .onBeforeShow(() -> finalPopUpComponentController.getController()
-                                                                                                                   .show());
+                                                                  .onBeforeShow(() -> {
+                                                                    finalCreator.initialShowDone();
+                                                                    finalPopUpComponentController.getController()
+                                                                                                 .show();
+                                                                  });
                                    });
     }
   }
