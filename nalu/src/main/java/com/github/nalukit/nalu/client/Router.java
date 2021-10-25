@@ -22,12 +22,12 @@ import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import java.util.Map;
 
 public interface Router {
-  
+
   /**
    * clears the cache
    */
   void clearCache();
-  
+
   /**
    * Generates the url using the given input ..
    *
@@ -37,7 +37,7 @@ public interface Router {
    */
   String generate(String route,
                   String... params);
-  
+
   /**
    * Route to a new page.
    *
@@ -46,7 +46,7 @@ public interface Router {
    */
   void route(String route,
              String... parameter);
-  
+
   /**
    * Route to a new page without confirmation.
    *
@@ -76,13 +76,22 @@ public interface Router {
                     String... parameter);
 
   /**
+   * Update the hash without routing.
+   *
+   * @param route     new route
+   * @param parameter parameters of the route
+   */
+  void fakeRoute(String route,
+                 String... parameter);
+
+  /**
    * Removes a controller from the cache
    *
    * @param controller controller to be removed
    * @param <C>        controller type
    */
   <C extends AbstractComponentController<?, ?, ?>> void removeFromCache(C controller);
-  
+
   /**
    * Removes a controller from the cache
    *
@@ -90,7 +99,7 @@ public interface Router {
    * @param <C>        controller type
    */
   <C extends AbstractCompositeController<?, ?, ?>> void removeFromCache(C controller);
-  
+
   /**
    * Stores the instance of the controller in the cache, so that it can be reused the next time
    * the route is called.
@@ -99,7 +108,7 @@ public interface Router {
    * @param <C>        controller type
    */
   <C extends AbstractComponentController<?, ?, ?>> void storeInCache(C controller);
-  
+
   /**
    * Stores the instance of the composite controller in the cache, so that it can be reused the next time
    * the route is called.
@@ -108,14 +117,14 @@ public interface Router {
    * @param <C>        composite controller type
    */
   <C extends AbstractCompositeController<?, ?, ?>> void storeInCache(C controller);
-  
+
   /**
    * Get a map of parameters contained in the url at application start
    *
    * @return list of parameters at application start
    */
   Map<String, String> getStartQueryParameters();
-  
+
   /**
    * Returns the current route.
    * <br>
@@ -128,7 +137,7 @@ public interface Router {
    * @return the current route
    */
   String getCurrentRoute();
-  
+
   /**
    * Returns the current parameters from the last executed route..
    * <br>
@@ -141,7 +150,7 @@ public interface Router {
    * @return the current parameters
    */
   String[] getCurrentParameters();
-  
+
   /**
    * Returns the last executed hash.
    * <br>
@@ -154,5 +163,5 @@ public interface Router {
    * @return the current route
    */
   String getLastExecutedHash();
-  
+
 }
