@@ -275,6 +275,41 @@ abstract class AbstractRouter
   }
 
   /**
+   * The method updates the hash without doing a routing.
+   *
+   * In case it is called, it will:
+   * <ul>
+   * <li>create a new hash</li>
+   * <li>update the url (in case history is desired)</li>
+   * <li>does not route to the new hash</li>
+   * </ul>
+   *
+   * @param newRoute routing goal
+   * @param params   list of parameters [0 - n]
+   */
+  @Override
+  public void fakeRoute(String newRoute,
+                           String... params) {
+    // fire souring event ...
+    this.fireRouterStateEvent(RouterState.START_ROUTING,
+                              newRoute,
+                              params);
+    // first, we track the new route (if there is a tracker!)
+    if (!Objects.isNull(this.tracker)) {
+      this.tracker.track(newRoute,
+                         params);
+    }
+    String newRouteWithParams = this.generate(newRoute,
+                                              params);
+    this.plugin.route(newRouteWithParams,
+                      true,
+                      false);
+    this.fireRouterStateEvent(RouterState.ROUTING_DONE,
+                              newRoute,
+                              params);
+  }
+
+  /**
    * Removes a controller from the cache
    *
    * @param controller controller to be removed
