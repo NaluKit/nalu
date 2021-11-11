@@ -738,14 +738,12 @@ abstract class AbstractRouter
                                         List<RouteConfig> routeConfigurations) {
     // routing
     for (RouteConfig routeConfiguration : routeConfigurations) {
-      // check weather the controller instance is used in Redraw mode or not!
-      if (this.activeComponents.get(routeConfiguration.getSelector()) != null) {
-        ControllerInstance controllerInstance = this.activeComponents.get(routeConfiguration.getSelector());
-        doRouting(hash,
-                  routeResult,
-                  routeConfiguration,
-                  controllerInstance);
-      } else {
+      // #237 - Undesired behavior in case two controllers are added to the same route and slot
+      //
+      // We check here if a component is already added to the slot.
+      // In case it is added, another component, that which to be added to that
+      // slot will be ignored.
+      if (this.activeComponents.get(routeConfiguration.getSelector()) == null) {
         this.handleRouteConfig(routeConfiguration,
                                routeResult,
                                hash);
