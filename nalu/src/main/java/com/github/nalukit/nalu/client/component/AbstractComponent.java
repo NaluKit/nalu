@@ -35,6 +35,7 @@ public abstract class AbstractComponent<C extends IsComponent.Controller, W>
   }
 
   @Override
+  @NaluInternalUse
   public W asElement() {
     assert element != null : "no element set!";
     return this.element;
