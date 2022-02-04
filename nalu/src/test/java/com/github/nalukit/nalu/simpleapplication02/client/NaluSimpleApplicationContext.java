@@ -31,7 +31,7 @@ public class NaluSimpleApplicationContext
   private String searchCity;
   
   public NaluSimpleApplicationContext() {
-    this.version = "2.7.2-gwt-2.8.2";
+    this.version = "gwt-2.8.2-HEAD-SNAPSHOT";
   }
   
   public String getVersion() {

@@ -22,7 +22,7 @@ import com.github.nalukit.nalu.client.internal.route.RouterUtils;
 public class Nalu {
   
   public static String getVersion() {
-    return "2.7.2-gwt-2.8.2";
+    return "gwt-2.8.2-HEAD-SNAPSHOT";
   }
   
   public static boolean hasHistory() {
