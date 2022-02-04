@@ -7,7 +7,7 @@ import java.lang.String;
 import org.gwtproject.regexp.shared.RegExp;
 
 /**
- * Build with Nalu version >>2.7.2<< at >>2021.07.30-17:56:30<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.30-17:56:30<<
  */
 public final class ParameterConstraintPatternImpl extends AbstractParameterConstraintRule implements IsParameterConstraintRule {
   public ParameterConstraintPatternImpl() {
