@@ -129,25 +129,26 @@ public class NaluPluginCoreWeb {
       }
     }
 
-    // in case we need to remove the parameter, update histry ...
+    // in case we need to remove the parameter, update history ...
     if (PropertyFactory.get()
                        .isRemoveUrlParameterAtStart()) {
-      String href   = location.getHref();
-      String newUrl;
-      if (href.contains("?")) {
-        newUrl = href.substring(0,
-                                href.indexOf("?"));
-        if (startRoute != null) {
-          if (startRoute.length() > 0) {
-            newUrl = newUrl + "#" + startRoute;
-            DomGlobal.window.history.replaceState(newUrl,
-                                                  DomGlobal.document.title,
-                                                  newUrl);
+      if (queryParameters.size() > 0) {
+        String href   = location.getHref();
+        String newUrl;
+        if (href.contains("?")) {
+          newUrl = href.substring(0,
+                                  href.indexOf("?"));
+          if (startRoute != null) {
+            if (startRoute.length() > 0) {
+              newUrl = newUrl + "#" + startRoute;
+            }
           }
+          DomGlobal.window.history.replaceState(newUrl,
+                                                DomGlobal.document.title,
+                                                newUrl);
         }
       }
     }
-
     return new NaluStartModel(startRoute,
                               queryParameters);
   }
