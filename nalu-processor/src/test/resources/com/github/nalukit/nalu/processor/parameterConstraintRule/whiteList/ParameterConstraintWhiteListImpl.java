@@ -7,7 +7,7 @@ import java.lang.String;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.30-14:54:55<<
+ * Build with Nalu version >>2.7.2<< at >>2021.07.30-14:54:55<<
  */
 public final class ParameterConstraintWhiteListImpl extends AbstractParameterConstraintRule implements IsParameterConstraintRule {
   public ParameterConstraintWhiteListImpl() {
