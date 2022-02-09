@@ -81,7 +81,7 @@ public abstract class AbstractModuleContext
    * @param applicationBuildTime the application build time
    */
   @NaluInternalUse
-  public void setApplicationBuildTime(Date applicationBuildTime) {
+  public final void setApplicationBuildTime(Date applicationBuildTime) {
     this.applicationContext.put(AbstractModuleContext.APPLICATION_BUILD_TIME,
                                 applicationBuildTime);
   }
@@ -108,7 +108,7 @@ public abstract class AbstractModuleContext
    * @param applicationVersion the application version
    */
   @NaluInternalUse
-  public void setApplicationVersion(String applicationVersion) {
+  public final void setApplicationVersion(String applicationVersion) {
     this.applicationContext
         .put(AbstractModuleContext.APPLICATION_VERSION,
              applicationVersion);

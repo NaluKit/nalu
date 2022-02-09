@@ -39,7 +39,7 @@ public abstract class AbstractFilter<C extends IsContext>
    * @param context the application context
    */
   @NaluInternalUse
-  public void setContext(C context) {
+  public final void setContext(C context) {
     this.context = context;
   }
 
@@ -51,7 +51,7 @@ public abstract class AbstractFilter<C extends IsContext>
    * @param eventBus the application event bus
    */
   @NaluInternalUse
-  public void setEventBus(SimpleEventBus eventBus) {
+  public final void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
 
