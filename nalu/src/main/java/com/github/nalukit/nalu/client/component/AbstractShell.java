@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.client.component;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
@@ -26,7 +26,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
 public abstract class AbstractShell<C extends IsContext>
     implements IsShell {
   
-  protected Router router;
+  protected IsRouter router;
   
   protected C context;
   
@@ -38,7 +38,7 @@ public abstract class AbstractShell<C extends IsContext>
   }
   
   @NaluInternalUse
-  public final void setRouter(Router router) {
+  public final void setRouter(IsRouter router) {
     this.router = router;
   }
   

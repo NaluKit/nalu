@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.processor.parameterConstraint.ok01;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
@@ -19,7 +19,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
  * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.29-07:45:00<<
  */
 public final class Controller01CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
-  public Controller01CreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
+  public Controller01CreatorImpl(IsRouter router, MockContext context, SimpleEventBus eventBus) {
     super(router, context, eventBus);
   }
 

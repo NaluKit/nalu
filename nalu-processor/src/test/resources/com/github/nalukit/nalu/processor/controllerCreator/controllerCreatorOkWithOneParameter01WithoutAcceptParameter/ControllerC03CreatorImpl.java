@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithOneParameter01WithoutAcceptParameter;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.AbstractControllerCreator;
@@ -17,7 +17,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
  * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.08.31-11:52:30<<
  */
 public final class ControllerC03CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
-  public ControllerC03CreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
+  public ControllerC03CreatorImpl(IsRouter router, MockContext context, SimpleEventBus eventBus) {
     super(router, context, eventBus);
   }
   

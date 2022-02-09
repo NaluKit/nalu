@@ -26,7 +26,13 @@ import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.internal.route.*;
+import com.github.nalukit.nalu.client.internal.route.IsConfigurableRouter;
+import com.github.nalukit.nalu.client.internal.route.RouteParser;
+import com.github.nalukit.nalu.client.internal.route.RouteResult;
+import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
+import com.github.nalukit.nalu.client.internal.route.RouterException;
+import com.github.nalukit.nalu.client.internal.route.RouterImpl;
+import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.internal.validation.RouteValidation;
 import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
@@ -56,7 +62,7 @@ public abstract class AbstractApplication<C extends IsContext>
   /* Router Configuration */
   protected RouterConfiguration                routerConfiguration;
   /* Router */
-  protected ConfigurableRouter                 router;
+  protected IsConfigurableRouter               router;
   /* application context */
   protected C                                  context;
   /* the event bus of the application */

@@ -16,14 +16,14 @@
 
 package com.github.nalukit.nalu.client.component;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractController<C extends IsContext> {
   
-  protected Router router;
+  protected IsRouter router;
   
   protected C context;
   
@@ -34,7 +34,7 @@ public abstract class AbstractController<C extends IsContext> {
   }
   
   @NaluInternalUse
-  public void setRouter(Router router) {
+  public void setRouter(IsRouter router) {
     this.router = router;
   }
   
