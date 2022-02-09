@@ -7,6 +7,8 @@ There are several validations inside Nalu, that can cause an error:
 
 * using an non existing selector
 
+* element of a component or composite is null (`initElement` not called)
+
 In addition, the error handling can be used to display application errors.
 
 Nalu will report errors by firing the `NaluErrorEvent`.
