@@ -681,7 +681,7 @@ abstract class AbstractRouter
    */
   @NaluInternalUse
   @Override
-  public void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite) {
+  public final void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite) {
     this.alwaysLoadComposite = alwaysLoadComposite;
   }
 

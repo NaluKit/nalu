@@ -54,7 +54,7 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
    */
   @Override
   @NaluInternalUse
-  public void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite) {
+  public final void setAlwaysLoadComposite(AlwaysLoadComposite alwaysLoadComposite) {
     this.alwaysLoadComposite = alwaysLoadComposite;
   }
 
@@ -65,7 +65,7 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
    */
   @Override
   @NaluInternalUse
-  public void setAlwaysShowPopUp(AlwaysShowPopUp alwaysShowPopUp) {
+  public final void setAlwaysShowPopUp(AlwaysShowPopUp alwaysShowPopUp) {
     this.alwaysShowPopUp = alwaysShowPopUp;
   }
 
@@ -76,7 +76,7 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
    */
   @Override
   @NaluInternalUse
-  public void setEventBus(SimpleEventBus eventBus) {
+  public final void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
 
@@ -87,13 +87,13 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
    */
   @Override
   @NaluInternalUse
-  public void setRouter(IsRouter router) {
+  public final void setRouter(IsRouter router) {
     this.router = router;
   }
 
   @Override
   @NaluInternalUse
-  public void loadModule(RouterConfiguration routeConfiguration) {
+  public final void loadModule(RouterConfiguration routeConfiguration) {
     this.setUpContext();
     this.loadShellFactory();
     this.loadCompositeController();

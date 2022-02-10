@@ -53,7 +53,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
    */
   @NaluInternalUse
   @Override
-  public W asElement() {
+  public final W asElement() {
     return this.component.asElement();
   }
   
@@ -66,7 +66,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
    */
   @NaluInternalUse
   @Override
-  public String getParentClassName() {
+  public final String getParentClassName() {
     return this.parentClassName;
   }
   
@@ -79,7 +79,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
    */
   @NaluInternalUse
   @Override
-  public void setParentClassName(String parentClassName) {
+  public final void setParentClassName(String parentClassName) {
     this.parentClassName = parentClassName;
   }
   
@@ -189,7 +189,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   }
   
   @NaluInternalUse
-  public void setComponent(V component) {
+  public final void setComponent(V component) {
     this.component = component;
   }
   
@@ -252,7 +252,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
    * @param selector THe selector, the composite is ocated inside the DOM
    */
   @NaluInternalUse
-  public void setSelector(String selector) {
+  public final void setSelector(String selector) {
     this.selector = selector;
   }
   

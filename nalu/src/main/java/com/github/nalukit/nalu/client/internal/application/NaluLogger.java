@@ -39,7 +39,7 @@ public class NaluLogger<C extends IsContext> {
    * Binds the {@link LogEvent}
    */
   @NaluInternalUse
-  public void bind() {
+  public final void bind() {
     this.eventBus.addHandler(LogEvent.TYPE,
                              this::onLog);
   }
@@ -73,7 +73,7 @@ public class NaluLogger<C extends IsContext> {
    * @param clientLogger applciation context
    */
   @NaluInternalUse
-  public void setClientLogger(IsClientLogger clientLogger) {
+  public final void setClientLogger(IsClientLogger clientLogger) {
     this.clientLogger = clientLogger;
   }
   
@@ -83,7 +83,7 @@ public class NaluLogger<C extends IsContext> {
    * @param eventBus application event bus
    */
   @NaluInternalUse
-  public void setEventBus(SimpleEventBus eventBus) {
+  public final void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
   
@@ -93,7 +93,7 @@ public class NaluLogger<C extends IsContext> {
    * @param customLogger custom logger
    */
   @NaluInternalUse
-  public void setCustomLogger(IsLogger<C> customLogger) {
+  public final void setCustomLogger(IsLogger<C> customLogger) {
     this.customLogger = customLogger;
   }
   

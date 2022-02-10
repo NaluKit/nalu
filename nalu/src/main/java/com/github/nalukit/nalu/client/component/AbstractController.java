@@ -34,17 +34,17 @@ public abstract class AbstractController<C extends IsContext> {
   }
   
   @NaluInternalUse
-  public void setRouter(IsRouter router) {
+  public final void setRouter(IsRouter router) {
     this.router = router;
   }
   
   @NaluInternalUse
-  public void setContext(C context) {
+  public final void setContext(C context) {
     this.context = context;
   }
   
   @NaluInternalUse
-  public void setEventBus(SimpleEventBus eventBus) {
+  public final void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
   
