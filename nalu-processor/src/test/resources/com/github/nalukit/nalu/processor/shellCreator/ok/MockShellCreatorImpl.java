@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.processor.common;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.AbstractShellCreator;
 import com.github.nalukit.nalu.client.internal.application.IsShellCreator;
@@ -12,7 +12,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
  * Build with Nalu version >>gwt-2.8.2-HEAD-SNAPSHOT<< at >>2020.09.16-22:14:22<<
  */
 public final class MockShellCreatorImpl extends AbstractShellCreator<MockContext> implements IsShellCreator {
-    public MockShellCreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
+    public MockShellCreatorImpl(IsRouter router, MockContext context, SimpleEventBus eventBus) {
         super(router, context, eventBus);
     }
     

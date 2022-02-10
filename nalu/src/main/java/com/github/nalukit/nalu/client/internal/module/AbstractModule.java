@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.client.internal.module;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import com.github.nalukit.nalu.client.context.AbstractModuleContext;
@@ -34,8 +34,8 @@ import org.gwtproject.event.shared.SimpleEventBus;
 public abstract class AbstractModule<C extends AbstractModuleContext>
     implements IsModule<C> {
 
-  protected Router         router;
-  protected C              moduleContext;
+  protected IsRouter router;
+  protected C        moduleContext;
   protected SimpleEventBus eventBus;
 
   protected AlwaysLoadComposite alwaysLoadComposite;
@@ -87,7 +87,7 @@ public abstract class AbstractModule<C extends AbstractModuleContext>
    */
   @Override
   @NaluInternalUse
-  public final void setRouter(Router router) {
+  public final void setRouter(IsRouter router) {
     this.router = router;
   }
 

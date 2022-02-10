@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.client.internal;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
@@ -28,13 +28,13 @@ public abstract class AbstractControllerCreator<C extends IsContext>
   
   protected StringBuilder sb;
   
-  protected Router router;
+  protected IsRouter router;
   
   protected C context;
   
   protected SimpleEventBus eventBus;
   
-  public AbstractControllerCreator(Router router,
+  public AbstractControllerCreator(IsRouter router,
                                    C context,
                                    SimpleEventBus eventBus) {
     super();

@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.client.handler;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.context.IsContext;
 import org.gwtproject.event.shared.SimpleEventBus;
 
@@ -27,7 +27,7 @@ public abstract class AbstractHandler<C extends IsContext>
   
   protected SimpleEventBus eventBus;
   
-  protected Router router;
+  protected IsRouter router;
   
   public AbstractHandler() {
     super();
@@ -41,7 +41,7 @@ public abstract class AbstractHandler<C extends IsContext>
     this.eventBus = eventBus;
   }
   
-  public void setRouter(Router router) {
+  public void setRouter(IsRouter router) {
     this.router = router;
   }
   

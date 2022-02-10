@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.AbstractControllerCreator;
@@ -17,7 +17,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
  * Build with Nalu version >>gwt-2.8.2-HEAD-SNAPSHOT<< at >>2020.08.31-11:49:34<<
  */
 public final class ControllerWithComposite02CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
-  public ControllerWithComposite02CreatorImpl(Router router, MockContext context,
+  public ControllerWithComposite02CreatorImpl(IsRouter router, MockContext context,
                                               SimpleEventBus eventBus) {
     super(router, context, eventBus);
   }

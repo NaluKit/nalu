@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.processor.popUpControllerCreator.ok;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.internal.AbstractPopUpControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.IsPopUpControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.PopUpControllerInstance;
@@ -13,7 +13,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
  * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.31-20:00:49<<
  */
 public final class PopUpController01CreatorImpl extends AbstractPopUpControllerCreator<MockContext> implements IsPopUpControllerCreator {
-  public PopUpController01CreatorImpl(Router router, MockContext context, SimpleEventBus eventBus) {
+  public PopUpController01CreatorImpl(IsRouter router, MockContext context, SimpleEventBus eventBus) {
     super(router, context, eventBus);
   }
 

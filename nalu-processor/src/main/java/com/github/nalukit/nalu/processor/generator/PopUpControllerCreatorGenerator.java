@@ -15,7 +15,7 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.internal.AbstractPopUpControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.IsPopUpControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.PopUpControllerInstance;
@@ -65,7 +65,7 @@ public class PopUpControllerCreatorGenerator {
     // constructor ...
     MethodSpec constructor = MethodSpec.constructorBuilder()
                                        .addModifiers(Modifier.PUBLIC)
-                                       .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
+                                       .addParameter(ParameterSpec.builder(ClassName.get(IsRouter.class),
                                                                            "router")
                                                                   .build())
                                        .addParameter(ParameterSpec.builder(popUpControllerModel.getContext()

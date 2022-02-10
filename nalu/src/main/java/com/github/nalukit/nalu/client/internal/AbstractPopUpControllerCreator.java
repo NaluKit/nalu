@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.client.internal;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.application.IsPopUpControllerCreator;
@@ -27,14 +27,14 @@ public abstract class AbstractPopUpControllerCreator<C extends IsContext>
     implements IsPopUpControllerCreator {
 
   protected StringBuilder sb;
-  protected Router        router;
+  protected IsRouter      router;
   protected C             context;
 
   protected SimpleEventBus eventBus;
 
   private boolean initialShow;
 
-  public AbstractPopUpControllerCreator(Router router,
+  public AbstractPopUpControllerCreator(IsRouter router,
                                         C context,
                                         SimpleEventBus eventBus) {
     super();

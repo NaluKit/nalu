@@ -15,7 +15,7 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
@@ -91,7 +91,7 @@ public class CompositeCreatorGenerator {
   private MethodSpec createConstructor() {
     return MethodSpec.constructorBuilder()
                      .addModifiers(Modifier.PUBLIC)
-                     .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
+                     .addParameter(ParameterSpec.builder(ClassName.get(IsRouter.class),
                                                          "router")
                                                 .build())
                      .addParameter(ParameterSpec.builder(compositeModel.getContext()

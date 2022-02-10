@@ -15,7 +15,7 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.AbstractShellCreator;
 import com.github.nalukit.nalu.client.internal.application.IsShellCreator;
@@ -66,7 +66,7 @@ public class ShellCreatorGenerator {
     // constructor ...
     MethodSpec constructor = MethodSpec.constructorBuilder()
                                        .addModifiers(Modifier.PUBLIC)
-                                       .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
+                                       .addParameter(ParameterSpec.builder(ClassName.get(IsRouter.class),
                                                                            "router")
                                                                   .build())
                                        .addParameter(ParameterSpec.builder(shellModel.getContext()
