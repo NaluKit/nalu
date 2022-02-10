@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.client.module;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import com.github.nalukit.nalu.client.context.IsModuleContext;
@@ -61,7 +61,7 @@ public interface IsModule<C extends IsModuleContext> {
    * @param router Nalu application router
    */
   @NaluInternalUse
-  void setRouter(Router router);
+  void setRouter(IsRouter router);
 
   @NaluInternalUse
   void loadModule(RouterConfiguration routeConfiguration);

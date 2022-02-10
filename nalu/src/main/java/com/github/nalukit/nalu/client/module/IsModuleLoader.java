@@ -16,7 +16,7 @@
 
 package com.github.nalukit.nalu.client.module;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.context.AbstractModuleContext;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.SimpleEventBus;
@@ -54,7 +54,7 @@ public interface IsModuleLoader<C extends AbstractModuleContext> {
   void setEventBus(SimpleEventBus eventBus);
   
   @NaluInternalUse
-  void setRouter(Router router);
+  void setRouter(IsRouter router);
   
   interface FinishLoadCommand {
     

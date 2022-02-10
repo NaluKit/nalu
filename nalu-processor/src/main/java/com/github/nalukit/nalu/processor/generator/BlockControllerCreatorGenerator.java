@@ -15,7 +15,7 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.internal.AbstractBlockControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.BlockControllerInstance;
 import com.github.nalukit.nalu.client.internal.application.IsBlockControllerCreator;
@@ -65,7 +65,7 @@ public class BlockControllerCreatorGenerator {
     // constructor ...
     MethodSpec constructor = MethodSpec.constructorBuilder()
                                        .addModifiers(Modifier.PUBLIC)
-                                       .addParameter(ParameterSpec.builder(ClassName.get(Router.class),
+                                       .addParameter(ParameterSpec.builder(ClassName.get(IsRouter.class),
                                                                            "router")
                                                                   .build())
                                        .addParameter(ParameterSpec.builder(blockControllerModel.getContext()

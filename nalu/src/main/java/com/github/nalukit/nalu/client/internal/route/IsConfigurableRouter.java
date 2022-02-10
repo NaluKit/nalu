@@ -16,15 +16,15 @@
 
 package com.github.nalukit.nalu.client.internal.route;
 
-import com.github.nalukit.nalu.client.Router;
+import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.module.IsModule;
 import org.gwtproject.event.shared.SimpleEventBus;
 
-public interface ConfigurableRouter
-    extends Router {
+public interface IsConfigurableRouter
+    extends IsRouter {
 
   /**
    * handle router exception.

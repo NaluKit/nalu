@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 abstract class AbstractRouter
-    implements ConfigurableRouter {
+    implements IsConfigurableRouter {
 
   // the plugin
   IsNaluProcessorPlugin plugin;

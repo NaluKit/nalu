@@ -21,7 +21,7 @@ import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 
 import java.util.Map;
 
-public interface Router {
+public interface IsRouter {
 
   /**
    * clears the cache
