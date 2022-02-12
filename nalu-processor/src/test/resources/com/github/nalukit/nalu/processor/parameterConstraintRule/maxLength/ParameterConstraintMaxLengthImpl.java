@@ -6,7 +6,7 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2021.07.30-06:47:26<<
+ * Build with Nalu version >>2.8.0<< at >>2021.07.30-06:47:26<<
  */
 public final class ParameterConstraintMaxLengthImpl extends AbstractParameterConstraintRule implements IsParameterConstraintRule {
   public ParameterConstraintMaxLengthImpl() {

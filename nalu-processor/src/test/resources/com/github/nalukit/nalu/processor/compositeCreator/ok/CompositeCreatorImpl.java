@@ -13,7 +13,7 @@ import java.lang.String;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2020.11.08-16:38:33<<
+ * Build with Nalu version >>2.8.0<< at >>2020.11.08-16:38:33<<
  */
 public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockContext> implements IsCompositeCreator {
   public CompositeCreatorImpl(IsRouter router, MockContext context, SimpleEventBus eventBus) {
