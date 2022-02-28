@@ -19,9 +19,9 @@ A visual part in Nalu will always be a combination of a controller and a compone
 To create a controller, you have to:
 
 * extend AbstractComponentController<C, V, W>
-   - C: type of the context
-   - V: type of the view (interface) that will be injected in the controller
-   - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
+    - C: type of the context
+    - V: type of the view (interface) that will be injected in the controller
+    - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
 
 By extending AbstractComponentController you will have access to the allowing instances:
 
@@ -63,8 +63,8 @@ To let Nalu automatically create a controller the controller class (which extend
 The `@Controller` annotation has four required attributes:
 
 * route: the route which activates the controller. A route has two parts:
-   - the first part contains the path to the controller. A route starts always with a '/' and is used to separate routes
-   - the second part are the parameters that will be injected in the controller. To define a parameter inside a route, use '/:parameter name'. Parameters are optional
+    - the first part contains the path to the controller. A route starts always with a '/' and is used to separate routes
+    - the second part are the parameters that will be injected in the controller. To define a parameter inside a route, use '/:parameter name'. Parameters are optional
 * selector: a selector defines an ID inside the DOM (using the element plugin) or an `add`-method (using the GWT-plugin) which will be called to add a widget to the DOM.
 * componentInterface: the type of the interface for your component
 * component: the type of the component
@@ -261,7 +261,7 @@ Place the adding into the `start`-method, because after the `stop`-method of the
 
 **Note**:
 
-**If you are using cached componets, then the handler will only be always active!**
+**If you are using cached components, handlers need to be added inside the `active`-method **
 
 #### Component Creation
 Nalu will automatically create a component using the Java 'new'-command and inject the component into the controller. Therefore the component needs to have a zero argument constructor.
@@ -299,8 +299,8 @@ A component represents the visual part. This is the place where the layout is cr
 To create a component, you have to:
 
 * extend AbstractComponent<C, W>
-   - C: type of the controller (defined as interface)
-   - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
+    - C: type of the controller (defined as interface)
+    - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
 
 A component requires a
 
@@ -331,9 +331,9 @@ Composites in Nalu are treated like controllers, but can **not** be used by a ro
 To create a composite, you have to:
 
 * extend AbstractCompositeController<C, V, W>
-   - C: type of the context
-   - V: type of the view (interface) that will be injected in the controller
-   - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
+    - C: type of the context
+    - V: type of the view (interface) that will be injected in the controller
+    - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
 
 By extending AbstractCompositeController you will have access to the allowing instances:
 
@@ -423,8 +423,8 @@ A component represents the visual part. This is the place where the layout is cr
 A composite component looks like a normal component. To create a composite component, you have to:
 
 * extend AbstractCompositeComponent<C, W>
-   - C: type of the composite controller (defined as interface)
-   - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
+    - C: type of the composite controller (defined as interface)
+    - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
 
 A composite component requires
 
@@ -545,8 +545,8 @@ A BlockController has the following features:
 To create a BlockController, you have to:
 
 * extend AbstractBlockComponentController<C, V>
-  * C: type of the context
-  * V: type of the view (interface) that will be injected in the controller
+    * C: type of the context
+    * V: type of the view (interface) that will be injected in the controller
 
 By extending AbstractBlockComponentController you will have access to the allowing instances:
 
@@ -562,7 +562,7 @@ A controller requires a
 * a public, zero-argument constructor
 * annotate the controller with `@BlockController`
 * extends AbstractBlockComponentController
-* 
+*
 Here is an example of a controller:
 
 ```java_holder_method_tree
@@ -689,8 +689,8 @@ A PopUpController has the following features:
 To create a pop-up Controller, you have to:
 
 * extend AbstractPopUpComponentController<C, V>
-   - C: type of the context
-   - V: type of the view (interface) that will be injected in the controller
+    - C: type of the context
+    - V: type of the view (interface) that will be injected in the controller
 
 By extending AbstractPopUpComponentController you will have access to the allowing instances:
 
@@ -734,7 +734,19 @@ The `@PopUpController` annotation has three required attributes:
 * componentInterface: the type of the interface for your component
 * component: the type of the component
 
-The 'componentInterface'-attribute will be used inside the controller as reference of the component interface, where as the 'component'-attribute will be used to instantiate the component. By default Nalu uses the `new` to create an instance of an component. (`GWT-create()` will no longer be available in J2CL / GWT 3! And, to be ready for J2CL / GWT 3 Nalu has to avoid using `GWT.create`).
+and an optional attribute:
+
+* alwaysRenderComponent.
+
+The **componentInterface**-attribute will be used inside the controller as reference of the component interface, where as the **component**-attribute will be used to instantiate the component. By default Nalu uses the `new` to create an instance of an component. (`GWT-create()` will no longer be available in J2CL / GWT 3! And, to be ready for J2CL / GWT 3 Nalu has to avoid using `GWT.create`).
+
+The optinal **alwaysRenderComponent**-attribute tells Nalu how to handle component rendering. By default, Nalu will render the component at the moment the popup is used the first time. After that, Nalu will always reuse the element. Setting the **alwaysRenderComponent**-attribute to true, Nalu will render the component every time the popup is used. Nalu will call the folling methods:
+
+* removeHandlers
+* render
+* bind
+
+inside the component.
 
 You can use the `IsPopUpComponentCreator`-interface to create the component inside your controller.
 
