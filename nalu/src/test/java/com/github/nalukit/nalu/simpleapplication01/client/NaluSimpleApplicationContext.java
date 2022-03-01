@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.simpleapplication01.client;
 
+import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.context.IsContext;
 
 /**
@@ -31,7 +32,7 @@ public class NaluSimpleApplicationContext
   private String searchCity;
   
   public NaluSimpleApplicationContext() {
-    this.version = "gwt-2.8.2-HEAD-SNAPSHOT";
+    this.version = Nalu.getVersion();
   }
   
   public String getVersion() {
