@@ -291,31 +291,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>com.google.code.maven-replacer-plugin</groupId>
-        <artifactId>replacer</artifactId>
-        <version>1.5.2</version>
-        <executions>
-          <execution>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>replace</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <basedir>${project.build.testSourceDirectory}/../resources/com/github/nalukit/nalu/processor.templates</basedir>
-          <outputBasedir>${project.build.testSourceDirectory}/../resources/com/github/nalukit/nalu/</outputBasedir>
-          <outputDir>processor/</outputDir>
-          <includes>**/*.java</includes>
-          <replacements>
-            <replacement>
-              <token>%VERSION_TAG%</token>
-              <value>${revision}</value>
-            </replacement>
-          </replacements>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 </project>
