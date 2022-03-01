@@ -36,10 +36,13 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   protected Map<String, ShowPopUpEvent.PopUpCommand> commandStore;
   /* data store of the parameters (taken from the event) */
   protected Map<String, String>                      dataStore;
+  /* object store of the parameters (taken from the event) */
+  protected Map<String, Object>                      dataObjectStore;
   
   public AbstractPopUpComponentController() {
     super();
     this.dataStore = new HashMap<>();
+    this.dataObjectStore = new HashMap<>();
   }
   
   /**
@@ -98,7 +101,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   public Map<String, String> getDataStore() {
     return this.dataStore;
   }
-  
+
   /**
    * sets the data store.
    *
@@ -107,6 +110,29 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   @NaluInternalUse
   public final void setDataStore(Map<String, String> dataStore) {
     this.dataStore = dataStore;
+  }
+
+  /**
+   * sets the data object store.
+   *
+   * @param dataObjectStore the data store
+   */
+  @NaluInternalUse
+  public final void setDataObjectStore(Map<String, Object> dataObjectStore) {
+    this.dataObjectStore = dataObjectStore;
+  }
+
+  /**
+   * Returns the data object store.
+   * <p>
+   * The data object store contains the parameters set inside the ShowPopUp-event.
+   * Nalu will set the data object store with the entries from the event. Values
+   * can be obtained by using a key.
+   *
+   * @return the data store with the entries from the event
+   */
+  public Map<String, Object> getDataObjectStore() {
+    return this.dataObjectStore;
   }
   
   /**

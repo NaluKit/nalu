@@ -13,6 +13,7 @@ public class ShowPopUpEvent
   private final String                    name;
   private final Map<String, PopUpCommand> commandStore;
   private final Map<String, String>       dataStore;
+  private final Map<String, Object>       dataObjectStore;
   
   @SuppressWarnings("unused")
   private ShowPopUpEvent() {
@@ -24,6 +25,7 @@ public class ShowPopUpEvent
     this.name         = name;
     this.commandStore = new HashMap<>();
     this.dataStore    = new HashMap<>();
+    this.dataObjectStore = new HashMap<>();
   }
   
   public static ShowPopUpEvent show(String name) {
@@ -33,6 +35,13 @@ public class ShowPopUpEvent
   public ShowPopUpEvent using(String key,
                               String value) {
     this.dataStore.put(key,
+                       value);
+    return this;
+  }
+
+  public ShowPopUpEvent usingObject(String key,
+                              Object value) {
+    this.dataObjectStore.put(key,
                        value);
     return this;
   }
@@ -64,6 +73,10 @@ public class ShowPopUpEvent
   
   public Map<String, String> getDataStore() {
     return dataStore;
+  }
+
+  public Map<String, Object> getDataObjectStore() {
+    return dataObjectStore;
   }
   
   @FunctionalInterface

@@ -125,6 +125,8 @@ public class PopUpControllerFactory {
     popUpComponentController.getController()
                             .setDataStore(event.getDataStore());
     popUpComponentController.getController()
+                            .setDataObjectStore(event.getDataObjectStore());
+    popUpComponentController.getController()
                             .setCommandStore(event.getCommandStore());
     PopUpControllerInstance finalPopUpComponentController = popUpComponentController;
 
