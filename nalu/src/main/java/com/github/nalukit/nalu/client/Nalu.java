@@ -19,10 +19,21 @@ package com.github.nalukit.nalu.client;
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.route.RouterUtils;
 
+import java.io.IOException;
+import java.util.Properties;
+
 public class Nalu {
   
   public static String getVersion() {
-    return "HEAD-SNAPSHOT";
+    final Properties properties = new Properties();
+    try {
+      properties.load(Nalu.class.getClassLoader().getResourceAsStream("version.properties"));
+      return properties.getProperty("artifact.version");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return "VERSION-UNKNOWN";
   }
   
   public static boolean hasHistory() {

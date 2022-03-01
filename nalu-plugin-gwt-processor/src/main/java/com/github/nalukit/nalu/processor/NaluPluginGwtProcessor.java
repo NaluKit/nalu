@@ -16,6 +16,7 @@
 
 package com.github.nalukit.nalu.processor;
 
+import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.plugin.gwt.client.annotation.Selector;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.AbstractSelectorProvider;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.IsSelectorProvider;
@@ -71,7 +72,8 @@ public class NaluPluginGwtProcessor
     this.stopwatch = Stopwatch.createStarted();
     setUp();
     this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor started ...");
-    this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor version >>HEAD-SNAPSHOT<<");
+    String implementationVersion = Nalu.getVersion();
+    this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor version >>" + implementationVersion + "<<");
   }
   
   @SuppressWarnings("unused")
