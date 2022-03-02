@@ -12,9 +12,7 @@ public class NaluTest {
   @Test
   void getVersion()
       throws IOException {
-    final Properties properties = new Properties();
-    properties.load(this.getClass().getClassLoader().getResourceAsStream("version.properties"));
-    Assertions.assertEquals(properties.getProperty("artifact.version"),
+    Assertions.assertEquals("HEAD-SNAPSHOT",
                             Nalu.getVersion());
   }
 

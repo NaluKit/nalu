@@ -235,3 +235,6 @@ fabric.properties
 **/.flattened-pom.xml
 
 
+# Flattened poms
+**/.flattened-pom.xml
+

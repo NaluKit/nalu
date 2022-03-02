@@ -25,15 +25,7 @@ import java.util.Properties;
 public class Nalu {
   
   public static String getVersion() {
-    final Properties properties = new Properties();
-    try {
-      properties.load(Nalu.class.getClassLoader().getResourceAsStream("version.properties"));
-      return properties.getProperty("artifact.version");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-    return "VERSION-UNKNOWN";
+    return Version.getInstance().getVersion();
   }
   
   public static boolean hasHistory() {
