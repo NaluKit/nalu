@@ -24,7 +24,7 @@
 
   <groupId>com.github.nalukit</groupId>
   <artifactId>nalu-parent</artifactId>
-  <version>HEAD-SNAPSHOT</version>
+  <version>${revision}</version>
   <packaging>pom</packaging>
 
   <name>nalu-parent</name>
@@ -86,6 +86,7 @@
   </distributionManagement>
 
   <properties>
+    <revision>HEAD-SNAPSHOT</revision>
     <github.global.server>github</github.global.server>
 
     <auto-common.version>1.0</auto-common.version>
@@ -115,6 +116,7 @@
     <plugin.version.sonatype>1.6.3</plugin.version.sonatype>
     <plugin.version.source>3.2.1</plugin.version.source>
     <plugin.version.surfire>2.22.2</plugin.version.surfire>
+    <flatten-maven-plugin.version>1.2.2</flatten-maven-plugin.version>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!--<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
@@ -122,6 +124,33 @@
 
 
   <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <version>${flatten-maven-plugin.version}</version>
+        <configuration>
+          <updatePomFile>true</updatePomFile>
+          <flattenMode>resolveCiFriendliesOnly</flattenMode>
+        </configuration>
+        <executions>
+          <execution>
+            <id>flatten</id>
+            <phase>package</phase>
+            <goals>
+              <goal>flatten</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>flatten.clean</id>
+            <phase>clean</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -304,6 +333,15 @@
           </plugin>
         </plugins>
       </reporting>
+    </profile>
+    <profile>
+      <id>jdk-8-config</id>
+      <activation>
+        <jdk>1.8</jdk>
+      </activation>
+      <properties>
+        <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
+      </properties>
     </profile>
   </profiles>
 </project>
