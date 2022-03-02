@@ -25,7 +25,7 @@
   <parent>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-parent</artifactId>
-    <version>gwt-2.8.2-HEAD-SNAPSHOT</version>
+    <version>${revision}</version>
   </parent>
 
   <artifactId>nalu-plugin-elemental2</artifactId>
@@ -170,4 +170,13 @@
       </plugin>
     </plugins>
   </build>
+
+
+  <!--<repositories>-->
+  <!--<repository>-->
+  <!--<id>${vertispan.snapshot.repo.id}</id>-->
+  <!--<name>${vertispan.snapshot.repo.name}</name>-->
+  <!--<url>${vertispan.snapshot.repo.url}</url>-->
+  <!--</repository>-->
+  <!--</repositories>-->
 </project>

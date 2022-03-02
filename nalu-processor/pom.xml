@@ -25,7 +25,7 @@
   <parent>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-parent</artifactId>
-    <version>gwt-2.8.2-HEAD-SNAPSHOT</version>
+    <version>${revision}</version>
   </parent>
 
   <artifactId>nalu-processor</artifactId>
@@ -264,6 +264,30 @@
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
               </transformers>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <configuration>
+          <updatePomFile>true</updatePomFile>
+          <flattenMode>resolveCiFriendliesOnly</flattenMode>
+        </configuration>
+        <executions>
+          <execution>
+            <id>flatten</id>
+            <phase>package</phase>
+            <goals>
+              <goal>flatten</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>flatten.clean</id>
+            <phase>clean</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
