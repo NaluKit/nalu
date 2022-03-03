@@ -222,3 +222,6 @@ fabric.properties
 .idea/httpRequests
 
 dependency-reduced-pom.xml
+
+# Generated processor resources
+src/test/resources/com/github/nalukit/nalu/processor/

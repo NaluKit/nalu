@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.processor;
 
+import com.github.nalukit.nalu.client.Nalu;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,7 +34,7 @@ public class ProcessorConstants {
   public final static String LOADER_IMPL         = "LoaderImpl";
   public final static String MODULE_IMPL         = "ModuleImpl";
   public final static String PLUGIN_IMPL         = "PluginImpl";
-  public final static String PROCESSOR_VERSION   = "HEAD-SNAPSHOT";
+  public final static String PROCESSOR_VERSION   = Nalu.getVersion();
   public final static String BUILD_TIME          = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(new Date(System.currentTimeMillis()));
 
 }

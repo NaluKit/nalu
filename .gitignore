@@ -231,6 +231,9 @@ fabric.properties
 
 */dependency-reduced-pom.xml
 
+# Flattened pom
+**/.flattened-pom.xml
+
 
 # Flattened poms
 **/.flattened-pom.xml

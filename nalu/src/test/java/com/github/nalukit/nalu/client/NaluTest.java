@@ -4,10 +4,14 @@ import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.util.Properties;
+
 public class NaluTest {
 
   @Test
-  void getVersion() {
+  void getVersion()
+      throws IOException {
     Assertions.assertEquals("HEAD-SNAPSHOT",
                             Nalu.getVersion());
   }

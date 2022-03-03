@@ -19,10 +19,13 @@ package com.github.nalukit.nalu.client;
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.route.RouterUtils;
 
+import java.io.IOException;
+import java.util.Properties;
+
 public class Nalu {
   
   public static String getVersion() {
-    return "HEAD-SNAPSHOT";
+    return Version.getInstance().getVersion();
   }
   
   public static boolean hasHistory() {
