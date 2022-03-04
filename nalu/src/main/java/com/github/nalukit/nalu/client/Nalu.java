@@ -25,7 +25,7 @@ import java.util.Properties;
 public class Nalu {
   
   public static String getVersion() {
-    return Version.getInstance().getVersion();
+    return "HEAD-SNAPSHOT";
   }
   
   public static boolean hasHistory() {
