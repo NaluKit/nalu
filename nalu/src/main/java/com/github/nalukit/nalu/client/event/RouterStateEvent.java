@@ -45,6 +45,7 @@ public class RouterStateEvent
   public enum RouterState {
     START_ROUTING,
     ROUTING_ABORTED,
+    ROUTING_CANCELED_BY_USER,
     ROUTING_DONE;
   }
   
