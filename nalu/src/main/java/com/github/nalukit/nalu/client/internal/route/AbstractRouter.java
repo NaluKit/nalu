@@ -550,6 +550,10 @@ abstract class AbstractRouter
                                            false);
                               // clear loop detection list ...
                               loopDetectionList.clear();
+                              fireRouterStateEvent(RouterState.ROUTING_ABORTED,
+                                      routeResult.getRoute(),
+                                      routeResult.getParameterValues()
+                                              .toArray(new String[0]));
                             }
                           });
     }
