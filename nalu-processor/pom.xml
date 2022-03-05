@@ -268,6 +268,32 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>replacer</artifactId>
+        <version>${plugin.version.replacer}</version>
+        <executions>
+          <execution>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <basedir>${path.test.resources}/com/github/nalukit/nalu/processor.templates
+          </basedir>
+          <outputBasedir>${path.test.resources}/com/github/nalukit/nalu/</outputBasedir>
+          <outputDir>processor/</outputDir>
+          <includes>**/*.java</includes>
+          <replacements>
+            <replacement>
+              <token>%VERSION_TAG%</token>
+              <value>${revision}</value>
+            </replacement>
+          </replacements>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>flatten-maven-plugin</artifactId>
         <configuration>
@@ -290,6 +316,18 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>${plugin.version.clean}</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${path.test.resources}/com/github/nalukit/nalu/processor</directory>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+          </filesets>
+        </configuration>
       </plugin>
     </plugins>
   </build>
