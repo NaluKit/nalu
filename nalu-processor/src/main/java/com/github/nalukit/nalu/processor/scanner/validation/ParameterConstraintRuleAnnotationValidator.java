@@ -40,14 +40,14 @@ public class ParameterConstraintRuleAnnotationValidator {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
-  }
-
-  public static Builder builder() {
-    return new Builder();
   }
 
   public void validate()

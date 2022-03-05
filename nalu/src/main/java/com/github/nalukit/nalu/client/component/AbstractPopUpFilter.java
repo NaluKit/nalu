@@ -25,8 +25,8 @@ import org.gwtproject.event.shared.SimpleEventBus;
 public abstract class AbstractPopUpFilter<C extends IsContext>
     implements IsPopUpFilter {
 
-  protected C                           context;
-  protected SimpleEventBus              eventBus;
+  protected C              context;
+  protected SimpleEventBus eventBus;
 
   public AbstractPopUpFilter() {
     super();

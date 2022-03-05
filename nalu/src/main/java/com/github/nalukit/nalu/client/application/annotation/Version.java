@@ -29,7 +29,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Version {
-  
+
   String value() default "APPLICATION-VERSION-NOT-AVAILABLE";
-  
+
 }

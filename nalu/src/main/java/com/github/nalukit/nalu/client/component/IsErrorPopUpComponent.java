@@ -19,22 +19,22 @@ package com.github.nalukit.nalu.client.component;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public interface IsErrorPopUpComponent<C extends IsErrorPopUpComponent.Controller> {
-  
+
   void render();
-  
+
   void bind();
-  
+
   C getController();
-  
+
   @NaluInternalUse
   void setController(C controller);
-  
+
   void show();
-  
+
   void hide();
-  
+
   interface Controller {
-  
+
   }
-  
+
 }

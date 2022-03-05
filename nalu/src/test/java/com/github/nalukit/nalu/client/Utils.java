@@ -9,91 +9,95 @@ import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 class Utils {
-  
+
   static IsNaluProcessorPlugin createPlugin(boolean attached,
                                             boolean confirm) {
     return new IsNaluProcessorPlugin() {
-      
+
       @Override
       public void alert(String message) {
         // nothing to do
       }
-      
+
       @Override
       public boolean attach(String selector,
                             Object asElement) {
         // rerun the attached default value
         return attached;
       }
-      
+
       @Override
       public void confirm(String message,
                           ConfirmHandler handler) {
       }
-      
+
       @Override
       public String getStartRoute() {
         return "/";
       }
-      
+
       @Override
       public Map<String, String> getQueryParameters() {
         return new HashMap<>();
       }
-      
+
       @Override
       public void register(RouteChangeHandler handler) {
       }
-      
+
       @Override
       public void remove(String selector) {
       }
-      
+
       @Override
       public void route(String newRoute,
                         boolean replace,
                         boolean stealthMode) {
       }
-      
+
       @Override
       public void initialize(ShellConfiguration shellConfiguration) {
       }
-      
+
       @Override
       public void updateTitle(String title) {
       }
-      
+
       @Override
       public void updateMetaNameContent(String name,
                                         String content) {
       }
-      
+
       @Override
       public void updateMetaPropertyContent(String property,
                                             String content) {
       }
-      
+
       @Override
       public String decode(String route) {
         return route;
       }
-      
+
       @Override
       public void setCustomAlertPresenter(IsCustomAlertPresenter presenter) {
-      
+
       }
-      
+
       @Override
       public void setCustomConfirmPresenter(IsCustomConfirmPresenter presenter) {
-      
+
       }
-      
+
     };
   }
-  
+
   static ShellConfiguration createShellConfiguration() {
     ShellConfiguration shellConfiguration = new ShellConfiguration();
     shellConfiguration.getShells()
@@ -101,7 +105,7 @@ class Utils {
                                            "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.Shell"));
     return shellConfiguration;
   }
-  
+
   static RouterConfiguration createRouterConfiguration() {
     RouterConfiguration routerConfiguration = new RouterConfiguration();
     routerConfiguration.getRouters()
@@ -134,10 +138,10 @@ class Utils {
                                             "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     return routerConfiguration;
   }
-  
+
   static List<CompositeControllerReference> createCompositeConfiguration() {
     List<CompositeControllerReference> compositeControllerReferences = new ArrayList<>();
     return compositeControllerReferences;
   }
-  
+
 }

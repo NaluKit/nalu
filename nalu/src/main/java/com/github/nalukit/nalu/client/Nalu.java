@@ -19,30 +19,27 @@ package com.github.nalukit.nalu.client;
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.route.RouterUtils;
 
-import java.io.IOException;
-import java.util.Properties;
-
 public class Nalu {
-  
+
   public static String getVersion() {
     return "HEAD-SNAPSHOT";
   }
-  
+
   public static boolean hasHistory() {
     return PropertyFactory.get()
                           .hasHistory();
   }
-  
+
   public static boolean isUsingHash() {
     return PropertyFactory.get()
                           .isUsingHash();
   }
-  
+
   public static boolean isUsingColonForParametersInUrl() {
     return PropertyFactory.get()
                           .isUsingColonForParametersInUrl();
   }
-  
+
   /**
    * This method compares the route with the value of withRoute respecting parameters.
    *
@@ -70,7 +67,7 @@ public class Nalu {
                       .match(route,
                              withRoute);
   }
-  
+
   /**
    * This method compares the route with the value of withRoute respecting parameters.
    *
@@ -101,5 +98,5 @@ public class Nalu {
                              withRoute,
                              exact);
   }
-  
+
 }

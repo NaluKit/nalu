@@ -31,13 +31,13 @@ import javax.lang.model.type.MirroredTypeException;
 import java.util.Objects;
 
 public class CompositesAnnotationScanner {
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private ControllerModel controllerModel;
-  
+
   private Element controllerElement;
-  
+
   @SuppressWarnings("unused")
   private CompositesAnnotationScanner(Builder builder) {
     super();
@@ -46,14 +46,14 @@ public class CompositesAnnotationScanner {
     this.controllerElement     = builder.controllerElement;
     setUp();
   }
-  
-  private void setUp() {
-  }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
+  private void setUp() {
+  }
+
   @SuppressWarnings("unused")
   public ControllerModel scan(RoundEnvironment roundEnvironment) {
     Composites annotation = this.controllerElement.getAnnotation(Composites.class);
@@ -71,7 +71,7 @@ public class CompositesAnnotationScanner {
     }
     return this.controllerModel;
   }
-  
+
   private TypeElement getCompositeTypeElement(Composite annotation) {
     try {
       annotation.compositeController();
@@ -81,7 +81,7 @@ public class CompositesAnnotationScanner {
     }
     return null;
   }
-  
+
   private TypeElement getCompositeConditionElement(Composite annotation) {
     try {
       annotation.condition();
@@ -91,34 +91,34 @@ public class CompositesAnnotationScanner {
     }
     return null;
   }
-  
+
   public static class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     ControllerModel controllerModel;
-    
+
     Element controllerElement;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder controllerModel(ControllerModel controllerModel) {
       this.controllerModel = controllerModel;
       return this;
     }
-    
+
     public Builder controllerElement(Element controllerElement) {
       this.controllerElement = controllerElement;
       return this;
     }
-    
+
     public CompositesAnnotationScanner build() {
       return new CompositesAnnotationScanner(this);
     }
-    
+
   }
-  
+
 }

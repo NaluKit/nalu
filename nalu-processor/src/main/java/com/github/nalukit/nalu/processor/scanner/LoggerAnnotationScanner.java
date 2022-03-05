@@ -30,13 +30,13 @@ import java.util.Objects;
 import static java.util.Objects.isNull;
 
 public class LoggerAnnotationScanner {
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private Element loggerElement;
-  
+
   private MetaModel metaModel;
-  
+
   @SuppressWarnings("unused")
   private LoggerAnnotationScanner(Builder builder) {
     super();
@@ -45,14 +45,14 @@ public class LoggerAnnotationScanner {
     this.metaModel             = builder.metaModel;
     setUp();
   }
-  
-  private void setUp() {
-  }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
+  private void setUp() {
+  }
+
   public MetaModel scan(RoundEnvironment roundEnvironment) {
     // handle debug-annotation
     Logger loggerAnnotation = loggerElement.getAnnotation(Logger.class);
@@ -74,7 +74,7 @@ public class LoggerAnnotationScanner {
     }
     return this.metaModel;
   }
-  
+
   private TypeElement getLogger(Logger loggerAnnotation) {
     try {
       loggerAnnotation.logger();
@@ -84,7 +84,7 @@ public class LoggerAnnotationScanner {
     }
     return null;
   }
-  
+
   private TypeElement getClientLogger(Logger loggerAnnotation) {
     try {
       loggerAnnotation.clientLogger();
@@ -94,34 +94,34 @@ public class LoggerAnnotationScanner {
     }
     return null;
   }
-  
+
   public static class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     Element loggerElement;
-    
+
     MetaModel metaModel;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder loggerElement(Element loggerElement) {
       this.loggerElement = loggerElement;
       return this;
     }
-    
+
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public LoggerAnnotationScanner build() {
       return new LoggerAnnotationScanner(this);
     }
-    
+
   }
-  
+
 }

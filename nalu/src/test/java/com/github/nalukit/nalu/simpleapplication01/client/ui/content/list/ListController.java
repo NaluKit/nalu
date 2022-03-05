@@ -29,14 +29,14 @@ import java.util.List;
 public class ListController
     extends AbstractComponentController<NaluSimpleApplicationContext, IListComponent, String>
     implements IListComponent.Controller {
-  
+
   private String name;
-  
+
   private String city;
-  
+
   public ListController() {
   }
-  
+
   @Override
   public void start() {
     List<Person> result = PersonService.get()
@@ -51,22 +51,22 @@ public class ListController
     } else {
       this.eventBus.fireEvent(new StatusChangeEvent("Found " + Integer.toString(result.size()) + " persons"));
     }
-    
+
     this.eventBus.fireEvent(new SelectEvent(SelectEvent.Select.LIST));
   }
-  
+
   @Override
   public void doUpdate(Person object) {
     this.router.route("/detail",
                       Long.toString(object.getId()));
   }
-  
+
   public void setName(String name) {
     this.name = name;
   }
-  
+
   public void setCity(String city) {
     this.city = city;
   }
-  
+
 }

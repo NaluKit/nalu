@@ -29,7 +29,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class TrackerTest {
-  
+
   @Test
   void testTrackerAnnotationOnAMethod() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -39,7 +39,7 @@ public class TrackerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("@Tracker can only be used on a type (interface)");
   }
-  
+
   @Test
   void testTrackerAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -49,7 +49,7 @@ public class TrackerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Tracker can only be used on a type (interface)");
   }
-  
+
   @Test
   void testTrackerAnnotationWithoutExtendsIsApplication() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -59,7 +59,7 @@ public class TrackerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Tracker can only be used on interfaces that extends IsApplication");
   }
-  
+
   @Test
   public void testTrackerAnnotationOnClassWithoutApplicationAnnotation() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -69,7 +69,7 @@ public class TrackerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Tracker can only be used with an interfaces annotated with @Annotation");
   }
-  
+
   @Test
   void testApplicationWithTracker() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -86,7 +86,7 @@ public class TrackerTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/tracker/applicationWithTracker/ApplicationWithTrackerImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/applicationWithTracker/ApplicationWithTrackerImpl.java"));
   }
-  
+
   @Test
   void testApplicationWithTrackerThatDoesNotExtendsAbstractracker() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -101,5 +101,5 @@ public class TrackerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: value of @Tracker annotation needs to extends AbstractTracker<C>");
   }
-  
+
 }

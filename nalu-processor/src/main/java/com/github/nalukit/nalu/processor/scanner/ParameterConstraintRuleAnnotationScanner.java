@@ -16,7 +16,12 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
-import com.github.nalukit.nalu.client.constraint.annotation.*;
+import com.github.nalukit.nalu.client.constraint.annotation.BlackListing;
+import com.github.nalukit.nalu.client.constraint.annotation.MaxLength;
+import com.github.nalukit.nalu.client.constraint.annotation.MinLength;
+import com.github.nalukit.nalu.client.constraint.annotation.NotEmpty;
+import com.github.nalukit.nalu.client.constraint.annotation.Pattern;
+import com.github.nalukit.nalu.client.constraint.annotation.WhiteListing;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleModel;
@@ -35,11 +40,11 @@ public class ParameterConstraintRuleAnnotationScanner {
     setUp();
   }
 
-  private void setUp() {
-  }
-
   public static Builder builder() {
     return new Builder();
+  }
+
+  private void setUp() {
   }
 
   public ParameterConstraintRuleModel scan(RoundEnvironment roundEnvironment)

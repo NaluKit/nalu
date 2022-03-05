@@ -26,33 +26,33 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
 public class BlockControllerAnnotationValidator {
-  
+
   private ProcessorUtils processorUtils;
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private Element blockControllerElement;
-  
+
   @SuppressWarnings("unused")
   private BlockControllerAnnotationValidator() {
   }
-  
+
   private BlockControllerAnnotationValidator(Builder builder) {
     this.processingEnvironment  = builder.processingEnvironment;
     this.blockControllerElement = builder.blockControllerElement;
     setUp();
   }
-  
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-  
-  public static Builder builder() {
-    return new Builder();
-  }
-  
+
   public void validate()
       throws ProcessorException {
     TypeElement typeElement = (TypeElement) this.blockControllerElement;
@@ -77,34 +77,34 @@ public class BlockControllerAnnotationValidator {
       throw new ProcessorException("Nalu-Processor: @BlockController - name attribute should not be empty");
     }
   }
-  
+
   public static final class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     RoundEnvironment roundEnvironment;
-    
+
     Element blockControllerElement;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-    
+
     public Builder blockControllerElement(Element blockControllerElement) {
       this.blockControllerElement = blockControllerElement;
       return this;
     }
-    
+
     public BlockControllerAnnotationValidator build() {
       return new BlockControllerAnnotationValidator(this);
     }
-    
+
   }
-  
+
 }

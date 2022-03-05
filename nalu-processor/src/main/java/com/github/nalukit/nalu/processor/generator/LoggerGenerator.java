@@ -25,30 +25,33 @@ import javax.lang.model.element.Modifier;
 import java.util.Objects;
 
 public class LoggerGenerator {
-  
+
   private MetaModel metaModel;
-  
+
   private TypeSpec.Builder typeSpec;
-  
+
   @SuppressWarnings("unused")
   private LoggerGenerator() {
   }
-  
+
   private LoggerGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
     this.typeSpec  = builder.typeSpec;
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   void generate() {
     // method must always be created!
     MethodSpec.Builder loadLoggerConfigurationMethod = MethodSpec.methodBuilder("loadLoggerConfiguration")
                                                                  .addAnnotation(Override.class)
                                                                  .addModifiers(Modifier.PUBLIC);
-    if (!Objects.isNull(metaModel.getLogger()) && !metaModel.getLogger().getClassName().equals(NoCustomLogger.class.getCanonicalName())) {
+    if (!Objects.isNull(metaModel.getLogger()) &&
+        !metaModel.getLogger()
+                  .getClassName()
+                  .equals(NoCustomLogger.class.getCanonicalName())) {
       loadLoggerConfigurationMethod.addStatement("$T clientLogger = new $T()",
                                                  ClassName.get(metaModel.getClientLogger()
                                                                         .getPackage(),
@@ -73,13 +76,13 @@ public class LoggerGenerator {
     }
     typeSpec.addMethod(loadLoggerConfigurationMethod.build());
   }
-  
+
   public static final class Builder {
-    
+
     MetaModel metaModel;
-    
+
     TypeSpec.Builder typeSpec;
-    
+
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -90,7 +93,7 @@ public class LoggerGenerator {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -101,11 +104,11 @@ public class LoggerGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-    
+
     public LoggerGenerator build() {
       return new LoggerGenerator(this);
     }
-    
+
   }
-  
+
 }

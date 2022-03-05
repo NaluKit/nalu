@@ -24,7 +24,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Composites {
-  
+
   Composite[] value();
-  
+
 }

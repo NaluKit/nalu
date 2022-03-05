@@ -24,7 +24,12 @@ import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.BlockControllerModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
-import com.squareup.javapoet.*;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeSpec;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -32,24 +37,24 @@ import javax.lang.model.element.Modifier;
 import java.io.IOException;
 
 public class BlockControllerCreatorGenerator {
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private BlockControllerModel blockControllerModel;
-  
+
   @SuppressWarnings("unused")
   private BlockControllerCreatorGenerator() {
   }
-  
+
   private BlockControllerCreatorGenerator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.blockControllerModel  = builder.blockControllerModel;
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   public void generate()
       throws ProcessorException {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(blockControllerModel.getController()
@@ -78,7 +83,7 @@ public class BlockControllerCreatorGenerator {
                                        .addStatement("super(router, context, eventBus)")
                                        .build();
     typeSpec.addMethod(constructor);
-    
+
     MethodSpec.Builder createMethod = MethodSpec.methodBuilder("create")
                                                 .addAnnotation(ClassName.get(Override.class))
                                                 .addModifiers(Modifier.PUBLIC)
@@ -131,10 +136,10 @@ public class BlockControllerCreatorGenerator {
                 .addStatement("component.render()")
                 .addStatement("component.bind()")
                 .addStatement("controller.bind()");
-    
+
     createMethod.addStatement("return blockControllerInstance");
     typeSpec.addMethod(createMethod.build());
-    
+
     JavaFile javaFile = JavaFile.builder(blockControllerModel.getController()
                                                              .getPackage(),
                                          typeSpec.build())
@@ -151,15 +156,15 @@ public class BlockControllerCreatorGenerator {
                                    e.getMessage());
     }
   }
-  
+
   public static final class Builder {
-    
+
     MetaModel metaModel;
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     BlockControllerModel blockControllerModel;
-    
+
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -170,21 +175,21 @@ public class BlockControllerCreatorGenerator {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder blockControllerModel(BlockControllerModel blockControllerModel) {
       this.blockControllerModel = blockControllerModel;
       return this;
     }
-    
+
     public BlockControllerCreatorGenerator build() {
       return new BlockControllerCreatorGenerator(this);
     }
-    
+
   }
-  
+
 }

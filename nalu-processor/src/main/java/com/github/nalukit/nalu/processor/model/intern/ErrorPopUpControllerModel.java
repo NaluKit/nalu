@@ -17,17 +17,17 @@
 package com.github.nalukit.nalu.processor.model.intern;
 
 public class ErrorPopUpControllerModel {
-  
+
   private ClassNameModel context;
-  
+
   private ClassNameModel controller;
-  
+
   private ClassNameModel componentInterface;
-  
+
   private ClassNameModel component;
-  
+
   private boolean componentCreator;
-  
+
   public ErrorPopUpControllerModel(ClassNameModel context,
                                    ClassNameModel controller,
                                    ClassNameModel componentInterface,
@@ -39,45 +39,45 @@ public class ErrorPopUpControllerModel {
     this.component          = component;
     this.componentCreator   = componentCreator;
   }
-  
+
   public ClassNameModel getContext() {
     return context;
   }
-  
+
   public void setContext(ClassNameModel context) {
     this.context = context;
   }
-  
+
   public ClassNameModel getController() {
     return controller;
   }
-  
+
   public void setController(ClassNameModel controller) {
     this.controller = controller;
   }
-  
+
   public ClassNameModel getComponentInterface() {
     return componentInterface;
   }
-  
+
   public void setComponentInterface(ClassNameModel componentInterface) {
     this.componentInterface = componentInterface;
   }
-  
+
   public ClassNameModel getComponent() {
     return component;
   }
-  
+
   public void setComponent(ClassNameModel component) {
     this.component = component;
   }
-  
+
   public boolean isComponentCreator() {
     return componentCreator;
   }
-  
+
   public void setComponentCreator(boolean componentCreator) {
     this.componentCreator = componentCreator;
   }
-  
+
 }

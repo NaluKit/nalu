@@ -21,14 +21,14 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
 public interface IsCompositeCreator {
-  
+
   CompositeInstance create(String parentControllerClassName,
                            String selctor,
                            boolean scopeGlobal)
       throws RoutingInterceptionException;
-  
+
   void setParameter(Object object,
                     String... params)
       throws RoutingInterceptionException;
-  
+
 }

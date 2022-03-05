@@ -25,11 +25,11 @@ import java.util.List;
 @NaluInternalUse
 public final class NoCustomLogger
     extends AbstractLogger<IsContext> {
-  
+
   @Override
   public void log(List<String> messages,
                   boolean sdmOnly) {
     // Do nothind ...
   }
-  
+
 }

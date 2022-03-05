@@ -25,7 +25,7 @@ import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import java.util.Optional;
 
 public class RouteValidation {
-  
+
   public static boolean validateStartRoute(ShellConfiguration shellConfiguration,
                                            RouterConfiguration routerConfiguration,
                                            String route) {
@@ -34,7 +34,7 @@ public class RouteValidation {
                          route);
 
   }
-  
+
   private static boolean validateRoute(ShellConfiguration shellConfiguration,
                                        RouterConfiguration routerConfiguration,
                                        String route) {
@@ -63,7 +63,7 @@ public class RouteValidation {
                                                              .findFirst();
     return optionalRoute.isPresent();
   }
-  
+
   private static String getShellFromRoute(String route) {
     String shell = route;
     if (shell.startsWith("/")) {
@@ -76,7 +76,7 @@ public class RouteValidation {
       return shell;
     }
   }
-  
+
   private static String getRouteWithoutShellAndParameter(String route) {
     String routeWithoutShell = route;
     if (routeWithoutShell.startsWith("/")) {
@@ -96,5 +96,5 @@ public class RouteValidation {
     }
     return routeWithoutShell;
   }
-  
+
 }

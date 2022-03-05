@@ -48,14 +48,14 @@ public class PopUpFiltersGenerator {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
-  }
-
-  public static Builder builder() {
-    return new Builder();
   }
 
   void generate() {

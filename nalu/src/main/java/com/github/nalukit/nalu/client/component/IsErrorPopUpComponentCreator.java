@@ -33,8 +33,8 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
  * @param <V> type of the component's interface
  */
 public interface IsErrorPopUpComponentCreator<V extends IsErrorPopUpComponent<?>> {
-  
+
   @NaluInternalUse
   V createErrorPopUpComponent();
-  
+
 }

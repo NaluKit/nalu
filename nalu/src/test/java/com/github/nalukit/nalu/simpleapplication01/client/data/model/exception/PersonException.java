@@ -22,14 +22,14 @@ import java.io.Serializable;
 public class PersonException
     extends Exception
     implements Serializable {
-  
+
   /* for serialization only */
   @SuppressWarnings("unused")
   private PersonException() {
   }
-  
+
   public PersonException(String message) {
     super(message);
   }
-  
+
 }

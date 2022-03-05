@@ -19,7 +19,7 @@ package com.github.nalukit.nalu.client.filter;
 import com.github.nalukit.nalu.client.component.event.ShowPopUpEvent;
 
 public interface IsPopUpFilter {
-  
+
   boolean filter(ShowPopUpEvent event);
 
   IsPopUpFilter.CancelHandler getCancelHandler();

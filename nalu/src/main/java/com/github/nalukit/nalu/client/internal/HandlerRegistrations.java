@@ -25,13 +25,13 @@ import java.util.List;
 
 @NaluInternalUse
 public class HandlerRegistrations {
-  
+
   private List<HandlerRegistration> handlerRegistrations;
-  
+
   public HandlerRegistrations() {
     this.handlerRegistrations = new ArrayList<>();
   }
-  
+
   /**
    * Create a {@link HandlerRegistration} that will call {@link
    * HandlerRegistration#removeHandler()} on all supplied handlers if {@link
@@ -51,11 +51,11 @@ public class HandlerRegistrations {
   public void compose(HandlerRegistration... handlers) {
     handlerRegistrations.addAll(Arrays.asList(handlers));
   }
-  
+
   public void add(HandlerRegistration handlerRegistration) {
     handlerRegistrations.add(handlerRegistration);
   }
-  
+
   public void removeHandler() {
     if (handlerRegistrations == null) {
       return;
@@ -65,5 +65,5 @@ public class HandlerRegistrations {
     // if someone fails to null out their reference to us
     handlerRegistrations = null;
   }
-  
+
 }

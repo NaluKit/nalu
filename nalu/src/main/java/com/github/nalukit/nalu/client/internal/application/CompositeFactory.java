@@ -27,9 +27,9 @@ import java.util.Objects;
 
 @NaluInternalUse
 public class CompositeFactory {
-  
+
   private final static String DELIMITER = "<<||>>";
-  
+
   /* instance of the controller factory */
   private static CompositeFactory                                  instance;
   /* map of components (key: name of class, Value: ControllerCreator */
@@ -38,26 +38,26 @@ public class CompositeFactory {
   private final  Map<String, AbstractCompositeController<?, ?, ?>> compositeControllerStore;
   /* list of global cached composites */
   private final  Map<String, CompositeInstance>                    cachedGlobalCompositeInstances;
-  
+
   private CompositeFactory() {
     this.compositeCreatorFactory        = new HashMap<>();
     this.compositeControllerStore       = new HashMap<>();
     this.cachedGlobalCompositeInstances = new HashMap<>();
   }
-  
+
   public static CompositeFactory get() {
     if (instance == null) {
       instance = new CompositeFactory();
     }
     return instance;
   }
-  
+
   public void registerComposite(String controller,
                                 IsCompositeCreator creator) {
     this.compositeCreatorFactory.put(controller,
                                      creator);
   }
-  
+
   public CompositeInstance getComposite(String parentControllerClassName,
                                         String compositeControllerClassName,
                                         String selector,
@@ -92,7 +92,7 @@ public class CompositeFactory {
     }
     return null;
   }
-  
+
   public AbstractCompositeController<?, ?, ?> getCompositeFormStore(String parentControllerClassName,
                                                                     String controllerClassName,
                                                                     String selector) {
@@ -101,7 +101,7 @@ public class CompositeFactory {
                                 selector);
     return this.compositeControllerStore.get(key);
   }
-  
+
   private String createKey(String parentClassName,
                            String compositeClassName,
                            String selector) {
@@ -118,12 +118,12 @@ public class CompositeFactory {
     sb.append(this.classFormatter(compositeClassName));
     return sb.toString();
   }
-  
+
   private String classFormatter(String className) {
     return className.replace(".",
                              "_");
   }
-  
+
   /**
    * Adds the controller to the store of cached controllers.
    * Call this method from inside the controller you like to cache.
@@ -142,7 +142,7 @@ public class CompositeFactory {
     this.compositeControllerStore.put(key,
                                       controller);
   }
-  
+
   /**
    * Removes the controller from the store of cached controllers.
    * Call this method from inside the controller you like to remove from the cache.
@@ -161,7 +161,7 @@ public class CompositeFactory {
                                 controller.getSelector());
     this.compositeControllerStore.remove(key);
   }
-  
+
   /**
    * Clears the cache!
    * <p>
@@ -184,5 +184,5 @@ public class CompositeFactory {
                                  });
     this.compositeControllerStore.clear();
   }
-  
+
 }

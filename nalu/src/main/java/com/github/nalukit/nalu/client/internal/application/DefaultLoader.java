@@ -28,10 +28,10 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 @NaluInternalUse
 public final class DefaultLoader
     extends AbstractLoader<DefaultContext> {
-  
+
   @Override
   public void load(FinishLoadCommand finishLoadCommand) {
     finishLoadCommand.finishLoading();
   }
-  
+
 }

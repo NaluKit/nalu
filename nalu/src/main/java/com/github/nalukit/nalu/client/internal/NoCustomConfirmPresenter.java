@@ -23,15 +23,15 @@ import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.ConfirmHandle
 @NaluInternalUse
 public final class NoCustomConfirmPresenter
     implements IsCustomConfirmPresenter {
-  
+
   @Override
   public void confirm(String message) {
     // nothing to do here ...
   }
-  
+
   @Override
   public void addConfirmHandler(ConfirmHandler confirmHandler) {
     // nothing to do here ...
   }
-  
+
 }

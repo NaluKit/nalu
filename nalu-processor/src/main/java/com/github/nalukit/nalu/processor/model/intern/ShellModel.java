@@ -17,13 +17,13 @@
 package com.github.nalukit.nalu.processor.model.intern;
 
 public class ShellModel {
-  
+
   private String name;
-  
+
   private ClassNameModel shell;
-  
+
   private ClassNameModel context;
-  
+
   public ShellModel(String name,
                     ClassNameModel shell,
                     ClassNameModel context) {
@@ -31,29 +31,29 @@ public class ShellModel {
     this.shell   = shell;
     this.context = context;
   }
-  
+
   public String getName() {
     return name;
   }
-  
+
   public void setName(String name) {
     this.name = name;
   }
-  
+
   public ClassNameModel getShell() {
     return shell;
   }
-  
+
   public void setShell(ClassNameModel shell) {
     this.shell = shell;
   }
-  
+
   public ClassNameModel getContext() {
     return context;
   }
-  
+
   public void setContext(ClassNameModel context) {
     this.context = context;
   }
-  
+
 }

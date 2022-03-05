@@ -21,7 +21,7 @@ import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import java.util.Map;
 
 public interface IsNaluProcessorPlugin {
-  
+
   /**
    * Display an alert message.
    * <p>
@@ -32,56 +32,56 @@ public interface IsNaluProcessorPlugin {
    * @param message message to display
    */
   void alert(String message);
-  
+
   boolean attach(String selector,
                  Object asElement);
-  
+
   void confirm(String message,
                ConfirmHandler handler);
-  
+
   String getStartRoute();
-  
+
   Map<String, String> getQueryParameters();
-  
+
   void register(RouteChangeHandler handler);
-  
+
   void remove(String selector);
-  
+
   void route(String newRoute,
              boolean replace,
              boolean stealthMode);
-  
+
   void initialize(ShellConfiguration shellConfiguration);
-  
+
   void updateTitle(String title);
-  
+
   void updateMetaNameContent(String name,
                              String content);
-  
+
   void updateMetaPropertyContent(String property,
                                  String content);
-  
+
   String decode(String route);
-  
+
   void setCustomAlertPresenter(IsCustomAlertPresenter presenter);
-  
+
   void setCustomConfirmPresenter(IsCustomConfirmPresenter presenter);
-  
+
   @FunctionalInterface
   interface RouteChangeHandler {
-    
+
     void onRouteChange(String newRoute);
-    
+
   }
-  
-  
-  
+
+
+
   interface ConfirmHandler {
-    
+
     void onOk();
-    
+
     void onCancel();
-    
+
   }
-  
+
 }

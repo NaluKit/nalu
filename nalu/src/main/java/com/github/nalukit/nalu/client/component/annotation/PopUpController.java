@@ -16,7 +16,10 @@
 
 package com.github.nalukit.nalu.client.component.annotation;
 
-import com.github.nalukit.nalu.client.component.*;
+import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
+import com.github.nalukit.nalu.client.component.IsAbstractPopUpComponent;
+import com.github.nalukit.nalu.client.component.IsPopUpComponent;
+import com.github.nalukit.nalu.client.component.IsShowPopUpCondition;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -59,14 +62,14 @@ public @interface PopUpController {
 
   /**
    * Defines the behavior, how often the component is created.
-   *
+   * <p>
    * Default is, that the component is created once the controller is created,
    * at the time the popup event is fired. After that, the component is always
    * reused.
-   *
+   * <p>
    * In case the popup component should be rendered every time  the popup event
    * is fired, set this attribute to true.
-   *
+   * <p>
    * (Default is false)
    *
    * @return true: always render the component.

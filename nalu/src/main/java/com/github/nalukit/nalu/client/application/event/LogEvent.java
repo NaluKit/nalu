@@ -7,21 +7,21 @@ import java.util.List;
 
 public class LogEvent
     extends Event<LogEvent.LogHandler> {
-  
+
   public final static Type<LogEvent.LogHandler> TYPE = new Type<>();
   private final       List<String>              messages;
   private             boolean                   sdmOnly;
-  
+
   @SuppressWarnings("unused")
   private LogEvent() {
     this.messages = new ArrayList<>();
     this.sdmOnly  = true;
   }
-  
+
   public static LogEvent create() {
     return new LogEvent();
   }
-  
+
   /**
    * Adds a message to the list of messages.
    *
@@ -32,7 +32,7 @@ public class LogEvent
     this.messages.add(message);
     return this;
   }
-  
+
   /**
    * Sets a flag that controls if the message is logged only in SDM or not.
    *
@@ -50,17 +50,17 @@ public class LogEvent
     this.sdmOnly = sdmOnly;
     return this;
   }
-  
+
   @Override
   public Type<LogEvent.LogHandler> getAssociatedType() {
     return TYPE;
   }
-  
+
   @Override
   protected void dispatch(LogEvent.LogHandler handler) {
     handler.onLog(this);
   }
-  
+
   /**
    * Returns the List of messages to log.
    *
@@ -69,7 +69,7 @@ public class LogEvent
   public List<String> getMessages() {
     return messages;
   }
-  
+
   /**
    * Return the SDM flag.
    *
@@ -83,12 +83,12 @@ public class LogEvent
   public boolean isSdmOnly() {
     return sdmOnly;
   }
-  
+
   @FunctionalInterface
   public interface LogHandler {
-    
+
     void onLog(LogEvent event);
-    
+
   }
-  
+
 }

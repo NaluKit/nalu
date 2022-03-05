@@ -54,7 +54,7 @@ public class PopUpConditionFactory {
   /**
    * Will tell Nalu if the popup event can be fired or not!
    *
-   * @param event     the ShowPopUpEvent
+   * @param event the ShowPopUpEvent
    * @return true: show popup; false:  show popup
    */
   public boolean showPopUp(ShowPopUpEvent event) {

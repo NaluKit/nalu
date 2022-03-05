@@ -25,15 +25,15 @@ import org.gwtproject.event.shared.SimpleEventBus;
 @NaluInternalUse
 public abstract class AbstractShellCreator<C extends IsContext>
     implements IsShellCreator {
-  
+
   protected StringBuilder sb;
-  
+
   protected IsRouter router;
-  
+
   protected C context;
-  
+
   protected SimpleEventBus eventBus;
-  
+
   public AbstractShellCreator(IsRouter router,
                               C context,
                               SimpleEventBus eventBus) {
@@ -42,5 +42,5 @@ public abstract class AbstractShellCreator<C extends IsContext>
     this.context  = context;
     this.eventBus = eventBus;
   }
-  
+
 }

@@ -19,23 +19,23 @@ package com.github.nalukit.nalu.plugin.core.web.client.model;
 import java.util.Map;
 
 public class NaluStartModel {
-  
+
   private String startRoute;
-  
+
   private Map<String, String> queryParameters;
-  
+
   public NaluStartModel(String startRoute,
                         Map<String, String> queryParameters) {
     this.startRoute      = startRoute;
     this.queryParameters = queryParameters;
   }
-  
+
   public String getStartRoute() {
     return startRoute;
   }
-  
+
   public Map<String, String> getQueryParameters() {
     return queryParameters;
   }
-  
+
 }

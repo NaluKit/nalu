@@ -20,12 +20,12 @@ import com.github.nalukit.nalu.client.context.IsContext;
 
 public abstract class AbstractLogger<C extends IsContext>
     implements IsLogger<C> {
-  
+
   protected C context;
-  
+
   @Override
   public void setContext(C context) {
     this.context = context;
   }
-  
+
 }

@@ -28,7 +28,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class ShellTest {
-  
+
   @Test
   void testShellOnAInterface() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -38,7 +38,7 @@ public class ShellTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Shell annotation must be used with a class");
   }
-  
+
   @Test
   void testShellDoesNotExtendAbstractShell() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -48,7 +48,7 @@ public class ShellTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: ShellDoesNotExtendAbstractShell: @Shells must extend IsShell interface");
   }
-  
+
   @Test
   void testShellDoesNotHaveGenericContext() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -58,5 +58,5 @@ public class ShellTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: shellCreator >>com.github.nalukit.nalu.processor.shellCreator.shellDoesNotHaveGenericContext.ShellDoesNotHaveGenericContext<< does not have a context generic!");
   }
-  
+
 }

@@ -26,33 +26,33 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
 public class CompositeControllerAnnotationValidator {
-  
+
   private ProcessorUtils processorUtils;
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private Element compositeElement;
-  
+
   @SuppressWarnings("unused")
   private CompositeControllerAnnotationValidator() {
   }
-  
+
   private CompositeControllerAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.compositeElement      = builder.compositeElement;
     setUp();
   }
-  
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-  
-  public static Builder builder() {
-    return new Builder();
-  }
-  
+
   public void validate()
       throws ProcessorException {
     TypeElement typeElement = (TypeElement) this.compositeElement;
@@ -70,41 +70,41 @@ public class CompositeControllerAnnotationValidator {
       throw new ProcessorException("Nalu-Processor: @CompositeController can only be used on a class that extends IsComposite");
     }
   }
-  
+
   public static final class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     RoundEnvironment roundEnvironment;
-    
+
     Element compositeElement;
-    
+
     CompositeModel compositeModel;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-    
+
     public Builder compositeElement(Element compositeElement) {
       this.compositeElement = compositeElement;
       return this;
     }
-    
+
     public Builder compositeModel(CompositeModel compositeModel) {
       this.compositeModel = compositeModel;
       return this;
     }
-    
+
     public CompositeControllerAnnotationValidator build() {
       return new CompositeControllerAnnotationValidator(this);
     }
-    
+
   }
-  
+
 }

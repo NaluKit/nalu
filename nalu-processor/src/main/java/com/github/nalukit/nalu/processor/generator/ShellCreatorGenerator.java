@@ -25,7 +25,12 @@ import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
-import com.squareup.javapoet.*;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeSpec;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -33,24 +38,24 @@ import javax.lang.model.element.Modifier;
 import java.io.IOException;
 
 public class ShellCreatorGenerator {
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private ShellModel shellModel;
-  
+
   @SuppressWarnings("unused")
   private ShellCreatorGenerator() {
   }
-  
+
   private ShellCreatorGenerator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.shellModel            = builder.shellModel;
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   public void generate()
       throws ProcessorException {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(shellModel.getShell()
@@ -105,15 +110,15 @@ public class ShellCreatorGenerator {
                                                 .addStatement("shell.setRouter(router)")
                                                 .addStatement("return shellInstance");
     typeSpec.addMethod(createMethod.build());
-    
+
     // create Method
     MethodSpec.Builder finishCreateMethod = MethodSpec.methodBuilder("onFinishCreating")
                                                       .addAnnotation(ClassName.get(Override.class))
                                                       .addModifiers(Modifier.PUBLIC)
                                                       .addException(ClassName.get(RoutingInterceptionException.class));
-    
+
     typeSpec.addMethod(finishCreateMethod.build());
-    
+
     JavaFile javaFile = JavaFile.builder(this.shellModel.getShell()
                                                         .getPackage(),
                                          typeSpec.build())
@@ -129,15 +134,15 @@ public class ShellCreatorGenerator {
                                    e.getMessage());
     }
   }
-  
+
   public static final class Builder {
-    
+
     MetaModel metaModel;
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     ShellModel shellModel;
-    
+
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -148,21 +153,21 @@ public class ShellCreatorGenerator {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder shellModel(ShellModel shellModel) {
       this.shellModel = shellModel;
       return this;
     }
-    
+
     public ShellCreatorGenerator build() {
       return new ShellCreatorGenerator(this);
     }
-    
+
   }
-  
+
 }

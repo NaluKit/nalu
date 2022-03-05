@@ -26,32 +26,32 @@ import java.util.Map;
 
 @NaluInternalUse
 public class ControllerFactory {
-  
+
   /* instance of the controller factory */
   private static ControllerFactory                                 instance;
   /* map of components (key: name of class, Value: ControllerCreator */
   private final  Map<String, IsControllerCreator>                  controllerFactory;
   /* map of stored components (key: name of class, Value: instance of controller */
   private final  Map<String, AbstractComponentController<?, ?, ?>> controllerStore;
-  
+
   private ControllerFactory() {
     this.controllerFactory = new HashMap<>();
     this.controllerStore   = new HashMap<>();
   }
-  
+
   public static ControllerFactory get() {
     if (instance == null) {
       instance = new ControllerFactory();
     }
     return instance;
   }
-  
+
   public void registerController(String controller,
                                  IsControllerCreator creator) {
     this.controllerFactory.put(controller,
                                creator);
   }
-  
+
   public void controller(String route,
                          String controller,
                          ControllerCallback callback,
@@ -72,8 +72,8 @@ public class ControllerFactory {
         try {
           controllerInstance.getController()
                             .bind(() -> {
-                                controllerCreator.onFinishCreating(controllerInstance.getController());
-                                callback.onFinish(controllerInstance);
+                              controllerCreator.onFinishCreating(controllerInstance.getController());
+                              callback.onFinish(controllerInstance);
                             });
         } catch (RoutingInterceptionException e) {
           callback.onRoutingInterceptionException(e);
@@ -81,16 +81,16 @@ public class ControllerFactory {
       }
     }
   }
-  
+
   public AbstractComponentController<?, ?, ?> getControllerFormStore(String controllerClassName) {
     return this.controllerStore.get(this.classFormatter(controllerClassName));
   }
-  
+
   private String classFormatter(String className) {
     return className.replace(".",
                              "_");
   }
-  
+
   /**
    * Adds the controller to the store of cached controllers.
    * Call this method from inside the controller you like to cache.
@@ -106,7 +106,7 @@ public class ControllerFactory {
     this.controllerStore.put(key,
                              controller);
   }
-  
+
   /**
    * Removes the controller from the store of cached controllers.
    * Call this method from inside the controller you like to remove from the cache.
@@ -123,7 +123,7 @@ public class ControllerFactory {
                                                .getCanonicalName());
     this.controllerStore.remove(key);
   }
-  
+
   /**
    * Clears the cache!
    * <p>
@@ -158,5 +158,5 @@ public class ControllerFactory {
                         });
     this.controllerStore.clear();
   }
-  
+
 }

@@ -37,19 +37,19 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Logger {
-  
+
   /**
    * Defines the logger.
    *
    * @return the logger
    */
   Class<? extends IsLogger<?>> logger() default NoCustomLogger.class;
-  
+
   /**
    * Defines the client logger.
    *
    * @return the custom logger
    */
   Class<? extends IsClientLogger> clientLogger();
-  
+
 }

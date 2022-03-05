@@ -19,11 +19,11 @@ package com.github.nalukit.nalu.client.exception;
 @SuppressWarnings("serial")
 public class RoutingInterceptionException
     extends Exception {
-  
-  private String controllerClassName;
-  private String route;
+
+  private String   controllerClassName;
+  private String   route;
   private String[] parameter;
-  
+
   /**
    * create a RoutingInterceptionException
    *
@@ -38,7 +38,7 @@ public class RoutingInterceptionException
     this.route               = route;
     this.parameter           = parameter;
   }
-  
+
   /**
    * Returns the name of the controller class that intercepts the routing
    *
@@ -47,13 +47,13 @@ public class RoutingInterceptionException
   public String getControllerClassName() {
     return controllerClassName;
   }
-  
+
   public String getRoute() {
     return route;
   }
-  
+
   public String[] getParameter() {
     return parameter;
   }
-  
+
 }

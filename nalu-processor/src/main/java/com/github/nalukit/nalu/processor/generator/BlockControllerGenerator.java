@@ -25,24 +25,24 @@ import com.squareup.javapoet.TypeSpec;
 import javax.lang.model.element.Modifier;
 
 public class BlockControllerGenerator {
-  
+
   private MetaModel metaModel;
-  
+
   private TypeSpec.Builder typeSpec;
-  
+
   @SuppressWarnings("unused")
   private BlockControllerGenerator() {
   }
-  
+
   private BlockControllerGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
     this.typeSpec  = builder.typeSpec;
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   void generate() {
     MethodSpec.Builder loadBlockControllerFactoryMethodBuilder = MethodSpec.methodBuilder("loadBlockControllerFactory")
                                                                            .addModifiers(Modifier.PUBLIC)
@@ -54,16 +54,17 @@ public class BlockControllerGenerator {
                                                                                                         ClassName.get(blockControllerModel.getController()
                                                                                                                                           .getPackage(),
                                                                                                                       blockControllerModel.getController()
-                                                                                                                                          .getSimpleName() + ProcessorConstants.CREATOR_IMPL)));
+                                                                                                                                          .getSimpleName() +
+                                                                                                                      ProcessorConstants.CREATOR_IMPL)));
     typeSpec.addMethod(loadBlockControllerFactoryMethodBuilder.build());
   }
-  
+
   public static final class Builder {
-    
+
     MetaModel metaModel;
-    
+
     TypeSpec.Builder typeSpec;
-    
+
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -74,7 +75,7 @@ public class BlockControllerGenerator {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -85,11 +86,11 @@ public class BlockControllerGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-    
+
     public BlockControllerGenerator build() {
       return new BlockControllerGenerator(this);
     }
-    
+
   }
-  
+
 }

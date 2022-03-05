@@ -29,7 +29,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class LoggerTest {
-  
+
   @Test
   void testLoggerAnnotationOnAMethod() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -39,7 +39,7 @@ public class LoggerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("@Logger can only be used on a type (interface)");
   }
-  
+
   @Test
   void testLoggerAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -47,7 +47,7 @@ public class LoggerTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
   }
-  
+
   @Test
   void testLoggerAnnotationWithoutExtendsIsApplication() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -55,7 +55,7 @@ public class LoggerTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
   }
-  
+
   @Test
   void testLoggerAnnotationOnClassWithoutApplicationAnnotation() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -65,7 +65,7 @@ public class LoggerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Logger can only be used with an interfaces annotated with @Application");
   }
-  
+
   @Test
   void testLoggerAnnotationOk01() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -75,14 +75,14 @@ public class LoggerTest {
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
-    
+
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     CompilationSubject.assertThat(compilation)
                       .generatedSourceFile("com/github/nalukit/nalu/processor/logger/loggerAnnotationOk01/LoggerAnnotationOk01Impl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/logger/loggerAnnotationOk01/LoggerAnnotationOk01Impl.java"));
   }
-  
+
   @Test
   void testLoggerAnnotationOk02() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -98,5 +98,5 @@ public class LoggerTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/logger/loggerAnnotationOk02/LoggerAnnotationOk02Impl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/logger/loggerAnnotationOk02/LoggerAnnotationOk02Impl.java"));
   }
-  
+
 }

@@ -22,7 +22,7 @@ import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Application {
-  
+
   public void run(IsNaluProcessorPlugin plugin) {
     // Create the application.
     // The ApplicationImpl-class
@@ -31,5 +31,5 @@ public class Application {
     // start the application by calling the run()-method.
     //    application.run(plugin);
   }
-  
+
 }

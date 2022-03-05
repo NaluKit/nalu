@@ -30,7 +30,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
  * <p><b>Caution: Do not use the router to route inside the loader!Just use it only to inject it!</b></p>
  */
 public interface IsLoader<C extends IsContext> {
-  
+
   /**
    * Calls the application loader.
    * <br>

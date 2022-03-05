@@ -20,17 +20,17 @@ import java.util.Map;
  */
 public class NaluApplicationEvent
     extends Event<NaluApplicationEvent.NaluApplicationEventHandler> {
-  
+
   public final static Type<NaluApplicationEvent.NaluApplicationEventHandler> TYPE = new Type<>();
-  
+
   private String              event;
   private Map<String, Object> dataStore;
-  
+
   private NaluApplicationEvent() {
     super();
     this.dataStore = new HashMap<>();
   }
-  
+
   /**
    * Creates a new NaluMessageEvent.
    *
@@ -39,7 +39,7 @@ public class NaluApplicationEvent
   public static NaluApplicationEvent create() {
     return new NaluApplicationEvent();
   }
-  
+
   /**
    * Sets the message type
    *
@@ -50,7 +50,7 @@ public class NaluApplicationEvent
     this.event = event;
     return this;
   }
-  
+
   /**
    * Adds data to the data store.
    *
@@ -66,7 +66,7 @@ public class NaluApplicationEvent
                        value);
     return this;
   }
-  
+
   /**
    * Returns the type of the message.
    *
@@ -75,7 +75,7 @@ public class NaluApplicationEvent
   public String getEvent() {
     return event;
   }
-  
+
   /**
    * Returns the value for the given key.
    *
@@ -87,21 +87,21 @@ public class NaluApplicationEvent
   public Object get(String key) {
     return this.dataStore.get(key);
   }
-  
+
   @Override
   public Type<NaluApplicationEvent.NaluApplicationEventHandler> getAssociatedType() {
     return TYPE;
   }
-  
+
   @Override
   protected void dispatch(NaluApplicationEvent.NaluApplicationEventHandler handler) {
     handler.onNaluApplicationEvent(this);
   }
-  
+
   public interface NaluApplicationEventHandler {
-    
+
     void onNaluApplicationEvent(NaluApplicationEvent event);
-    
+
   }
-  
+
 }

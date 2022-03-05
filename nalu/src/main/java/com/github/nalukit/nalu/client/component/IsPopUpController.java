@@ -19,34 +19,34 @@ package com.github.nalukit.nalu.client.component;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public interface IsPopUpController<V> {
-  
+
   @NaluInternalUse
   void setComponent(V component);
-  
+
   /**
    * will be called one time, when a popup gets created.
    *
    * @param finishLoadCommand needs to be executed to give the control back to Nalu
    */
   void bind(FinishLoadCommand finishLoadCommand);
-  
+
   /**
    * Will be called before a popup gets visible
    *
    * @param finishLoadCommand needs to be executed to give the control back to Nalu
    */
   void onBeforeShow(FinishLoadCommand finishLoadCommand);
-  
+
   /**
    * sow hte popup
    */
   void show();
-  
+
   @FunctionalInterface
   interface FinishLoadCommand {
-    
+
     void finishLoading();
-    
+
   }
-  
+
 }

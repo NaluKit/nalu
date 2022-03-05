@@ -20,19 +20,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShellConfiguration {
-  
+
   private List<ShellConfig> shells;
-  
+
   public ShellConfiguration() {
     super();
-    
+
     this.shells = new ArrayList<>();
   }
-  
+
   public List<ShellConfig> getShells() {
     return shells;
   }
-  
+
   public ShellConfig match(String hash) {
     return this.shells.stream()
                       .filter(shellConfig -> shellConfig.getRoute()
@@ -40,5 +40,5 @@ public class ShellConfiguration {
                       .findFirst()
                       .get();
   }
-  
+
 }

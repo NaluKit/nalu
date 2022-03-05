@@ -17,7 +17,7 @@
 package com.github.nalukit.nalu.processor.test.model.property;
 
 public class PropertiesTest {
-  
+
   //  @Test
   //  public void testApplicationMetaModel() {
   //    Properties properties = new Properties();

@@ -19,27 +19,31 @@ package com.github.nalukit.nalu.client.internal.application;
 import com.github.nalukit.nalu.client.component.IsLoadCompositeCondition;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @NaluInternalUse
 public class ControllerCompositeConditionFactory {
-  
+
   /* instance of the controller factory */
   private static ControllerCompositeConditionFactory   instance;
   /* map of conditions (key: controller name, value: ConditionContainer)  */
   private final  Map<String, List<ConditionContainer>> conditionContainerMap;
-  
+
   private ControllerCompositeConditionFactory() {
     this.conditionContainerMap = new HashMap<>();
   }
-  
+
   public static ControllerCompositeConditionFactory get() {
     if (instance == null) {
       instance = new ControllerCompositeConditionFactory();
     }
     return instance;
   }
-  
+
   public void registerCondition(String controllerClassName,
                                 String compositeName,
                                 IsLoadCompositeCondition condition) {
@@ -54,7 +58,7 @@ public class ControllerCompositeConditionFactory {
                                                             condition));
     }
   }
-  
+
   /**
    * Will tell Nalu if the composite can be loaded or not!
    *
@@ -80,18 +84,18 @@ public class ControllerCompositeConditionFactory {
     }
     return false;
   }
-  
+
   static class ConditionContainer {
-    
+
     private final String                   compositeName;
     private final IsLoadCompositeCondition condition;
-    
+
     ConditionContainer(String compositeName,
                        IsLoadCompositeCondition condition) {
       this.compositeName = compositeName;
       this.condition     = condition;
     }
-    
+
   }
-  
+
 }

@@ -20,9 +20,9 @@ import elemental2.dom.DomGlobal;
 
 public class DefaultElemental2ClientLogger
     extends AbstractClientLogger {
-  
+
   static final String INDENT = "..";
-  
+
   @Override
   public void log(String message) {
     DomGlobal.window.console.log(message);

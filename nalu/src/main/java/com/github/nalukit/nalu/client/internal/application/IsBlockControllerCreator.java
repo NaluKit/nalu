@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
 public interface IsBlockControllerCreator {
-  
+
   BlockControllerInstance create();
-  
+
 }

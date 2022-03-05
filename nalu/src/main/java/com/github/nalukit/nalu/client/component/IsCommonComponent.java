@@ -24,13 +24,13 @@ public interface IsCommonComponent<C extends IsCommonComponent.Controller> {
 
   C getController();
 
+  @NaluInternalUse
+  void setController(C controller);
+
   /**
    * Render your component here
    */
   void render();
-
-  @NaluInternalUse
-  void setController(C controller);
 
   interface Controller {
 

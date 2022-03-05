@@ -24,17 +24,17 @@ import com.github.nalukit.nalu.simpleapplication02.client.event.StatusChangeEven
 public class SearchController
     extends AbstractComponentController<NaluSimpleApplicationContext, ISearchComponent, String>
     implements ISearchComponent.Controller {
-  
+
   public SearchController() {
   }
-  
+
   @Override
   public void start() {
     this.eventBus.fireEvent(new StatusChangeEvent("Please enter data!"));
-    
+
     this.eventBus.fireEvent(new SelectEvent(SelectEvent.Select.SEARCH));
   }
-  
+
   @Override
   public void doClickSearchButton(String searchName,
                                   String searchCity) {
@@ -44,7 +44,7 @@ public class SearchController
                       searchName,
                       searchCity);
   }
-  
+
   public void setSearchName(String searchName) {
     if (!"undefined".equals(searchName) &&
         searchName.trim()
@@ -52,7 +52,7 @@ public class SearchController
       this.component.setSearchName(searchName);
     }
   }
-  
+
   public void setSearchCity(String searchCity) {
     if (!"undefined".equals(searchCity) &&
         searchCity.trim()
@@ -60,5 +60,5 @@ public class SearchController
       this.component.setSearchCity(searchCity);
     }
   }
-  
+
 }

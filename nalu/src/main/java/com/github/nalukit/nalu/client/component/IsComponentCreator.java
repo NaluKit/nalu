@@ -33,8 +33,8 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
  * @param <V> type of the component's interface
  */
 public interface IsComponentCreator<V extends IsComponent<?, ?>> {
-  
+
   @NaluInternalUse
   V createComponent();
-  
+
 }

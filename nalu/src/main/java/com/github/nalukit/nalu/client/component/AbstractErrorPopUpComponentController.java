@@ -28,7 +28,7 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
     extends AbstractController<C>
     implements IsErrorPopUpController<V>,
                IsErrorPopUpComponent.Controller {
-  
+
   /* component of the controller */
   protected V                   component;
   /* error type */
@@ -39,12 +39,12 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
   protected String              message;
   /* data store  */
   protected Map<String, String> dataStore;
-  
+
   public AbstractErrorPopUpComponentController() {
     super();
     this.dataStore = new HashMap<>();
   }
-  
+
   /**
    * Sets the component inside the controller
    * <b>Do not use this method. This will lead to unexpected results</b>
@@ -55,7 +55,7 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
   public void setComponent(V component) {
     this.component = component;
   }
-  
+
   /**
    * will be called, one time, when a popup-controller is created.
    */
@@ -64,7 +64,7 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
     // if you need to bind some handlers and would like to do this in a separate method
     // just override this method.
   }
-  
+
   /**
    * The method is called right after the istance is created.
    * <p>
@@ -75,7 +75,7 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
     this.eventBus.addHandler(NaluErrorEvent.TYPE,
                              e -> handleErrorEvent(e));
   }
-  
+
   private void handleErrorEvent(NaluErrorEvent e) {
     this.route          = e.getRoute();
     this.message        = e.getMessage();
@@ -90,7 +90,7 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
     this.onBeforeShow();
     this.show();
   }
-  
+
   /**
    * The method is called before the show-method.
    * A good place to do some initialization.
@@ -100,10 +100,10 @@ public abstract class AbstractErrorPopUpComponentController<C extends IsContext,
    */
   public void onBeforeShow() {
   }
-  
+
   /**
    * Method will be called in case an error event gets fired and the popup gets visible!
    */
   protected abstract void show();
-  
+
 }

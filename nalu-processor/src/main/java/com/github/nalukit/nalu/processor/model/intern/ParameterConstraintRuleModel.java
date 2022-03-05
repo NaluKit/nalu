@@ -18,8 +18,6 @@ package com.github.nalukit.nalu.processor.model.intern;
 
 public class ParameterConstraintRuleModel {
 
-  private ClassNameModel parameterConstraintRule;
-
   private final boolean  notNullCheck;
   private final boolean  minLengthCheck;
   private final int      minLength;
@@ -31,6 +29,7 @@ public class ParameterConstraintRuleModel {
   private final String[] blackList;
   private final boolean  whiteListingCheck;
   private final String[] whiteList;
+  private ClassNameModel parameterConstraintRule;
 
   public ParameterConstraintRuleModel(ClassNameModel parameterConstraintRule,
                                       boolean notNullCheck,

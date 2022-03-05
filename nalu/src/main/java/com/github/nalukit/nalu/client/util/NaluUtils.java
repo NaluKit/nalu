@@ -3,12 +3,19 @@ package com.github.nalukit.nalu.client.util;
 import java.util.Objects;
 
 public class NaluUtils {
-  
+
   private static NaluUtils instance;
-  
+
   private NaluUtils() {
   }
-  
+
+  public static NaluUtils get() {
+    if (Objects.isNull(instance)) {
+      instance = new NaluUtils();
+    }
+    return instance;
+  }
+
   /**
    * Compares two routes.
    * <p>
@@ -26,7 +33,7 @@ public class NaluUtils {
                                        .convertRoute(route02);
     return convertedRoute01.equals(convertedRoute02);
   }
-  
+
   /**
    * Converts the parameter parts with '*'
    * <p>
@@ -60,12 +67,5 @@ public class NaluUtils {
     }
     return newRoute.toString();
   }
-  
-  public static NaluUtils get() {
-    if (Objects.isNull(instance)) {
-      instance = new NaluUtils();
-    }
-    return instance;
-  }
-  
+
 }

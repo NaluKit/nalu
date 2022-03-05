@@ -23,16 +23,16 @@ import java.util.List;
 
 public interface IListComponent
     extends IsComponent<IListComponent.Controller, String> {
-  
+
   void resetTable();
-  
+
   void setData(List<Person> result);
-  
+
   interface Controller
       extends IsComponent.Controller {
-    
+
     void doUpdate(Person object);
-    
+
   }
-  
+
 }

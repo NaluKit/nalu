@@ -21,7 +21,8 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public abstract class AbstractComponent<C extends IsComponent.Controller, W>
     extends AbstractCommonComponent<C>
-    implements IsComponent<C, W>, IsAbstractComponent {
+    implements IsComponent<C, W>,
+               IsAbstractComponent {
 
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
 

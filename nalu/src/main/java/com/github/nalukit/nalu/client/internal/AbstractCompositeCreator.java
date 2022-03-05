@@ -25,15 +25,15 @@ import org.gwtproject.event.shared.SimpleEventBus;
 @NaluInternalUse
 public abstract class AbstractCompositeCreator<C extends IsContext>
     implements IsCompositeCreator {
-  
+
   protected StringBuilder sb;
-  
+
   protected IsRouter router;
-  
+
   protected C context;
-  
+
   protected SimpleEventBus eventBus;
-  
+
   public AbstractCompositeCreator(IsRouter router,
                                   C context,
                                   SimpleEventBus eventBus) {
@@ -42,5 +42,5 @@ public abstract class AbstractCompositeCreator<C extends IsContext>
     this.context  = context;
     this.eventBus = eventBus;
   }
-  
+
 }

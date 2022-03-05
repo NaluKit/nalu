@@ -28,7 +28,7 @@ import java.util.Date;
  */
 public interface IsModuleContext
     extends IsContext {
-  
+
   /**
    * Gets the application context
    *

@@ -43,14 +43,14 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Module {
-  
+
   /**
    * Name of the module
    *
    * @return return the name of the module
    */
   String name();
-  
+
   /**
    * The context of the module. it can be compared to the session of the server side.
    * Use the context to store application and module data.
@@ -58,7 +58,7 @@ public @interface Module {
    * @return application context
    */
   Class<? extends IsModuleContext> context();
-  
+
   /**
    * The module loader of the module. Will be executed in case the
    * module gets loaded. This is a good place to load module specific data.
@@ -69,5 +69,5 @@ public @interface Module {
    * @return the module loader
    */
   Class<? extends AbstractModuleLoader<?>> loader() default NoModuleLoader.class;
-  
+
 }

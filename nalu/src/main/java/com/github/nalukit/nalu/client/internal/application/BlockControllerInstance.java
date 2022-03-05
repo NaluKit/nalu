@@ -22,41 +22,41 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
 public class BlockControllerInstance {
-  
+
   /* controller's class name */
   private String                                 blockControllerClassName;
   /* controller */
   private AbstractBlockComponentController<?, ?> controller;
   /* condition */
   private IsShowBlockCondition                   condition;
-  
+
   public BlockControllerInstance() {
   }
-  
+
   public String getBlockControllerClassName() {
     return blockControllerClassName;
   }
-  
+
   public void setBlockControllerClassName(String blockControllerClassName) {
     this.blockControllerClassName = blockControllerClassName;
   }
-  
+
   public AbstractBlockComponentController<?, ?> getController() {
     return controller;
   }
-  
+
   public void setController(AbstractBlockComponentController<?, ?> controller) {
     this.controller = controller;
   }
-  
+
   public boolean showBlock(String route,
                            String... params) {
     return condition.showBlock(route,
                                params);
   }
-  
+
   public void setCondition(IsShowBlockCondition condition) {
     this.condition = condition;
   }
-  
+
 }

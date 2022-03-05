@@ -27,16 +27,29 @@ import com.google.auto.service.AutoService;
 import com.google.common.base.Stopwatch;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
-import com.squareup.javapoet.*;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeSpec;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
-import javax.lang.model.element.*;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
@@ -44,28 +57,28 @@ import static java.util.stream.Collectors.toSet;
 @AutoService(Processor.class)
 public class NaluPluginGwtProcessor
     extends AbstractProcessor {
-  
+
   private static final String IMPL_NAME = "SelectorProviderImpl";
-  
+
   private ProcessorUtils                        processorUtils;
   private Stopwatch                             stopwatch;
   private Map<Element, List<SelectorMetaModel>> models;
-  
+
   public NaluPluginGwtProcessor() {
     super();
   }
-  
+
   @Override
   public Set<String> getSupportedAnnotationTypes() {
     return Stream.of(Selector.class.getCanonicalName())
                  .collect(toSet());
   }
-  
+
   @Override
   public SourceVersion getSupportedSourceVersion() {
     return SourceVersion.latestSupported();
   }
-  
+
   @Override
   public synchronized void init(ProcessingEnvironment processingEnv) {
     super.init(processingEnv);
@@ -75,7 +88,7 @@ public class NaluPluginGwtProcessor
     String implementationVersion = Nalu.getVersion();
     this.processorUtils.createNoteMessage("Nalu-Plugin-GWT-Processor version >>" + implementationVersion + "<<");
   }
-  
+
   @SuppressWarnings("unused")
   @Override
   public boolean process(Set<? extends TypeElement> annotations,
@@ -115,7 +128,7 @@ public class NaluPluginGwtProcessor
     }
     return true;
   }
-  
+
   private void validate(Element element)
       throws ProcessorException {
     // @AcceptParameter can only be used on a method
@@ -138,7 +151,7 @@ public class NaluPluginGwtProcessor
       throw new ProcessorException("Nalu-Processor: @Selector can only be used with a method that has one parameter and the parameter type is com.google.gwt.user.client.ui.IsWidget or com.google.gwt.user.client.ui.Widget");
     }
   }
-  
+
   private void generate(Element enclosingElement,
                         List<SelectorMetaModel> models)
       throws ProcessorException {
@@ -149,14 +162,14 @@ public class NaluPluginGwtProcessor
                                                       Modifier.FINAL)
                                         .addSuperinterface(ParameterizedTypeName.get(ClassName.get(IsSelectorProvider.class),
                                                                                      enclosingClassNameModel.getTypeName()));
-    
+
     // constructor ...
     MethodSpec constructor = MethodSpec.constructorBuilder()
                                        .addModifiers(Modifier.PUBLIC)
                                        .addStatement("super()")
                                        .build();
     typeSpec.addMethod(constructor);
-    
+
     // method "initialize"
     MethodSpec.Builder initializeMethod = MethodSpec.methodBuilder("initialize")
                                                     .addModifiers(Modifier.PUBLIC,
@@ -187,7 +200,7 @@ public class NaluPluginGwtProcessor
                       .build();
     });
     typeSpec.addMethod(initializeMethod.build());
-    
+
     // method "remove"
     MethodSpec.Builder removeMethod = MethodSpec.methodBuilder("removeSelectors")
                                                 .addModifiers(Modifier.PUBLIC,
@@ -200,7 +213,7 @@ public class NaluPluginGwtProcessor
                   .build();
     });
     typeSpec.addMethod(removeMethod.build());
-    
+
     JavaFile javaFile = JavaFile.builder(enclosingClassNameModel.getPackage(),
                                          typeSpec.build())
                                 .build();
@@ -208,26 +221,30 @@ public class NaluPluginGwtProcessor
       //      System.out.println(javaFile.toString());
       javaFile.writeTo(this.processingEnv.getFiler());
     } catch (IOException e) {
-      throw new ProcessorException("Unable to write generated file: >>" + enclosingElement.getSimpleName() + NaluPluginGwtProcessor.IMPL_NAME + "<< -> exception: " + e.getMessage());
+      throw new ProcessorException("Unable to write generated file: >>" +
+                                   enclosingElement.getSimpleName() +
+                                   NaluPluginGwtProcessor.IMPL_NAME +
+                                   "<< -> exception: " +
+                                   e.getMessage());
     }
   }
-  
+
   private void setUp() {
     this.models = new HashMap<>();
-    
+
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(processingEnv)
                                         .build();
   }
-  
+
   static class SelectorMetaModel {
-    
+
     private String selector;
-    
+
     private String enclosingElement;
-    
+
     private Element selectorElement;
-    
+
     public SelectorMetaModel(String selector,
                              String enclosingElement,
                              Element selectorElement) {
@@ -235,23 +252,23 @@ public class NaluPluginGwtProcessor
       this.enclosingElement = enclosingElement;
       this.selectorElement  = selectorElement;
     }
-    
+
     public String getSelector() {
       return selector;
     }
-    
+
     public String getEnclosingElement() {
       return enclosingElement;
     }
-    
+
     public Element getSelectorElement() {
       return selectorElement;
     }
-    
+
     public ClassNameModel getEnclosingElementModel() {
       return new ClassNameModel(this.enclosingElement);
     }
-    
+
   }
-  
+
 }

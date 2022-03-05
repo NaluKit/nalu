@@ -26,7 +26,7 @@ import java.util.List;
  * @author Frank Hossfeld
  */
 public interface IsLogger<C extends IsContext> {
-  
+
   /**
    * Sets the context.
    *
@@ -34,7 +34,7 @@ public interface IsLogger<C extends IsContext> {
    */
   @NaluInternalUse
   void setContext(C context);
-  
+
   /**
    * Writes a log message to the browser console during development
    *
@@ -43,5 +43,5 @@ public interface IsLogger<C extends IsContext> {
    */
   void log(List<String> messages,
            boolean sdmOnly);
-  
+
 }

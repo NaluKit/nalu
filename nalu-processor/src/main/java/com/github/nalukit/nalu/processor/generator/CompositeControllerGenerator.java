@@ -26,28 +26,28 @@ import com.squareup.javapoet.TypeSpec;
 import javax.lang.model.element.Modifier;
 
 public class CompositeControllerGenerator {
-  
+
   private MetaModel metaModel;
-  
+
   private TypeSpec.Builder typeSpec;
-  
+
   @SuppressWarnings("unused")
   private CompositeControllerGenerator() {
   }
-  
+
   private CompositeControllerGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
     this.typeSpec  = builder.typeSpec;
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   void generate() {
     generateLoadComposites();
   }
-  
+
   private void generateLoadComposites() {
     // generate method 'loadCompositeController()'
     MethodSpec.Builder loadCompositesMethodBuilder = MethodSpec.methodBuilder("loadCompositeController")
@@ -68,13 +68,13 @@ public class CompositeControllerGenerator {
     }
     typeSpec.addMethod(loadCompositesMethodBuilder.build());
   }
-  
+
   public static final class Builder {
-    
+
     MetaModel metaModel;
-    
+
     TypeSpec.Builder typeSpec;
-    
+
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -85,7 +85,7 @@ public class CompositeControllerGenerator {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -96,11 +96,11 @@ public class CompositeControllerGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-    
+
     public CompositeControllerGenerator build() {
       return new CompositeControllerGenerator(this);
     }
-    
+
   }
-  
+
 }

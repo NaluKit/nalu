@@ -41,7 +41,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Controller {
-  
+
   /**
    * <p>Declares the routes that the controller is bind to.</p>
    * <p>At least a controller needs one route.</p>
@@ -49,7 +49,7 @@ public @interface Controller {
    * @return the route/routes the controller is bind to
    */
   String[] route();
-  
+
   /**
    * <p>Nalu uses Sots to present components. A Slot is addressed by a selector.
    * The selector defines the slot where the component of the controller is
@@ -59,9 +59,9 @@ public @interface Controller {
    * @return defines the slot to be used to present the component
    */
   String selector();
-  
+
   Class<? extends IsComponent<?, ?>> componentInterface();
-  
+
   Class<? extends IsAbstractComponent> component();
-  
+
 }

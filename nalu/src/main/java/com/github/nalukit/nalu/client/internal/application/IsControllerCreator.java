@@ -21,13 +21,13 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
 public interface IsControllerCreator {
-  
+
   ControllerInstance create(String route);
-  
+
   void onFinishCreating(Object object);
-  
+
   void setParameter(Object object,
                     String... params)
       throws RoutingInterceptionException;
-  
+
 }

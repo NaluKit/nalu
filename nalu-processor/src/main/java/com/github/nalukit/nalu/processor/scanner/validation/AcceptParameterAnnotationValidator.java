@@ -24,64 +24,64 @@ import javax.lang.model.element.Element;
 import java.util.List;
 
 public class AcceptParameterAnnotationValidator {
-  
+
   List<Element> annotatedElements;
-  
+
   @SuppressWarnings("unused")
   private AcceptParameterAnnotationValidator() {
   }
-  
+
   private AcceptParameterAnnotationValidator(Builder builder) {
     this.annotatedElements = builder.annotatedElements;
     setUp();
   }
-  
-  private void setUp() {
-  }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
+  private void setUp() {
+  }
+
   public void validate()
       throws ProcessorException {
     // Tests are currently done during ControllerValidation
   }
-  
+
   public static final class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     RoundEnvironment roundEnvironment;
-    
+
     List<Element> annotatedElements;
-    
+
     ControllerModel controllerModel;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-    
+
     public Builder listOfAnnotatedElements(List<Element> annotatedElements) {
       this.annotatedElements = annotatedElements;
       return this;
     }
-    
+
     public Builder controllerModel(ControllerModel controllerModel) {
       this.controllerModel = controllerModel;
       return this;
     }
-    
+
     public AcceptParameterAnnotationValidator build() {
       return new AcceptParameterAnnotationValidator(this);
     }
-    
+
   }
-  
+
 }

@@ -26,7 +26,11 @@ import elemental2.dom.Location;
 import elemental2.dom.PopStateEvent;
 import jsinterop.base.Js;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 public class NaluPluginCoreWeb {
 
@@ -133,7 +137,7 @@ public class NaluPluginCoreWeb {
     if (PropertyFactory.get()
                        .isRemoveUrlParameterAtStart()) {
       if (queryParameters.size() > 0) {
-        String href   = location.href;
+        String href = location.href;
         String newUrl;
         if (href.contains("?")) {
           newUrl = href.substring(0,

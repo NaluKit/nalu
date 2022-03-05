@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class NaluUtilsTest {
-  
+
   @Test
   void testConvertRoute01() {
     String routeToConvert = "/";
@@ -13,7 +13,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute02() {
     String routeToConvert = "/shell";
@@ -22,7 +22,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute03() {
     String routeToConvert = "/shell/part01";
@@ -31,7 +31,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute04() {
     String routeToConvert = "/shell/part01/part02";
@@ -40,7 +40,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute05() {
     String routeToConvert = "/*";
@@ -49,7 +49,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute06() {
     String routeToConvert = "/shell/*";
@@ -58,7 +58,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute07() {
     String routeToConvert = "/shell/part01/*";
@@ -67,7 +67,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute08() {
     String routeToConvert = "/shell/part01/part02/*";
@@ -76,7 +76,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute09() {
     String routeToConvert = "/*";
@@ -85,7 +85,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute10() {
     String routeToConvert = "/shell/*";
@@ -94,7 +94,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute11() {
     String routeToConvert = "/shell/*/part02";
@@ -103,7 +103,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute12() {
     String routeToConvert = "/shell/part01/*";
@@ -112,7 +112,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute13() {
     String routeToConvert = "/shell/*/*";
@@ -121,7 +121,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute14() {
     String routeToConvert = "/shell/*/part01/*";
@@ -130,7 +130,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute15() {
     String routeToConvert = "/shell/part01/*/*";
@@ -139,7 +139,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(routeToConvert,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute16() {
     String routeToConvert = "/:parm01";
@@ -149,7 +149,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(expectedRoute,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute17() {
     String routeToConvert = "/shell/:parm01";
@@ -159,7 +159,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(expectedRoute,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute18() {
     String routeToConvert = "/shell/part01/*";
@@ -169,7 +169,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(expectedRoute,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute19() {
     String routeToConvert = "/shell/part01/part02/:part01";
@@ -179,7 +179,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(expectedRoute,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute20() {
     String routeToConvert = "/shell/:parm01/part02";
@@ -189,7 +189,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(expectedRoute,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute21() {
     String routeToConvert = "/shell/part01/:parm01";
@@ -199,7 +199,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(expectedRoute,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute22() {
     String routeToConvert = "/shell/:parm01/:parm02";
@@ -209,7 +209,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(expectedRoute,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute23() {
     String routeToConvert = "/shell/:parm01/part01/:parm02";
@@ -219,7 +219,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(expectedRoute,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute24() {
     String routeToConvert = "/shell/part01/:parm01/:parm02";
@@ -229,7 +229,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(expectedRoute,
                             convertedRoute);
   }
-  
+
   @Test
   void testConvertRoute25() {
     String routeToConvert = null;
@@ -239,7 +239,7 @@ public class NaluUtilsTest {
     Assertions.assertEquals(expectedRoute,
                             convertedRoute);
   }
-  
+
   @Test
   void testCompareRoutes01() {
     String routeToCompare01 = "";
@@ -249,7 +249,7 @@ public class NaluUtilsTest {
                                              routeToCompare02);
     Assertions.assertTrue(result);
   }
-  
+
   @Test
   void testCompareRoutes02() {
     String routeToCompare01 = "/";
@@ -259,7 +259,7 @@ public class NaluUtilsTest {
                                              routeToCompare02);
     Assertions.assertTrue(result);
   }
-  
+
   @Test
   void testCompareRoutes03() {
     String routeToCompare01 = "/shell";
@@ -269,7 +269,7 @@ public class NaluUtilsTest {
                                              routeToCompare02);
     Assertions.assertTrue(result);
   }
-  
+
   @Test
   void testCompareRoutes04() {
     String routeToCompare01 = "/shell/part01";
@@ -279,7 +279,7 @@ public class NaluUtilsTest {
                                              routeToCompare02);
     Assertions.assertTrue(result);
   }
-  
+
   @Test
   void testCompareRoutes05() {
     String routeToCompare01 = "/shell/*/part01";
@@ -289,7 +289,7 @@ public class NaluUtilsTest {
                                              routeToCompare02);
     Assertions.assertTrue(result);
   }
-  
+
   @Test
   void testCompareRoutes06() {
     String routeToCompare01 = "/shell/part01/*";
@@ -299,7 +299,7 @@ public class NaluUtilsTest {
                                              routeToCompare02);
     Assertions.assertTrue(result);
   }
-  
+
   @Test
   void testCompareRoutes07() {
     String routeToCompare01 = "/shell/:parm01/part01";
@@ -309,7 +309,7 @@ public class NaluUtilsTest {
                                              routeToCompare02);
     Assertions.assertTrue(result);
   }
-  
+
   @Test
   void testCompareRoutes08() {
     String routeToCompare01 = "/shell/part01/:parm01";
@@ -319,7 +319,7 @@ public class NaluUtilsTest {
                                              routeToCompare02);
     Assertions.assertTrue(result);
   }
-  
+
   @Test
   void testCompareRoutes09() {
     String routeToCompare01 = "/shell/*/part01";
@@ -329,7 +329,7 @@ public class NaluUtilsTest {
                                              routeToCompare02);
     Assertions.assertTrue(result);
   }
-  
+
   @Test
   void testCompareRoutes10() {
     String routeToCompare01 = "/shell/part01/*";
@@ -339,7 +339,7 @@ public class NaluUtilsTest {
                                              routeToCompare02);
     Assertions.assertTrue(result);
   }
-  
+
   @Test
   void testCompareRoutes11() {
     String routeToCompare01 = "/shell/part01/part02/*";
@@ -349,7 +349,7 @@ public class NaluUtilsTest {
                                              routeToCompare02);
     Assertions.assertFalse(result);
   }
-  
+
   @Test
   void testCompareRoutes12() {
     String routeToCompare01 = "/shell/part01/*/part02";
@@ -359,5 +359,5 @@ public class NaluUtilsTest {
                                              routeToCompare02);
     Assertions.assertFalse(result);
   }
-  
+
 }

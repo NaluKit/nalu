@@ -20,16 +20,16 @@ import com.github.nalukit.nalu.client.component.IsComponent;
 
 public interface INavigationComponent
     extends IsComponent<INavigationComponent.Controller, String> {
-  
+
   void select(String toString);
-  
+
   interface Controller
       extends IsComponent.Controller {
-    
+
     void doShowSearch();
-    
+
     void doShowList();
-    
+
   }
-  
+
 }

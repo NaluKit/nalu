@@ -21,18 +21,18 @@ import java.util.List;
 import java.util.Optional;
 
 public class CompositeModel {
-  
-  private ClassNameModel provider;
-  private ClassNameModel componentInterface;
-  private ClassNameModel component;
-  private ClassNameModel context;
+
+  private ClassNameModel               provider;
+  private ClassNameModel               componentInterface;
+  private ClassNameModel               component;
+  private ClassNameModel               context;
   private List<ParameterAcceptorModel> parameterAcceptors;
-  
+
   private boolean componentCreator;
-  
+
   public CompositeModel() {
   }
-  
+
   public CompositeModel(ClassNameModel context,
                         ClassNameModel provider,
                         ClassNameModel componentInterface,
@@ -43,42 +43,42 @@ public class CompositeModel {
     this.componentInterface = componentInterface;
     this.component          = component;
     this.componentCreator   = componentCreator;
-    
+
     this.parameterAcceptors = new ArrayList<>();
   }
-  
+
   public ClassNameModel getContext() {
     return context;
   }
-  
+
   public void setContext(ClassNameModel context) {
     this.context = context;
   }
-  
+
   public ClassNameModel getProvider() {
     return provider;
   }
-  
+
   public void setProvider(ClassNameModel provider) {
     this.provider = provider;
   }
-  
+
   public ClassNameModel getComponentInterface() {
     return componentInterface;
   }
-  
+
   public void setComponentInterface(ClassNameModel componentInterface) {
     this.componentInterface = componentInterface;
   }
-  
+
   public ClassNameModel getComponent() {
     return component;
   }
-  
+
   public void setComponent(ClassNameModel component) {
     this.component = component;
   }
-  
+
   public List<ParameterAcceptorModel> getParameterAcceptors() {
     return parameterAcceptors;
   }
@@ -98,13 +98,13 @@ public class CompositeModel {
     return optional.map(ParameterAcceptorModel::getMethodName)
                    .orElse(null);
   }
-  
+
   public boolean isComponentCreator() {
     return componentCreator;
   }
-  
+
   public void setComponentCreator(boolean componentCreator) {
     this.componentCreator = componentCreator;
   }
-  
+
 }

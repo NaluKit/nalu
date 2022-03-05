@@ -27,24 +27,24 @@ import com.squareup.javapoet.TypeSpec;
 import javax.lang.model.element.Modifier;
 
 public class ModulesGenerator {
-  
+
   private MetaModel metaModel;
-  
+
   private TypeSpec.Builder typeSpec;
-  
+
   @SuppressWarnings("unused")
   private ModulesGenerator() {
   }
-  
+
   private ModulesGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
     this.typeSpec  = builder.typeSpec;
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   public void generate() {
     // generate method 'generateLoadModules()'
     MethodSpec.Builder loadModuleMethodBuilder = MethodSpec.methodBuilder("loadModules")
@@ -65,11 +65,14 @@ public class ModulesGenerator {
     }
     typeSpec.addMethod(loadModuleMethodBuilder.build());
   }
-  
+
   private void loadModule(MethodSpec.Builder loadModuleMethodBuilder,
                           ClassNameModel contextModel,
                           ClassNameModel moduleModel) {
-    String moduleImplVariableName = this.createPackageName(moduleModel.getPackage()) + "_" + moduleModel.getSimpleName() + ProcessorConstants.MODULE_IMPL;
+    String moduleImplVariableName = this.createPackageName(moduleModel.getPackage()) +
+                                    "_" +
+                                    moduleModel.getSimpleName() +
+                                    ProcessorConstants.MODULE_IMPL;
     loadModuleMethodBuilder.addStatement("$T $L = new $T(super.context.getApplicationContext())",
                                          ClassName.get(moduleModel.getPackage(),
                                                        moduleModel.getSimpleName() + ProcessorConstants.MODULE_IMPL),
@@ -78,18 +81,21 @@ public class ModulesGenerator {
                                                        moduleModel.getSimpleName() + ProcessorConstants.MODULE_IMPL));
     loadModuleMethodBuilder.addStatement("this.router.addModule($L)",
                                          moduleImplVariableName);
-    String moduleLoaderVariableName = this.createPackageName(moduleModel.getPackage()) + "_" + moduleModel.getSimpleName() + ProcessorConstants.LOADER_IMPL;
+    String moduleLoaderVariableName = this.createPackageName(moduleModel.getPackage()) +
+                                      "_" +
+                                      moduleModel.getSimpleName() +
+                                      ProcessorConstants.LOADER_IMPL;
     loadModuleMethodBuilder.addStatement("$T<? extends $T> $L = $L.createModuleLoader()",
                                          ClassName.get(IsModuleLoader.class),
                                          ClassName.get(AbstractModuleContext.class),
                                          moduleLoaderVariableName,
                                          moduleImplVariableName);
-//    loadModuleMethodBuilder.addStatement("$T<$T> $L = $L.createModuleLoader()",
-//                                         ClassName.get(IsModuleLoader.class),
-//                                         ClassName.get(contextModel.getPackage(),
-//                                                       contextModel.getSimpleName()),
-//                                         moduleLoaderVariableName,
-//                                         moduleImplVariableName);
+    //    loadModuleMethodBuilder.addStatement("$T<$T> $L = $L.createModuleLoader()",
+    //                                         ClassName.get(IsModuleLoader.class),
+    //                                         ClassName.get(contextModel.getPackage(),
+    //                                                       contextModel.getSimpleName()),
+    //                                         moduleLoaderVariableName,
+    //                                         moduleImplVariableName);
     loadModuleMethodBuilder.beginControlFlow("if ($L == null)",
                                              moduleLoaderVariableName)
                            .addStatement("this.handleSuccess()")
@@ -98,13 +104,13 @@ public class ModulesGenerator {
                                          moduleLoaderVariableName)
                            .addStatement("$L.setEventBus(super.eventBus)",
                                          moduleLoaderVariableName)
-//                           .addStatement("$L.setContext(super.context)",
-//                                         moduleLoaderVariableName)
+                           //                           .addStatement("$L.setContext(super.context)",
+                           //                                         moduleLoaderVariableName)
                            .addStatement("$L.load(() -> this.handleSuccess())",
                                          moduleLoaderVariableName)
                            .endControlFlow();
   }
-  
+
   private String createPackageName(String pkg) {
     String value = pkg.replace(".",
                                "_");
@@ -113,13 +119,13 @@ public class ModulesGenerator {
                  .toLowerCase() + value.substring(1);
     return value;
   }
-  
+
   public static final class Builder {
-    
+
     MetaModel metaModel;
-    
+
     TypeSpec.Builder typeSpec;
-    
+
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -130,7 +136,7 @@ public class ModulesGenerator {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -141,11 +147,11 @@ public class ModulesGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-    
+
     public ModulesGenerator build() {
       return new ModulesGenerator(this);
     }
-    
+
   }
-  
+
 }

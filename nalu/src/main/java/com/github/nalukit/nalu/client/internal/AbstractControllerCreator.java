@@ -25,15 +25,15 @@ import org.gwtproject.event.shared.SimpleEventBus;
 @NaluInternalUse
 public abstract class AbstractControllerCreator<C extends IsContext>
     implements IsControllerCreator {
-  
+
   protected StringBuilder sb;
-  
+
   protected IsRouter router;
-  
+
   protected C context;
-  
+
   protected SimpleEventBus eventBus;
-  
+
   public AbstractControllerCreator(IsRouter router,
                                    C context,
                                    SimpleEventBus eventBus) {
@@ -42,5 +42,5 @@ public abstract class AbstractControllerCreator<C extends IsContext>
     this.context  = context;
     this.eventBus = eventBus;
   }
-  
+
 }

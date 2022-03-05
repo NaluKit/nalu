@@ -17,17 +17,17 @@
 package com.github.nalukit.nalu.client.internal;
 
 public class CompositeControllerReference {
-  
+
   private String controller;
-  
+
   private String compositeName;
-  
+
   private String composite;
-  
+
   private String selector;
-  
+
   private boolean scopeGlobal;
-  
+
   public CompositeControllerReference(String controller,
                                       String compositeName,
                                       String composite,
@@ -39,25 +39,25 @@ public class CompositeControllerReference {
     this.selector      = selector;
     this.scopeGlobal   = scopeGlobal;
   }
-  
+
   public String getController() {
     return controller;
   }
-  
+
   public String getCompositeName() {
     return compositeName;
   }
-  
+
   public String getComposite() {
     return composite;
   }
-  
+
   public String getSelector() {
     return selector;
   }
-  
+
   public boolean isScopeGlobal() {
     return scopeGlobal;
   }
-  
+
 }

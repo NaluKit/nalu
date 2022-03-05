@@ -31,36 +31,36 @@ import java.util.Objects;
 import java.util.Set;
 
 public class LoggerAnnotationValidator {
-  
+
   private Element loggerElement;
-  
+
   private ProcessorUtils processorUtils;
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private RoundEnvironment roundEnvironment;
-  
+
   @SuppressWarnings("unused")
   private LoggerAnnotationValidator() {
   }
-  
+
   private LoggerAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.roundEnvironment      = builder.roundEnvironment;
     this.loggerElement         = builder.loggerElement;
     setUp();
   }
-  
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-  
-  public static Builder builder() {
-    return new Builder();
-  }
-  
+
   public void validate()
       throws ProcessorException {
     // get elements annotated with Logger annotation
@@ -103,7 +103,7 @@ public class LoggerAnnotationValidator {
       }
     }
   }
-  
+
   private TypeElement getLogger(Logger loggerAnnotation) {
     try {
       loggerAnnotation.logger();
@@ -113,34 +113,34 @@ public class LoggerAnnotationValidator {
     }
     return null;
   }
-  
+
   public static final class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     RoundEnvironment roundEnvironment;
-    
+
     Element loggerElement;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-    
+
     public Builder loggerElement(Element loggerElement) {
       this.loggerElement = loggerElement;
       return this;
     }
-    
+
     public LoggerAnnotationValidator build() {
       return new LoggerAnnotationValidator(this);
     }
-    
+
   }
-  
+
 }

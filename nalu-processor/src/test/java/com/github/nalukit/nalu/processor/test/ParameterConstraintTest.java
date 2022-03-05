@@ -27,51 +27,51 @@ import java.util.Arrays;
 import static com.google.testing.compile.Compiler.javac;
 
 public class ParameterConstraintTest {
-  
-//  @Test
-//  public void testParaemterConstraintRule01() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/parameterConstraintRule/notAnInterface/ParameterConstraintRuleNotAnInterface.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("Nalu-Processor: @ParameterConstraintRule can only be used with an interface");
-//  }
-//
-//  @Test
-//  public void testParaemterConstraintRule02() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/parameterConstraintRule/wrongExtends/ParameterConstraintRuleNoExtends.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("Nalu-Processor: @ParameterConstraintRule can only be used on an interface that extends IsParameterConstraintRule");
-//  }
-//
-//  @Test
-//  public void testParaemterConstraintRule03() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/parameterConstraintRule/wrongExtends/ParameterConstraintRuleNoExtends.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("Nalu-Processor: @ParameterConstraintRule can only be used on an interface that extends IsParameterConstraintRule");
-//  }
+
+  //  @Test
+  //  public void testParaemterConstraintRule01() {
+  //    Compilation compilation = javac().withProcessors(new NaluProcessor())
+  //                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/parameterConstraintRule/notAnInterface/ParameterConstraintRuleNotAnInterface.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
+  //    CompilationSubject.assertThat(compilation)
+  //                      .failed();
+  //    CompilationSubject.assertThat(compilation)
+  //                      .hadErrorContaining("Nalu-Processor: @ParameterConstraintRule can only be used with an interface");
+  //  }
+  //
+  //  @Test
+  //  public void testParaemterConstraintRule02() {
+  //    Compilation compilation = javac().withProcessors(new NaluProcessor())
+  //                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/parameterConstraintRule/wrongExtends/ParameterConstraintRuleNoExtends.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
+  //    CompilationSubject.assertThat(compilation)
+  //                      .failed();
+  //    CompilationSubject.assertThat(compilation)
+  //                      .hadErrorContaining("Nalu-Processor: @ParameterConstraintRule can only be used on an interface that extends IsParameterConstraintRule");
+  //  }
+  //
+  //  @Test
+  //  public void testParaemterConstraintRule03() {
+  //    Compilation compilation = javac().withProcessors(new NaluProcessor())
+  //                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/parameterConstraintRule/wrongExtends/ParameterConstraintRuleNoExtends.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
+  //    CompilationSubject.assertThat(compilation)
+  //                      .failed();
+  //    CompilationSubject.assertThat(compilation)
+  //                      .hadErrorContaining("Nalu-Processor: @ParameterConstraintRule can only be used on an interface that extends IsParameterConstraintRule");
+  //  }
 
   @Test
   public void testParaemterConstraintRule99() {

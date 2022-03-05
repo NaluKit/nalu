@@ -17,13 +17,13 @@
 package com.github.nalukit.nalu.processor.model.intern;
 
 public class ControllerCompositeModel {
-  
+
   public  ClassNameModel condition;
   private String         name;
   private ClassNameModel composite;
   private String         selector;
   private boolean        scopeGlobal;
-  
+
   public ControllerCompositeModel(String name,
                                   ClassNameModel composite,
                                   String selector,
@@ -35,25 +35,25 @@ public class ControllerCompositeModel {
     this.condition   = condition;
     this.scopeGlobal = scopeGlobal;
   }
-  
+
   public String getName() {
     return name;
   }
-  
+
   public ClassNameModel getComposite() {
     return composite;
   }
-  
+
   public String getSelector() {
     return selector;
   }
-  
+
   public ClassNameModel getCondition() {
     return condition;
   }
-  
+
   public boolean isScopeGlobal() {
     return scopeGlobal;
   }
-  
+
 }

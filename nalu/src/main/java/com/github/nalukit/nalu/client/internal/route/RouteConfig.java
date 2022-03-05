@@ -22,37 +22,37 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RouteConfig {
-  
+
   /* shellCreator */
   private List<String> shell;
-  
+
   /* route */
   private String route;
-  
+
   /* route without shellCreator */
   private String routeWithoutShell;
-  
+
   /* parameters */
   private List<String> parameters;
-  
+
   /* selector (where to add the element */
   private String selector;
-  
+
   /* class name of the class which uses this configuration */
   private String className;
-  
+
   @SuppressWarnings("unused")
   private RouteConfig() {
   }
-  
+
   public RouteConfig(String route,
                      List<String> parameters,
                      String selector,
                      String className) {
     super();
-    
+
     this.shell = new ArrayList<>();
-    
+
     this.route      = route;
     this.parameters = parameters;
     this.selector   = selector;
@@ -87,18 +87,18 @@ public class RouteConfig {
       this.shell.add("/" + shellFromRoute);
     }
   }
-  
+
   public String getRoute() {
     return route;
   }
-  
+
   public boolean match(String route) {
     if (this.matchShell(route)) {
       return this.matchRouteWithoutShell(route);
     }
     return false;
   }
-  
+
   private boolean matchShell(String route) {
     if (this.shell.contains("*")) {
       return true;
@@ -114,7 +114,7 @@ public class RouteConfig {
     }
     return this.shell.contains("/" + shellOfRoute);
   }
-  
+
   private boolean matchRouteWithoutShell(String route) {
     // separate shellCreator from route
     String routeWithoutShell = route;
@@ -128,25 +128,25 @@ public class RouteConfig {
     }
     return this.routeWithoutShell.equals("/" + routeWithoutShell);
   }
-  
+
   public List<String> getShell() {
     return shell;
   }
-  
+
   public String getRouteWithoutShell() {
     return routeWithoutShell;
   }
-  
+
   public String getSelector() {
     return selector;
   }
-  
+
   public String getClassName() {
     return className;
   }
-  
+
   public List<String> getParameters() {
     return parameters;
   }
-  
+
 }

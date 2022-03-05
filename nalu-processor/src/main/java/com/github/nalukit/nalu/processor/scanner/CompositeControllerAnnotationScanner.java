@@ -24,7 +24,11 @@ import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraint;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
-import com.github.nalukit.nalu.processor.model.intern.*;
+import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
+import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
+import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ParameterAcceptorModel;
+import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintModel;
 import com.github.nalukit.nalu.processor.scanner.validation.AcceptParameterAnnotationValidator;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -32,7 +36,13 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.*;
+import javax.lang.model.type.ArrayType;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.ErrorType;
+import javax.lang.model.type.MirroredTypeException;
+import javax.lang.model.type.PrimitiveType;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.TypeVariable;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,14 +68,14 @@ public class CompositeControllerAnnotationScanner {
     setUp();
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
-  }
-
-  public static Builder builder() {
-    return new Builder();
   }
 
   public CompositeModel scan(RoundEnvironment roundEnvironment)

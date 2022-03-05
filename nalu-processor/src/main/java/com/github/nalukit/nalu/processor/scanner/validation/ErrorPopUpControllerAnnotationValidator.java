@@ -26,33 +26,33 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
 public class ErrorPopUpControllerAnnotationValidator {
-  
+
   private ProcessorUtils processorUtils;
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private Element errorPopUpControllerElement;
-  
+
   @SuppressWarnings("unused")
   private ErrorPopUpControllerAnnotationValidator() {
   }
-  
+
   private ErrorPopUpControllerAnnotationValidator(Builder builder) {
     this.processingEnvironment       = builder.processingEnvironment;
     this.errorPopUpControllerElement = builder.errorPopUpControllerElement;
     setUp();
   }
-  
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-  
-  public static Builder builder() {
-    return new Builder();
-  }
-  
+
   public void validate()
       throws ProcessorException {
     TypeElement typeElement = (TypeElement) this.errorPopUpControllerElement;
@@ -78,34 +78,34 @@ public class ErrorPopUpControllerAnnotationValidator {
       throw new ProcessorException("Nalu-Processor: @ErrorPopUpController can only be used on a class that extends AbstractErrorPopUpComponentController");
     }
   }
-  
+
   public static final class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     RoundEnvironment roundEnvironment;
-    
+
     Element errorPopUpControllerElement;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-    
+
     public Builder errorPopUpControllerElement(Element errorPopUpControllerElement) {
       this.errorPopUpControllerElement = errorPopUpControllerElement;
       return this;
     }
-    
+
     public ErrorPopUpControllerAnnotationValidator build() {
       return new ErrorPopUpControllerAnnotationValidator(this);
     }
-    
+
   }
-  
+
 }

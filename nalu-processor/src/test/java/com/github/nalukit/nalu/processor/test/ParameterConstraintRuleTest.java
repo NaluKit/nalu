@@ -27,7 +27,7 @@ import java.util.Arrays;
 import static com.google.testing.compile.Compiler.javac;
 
 public class ParameterConstraintRuleTest {
-  
+
   @Test
   public void testParameterConstraintRule01() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())

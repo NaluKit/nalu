@@ -21,26 +21,26 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MetaModelTest {
-  
+
   private MetaModel metaModel;
-  
+
   @BeforeEach
   void before() {
     this.metaModel = new MetaModel();
   }
-  
+
   @Test
   void getShellOfStartRoute01() {
     this.metaModel.setStartRoute("/MockShell/route01");
     Assertions.assertEquals("MockShell",
                             this.metaModel.getShellOfStartRoute());
   }
-  
+
   @Test
   void getShellOfStartRoute02() {
     this.metaModel.setStartRoute("MockShell/route01");
     Assertions.assertEquals("MockShell",
                             this.metaModel.getShellOfStartRoute());
   }
-  
+
 }

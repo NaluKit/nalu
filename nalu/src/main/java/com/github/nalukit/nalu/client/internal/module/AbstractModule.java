@@ -34,8 +34,8 @@ import org.gwtproject.event.shared.SimpleEventBus;
 public abstract class AbstractModule<C extends AbstractModuleContext>
     implements IsModule<C> {
 
-  protected IsRouter router;
-  protected C        moduleContext;
+  protected IsRouter       router;
+  protected C              moduleContext;
   protected SimpleEventBus eventBus;
 
   protected AlwaysLoadComposite alwaysLoadComposite;

@@ -28,7 +28,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class ProviderTest {
-  
+
   @Test
   void testSelectorAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
@@ -36,7 +36,7 @@ public class ProviderTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
   }
-  
+
   @Test
   void testSelectorAnnotationOnMethodWithOneParameter() {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
@@ -44,7 +44,7 @@ public class ProviderTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-  
+
   @Test
   void testSelectorAnnotationOnMethodWithTwoParameter() {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
@@ -54,7 +54,7 @@ public class ProviderTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Selector can only be used with a method that has one parameter");
   }
-  
+
   @Test
   void testParameterIsNotAWidget() {
     Compilation compilation = javac().withProcessors(new NaluPluginGwtProcessor())
@@ -64,5 +64,5 @@ public class ProviderTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Selector can only be used with a method that has one parameter and the parameter type is com.google.gwt.user.client.ui.IsWidget or com.google.gwt.user.client.ui.Widget");
   }
-  
+
 }

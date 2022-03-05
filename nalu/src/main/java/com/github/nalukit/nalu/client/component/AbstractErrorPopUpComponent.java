@@ -20,47 +20,47 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public abstract class AbstractErrorPopUpComponent<C extends IsErrorPopUpComponent.Controller>
     implements IsErrorPopUpComponent<C> {
-  
+
   //  protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
-  
+
   private C controller;
-  
+
   public AbstractErrorPopUpComponent() {
   }
-  
+
   /**
    * create the popup here
    */
   @Override
   public abstract void render();
-  
+
   @Override
   public void bind() {
     // if you need to bind some handlers and would like to do this in a separate method
     // just override this method.
   }
-  
+
   @Override
   public C getController() {
     return this.controller;
   }
-  
+
   @Override
   @NaluInternalUse
   public final void setController(C controller) {
     this.controller = controller;
   }
-  
+
   /**
    * call to show the popup
    */
   @Override
   public abstract void show();
-  
+
   /**
    * call to hide the popup
    */
   @Override
   public abstract void hide();
-  
+
 }

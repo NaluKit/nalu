@@ -28,7 +28,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class PopUpFiltersTest {
-  
+
   @Test
   void testFiltersAnnotationOnAMethod() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -38,5 +38,5 @@ public class PopUpFiltersTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @PopUpFilters can only be used on a type (interface)");
   }
-  
+
 }

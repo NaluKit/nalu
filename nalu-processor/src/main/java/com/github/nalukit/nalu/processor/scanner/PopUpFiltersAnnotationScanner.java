@@ -16,7 +16,6 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
-import com.github.nalukit.nalu.client.application.annotation.Filters;
 import com.github.nalukit.nalu.client.application.annotation.PopUpFilters;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
@@ -43,21 +42,21 @@ public class PopUpFiltersAnnotationScanner {
     this.filtersElement        = (TypeElement) builder.filtersElement;
     setUp();
   }
-  
-  private void setUp() {
-  }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
+  private void setUp() {
+  }
+
   public List<ClassNameModel> scan(RoundEnvironment roundEnvironment) {
     return this.getPopUpFiltersAsList()
                .stream()
                .map(ClassNameModel::new)
                .collect(Collectors.toList());
   }
-  
+
   private List<String> getPopUpFiltersAsList() {
     Element filterAnnotation = this.processingEnvironment.getElementUtils()
                                                          .getTypeElement(PopUpFilters.class.getName());
@@ -70,54 +69,56 @@ public class PopUpFiltersAnnotationScanner {
                               .flatMap(annotationMirror -> annotationMirror.getElementValues()
                                                                            .entrySet()
                                                                            .stream())
-                              .findFirst().<List<String>>map(entry -> Arrays.stream(entry.getValue()
-                                                                                         .toString()
-                                                                                         .replace("{",
-                                                                                                  "")
-                                                                                         .replace("}",
-                                                                                                  "")
-                                                                                         .replace(" ",
-                                                                                                  "")
-                                                                                         .split(","))
-                                                                            .map((v) -> v.substring(0,
-                                                                                                    v.indexOf(".class")))
-                                                                            .collect(Collectors.toList())).orElse(null);
+                              .findFirst()
+                              .<List<String>>map(entry -> Arrays.stream(entry.getValue()
+                                                                             .toString()
+                                                                             .replace("{",
+                                                                                      "")
+                                                                             .replace("}",
+                                                                                      "")
+                                                                             .replace(" ",
+                                                                                      "")
+                                                                             .split(","))
+                                                                .map((v) -> v.substring(0,
+                                                                                        v.indexOf(".class")))
+                                                                .collect(Collectors.toList()))
+                              .orElse(null);
   }
-  
+
   public static class Builder {
-    
+
     MetaModel metaModel;
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     RoundEnvironment roundEnvironment;
-    
+
     Element filtersElement;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-    
+
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public Builder filtersElement(Element filtersElement) {
       this.filtersElement = filtersElement;
       return this;
     }
-    
+
     public PopUpFiltersAnnotationScanner build() {
       return new PopUpFiltersAnnotationScanner(this);
     }
-    
+
   }
-  
+
 }

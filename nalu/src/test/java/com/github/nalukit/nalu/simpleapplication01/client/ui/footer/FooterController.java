@@ -28,21 +28,21 @@ import org.gwtproject.event.shared.HandlerRegistration;
 public class FooterController
     extends AbstractComponentController<NaluSimpleApplicationContext, IFooterComponent, String>
     implements IFooterComponent.Controller {
-  
+
   private HandlerRegistration registration;
-  
+
   public FooterController() {
   }
-  
+
   @Override
   public void start() {
     this.registration = this.eventBus.addHandler(StatusChangeEvent.TYPE,
                                                  e -> component.setStatus(e.getStatus()));
   }
-  
+
   @Override
   public void stop() {
     this.registration.removeHandler();
   }
-  
+
 }

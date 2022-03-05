@@ -22,7 +22,7 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 @NaluInternalUse
 public class ControllerInstance {
-  
+
   /* controller's class name */
   private String                               controllerClassName;
   /* controller */
@@ -31,40 +31,40 @@ public class ControllerInstance {
   private boolean                              cached;
   /* controller creator instance - needed to call setParameters b handling mode REUSE */
   private AbstractControllerCreator<?>         controllerCreator;
-  
+
   public ControllerInstance() {
   }
-  
+
   public String getControllerClassName() {
     return controllerClassName;
   }
-  
+
   public void setControllerClassName(String controllerClassName) {
     this.controllerClassName = controllerClassName;
   }
-  
+
   public AbstractComponentController<?, ?, ?> getController() {
     return controller;
   }
-  
+
   public void setController(AbstractComponentController<?, ?, ?> controller) {
     this.controller = controller;
   }
-  
+
   public boolean isCached() {
     return cached;
   }
-  
+
   public void setCached(boolean cached) {
     this.cached = cached;
   }
-  
+
   public AbstractControllerCreator<?> getControllerCreator() {
     return controllerCreator;
   }
-  
+
   public void setControllerCreator(AbstractControllerCreator<?> controllerCreator) {
     this.controllerCreator = controllerCreator;
   }
-  
+
 }

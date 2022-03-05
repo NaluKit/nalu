@@ -20,17 +20,17 @@ import com.github.nalukit.nalu.client.component.IsComponent;
 
 public interface ISearchComponent
     extends IsComponent<ISearchComponent.Controller, String> {
-  
+
   void setSearchName(String searchName);
-  
+
   void setSearchCity(String searchCity);
-  
+
   interface Controller
       extends IsComponent.Controller {
-    
+
     void doClickSearchButton(String searchName,
                              String searchCity);
-    
+
   }
-  
+
 }

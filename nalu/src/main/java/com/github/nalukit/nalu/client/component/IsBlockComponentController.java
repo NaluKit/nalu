@@ -21,9 +21,9 @@ import com.github.nalukit.nalu.client.component.event.ShowBlockComponentEvent;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public interface IsBlockComponentController<V> {
-  
+
   void setComponent(V component);
-  
+
   /**
    * gets the name of the block controller
    *
@@ -33,7 +33,7 @@ public interface IsBlockComponentController<V> {
    */
   @NaluInternalUse
   String getName();
-  
+
   /**
    * The method is called before the show-method.
    * A good place to do some preapration, if needed.
@@ -44,7 +44,7 @@ public interface IsBlockComponentController<V> {
    * @param event the show event - can be used to get parameters
    */
   void onBeforeShow(ShowBlockComponentEvent event);
-  
+
   /**
    * The method is called before the hide-method.
    * A good place to do some clean up.
@@ -55,10 +55,10 @@ public interface IsBlockComponentController<V> {
    * @param event the hide event - can be used to get parameters
    */
   void onBeforeHide(HideBlockComponentEvent event);
-  
+
   /**
    * Add the element to the root element
    */
   void append();
-  
+
 }

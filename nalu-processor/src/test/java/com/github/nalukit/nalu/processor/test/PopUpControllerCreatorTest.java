@@ -28,7 +28,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class PopUpControllerCreatorTest {
-  
+
   @Test
   void testControllerCreatorOk() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -45,5 +45,5 @@ public class PopUpControllerCreatorTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/popUpControllerCreator/ok/PopUpController01CreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/ok/PopUpController01CreatorImpl.java"));
   }
-  
+
 }

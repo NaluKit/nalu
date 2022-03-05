@@ -5,7 +5,7 @@ package com.github.nalukit.nalu.client.component;
  */
 public class AlwaysShowBlock
     implements IsShowBlockCondition {
-  
+
   /**
    * Method is called, in case a routing occurs.
    * Depending on the return value, the block will be displayed
@@ -20,5 +20,5 @@ public class AlwaysShowBlock
                            String... params) {
     return true;
   }
-  
+
 }

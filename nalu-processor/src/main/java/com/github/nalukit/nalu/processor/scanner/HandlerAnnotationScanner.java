@@ -25,62 +25,62 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 
 public class HandlerAnnotationScanner {
-  
+
   private Element handlerElement;
-  
+
   @SuppressWarnings("unused")
   private HandlerAnnotationScanner(Builder builder) {
     super();
     this.handlerElement = builder.handlerElement;
     setUp();
   }
-  
-  private void setUp() {
-  }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
+  private void setUp() {
+  }
+
   public ClassNameModel scan()
       throws ProcessorException {
     return new ClassNameModel(handlerElement.toString());
   }
-  
+
   public static class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     RoundEnvironment roundEnvironment;
-    
+
     Element handlerElement;
-    
+
     MetaModel metaModel;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public Builder handlerElement(Element handlerElement) {
       this.handlerElement = handlerElement;
       return this;
     }
-    
+
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-    
+
     public HandlerAnnotationScanner build() {
       return new HandlerAnnotationScanner(this);
     }
-    
+
   }
-  
+
 }

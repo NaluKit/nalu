@@ -24,30 +24,30 @@ import java.util.Map;
 
 @NaluInternalUse
 public class ShellFactory {
-  
+
   /* instance of the controller factory */
   private static ShellFactory instance;
-  
+
   /* map of components (key: name of class, Value: ShellCreator */
   private Map<String, IsShellCreator> shellFactory;
-  
+
   private ShellFactory() {
     this.shellFactory = new HashMap<>();
   }
-  
+
   public static ShellFactory get() {
     if (instance == null) {
       instance = new ShellFactory();
     }
     return instance;
   }
-  
+
   public void registerShell(String shellName,
                             IsShellCreator creator) {
     this.shellFactory.put(shellName,
                           creator);
   }
-  
+
   public void shell(String shellName,
                     ShellCallback callback) {
     if (this.shellFactory.containsKey(shellName)) {
@@ -70,5 +70,5 @@ public class ShellFactory {
       callback.onShellNotFound();
     }
   }
-  
+
 }

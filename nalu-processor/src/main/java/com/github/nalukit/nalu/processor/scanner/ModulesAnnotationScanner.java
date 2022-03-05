@@ -30,13 +30,13 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ModulesAnnotationScanner {
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private MetaModel metaModel;
-  
+
   private Element modulesElement;
-  
+
   @SuppressWarnings("unused")
   private ModulesAnnotationScanner(Builder builder) {
     super();
@@ -45,19 +45,19 @@ public class ModulesAnnotationScanner {
     this.modulesElement        = builder.modulesElement;
     setUp();
   }
-  
-  private void setUp() {
-  }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
+  private void setUp() {
+  }
+
   public void scan(RoundEnvironment roundEnvironment) {
     TypeMirror modulesTypeMirror = this.processingEnvironment.getElementUtils()
                                                              .getTypeElement(Modules.class.getName())
                                                              .asType();
-    
+
     List<String> moduleClasses = this.modulesElement.getAnnotationMirrors()
                                                     .stream()
                                                     .filter(annotationMirror -> this.processingEnvironment.getTypeUtils()
@@ -90,34 +90,34 @@ public class ModulesAnnotationScanner {
                                          .collect(Collectors.toList()));
     }
   }
-  
+
   public static class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     MetaModel metaModel;
-    
+
     Element modulesElement;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public Builder modulesElement(Element modulesElement) {
       this.modulesElement = modulesElement;
       return this;
     }
-    
+
     public ModulesAnnotationScanner build() {
       return new ModulesAnnotationScanner(this);
     }
-    
+
   }
-  
+
 }

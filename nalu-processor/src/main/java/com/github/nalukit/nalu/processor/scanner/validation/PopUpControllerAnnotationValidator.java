@@ -26,31 +26,31 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
 public class PopUpControllerAnnotationValidator {
-  
-  private ProcessorUtils processorUtils;
+
+  private ProcessorUtils        processorUtils;
   private ProcessingEnvironment processingEnvironment;
-  private Element popUpControllerElement;
-  
+  private Element               popUpControllerElement;
+
   @SuppressWarnings("unused")
   private PopUpControllerAnnotationValidator() {
   }
-  
+
   private PopUpControllerAnnotationValidator(Builder builder) {
     this.processingEnvironment  = builder.processingEnvironment;
     this.popUpControllerElement = builder.popUpControllerElement;
     setUp();
   }
-  
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-  
-  public static Builder builder() {
-    return new Builder();
-  }
-  
+
   public void validate()
       throws ProcessorException {
     TypeElement typeElement = (TypeElement) this.popUpControllerElement;
@@ -75,32 +75,32 @@ public class PopUpControllerAnnotationValidator {
       throw new ProcessorException("Nalu-Processor: @PopUpController - name attribute should not be empty");
     }
   }
-  
+
   public static final class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    RoundEnvironment roundEnvironment;
-    Element popUpControllerElement;
-    
+    RoundEnvironment      roundEnvironment;
+    Element               popUpControllerElement;
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-    
+
     public Builder popUpControllerElement(Element popUpControllerElement) {
       this.popUpControllerElement = popUpControllerElement;
       return this;
     }
-    
+
     public PopUpControllerAnnotationValidator build() {
       return new PopUpControllerAnnotationValidator(this);
     }
-    
+
   }
-  
+
 }

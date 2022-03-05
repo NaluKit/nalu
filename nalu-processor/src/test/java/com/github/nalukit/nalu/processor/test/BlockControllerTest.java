@@ -29,7 +29,7 @@ import static com.google.testing.compile.Compiler.javac;
 @SuppressWarnings("serial")
 public class BlockControllerTest {
   // TOD implementiere Tests
-  
+
   //  @Test
   //  void testControllerCreatorOk() {
   //    Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -72,7 +72,7 @@ public class BlockControllerTest {
   //    CompilationSubject.assertThat(compilation)
   //                      .hadErrorContaining("@ErrorPopUpController can only be used on a class that extends AbstractErrorPopUpComponentController");
   //  }
-  
+
   @Test
   void testBlockControllerAnnotationOnAInterface() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -84,7 +84,7 @@ public class BlockControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @BlockController can only be used with an class");
   }
-  
+
   @Test
   void testBlockControllerEmptyName() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -96,7 +96,7 @@ public class BlockControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("@BlockController - name attribute should not be empty");
   }
-  
+
   @Test
   void testBlockControllerDuplicateName() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -109,5 +109,5 @@ public class BlockControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("@BlockController: the name >>SameName<< is duplicate! Please use another unique name!");
   }
-  
+
 }

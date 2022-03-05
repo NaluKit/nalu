@@ -17,8 +17,8 @@
 package com.github.nalukit.nalu.processor.model.intern;
 
 public class ParameterAcceptorModel {
-  
-  private String parameterName;
+
+  private String                   parameterName;
   private String                   methodName;
   private ParameterConstraintModel parameterConstrait;
 
@@ -33,7 +33,7 @@ public class ParameterAcceptorModel {
   public String getParameterName() {
     return parameterName;
   }
-  
+
   public String getMethodName() {
     return methodName;
   }

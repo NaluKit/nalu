@@ -27,14 +27,14 @@ import java.util.Objects;
 
 @NaluInternalUse
 public class NaluLogger<C extends IsContext> {
-  
+
   private SimpleEventBus eventBus;
   private IsClientLogger clientLogger;
   private IsLogger<C>    customLogger;
-  
+
   protected NaluLogger() {
   }
-  
+
   /**
    * Binds the {@link LogEvent}
    */
@@ -43,7 +43,7 @@ public class NaluLogger<C extends IsContext> {
     this.eventBus.addHandler(LogEvent.TYPE,
                              this::onLog);
   }
-  
+
   /**
    * Method will be called in case a log event occurs.
    *
@@ -61,12 +61,12 @@ public class NaluLogger<C extends IsContext> {
                             event.isSdmOnly());
     }
   }
-  
+
   private boolean isSDM() {
     return "on".equals(System.getProperty("superdevmode",
                                           "off"));
   }
-  
+
   /**
    * Sets the client logger.
    *
@@ -76,7 +76,7 @@ public class NaluLogger<C extends IsContext> {
   public final void setClientLogger(IsClientLogger clientLogger) {
     this.clientLogger = clientLogger;
   }
-  
+
   /**
    * Sets the event bus
    *
@@ -86,7 +86,7 @@ public class NaluLogger<C extends IsContext> {
   public final void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
-  
+
   /**
    * Sets the custom logger
    *
@@ -96,5 +96,5 @@ public class NaluLogger<C extends IsContext> {
   public final void setCustomLogger(IsLogger<C> customLogger) {
     this.customLogger = customLogger;
   }
-  
+
 }

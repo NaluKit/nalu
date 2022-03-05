@@ -18,14 +18,11 @@ package com.github.nalukit.nalu.simpleapplication01.client.logger;
 
 import com.github.nalukit.nalu.client.application.IsClientLogger;
 
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 public class DefaultClientLogger
     implements IsClientLogger {
-  
+
   private static final String INDENT = "    ";
-  
+
   @Override
   public void log(String message) {
     if ("on".equals(System.getProperty("superdevmode",

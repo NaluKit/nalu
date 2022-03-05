@@ -3,14 +3,14 @@ package com.github.nalukit.nalu.client.plugin;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.ConfirmHandler;
 
 public interface IsCustomConfirmPresenter {
-  
+
   /**
    * Show confirm using the message
    *
    * @param message message to display
    */
   void confirm(String message);
-  
+
   /**
    * Add a ConfirmHandler to the confirm
    * <p>
@@ -21,5 +21,5 @@ public interface IsCustomConfirmPresenter {
    * @param confirmHandler confirm handler
    */
   void addConfirmHandler(ConfirmHandler confirmHandler);
-  
+
 }

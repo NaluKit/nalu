@@ -28,41 +28,44 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 // TODO Parameter Test for multiple routes
 public class ControllerAnnotationValidator {
-  
+
   private ProcessorUtils processorUtils;
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private Element controllerElement;
-  
+
   @SuppressWarnings("unused")
   private ControllerAnnotationValidator() {
   }
-  
+
   private ControllerAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.controllerElement     = builder.controllerElement;
     setUp();
   }
-  
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-  
-  public static Builder builder() {
-    return new Builder();
-  }
-  
+
   public void validate()
       throws ProcessorException {
     TypeElement typeElement = (TypeElement) this.controllerElement;
@@ -107,24 +110,36 @@ public class ControllerAnnotationValidator {
           if (!Objects.isNull(element.getAnnotation(AcceptParameter.class))) {
             AcceptParameter annotation = element.getAnnotation(AcceptParameter.class);
             if (!parametersFromRoute.contains(annotation.value())) {
-              throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString() + "<< - @AcceptParameter with value >>" + annotation.value() + "<< is not represented in the route as parameter");
+              throw new ProcessorException("Nalu-Processor: controller >>" +
+                                           controllerElement.toString() +
+                                           "<< - @AcceptParameter with value >>" +
+                                           annotation.value() +
+                                           "<< is not represented in the route as parameter");
             }
             ExecutableType             executableType = (ExecutableType) element.asType();
             List<? extends TypeMirror> parameters     = executableType.getParameterTypes();
             if (parameters.size() != 1) {
-              throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString() + "<< - @AcceptParameter annotated on >>" + executableType.toString() + "<< need one parameter of type String");
+              throw new ProcessorException("Nalu-Processor: controller >>" +
+                                           controllerElement.toString() +
+                                           "<< - @AcceptParameter annotated on >>" +
+                                           executableType.toString() +
+                                           "<< need one parameter of type String");
             }
             if (!String.class.getCanonicalName()
                              .equals(parameters.get(0)
                                                .toString())) {
-              throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement.toString() + "<< - @AcceptParameter on >>" + element.toString() + "<< parameter has the wrong type -> must be a String");
+              throw new ProcessorException("Nalu-Processor: controller >>" +
+                                           controllerElement.toString() +
+                                           "<< - @AcceptParameter on >>" +
+                                           element.toString() +
+                                           "<< parameter has the wrong type -> must be a String");
             }
           }
         }
       }
     }
   }
-  
+
   @SuppressWarnings("StringSplitter")
   private void validateRoute(String route)
       throws ProcessorException {
@@ -189,7 +204,7 @@ public class ControllerAnnotationValidator {
       }
     }
   }
-  
+
   private void validateParameterNamesAreUnique(String route)
       throws ProcessorException {
     List<String> parametersOfFirstRoute = this.getParametersFromRoute(route);
@@ -223,7 +238,7 @@ public class ControllerAnnotationValidator {
       throw new ProcessorException(sb.toString());
     }
   }
-  
+
   private void validateParameters(String[] routes)
       throws ProcessorException {
     List<String> parametersOfFirstRoute = this.getParametersFromRoute(routes[0]);
@@ -235,7 +250,10 @@ public class ControllerAnnotationValidator {
                                                            .toString() +
                                      "<<  - parameter needs to be equal for all routes (source-route >>" +
                                      routes[0] +
-                                     "<< -> compare route >>" + routes[i] + "<" + "<<)[0]");
+                                     "<< -> compare route >>" +
+                                     routes[i] +
+                                     "<" +
+                                     "<<)[0]");
       }
       for (String parameterFromFirstRoute : parametersOfFirstRoute) {
         compareParameters.remove(parameterFromFirstRoute);
@@ -263,7 +281,7 @@ public class ControllerAnnotationValidator {
       }
     }
   }
-  
+
   private void searchForDuplicateRoutes(String[] routes)
       throws ProcessorException {
     List<String> convertedRoutes = Arrays.stream(routes)
@@ -296,9 +314,9 @@ public class ControllerAnnotationValidator {
       sb.append(")");
       throw new ProcessorException(sb.toString());
     }
-    
+
   }
-  
+
   private List<String> getParametersFromRoute(String route)
       throws ProcessorException {
     List<String> list   = Arrays.asList(route.split("/"));
@@ -326,7 +344,7 @@ public class ControllerAnnotationValidator {
     }
     return result;
   }
-  
+
   /**
    * Converts the parameter parts with '*'
    * <p>
@@ -360,34 +378,34 @@ public class ControllerAnnotationValidator {
     }
     return newRoute.toString();
   }
-  
+
   public static final class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     RoundEnvironment roundEnvironment;
-    
+
     Element controllerElement;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-    
+
     public Builder controllerElement(Element controllerElement) {
       this.controllerElement = controllerElement;
       return this;
     }
-    
+
     public ControllerAnnotationValidator build() {
       return new ControllerAnnotationValidator(this);
     }
-    
+
   }
-  
+
 }

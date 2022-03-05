@@ -18,7 +18,7 @@ package com.github.nalukit.nalu.client.filter;
 
 @FunctionalInterface
 public interface FilterRegistration {
-  
+
   void removeFilter();
-  
+
 }

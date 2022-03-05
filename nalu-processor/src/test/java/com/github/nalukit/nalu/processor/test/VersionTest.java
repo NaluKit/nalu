@@ -75,7 +75,7 @@ public class VersionTest {
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/ControllerModule01.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
-  
+
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     // does not work due to different Timestamps (System.currentTimeMillis() value

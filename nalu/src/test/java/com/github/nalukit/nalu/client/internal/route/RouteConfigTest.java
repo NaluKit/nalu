@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 public class RouteConfigTest {
-  
+
   @Test
   void testRouteConfigCreation01() {
     RouteConfig routeConfig = new RouteConfig("/*/testroute01",
@@ -35,7 +35,7 @@ public class RouteConfigTest {
     Assertions.assertEquals("/testroute01",
                             routeConfig.getRouteWithoutShell());
   }
-  
+
   @Test
   void testRouteConfigCreation02() {
     RouteConfig routeConfig = new RouteConfig("/loginShell/testroute01",
@@ -48,7 +48,7 @@ public class RouteConfigTest {
     Assertions.assertEquals("/testroute01",
                             routeConfig.getRouteWithoutShell());
   }
-  
+
   @Test
   void testRouteConfigCreation03() {
     RouteConfig routeConfig = new RouteConfig("/[loginShell|applicationShell]/testroute01",
@@ -64,5 +64,5 @@ public class RouteConfigTest {
     Assertions.assertEquals("/testroute01",
                             routeConfig.getRouteWithoutShell());
   }
-  
+
 }

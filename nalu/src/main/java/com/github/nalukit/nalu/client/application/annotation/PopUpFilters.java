@@ -16,7 +16,6 @@
 
 package com.github.nalukit.nalu.client.application.annotation;
 
-import com.github.nalukit.nalu.client.filter.IsFilter;
 import com.github.nalukit.nalu.client.filter.IsPopUpFilter;
 
 import java.lang.annotation.Retention;
@@ -39,12 +38,12 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PopUpFilters {
-  
+
   /**
    * List of the popup filters.
    *
    * @return application list of popup filters
    */
   Class<? extends IsPopUpFilter>[] filterClasses();
-  
+
 }

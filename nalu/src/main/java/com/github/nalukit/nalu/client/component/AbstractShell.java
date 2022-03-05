@@ -25,44 +25,44 @@ import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractShell<C extends IsContext>
     implements IsShell {
-  
+
   protected IsRouter router;
-  
+
   protected C context;
-  
+
   protected SimpleEventBus eventBus;
-  
+
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
-  
+
   public AbstractShell() {
   }
-  
+
   @NaluInternalUse
   public final void setRouter(IsRouter router) {
     this.router = router;
   }
-  
+
   @NaluInternalUse
   public final void setContext(C context) {
     this.context = context;
   }
-  
+
   @NaluInternalUse
   public final void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
-  
+
   /**
    * Ovverride this method with the necessary code to remove the shell.
    */
   @Override
   public abstract void detachShell();
-  
+
   @Override
   public void onAttachedComponent() {
     // override this method if you need to do something, after a component is attached!
   }
-  
+
   /**
    * internal framework method! Will be called by the framework after the
    * stop-method f the controller is called
@@ -74,7 +74,7 @@ public abstract class AbstractShell<C extends IsContext>
     this.handlerRegistrations.removeHandler();
     this.handlerRegistrations = new HandlerRegistrations();
   }
-  
+
   /**
    * The bind-method will be called before the shell is added to the viewport.
    * <p>
@@ -99,5 +99,5 @@ public abstract class AbstractShell<C extends IsContext>
       throws RoutingInterceptionException {
     loader.continueLoading();
   }
-  
+
 }

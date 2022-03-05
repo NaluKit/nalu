@@ -22,30 +22,30 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractController<C extends IsContext> {
-  
+
   protected IsRouter router;
-  
+
   protected C context;
-  
+
   protected SimpleEventBus eventBus;
-  
+
   public AbstractController() {
     super();
   }
-  
+
   @NaluInternalUse
   public final void setRouter(IsRouter router) {
     this.router = router;
   }
-  
+
   @NaluInternalUse
   public final void setContext(C context) {
     this.context = context;
   }
-  
+
   @NaluInternalUse
   public final void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
-  
+
 }

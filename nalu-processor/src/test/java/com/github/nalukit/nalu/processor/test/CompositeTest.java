@@ -28,7 +28,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class CompositeTest {
-  
+
   @Test
   public void testCompositeNotAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -41,5 +41,5 @@ public class CompositeTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-  
+
 }

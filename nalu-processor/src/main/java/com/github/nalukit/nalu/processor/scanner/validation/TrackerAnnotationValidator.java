@@ -31,36 +31,36 @@ import java.util.Objects;
 import java.util.Set;
 
 public class TrackerAnnotationValidator {
-  
+
   private Element trackerElement;
-  
+
   private ProcessorUtils processorUtils;
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private RoundEnvironment roundEnvironment;
-  
+
   @SuppressWarnings("unused")
   private TrackerAnnotationValidator() {
   }
-  
+
   private TrackerAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.roundEnvironment      = builder.roundEnvironment;
     this.trackerElement        = builder.trackerElement;
     setUp();
   }
-  
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-  
-  public static Builder builder() {
-    return new Builder();
-  }
-  
+
   public void validate()
       throws ProcessorException {
     // get elements annotated with Debug annotation
@@ -107,7 +107,7 @@ public class TrackerAnnotationValidator {
       }
     }
   }
-  
+
   private TypeElement getTracker(Tracker trackerAnnotation) {
     try {
       trackerAnnotation.value();
@@ -117,34 +117,34 @@ public class TrackerAnnotationValidator {
     }
     return null;
   }
-  
+
   public static final class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     RoundEnvironment roundEnvironment;
-    
+
     Element trackerElement;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-    
+
     public Builder trackerElement(Element debugElement) {
       this.trackerElement = debugElement;
       return this;
     }
-    
+
     public TrackerAnnotationValidator build() {
       return new TrackerAnnotationValidator(this);
     }
-    
+
   }
-  
+
 }

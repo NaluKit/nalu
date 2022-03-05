@@ -24,44 +24,44 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ClassNameModelTest {
-  
+
   private ClassNameModel classNameModel;
-  
+
   @BeforeEach
   void before() {
     classNameModel = new ClassNameModel(IsApplication.class.getCanonicalName());
   }
-  
+
   @Test
   void getClassName() {
     Assertions.assertEquals(IsApplication.class.getCanonicalName(),
                             this.classNameModel.getClassName());
   }
-  
+
   @Test
   void getTypeName() {
     ClassName expectedTypeName = ClassName.get(IsApplication.class);
     Assertions.assertEquals(expectedTypeName,
                             this.classNameModel.getTypeName());
   }
-  
+
   @Test
   void getPackage() {
     Assertions.assertEquals(IsApplication.class.getPackage()
                                                .getName(),
                             this.classNameModel.getPackage());
   }
-  
+
   @Test
   void getSimpleName() {
     Assertions.assertEquals(IsApplication.class.getPackage()
                                                .getName(),
                             this.classNameModel.getPackage());
   }
-  
+
   @Test
   void equals() {
     Assertions.assertTrue(this.classNameModel.equals(new ClassNameModel(IsApplication.class.getCanonicalName())));
   }
-  
+
 }

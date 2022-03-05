@@ -4,19 +4,19 @@ import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 
 public class Utils {
-  
+
   private static Utils instance;
-  
+
   private Utils() {
   }
-  
+
   public static Utils get() {
     if (instance == null) {
       instance = new Utils();
     }
     return instance;
   }
-  
+
   public void deactivateController(AbstractComponentController<?, ?, ?> controller,
                                    boolean handlingModeReuse) {
     // deactivate controller
@@ -29,7 +29,7 @@ public class Utils {
                 .onDetach();
     }
   }
-  
+
   public void stopController(AbstractComponentController<?, ?, ?> controller) {
     controller.onDetach();
     // stop controller
@@ -43,13 +43,13 @@ public class Utils {
     controller.getComponent()
               .removeHandlers();
   }
-  
+
   public void deactivateCompositeController(AbstractCompositeController<?, ?, ?> compositeController) {
     compositeController.deactivate();
     // remove handlers
     compositeController.removeHandlers();
   }
-  
+
   public void stopCompositeController(AbstractCompositeController<?, ?, ?> compositeController) {
     if (!compositeController.isCached()) {
       compositeController.stop();
@@ -63,5 +63,5 @@ public class Utils {
     compositeController.getComponent()
                        .removeHandlers();
   }
-  
+
 }

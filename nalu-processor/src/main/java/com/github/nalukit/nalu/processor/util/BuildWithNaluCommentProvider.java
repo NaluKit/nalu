@@ -6,19 +6,19 @@ import com.squareup.javapoet.CodeBlock;
 import java.util.Objects;
 
 public class BuildWithNaluCommentProvider {
-  
+
   private static BuildWithNaluCommentProvider instance;
-  
+
   private BuildWithNaluCommentProvider() {
   }
-  
+
   public static BuildWithNaluCommentProvider get() {
     if (Objects.isNull(instance)) {
       instance = new BuildWithNaluCommentProvider();
     }
     return instance;
   }
-  
+
   public CodeBlock getGeneratedComment() {
     String sb = "Build with Nalu version >>" +
                 ProcessorConstants.PROCESSOR_VERSION +
@@ -29,5 +29,5 @@ public class BuildWithNaluCommentProvider {
                     .add(sb)
                     .build();
   }
-  
+
 }

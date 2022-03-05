@@ -22,14 +22,14 @@ import java.io.Serializable;
 public class PersonNotFoundException
     extends Exception
     implements Serializable {
-  
+
   /* for serialization only */
   @SuppressWarnings("unused")
   private PersonNotFoundException() {
   }
-  
+
   public PersonNotFoundException(String message) {
     super(message);
   }
-  
+
 }

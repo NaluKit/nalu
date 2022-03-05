@@ -30,11 +30,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FiltersAnnotationScanner {
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private TypeElement filtersElement;
-  
+
   @SuppressWarnings("unused")
   private FiltersAnnotationScanner(Builder builder) {
     super();
@@ -42,21 +42,21 @@ public class FiltersAnnotationScanner {
     this.filtersElement        = (TypeElement) builder.filtersElement;
     setUp();
   }
-  
-  private void setUp() {
-  }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
+  private void setUp() {
+  }
+
   public List<ClassNameModel> scan(RoundEnvironment roundEnvironment) {
     return this.getFiltersAsList()
                .stream()
                .map(ClassNameModel::new)
                .collect(Collectors.toList());
   }
-  
+
   private List<String> getFiltersAsList() {
     Element filterAnnotation = this.processingEnvironment.getElementUtils()
                                                          .getTypeElement(Filters.class.getName());
@@ -69,54 +69,56 @@ public class FiltersAnnotationScanner {
                               .flatMap(annotationMirror -> annotationMirror.getElementValues()
                                                                            .entrySet()
                                                                            .stream())
-                              .findFirst().<List<String>>map(entry -> Arrays.stream(entry.getValue()
-                                                                                         .toString()
-                                                                                         .replace("{",
-                                                                                                  "")
-                                                                                         .replace("}",
-                                                                                                  "")
-                                                                                         .replace(" ",
-                                                                                                  "")
-                                                                                         .split(","))
-                                                                            .map((v) -> v.substring(0,
-                                                                                                    v.indexOf(".class")))
-                                                                            .collect(Collectors.toList())).orElse(null);
+                              .findFirst()
+                              .<List<String>>map(entry -> Arrays.stream(entry.getValue()
+                                                                             .toString()
+                                                                             .replace("{",
+                                                                                      "")
+                                                                             .replace("}",
+                                                                                      "")
+                                                                             .replace(" ",
+                                                                                      "")
+                                                                             .split(","))
+                                                                .map((v) -> v.substring(0,
+                                                                                        v.indexOf(".class")))
+                                                                .collect(Collectors.toList()))
+                              .orElse(null);
   }
-  
+
   public static class Builder {
-    
+
     MetaModel metaModel;
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     RoundEnvironment roundEnvironment;
-    
+
     Element filtersElement;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-    
+
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public Builder filtersElement(Element filtersElement) {
       this.filtersElement = filtersElement;
       return this;
     }
-    
+
     public FiltersAnnotationScanner build() {
       return new FiltersAnnotationScanner(this);
     }
-    
+
   }
-  
+
 }

@@ -28,7 +28,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class ShellCreatorTest {
-  
+
   @Test
   void testShellCreatorOk() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -39,5 +39,5 @@ public class ShellCreatorTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/MockShellCreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shellCreator/ok/MockShellCreatorImpl.java"));
   }
-  
+
 }

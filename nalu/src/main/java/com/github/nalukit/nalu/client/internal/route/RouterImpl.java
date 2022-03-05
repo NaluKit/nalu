@@ -24,7 +24,7 @@ import java.util.List;
 
 public final class RouterImpl
     extends AbstractRouter {
-  
+
   public RouterImpl(IsNaluProcessorPlugin plugin,
                     ShellConfiguration shellConfiguration,
                     RouterConfiguration routerConfiguration,
@@ -52,5 +52,5 @@ public final class RouterImpl
     this.plugin.register(hash -> RouterImpl.super.handleRouting(hash,
                                                                 false));
   }
-  
+
 }

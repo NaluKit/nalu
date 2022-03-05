@@ -17,38 +17,38 @@
 package com.github.nalukit.nalu.client.internal.route;
 
 public class ShellConfig {
-  
+
   /* route */
   private String route;
-  
+
   /* class name of the class which uses this configuration */
   private String className;
-  
+
   public ShellConfig() {
   }
-  
+
   public ShellConfig(String route,
                      String className) {
     super();
-    
+
     this.route     = route;
     this.className = className;
   }
-  
+
   public String getRoute() {
     return route;
   }
-  
+
   public void setRoute(String route) {
     this.route = route;
   }
-  
+
   public String getClassName() {
     return className;
   }
-  
+
   public void setClassName(String className) {
     this.className = className;
   }
-  
+
 }

@@ -28,35 +28,39 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 public class ControllerGenerator {
-  
-  private MetaModel metaModel;
-  private TypeSpec.Builder typeSpec;
+
+  private MetaModel            metaModel;
+  private TypeSpec.Builder     typeSpec;
   private Map<String, Integer> variableCounterMap;
-  
+
   @SuppressWarnings("unused")
   private ControllerGenerator() {
   }
-  
+
   private ControllerGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
     this.typeSpec  = builder.typeSpec;
-    
+
     this.variableCounterMap = new HashMap<>();
   }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
   void generate() {
     generateLoadControllers();
     generateLoadSelectors();
   }
-  
+
   private void generateLoadControllers() {
     // generate method 'loadComponents()'
     MethodSpec.Builder loadComponentsMethodBuilder = MethodSpec.methodBuilder("loadComponents")
@@ -74,8 +78,9 @@ public class ControllerGenerator {
                                                    ClassName.get(controllerModel.getController()
                                                                                 .getPackage(),
                                                                  controllerModel.getController()
-                                                                                .getSimpleName() + ProcessorConstants.CREATOR_IMPL));
-      
+                                                                                .getSimpleName() +
+                                                                 ProcessorConstants.CREATOR_IMPL));
+
           if (controllerModel.getComposites()
                              .size() > 0) {
             List<String> generatedConditionClassNames = new ArrayList<>();
@@ -109,7 +114,7 @@ public class ControllerGenerator {
                                                                                                                    .getSimpleName()) +
                                                          this.getNameWithVariableCount(controllerCompositeModel.getCondition(),
                                                                                        true);
-              
+
                                  loadComponentsMethodBuilder.addStatement("$T $L = new $T()",
                                                                           ClassName.get(controllerCompositeModel.getCondition()
                                                                                                                 .getPackage(),
@@ -145,7 +150,7 @@ public class ControllerGenerator {
         });
     typeSpec.addMethod(loadComponentsMethodBuilder.build());
   }
-  
+
   private void generateLoadSelectors() {
     // method must always be created!
     MethodSpec.Builder loadSelectorsMethod = MethodSpec.methodBuilder("loadRoutes")
@@ -164,7 +169,7 @@ public class ControllerGenerator {
                                                                                                                                .getClassName())));
     typeSpec.addMethod(loadSelectorsMethod.build());
   }
-  
+
   private List<ControllerModel> getAllComponents(List<ControllerModel> routes) {
     List<ControllerModel> models = new ArrayList<>();
     routes.forEach(route -> {
@@ -175,13 +180,13 @@ public class ControllerGenerator {
     });
     return models;
   }
-  
+
   private String setFirstCharacterToLowerCase(String className) {
     return className.substring(0,
                                1)
                     .toLowerCase() + className.substring(1);
   }
-  
+
   /**
    * Created a String with a number at the end to get unique condition
    * variable names
@@ -209,7 +214,7 @@ public class ControllerGenerator {
       return "_" + count;
     }
   }
-  
+
   private String createRoute(String route) {
     if (route.startsWith("/")) {
       return route;
@@ -217,7 +222,7 @@ public class ControllerGenerator {
       return "/" + route;
     }
   }
-  
+
   private String createParameter(List<String> parameters,
                                  boolean apostrophe) {
     StringBuilder sb = new StringBuilder();
@@ -237,20 +242,20 @@ public class ControllerGenerator {
              });
     return sb.toString();
   }
-  
+
   private boolean contains(List<ControllerModel> models,
                            ControllerModel controllerModel) {
     return models.stream()
                  .anyMatch(model -> model.getProvider()
                                          .equals(controllerModel.getProvider()));
   }
-  
+
   public static final class Builder {
-    
+
     MetaModel metaModel;
-    
+
     TypeSpec.Builder typeSpec;
-    
+
     /**
      * Set the MetaModel of the currently generated eventBus
      *
@@ -261,7 +266,7 @@ public class ControllerGenerator {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     /**
      * Set the typeSpec of the currently generated eventBus
      *
@@ -272,11 +277,11 @@ public class ControllerGenerator {
       this.typeSpec = typeSpec;
       return this;
     }
-    
+
     public ControllerGenerator build() {
       return new ControllerGenerator(this);
     }
-    
+
   }
-  
+
 }

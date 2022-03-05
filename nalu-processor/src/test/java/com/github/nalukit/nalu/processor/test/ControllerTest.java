@@ -29,7 +29,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class ControllerTest {
-  
+
   @Test
   void testAcceptAnnotation01() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -42,7 +42,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.acceptAnnotation01.AcceptAnnotation01Controller<< - @AcceptParameter with value >>parameter03<< is not represented in the route as parameter");
   }
-  
+
   @Test
   void testAcceptAnnotation02() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -55,7 +55,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("annotation @com.github.nalukit.nalu.client.component.annotation.AcceptParameter is missing a default value for the element 'value'");
   }
-  
+
   @Test
   void testAcceptAnnotation03() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -68,7 +68,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.acceptAnnotation03.AcceptAnnotation03Controller<< - @AcceptParameter on >>setParameter01(java.math.BigDecimal)<< parameter has the wrong type -> must be a String");
   }
-  
+
   @Test
   void testAcceptAnnotation04() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -81,7 +81,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.acceptAnnotation04.AcceptAnnotation04Controller<< - @AcceptParameter on >>setParameter02(java.math.BigDecimal)<< parameter has the wrong type -> must be a String");
   }
-  
+
   @Test
   void testAcceptAnnotation05() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -92,7 +92,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-  
+
   @Test
   void testControllerAnnotationRouteDoesNotBeginWithSlash() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -102,7 +102,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Controller - route attribute muss begin with a '/'");
   }
-  
+
   @Test
   void testControllerAnnotationWithoutParameterOK() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -115,7 +115,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-  
+
   @Test
   void testControllerAnnotationWithParameterNotOK() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -128,7 +128,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-  
+
   @Test
   void testControllerAnnotationWithParameterOK() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -141,7 +141,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-  
+
   @Test
   void testControllerWithIsComponentCreatorOK() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -154,7 +154,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-  
+
   @Test
   void testControllerWithIsComponentCreatorNotOK() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -171,7 +171,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.controllerWithIsComponentControllerNotOK.ui.content01.Content01Controller<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller");
   }
-  
+
   @Test
   void testGenerateWithoutIsComponentCreator() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -187,7 +187,7 @@ public class ControllerTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/controller/generateWithoutIsComponentCreator/GenerateWithoutIsComponentCreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/generateWithoutIsComponentCreator/GenerateWithoutIsComponentCreatorImpl.java"));
   }
-  
+
   @Test
   void testGenerateWithIsComponentCreator() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -203,7 +203,7 @@ public class ControllerTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/controller/generateWithIsComponentCreator/GenerateWithIsComponentCreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/controller/generateWithIsComponentCreator/GenerateWithIsComponentCreatorImpl.java"));
   }
-  
+
   @Test
   void testControllerWithComposite01() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -221,7 +221,7 @@ public class ControllerTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite01/ControllerWithComposite01CreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite01/ControllerWithComposite01CreatorImpl.java"));
   }
-  
+
   @Test
   void testControllerWithComposite02() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -240,7 +240,7 @@ public class ControllerTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite02/ControllerWithComposite02CreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite02/ControllerWithComposite02CreatorImpl.java"));
   }
-  
+
   @Test
   void testControllerWithComposite03() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -262,7 +262,7 @@ public class ControllerTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite03/ControllerWithComposite03CreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/controllerWithComposite03/ControllerWithComposite03CreatorImpl.java"));
   }
-  
+
   @Test
   void testMultiRouteSupport01() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -273,7 +273,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
   }
-  
+
   @Test
   void testMultiRouteSupport02() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -286,7 +286,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.multiRouteSupport02<<  - parameter needs to be equal for all routes (source-route >>/mockShell/route01/:parameter01/:parameter02<< -> compare route >>/mockShell/route06/:parameter03<<<)[0]");
   }
-  
+
   @Test
   void testMultiRouteSupport03() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -299,7 +299,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.multiRouteSupport03<<  - parameter needs to be equal for all routes (source-route >>/mockShell/route06/:parameter03/route07/:parameter01<< illegal parameter: >>parameter03<<)[1]");
   }
-  
+
   @Test
   void testMultiRouteSupport04() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -312,7 +312,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.multiRouteSupport04<<  - illegal route >>mockShell/:parameter02/route07/:parameter01<< -> route cannot start with parameter (Part 2 wrong)");
   }
-  
+
   @Test
   void testMultiRouteSupport05() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -325,7 +325,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.multiRouteSupport05<< duplicate route: >>/mockShell/route02/*/*<<)");
   }
-  
+
   @Test
   void testMultiRouteSupport06() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -338,5 +338,5 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: controller >>com.github.nalukit.nalu.processor.controller.multiRouteSupport06<<  - parameter needs to be equal for all routes (source-route >>/mockShell/route01/:parameter01/:parameter02<< -> compare route >>/mockShell/route02/:parameter01<<<)[0]");
   }
-  
+
 }

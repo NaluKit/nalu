@@ -22,26 +22,26 @@ import org.gwtproject.event.shared.SimpleEventBus;
 
 public abstract class AbstractLoader<C extends IsContext>
     implements IsLoader<C> {
-  
+
   protected C context;
-  
+
   protected SimpleEventBus eventBus;
-  
+
   protected IsRouter router;
-  
+
   @Override
   public void setContext(C context) {
     this.context = context;
   }
-  
+
   @Override
   public void setEventBus(SimpleEventBus eventBus) {
     this.eventBus = eventBus;
   }
-  
+
   @Override
   public void setRouter(IsRouter router) {
     this.router = router;
   }
-  
+
 }

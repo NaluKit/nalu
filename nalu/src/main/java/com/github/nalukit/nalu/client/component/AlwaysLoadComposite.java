@@ -5,14 +5,14 @@ package com.github.nalukit.nalu.client.component;
  */
 public class AlwaysLoadComposite
     implements IsLoadCompositeCondition {
-  
+
   public AlwaysLoadComposite() {
   }
-  
+
   @Override
   public boolean loadComposite(String route,
                                String... params) {
     return true;
   }
-  
+
 }

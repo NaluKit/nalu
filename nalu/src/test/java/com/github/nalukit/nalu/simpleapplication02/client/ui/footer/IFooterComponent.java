@@ -20,12 +20,12 @@ import com.github.nalukit.nalu.client.component.IsComponent;
 
 public interface IFooterComponent
     extends IsComponent<IFooterComponent.Controller, String> {
-  
+
   void setStatus(String status);
-  
+
   interface Controller
       extends IsComponent.Controller {
-    
+
   }
-  
+
 }

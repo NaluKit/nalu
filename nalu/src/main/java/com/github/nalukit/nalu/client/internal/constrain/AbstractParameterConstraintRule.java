@@ -7,6 +7,4 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 public abstract class AbstractParameterConstraintRule
     implements IsParameterConstraintRule {
 
-
-
 }

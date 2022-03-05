@@ -44,9 +44,13 @@ public class ApplicationAnnotationScanner {
   private ApplicationAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.metaModel = builder.metaModel;
-    this.applicationElement = builder.applicationElement;
+    this.metaModel             = builder.metaModel;
+    this.applicationElement    = builder.applicationElement;
     setUp();
+  }
+
+  public static Builder builder() {
+    return new Builder();
   }
 
   private void setUp() {
@@ -55,18 +59,14 @@ public class ApplicationAnnotationScanner {
                                         .build();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   public void scan()
       throws ProcessorException {
     Application applicationAnnotation = applicationElement.getAnnotation(Application.class);
     if (!isNull(applicationAnnotation)) {
-      TypeElement loaderTypeElement = this.getLoaderTypeElement(applicationAnnotation);
-      TypeElement postLoaderTypeElement = this.getPostLoaderTypeElement(applicationAnnotation);
-      TypeElement contextTypeElement = this.getContextTypeElement(applicationAnnotation);
-      TypeElement customAlertPresenterTypeElement = this.getCustomAlertPresenterTypeElement(applicationAnnotation);
+      TypeElement loaderTypeElement                 = this.getLoaderTypeElement(applicationAnnotation);
+      TypeElement postLoaderTypeElement             = this.getPostLoaderTypeElement(applicationAnnotation);
+      TypeElement contextTypeElement                = this.getContextTypeElement(applicationAnnotation);
+      TypeElement customAlertPresenterTypeElement   = this.getCustomAlertPresenterTypeElement(applicationAnnotation);
       TypeElement customConfirmPresenterTypeElement = this.getCustomConfirmPresenterTypeElement(applicationAnnotation);
       metaModel.setGenerateToPackage(this.processorUtils.getPackageAsString(applicationElement));
       metaModel.setApplication(new ClassNameModel(applicationElement.toString()));

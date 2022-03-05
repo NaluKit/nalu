@@ -20,19 +20,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RouteResult {
-  
+
   private String shell;
-  
+
   private String route;
-  
+
   private List<String> parameterValues;
-  
+
   public RouteResult() {
     this(null,
          null,
          new ArrayList<>());
   }
-  
+
   public RouteResult(String shell,
                      String route,
                      List<String> parameterValues) {
@@ -40,36 +40,36 @@ public class RouteResult {
     this.route           = route;
     this.parameterValues = parameterValues;
   }
-  
+
   public RouteResult(String shell,
                      String route) {
     this(shell,
          route,
          new ArrayList<>());
   }
-  
+
   public String getRoute() {
     return route;
   }
-  
+
   public void setRoute(String route) {
     this.route = route;
   }
-  
+
   public List<String> getParameterValues() {
     return parameterValues;
   }
-  
+
   public void setParameterValues(List<String> parameterValues) {
     this.parameterValues = parameterValues;
   }
-  
+
   public String getShell() {
     return shell;
   }
-  
+
   public void setShell(String shell) {
     this.shell = shell;
   }
-  
+
 }

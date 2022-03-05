@@ -20,7 +20,7 @@ public class RouteParserTest {
   @BeforeEach
   void setUp() {
     this.routerConfiguration = new RouterConfiguration();
-    this.shellConfiguration = new ShellConfiguration();
+    this.shellConfiguration  = new ShellConfiguration();
 
     RouteParser.get()
                .setEventBus(new SimpleEventBus());

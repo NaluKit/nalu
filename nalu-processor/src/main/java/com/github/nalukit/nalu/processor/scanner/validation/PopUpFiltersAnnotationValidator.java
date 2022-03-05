@@ -46,11 +46,11 @@ public class PopUpFiltersAnnotationValidator {
     setUp();
   }
 
-  private void setUp() {
-  }
-
   public static Builder builder() {
     return new Builder();
+  }
+
+  private void setUp() {
   }
 
   public void validate(Element popFilterElement)

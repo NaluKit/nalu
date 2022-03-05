@@ -32,13 +32,13 @@ import org.junit.runner.RunWith;
 
 @RunWith(JUnitPlatform.class)
 @SelectClasses({ NaluTest.class,
-                   NaluUtilsTest.class,
-                   RouteConfigTest.class,
-                   RouteParserTest.class,
-                   RouterHashImplTest.class,
-                   RouterImplTest.class,
-                   RouterUtilsTest.class,
-                   RoutingTest.class,
-                   RouteValidationTest.class })
+                 NaluUtilsTest.class,
+                 RouteConfigTest.class,
+                 RouteParserTest.class,
+                 RouterHashImplTest.class,
+                 RouterImplTest.class,
+                 RouterUtilsTest.class,
+                 RoutingTest.class,
+                 RouteValidationTest.class })
 public class AllTests {
 }

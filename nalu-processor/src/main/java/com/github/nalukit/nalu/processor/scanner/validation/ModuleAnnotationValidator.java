@@ -21,23 +21,23 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 
 public class ModuleAnnotationValidator {
-  
+
   @SuppressWarnings("unused")
   private ModuleAnnotationValidator() {
   }
-  
+
   @SuppressWarnings("unused")
   private ModuleAnnotationValidator(Builder builder) {
     setUp();
   }
-  
-  private void setUp() {
-  }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
+  private void setUp() {
+  }
+
   public void validate()
       throws ProcessorException {
     //    // get elements annotated with Application annotation
@@ -62,7 +62,7 @@ public class ModuleAnnotationValidator {
     //      }
     //    }
   }
-  
+
   public void validate(Element element)
       throws ProcessorException {
     //    if (element instanceof TypeElement) {
@@ -87,27 +87,27 @@ public class ModuleAnnotationValidator {
     //      throw new ProcessorException("Nalu-Processor:" + "@Application can only be used on a type (interface)");
     //    }
   }
-  
+
   public static final class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     Element moduleElement;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder moduleElement(Element moduleElement) {
       this.moduleElement = moduleElement;
       return this;
     }
-    
+
     public ModuleAnnotationValidator build() {
       return new ModuleAnnotationValidator(this);
     }
-    
+
   }
-  
+
 }

@@ -29,10 +29,10 @@ import com.github.nalukit.nalu.client.module.AbstractModuleLoader;
 @NaluInternalUse
 public final class NoModuleLoader
     extends AbstractModuleLoader<DefaultModuleContext> {
-  
+
   @Override
   public void load(FinishLoadCommand finishLoadCommand) {
     finishLoadCommand.finishLoading();
   }
-  
+
 }

@@ -21,7 +21,7 @@ package com.github.nalukit.nalu.client.application;
  * @author Frank Hossfeld
  */
 public interface IsClientLogger {
-  
+
   /**
    * Writes a log message to the browser console
    *

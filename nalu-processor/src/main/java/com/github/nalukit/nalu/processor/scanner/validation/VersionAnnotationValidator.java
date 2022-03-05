@@ -29,36 +29,36 @@ import javax.lang.model.type.MirroredTypeException;
 import java.util.Set;
 
 public class VersionAnnotationValidator {
-  
+
   private Element versionElement;
-  
+
   private ProcessorUtils processorUtils;
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private RoundEnvironment roundEnvironment;
-  
+
   @SuppressWarnings("unused")
   private VersionAnnotationValidator() {
   }
-  
+
   private VersionAnnotationValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.roundEnvironment      = builder.roundEnvironment;
     this.versionElement        = builder.versionElement;
     setUp();
   }
-  
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private void setUp() {
     this.processorUtils = ProcessorUtils.builder()
                                         .processingEnvironment(this.processingEnvironment)
                                         .build();
   }
-  
-  public static Builder builder() {
-    return new Builder();
-  }
-  
+
   public void validate()
       throws ProcessorException {
     // get elements annotated with Debug annotation
@@ -92,7 +92,7 @@ public class VersionAnnotationValidator {
       }
     }
   }
-  
+
   private TypeElement getVersion(Version versionAnnotation) {
     try {
       versionAnnotation.value();
@@ -102,34 +102,34 @@ public class VersionAnnotationValidator {
     }
     return null;
   }
-  
+
   public static final class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     RoundEnvironment roundEnvironment;
-    
+
     Element versionElement;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-    
+
     public Builder versionElement(Element debugElement) {
       this.versionElement = debugElement;
       return this;
     }
-    
+
     public VersionAnnotationValidator build() {
       return new VersionAnnotationValidator(this);
     }
-    
+
   }
-  
+
 }

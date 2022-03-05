@@ -25,18 +25,18 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
     extends AbstractController<C>
     implements IsBlockComponentController<V>,
                IsComponent.Controller {
-  
+
   /* name of the popup controller */
   protected String  name;
   /* component of the controller */
   protected V       component;
   /* flag to indicate if the cblockComponent is visible or not */
   private   boolean visible;
-  
+
   public AbstractBlockComponentController() {
     super();
   }
-  
+
   /**
    * Nalu uses thie method to bind the handler to the event bus.
    */
@@ -48,7 +48,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
                               this::onShowBlockComponent);
     this.visible = true;
   }
-  
+
   /**
    * Called in case the {@link HideBlockComponentEvent} gets catched
    *
@@ -64,7 +64,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
       }
     }
   }
-  
+
   /**
    * called in case the {@link ShowBlockComponentEvent} gets catched.
    *
@@ -80,7 +80,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
       }
     }
   }
-  
+
   /**
    * hides the block
    *
@@ -89,7 +89,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   private void hide() {
     component.hide();
   }
-  
+
   /**
    * Shows the block
    *
@@ -98,7 +98,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   private void show() {
     component.show();
   }
-  
+
   /**
    * Get the component
    *
@@ -107,7 +107,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   public V getComponent() {
     return this.component;
   }
-  
+
   /**
    * Sets the component inside the controller
    * <b>Do not use this method. This will lead to unexpected results</b>
@@ -118,7 +118,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   public void setComponent(V component) {
     this.component = component;
   }
-  
+
   /**
    * Returns the name of the BlockController.
    *
@@ -128,7 +128,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   public final String getName() {
     return name;
   }
-  
+
   /**
    * Sets the name of the BlockController
    *
@@ -138,7 +138,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   public final void setName(String name) {
     this.name = name;
   }
-  
+
   /**
    * The method is called before the show-method.
    * A good place to do some initialization.
@@ -151,7 +151,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   @Override
   public void onBeforeShow(ShowBlockComponentEvent event) {
   }
-  
+
   /**
    * The method is called before the hide-method.
    * A good place to do some clean up.
@@ -164,7 +164,7 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   @Override
   public void onBeforeHide(HideBlockComponentEvent event) {
   }
-  
+
   /**
    * append the element
    */
@@ -172,5 +172,5 @@ public abstract class AbstractBlockComponentController<C extends IsContext, V ex
   public void append() {
     component.append();
   }
-  
+
 }

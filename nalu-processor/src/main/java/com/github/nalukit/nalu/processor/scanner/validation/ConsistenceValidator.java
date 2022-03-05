@@ -31,29 +31,29 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class ConsistenceValidator {
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private MetaModel metaModel;
-  
+
   @SuppressWarnings("unused")
   private ConsistenceValidator() {
   }
-  
+
   private ConsistenceValidator(Builder builder) {
     this.processingEnvironment = builder.processingEnvironment;
     this.metaModel             = builder.metaModel;
-    
+
     setUp();
   }
-  
-  private void setUp() {
-  }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
+  private void setUp() {
+  }
+
   public void validate()
       throws ProcessorException {
     // check startroute parameter
@@ -71,7 +71,7 @@ public class ConsistenceValidator {
     // check, that there is no @ErrorPopUpController used in a sub module
     this.vallidateErrorPopUpControllerInSubModule();
   }
-  
+
   private void validateStartRoute()
       throws ProcessorException {
     if (!Objects.isNull(metaModel.getApplication())) {
@@ -86,12 +86,16 @@ public class ConsistenceValidator {
                           .size() > 0) {
           this.processingEnvironment.getMessager()
                                     .printMessage(Diagnostic.Kind.NOTE,
-                                                  "Nalu-Processor: The shell of the startRoute >>" + this.metaModel.getShellOfStartRoute() + "<< does not exist in this project");
+                                                  "Nalu-Processor: The shell of the startRoute >>" +
+                                                  this.metaModel.getShellOfStartRoute() +
+                                                  "<< does not exist in this project");
         } else {
-          throw new ProcessorException("Nalu-Processor: The shell of the startRoute >>" + this.metaModel.getShellOfStartRoute() + "<< does not exist!");
+          throw new ProcessorException("Nalu-Processor: The shell of the startRoute >>" +
+                                       this.metaModel.getShellOfStartRoute() +
+                                       "<< does not exist!");
         }
       }
-      
+
       // Does at least one controller exist for the start route?
       Optional<ControllerModel> optionalRoute = this.metaModel.getControllers()
                                                               .stream()
@@ -102,20 +106,26 @@ public class ConsistenceValidator {
                           .size() > 0) {
           this.processingEnvironment.getMessager()
                                     .printMessage(Diagnostic.Kind.NOTE,
-                                                  "Nalu-Processor: The route of the startRoute >>" + this.metaModel.getStartRoute() + "<< does not exist in this project");
+                                                  "Nalu-Processor: The route of the startRoute >>" +
+                                                  this.metaModel.getStartRoute() +
+                                                  "<< does not exist in this project");
         } else {
-          throw new ProcessorException("Nalu-Processor: The route of the startRoute >>" + this.metaModel.getStartRoute() + "<< does not exist!");
+          throw new ProcessorException("Nalu-Processor: The route of the startRoute >>" +
+                                       this.metaModel.getStartRoute() +
+                                       "<< does not exist!");
         }
       }
-      
+
       // check, that the start route is not only a route cantaining at least only the shell
       String[] routeParts = this.splitRoute(this.metaModel.getStartRoute());
       if (routeParts.length < 2) {
-        throw new ProcessorException("Nalu-Processor: The startRoute >>" + this.metaModel.getStartRoute() + "<< can not contain only a shell");
+        throw new ProcessorException("Nalu-Processor: The startRoute >>" +
+                                     this.metaModel.getStartRoute() +
+                                     "<< can not contain only a shell");
       }
     }
   }
-  
+
   private void validateNoShellsDefined()
       throws ProcessorException {
     if (!Objects.isNull(metaModel.getApplication())) {
@@ -126,36 +136,45 @@ public class ConsistenceValidator {
       throw new ProcessorException("Nalu-Processor: No shells defined! Please define (at least) one shell.");
     }
   }
-  
+
   private void validateDuplicateShellName()
       throws ProcessorException {
     List<String> compareList = new ArrayList<>();
     for (ShellModel shellModel : this.metaModel.getShells()) {
       if (compareList.contains(shellModel.getName())) {
-        throw new ProcessorException("Nalu-Processor:" + "@Shell: the name >>" + shellModel.getName() + "<< is duplicate! Please use another unique name!");
+        throw new ProcessorException("Nalu-Processor:" +
+                                     "@Shell: the name >>" +
+                                     shellModel.getName() +
+                                     "<< is duplicate! Please use another unique name!");
       }
       compareList.add(shellModel.getName());
     }
   }
-  
+
   private void validateDuplicateBlockControllerName()
       throws ProcessorException {
     List<String> compareList = new ArrayList<>();
     for (BlockControllerModel blockControllerModel : this.metaModel.getBlockControllers()) {
       if (compareList.contains(blockControllerModel.getName())) {
-        throw new ProcessorException("Nalu-Processor:" + "@BlockController: the name >>" + blockControllerModel.getName() + "<< is duplicate! Please use another unique name!");
+        throw new ProcessorException("Nalu-Processor:" +
+                                     "@BlockController: the name >>" +
+                                     blockControllerModel.getName() +
+                                     "<< is duplicate! Please use another unique name!");
       }
       compareList.add(blockControllerModel.getName());
     }
   }
-  
+
   private void validateDuplicateCompositeNamesInAController()
       throws ProcessorException {
     List<String> compareList = new ArrayList<>();
     for (ControllerModel controllerModel : this.metaModel.getControllers()) {
       for (ControllerCompositeModel controllerCompositeModel : controllerModel.getComposites()) {
         if (compareList.contains(controllerCompositeModel.getName())) {
-          throw new ProcessorException("Nalu-Processor:" + "@Compiste: the name >>" + controllerCompositeModel.getName() + "<< is duplicate! Please use another unique name!");
+          throw new ProcessorException("Nalu-Processor:" +
+                                       "@Compiste: the name >>" +
+                                       controllerCompositeModel.getName() +
+                                       "<< is duplicate! Please use another unique name!");
         }
         compareList.add(controllerCompositeModel.getName());
       }
@@ -163,7 +182,7 @@ public class ConsistenceValidator {
       compareList = new ArrayList<>();
     }
   }
-  
+
   //  private boolean matchRoute(String controllerRoute,
   //                             String errorRoute) {
   //    // first check, if equals
@@ -194,7 +213,7 @@ public class ConsistenceValidator {
   //                                      .findFirst();
   //    return optional.isPresent();
   //  }
-  
+
   //  private String getShellFromRoute(String route) {
   //    String shell = route;
   //    // remove leading "/"
@@ -208,7 +227,7 @@ public class ConsistenceValidator {
   //    }
   //    return shell;
   //  }
-  
+
   //  private String getRouteWithoutShellAndParameter(String route) {
   //    String reducedRoute = route;
   //    if (route.startsWith("/")) {
@@ -225,7 +244,7 @@ public class ConsistenceValidator {
   //    }
   //    return reducedRoute;
   //  }
-  
+
   private void vallidateErrorPopUpControllerInSubModule()
       throws ProcessorException {
     // current compilation source is a sub module
@@ -236,7 +255,7 @@ public class ConsistenceValidator {
       }
     }
   }
-  
+
   private String[] splitRoute(String route) {
     String tmpRoute = route;
     if (tmpRoute.startsWith("/")) {
@@ -244,34 +263,34 @@ public class ConsistenceValidator {
     }
     return tmpRoute.split("/");
   }
-  
+
   public static final class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     RoundEnvironment roundEnvironment;
-    
+
     MetaModel metaModel;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder roundEnvironment(RoundEnvironment roundEnvironment) {
       this.roundEnvironment = roundEnvironment;
       return this;
     }
-    
+
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public ConsistenceValidator build() {
       return new ConsistenceValidator(this);
     }
-    
+
   }
-  
+
 }

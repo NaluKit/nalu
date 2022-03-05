@@ -27,7 +27,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
     extends AbstractController<C>
     implements IsPopUpController<V>,
                IsComponent.Controller {
-  
+
   /* name of the popup controller */
   protected String                                   name;
   /* component of the controller */
@@ -38,13 +38,13 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   protected Map<String, String>                      dataStore;
   /* object store of the parameters (taken from the event) */
   protected Map<String, Object>                      dataObjectStore;
-  
+
   public AbstractPopUpComponentController() {
     super();
-    this.dataStore = new HashMap<>();
+    this.dataStore       = new HashMap<>();
     this.dataObjectStore = new HashMap<>();
   }
-  
+
   /**
    * Returns the name of the PopUpController.
    * <p>
@@ -55,7 +55,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   public String getName() {
     return name;
   }
-  
+
   /**
    * Sets the name of the PopUpController
    *
@@ -65,7 +65,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   public final void setName(String name) {
     this.name = name;
   }
-  
+
   /**
    * Returns the command store.
    * <p>
@@ -78,7 +78,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   public Map<String, ShowPopUpEvent.PopUpCommand> getCommandStore() {
     return this.commandStore;
   }
-  
+
   /**
    * sets the command store.
    *
@@ -88,7 +88,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   public final void setCommandStore(Map<String, ShowPopUpEvent.PopUpCommand> commandStore) {
     this.commandStore = commandStore;
   }
-  
+
   /**
    * Returns the data store.
    * <p>
@@ -113,16 +113,6 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   }
 
   /**
-   * sets the data object store.
-   *
-   * @param dataObjectStore the data store
-   */
-  @NaluInternalUse
-  public final void setDataObjectStore(Map<String, Object> dataObjectStore) {
-    this.dataObjectStore = dataObjectStore;
-  }
-
-  /**
    * Returns the data object store.
    * <p>
    * The data object store contains the parameters set inside the ShowPopUp-event.
@@ -134,7 +124,17 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   public Map<String, Object> getDataObjectStore() {
     return this.dataObjectStore;
   }
-  
+
+  /**
+   * sets the data object store.
+   *
+   * @param dataObjectStore the data store
+   */
+  @NaluInternalUse
+  public final void setDataObjectStore(Map<String, Object> dataObjectStore) {
+    this.dataObjectStore = dataObjectStore;
+  }
+
   /**
    * Get the component
    *
@@ -143,7 +143,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   public V getComponent() {
     return this.component;
   }
-  
+
   /**
    * Sets the component inside the controller
    * <b>Do not use this method. This will lead to unexpected results</b>
@@ -155,7 +155,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   public final void setComponent(V component) {
     this.component = component;
   }
-  
+
   /**
    * will be called, one time, when a popup-controller is created.
    *
@@ -169,7 +169,7 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
     // Attention: DON'T FORGET TO CALL:
     finishLoadCommand.finishLoading();
   }
-  
+
   /**
    * The method is called before the show-method.
    * A good place to do some initialization.
@@ -183,5 +183,5 @@ public abstract class AbstractPopUpComponentController<C extends IsContext, V ex
   public void onBeforeShow(FinishLoadCommand finishLoadCommand) {
     finishLoadCommand.finishLoading();
   }
-  
+
 }

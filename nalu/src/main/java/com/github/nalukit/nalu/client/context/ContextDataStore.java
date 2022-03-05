@@ -7,14 +7,14 @@ import java.util.Map;
  * Context to store data
  */
 public class ContextDataStore {
-  
+
   /* data store */
   private final Map<String, Object> dataStore;
-  
+
   public ContextDataStore() {
     this.dataStore = new HashMap<>();
   }
-  
+
   /**
    * Gets a value from the data store
    *
@@ -24,7 +24,7 @@ public class ContextDataStore {
   public Object get(String key) {
     return this.dataStore.get(key);
   }
-  
+
   /**
    * Sets a value in the data store
    *
@@ -33,9 +33,9 @@ public class ContextDataStore {
    */
   public void put(String key,
                   Object value) {
-    
+
     this.dataStore.put(key,
                        value);
   }
-  
+
 }

@@ -5,34 +5,34 @@ import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import java.util.Objects;
 
 public class SeoDataProvider {
-  
+
   /* instance of the factory */
   private static SeoDataProvider       instance;
   /* Nalu plugin */
   private        IsNaluProcessorPlugin plugin;
   /* data for next update */
   private        SeoData               seoData;
-  
+
   private SeoDataProvider() {
     this.seoData = new SeoData();
   }
-  
+
   public static SeoDataProvider get() {
     if (Objects.isNull(instance)) {
       instance = new SeoDataProvider();
     }
     return instance;
   }
-  
+
   public void register(IsNaluProcessorPlugin plugin) {
     this.plugin = plugin;
   }
-  
+
   public void setDescription(String description) {
     this.setDescription(description,
                         false);
   }
-  
+
   public void setDescription(String description,
                              boolean important) {
     if (Objects.isNull(this.seoData.getDescription())) {
@@ -43,12 +43,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setRobots(String robots) {
     this.setRobots(robots,
                    false);
   }
-  
+
   public void setRobots(String robots,
                         boolean important) {
     if (Objects.isNull(this.seoData.getRobots())) {
@@ -59,12 +59,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setKeywords(String keywords) {
     this.setKeywords(keywords,
                      false);
   }
-  
+
   public void setKeywords(String keywords,
                           boolean important) {
     if (Objects.isNull(this.seoData.getKeywords())) {
@@ -75,12 +75,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setTitle(String title) {
     this.setTitle(title,
                   false);
   }
-  
+
   public void setTitle(String title,
                        boolean important) {
     if (Objects.isNull(this.seoData.getTitle())) {
@@ -91,12 +91,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setOgTitle(String ogTitle) {
     this.setOgTitle(ogTitle,
                     false);
   }
-  
+
   public void setOgTitle(String ogTitle,
                          boolean important) {
     if (Objects.isNull(this.seoData.getOgTitle())) {
@@ -107,12 +107,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setOgImage(String ogImage) {
     this.setOgImage(ogImage,
                     false);
   }
-  
+
   public void setOgImage(String ogImage,
                          boolean important) {
     if (Objects.isNull(this.seoData.getOgImage())) {
@@ -123,12 +123,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setOgType(String ogType) {
     this.setOgType(ogType,
                    false);
   }
-  
+
   public void setOgType(String ogType,
                         boolean important) {
     if (Objects.isNull(this.seoData.getOgType())) {
@@ -139,12 +139,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setOgUrl(String ogUrl) {
     this.setOgUrl(ogUrl,
                   false);
   }
-  
+
   public void setOgUrl(String ogUrl,
                        boolean important) {
     if (Objects.isNull(this.seoData.getOgUrl())) {
@@ -155,12 +155,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setOgSiteName(String ogSiteName) {
     this.setOgSiteName(ogSiteName,
                        false);
   }
-  
+
   public void setOgSiteName(String ogSiteName,
                             boolean important) {
     if (Objects.isNull(this.seoData.getOgSiteName())) {
@@ -171,12 +171,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setOgDescription(String ogDescription) {
     this.setOgDescription(ogDescription,
                           false);
   }
-  
+
   public void setOgDescription(String ogDescription,
                                boolean important) {
     if (Objects.isNull(this.seoData.getOgDescription())) {
@@ -187,12 +187,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setTwitterCard(String twitterCard) {
     this.setTwitterCard(twitterCard,
                         false);
   }
-  
+
   public void setTwitterCard(String twitterCard,
                              boolean important) {
     if (Objects.isNull(this.seoData.getTwitterCard())) {
@@ -203,12 +203,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setTwitterTitle(String twitterTitle) {
     this.setTwitterTitle(twitterTitle,
                          false);
   }
-  
+
   public void setTwitterTitle(String twitterTitle,
                               boolean important) {
     if (Objects.isNull(this.seoData.getTwitterTitle())) {
@@ -219,12 +219,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setTwitterDescription(String twitterDescription) {
     this.setTwitterDescription(twitterDescription,
                                false);
   }
-  
+
   public void setTwitterDescription(String twitterDescription,
                                     boolean important) {
     if (Objects.isNull(this.seoData.getTwitterDescription())) {
@@ -235,12 +235,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setTwitterImage(String twitterImage) {
     this.setTwitterImage(twitterImage,
                          false);
   }
-  
+
   public void setTwitterImage(String twitterImage,
                               boolean important) {
     if (Objects.isNull(this.seoData.getTwitterImage())) {
@@ -251,12 +251,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setTwitterSite(String twitterSite) {
     this.setTwitterSite(twitterSite,
                         false);
   }
-  
+
   public void setTwitterSite(String twitterSite,
                              boolean important) {
     if (Objects.isNull(this.seoData.getTwitterSite())) {
@@ -267,12 +267,12 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   public void setTwitterCreator(String twitterCreator) {
     this.setTwitterCreator(twitterCreator,
                            false);
   }
-  
+
   public void setTwitterCreator(String twitterCreator,
                                 boolean important) {
     if (Objects.isNull(this.seoData.getTwitterCreator())) {
@@ -283,7 +283,7 @@ public class SeoDataProvider {
       }
     }
   }
-  
+
   /**
    * Updates the meta data of the page.
    */
@@ -300,7 +300,7 @@ public class SeoDataProvider {
       this.plugin.updateMetaNameContent("keywords",
                                         this.seoData.getKeywords());
     }
-    
+
     if (!Objects.isNull(this.seoData.getOgTitle())) {
       this.plugin.updateMetaPropertyContent("og:title",
                                             this.seoData.getOgTitle());
@@ -325,7 +325,7 @@ public class SeoDataProvider {
       this.plugin.updateMetaPropertyContent("og:description",
                                             this.seoData.getOgDescription());
     }
-    
+
     if (!Objects.isNull(this.seoData.getTwitterCard())) {
       this.plugin.updateMetaNameContent("twitter:card",
                                         this.seoData.getTwitterCard());
@@ -350,9 +350,9 @@ public class SeoDataProvider {
       this.plugin.updateMetaNameContent("twitter:title",
                                         this.seoData.getTwitterTitle());
     }
-    
+
     // clear model
     this.seoData = new SeoData();
   }
-  
+
 }

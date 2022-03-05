@@ -28,13 +28,13 @@ import javax.lang.model.type.MirroredTypeException;
 import static java.util.Objects.isNull;
 
 public class VersionAnnotationScanner {
-  
+
   private ProcessingEnvironment processingEnvironment;
-  
+
   private Element versionElement;
-  
+
   private MetaModel metaModel;
-  
+
   @SuppressWarnings("unused")
   private VersionAnnotationScanner(Builder builder) {
     super();
@@ -43,14 +43,14 @@ public class VersionAnnotationScanner {
     this.metaModel             = builder.metaModel;
     setUp();
   }
-  
-  private void setUp() {
-  }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
+
+  private void setUp() {
+  }
+
   public MetaModel scan(RoundEnvironment roundEnvironment) {
     // handle debug-annotation
     Version versionAnnotation = versionElement.getAnnotation(Version.class);
@@ -61,7 +61,7 @@ public class VersionAnnotationScanner {
     }
     return this.metaModel;
   }
-  
+
   private TypeElement getVersion(Version versionAnnotation) {
     try {
       versionAnnotation.value();
@@ -71,34 +71,34 @@ public class VersionAnnotationScanner {
     }
     return null;
   }
-  
+
   public static class Builder {
-    
+
     ProcessingEnvironment processingEnvironment;
-    
+
     Element versionElement;
-    
+
     MetaModel metaModel;
-    
+
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
     }
-    
+
     public Builder versionElement(Element debugElement) {
       this.versionElement = debugElement;
       return this;
     }
-    
+
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public VersionAnnotationScanner build() {
       return new VersionAnnotationScanner(this);
     }
-    
+
   }
-  
+
 }

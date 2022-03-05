@@ -31,7 +31,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
  * <p><b>Caution: Do not use the router to route inside the loader!Just use it only to inject it!</b></p>
  */
 public interface IsModuleLoader<C extends AbstractModuleContext> {
-  
+
   /**
    * Calls the module loader.
    * <br>
@@ -46,20 +46,20 @@ public interface IsModuleLoader<C extends AbstractModuleContext> {
    * @param finishLoadCommand use this command to give the control back to Nalu
    */
   void load(FinishLoadCommand finishLoadCommand);
-  
+
   @NaluInternalUse
   void setContext(C context);
-  
+
   @NaluInternalUse
   void setEventBus(SimpleEventBus eventBus);
-  
+
   @NaluInternalUse
   void setRouter(IsRouter router);
-  
+
   interface FinishLoadCommand {
-    
+
     void finishLoading();
-    
+
   }
-  
+
 }
