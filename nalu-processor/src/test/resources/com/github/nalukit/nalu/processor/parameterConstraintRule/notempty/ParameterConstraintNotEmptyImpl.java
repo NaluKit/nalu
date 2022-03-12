@@ -6,7 +6,7 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Build with Nalu version >>2.9.0-gwt-2.8.2<< at >>2021.07.29-22:27:00<<
+ * Build with Nalu version >>gwt-2.8.2-HEAD-SNAPSHOT<< at >>2021.07.29-22:27:00<<
  */
 public final class ParameterConstraintNotEmptyImpl extends AbstractParameterConstraintRule implements IsParameterConstraintRule {
   public ParameterConstraintNotEmptyImpl() {

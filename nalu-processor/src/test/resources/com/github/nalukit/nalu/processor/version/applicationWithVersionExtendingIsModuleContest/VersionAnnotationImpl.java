@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>2.9.0-gwt-2.8.2<< at >>2020.11.06-14:27:21<<
+ * Build with Nalu version >>gwt-2.8.2-HEAD-SNAPSHOT<< at >>2020.11.06-14:27:21<<
  */
 public final class VersionAnnotationImpl extends AbstractApplication<MockModuleContext> implements VersionAnnotation {
   public VersionAnnotationImpl() {
@@ -32,7 +32,7 @@ public final class VersionAnnotationImpl extends AbstractApplication<MockModuleC
 
   @Override
   public void logProcessorVersion() {
-    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>2.9.0-gwt-2.8.2<< used to generate this source").addMessage("=================================================================================").addMessage(""));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>gwt-2.8.2-HEAD-SNAPSHOT<< used to generate this source").addMessage("=================================================================================").addMessage(""));
   }
 
   @Override

@@ -6,7 +6,7 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Build with Nalu version >>2.9.0-gwt-2.8.2<< at >>2021.08.03-17:09:33<<
+ * Build with Nalu version >>gwt-2.8.2-HEAD-SNAPSHOT<< at >>2021.08.03-17:09:33<<
  */
 public final class ParameterConstraintMinLengthImpl extends AbstractParameterConstraintRule implements IsParameterConstraintRule {
   public ParameterConstraintMinLengthImpl() {

@@ -10,7 +10,7 @@ import java.lang.Override;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>2.9.0-gwt-2.8.2<< at >>2021.07.31-20:00:49<<
+ * Build with Nalu version >>gwt-2.8.2-HEAD-SNAPSHOT<< at >>2021.07.31-20:00:49<<
  */
 public final class PopUpController01CreatorImpl extends AbstractPopUpControllerCreator<MockContext> implements IsPopUpControllerCreator {
   public PopUpController01CreatorImpl(IsRouter router, MockContext context, SimpleEventBus eventBus) {
