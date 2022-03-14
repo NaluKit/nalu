@@ -30,7 +30,7 @@
 
   <artifactId>nalu</artifactId>
   <packaging>jar</packaging>
-  <description>Model View Presenter with Event Bus For GWT 2 + 3 based on APT</description>
+  <description>Routing based application framework for GWT 2, GWT 3 & J2CL</description>
 
   <inceptionYear>2018</inceptionYear>
 
