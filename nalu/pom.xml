@@ -30,7 +30,7 @@
 
   <artifactId>nalu</artifactId>
   <packaging>jar</packaging>
-  <description>Routing based application framework for GWT 2, GWT 3 & J2CL</description>
+  <description>Routing based application framework for GWT 2, GWT 3 + J2CL</description>
 
   <inceptionYear>2018</inceptionYear>
 
