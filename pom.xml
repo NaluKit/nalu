@@ -116,9 +116,13 @@
     <plugin.version.sonatype>1.6.3</plugin.version.sonatype>
     <plugin.version.source>3.2.1</plugin.version.source>
     <plugin.version.surfire>2.22.2</plugin.version.surfire>
-    <flatten-maven-plugin.version>1.2.2</flatten-maven-plugin.version>
+    <plugin.version.flatten>1.2.2</plugin.version.flatten>
+    <plugin.version.clean>3.1.0</plugin.version.clean>
+    <plugin.version.replacer>1.5.2</plugin.version.replacer>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <path.test.resources>${project.build.testSourceDirectory}/../resources/</path.test.resources>
     <!--<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
   </properties>
 
@@ -128,7 +132,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>flatten-maven-plugin</artifactId>
-        <version>${flatten-maven-plugin.version}</version>
+        <version>${plugin.version.flatten}</version>
         <configuration>
           <updatePomFile>true</updatePomFile>
           <flattenMode>resolveCiFriendliesOnly</flattenMode>
