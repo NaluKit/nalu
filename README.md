@@ -80,7 +80,7 @@ public class MyController
 ```
 To navigate to a new route use inside a controller:
 ```JAVA
-    this.router.route("/shell/route",
+    this.router.route("/shell/route/{parameter_01}/{parameter_02}",
                       parameter_1,
                       parameter_2);
 ```
