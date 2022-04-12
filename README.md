@@ -76,6 +76,20 @@ To connect a component to a route, just create a controller class which extend
 public class MyController
     extends AbstractComponentController<MyApplicationContext, IMyComponent, HTMLElement>
     implements ISearchComponent.Controller {
+    
+  @AcceptParameter("parameter_01")
+  public void setParaemter01(String p01)
+      throws RoutingInterceptionException {
+      ...
+  }
+    
+  @AcceptParameter("parameter_02")
+  public void setParaemter02(String p02)
+      throws RoutingInterceptionException {
+      ...
+  }
+
+
 }
 ```
 To navigate to a new route use inside a controller:
