@@ -26,6 +26,7 @@ import com.github.nalukit.nalu.processor.test.ConsistenceTest;
 import com.github.nalukit.nalu.processor.test.ControllerCreatorTest;
 import com.github.nalukit.nalu.processor.test.ControllerTest;
 import com.github.nalukit.nalu.processor.test.ErrorPopUpControllerTest;
+import com.github.nalukit.nalu.processor.test.EventHandlerTest;
 import com.github.nalukit.nalu.processor.test.FiltersTest;
 import com.github.nalukit.nalu.processor.test.HandlerTest;
 import com.github.nalukit.nalu.processor.test.LoggerTest;
@@ -54,6 +55,7 @@ import org.junit.runner.RunWith;
                  ControllerModelTest.class,
                  ControllerTest.class,
                  ErrorPopUpControllerTest.class,
+                 EventHandlerTest.class,
                  FiltersTest.class,
                  HandlerTest.class,
                  LoggerTest.class,

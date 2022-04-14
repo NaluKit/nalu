@@ -21,6 +21,7 @@ import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ErrorPopUpControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.EventHandlerModel;
 import com.github.nalukit.nalu.processor.model.intern.ModuleModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleModel;
 import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
@@ -64,6 +65,7 @@ public class MetaModel {
   private List<ClassNameModel>               handlers;
   private ClassNameModel                     componentType;
   private List<CompositeModel>               compositeModels;
+  private List<EventHandlerModel>            eventHandlerModels;
   private ClassNameModel                     logger;
   private ClassNameModel                     clientLogger;
   /* flag, that indicates, if a Nalu application */
@@ -84,6 +86,7 @@ public class MetaModel {
     this.shells                   = new ArrayList<>();
     this.controllers              = new ArrayList<>();
     this.blockControllers         = new ArrayList<>();
+    this.eventHandlerModels       = new ArrayList<>();
     this.popUpControllers         = new ArrayList<>();
     this.filters                  = new ArrayList<>();
     this.popUpFilters             = new ArrayList<>();
@@ -365,5 +368,13 @@ public class MetaModel {
 
   public void setParameterConstraintRules(List<ParameterConstraintRuleModel> parameterConstraintRules) {
     this.parameterConstraintRules = parameterConstraintRules;
+  }
+
+  public List<EventHandlerModel> getEventHandlerModels() {
+    return eventHandlerModels;
+  }
+
+  public void setEventHandlerModels(List<EventHandlerModel> eventHandlerModels) {
+    this.eventHandlerModels = eventHandlerModels;
   }
 }

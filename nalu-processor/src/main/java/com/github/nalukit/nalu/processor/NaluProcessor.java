@@ -28,6 +28,7 @@ import com.github.nalukit.nalu.client.component.annotation.ErrorPopUpController;
 import com.github.nalukit.nalu.client.component.annotation.PopUpController;
 import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
+import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.client.module.annotation.Module;
 import com.github.nalukit.nalu.client.module.annotation.Modules;
@@ -46,6 +47,7 @@ import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ErrorPopUpControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.EventHandlerModel;
 import com.github.nalukit.nalu.processor.model.intern.ModuleModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleModel;
 import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
@@ -56,6 +58,7 @@ import com.github.nalukit.nalu.processor.scanner.CompositeControllerAnnotationSc
 import com.github.nalukit.nalu.processor.scanner.CompositesAnnotationScanner;
 import com.github.nalukit.nalu.processor.scanner.ControllerAnnotationScanner;
 import com.github.nalukit.nalu.processor.scanner.ErrorPopUpControllerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.EventHandlerAnnotationScanner;
 import com.github.nalukit.nalu.processor.scanner.FiltersAnnotationScanner;
 import com.github.nalukit.nalu.processor.scanner.HandlerAnnotationScanner;
 import com.github.nalukit.nalu.processor.scanner.LoggerAnnotationScanner;
@@ -73,6 +76,7 @@ import com.github.nalukit.nalu.processor.scanner.validation.CompositeControllerA
 import com.github.nalukit.nalu.processor.scanner.validation.ConsistenceValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.ControllerAnnotationValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.ErrorPopUpControllerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.EventHandlerAnnotationValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.FiltersAnnotationValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.HandlerAnnotationValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.LoggerAnnotationValidator;
@@ -132,6 +136,7 @@ public class NaluProcessor
                      CompositeController.class.getCanonicalName(),
                      Controller.class.getCanonicalName(),
                      ErrorPopUpController.class.getCanonicalName(),
+                     EventHandler.class.getCanonicalName(),
                      Filters.class.getCanonicalName(),
                      Logger.class.getCanonicalName(),
                      Handler.class.getCanonicalName(),
@@ -191,6 +196,9 @@ public class NaluProcessor
             } else if (ErrorPopUpController.class.getCanonicalName()
                                                  .equals(annotation.toString())) {
               handleErrorPopUpControllerAnnotation(roundEnv);
+           } else if (EventHandler.class.getCanonicalName()
+                                                 .equals(annotation.toString())) {
+              handleEventHandlerAnnotation(roundEnv);
             } else if (Filters.class.getCanonicalName()
                                     .equals(annotation.toString())) {
               handleFiltersAnnotation(roundEnv);
@@ -458,6 +466,29 @@ public class NaluProcessor
     // save data in metaModel
     if (errorPopUpControllerModels.size() > 0) {
       this.metaModel.setErrorPopUpController(errorPopUpControllerModels.get(0));
+    }
+  }
+
+  private void handleEventHandlerAnnotation(RoundEnvironment roundEnv)
+      throws ProcessorException {
+    List<EventHandlerModel> eventHandlerrModels = new ArrayList<>();
+    for (Element eventHandlerElement : roundEnv.getElementsAnnotatedWith(EventHandler.class)) {
+      // validate
+      EventHandlerAnnotationValidator.builder()
+                                     .processingEnvironment(processingEnv)
+                                     .eventHandlerElement(eventHandlerElement)
+                                     .build()
+                                     .validate();
+      // create EventHandlerrModel
+      EventHandlerModel eventHandlerModel = EventHandlerAnnotationScanner.builder()
+                                                                         .processingEnvironment(processingEnv)
+                                                                         .metaModel(this.metaModel)
+                                                                         .eventHandlerElement(eventHandlerElement)
+                                                                         .build()
+                                                                         .scan(roundEnv);
+      eventHandlerrModels.add(eventHandlerModel);
+      // save to meta model
+//      this.metaModel.setErrorPopUpController(eventHandlerrModels.get(0));
     }
   }
 
