@@ -16,14 +16,16 @@
 
 package com.github.nalukit.nalu.processor.model.intern;
 
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
 import java.util.List;
 
+@NaluInternalUse
 public class EventModel {
 
   private ClassNameModel event;
   private ClassNameModel eventHandlerOfEvent;
-
-  private String methodNameOfHandler;
+  private String         methodNameOfHandler;
 
   public EventModel(ClassNameModel event,
                     ClassNameModel eventHandlerOfEvent,
@@ -37,23 +39,11 @@ public class EventModel {
     return event;
   }
 
-  public void setEvent(ClassNameModel event) {
-    this.event = event;
-  }
-
   public ClassNameModel getEventHandlerOfEvent() {
     return eventHandlerOfEvent;
   }
 
-  public void setEventHandlerOfEvent(ClassNameModel eventHandlerOfEvent) {
-    this.eventHandlerOfEvent = eventHandlerOfEvent;
-  }
-
   public String getMethodNameOfHandler() {
     return methodNameOfHandler;
-  }
-
-  public void setMethodNameOfHandler(String methodNameOfHandler) {
-    this.methodNameOfHandler = methodNameOfHandler;
   }
 }

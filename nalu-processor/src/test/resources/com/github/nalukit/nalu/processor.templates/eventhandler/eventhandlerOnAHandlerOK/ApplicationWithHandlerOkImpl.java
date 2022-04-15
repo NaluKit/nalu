@@ -1,9 +1,13 @@
-package com.github.nalukit.nalu.processor.version.applicationWithVersionNotExtendingIsModuleContest;
+package com.github.nalukit.nalu.processor.eventhandler.eventhandlerOnAHandlerOK;
 
 import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
+import com.github.nalukit.nalu.client.internal.application.EventConfig;
+import com.github.nalukit.nalu.client.internal.application.EventFactory;
+import com.github.nalukit.nalu.client.internal.application.EventHandlerConfig;
+import com.github.nalukit.nalu.client.internal.application.EventHandlerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
@@ -15,56 +19,58 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>%VERSION_TAG%<< at >>2020.11.18-06:47:16<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2022.04.15-13:56:10<<
  */
-public final class VersionAnnotationImpl extends AbstractApplication<MockContext> implements VersionAnnotation {
-  public VersionAnnotationImpl() {
+public final class ApplicationWithHandlerOkImpl extends AbstractApplication<MockContext> implements ApplicationWithHandlerOk {
+  public ApplicationWithHandlerOkImpl() {
     super();
     super.context = new com.github.nalukit.nalu.processor.common.MockContext();
   }
-  
+
   @Override
   public void loadLoggerConfiguration() {
   }
-  
+
   @Override
   public void logProcessorVersion() {
-    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>%VERSION_TAG%<< used to generate this source").addMessage("=================================================================================").addMessage(""));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source").addMessage("=================================================================================").addMessage(""));
   }
-  
+
   @Override
   public IsTracker loadTrackerConfiguration() {
     return null;
   }
-  
+
   @Override
   public void loadShells() {
     super.shellConfiguration.getShells().add(new ShellConfig("/mockShell", "com.github.nalukit.nalu.processor.common.MockShell"));
+    super.shellConfiguration.getShells().add(new ShellConfig("/errorShell", "com.github.nalukit.nalu.processor.common.MockErrorShell"));
   }
-  
+
   @Override
   public void loadShellFactory() {
     ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockShell", new com.github.nalukit.nalu.processor.common.MockShellCreatorImpl(router, context, eventBus));
+    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockErrorShell", new com.github.nalukit.nalu.processor.common.MockErrorShellCreatorImpl(router, context, eventBus));
   }
-  
+
   @Override
   public void loadCompositeController() {
   }
-  
+
   @Override
   public void loadComponents() {
     ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01", new com.github.nalukit.nalu.processor.common.ui.component01.Controller01CreatorImpl(router, context, eventBus));
   }
-  
+
   @Override
   public void loadRoutes() {
     super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01/*", Arrays.asList(new String[]{"parameter01"}), "selector01", "com.github.nalukit.nalu.processor.common.ui.component01.Controller01"));
   }
-  
+
   @Override
   public void loadBlockControllerFactory() {
   }
-  
+
   @Override
   public void loadPopUpControllerFactory() {
   }
@@ -77,13 +83,18 @@ public final class VersionAnnotationImpl extends AbstractApplication<MockContext
   public void loadErrorPopUpController() {
     this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("no ErrorPopUpController found!"));
   }
-  
+
   @Override
   public void loadFilters() {
   }
-  
+
   @Override
   public void loadHandlers() {
+    EventHandlerOnAHandlerOk com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk = new EventHandlerOnAHandlerOk();
+    com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setContext(super.context);
+    com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setEventBus(super.eventBus);
+    com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setRouter(super.router);
+    com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.bind();
   }
 
   @Override
@@ -95,40 +106,40 @@ public final class VersionAnnotationImpl extends AbstractApplication<MockContext
   }
 
   @Override
-  protected void loadEvents() {
-
+  public void loadEvents() {
+    EventFactory.get().registerEvent("com.github.nalukit.nalu.processor.common.event.MockEvent01", new EventConfig("com.github.nalukit.nalu.processor.common.event.MockEvent01", "com.github.nalukit.nalu.processor.common.event.MockEvent01.MockEvent01Handler", "onMockEvent01"));
   }
 
   @Override
-  protected void loadEventHandlers() {
-
+  public void loadEventHandlers() {
+    EventHandlerFactory.get().registerEventHandler("com.github.nalukit.nalu.processor.eventhandler.eventhandlerOnAHandlerOK.EventHandlerOnAHandlerOk", new EventHandlerConfig("com.github.nalukit.nalu.processor.eventhandler.eventhandlerOnAHandlerOK.EventHandlerOnAHandlerOk", "com.github.nalukit.nalu.processor.common.event.MockEvent01", "onMockEvent01"));
   }
 
   @Override
   public void loadModules() {
     super.onFinishModuleLoading();
   }
-  
+
   @Override
   public IsLoader<MockContext> getLoader() {
     return null;
   }
-  
+
   @Override
   public IsLoader<MockContext> getPostLoader() {
     return null;
   }
-  
+
   @Override
   public IsCustomAlertPresenter getCustomAlertPresenter() {
     return null;
   }
-  
+
   @Override
   public IsCustomConfirmPresenter getCustomConfirmPresenter() {
     return null;
   }
-  
+
   @Override
   public void loadDefaultRoutes() {
     this.startRoute = "/mockShell/route01";
@@ -143,12 +154,12 @@ public final class VersionAnnotationImpl extends AbstractApplication<MockContext
   public boolean hasHistory() {
     return true;
   }
-  
+
   @Override
   public boolean isUsingHash() {
     return true;
   }
-  
+
   @Override
   public boolean isUsingColonForParametersInUrl() {
     return false;

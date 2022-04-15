@@ -233,6 +233,10 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract void loadParameterConstraintRules();
 
+  protected abstract void loadEvents();
+
+  protected abstract void loadEventHandlers();
+
   protected abstract IsLoader<C> getLoader();
 
   protected abstract IsLoader<C> getPostLoader();

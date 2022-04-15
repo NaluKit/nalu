@@ -201,6 +201,18 @@ public class ApplicationGenerator {
                                             .typeSpec(typeSpec)
                                             .build()
                                             .generate();
+
+    EventGenerator.builder()
+                  .metaModel(metaModel)
+                  .typeSpec(typeSpec)
+                  .build()
+                  .generate();
+
+    EventHandlerGenerator.builder()
+                         .metaModel(metaModel)
+                         .typeSpec(typeSpec)
+                         .build()
+                         .generate();
     // need to be called!
     // even if the app has no modules,
     // a empty method has to be created!
@@ -297,7 +309,8 @@ public class ApplicationGenerator {
                                          typeSpec.build())
                                 .build();
     try {
-      //      System.out.println(javaFile.toString());
+      // TODO wieder rausnehmen
+            System.out.println(javaFile.toString());
       javaFile.writeTo(this.processingEnvironment.getFiler());
       //      FileObject fileObject = this.processingEnvironment.getFiler()
       //                                                        .createSourceFile()

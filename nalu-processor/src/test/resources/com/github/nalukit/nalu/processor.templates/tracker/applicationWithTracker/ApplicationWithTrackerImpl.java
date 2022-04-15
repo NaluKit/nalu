@@ -100,6 +100,16 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   }
 
   @Override
+  protected void loadEvents() {
+
+  }
+
+  @Override
+  protected void loadEventHandlers() {
+
+  }
+
+  @Override
   public void loadModules() {
     super.onFinishModuleLoading();
   }

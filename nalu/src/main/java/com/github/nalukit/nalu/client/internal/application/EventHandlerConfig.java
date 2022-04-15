@@ -18,33 +18,36 @@ package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @NaluInternalUse
-public class EventFactory {
+public class EventHandlerConfig {
 
-  /* instance of the event factory */
-  private static EventFactory             instance;
-  /* map of components (key: name of class, Value: EventConfig */
-  private final  Map<String, EventConfig> eventConfigs;
+  /* class name of event */
+  private String eventClassName;
+  /* class name of the enclosing class */
+  private String parentClassName;
+  /* name of the method to call in case the event is to handle */
+  private String methodName;
 
-  private EventFactory() {
-    this.eventConfigs = new HashMap<>();
+  public EventHandlerConfig() {
   }
 
-  public static EventFactory get() {
-    if (instance == null) {
-      instance = new EventFactory();
-    }
-    return instance;
+  public EventHandlerConfig(String parentClassName,
+                            String eventClassName,
+                            String methodName) {
+    this.eventClassName  = eventClassName;
+    this.parentClassName = parentClassName;
+    this.methodName      = methodName;
   }
 
-  public void registerEvent(String key,
-                            EventConfig eventConfig) {
-    this.eventConfigs.put(key,
-                          eventConfig);
+  public String getEventClassName() {
+    return eventClassName;
   }
 
+  public String getParentClassName() {
+    return parentClassName;
+  }
+
+  public String getMethodName() {
+    return methodName;
+  }
 }

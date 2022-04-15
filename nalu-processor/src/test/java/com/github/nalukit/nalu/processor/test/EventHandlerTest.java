@@ -30,21 +30,22 @@ import static com.google.testing.compile.Compiler.javac;
 public class EventHandlerTest {
   // TOD implementiere Tests
 
-    @Test
-    void testEventHandlerOnAHandlerOk() {
-      Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                       .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/eventhandlerOnAHandlerOK/EventHandlerOnAHandlerOk.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
-//                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
-      CompilationSubject.assertThat(compilation)
-                        .succeeded();
-//      CompilationSubject.assertThat(compilation)
-//                        .generatedSourceFile("com/github/nalukit/nalu/processor/errorPopUpController/errorPopUpAnnotationOk/ErrorPopUpAnnotationOkImpl")
-//                        .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/errorPopUpController/errorPopUpAnnotationOk/ErrorPopUpAnnotationOkImpl.java"));
-    }
+  @Test
+  void testEventHandlerOnAHandlerOk() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/eventhandlerOnAHandlerOK/EventHandlerOnAHandlerOk.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/eventhandlerOnAHandlerOK/ApplicationWithHandlerOk.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/eventhandler/eventhandlerOnAHandlerOK/ApplicationWithHandlerOkImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/eventhandlerOnAHandlerOK/ApplicationWithHandlerOkImpl.java"));
+  }
 
   //  @Test
   //  void testControllerCreatorOk() {
@@ -89,41 +90,41 @@ public class EventHandlerTest {
   //                      .hadErrorContaining("@ErrorPopUpController can only be used on a class that extends AbstractErrorPopUpComponentController");
   //  }
 
-//  @Test
-//  void testEventHandler() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/blockControllerAnnotationOnAInterface/BlockControllerAnnotationOnAInterface.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/common/block01/IBlockComponent01.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/common/block01/BlockComponent01.java")));
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("Nalu-Processor: @BlockController can only be used with an class");
-//  }
+  //  @Test
+  //  void testEventHandler() {
+  //    Compilation compilation = javac().withProcessors(new NaluProcessor())
+  //                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/blockControllerAnnotationOnAInterface/BlockControllerAnnotationOnAInterface.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/common/block01/IBlockComponent01.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/common/block01/BlockComponent01.java")));
+  //    CompilationSubject.assertThat(compilation)
+  //                      .failed();
+  //    CompilationSubject.assertThat(compilation)
+  //                      .hadErrorContaining("Nalu-Processor: @BlockController can only be used with an class");
+  //  }
 
-//  @Test
-//  void testBlockControllerEmptyName() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/blockControllerNameEmpty/BlockControllerEmptyName.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/common/block01/IBlockComponent01.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/common/block01/BlockComponent01.java")));
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("@BlockController - name attribute should not be empty");
-//  }
-//
-//  @Test
-//  void testBlockControllerDuplicateName() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/blockControllerNameDuplicate/BlockControllerDuplicateName01.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/blockControllerNameDuplicate/BlockControllerDuplicateName02.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/common/block01/IBlockComponent01.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/common/block01/BlockComponent01.java")));
-//    CompilationSubject.assertThat(compilation)
-//                      .failed();
-//    CompilationSubject.assertThat(compilation)
-//                      .hadErrorContaining("@BlockController: the name >>SameName<< is duplicate! Please use another unique name!");
-//  }
+  //  @Test
+  //  void testBlockControllerEmptyName() {
+  //    Compilation compilation = javac().withProcessors(new NaluProcessor())
+  //                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/blockControllerNameEmpty/BlockControllerEmptyName.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/common/block01/IBlockComponent01.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/common/block01/BlockComponent01.java")));
+  //    CompilationSubject.assertThat(compilation)
+  //                      .failed();
+  //    CompilationSubject.assertThat(compilation)
+  //                      .hadErrorContaining("@BlockController - name attribute should not be empty");
+  //  }
+  //
+  //  @Test
+  //  void testBlockControllerDuplicateName() {
+  //    Compilation compilation = javac().withProcessors(new NaluProcessor())
+  //                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/blockControllerNameDuplicate/BlockControllerDuplicateName01.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/blockControllerNameDuplicate/BlockControllerDuplicateName02.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/common/block01/IBlockComponent01.java"),
+  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/common/block01/BlockComponent01.java")));
+  //    CompilationSubject.assertThat(compilation)
+  //                      .failed();
+  //    CompilationSubject.assertThat(compilation)
+  //                      .hadErrorContaining("@BlockController: the name >>SameName<< is duplicate! Please use another unique name!");
+  //  }
 
 }
