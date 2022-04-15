@@ -16,22 +16,32 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
-import com.github.nalukit.nalu.client.application.annotation.Application;
-import com.github.nalukit.nalu.client.context.IsModuleContext;
 import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.EventHandlerModel;
+import com.github.nalukit.nalu.processor.model.intern.EventModel;
+import org.gwtproject.event.shared.Event;
 
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.ArrayType;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.ErrorType;
 import javax.lang.model.type.MirroredTypeException;
-import javax.naming.ServiceUnavailableException;
+import javax.lang.model.type.PrimitiveType;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.TypeVariable;
+import javax.lang.model.util.SimpleTypeVisitor8;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import static java.util.Objects.isNull;
 
@@ -39,11 +49,11 @@ public class EventHandlerAnnotationScanner {
 
   private ProcessorUtils processorUtils;
 
-  private ProcessingEnvironment processingEnvironment;
+  private final ProcessingEnvironment processingEnvironment;
 
-  private MetaModel metaModel;
+  private final MetaModel metaModel;
 
-  private Element eventHandlerElement;
+  private final Element eventHandlerElement;
 
   @SuppressWarnings("unused")
   private EventHandlerAnnotationScanner(Builder builder) {
@@ -64,11 +74,14 @@ public class EventHandlerAnnotationScanner {
                                         .build();
   }
 
-  public EventHandlerModel scan(RoundEnvironment roundEnvironment)
+  public void scan()
       throws ProcessorException {
     EventHandler eventHandlerAnnotation = eventHandlerElement.getAnnotation(EventHandler.class);
     if (!isNull(eventHandlerAnnotation)) {
-      TypeElement eventElement  = this.getEventElement(eventHandlerAnnotation);
+      TypeElement eventElement = this.getEventElement(eventHandlerAnnotation);
+      if (Objects.isNull(eventElement)) {
+        throw new ProcessorException("annotation >>" + eventHandlerAnnotation + "<< is null");
+      }
       TypeElement parentElement = (TypeElement) eventHandlerElement.getEnclosingElement();
       if (!(this.eventHandlerElement instanceof ExecutableElement)) {
         throw new ProcessorException("element >>" +
@@ -77,43 +90,99 @@ public class EventHandlerAnnotationScanner {
                                      "<< is not of type ExecutableElement");
       }
       ExecutableElement executableElement = (ExecutableElement) this.eventHandlerElement;
-      String            methodName        = executableElement.getSimpleName()
-                                                             .toString();
+      String methodName = executableElement.getSimpleName()
+                                           .toString();
+
+      EventHandlerModel eventHandlerModel = new EventHandlerModel(new ClassNameModel(parentElement.getQualifiedName()
+                                                                                                  .toString()),
+                                                                  new ClassNameModel(eventElement.getQualifiedName()
+                                                                                                 .toString()),
+                                                                  methodName);
+      // handle the elated event
+      this.scanEvent(eventElement);
+      // Save EventhandlerModel to MetaModel (cause now, the event exists ...)
       this.metaModel.getEventHandlerModels()
-                    .add(new EventHandlerModel(new ClassNameModel(parentElement.getQualifiedName()
+                    .add(eventHandlerModel);
+    }
+  }
+
+  private void scanEvent(TypeElement eventElement)
+      throws ProcessorException {
+    Optional<EventModel> optional = this.metaModel.getEventModels()
+                                                  .stream()
+                                                  .filter(m -> m.getEvent()
+                                                                .getClassName()
+                                                                .equals(eventElement.getQualifiedName()
+                                                                                    .toString()))
+                                                  .findFirst();
+    // already exists -> nothing to do ...
+    if (optional.isPresent()) {
+      return;
+    }
+
+    ProcessorUtils processorUtils = ProcessorUtils.builder()
+                                                  .processingEnvironment(this.processingEnvironment)
+                                                  .build();
+
+    TypeMirror gwtEventMirror = processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
+                                                                     eventElement.asType(),
+                                                                     this.processorUtils.getElements()
+                                                                                        .getTypeElement(Event.class.getCanonicalName())
+                                                                                        .asType());
+    if (Objects.isNull(gwtEventMirror)) {
+      throw new ProcessorException("class >> " +
+                                   eventElement.getQualifiedName() +
+                                   "<< does not extend org.gwtproject.event.shared.Event");
+    }
+    if (!processorUtils.supertypeHasGeneric(this.processingEnvironment.getTypeUtils(),
+                                            gwtEventMirror,
+                                            this.processorUtils.getElements()
+                                                               .getTypeElement(Event.class.getCanonicalName())
+                                                               .asType())) {
+      throw new ProcessorException("class >> " +
+                                   eventElement.getQualifiedName() +
+                                   "<< does not use a generic with org.gwtproject.event.shared.Event");
+    }
+
+    TypeMirror gwtEventHandlerTypeMirror = this.getGwtEventHandlerType(eventElement.asType());
+    if (Objects.isNull(gwtEventHandlerTypeMirror)) {
+      throw new ProcessorException("class >> " +
+                                   eventElement.getQualifiedName() +
+                                   "<< does not have a generic EventHandler defined");
+    }
+    TypeElement gwtEventHandlerElement = (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                                                 .asElement(gwtEventHandlerTypeMirror);
+
+    List<ExecutableElement> methodList = new ArrayList<>();
+    for (Element element : gwtEventHandlerElement.getEnclosedElements()) {
+      if (element.getKind() == ElementKind.METHOD) {
+        methodList.add((ExecutableElement) element);
+      }
+    }
+    if (methodList.size() > 1) {
+      throw new ProcessorException("class >> " +
+                                   gwtEventHandlerElement.getQualifiedName() +
+                                   "<< should not have more than one method defined");
+    }
+    if (methodList.get(0)
+                  .getParameters()
+                  .size() == 0 ||
+        methodList.get(0)
+                  .getParameters()
+                  .size() > 1) {
+      throw new ProcessorException("class >> " +
+                                   gwtEventHandlerElement.getQualifiedName() +
+                                   "<< should have only one parameter and that should be the event");
+    }
+    // Save to MetaModel
+    this.metaModel.getEventModels()
+                  .add(new EventModel(new ClassNameModel(eventElement.getQualifiedName()
+                                                                     .toString()),
+                                      new ClassNameModel(gwtEventHandlerElement.getQualifiedName()
                                                                                .toString()),
-                                               new ClassNameModel(eventElement.getQualifiedName()
-                                                                              .toString()),
-                                               methodName));
-      //      TypeElement postLoaderTypeElement             = this.getPostLoaderTypeElement(applicationAnnotation);
-      //      TypeElement contextTypeElement                = this.getContextTypeElement(applicationAnnotation);
-      //      TypeElement customAlertPresenterTypeElement   = this.getCustomAlertPresenterTypeElement(applicationAnnotation);
-      //      TypeElement customConfirmPresenterTypeElement = this.getCustomConfirmPresenterTypeElement(applicationAnnotation);
-      //      metaModel.setGenerateToPackage(this.processorUtils.getPackageAsString(applicationElement));
-      //      metaModel.setApplication(new ClassNameModel(applicationElement.toString()));
-      //      metaModel.setLoader(new ClassNameModel(isNull(loaderTypeElement) ? "" : loaderTypeElement.toString()));
-      //      metaModel.setPostLoader(new ClassNameModel(isNull(postLoaderTypeElement) ? "" : postLoaderTypeElement.toString()));
-      //      if (isNull(contextTypeElement)) {
-      //        throw new ProcessorException("Nalu-Processor: context in application annotation is null!");
-      //      } else {
-      //        metaModel.setContext(new ClassNameModel(contextTypeElement.toString()));
-      //      }
-      //      metaModel.setStartRoute(applicationAnnotation.startRoute());
-      //      metaModel.setIllegalRouteTarget(applicationAnnotation.illegalRouteTarget());
-      //      metaModel.setRemoveUrlParameterAtStart(applicationAnnotation.removeUrlParameterAtStart());
-      //      metaModel.setUsingHash(applicationAnnotation.useHash());
-      //      metaModel.setUsingColonForParametersInUrl(applicationAnnotation.useColonForParametersInUrl());
-      //      metaModel.setStayOnSide(applicationAnnotation.stayOnSite());
-      //      metaModel.setHistory(applicationAnnotation.history());
-      //      metaModel.setCustomAlertPresenter(new ClassNameModel(isNull(customAlertPresenterTypeElement) ? "" : customAlertPresenterTypeElement.toString()));
-      //      metaModel.setCustomConfirmPresenter(new ClassNameModel(isNull(customConfirmPresenterTypeElement) ? "" : customConfirmPresenterTypeElement.toString()));
-      //      metaModel.setExtendingIsModuleContext(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),
-      //                                                                                        contextTypeElement.asType(),
-      //                                                                                        this.processingEnvironment.getElementUtils()
-      //                                                                                                                  .getTypeElement(IsModuleContext.class.getCanonicalName())
-      //                                                                                                                  .asType()));
-      System.out.print("test");
-    } return null;
+                                      methodList.get(0)
+                                                .getSimpleName()
+                                                .toString()));
   }
 
   private TypeElement getEventElement(EventHandler eventHandlerAnnotation) {
@@ -126,44 +195,62 @@ public class EventHandlerAnnotationScanner {
     return null;
   }
 
-  private TypeElement getPostLoaderTypeElement(Application applicationAnnotation) {
-    try {
-      applicationAnnotation.postLoader();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
+  private TypeMirror getGwtEventHandlerType(final TypeMirror typeMirror) {
+    final TypeMirror[] result = { null };
+    TypeMirror type = this.processorUtils.getFlattenedSupertype(this.processingEnvironment.getTypeUtils(),
+                                                                typeMirror,
+                                                                this.processorUtils.getElements()
+                                                                                   .getTypeElement(Event.class.getCanonicalName())
+                                                                                   .asType());
+    if (type == null) {
+      return result[0];
     }
-    return null;
-  }
+    type.accept(new SimpleTypeVisitor8<Void, Void>() {
 
-  private TypeElement getContextTypeElement(Application applicationAnnotation) {
-    try {
-      applicationAnnotation.context();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
-    }
-    return null;
-  }
+                  @Override
+                  protected Void defaultAction(TypeMirror typeMirror,
+                                               Void v) {
+                    throw new UnsupportedOperationException();
+                  }
 
-  private TypeElement getCustomAlertPresenterTypeElement(Application applicationAnnotation) {
-    try {
-      applicationAnnotation.alertPresenter();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
-    }
-    return null;
-  }
+                  @Override
+                  public Void visitPrimitive(PrimitiveType primitiveType,
+                                             Void v) {
+                    return null;
+                  }
 
-  private TypeElement getCustomConfirmPresenterTypeElement(Application applicationAnnotation) {
-    try {
-      applicationAnnotation.confirmPresenter();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
-    }
-    return null;
+                  @Override
+                  public Void visitArray(ArrayType arrayType,
+                                         Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitDeclared(DeclaredType declaredType,
+                                            Void v) {
+                    List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
+                    if (!typeArguments.isEmpty()) {
+                      if (typeArguments.size() == 1) {
+                        result[0] = typeArguments.get(0);
+                      }
+                    }
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitError(ErrorType errorType,
+                                         Void v) {
+                    return null;
+                  }
+
+                  @Override
+                  public Void visitTypeVariable(TypeVariable typeVariable,
+                                                Void v) {
+                    return null;
+                  }
+                },
+                null);
+    return result[0];
   }
 
   public static class Builder {

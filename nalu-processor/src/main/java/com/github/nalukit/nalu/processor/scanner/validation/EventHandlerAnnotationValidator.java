@@ -25,6 +25,9 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
+// TODO:
+// Event muss die Klasse org.gwtproject.event.shared.Event erweitern
+// die Extends Event muss ein Generic besitzen
 public class EventHandlerAnnotationValidator {
 
   private ProcessorUtils processorUtils;

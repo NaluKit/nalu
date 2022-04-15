@@ -16,9 +16,6 @@
 
 package com.github.nalukit.nalu.client.internal.application;
 
-import com.github.nalukit.nalu.client.component.AbstractComponentController;
-import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
-import com.github.nalukit.nalu.client.internal.Utils;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.HashMap;
@@ -26,19 +23,19 @@ import java.util.List;
 import java.util.Map;
 
 @NaluInternalUse
-public class EventHandlerFactory {
+public class EventFactory {
 
   /* instance of the controller factory */
-  private static EventHandlerFactory                      instance;
+  private static EventFactory                             instance;
   /* map of components (key: name of class, Value: EventHandlerCreator */
   private final  Map<String, List<IsEventHandlerCreator>> eventHandlerFactory;
-  private EventHandlerFactory() {
+  private EventFactory() {
     this.eventHandlerFactory = new HashMap<>();
   }
 
-  public static EventHandlerFactory get() {
+  public static EventFactory get() {
     if (instance == null) {
-      instance = new EventHandlerFactory();
+      instance = new EventFactory();
     }
     return instance;
   }

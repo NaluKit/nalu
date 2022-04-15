@@ -479,16 +479,13 @@ public class NaluProcessor
                                      .eventHandlerElement(eventHandlerElement)
                                      .build()
                                      .validate();
-      // create EventHandlerrModel
-      EventHandlerModel eventHandlerModel = EventHandlerAnnotationScanner.builder()
+      // create EventHandlerrModel - MetaModel will be updated inside the scanner
+      EventHandlerAnnotationScanner.builder()
                                                                          .processingEnvironment(processingEnv)
                                                                          .metaModel(this.metaModel)
                                                                          .eventHandlerElement(eventHandlerElement)
                                                                          .build()
-                                                                         .scan(roundEnv);
-      eventHandlerrModels.add(eventHandlerModel);
-      // save to meta model
-//      this.metaModel.setErrorPopUpController(eventHandlerrModels.get(0));
+                                                                         .scan();
     }
   }
 
