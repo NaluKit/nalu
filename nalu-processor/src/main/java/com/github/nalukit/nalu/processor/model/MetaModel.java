@@ -31,6 +31,7 @@ import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class MetaModel {
 
@@ -377,15 +378,27 @@ public class MetaModel {
     return eventHandlerModels;
   }
 
-  public void setEventHandlerModels(List<EventHandlerModel> eventHandlerModels) {
-    this.eventHandlerModels = eventHandlerModels;
+  public List<EventHandlerModel> getEventHandlerModelsForClass(String className) {
+    return this.getEventHandlerModels()
+               .stream()
+               .filter(c -> c.getParentClass()
+                             .getClassName()
+                             .equals(className))
+               .collect(Collectors.toList());
   }
 
   public List<EventModel> getEventModels() {
     return eventModels;
   }
 
-  public void setEventModels(List<EventModel> eventModels) {
-    this.eventModels = eventModels;
+  public EventModel getEventMaodel(String className) {
+    return this.getEventModels()
+               .stream()
+               .filter(c -> c.getEvent()
+                             .getClassName()
+                             .equals(className))
+               .findFirst()
+               .orElse(null);
   }
+
 }

@@ -4,10 +4,6 @@ import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
-import com.github.nalukit.nalu.client.internal.application.EventConfig;
-import com.github.nalukit.nalu.client.internal.application.EventFactory;
-import com.github.nalukit.nalu.client.internal.application.EventHandlerConfig;
-import com.github.nalukit.nalu.client.internal.application.EventHandlerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
@@ -15,11 +11,12 @@ import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import com.github.nalukit.nalu.processor.common.event.MockEvent01;
 import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2022.04.15-13:56:10<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2022.04.15-18:18:15<<
  */
 public final class ApplicationWithHandlerOkImpl extends AbstractApplication<MockContext> implements ApplicationWithHandlerOk {
   public ApplicationWithHandlerOkImpl() {
@@ -95,6 +92,7 @@ public final class ApplicationWithHandlerOkImpl extends AbstractApplication<Mock
     com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setEventBus(super.eventBus);
     com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setRouter(super.router);
     com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.bind();
+    super.eventBus.addHandler(MockEvent01.TYPE, e -> com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.onMockEvent01(e));
   }
 
   @Override
@@ -103,16 +101,6 @@ public final class ApplicationWithHandlerOkImpl extends AbstractApplication<Mock
 
   @Override
   public void loadParameterConstraintRules() {
-  }
-
-  @Override
-  public void loadEvents() {
-    EventFactory.get().registerEvent("com.github.nalukit.nalu.processor.common.event.MockEvent01", new EventConfig("com.github.nalukit.nalu.processor.common.event.MockEvent01", "com.github.nalukit.nalu.processor.common.event.MockEvent01.MockEvent01Handler", "onMockEvent01"));
-  }
-
-  @Override
-  public void loadEventHandlers() {
-    EventHandlerFactory.get().registerEventHandler("com.github.nalukit.nalu.processor.eventhandler.eventhandlerOnAHandlerOK.EventHandlerOnAHandlerOk", new EventHandlerConfig("com.github.nalukit.nalu.processor.eventhandler.eventhandlerOnAHandlerOK.EventHandlerOnAHandlerOk", "com.github.nalukit.nalu.processor.common.event.MockEvent01", "onMockEvent01"));
   }
 
   @Override

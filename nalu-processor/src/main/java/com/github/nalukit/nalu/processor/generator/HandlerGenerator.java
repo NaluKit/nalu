@@ -17,12 +17,14 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
+import com.github.nalukit.nalu.processor.model.intern.EventModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
+import java.util.Objects;
 
 public class HandlerGenerator {
 
@@ -79,6 +81,21 @@ public class HandlerGenerator {
                                                     variableName)
                                       .addStatement("$L.bind()",
                                                     variableName);
+
+                    this.metaModel.getEventHandlerModelsForClass(handler.getClassName())
+                                  .forEach(m -> {
+                                    EventModel eventModel = this.metaModel.getEventMaodel(m.getEvent()
+                                                                                           .getClassName());
+                                    if (!Objects.isNull(eventModel)) {
+                                      loadHandlersMethod.addStatement("super.eventBus.addHandler($T.TYPE, e -> $L.$L(e))",
+                                                                      ClassName.get(eventModel.getEvent()
+                                                                                              .getPackage(),
+                                                                                    eventModel.getEvent()
+                                                                                              .getSimpleName()),
+                                                                      variableName,
+                                                                      m.getMethodName());
+                                    }
+                                  });
                   });
 
     typeSpec.addMethod(loadHandlersMethod.build());

@@ -210,16 +210,6 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
-  protected void loadEvents() {
-
-  }
-
-  @Override
-  protected void loadEventHandlers() {
-
-  }
-
-  @Override
   public IsLoader<NaluSimpleApplicationContext> getLoader() {
     return new NaluSimpleApplicationLoader();
   }

@@ -95,16 +95,6 @@ public final class VersionAnnotationImpl extends AbstractApplication<MockContext
   }
 
   @Override
-  protected void loadEvents() {
-
-  }
-
-  @Override
-  protected void loadEventHandlers() {
-
-  }
-
-  @Override
   public void loadModules() {
     super.onFinishModuleLoading();
   }

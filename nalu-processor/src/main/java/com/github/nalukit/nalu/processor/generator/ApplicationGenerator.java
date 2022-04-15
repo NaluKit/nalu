@@ -202,17 +202,6 @@ public class ApplicationGenerator {
                                             .build()
                                             .generate();
 
-    EventGenerator.builder()
-                  .metaModel(metaModel)
-                  .typeSpec(typeSpec)
-                  .build()
-                  .generate();
-
-    EventHandlerGenerator.builder()
-                         .metaModel(metaModel)
-                         .typeSpec(typeSpec)
-                         .build()
-                         .generate();
     // need to be called!
     // even if the app has no modules,
     // a empty method has to be created!
