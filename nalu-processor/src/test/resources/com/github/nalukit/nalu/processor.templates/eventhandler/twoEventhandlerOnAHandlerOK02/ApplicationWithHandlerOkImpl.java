@@ -1,4 +1,4 @@
-package com.github.nalukit.nalu.processor.eventhandler.eventhandlerOnAHandlerOK;
+package com.github.nalukit.nalu.processor.eventhandler.twoEventhandlerOnAHandlerOk02;
 
 import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
@@ -16,7 +16,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.16-09:38:04<<
+ * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.16-14:36:37<<
  */
 public final class ApplicationWithHandlerOkImpl extends AbstractApplication<MockContext> implements ApplicationWithHandlerOk {
   public ApplicationWithHandlerOkImpl() {
@@ -41,13 +41,11 @@ public final class ApplicationWithHandlerOkImpl extends AbstractApplication<Mock
   @Override
   public void loadShells() {
     super.shellConfiguration.getShells().add(new ShellConfig("/mockShell", "com.github.nalukit.nalu.processor.common.MockShell"));
-    super.shellConfiguration.getShells().add(new ShellConfig("/errorShell", "com.github.nalukit.nalu.processor.common.MockErrorShell"));
   }
 
   @Override
   public void loadShellFactory() {
     ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockShell", new com.github.nalukit.nalu.processor.common.MockShellCreatorImpl(router, context, eventBus));
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockErrorShell", new com.github.nalukit.nalu.processor.common.MockErrorShellCreatorImpl(router, context, eventBus));
   }
 
   @Override
@@ -87,12 +85,13 @@ public final class ApplicationWithHandlerOkImpl extends AbstractApplication<Mock
 
   @Override
   public void loadHandlers() {
-    EventHandlerOnAHandlerOk com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk = new EventHandlerOnAHandlerOk();
-    com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setContext(super.context);
-    com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setEventBus(super.eventBus);
-    com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setRouter(super.router);
-    super.eventBus.addHandler(MockEvent01.TYPE, e -> com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.onMockEvent01(e));
-    com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.bind();
+    TwoEventHandlerOnAHandlerOk com_github_nalukit_nalu_processor_eventhandler_twoEventhandlerOnAHandlerOk02_TwoEventHandlerOnAHandlerOk = new TwoEventHandlerOnAHandlerOk();
+    com_github_nalukit_nalu_processor_eventhandler_twoEventhandlerOnAHandlerOk02_TwoEventHandlerOnAHandlerOk.setContext(super.context);
+    com_github_nalukit_nalu_processor_eventhandler_twoEventhandlerOnAHandlerOk02_TwoEventHandlerOnAHandlerOk.setEventBus(super.eventBus);
+    com_github_nalukit_nalu_processor_eventhandler_twoEventhandlerOnAHandlerOk02_TwoEventHandlerOnAHandlerOk.setRouter(super.router);
+    super.eventBus.addHandler(MockEvent01.TYPE, e -> com_github_nalukit_nalu_processor_eventhandler_twoEventhandlerOnAHandlerOk02_TwoEventHandlerOnAHandlerOk.onMockEvent0101(e));
+    super.eventBus.addHandler(MockEvent01.TYPE, e -> com_github_nalukit_nalu_processor_eventhandler_twoEventhandlerOnAHandlerOk02_TwoEventHandlerOnAHandlerOk.onMockEvent0102(e));
+    com_github_nalukit_nalu_processor_eventhandler_twoEventhandlerOnAHandlerOk02_TwoEventHandlerOnAHandlerOk.bind();
   }
 
   @Override

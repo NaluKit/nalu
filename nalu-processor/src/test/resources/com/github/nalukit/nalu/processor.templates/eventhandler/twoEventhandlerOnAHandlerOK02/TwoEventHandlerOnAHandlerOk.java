@@ -1,4 +1,4 @@
-package com.github.nalukit.nalu.processor.eventhandler.eventhandlerOnAHandlerOK;
+package com.github.nalukit.nalu.processor.eventhandler.twoEventhandlerOnAHandlerOk02;
 
 import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.client.handler.AbstractHandler;
@@ -8,7 +8,7 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.event.MockEvent01;
 
 @Handler
-public class EventHandlerOnAHandlerOk
+public class TwoEventHandlerOnAHandlerOk
     extends AbstractHandler<MockContext>
     implements IsHandler {
 
@@ -17,7 +17,11 @@ public class EventHandlerOnAHandlerOk
   }
 
   @EventHandler
-  public void onMockEvent01(MockEvent01 event) {
+  public void onMockEvent0101(MockEvent01 event) {
+  }
+
+  @EventHandler
+  public void onMockEvent0102(MockEvent01 event) {
   }
 
 }

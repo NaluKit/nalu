@@ -197,9 +197,6 @@ public class NaluProcessor
             } else if (ErrorPopUpController.class.getCanonicalName()
                                                  .equals(annotation.toString())) {
               handleErrorPopUpControllerAnnotation(roundEnv);
-//           } else if (EventHandler.class.getCanonicalName()
-//                                                 .equals(annotation.toString())) {
-//              handleEventHandlerAnnotation(roundEnv);
             } else if (Filters.class.getCanonicalName()
                                     .equals(annotation.toString())) {
               handleFiltersAnnotation(roundEnv);
@@ -469,26 +466,6 @@ public class NaluProcessor
       this.metaModel.setErrorPopUpController(errorPopUpControllerModels.get(0));
     }
   }
-
-//  private void handleEventHandlerAnnotation(RoundEnvironment roundEnv)
-//      throws ProcessorException {
-//    List<EventHandlerModel> eventHandlerrModels = new ArrayList<>();
-//    for (Element eventHandlerElement : roundEnv.getElementsAnnotatedWith(EventHandler.class)) {
-//      // validate
-//      EventHandlerAnnotationValidator.builder()
-//                                     .processingEnvironment(processingEnv)
-//                                     .eventHandlerElement(eventHandlerElement)
-//                                     .build()
-//                                     .validate();
-//      // create EventHandlerrModel - MetaModel will be updated inside the scanner
-//      EventHandlerAnnotationScanner.builder()
-//                                                                         .processingEnvironment(processingEnv)
-//                                                                         .metaModel(this.metaModel)
-//                                                                         .eventHandlerElement(eventHandlerElement)
-//                                                                         .build()
-//                                                                         .scan();
-//    }
-//  }
 
   private void handleFiltersAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {

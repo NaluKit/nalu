@@ -16,16 +16,21 @@
 
 package com.github.nalukit.nalu.processor.model.intern;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BlockControllerModel {
 
-  private String         name;
-  private ClassNameModel context;
-  private ClassNameModel controller;
-  private ClassNameModel componentInterface;
-  private ClassNameModel component;
-  private ClassNameModel provider;
-  private boolean        componentCreator;
-  private ClassNameModel conndition;
+  private String                  name;
+  private ClassNameModel          context;
+  private ClassNameModel          controller;
+  private ClassNameModel          componentInterface;
+  private ClassNameModel          component;
+  private ClassNameModel          provider;
+  private boolean                 componentCreator;
+  private ClassNameModel          conndition;
+  private List<EventHandlerModel> eventHandlers;
+  private List<EventModel>        eventModels;
 
   public BlockControllerModel(String name,
                               ClassNameModel context,
@@ -43,6 +48,9 @@ public class BlockControllerModel {
     this.provider           = provider;
     this.componentCreator   = componentCreator;
     this.conndition         = condition;
+
+    this.eventHandlers = new ArrayList<>();
+    this.eventModels   = new ArrayList<>();
   }
 
   public String getName() {
@@ -107,6 +115,32 @@ public class BlockControllerModel {
 
   public void setConndition(ClassNameModel conndition) {
     this.conndition = conndition;
+  }
+
+  public List<EventHandlerModel> getEventHandlers() {
+    return eventHandlers;
+  }
+
+  public void setEventHandlers(List<EventHandlerModel> eventHandlers) {
+    this.eventHandlers = eventHandlers;
+  }
+
+  public List<EventModel> getEventModels() {
+    return eventModels;
+  }
+
+  public void setEventModels(List<EventModel> eventModels) {
+    this.eventModels = eventModels;
+  }
+
+  public EventModel getEventModel(String className) {
+    return this.getEventModels()
+               .stream()
+               .filter(c -> c.getEvent()
+                             .getClassName()
+                             .equals(className))
+               .findFirst()
+               .orElse(null);
   }
 
 }

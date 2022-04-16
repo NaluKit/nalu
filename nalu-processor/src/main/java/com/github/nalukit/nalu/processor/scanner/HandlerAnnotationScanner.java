@@ -52,7 +52,6 @@ public class HandlerAnnotationScanner {
 
     EventHandlerAnnotationScanner.EventMetaData eventMetaData = EventHandlerAnnotationScanner.builder()
                                                                              .processingEnvironment(this.processingEnvironment)
-//                                                                             .metaModel(this.metaModel)
                                                                              .parentElement(this.handlerElement)
                                                                              .build()
                                                                              .scan();

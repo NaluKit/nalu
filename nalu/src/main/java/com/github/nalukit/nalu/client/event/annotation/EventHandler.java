@@ -42,12 +42,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface EventHandler {
-
-  /**
-   * The event to handle ...
-   *
-   * @return The event the handler will handle.
-   */
-  Class<? extends Event<?>> value();
-
 }

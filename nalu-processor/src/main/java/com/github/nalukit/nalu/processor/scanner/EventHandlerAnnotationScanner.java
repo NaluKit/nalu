@@ -23,6 +23,7 @@ import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.EventHandlerModel;
 import com.github.nalukit.nalu.processor.model.intern.EventModel;
+import com.sun.org.apache.xpath.internal.operations.Variable;
 import org.gwtproject.event.shared.Event;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -30,6 +31,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.ArrayType;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ErrorType;
@@ -81,12 +83,8 @@ public class EventHandlerAnnotationScanner {
                                                                                                   EventHandler.class);
 
     for (Element element : eventHandlerElement) {
-      TypeElement eventElement = this.getEventElement(element.getAnnotation(EventHandler.class));
-      if (Objects.isNull(eventElement)) {
-        throw new ProcessorException("@EventHandler: value for event is null");
-      }
       if (!(element instanceof ExecutableElement)) {
-        throw new ProcessorException("element >>" +
+        throw new ProcessorException("NaluProcessor: element >>" +
                                      this.parentElement.getSimpleName()
                                                        .toString() +
                                      "<< is not of type ExecutableElement");
@@ -94,6 +92,23 @@ public class EventHandlerAnnotationScanner {
       ExecutableElement executableElement = (ExecutableElement) element;
       String methodName = executableElement.getSimpleName()
                                            .toString();
+      // check number of paraemters --> should be 1!
+      if (executableElement.getParameters()
+                           .size() == 0 ||
+          executableElement.getParameters()
+                           .size() > 1) {
+        throw new ProcessorException("NaluProcessor: @EventHandler -> method >> " +
+                                     methodName +
+                                     "<< should have only one parameter and that should be an event");
+      }
+
+      VariableElement variableElement = executableElement.getParameters()
+                                                         .get(0);
+      TypeElement eventElement = (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                                         .asElement(variableElement.asType());
+
+      this.validateEvent(eventElement,
+                         methodName);
 
       TypeElement parentTypeElement = (TypeElement) this.parentElement;
       EventHandlerModel eventHandlerModel = new EventHandlerModel(new ClassNameModel(parentTypeElement.getQualifiedName()
@@ -110,7 +125,8 @@ public class EventHandlerAnnotationScanner {
                                                                                      .toString()))
                                                    .findFirst();
       if (!optional.isPresent()) {
-        EventModel eventModel = this.scanEvent(eventElement);
+        EventModel eventModel = this.scanEvent(eventElement,
+                                               methodName);
         eventMetaData.getEventModels()
                      .add(eventModel);
       }
@@ -118,64 +134,38 @@ public class EventHandlerAnnotationScanner {
                    .add(eventHandlerModel);
     }
 
-    //    EventHandler[] eventHandlerElements = this.parentElement.getAnnotationsByType(EventHandler.class);
-    //    for (EventHandler eventHandlerAnnotation : eventHandlerElements) {
-    //      TypeElement eventElement = this.getEventElement(eventHandlerAnnotation);
-    //      if (Objects.isNull(eventElement)) {
-    //        throw new ProcessorException("@EventHandler: value for event is null");
-    //      }
-    //      //      if (!(this.parentElement instanceof ExecutableElement)) {
-    //      //        throw new ProcessorException("element >>" +
-    //      //                                     this.parentElement.getSimpleName()
-    //      //                                                       .toString() +
-    //      //                                     "<< is not of type ExecutableElement");
-    //      //      }
-    //      //      ExecutableElement executableElement = (ExecutableElement) this.parentElement;
-    //      //      String methodName = executableElement.getSimpleName()
-    //      //                                           .toString();
-    //      //
-    //      //            EventHandlerModel eventHandlerModel = new EventHandlerModel(new ClassNameModel(parentElement.getQualifiedName()
-    //      //                                                                                                        .toString()),
-    //      //                                                                        new ClassNameModel(eventElement.getQualifiedName()
-    //      //                                                                                                       .toString()),
-    //      //                                                                        methodName);
-    //
-    //    }
-
-    //    EventHandler eventHandlerAnnotation = parentElement.getAnnotation(EventHandler.class);
-    //    if (!isNull(eventHandlerAnnotation)) {
-    //      TypeElement eventElement = this.getEventElement(eventHandlerAnnotation);
-    //      if (Objects.isNull(eventElement)) {
-    //        throw new ProcessorException("annotation >>" + eventHandlerAnnotation + "<< is null");
-    //      }
-    //      TypeElement parentElement = (TypeElement) this.parentElement.getEnclosingElement();
-    //      if (!(this.parentElement instanceof ExecutableElement)) {
-    //        throw new ProcessorException("element >>" +
-    //                                     this.parentElement.getSimpleName()
-    //                                                       .toString() +
-    //                                     "<< is not of type ExecutableElement");
-    //      }
-    //      ExecutableElement executableElement = (ExecutableElement) this.parentElement;
-    //      String methodName = executableElement.getSimpleName()
-    //                                           .toString();
-    //
-    //      EventHandlerModel eventHandlerModel = new EventHandlerModel(new ClassNameModel(parentElement.getQualifiedName()
-    //                                                                                                  .toString()),
-    //                                                                  new ClassNameModel(eventElement.getQualifiedName()
-    //                                                                                                 .toString()),
-    //                                                                  methodName);
-    //      // handle the elated event
-    //      this.scanEvent(eventElement);
-    //      // Save EventhandlerModel to MetaModel (cause now, the event exists ...)
-    //
-    //      this.metaModel.getEventHandlerModels()
-    //                    .add(eventHandlerModel);
-    //    }
-
     return eventMetaData;
   }
 
-  private EventModel scanEvent(TypeElement eventElement)
+  private void validateEvent(TypeElement eventElement,
+                             String methodName)
+      throws ProcessorException {
+    ProcessorUtils processorUtils = ProcessorUtils.builder()
+                                                  .processingEnvironment(this.processingEnvironment)
+                                                  .build();
+    if (!processorUtils.supertypeHasGeneric(this.processingEnvironment.getTypeUtils(),
+                                            eventElement.asType(),
+                                            this.processorUtils.getElements()
+                                                               .getTypeElement(Event.class.getCanonicalName())
+                                                               .asType())) {
+      throw new ProcessorException("NaluProcessor: class >> " +
+                                   eventElement.getQualifiedName()
+                                               .toString() +
+                                   "<< - method >>" +
+                                   methodName +
+                                   " has wrong data type. Parameter needs to extend org.gwtproject.event.shared.Event");
+    }
+
+    TypeMirror gwtEventHandlerTypeMirror = this.getGwtEventHandlerType(eventElement.asType());
+    if (Objects.isNull(gwtEventHandlerTypeMirror)) {
+      throw new ProcessorException("NaluProcessor: class >> " +
+                                   eventElement.getQualifiedName() +
+                                   "<< does not have a generic EventHandler defined");
+    }
+  }
+
+  private EventModel scanEvent(TypeElement eventElement,
+                               String methodName)
       throws ProcessorException {
     ProcessorUtils processorUtils = ProcessorUtils.builder()
                                                   .processingEnvironment(this.processingEnvironment)
@@ -187,7 +177,7 @@ public class EventHandlerAnnotationScanner {
                                                                                         .getTypeElement(Event.class.getCanonicalName())
                                                                                         .asType());
     if (Objects.isNull(gwtEventMirror)) {
-      throw new ProcessorException("class >> " +
+      throw new ProcessorException("NaluProcessor: class >> " +
                                    eventElement.getQualifiedName() +
                                    "<< does not extend org.gwtproject.event.shared.Event");
     }
@@ -196,59 +186,28 @@ public class EventHandlerAnnotationScanner {
                                             this.processorUtils.getElements()
                                                                .getTypeElement(Event.class.getCanonicalName())
                                                                .asType())) {
-      throw new ProcessorException("class >> " +
-                                   eventElement.getQualifiedName() +
-                                   "<< does not use a generic with org.gwtproject.event.shared.Event");
+      throw new ProcessorException("NaluProcessor: class >> " +
+                                   eventElement.getQualifiedName()
+                                               .toString() +
+                                   "<< - method >>" +
+                                   methodName +
+                                   " has wrong data type. Parameter needs to extend org.gwtproject.event.shared.Event");
     }
 
     TypeMirror gwtEventHandlerTypeMirror = this.getGwtEventHandlerType(eventElement.asType());
     if (Objects.isNull(gwtEventHandlerTypeMirror)) {
-      throw new ProcessorException("class >> " +
+      throw new ProcessorException("NaluProcessor: class >> " +
                                    eventElement.getQualifiedName() +
                                    "<< does not have a generic EventHandler defined");
     }
     TypeElement gwtEventHandlerElement = (TypeElement) this.processingEnvironment.getTypeUtils()
                                                                                  .asElement(gwtEventHandlerTypeMirror);
-
-    List<ExecutableElement> methodList = new ArrayList<>();
-    for (Element element : gwtEventHandlerElement.getEnclosedElements()) {
-      if (element.getKind() == ElementKind.METHOD) {
-        methodList.add((ExecutableElement) element);
-      }
-    }
-    if (methodList.size() > 1) {
-      throw new ProcessorException("class >> " +
-                                   gwtEventHandlerElement.getQualifiedName() +
-                                   "<< should not have more than one method defined");
-    }
-    if (methodList.get(0)
-                  .getParameters()
-                  .size() == 0 ||
-        methodList.get(0)
-                  .getParameters()
-                  .size() > 1) {
-      throw new ProcessorException("class >> " +
-                                   gwtEventHandlerElement.getQualifiedName() +
-                                   "<< should have only one parameter and that should be the event");
-    }
     // Save to MetaModel
     return new EventModel(new ClassNameModel(eventElement.getQualifiedName()
                                                          .toString()),
                           new ClassNameModel(gwtEventHandlerElement.getQualifiedName()
                                                                    .toString()),
-                          methodList.get(0)
-                                    .getSimpleName()
-                                    .toString());
-  }
-
-  private TypeElement getEventElement(EventHandler eventHandlerAnnotation) {
-    try {
-      eventHandlerAnnotation.value();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
-    }
-    return null;
+                          methodName);
   }
 
   private TypeMirror getGwtEventHandlerType(final TypeMirror typeMirror) {
