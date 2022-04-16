@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.eventhandler.eventhandlerOnABlockControllerOk;
+package com.github.nalukit.nalu.processor.handler.eventhandler.eventhandlerOnABlockControllerOk;
 
 import com.github.nalukit.nalu.client.component.AbstractBlockComponentController;
 import com.github.nalukit.nalu.client.component.IsBlockComponentController;

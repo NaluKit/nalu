@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.eventhandler.twoEventhandlerOnAHandlerOk02;
+package com.github.nalukit.nalu.processor.handler.eventhandler.eventhandlerOnAHandlerOK;
 
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;

@@ -1,4 +1,4 @@
-package com.github.nalukit.nalu.processor.eventhandler.eventhandlerOnAHandlerOK;
+package com.github.nalukit.nalu.processor.eventhandler.handler.eventhandlerOnAHandlerOK;
 
 import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.client.handler.AbstractHandler;

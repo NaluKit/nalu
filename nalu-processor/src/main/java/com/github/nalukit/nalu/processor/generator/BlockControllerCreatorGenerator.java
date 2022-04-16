@@ -140,20 +140,19 @@ public class BlockControllerCreatorGenerator {
                 .addStatement("controller.setComponent(component)")
                 .addStatement("component.render()");
 
-//    this.metaModel.getEventHandlerModelsForClass(blockControllerModel.getController()
-//                                                                     .getClassName())
-//                  .forEach(m -> {
-//                    EventModel eventModel = this.metaModel.getEventMaodel(m.getEvent()
-//                                                                           .getClassName());
-//                    if (!Objects.isNull(eventModel)) {
-//                      createMethod.addStatement("super.eventBus.addHandler($T.TYPE, e -> controller.$L(e))",
-//                                                ClassName.get(eventModel.getEvent()
-//                                                                        .getPackage(),
-//                                                              eventModel.getEvent()
-//                                                                        .getSimpleName()),
-//                                                m.getMethodName());
-//                    }
-//                  });
+    blockControllerModel.getEventHandlers()
+                        .forEach(m -> {
+                          EventModel eventModel = blockControllerModel.getEventModel(m.getEvent()
+                                                                                      .getClassName());
+                          if (!Objects.isNull(eventModel)) {
+                            createMethod.addStatement("super.eventBus.addHandler($T.TYPE, e -> controller.$L(e))",
+                                                      ClassName.get(eventModel.getEvent()
+                                                                              .getPackage(),
+                                                                    eventModel.getEvent()
+                                                                              .getSimpleName()),
+                                                      m.getMethodName());
+                          }
+                        });
 
     createMethod.addStatement("component.bind()")
                 .addStatement("controller.bind()");

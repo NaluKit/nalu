@@ -31,8 +31,8 @@ public class EventHandlerHandlerTest {
   @Test
   void testEventHandlerOnAHandlerOk() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/eventhandlerOnAHandlerOK/EventHandlerOnAHandlerOk.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/eventhandlerOnAHandlerOK/ApplicationWithHandlerOk.java"),
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/eventhandler/eventhandlerOnAHandlerOK/EventHandlerOnAHandlerOk.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/eventhandler/eventhandlerOnAHandlerOK/ApplicationWithHandlerOk.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
@@ -41,15 +41,15 @@ public class EventHandlerHandlerTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     CompilationSubject.assertThat(compilation)
-                      .generatedSourceFile("com/github/nalukit/nalu/processor/eventhandler/eventhandlerOnAHandlerOK/ApplicationWithHandlerOkImpl")
-                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/eventhandlerOnAHandlerOK/ApplicationWithHandlerOkImpl.java"));
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/handler/eventhandler/eventhandlerOnAHandlerOK/ApplicationWithHandlerOkImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/eventhandler/eventhandlerOnAHandlerOK/ApplicationWithHandlerOkImpl.java"));
   }
 
   @Test
   void testTwoEventHandlerOnAHandlerOk() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/twoEventhandlerOnAHandlerOk/TwoEventHandlerOnAHandlerOk.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/twoEventhandlerOnAHandlerOk/ApplicationWithHandlerOk.java"),
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/eventhandler/twoEventhandlerOnAHandlerOk/TwoEventHandlerOnAHandlerOk.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/eventhandler/twoEventhandlerOnAHandlerOk/ApplicationWithHandlerOk.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
@@ -57,15 +57,15 @@ public class EventHandlerHandlerTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     CompilationSubject.assertThat(compilation)
-                      .generatedSourceFile("com/github/nalukit/nalu/processor/eventhandler/twoEventhandlerOnAHandlerOk/ApplicationWithHandlerOkImpl")
-                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/twoEventhandlerOnAHandlerOk/ApplicationWithHandlerOkImpl.java"));
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/handler/eventhandler/twoEventhandlerOnAHandlerOk/ApplicationWithHandlerOkImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/eventhandler/twoEventhandlerOnAHandlerOk/ApplicationWithHandlerOkImpl.java"));
   }
 
   @Test
   void testTwoEventHandlerOnAHandlerOk02() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/twoEventhandlerOnAHandlerOk02/TwoEventHandlerOnAHandlerOk.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/twoEventhandlerOnAHandlerOk02/ApplicationWithHandlerOk.java"),
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/eventhandler/twoEventhandlerOnAHandlerOk02/TwoEventHandlerOnAHandlerOk.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/eventhandler/twoEventhandlerOnAHandlerOk02/ApplicationWithHandlerOk.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
@@ -73,14 +73,14 @@ public class EventHandlerHandlerTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     CompilationSubject.assertThat(compilation)
-                      .generatedSourceFile("com/github/nalukit/nalu/processor/eventhandler/twoEventhandlerOnAHandlerOk02/ApplicationWithHandlerOkImpl")
-                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/twoEventhandlerOnAHandlerOk02/ApplicationWithHandlerOkImpl.java"));
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/handler/eventhandler/twoEventhandlerOnAHandlerOk02/ApplicationWithHandlerOkImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/eventhandler/twoEventhandlerOnAHandlerOk02/ApplicationWithHandlerOkImpl.java"));
   }
 
   @Test
   void testErrorEventHandlerMethodWithoutParameter() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/eventHandlerMethodWithoutParameter/EventHandlerMethodWithoutParameter.java")));
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/eventhandler/eventHandlerMethodWithoutParameter/EventHandlerMethodWithoutParameter.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -90,7 +90,7 @@ public class EventHandlerHandlerTest {
   @Test
   void testErrorEventHandlerMethodWithTwoParameter() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/eventHandlerMethodWithTwoParameter/EventHandlerMethodWithTwoParameter.java")));
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/eventhandler/eventHandlerMethodWithTwoParameter/EventHandlerMethodWithTwoParameter.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -100,7 +100,7 @@ public class EventHandlerHandlerTest {
   @Test
   void testErrorEventHandlerMethodWithWrongParameter() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/eventHandlerWithWrongParameter/EventHandleWithWrongParameter.java")));
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/handler/eventhandler/eventHandlerWithWrongParameter/EventHandleWithWrongParameter.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)

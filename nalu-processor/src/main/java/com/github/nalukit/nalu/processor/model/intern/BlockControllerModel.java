@@ -39,7 +39,9 @@ public class BlockControllerModel {
                               ClassNameModel component,
                               ClassNameModel provider,
                               boolean componentCreator,
-                              ClassNameModel condition) {
+                              ClassNameModel conndition,
+                              List<EventHandlerModel> eventHandlers,
+                              List<EventModel> eventModels) {
     this.name               = name;
     this.context            = context;
     this.controller         = controller;
@@ -47,10 +49,9 @@ public class BlockControllerModel {
     this.component          = component;
     this.provider           = provider;
     this.componentCreator   = componentCreator;
-    this.conndition         = condition;
-
-    this.eventHandlers = new ArrayList<>();
-    this.eventModels   = new ArrayList<>();
+    this.conndition         = conndition;
+    this.eventHandlers      = eventHandlers;
+    this.eventModels        = eventModels;
   }
 
   public String getName() {

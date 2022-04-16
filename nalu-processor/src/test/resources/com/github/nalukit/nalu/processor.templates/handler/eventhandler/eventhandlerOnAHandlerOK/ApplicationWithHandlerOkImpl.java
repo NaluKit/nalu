@@ -1,4 +1,4 @@
-package com.github.nalukit.nalu.processor.eventhandler.eventhandlerOnAHandlerOK;
+package com.github.nalukit.nalu.processor.handler.eventhandler.eventhandlerOnAHandlerOK;
 
 import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
@@ -12,11 +12,12 @@ import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.event.MockEvent01;
+import com.github.nalukit.nalu.processor.eventhandler.handler.eventhandlerOnAHandlerOK.EventHandlerOnAHandlerOk;
 import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.16-09:38:04<<
+ * Build with Nalu version >>>%VERSION_TAG%<< at >>2022.04.16-20:35:13<<
  */
 public final class ApplicationWithHandlerOkImpl extends AbstractApplication<MockContext> implements ApplicationWithHandlerOk {
   public ApplicationWithHandlerOkImpl() {
@@ -87,12 +88,12 @@ public final class ApplicationWithHandlerOkImpl extends AbstractApplication<Mock
 
   @Override
   public void loadHandlers() {
-    EventHandlerOnAHandlerOk com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk = new EventHandlerOnAHandlerOk();
-    com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setContext(super.context);
-    com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setEventBus(super.eventBus);
-    com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setRouter(super.router);
-    super.eventBus.addHandler(MockEvent01.TYPE, e -> com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.onMockEvent01(e));
-    com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.bind();
+    EventHandlerOnAHandlerOk com_github_nalukit_nalu_processor_eventhandler_handler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk = new EventHandlerOnAHandlerOk();
+    com_github_nalukit_nalu_processor_eventhandler_handler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setContext(super.context);
+    com_github_nalukit_nalu_processor_eventhandler_handler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setEventBus(super.eventBus);
+    com_github_nalukit_nalu_processor_eventhandler_handler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setRouter(super.router);
+    super.eventBus.addHandler(MockEvent01.TYPE, e -> com_github_nalukit_nalu_processor_eventhandler_handler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.onMockEvent01(e));
+    com_github_nalukit_nalu_processor_eventhandler_handler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.bind();
   }
 
   @Override
