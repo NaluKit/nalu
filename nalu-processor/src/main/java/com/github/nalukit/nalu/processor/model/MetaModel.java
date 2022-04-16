@@ -23,6 +23,7 @@ import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ErrorPopUpControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.EventHandlerModel;
 import com.github.nalukit.nalu.processor.model.intern.EventModel;
+import com.github.nalukit.nalu.processor.model.intern.HandlerModel;
 import com.github.nalukit.nalu.processor.model.intern.ModuleModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleModel;
 import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
@@ -64,11 +65,9 @@ public class MetaModel {
   private List<PopUpControllerModel>         popUpControllers;
   private List<ClassNameModel>               filters;
   private List<ClassNameModel>               popUpFilters;
-  private List<ClassNameModel>               handlers;
+  private List<HandlerModel>                 handlers;
   private ClassNameModel                     componentType;
   private List<CompositeModel>               compositeModels;
-  private List<EventHandlerModel>            eventHandlerModels;
-  private List<EventModel>                   eventModels;
   private ClassNameModel                     logger;
   private ClassNameModel                     clientLogger;
   /* flag, that indicates, if a Nalu application */
@@ -89,8 +88,6 @@ public class MetaModel {
     this.shells                   = new ArrayList<>();
     this.controllers              = new ArrayList<>();
     this.blockControllers         = new ArrayList<>();
-    this.eventHandlerModels       = new ArrayList<>();
-    this.eventModels              = new ArrayList<>();
     this.popUpControllers         = new ArrayList<>();
     this.filters                  = new ArrayList<>();
     this.popUpFilters             = new ArrayList<>();
@@ -191,11 +188,11 @@ public class MetaModel {
     this.filters = filters;
   }
 
-  public List<ClassNameModel> getHandlers() {
+  public List<HandlerModel> getHandlers() {
     return handlers;
   }
 
-  public void setHandlers(List<ClassNameModel> handlers) {
+  public void setHandlers(List<HandlerModel> handlers) {
     this.handlers = handlers;
   }
 
@@ -372,33 +369,6 @@ public class MetaModel {
 
   public void setParameterConstraintRules(List<ParameterConstraintRuleModel> parameterConstraintRules) {
     this.parameterConstraintRules = parameterConstraintRules;
-  }
-
-  public List<EventHandlerModel> getEventHandlerModels() {
-    return eventHandlerModels;
-  }
-
-  public List<EventHandlerModel> getEventHandlerModelsForClass(String className) {
-    return this.getEventHandlerModels()
-               .stream()
-               .filter(c -> c.getParentClass()
-                             .getClassName()
-                             .equals(className))
-               .collect(Collectors.toList());
-  }
-
-  public List<EventModel> getEventModels() {
-    return eventModels;
-  }
-
-  public EventModel getEventMaodel(String className) {
-    return this.getEventModels()
-               .stream()
-               .filter(c -> c.getEvent()
-                             .getClassName()
-                             .equals(className))
-               .findFirst()
-               .orElse(null);
   }
 
 }

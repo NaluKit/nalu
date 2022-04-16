@@ -25,6 +25,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
+@Deprecated
 // TODO:
 // Event muss die Klasse org.gwtproject.event.shared.Event erweitern
 // die Extends Event muss ein Generic besitzen

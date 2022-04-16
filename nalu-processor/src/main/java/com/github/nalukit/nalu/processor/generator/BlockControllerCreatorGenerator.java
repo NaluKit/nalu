@@ -23,6 +23,7 @@ import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.BlockControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.EventModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
@@ -35,8 +36,11 @@ import org.gwtproject.event.shared.SimpleEventBus;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
+import java.util.Objects;
 
 public class BlockControllerCreatorGenerator {
+
+  private MetaModel metaModel;
 
   private ProcessingEnvironment processingEnvironment;
 
@@ -47,6 +51,7 @@ public class BlockControllerCreatorGenerator {
   }
 
   private BlockControllerCreatorGenerator(Builder builder) {
+    this.metaModel             = builder.metaModel;
     this.processingEnvironment = builder.processingEnvironment;
     this.blockControllerModel  = builder.blockControllerModel;
   }
@@ -133,8 +138,24 @@ public class BlockControllerCreatorGenerator {
     }
     createMethod.addStatement("component.setController(controller)")
                 .addStatement("controller.setComponent(component)")
-                .addStatement("component.render()")
-                .addStatement("component.bind()")
+                .addStatement("component.render()");
+
+//    this.metaModel.getEventHandlerModelsForClass(blockControllerModel.getController()
+//                                                                     .getClassName())
+//                  .forEach(m -> {
+//                    EventModel eventModel = this.metaModel.getEventMaodel(m.getEvent()
+//                                                                           .getClassName());
+//                    if (!Objects.isNull(eventModel)) {
+//                      createMethod.addStatement("super.eventBus.addHandler($T.TYPE, e -> controller.$L(e))",
+//                                                ClassName.get(eventModel.getEvent()
+//                                                                        .getPackage(),
+//                                                              eventModel.getEvent()
+//                                                                        .getSimpleName()),
+//                                                m.getMethodName());
+//                    }
+//                  });
+
+    createMethod.addStatement("component.bind()")
                 .addStatement("controller.bind()");
 
     createMethod.addStatement("return blockControllerInstance");
@@ -145,7 +166,7 @@ public class BlockControllerCreatorGenerator {
                                          typeSpec.build())
                                 .build();
     try {
-      //      System.out.println(javaFile.toString());
+      System.out.println(javaFile.toString());
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +

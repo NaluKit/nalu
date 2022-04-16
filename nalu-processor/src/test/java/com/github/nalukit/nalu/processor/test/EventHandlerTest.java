@@ -31,6 +31,24 @@ public class EventHandlerTest {
   // TOD implementiere Tests
 
   @Test
+  void testEventHandlerOnABlockControllerOk() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/eventhandlerOnABlockControllerOK/EventHandlerOnABlockControllerOk.java")
+//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/eventhandlerOnAHandlerOK/ApplicationWithHandlerOk.java"),
+//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java"),
+//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
+//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
+//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java"))
+                                     ) );
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/eventhandler/eventhandlerOnAHandlerOK/ApplicationWithHandlerOkImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/eventhandlerOnAHandlerOK/ApplicationWithHandlerOkImpl.java"));
+  }
+
+  @Test
   void testEventHandlerOnAHandlerOk() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/eventhandler/eventhandlerOnAHandlerOK/EventHandlerOnAHandlerOk.java"),

@@ -368,14 +368,14 @@ public class ModuleGenerator {
 
     this.metaModel.getHandlers()
                   .forEach(handler -> {
-                    String variableName = this.processorUtils.createFullClassName(handler.getPackage(),
-                                                                                  handler.getSimpleName());
+                    String variableName = this.processorUtils.createFullClassName(handler.getHandler().getPackage(),
+                                                                                  handler.getHandler().getSimpleName());
                     loadHandlersMethod.addStatement("$T $L = new $T()",
-                                                    ClassName.get(handler.getPackage(),
-                                                                  handler.getSimpleName()),
+                                                    ClassName.get(handler.getHandler().getPackage(),
+                                                                  handler.getHandler().getSimpleName()),
                                                     variableName,
-                                                    ClassName.get(handler.getPackage(),
-                                                                  handler.getSimpleName()))
+                                                    ClassName.get(handler.getHandler().getPackage(),
+                                                                  handler.getHandler().getSimpleName()))
                                       .addStatement("$L.setContext(super.moduleContext)",
                                                     variableName)
                                       .addStatement("$L.setEventBus(super.eventBus)",

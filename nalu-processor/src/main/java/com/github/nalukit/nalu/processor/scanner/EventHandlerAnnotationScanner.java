@@ -43,8 +43,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static java.util.Objects.isNull;
-
 public class EventHandlerAnnotationScanner {
 
   private ProcessorUtils processorUtils;
@@ -53,14 +51,14 @@ public class EventHandlerAnnotationScanner {
 
   private final MetaModel metaModel;
 
-  private final Element eventHandlerElement;
+  private final Element parentElement;
 
   @SuppressWarnings("unused")
   private EventHandlerAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
     this.metaModel             = builder.metaModel;
-    this.eventHandlerElement   = builder.eventHandlerElement;
+    this.parentElement         = builder.parentElement;
     setUp();
   }
 
@@ -74,52 +72,111 @@ public class EventHandlerAnnotationScanner {
                                         .build();
   }
 
-  public void scan()
+  public EventMetaData scan()
       throws ProcessorException {
-    EventHandler eventHandlerAnnotation = eventHandlerElement.getAnnotation(EventHandler.class);
-    if (!isNull(eventHandlerAnnotation)) {
-      TypeElement eventElement = this.getEventElement(eventHandlerAnnotation);
+    EventMetaData eventMetaData = new EventMetaData();
+
+    List<Element> eventHandlerElement = this.processorUtils.getMethodFromTypeElementAnnotatedWith(this.processingEnvironment,
+                                                                                                  (TypeElement) this.parentElement,
+                                                                                                  EventHandler.class);
+
+    for (Element element : eventHandlerElement) {
+      TypeElement eventElement = this.getEventElement(element.getAnnotation(EventHandler.class));
       if (Objects.isNull(eventElement)) {
-        throw new ProcessorException("annotation >>" + eventHandlerAnnotation + "<< is null");
+        throw new ProcessorException("@EventHandler: value for event is null");
       }
-      TypeElement parentElement = (TypeElement) eventHandlerElement.getEnclosingElement();
-      if (!(this.eventHandlerElement instanceof ExecutableElement)) {
+      if (!(element instanceof ExecutableElement)) {
         throw new ProcessorException("element >>" +
-                                     this.eventHandlerElement.getSimpleName()
-                                                             .toString() +
+                                     this.parentElement.getSimpleName()
+                                                       .toString() +
                                      "<< is not of type ExecutableElement");
       }
-      ExecutableElement executableElement = (ExecutableElement) this.eventHandlerElement;
+      ExecutableElement executableElement = (ExecutableElement) element;
       String methodName = executableElement.getSimpleName()
                                            .toString();
 
-      EventHandlerModel eventHandlerModel = new EventHandlerModel(new ClassNameModel(parentElement.getQualifiedName()
-                                                                                                  .toString()),
+      TypeElement parentTypeElement = (TypeElement) this.parentElement;
+      EventHandlerModel eventHandlerModel = new EventHandlerModel(new ClassNameModel(parentTypeElement.getQualifiedName()
+                                                                                                      .toString()),
                                                                   new ClassNameModel(eventElement.getQualifiedName()
                                                                                                  .toString()),
                                                                   methodName);
-      // handle the elated event
-      this.scanEvent(eventElement);
-      // Save EventhandlerModel to MetaModel (cause now, the event exists ...)
-      this.metaModel.getEventHandlerModels()
-                    .add(eventHandlerModel);
+
+      Optional<EventModel> optional = eventMetaData.getEventModels()
+                                                   .stream()
+                                                   .filter(e -> e.getEvent()
+                                                                 .getClassName()
+                                                                 .equals(eventElement.getQualifiedName()
+                                                                                     .toString()))
+                                                   .findFirst();
+      if (!optional.isPresent()) {
+        EventModel eventModel = this.scanEvent(eventElement);
+        eventMetaData.getEventModels()
+                     .add(eventModel);
+      }
+      eventMetaData.getEventHandlerModels()
+                   .add(eventHandlerModel);
     }
+
+    //    EventHandler[] eventHandlerElements = this.parentElement.getAnnotationsByType(EventHandler.class);
+    //    for (EventHandler eventHandlerAnnotation : eventHandlerElements) {
+    //      TypeElement eventElement = this.getEventElement(eventHandlerAnnotation);
+    //      if (Objects.isNull(eventElement)) {
+    //        throw new ProcessorException("@EventHandler: value for event is null");
+    //      }
+    //      //      if (!(this.parentElement instanceof ExecutableElement)) {
+    //      //        throw new ProcessorException("element >>" +
+    //      //                                     this.parentElement.getSimpleName()
+    //      //                                                       .toString() +
+    //      //                                     "<< is not of type ExecutableElement");
+    //      //      }
+    //      //      ExecutableElement executableElement = (ExecutableElement) this.parentElement;
+    //      //      String methodName = executableElement.getSimpleName()
+    //      //                                           .toString();
+    //      //
+    //      //            EventHandlerModel eventHandlerModel = new EventHandlerModel(new ClassNameModel(parentElement.getQualifiedName()
+    //      //                                                                                                        .toString()),
+    //      //                                                                        new ClassNameModel(eventElement.getQualifiedName()
+    //      //                                                                                                       .toString()),
+    //      //                                                                        methodName);
+    //
+    //    }
+
+    //    EventHandler eventHandlerAnnotation = parentElement.getAnnotation(EventHandler.class);
+    //    if (!isNull(eventHandlerAnnotation)) {
+    //      TypeElement eventElement = this.getEventElement(eventHandlerAnnotation);
+    //      if (Objects.isNull(eventElement)) {
+    //        throw new ProcessorException("annotation >>" + eventHandlerAnnotation + "<< is null");
+    //      }
+    //      TypeElement parentElement = (TypeElement) this.parentElement.getEnclosingElement();
+    //      if (!(this.parentElement instanceof ExecutableElement)) {
+    //        throw new ProcessorException("element >>" +
+    //                                     this.parentElement.getSimpleName()
+    //                                                       .toString() +
+    //                                     "<< is not of type ExecutableElement");
+    //      }
+    //      ExecutableElement executableElement = (ExecutableElement) this.parentElement;
+    //      String methodName = executableElement.getSimpleName()
+    //                                           .toString();
+    //
+    //      EventHandlerModel eventHandlerModel = new EventHandlerModel(new ClassNameModel(parentElement.getQualifiedName()
+    //                                                                                                  .toString()),
+    //                                                                  new ClassNameModel(eventElement.getQualifiedName()
+    //                                                                                                 .toString()),
+    //                                                                  methodName);
+    //      // handle the elated event
+    //      this.scanEvent(eventElement);
+    //      // Save EventhandlerModel to MetaModel (cause now, the event exists ...)
+    //
+    //      this.metaModel.getEventHandlerModels()
+    //                    .add(eventHandlerModel);
+    //    }
+
+    return eventMetaData;
   }
 
-  private void scanEvent(TypeElement eventElement)
+  private EventModel scanEvent(TypeElement eventElement)
       throws ProcessorException {
-    Optional<EventModel> optional = this.metaModel.getEventModels()
-                                                  .stream()
-                                                  .filter(m -> m.getEvent()
-                                                                .getClassName()
-                                                                .equals(eventElement.getQualifiedName()
-                                                                                    .toString()))
-                                                  .findFirst();
-    // already exists -> nothing to do ...
-    if (optional.isPresent()) {
-      return;
-    }
-
     ProcessorUtils processorUtils = ProcessorUtils.builder()
                                                   .processingEnvironment(this.processingEnvironment)
                                                   .build();
@@ -175,14 +232,13 @@ public class EventHandlerAnnotationScanner {
                                    "<< should have only one parameter and that should be the event");
     }
     // Save to MetaModel
-    this.metaModel.getEventModels()
-                  .add(new EventModel(new ClassNameModel(eventElement.getQualifiedName()
-                                                                     .toString()),
-                                      new ClassNameModel(gwtEventHandlerElement.getQualifiedName()
-                                                                               .toString()),
-                                      methodList.get(0)
-                                                .getSimpleName()
-                                                .toString()));
+    return new EventModel(new ClassNameModel(eventElement.getQualifiedName()
+                                                         .toString()),
+                          new ClassNameModel(gwtEventHandlerElement.getQualifiedName()
+                                                                   .toString()),
+                          methodList.get(0)
+                                    .getSimpleName()
+                                    .toString());
   }
 
   private TypeElement getEventElement(EventHandler eventHandlerAnnotation) {
@@ -259,7 +315,7 @@ public class EventHandlerAnnotationScanner {
 
     MetaModel metaModel;
 
-    Element eventHandlerElement;
+    Element parentElement;
 
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
@@ -271,8 +327,8 @@ public class EventHandlerAnnotationScanner {
       return this;
     }
 
-    public Builder eventHandlerElement(Element eventHandlerElement) {
-      this.eventHandlerElement = eventHandlerElement;
+    public Builder parentElement(Element parentElement) {
+      this.parentElement = parentElement;
       return this;
     }
 
@@ -280,6 +336,27 @@ public class EventHandlerAnnotationScanner {
       return new EventHandlerAnnotationScanner(this);
     }
 
+  }
+
+
+
+  public class EventMetaData {
+
+    private List<EventHandlerModel> eventHandlerModels;
+    private List<EventModel>        eventModels;
+
+    public EventMetaData() {
+      this.eventHandlerModels = new ArrayList<>();
+      this.eventModels        = new ArrayList<>();
+    }
+
+    public List<EventHandlerModel> getEventHandlerModels() {
+      return eventHandlerModels;
+    }
+
+    public List<EventModel> getEventModels() {
+      return eventModels;
+    }
   }
 
 }

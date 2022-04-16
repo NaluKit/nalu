@@ -48,6 +48,7 @@ import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ErrorPopUpControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.EventHandlerModel;
+import com.github.nalukit.nalu.processor.model.intern.HandlerModel;
 import com.github.nalukit.nalu.processor.model.intern.ModuleModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleModel;
 import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
@@ -196,9 +197,9 @@ public class NaluProcessor
             } else if (ErrorPopUpController.class.getCanonicalName()
                                                  .equals(annotation.toString())) {
               handleErrorPopUpControllerAnnotation(roundEnv);
-           } else if (EventHandler.class.getCanonicalName()
-                                                 .equals(annotation.toString())) {
-              handleEventHandlerAnnotation(roundEnv);
+//           } else if (EventHandler.class.getCanonicalName()
+//                                                 .equals(annotation.toString())) {
+//              handleEventHandlerAnnotation(roundEnv);
             } else if (Filters.class.getCanonicalName()
                                     .equals(annotation.toString())) {
               handleFiltersAnnotation(roundEnv);
@@ -469,25 +470,25 @@ public class NaluProcessor
     }
   }
 
-  private void handleEventHandlerAnnotation(RoundEnvironment roundEnv)
-      throws ProcessorException {
-    List<EventHandlerModel> eventHandlerrModels = new ArrayList<>();
-    for (Element eventHandlerElement : roundEnv.getElementsAnnotatedWith(EventHandler.class)) {
-      // validate
-      EventHandlerAnnotationValidator.builder()
-                                     .processingEnvironment(processingEnv)
-                                     .eventHandlerElement(eventHandlerElement)
-                                     .build()
-                                     .validate();
-      // create EventHandlerrModel - MetaModel will be updated inside the scanner
-      EventHandlerAnnotationScanner.builder()
-                                                                         .processingEnvironment(processingEnv)
-                                                                         .metaModel(this.metaModel)
-                                                                         .eventHandlerElement(eventHandlerElement)
-                                                                         .build()
-                                                                         .scan();
-    }
-  }
+//  private void handleEventHandlerAnnotation(RoundEnvironment roundEnv)
+//      throws ProcessorException {
+//    List<EventHandlerModel> eventHandlerrModels = new ArrayList<>();
+//    for (Element eventHandlerElement : roundEnv.getElementsAnnotatedWith(EventHandler.class)) {
+//      // validate
+//      EventHandlerAnnotationValidator.builder()
+//                                     .processingEnvironment(processingEnv)
+//                                     .eventHandlerElement(eventHandlerElement)
+//                                     .build()
+//                                     .validate();
+//      // create EventHandlerrModel - MetaModel will be updated inside the scanner
+//      EventHandlerAnnotationScanner.builder()
+//                                                                         .processingEnvironment(processingEnv)
+//                                                                         .metaModel(this.metaModel)
+//                                                                         .eventHandlerElement(eventHandlerElement)
+//                                                                         .build()
+//                                                                         .scan();
+//    }
+//  }
 
   private void handleFiltersAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
@@ -536,7 +537,7 @@ public class NaluProcessor
                                 .build()
                                 .validate();
       // scan handler element
-      ClassNameModel handlerModel = HandlerAnnotationScanner.builder()
+      HandlerModel handlerModel = HandlerAnnotationScanner.builder()
                                                             .processingEnvironment(processingEnv)
                                                             .metaModel(this.metaModel)
                                                             .handlerElement(handlerElement)
@@ -546,11 +547,11 @@ public class NaluProcessor
       // added to the the meta model
       //
       // in case it is, remove it.
-      final String handlerClassname = handlerModel.getClassName();
-      Optional<ClassNameModel> optional = this.metaModel.getHandlers()
-                                                        .stream()
-                                                        .filter(s -> handlerClassname.equals(s.getClassName()))
-                                                        .findFirst();
+      final String handlerClassname = handlerModel.getHandler().getClassName();
+      Optional<HandlerModel> optional = this.metaModel.getHandlers()
+                                                      .stream()
+                                                      .filter(s -> handlerClassname.equals(s.getHandler().getClassName()))
+                                                      .findFirst();
       optional.ifPresent(optionalHandler -> this.metaModel.getHandlers()
                                                           .remove(optionalHandler));
       // save handler data in metaModel

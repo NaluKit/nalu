@@ -16,7 +16,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2022.04.15-18:18:15<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2022.04.16-09:38:04<<
  */
 public final class ApplicationWithHandlerOkImpl extends AbstractApplication<MockContext> implements ApplicationWithHandlerOk {
   public ApplicationWithHandlerOkImpl() {
@@ -91,8 +91,8 @@ public final class ApplicationWithHandlerOkImpl extends AbstractApplication<Mock
     com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setContext(super.context);
     com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setEventBus(super.eventBus);
     com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.setRouter(super.router);
-    com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.bind();
     super.eventBus.addHandler(MockEvent01.TYPE, e -> com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.onMockEvent01(e));
+    com_github_nalukit_nalu_processor_eventhandler_eventhandlerOnAHandlerOK_EventHandlerOnAHandlerOk.bind();
   }
 
   @Override

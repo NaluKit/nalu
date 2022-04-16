@@ -65,37 +65,44 @@ public class HandlerGenerator {
 
     this.metaModel.getHandlers()
                   .forEach(handler -> {
-                    String variableName = this.processorUtils.createFullClassName(handler.getPackage(),
-                                                                                  handler.getSimpleName());
+                    String variableName = this.processorUtils.createFullClassName(handler.getHandler()
+                                                                                         .getPackage(),
+                                                                                  handler.getHandler()
+                                                                                         .getSimpleName());
                     loadHandlersMethod.addStatement("$T $L = new $T()",
-                                                    ClassName.get(handler.getPackage(),
-                                                                  handler.getSimpleName()),
+                                                    ClassName.get(handler.getHandler()
+                                                                         .getPackage(),
+                                                                  handler.getHandler()
+                                                                         .getSimpleName()),
                                                     variableName,
-                                                    ClassName.get(handler.getPackage(),
-                                                                  handler.getSimpleName()))
+                                                    ClassName.get(handler.getHandler()
+                                                                         .getPackage(),
+                                                                  handler.getHandler()
+                                                                         .getSimpleName()))
                                       .addStatement("$L.setContext(super.context)",
                                                     variableName)
                                       .addStatement("$L.setEventBus(super.eventBus)",
                                                     variableName)
                                       .addStatement("$L.setRouter(super.router)",
-                                                    variableName)
-                                      .addStatement("$L.bind()",
                                                     variableName);
 
-                    this.metaModel.getEventHandlerModelsForClass(handler.getClassName())
-                                  .forEach(m -> {
-                                    EventModel eventModel = this.metaModel.getEventMaodel(m.getEvent()
-                                                                                           .getClassName());
-                                    if (!Objects.isNull(eventModel)) {
-                                      loadHandlersMethod.addStatement("super.eventBus.addHandler($T.TYPE, e -> $L.$L(e))",
-                                                                      ClassName.get(eventModel.getEvent()
-                                                                                              .getPackage(),
-                                                                                    eventModel.getEvent()
-                                                                                              .getSimpleName()),
-                                                                      variableName,
-                                                                      m.getMethodName());
-                                    }
-                                  });
+                    handler.getEventHandlers()
+                           .forEach(m -> {
+                             EventModel eventModel = handler.getEventModel(m.getEvent()
+                                                                            .getClassName());
+                             if (!Objects.isNull(eventModel)) {
+                               loadHandlersMethod.addStatement("super.eventBus.addHandler($T.TYPE, e -> $L.$L(e))",
+                                                               ClassName.get(eventModel.getEvent()
+                                                                                       .getPackage(),
+                                                                             eventModel.getEvent()
+                                                                                       .getSimpleName()),
+                                                               variableName,
+                                                               m.getMethodName());
+                             }
+                           });
+
+                    loadHandlersMethod.addStatement("$L.bind()",
+                                                    variableName);
                   });
 
     typeSpec.addMethod(loadHandlersMethod.build());

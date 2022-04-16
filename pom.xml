@@ -86,8 +86,8 @@
   </distributionManagement>
 
   <properties>
-<!--    <revision>HEAD-SNAPSHOT</revision>-->
-    <revision>feature-260</revision>
+    <revision>HEAD-SNAPSHOT</revision>
+<!--    <revision>feature-260</revision>-->
     <github.global.server>github</github.global.server>
 
     <auto-common.version>1.0</auto-common.version>
