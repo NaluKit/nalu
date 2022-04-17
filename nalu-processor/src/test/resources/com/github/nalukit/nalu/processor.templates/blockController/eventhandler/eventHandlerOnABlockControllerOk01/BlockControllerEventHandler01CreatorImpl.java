@@ -13,7 +13,7 @@ import java.lang.Override;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2022.04.17-14:02:22<<
+ * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.16-20:35:13<<
  */
 public final class BlockControllerEventHandler01CreatorImpl extends AbstractBlockControllerCreator<MockContext> implements IsBlockControllerCreator {
   public BlockControllerEventHandler01CreatorImpl(IsRouter router, MockContext context,

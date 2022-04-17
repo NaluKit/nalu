@@ -58,11 +58,13 @@ public class MetaModel {
   private boolean                            hasPluginsAnnotation;
   private boolean                            hasLoggerAnnotation;
   private boolean                            hasTrackerAnnotation;
+  // TODO auf TrackerModel mit Event & EventHandler umstellen!
   private ClassNameModel                     tracker;
   private List<ControllerModel>              controllers;
   private List<BlockControllerModel>         blockControllers;
   private List<ParameterConstraintRuleModel> parameterConstraintRules;
   private List<PopUpControllerModel>         popUpControllers;
+  // TODO auf FilterModel mit Event & EventHandler umstellen!
   private List<ClassNameModel>               filters;
   private List<ClassNameModel>               popUpFilters;
   private List<HandlerModel>                 handlers;
