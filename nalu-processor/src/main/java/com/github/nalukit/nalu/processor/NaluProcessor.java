@@ -47,7 +47,6 @@ import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ErrorPopUpControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.EventHandlerModel;
 import com.github.nalukit.nalu.processor.model.intern.HandlerModel;
 import com.github.nalukit.nalu.processor.model.intern.ModuleModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleModel;
@@ -59,7 +58,6 @@ import com.github.nalukit.nalu.processor.scanner.CompositeControllerAnnotationSc
 import com.github.nalukit.nalu.processor.scanner.CompositesAnnotationScanner;
 import com.github.nalukit.nalu.processor.scanner.ControllerAnnotationScanner;
 import com.github.nalukit.nalu.processor.scanner.ErrorPopUpControllerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.EventHandlerAnnotationScanner;
 import com.github.nalukit.nalu.processor.scanner.FiltersAnnotationScanner;
 import com.github.nalukit.nalu.processor.scanner.HandlerAnnotationScanner;
 import com.github.nalukit.nalu.processor.scanner.LoggerAnnotationScanner;
@@ -77,7 +75,6 @@ import com.github.nalukit.nalu.processor.scanner.validation.CompositeControllerA
 import com.github.nalukit.nalu.processor.scanner.validation.ConsistenceValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.ControllerAnnotationValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.ErrorPopUpControllerAnnotationValidator;
-import com.github.nalukit.nalu.processor.scanner.validation.EventHandlerAnnotationValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.FiltersAnnotationValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.HandlerAnnotationValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.LoggerAnnotationValidator;
@@ -515,19 +512,21 @@ public class NaluProcessor
                                 .validate();
       // scan handler element
       HandlerModel handlerModel = HandlerAnnotationScanner.builder()
-                                                            .processingEnvironment(processingEnv)
-                                                            .metaModel(this.metaModel)
-                                                            .handlerElement(handlerElement)
-                                                            .build()
-                                                            .scan();
+                                                          .processingEnvironment(processingEnv)
+                                                          .metaModel(this.metaModel)
+                                                          .handlerElement(handlerElement)
+                                                          .build()
+                                                          .scan();
       // check, if the handler is already
       // added to the the meta model
       //
       // in case it is, remove it.
-      final String handlerClassname = handlerModel.getHandler().getClassName();
+      final String handlerClassname = handlerModel.getHandler()
+                                                  .getClassName();
       Optional<HandlerModel> optional = this.metaModel.getHandlers()
                                                       .stream()
-                                                      .filter(s -> handlerClassname.equals(s.getHandler().getClassName()))
+                                                      .filter(s -> handlerClassname.equals(s.getHandler()
+                                                                                            .getClassName()))
                                                       .findFirst();
       optional.ifPresent(optionalHandler -> this.metaModel.getHandlers()
                                                           .remove(optionalHandler));
