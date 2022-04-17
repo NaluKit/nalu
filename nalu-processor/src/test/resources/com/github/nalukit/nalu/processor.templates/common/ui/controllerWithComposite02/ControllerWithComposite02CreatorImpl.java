@@ -38,6 +38,7 @@ public final class ControllerWithComposite02CreatorImpl extends AbstractControll
       controller.setCached(false);
       controller.setRelatedRoute(route);
       controller.setRelatedSelector("selector02");
+      controller.setActivateNaluCommand(() -> {});
     } else {
       controllerInstance.setController(storedController);
       controllerInstance.setCached(true);

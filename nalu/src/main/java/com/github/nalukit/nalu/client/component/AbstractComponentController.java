@@ -19,6 +19,7 @@ package com.github.nalukit.nalu.client.component;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
+import com.github.nalukit.nalu.client.internal.NaluCommand;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.HashMap;
@@ -45,6 +46,8 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   private   boolean                                           cached;
   /* redraw mode */
   private   Mode                                              mode;
+  /* internal Nalu request. Don't use this */
+  private   NaluCommand                                       activateNaluCommand;
 
   public AbstractComponentController() {
     super();
@@ -324,4 +327,36 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
 
   }
 
+  /**
+   * Gets the activate Nalu command. This will used by Nalu.
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @return
+   */
+  @NaluInternalUse
+  public final NaluCommand getActivateNaluCommand() {
+    return activateNaluCommand;
+  }
+
+  /**
+   * Sets the activate Nalu command. This will used by Nalu.
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @param activateNaluCommand Nalu activation command
+   */
+  @NaluInternalUse
+  public final void setActivateNaluCommand(NaluCommand activateNaluCommand) {
+    this.activateNaluCommand = activateNaluCommand;
+  }
+
+  /**
+   * Gets the handler registrations of this controller
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @return handler registrations
+   */
+  @NaluInternalUse
+  public HandlerRegistrations getHandlerRegistrations() {
+    return this.handlerRegistrations;
+  }
 }

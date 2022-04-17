@@ -150,12 +150,30 @@ public class ControllerCreatorGenerator {
                                           .addStatement("controller.setCached(false)")
                                           .addStatement("controller.setRelatedRoute(route)")
                                           .addStatement("controller.setRelatedSelector($S)",
-                                                        controllerModel.getSelector())
-                                          .nextControlFlow("else")
-                                          .addStatement("controllerInstance.setController(storedController)")
-                                          .addStatement("controllerInstance.setCached(true)")
-                                          .addStatement("controllerInstance.getController().setCached(true)")
-                                          .endControlFlow();
+                                                        controllerModel.getSelector());
+    if (controllerModel.getEventHandlers()
+                       .size() > 0) {
+      method.beginControlFlow("controller.setActivateNaluCommand(() -> ");
+      this.controllerModel.getEventModels()
+                          .forEach(m -> {
+                            method.addStatement("controller.getHandlerRegistrations().add($T.TYPE, e -> this.$L(e))",
+                                                ClassName.get(m.getEvent()
+                                                               .getPackage(),
+                                                              m.getEvent()
+                                                               .getSimpleName()),
+                                                m.getMethodNameOfHandler());
+                          });
+      method.endControlFlow("")
+            .addStatement(")");
+    } else {
+      method.addStatement("controller.setActivateNaluCommand(() -> {})");
+    }
+
+    method.nextControlFlow("else")
+          .addStatement("controllerInstance.setController(storedController)")
+          .addStatement("controllerInstance.setCached(true)")
+          .addStatement("controllerInstance.getController().setCached(true)")
+          .endControlFlow();
     method.addStatement("return controllerInstance");
     return method.build();
   }

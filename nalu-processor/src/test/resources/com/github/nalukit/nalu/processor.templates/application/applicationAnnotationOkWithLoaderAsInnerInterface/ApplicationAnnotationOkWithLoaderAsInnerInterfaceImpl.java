@@ -1,38 +1,35 @@
-package com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithLoaderAsInnerInterface;
+package com.github.nalukit.nalu.processor.common.application.applicationAnnotationOkWithLoader;
 
 import com.github.nalukit.nalu.client.application.IsLoader;
-import com.github.nalukit.nalu.client.internal.ClientLogger;
+import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
+import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
+import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
-import com.github.nalukit.nalu.processor.application.applicationAnnotationOkWithLoaderAsInnerInterface.ApplicationAnnotationOkWithLoaderAsInnerInterface.MyApplicationLoader;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import java.lang.Override;
-import java.lang.StringBuilder;
 import java.util.Arrays;
 
-public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithLoaderAsInnerInterface {
-  public ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl() {
+/**
+ * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.16-20:35:13<<
+ */
+public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplication<MockContext> implements ApplicationAnnotationOkWithLoader {
+  public ApplicationAnnotationOkWithLoaderImpl() {
     super();
     super.context = new com.github.nalukit.nalu.processor.common.MockContext();
   }
 
   @Override
-  public void logProcessorVersion() {
-    ClientLogger.get().logDetailed("", 0);
-    ClientLogger.get().logDetailed("=================================================================================", 0);
-    StringBuilder sb01 = new StringBuilder();
-    sb01.append("Nalu processor version  >>%VERSION_TAG%<< used to generate this source");
-    ClientLogger.get().logDetailed(sb01.toString(), 0);
-    ClientLogger.get().logDetailed("=================================================================================", 0);
-    ClientLogger.get().logDetailed("", 0);
+  public void loadLoggerConfiguration() {
   }
 
   @Override
-  public void loadDebugConfiguration() {
+  public void logProcessorVersion() {
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>%VERSION_TAG%<< used to generate this source").addMessage("=================================================================================").addMessage(""));
   }
 
   @Override
@@ -42,18 +39,11 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
 
   @Override
   public void loadShells() {
-    StringBuilder sb01 = new StringBuilder();
-    sb01.append("load shell references");
-    ClientLogger.get().logDetailed(sb01.toString(), 2);
     super.shellConfiguration.getShells().add(new ShellConfig("/mockShell", "com.github.nalukit.nalu.processor.common.ui.MockShell"));
-    sb01 = new StringBuilder();
-    sb01.append("register shell >>/mockShell<< with class >>com.github.nalukit.nalu.processor.common.ui.MockShell<<");
-    ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
 
   @Override
   public void loadShellFactory() {
-    // create ShellCreator for: com.github.nalukit.nalu.processor.common.ui.MockShell
     ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.ui.MockShell", new com.github.nalukit.nalu.processor.common.ui.MockShellCreatorImpl(router, context, eventBus));
   }
 
@@ -63,19 +53,16 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
 
   @Override
   public void loadComponents() {
-    // create ControllerCreator for: com.github.nalukit.nalu.processor.common.ui.component01.Controller01
     ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01", new com.github.nalukit.nalu.processor.common.ui.component01.Controller01CreatorImpl(router, context, eventBus));
   }
 
   @Override
   public void loadRoutes() {
-    StringBuilder sb01 = new StringBuilder();
-    sb01.append("load routes");
-    ClientLogger.get().logDetailed(sb01.toString(), 2);
     super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01/*", Arrays.asList(new String[]{"parameter01"}), "selector01", "com.github.nalukit.nalu.processor.common.ui.component01.Controller01"));
-    sb01 = new StringBuilder();
-    sb01.append("register route >>/mockShell/route01/*<< with parameter >>parameter01<< for selector >>selector01<< for controller >>com.github.nalukit.nalu.processor.common.ui.component01.Controller01<<");
-    ClientLogger.get().logDetailed(sb01.toString(), 3);
+  }
+
+  @Override
+  public void loadBlockControllerFactory() {
   }
 
   @Override
@@ -84,6 +71,11 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
 
   @Override
   public void loadPopUpFilters() {
+  }
+
+  @Override
+  public void loadErrorPopUpController() {
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("no ErrorPopUpController found!"));
   }
 
   @Override
@@ -96,9 +88,6 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
 
   @Override
   public void loadCompositeReferences() {
-    StringBuilder sb01 = new StringBuilder();
-    sb01.append("load composite references");
-    ClientLogger.get().logDetailed(sb01.toString(), 2);
   }
 
   @Override
@@ -106,25 +95,33 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   }
 
   @Override
-  public void loadPlugins() {
-    StringBuilder sb01 = new StringBuilder();
+  public void loadModules() {
+    super.onFinishModuleLoading();
   }
 
   @Override
-  public IsLoader<MockContext> getApplicationLoader() {
-    return new MyApplicationLoader();
+  public IsLoader<MockContext> getLoader() {
+    return new MockApplicationLoader();
+  }
+
+  @Override
+  public IsLoader<MockContext> getPostLoader() {
+    return null;
+  }
+
+  @Override
+  public IsCustomAlertPresenter getCustomAlertPresenter() {
+    return null;
+  }
+
+  @Override
+  public IsCustomConfirmPresenter getCustomConfirmPresenter() {
+    return null;
   }
 
   @Override
   public void loadDefaultRoutes() {
-    StringBuilder sb01 = new StringBuilder();
     this.startRoute = "/mockShell/route01";
-    sb01.append("found startRoute >>/mockShell/route01<<");
-    ClientLogger.get().logDetailed(sb01.toString(), 2);
-    sb01 = new StringBuilder();
-    this.errorRoute = "/mockShell/route01";
-    sb01.append("found errorRoute >>/mockShell/route01<<");
-    ClientLogger.get().logDetailed(sb01.toString(), 2);
   }
 
   @Override
@@ -156,5 +153,4 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   public boolean isRemoveUrlParameterAtStart() {
     return false;
   }
-
 }
