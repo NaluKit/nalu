@@ -328,7 +328,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
 
   /**
-   * Gets the activate Nalu command. This will used by Nalu.
+   * Gets the activate Nalu command. This will be used by Nalu in case the controller gets activated.
    * <b>Do not use this method. This will lead to unexpected results</b>
    *
    * @return
@@ -339,7 +339,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
 
   /**
-   * Sets the activate Nalu command. This will used by Nalu.
+   * Sets the activate Nalu command. This will be used by Nalu in case the controller gets activated.
    * <b>Do not use this method. This will lead to unexpected results</b>
    *
    * @param activateNaluCommand Nalu activation command

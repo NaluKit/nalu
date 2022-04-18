@@ -39,6 +39,7 @@ public final class Controller01CreatorImpl extends AbstractControllerCreator<Moc
       controller.setCached(false);
       controller.setRelatedRoute(route);
       controller.setRelatedSelector("selector01");
+      controller.setActivateNaluCommand(() -> {});
     } else {
       controllerInstance.setController(storedController);
       controllerInstance.setCached(true);

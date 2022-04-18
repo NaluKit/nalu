@@ -35,6 +35,7 @@ import com.github.nalukit.nalu.processor.test.HandlerTest;
 import com.github.nalukit.nalu.processor.test.LoggerTest;
 import com.github.nalukit.nalu.processor.test.ModuleTest;
 import com.github.nalukit.nalu.processor.test.ParameterConstraintRuleTest;
+import com.github.nalukit.nalu.processor.test.ParameterConstraintTest;
 import com.github.nalukit.nalu.processor.test.PopUpControllerCreatorTest;
 import com.github.nalukit.nalu.processor.test.PopUpFiltersTest;
 import com.github.nalukit.nalu.processor.test.ShellCreatorTest;
@@ -68,6 +69,7 @@ import org.junit.runner.RunWith;
                  MetaModelTest.class,
                  ModuleTest.class,
                  ParameterConstraintRuleTest.class,
+                 ParameterConstraintTest.class,
                  PopUpControllerCreatorTest.class,
                  PopUpFiltersTest.class,
                  PropertiesTest.class,
