@@ -31,6 +31,7 @@ import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -153,18 +154,20 @@ public class ControllerCreatorGenerator {
                                                         controllerModel.getSelector());
     if (controllerModel.getEventHandlers()
                        .size() > 0) {
-      method.beginControlFlow("controller.setActivateNaluCommand(() -> ");
+      CodeBlock.Builder lambdaBuilder = CodeBlock.builder()
+                                                 .add("() -> {\n")
+                                                 .indent();
       this.controllerModel.getEventModels()
-                          .forEach(m -> {
-                            method.addStatement("controller.getHandlerRegistrations().add($T.TYPE, e -> this.$L(e))",
-                                                ClassName.get(m.getEvent()
-                                                               .getPackage(),
-                                                              m.getEvent()
-                                                               .getSimpleName()),
-                                                m.getMethodNameOfHandler());
-                          });
-      method.endControlFlow("")
-            .addStatement(")");
+                          .forEach(m -> lambdaBuilder.addStatement("controller.getHandlerRegistrations().add(this.eventBus.addHandler($T.TYPE, e -> controller.$L(e)))",
+                                                                 ClassName.get(m.getEvent()
+                                                                    .getPackage(),
+                                                                   m.getEvent()
+                                                                    .getSimpleName()),
+                                                                 m.getMethodNameOfHandler()));
+      lambdaBuilder.unindent()
+                   .add("}");
+      method.addStatement("controller.setActivateNaluCommand($L)",
+                          lambdaBuilder.build().toString());
     } else {
       method.addStatement("controller.setActivateNaluCommand(() -> {})");
     }

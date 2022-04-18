@@ -14,25 +14,26 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk03.content;
+package com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk01.content;
 
-import com.github.nalukit.nalu.client.component.AbstractComponent;
+import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.client.event.annotation.EventHandler;
+import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.event.MockEvent01;
 
-public class Content01Component
-    extends AbstractComponent<IContent01Component.Controller, String>
-    implements IContent01Component {
+@Controller(route = "/mockShell/route01",
+            selector = "selector01",
+            component = Component01.class,
+            componentInterface = IComponent01.class)
+public class Controller01
+    extends AbstractComponentController<MockContext, IComponent01, String>
+    implements IComponent01.Controller {
 
-  public Content01Component() {
-  }
-
-  @Override
-  public void render() {
-    initElement("Content01Component");
+  public Controller01() {
   }
 
   @EventHandler
-  public void handleEvent(MockEvent01 event) {
+  public void onMockEvent01(MockEvent01 event01) {
   }
 }

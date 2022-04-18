@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2020 - Frank Hossfeld
+ * Copyright (c) 2038 - 2020 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -14,15 +14,19 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk01.content;
+package com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03.content;
 
-import com.github.nalukit.nalu.client.component.IsComponent;
+import com.github.nalukit.nalu.client.component.AbstractComponent;
 
-public interface IContent01Component
-    extends IsComponent<IContent01Component.Controller, String> {
+public class Component03
+    extends AbstractComponent<IComponent03.Controller, String>
+    implements IComponent03 {
 
-  interface Controller
-      extends IsComponent.Controller {
+  public Component03() {
+  }
 
+  @Override
+  public void render() {
+    initElement("Component03");
   }
 }

@@ -1,9 +1,8 @@
-package com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk01;
+package com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk01;
 
 import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
-import com.github.nalukit.nalu.client.internal.application.BlockControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
@@ -16,7 +15,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.16-20:35:13<<
+ * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.18-15:37:25<<
  */
 public final class TestApplicationImpl extends AbstractApplication<MockContext> implements TestApplication {
   public TestApplicationImpl() {
@@ -56,17 +55,16 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
 
   @Override
   public void loadComponents() {
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk01.content.Controller01", new com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk01.content.Controller01CreatorImpl(router, context, eventBus));
+    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk01.content.Controller01", new com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk01.content.Controller01CreatorImpl(router, context, eventBus));
   }
 
   @Override
   public void loadRoutes() {
-    super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01", Arrays.asList(new String[]{}), "selector01", "com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk01.content.Controller01"));
+    super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01", Arrays.asList(new String[]{}), "selector01", "com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk01.content.Controller01"));
   }
 
   @Override
   public void loadBlockControllerFactory() {
-    BlockControllerFactory.get().registerBlockController("blockController01", new com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk01.BlockControllerEventHandler01CreatorImpl(router, context, eventBus));
   }
 
   @Override

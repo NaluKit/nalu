@@ -145,12 +145,12 @@ public class EventHandlerAnnotationScanner {
                                             this.processorUtils.getElements()
                                                                .getTypeElement(Event.class.getCanonicalName())
                                                                .asType())) {
-      throw new ProcessorException("NaluProcessor: class >> " +
+      throw new ProcessorException("NaluProcessor: class >>" +
                                    eventElement.getQualifiedName()
                                                .toString() +
                                    "<< - method >>" +
                                    methodName +
-                                   " has wrong data type. Parameter needs to extend org.gwtproject.event.shared.Event");
+                                   "<< has wrong data type. Parameter needs to extend org.gwtproject.event.shared.Event");
     }
 
     TypeMirror gwtEventHandlerTypeMirror = this.getGwtEventHandlerType(eventElement.asType());
@@ -183,12 +183,12 @@ public class EventHandlerAnnotationScanner {
                                             this.processorUtils.getElements()
                                                                .getTypeElement(Event.class.getCanonicalName())
                                                                .asType())) {
-      throw new ProcessorException("NaluProcessor: class >> " +
+      throw new ProcessorException("NaluProcessor: class >>" +
                                    eventElement.getQualifiedName()
                                                .toString() +
                                    "<< - method >>" +
                                    methodName +
-                                   " has wrong data type. Parameter needs to extend org.gwtproject.event.shared.Event");
+                                   "<< has wrong data type. Parameter needs to extend org.gwtproject.event.shared.Event");
     }
 
     TypeMirror gwtEventHandlerTypeMirror = this.getGwtEventHandlerType(eventElement.asType());

@@ -14,20 +14,14 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk01.content;
+package com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03;
 
-import com.github.nalukit.nalu.client.component.AbstractComponentController;
-import com.github.nalukit.nalu.client.component.annotation.Controller;
+import com.github.nalukit.nalu.client.application.IsApplication;
+import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
-@Controller(route = "/mockShell/route01",
-            selector = "selector01",
-            component = Content01Component.class,
-            componentInterface = IContent01Component.class)
-public class Content01Controller
-    extends AbstractComponentController<MockContext, IContent01Component, String>
-    implements IContent01Component.Controller {
-
-  public Content01Controller() {
-  }
+@Application(startRoute = "/mockShell/route01",
+             context = MockContext.class)
+public interface TestApplication
+    extends IsApplication {
 }

@@ -14,20 +14,31 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk02.content;
+package com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerWithWrongParameter;
 
+import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
+import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
-@Controller(route = "/mockShell/route01",
+@Controller(route = "/mockShell/route01/:parameter01",
             selector = "selector01",
-            component = Content01Component.class,
-            componentInterface = IContent01Component.class)
-public class Content01Controller
-    extends AbstractComponentController<MockContext, IContent01Component, String>
-    implements IContent01Component.Controller {
+            component = Component01.class,
+            componentInterface = IComponent01.class)
+public class Controller01
+    extends AbstractComponentController<MockContext, IComponent01, String>
+    implements IComponent01.Controller {
 
-  public Content01Controller() {
+  public Controller01() {
+  }
+
+  @EventHandler
+  public void onMockEvent01(String event) {
+  }
+
+  @AcceptParameter("parameter01")
+  public void setParameter01(String parameter01) {
   }
 }

@@ -56,12 +56,11 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
 
   @Override
   public void loadComponents() {
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk02.content.Content01Controller", new com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk02.content.Content01ControllerCreatorImpl(router, context, eventBus));
-  }
+    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk02.content.Controller01", new com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk02.content.Controller01CreatorImpl(router, context, eventBus));  }
 
   @Override
   public void loadRoutes() {
-    super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01", Arrays.asList(new String[]{}), "selector01", "com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk02.content.Content01Controller"));
+    super.routerConfiguration.getRouters().add(new RouteConfig("/mockShell/route01", Arrays.asList(new String[]{}), "selector01", "com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk02.content.Controller01"));
   }
 
   @Override

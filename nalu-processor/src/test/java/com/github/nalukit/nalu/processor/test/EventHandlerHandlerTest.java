@@ -123,7 +123,7 @@ public class EventHandlerHandlerTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("NaluProcessor: class >> java.lang.String<< - method >>onMockEvent01 has wrong data type. Parameter needs to extend org.gwtproject.event.shared.Event");
+                      .hadErrorContaining("NaluProcessor: class >>java.lang.String<< - method >>onMockEvent01<< has wrong data type. Parameter needs to extend org.gwtproject.event.shared.Event");
   }
 
 }

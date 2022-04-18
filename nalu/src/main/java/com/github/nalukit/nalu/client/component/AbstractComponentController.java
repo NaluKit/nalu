@@ -31,19 +31,19 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
                IsComponent.Controller {
 
   /* component of the controller */
-  protected V                                                 component;
+  protected     V                                                 component;
   /* list of registered global handlers */
-  protected HandlerRegistrations                              globalHandlerRegistrations = new HandlerRegistrations();
+  protected     HandlerRegistrations                              globalHandlerRegistrations = new HandlerRegistrations();
   /* list of registered handlers */
-  protected HandlerRegistrations                              handlerRegistrations       = new HandlerRegistrations();
+  protected     HandlerRegistrations                              handlerRegistrations       = new HandlerRegistrations();
   /* list fo composite controllers */
-  private   Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
+  private final Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
   /* the route the controller is related to */
-  private   String                                            relatedRoute;
+  private       String                                            relatedRoute;
   /* the selector the controller is related to */
-  private   String                                            relatedSelector;
+  private       String                                            relatedSelector;
   /* flag, if the controller is cached or not */
-  private   boolean                                           cached;
+  private       boolean                                           cached;
   /* redraw mode */
   private   Mode                                              mode;
   /* internal Nalu request. Don't use this */
@@ -356,6 +356,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * @return handler registrations
    */
   @NaluInternalUse
+  @Deprecated
   public HandlerRegistrations getHandlerRegistrations() {
     return this.handlerRegistrations;
   }

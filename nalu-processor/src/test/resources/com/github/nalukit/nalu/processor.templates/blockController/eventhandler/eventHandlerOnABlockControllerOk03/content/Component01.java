@@ -14,22 +14,22 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk02.content;
+package com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk03.content;
 
 import com.github.nalukit.nalu.client.component.AbstractComponent;
 import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.processor.common.event.MockEvent01;
 
-public class Content01Component
-    extends AbstractComponent<IContent01Component.Controller, String>
-    implements IContent01Component {
+public class Component01
+    extends AbstractComponent<IComponent01.Controller, String>
+    implements IComponent01 {
 
-  public Content01Component() {
+  public Component01() {
   }
 
   @Override
   public void render() {
-    initElement("Content01Component");
+    initElement("Component01");
   }
 
   @EventHandler

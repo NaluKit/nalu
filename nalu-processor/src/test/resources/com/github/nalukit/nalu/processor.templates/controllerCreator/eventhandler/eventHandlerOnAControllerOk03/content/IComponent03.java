@@ -14,12 +14,12 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerOnABlockControllerOk02.content;
+package com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03.content;
 
 import com.github.nalukit.nalu.client.component.IsComponent;
 
-public interface IContent01Component
-    extends IsComponent<IContent01Component.Controller, String> {
+public interface IComponent03
+    extends IsComponent<IComponent03.Controller, String> {
 
   interface Controller
       extends IsComponent.Controller {
