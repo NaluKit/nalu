@@ -55,25 +55,31 @@ public class EventHandlerPopUpControllerTest {
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk01/TestApplicationImpl.java"));
   }
 
-//  @Test
-//  void testEventHandlerOnAControllerOk02() {
-//    Compilation compilation = javac().withProcessors(new NaluProcessor())
-//                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/TestApplication.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/content/Controller01.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/content/Component01.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/content/IComponent01.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
-//                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java")));
-//    CompilationSubject.assertThat(compilation)
-//                      .succeeded();
-//    CompilationSubject.assertThat(compilation)
-//                      .generatedSourceFile("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/content/Controller01CreatorImpl")
-//                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/content/Controller01CreatorImpl.java"));
-//    CompilationSubject.assertThat(compilation)
-//                      .generatedSourceFile("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/TestApplicationImpl")
-//                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/TestApplicationImpl.java"));
-//  }
-//
+  @Test
+  void testEventHandlerOnAControllerOk02() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/TestApplication.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/content/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/content/Component01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/content/IComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/popUp/PopUpController01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/popUp/PopUpComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/popUp/IPopUpComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java")));
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/popUp/PopUpController01CreatorImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/popUp/PopUpController01CreatorImpl.java"));
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/content/Controller01CreatorImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/content/Controller01CreatorImpl.java"));
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/TestApplicationImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/popUpControllerCreator/eventhandler/eventHandlerOnAPopUpControllerOk02/TestApplicationImpl.java"));
+  }
+
 //  @Test
 //  void testEventHandlerOnAControllerOk03() {
 //    Compilation compilation = javac().withProcessors(new NaluProcessor())
