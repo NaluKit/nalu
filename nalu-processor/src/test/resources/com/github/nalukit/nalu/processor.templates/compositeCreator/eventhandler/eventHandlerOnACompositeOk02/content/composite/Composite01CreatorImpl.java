@@ -1,4 +1,4 @@
-package com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.composite;
+package com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk02.content.composite;
 
 import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.component.AbstractCompositeController;
@@ -23,8 +23,8 @@ public final class Composite01CreatorImpl extends AbstractCompositeCreator<MockC
   public CompositeInstance create(String parentControllerClassName, String selector,
                                   boolean scopeGlobal) throws RoutingInterceptionException {
     CompositeInstance compositeInstance = new CompositeInstance();
-    compositeInstance.setCompositeClassName("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.composite.Composite01");
-    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.get().getCompositeFormStore(parentControllerClassName, "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.composite.Composite01", selector);
+    compositeInstance.setCompositeClassName("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk02.content.composite.Composite01");
+    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.get().getCompositeFormStore(parentControllerClassName, "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk02.content.composite.Composite01", selector);
     if (storedComposite == null) {
       Composite01 composite = new Composite01();
       compositeInstance.setComposite(composite);
@@ -39,6 +39,7 @@ public final class Composite01CreatorImpl extends AbstractCompositeCreator<MockC
       }
       composite.setActivateNaluCommand(() -> {
         composite.getHandlerRegistrations().add(this.eventBus.addHandler(com.github.nalukit.nalu.processor.common.event.MockEvent01.TYPE, e -> composite.onMockEvent01(e)));
+        composite.getHandlerRegistrations().add(this.eventBus.addHandler(com.github.nalukit.nalu.processor.common.event.MockEvent02.TYPE, e -> composite.onMockEvent02(e)));
       });
       ICompositeComponent01 component = new CompositeComponent01();
       component.setController(composite);

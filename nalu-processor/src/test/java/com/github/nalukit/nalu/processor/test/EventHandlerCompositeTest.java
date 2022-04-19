@@ -29,107 +29,121 @@ import static com.google.testing.compile.Compiler.javac;
 @SuppressWarnings("serial")
 public class EventHandlerCompositeTest {
 
-    @Test
-    void testEventHandlerOnACompositeOk01() {
-      Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                       .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/TestApplication.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/composite/Composite01.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/composite/CompositeComponent01.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/composite/ICompositeComponent01.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/Controller01.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/Component01.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/IComponent01.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java")));
-      CompilationSubject.assertThat(compilation)
-                        .succeeded();
-      CompilationSubject.assertThat(compilation)
-                        .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/composite/Composite01CreatorImpl")
-                        .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/composite/Composite01CreatorImpl.java"));
-      CompilationSubject.assertThat(compilation)
-                        .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/Controller01CreatorImpl")
-                        .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/Controller01CreatorImpl.java"));
-      CompilationSubject.assertThat(compilation)
-                        .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/TestApplicationImpl")
-                        .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/TestApplicationImpl.java"));
-    }
+  @Test
+  void testEventHandlerOnACompositeOk01() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/TestApplication.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/composite/Composite01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/composite/CompositeComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/composite/ICompositeComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/Component01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/IComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java")));
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/composite/Composite01CreatorImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/composite/Composite01CreatorImpl.java"));
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/Controller01CreatorImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/content/Controller01CreatorImpl.java"));
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/TestApplicationImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk01/TestApplicationImpl.java"));
+  }
 
-  //  @Test
-  //  void testEventHandlerOnACompositeOk02() {
-  //    Compilation compilation = javac().withProcessors(new NaluProcessor())
-  //                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/TestApplication.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/Composite01.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/CompositeComponent01.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/ICompositeComponent01.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java")));
-  //    CompilationSubject.assertThat(compilation)
-  //                      .succeeded();
-  //    CompilationSubject.assertThat(compilation)
-  //                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/Composite01CreatorImpl")
-  //                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/Composite01CreatorImpl.java"));
-  //    CompilationSubject.assertThat(compilation)
-  //                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/TestApplicationImpl")
-  //                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/TestApplicationImpl.java"));
-  //  }
-  //
-  //  @Test
-  //  void testEventHandlerOnACompositeOk03() {
-  //    Compilation compilation = javac().withProcessors(new NaluProcessor())
-  //                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/TestApplication.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Composite01.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/CompositeComponent01.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/ICompositeComponent01.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Controller02.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Component02.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/IComponent02.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Controller03.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Component03.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/IComponent03.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
-  //                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java")));
-  //    CompilationSubject.assertThat(compilation)
-  //                      .succeeded();
-  //    CompilationSubject.assertThat(compilation)
-  //                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Composite01CreatorImpl")
-  //                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Composite01CreatorImpl.java"));
-  //   CompilationSubject.assertThat(compilation)
-  //                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Controller02CreatorImpl")
-  //                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Controller02CreatorImpl.java"));
-  //   CompilationSubject.assertThat(compilation)
-  //                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Controller03CreatorImpl")
-  //                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Controller03CreatorImpl.java"));
-  //    CompilationSubject.assertThat(compilation)
-  //                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/TestApplicationImpl")
-  //                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/TestApplicationImpl.java"));
-  //  }
+  @Test
+  void testEventHandlerOnACompositeOk02() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/TestApplication.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/composite/Composite01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/composite/CompositeComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/composite/ICompositeComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/Component01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/IComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java")));
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/composite/Composite01CreatorImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/composite/Composite01CreatorImpl.java"));
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/Controller01CreatorImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/content/Controller01CreatorImpl.java"));
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/TestApplicationImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk02/TestApplicationImpl.java"));
+  }
 
-    @Test
-    void testErrorEventHandlerMethodWithoutParameter() {
-      Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                       .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerMethodWithoutParameter/Composite01.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerMethodWithoutParameter/CompositeComponent01.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerMethodWithoutParameter/ICompositeComponent01.java")));
-      CompilationSubject.assertThat(compilation)
-                        .failed();
-      CompilationSubject.assertThat(compilation)
-                        .hadErrorContaining("NaluProcessor: @EventHandler -> method >> onMockEvent01<< should have only one parameter and that should be an event");
-    }
+  @Test
+  void testEventHandlerOnACompositeOk03() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/TestApplication.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/Composite01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/CompositeComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/ICompositeComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/Composite02.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/CompositeComponent02.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/ICompositeComponent02.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/Composite03.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/CompositeComponent03.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/ICompositeComponent03.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Component01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/IComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java")));
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/Composite01CreatorImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/Composite01CreatorImpl.java"));
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/Composite02CreatorImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/Composite02CreatorImpl.java"));
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/Composite03CreatorImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/composite/Composite03CreatorImpl.java"));
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Controller01CreatorImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/content/Controller01CreatorImpl.java"));
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/TestApplicationImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerOnACompositeOk03/TestApplicationImpl.java"));
+  }
 
-    @Test
-    void testErrorEventHandlerMethodWithTwoParameter() {
-      Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                       .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerMethodWithTwoParameter/Composite01.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerMethodWithTwoParameter/CompositeComponent01.java"),
-                                                              JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerMethodWithTwoParameter/ICompositeComponent01.java")));
-      CompilationSubject.assertThat(compilation)
-                        .failed();
-      CompilationSubject.assertThat(compilation)
-                        .hadErrorContaining("NaluProcessor: @EventHandler -> method >> onMockEvent01<< should have only one parameter and that should be an event");
-    }
+  @Test
+  void testErrorEventHandlerMethodWithoutParameter() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerMethodWithoutParameter/Composite01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerMethodWithoutParameter/CompositeComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerMethodWithoutParameter/ICompositeComponent01.java")));
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("NaluProcessor: @EventHandler -> method >> onMockEvent01<< should have only one parameter and that should be an event");
+  }
+
+  @Test
+  void testErrorEventHandlerMethodWithTwoParameter() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerMethodWithTwoParameter/Composite01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerMethodWithTwoParameter/CompositeComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/compositeCreator/eventhandler/eventHandlerMethodWithTwoParameter/ICompositeComponent01.java")));
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("NaluProcessor: @EventHandler -> method >> onMockEvent01<< should have only one parameter and that should be an event");
+  }
 
   @Test
   void testErrorEventHandlerMethodWithWrongParameter() {

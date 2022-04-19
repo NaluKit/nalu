@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.composite;
+package com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk02.content.composite;
 
 import com.github.nalukit.nalu.client.component.AbstractCompositeController;
 import com.github.nalukit.nalu.client.component.annotation.CompositeController;
@@ -22,6 +22,7 @@ import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import elemental2.dom.HTMLElement;
 import com.github.nalukit.nalu.processor.common.event.MockEvent01;
+import com.github.nalukit.nalu.processor.common.event.MockEvent02;
 
 @CompositeController(componentInterface = ICompositeComponent01.class,
                      component = CompositeComponent01.class)
@@ -34,6 +35,10 @@ public class Composite01
 
   @EventHandler
   public void onMockEvent01(MockEvent01 event01) {
+  }
+
+  @EventHandler
+  public void onMockEvent02(MockEvent02 event02) {
   }
 
 }

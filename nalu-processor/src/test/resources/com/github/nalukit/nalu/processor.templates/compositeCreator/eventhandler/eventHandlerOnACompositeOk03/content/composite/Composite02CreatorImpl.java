@@ -1,4 +1,4 @@
-package com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.composite;
+package com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite;
 
 import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.component.AbstractCompositeController;
@@ -13,20 +13,20 @@ import java.lang.String;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.19-10:29:36<<
+ * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.19-11:55:40<<
  */
-public final class Composite01CreatorImpl extends AbstractCompositeCreator<MockContext> implements IsCompositeCreator {
-  public Composite01CreatorImpl(IsRouter router, MockContext context, SimpleEventBus eventBus) {
+public final class Composite02CreatorImpl extends AbstractCompositeCreator<MockContext> implements IsCompositeCreator {
+  public Composite02CreatorImpl(IsRouter router, MockContext context, SimpleEventBus eventBus) {
     super(router, context, eventBus);
   }
 
   public CompositeInstance create(String parentControllerClassName, String selector,
                                   boolean scopeGlobal) throws RoutingInterceptionException {
     CompositeInstance compositeInstance = new CompositeInstance();
-    compositeInstance.setCompositeClassName("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.composite.Composite01");
-    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.get().getCompositeFormStore(parentControllerClassName, "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.composite.Composite01", selector);
+    compositeInstance.setCompositeClassName("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite02");
+    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.get().getCompositeFormStore(parentControllerClassName, "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite02", selector);
     if (storedComposite == null) {
-      Composite01 composite = new Composite01();
+      Composite02 composite = new Composite02();
       compositeInstance.setComposite(composite);
       composite.setParentClassName(parentControllerClassName);
       composite.setCached(false);
@@ -37,10 +37,8 @@ public final class Composite01CreatorImpl extends AbstractCompositeCreator<MockC
       if (!scopeGlobal) {
         composite.setSelector(selector);
       }
-      composite.setActivateNaluCommand(() -> {
-        composite.getHandlerRegistrations().add(this.eventBus.addHandler(com.github.nalukit.nalu.processor.common.event.MockEvent01.TYPE, e -> composite.onMockEvent01(e)));
-      });
-      ICompositeComponent01 component = new CompositeComponent01();
+      composite.setActivateNaluCommand(() -> {});
+      ICompositeComponent02 component = new CompositeComponent02();
       component.setController(composite);
       composite.setComponent(component);
       component.render();
