@@ -14,13 +14,13 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.compositeCreator.ok;
+package com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerMethodWithoutParameter;
 
 import com.github.nalukit.nalu.client.component.IsCompositeComponent;
 import elemental2.dom.HTMLElement;
 
-public interface ICompositeComponent
-    extends IsCompositeComponent<ICompositeComponent.Controller, HTMLElement> {
+public interface ICompositeComponent01
+    extends IsCompositeComponent<ICompositeComponent01.Controller, HTMLElement> {
 
   interface Controller
       extends IsCompositeComponent.Controller {

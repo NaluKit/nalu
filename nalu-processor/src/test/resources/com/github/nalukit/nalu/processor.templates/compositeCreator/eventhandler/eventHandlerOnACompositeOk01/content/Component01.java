@@ -14,17 +14,25 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.compositeCreator.ok;
+package com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content;
 
-import com.github.nalukit.nalu.client.component.IsCompositeComponent;
+import com.github.nalukit.nalu.client.component.AbstractComponent;
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 
-public interface ICompositeComponent
-    extends IsCompositeComponent<ICompositeComponent.Controller, HTMLElement> {
+import static elemental2.dom.DomGlobal.document;
 
-  interface Controller
-      extends IsCompositeComponent.Controller {
+public class Component01
+    extends AbstractComponent<IComponent01.Controller, HTMLElement>
+    implements IComponent01 {
 
+  public Component01() {
+  }
+
+  @Override
+  public void render() {
+    HTMLDivElement divElemet = (HTMLDivElement) document.createElement("div");
+    initElement(divElemet);
   }
 
 }

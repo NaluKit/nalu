@@ -14,17 +14,14 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.compositeCreator.ok;
+package com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01;
 
-import com.github.nalukit.nalu.client.component.IsCompositeComponent;
-import elemental2.dom.HTMLElement;
+import com.github.nalukit.nalu.client.application.IsApplication;
+import com.github.nalukit.nalu.client.application.annotation.Application;
+import com.github.nalukit.nalu.processor.common.MockContext;
 
-public interface ICompositeComponent
-    extends IsCompositeComponent<ICompositeComponent.Controller, HTMLElement> {
-
-  interface Controller
-      extends IsCompositeComponent.Controller {
-
-  }
-
+@Application(startRoute = "/mockShell/route01",
+             context = MockContext.class)
+public interface TestApplication
+    extends IsApplication {
 }

@@ -152,22 +152,23 @@ public class ControllerCreatorGenerator {
                                           .addStatement("controller.setRelatedRoute(route)")
                                           .addStatement("controller.setRelatedSelector($S)",
                                                         controllerModel.getSelector());
-    if (controllerModel.getEventHandlers()
-                       .size() > 0) {
+    if (this.controllerModel.getEventHandlers()
+                            .size() > 0) {
       CodeBlock.Builder lambdaBuilder = CodeBlock.builder()
                                                  .add("() -> {\n")
                                                  .indent();
       this.controllerModel.getEventModels()
                           .forEach(m -> lambdaBuilder.addStatement("controller.getHandlerRegistrations().add(this.eventBus.addHandler($T.TYPE, e -> controller.$L(e)))",
-                                                                 ClassName.get(m.getEvent()
-                                                                    .getPackage(),
-                                                                   m.getEvent()
-                                                                    .getSimpleName()),
-                                                                 m.getMethodNameOfHandler()));
+                                                                   ClassName.get(m.getEvent()
+                                                                                  .getPackage(),
+                                                                                 m.getEvent()
+                                                                                  .getSimpleName()),
+                                                                   m.getMethodNameOfHandler()));
       lambdaBuilder.unindent()
                    .add("}");
       method.addStatement("controller.setActivateNaluCommand($L)",
-                          lambdaBuilder.build().toString());
+                          lambdaBuilder.build()
+                                       .toString());
     } else {
       method.addStatement("controller.setActivateNaluCommand(() -> {})");
     }

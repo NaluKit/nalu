@@ -27,22 +27,29 @@ public class CompositeModel {
   private ClassNameModel               component;
   private ClassNameModel               context;
   private List<ParameterAcceptorModel> parameterAcceptors;
-
+  private List<EventHandlerModel> eventHandlers;
+  private List<EventModel>        eventModels;
   private boolean componentCreator;
 
   public CompositeModel() {
+    this.eventHandlers      = new ArrayList<>();
+    this.eventModels        = new ArrayList<>();
   }
 
   public CompositeModel(ClassNameModel context,
                         ClassNameModel provider,
                         ClassNameModel componentInterface,
                         ClassNameModel component,
-                        boolean componentCreator) {
+                        boolean componentCreator,
+                        List<EventHandlerModel> eventHandlers,
+                        List<EventModel> eventModels) {
     this.context            = context;
     this.provider           = provider;
     this.componentInterface = componentInterface;
     this.component          = component;
     this.componentCreator   = componentCreator;
+    this.eventHandlers = eventHandlers;
+    this.eventModels   = eventModels;
 
     this.parameterAcceptors = new ArrayList<>();
   }
@@ -105,6 +112,32 @@ public class CompositeModel {
 
   public void setComponentCreator(boolean componentCreator) {
     this.componentCreator = componentCreator;
+  }
+
+  public List<EventHandlerModel> getEventHandlers() {
+    return eventHandlers;
+  }
+
+  public void setEventHandlers(List<EventHandlerModel> eventHandlers) {
+    this.eventHandlers = eventHandlers;
+  }
+
+  public List<EventModel> getEventModels() {
+    return eventModels;
+  }
+
+  public void setEventModels(List<EventModel> eventModels) {
+    this.eventModels = eventModels;
+  }
+
+  public EventModel getEventModel(String className) {
+    return this.getEventModels()
+               .stream()
+               .filter(c -> c.getEvent()
+                             .getClassName()
+                             .equals(className))
+               .findFirst()
+               .orElse(null);
   }
 
 }

@@ -1126,11 +1126,21 @@ abstract class AbstractRouter
           }
         }
         // let's call active for all related composite
-        compositeControllers.forEach(AbstractCompositeController::activate);
+        compositeControllers.forEach(c -> {
+          if (!Objects.isNull(c.getActivateNaluCommand())) {
+            c.getActivateNaluCommand().execute();
+          }
+          c.activate();
+        });
         controllerInstance.getController()
                           .getComposites()
                           .values()
-                          .forEach(AbstractCompositeController::activate);
+                          .forEach(c -> {
+                            if (!Objects.isNull(c.getActivateNaluCommand())) {
+                              c.getActivateNaluCommand().execute();
+                            }
+                            c.activate();
+                          });
         if (!Objects.isNull(controllerInstance.getController()
                                               .getActivateNaluCommand())) {
           controllerInstance.getController()
@@ -1140,17 +1150,20 @@ abstract class AbstractRouter
         controllerInstance.getController()
                           .activate();
       } else {
-        compositeControllers.forEach(s -> {
-          if (!s.isCached()) {
-            s.start();
+        compositeControllers.forEach(c -> {
+          if (!c.isCached()) {
+            c.start();
             // in case we are cached globally we need to set cached
             // to true after the first time the
             // composite is created
-            if (s.isCachedGlobal()) {
-              s.setCached(true);
+            if (c.isCachedGlobal()) {
+              c.setCached(true);
             }
           }
-          s.activate();
+          if (!Objects.isNull(c.getActivateNaluCommand())) {
+            c.getActivateNaluCommand().execute();
+          }
+          c.activate();
         });
         controllerInstance.getController()
                           .start();
