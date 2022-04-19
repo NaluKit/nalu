@@ -27,13 +27,13 @@ public class CompositeModel {
   private ClassNameModel               component;
   private ClassNameModel               context;
   private List<ParameterAcceptorModel> parameterAcceptors;
-  private List<EventHandlerModel> eventHandlers;
-  private List<EventModel>        eventModels;
-  private boolean componentCreator;
+  private List<EventHandlerModel>      eventHandlers;
+  private List<EventModel>             eventModels;
+  private boolean                      componentCreator;
 
   public CompositeModel() {
-    this.eventHandlers      = new ArrayList<>();
-    this.eventModels        = new ArrayList<>();
+    this.eventHandlers = new ArrayList<>();
+    this.eventModels   = new ArrayList<>();
   }
 
   public CompositeModel(ClassNameModel context,
@@ -48,8 +48,8 @@ public class CompositeModel {
     this.componentInterface = componentInterface;
     this.component          = component;
     this.componentCreator   = componentCreator;
-    this.eventHandlers = eventHandlers;
-    this.eventModels   = eventModels;
+    this.eventHandlers      = eventHandlers;
+    this.eventModels        = eventModels;
 
     this.parameterAcceptors = new ArrayList<>();
   }
