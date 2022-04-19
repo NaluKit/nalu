@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.popUpControllerCreator.eventhandler.eventHandlerMethodWithoutParameter;
+package com.github.nalukit.nalu.processor.popUpControllerCreator.eventhandler.eventHandlerOnAPopUpControllerOk03.popUp;
 
 import com.github.nalukit.nalu.client.component.AbstractPopUpComponent;
 

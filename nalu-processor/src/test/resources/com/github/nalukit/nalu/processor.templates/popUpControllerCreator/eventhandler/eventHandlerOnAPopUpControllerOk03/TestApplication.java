@@ -14,31 +14,14 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.popUpControllerCreator.eventhandler.eventHandlerMethodWithoutParameter;
+package com.github.nalukit.nalu.processor.popUpControllerCreator.eventhandler.eventHandlerOnAPopUpControllerOk03;
 
-import com.github.nalukit.nalu.client.component.AbstractPopUpComponent;
+import com.github.nalukit.nalu.client.application.IsApplication;
+import com.github.nalukit.nalu.client.application.annotation.Application;
+import com.github.nalukit.nalu.processor.common.MockContext;
 
-public class PopUpComponent01
-    extends AbstractPopUpComponent<IPopUpComponent01.Controller>
-    implements IPopUpComponent01 {
-
-  public PopUpComponent01() {
-  }
-
-  @Override
-  public void render() {
-  }
-
-  @Override
-  public void bind() {
-  }
-
-  @Override
-  public void show() {
-  }
-
-  @Override
-  public void hide() {
-  }
-
+@Application(startRoute = "/mockShell/route01",
+             context = MockContext.class)
+public interface TestApplication
+    extends IsApplication {
 }

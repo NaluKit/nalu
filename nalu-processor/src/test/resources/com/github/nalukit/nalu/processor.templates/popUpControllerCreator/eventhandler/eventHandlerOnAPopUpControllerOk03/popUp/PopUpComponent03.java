@@ -14,15 +14,15 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.popUpControllerCreator.eventhandler.eventHandlerMethodWithoutParameter;
+package com.github.nalukit.nalu.processor.popUpControllerCreator.eventhandler.eventHandlerOnAPopUpControllerOk03.popUp;
 
 import com.github.nalukit.nalu.client.component.AbstractPopUpComponent;
 
-public class PopUpComponent01
-    extends AbstractPopUpComponent<IPopUpComponent01.Controller>
-    implements IPopUpComponent01 {
+public class PopUpComponent03
+    extends AbstractPopUpComponent<IPopUpComponent03.Controller>
+    implements IPopUpComponent03 {
 
-  public PopUpComponent01() {
+  public PopUpComponent03() {
   }
 
   @Override
