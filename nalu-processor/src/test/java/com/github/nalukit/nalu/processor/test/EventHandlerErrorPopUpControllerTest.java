@@ -45,9 +45,9 @@ public class EventHandlerErrorPopUpControllerTest {
         CompilationSubject.assertThat(compilation)
                           .generatedSourceFile("com/github/nalukit/nalu/processor/errorPopUpController/eventhandler/eventHandlerOnAErrorPopUpControllerOk01/content/Controller01CreatorImpl")
                           .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/errorPopUpController/eventhandler/eventHandlerOnAErrorPopUpControllerOk01/content/Controller01CreatorImpl.java"));
-    //    CompilationSubject.assertThat(compilation)
-    //                      .generatedSourceFile("com/github/nalukit/nalu/processor/errorPopUpController/eventhandler/eventHandlerOnAPopUpControllerOk01/TestApplicationImpl")
-    //                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/errorPopUpController/eventhandler/eventHandlerOnAPopUpControllerOk01/TestApplicationImpl.java"));
+        CompilationSubject.assertThat(compilation)
+                          .generatedSourceFile("com/github/nalukit/nalu/processor/errorPopUpController/eventhandler/eventHandlerOnAErrorPopUpControllerOk01/TestApplicationImpl")
+                          .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/errorPopUpController/eventhandler/eventHandlerOnAErrorPopUpControllerOk01/TestApplicationImpl.java"));
   }
 
   @Test

@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.component.AbstractShell;
 import com.github.nalukit.nalu.client.component.annotation.Shell;
+import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
@@ -61,15 +62,25 @@ public class ShellAnnotationScanner {
                                         .build();
   }
 
-  public ShellModel scan(RoundEnvironment roundEnvironment) {
+  public ShellModel scan(RoundEnvironment roundEnvironment)
+      throws ProcessorException {
     // handle Shells-annotation
     Shell shell = this.shellElement.getAnnotation(Shell.class);
     // get context!
     String context = this.getContextType(shellElement);
+
+    EventHandlerAnnotationScanner.EventMetaData eventMetaData = EventHandlerAnnotationScanner.builder()
+                                                                                             .processingEnvironment(this.processingEnvironment)
+                                                                                             .parentElement(this.shellElement)
+                                                                                             .build()
+                                                                                             .scan();
+
     // add shell model
     return new ShellModel(shell.value(),
                           new ClassNameModel(shellElement.toString()),
-                          new ClassNameModel(context));
+                          new ClassNameModel(context),
+                          eventMetaData.getEventHandlerModels(),
+                          eventMetaData.getEventModels());
   }
 
   private String getContextType(Element element) {
