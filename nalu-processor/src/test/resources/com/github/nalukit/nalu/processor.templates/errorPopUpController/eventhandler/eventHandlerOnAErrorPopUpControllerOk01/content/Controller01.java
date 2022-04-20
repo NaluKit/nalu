@@ -14,29 +14,26 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.popUpControllerCreator.eventhandler.eventHandlerWithWrongParameter;
+package com.github.nalukit.nalu.processor.errorPopUpController.eventhandler.eventHandlerOnAErrorPopUpControllerOk01.content;
 
-import com.github.nalukit.nalu.client.component.AbstractPopUpComponentController;
-import com.github.nalukit.nalu.client.component.annotation.PopUpController;
+import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import com.github.nalukit.nalu.processor.common.event.MockEvent01;
 
-@PopUpController(name = "PopUpController01",
-                 componentInterface = IPopUpComponent01.class,
-                 component = PopUpComponent01.class)
-public class PopUpController01
-    extends AbstractPopUpComponentController<MockContext, IPopUpComponent01>
-    implements IPopUpComponent01.Controller {
+@Controller(route = "/mockShell/route01",
+            selector = "selector01",
+            component = Component01.class,
+            componentInterface = IComponent01.class)
+public class Controller01
+    extends AbstractComponentController<MockContext, IComponent01, String>
+    implements IComponent01.Controller {
 
-  public PopUpController01() {
-  }
-
-  @Override
-  public void show() {
+  public Controller01() {
   }
 
   @EventHandler
-  public void onMockEvent01(String event) {
+  public void onMockEvent01(MockEvent01 event01) {
   }
-
 }

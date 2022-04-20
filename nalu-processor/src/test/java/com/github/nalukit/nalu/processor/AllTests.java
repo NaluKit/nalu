@@ -29,6 +29,7 @@ import com.github.nalukit.nalu.processor.test.ErrorPopUpControllerTest;
 import com.github.nalukit.nalu.processor.test.EventHandlerBlockControllerTest;
 import com.github.nalukit.nalu.processor.test.EventHandlerCompositeTest;
 import com.github.nalukit.nalu.processor.test.EventHandlerControllerTest;
+import com.github.nalukit.nalu.processor.test.EventHandlerErrorPopUpControllerTest;
 import com.github.nalukit.nalu.processor.test.EventHandlerHandlerTest;
 import com.github.nalukit.nalu.processor.test.EventHandlerPopUpControllerTest;
 import com.github.nalukit.nalu.processor.test.EventHandlerTest;
@@ -65,6 +66,7 @@ import org.junit.runner.RunWith;
                  EventHandlerBlockControllerTest.class,
                  EventHandlerCompositeTest.class,
                  EventHandlerControllerTest.class,
+                 EventHandlerErrorPopUpControllerTest.class,
                  EventHandlerHandlerTest.class,
                  EventHandlerPopUpControllerTest.class,
                  FiltersTest.class,

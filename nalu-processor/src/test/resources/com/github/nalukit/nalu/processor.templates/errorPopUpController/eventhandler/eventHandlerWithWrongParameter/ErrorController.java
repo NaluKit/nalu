@@ -14,21 +14,20 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.popUpControllerCreator.eventhandler.eventHandlerWithWrongParameter;
+package com.github.nalukit.nalu.processor.errorPopUpController.eventhandler.eventHandlerWithWrongParameter;
 
-import com.github.nalukit.nalu.client.component.AbstractPopUpComponentController;
-import com.github.nalukit.nalu.client.component.annotation.PopUpController;
+import com.github.nalukit.nalu.client.component.AbstractErrorPopUpComponentController;
+import com.github.nalukit.nalu.client.component.annotation.ErrorPopUpController;
 import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.processor.common.MockContext;
 
-@PopUpController(name = "PopUpController01",
-                 componentInterface = IPopUpComponent01.class,
-                 component = PopUpComponent01.class)
-public class PopUpController01
-    extends AbstractPopUpComponentController<MockContext, IPopUpComponent01>
-    implements IPopUpComponent01.Controller {
+@ErrorPopUpController(componentInterface = IErrorComponent.class,
+                      component = ErrorComponent.class)
+public class ErrorController
+    extends AbstractErrorPopUpComponentController<MockContext, IErrorComponent>
+    implements IErrorComponent.Controller {
 
-  public PopUpController01() {
+  public ErrorController() {
   }
 
   @Override
