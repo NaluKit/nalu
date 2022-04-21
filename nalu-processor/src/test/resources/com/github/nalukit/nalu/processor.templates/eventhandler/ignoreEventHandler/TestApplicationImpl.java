@@ -15,10 +15,10 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.16-20:35:13<<
+ * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.20-22:08:48<<
  */
 public final class TestApplicationImpl extends AbstractApplication<MockContext> implements TestApplication {
-  public GenerateWithoutIsComponentCreatorImpl() {
+  public TestApplicationImpl() {
     super();
     super.context = new com.github.nalukit.nalu.processor.common.MockContext();
   }
