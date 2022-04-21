@@ -16,9 +16,12 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
+import com.github.nalukit.nalu.client.application.annotation.Version;
 import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
+import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
+import com.github.nalukit.nalu.processor.model.intern.TrackerModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -35,14 +38,11 @@ public class TrackerAnnotationScanner {
 
   private Element trackerElement;
 
-  private MetaModel metaModel;
-
   @SuppressWarnings("unused")
   private TrackerAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
     this.trackerElement        = builder.trackerElement;
-    this.metaModel             = builder.metaModel;
     setUp();
   }
 
@@ -53,23 +53,54 @@ public class TrackerAnnotationScanner {
   private void setUp() {
   }
 
-  public MetaModel scan(RoundEnvironment roundEnvironment) {
+  public TrackerModel scan(RoundEnvironment roundEnvironment)
+      throws ProcessorException {
     // handle debug-annotation
-    Tracker trackerAnnotation = trackerElement.getAnnotation(Tracker.class);
+    TrackerModel trackerModel = new TrackerModel(new ClassNameModel(this.trackerElement.toString()));
+    addTrackerInformation(trackerModel);
+    addEventHandlerInformation(trackerModel);
+
+    return trackerModel;
+  }
+
+  private void addEventHandlerInformation(TrackerModel trackerModel)
+      throws ProcessorException {
+    TypeElement trackerClass = getTrackerClass(this.trackerElement.getAnnotation(Tracker.class));
+    EventHandlerAnnotationScanner.EventMetaData eventMetaData = EventHandlerAnnotationScanner.builder()
+                                                                                             .processingEnvironment(this.processingEnvironment)
+                                                                                             .parentElement(trackerClass)
+                                                                                             .build()
+                                                                                             .scan();
+
+    trackerModel.setEventModels(eventMetaData.getEventModels());
+    trackerModel.setEventHandlers(eventMetaData.getEventHandlerModels());
+  }
+
+  private TypeElement getTrackerClass(Tracker trackerAnnotation) {
+    try {
+      trackerAnnotation.value();
+    } catch (MirroredTypeException exception) {
+      return (TypeElement) this.processingEnvironment.getTypeUtils()
+                                                     .asElement(exception.getTypeMirror());
+    }
+    return null;
+  }
+
+  private void addTrackerInformation(TrackerModel trackerModel) {
+    Tracker trackerAnnotation = this.trackerElement.getAnnotation(Tracker.class);
     if (!isNull(trackerAnnotation)) {
-      this.metaModel.setHasTrackerAnnotation(true);
+      trackerModel.setHasTrackerAnnotation(true);
       if (!isNull(getTracker(trackerAnnotation))) {
         TypeElement typeElement = getTracker(trackerAnnotation);
         if (!Objects.isNull(typeElement)) {
-          this.metaModel.setTracker(new ClassNameModel(typeElement.getQualifiedName()
-                                                                  .toString()));
+          trackerModel.setTracker(new ClassNameModel(typeElement.getQualifiedName()
+                                                                .toString()));
         }
       }
     } else {
-      this.metaModel.setHasTrackerAnnotation(false);
-      this.metaModel.setTracker(null);
+      trackerModel.setHasTrackerAnnotation(false);
+      trackerModel.setTracker(null);
     }
-    return this.metaModel;
   }
 
   private TypeElement getTracker(Tracker trackerAnnotation) {
@@ -88,8 +119,6 @@ public class TrackerAnnotationScanner {
 
     Element trackerElement;
 
-    MetaModel metaModel;
-
     public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
       this.processingEnvironment = processingEnvironment;
       return this;
@@ -97,11 +126,6 @@ public class TrackerAnnotationScanner {
 
     public Builder trackerElement(Element debugElement) {
       this.trackerElement = debugElement;
-      return this;
-    }
-
-    public Builder metaModel(MetaModel metaModel) {
-      this.metaModel = metaModel;
       return this;
     }
 

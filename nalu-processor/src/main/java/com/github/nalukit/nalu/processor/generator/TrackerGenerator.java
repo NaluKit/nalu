@@ -17,11 +17,15 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.model.MetaModel;
+import com.github.nalukit.nalu.processor.model.intern.EventModel;
+import com.github.nalukit.nalu.processor.model.intern.TrackerModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
+import java.util.List;
+import java.util.Objects;
 
 public class TrackerGenerator {
 
@@ -35,7 +39,7 @@ public class TrackerGenerator {
 
   private TrackerGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
-    this.typeSpec  = builder.typeSpec;
+    this.typeSpec     = builder.typeSpec;
   }
 
   public static Builder builder() {
@@ -48,18 +52,33 @@ public class TrackerGenerator {
                                                                   .addAnnotation(Override.class)
                                                                   .addModifiers(Modifier.PUBLIC)
                                                                   .returns(ClassName.get(IsTracker.class));
-    if (metaModel.hasTrackerAnnotation()) {
+    TrackerModel trackerModel = metaModel.getTracker();
+    if (!Objects.isNull(trackerModel)) {
       loadTrackerConfigurationMethod.addStatement("$T tracker = new $T()",
-                                                  ClassName.get(metaModel.getTracker()
-                                                                         .getPackage(),
-                                                                metaModel.getTracker()
-                                                                         .getSimpleName()),
-                                                  ClassName.get(metaModel.getTracker()
-                                                                         .getPackage(),
-                                                                metaModel.getTracker()
-                                                                         .getSimpleName()));
+                                                  ClassName.get(trackerModel.getTracker()
+                                                                            .getPackage(),
+                                                                trackerModel.getTracker()
+                                                                            .getSimpleName()),
+                                                  ClassName.get(trackerModel.getTracker()
+                                                                            .getPackage(),
+                                                                trackerModel.getTracker()
+                                                                            .getSimpleName()));
       loadTrackerConfigurationMethod.addStatement("tracker.setContext(super.context)");
       loadTrackerConfigurationMethod.addStatement("tracker.setEventBus(super.eventBus)");
+
+      trackerModel.getEventHandlers()
+             .forEach(m -> {
+               EventModel eventModel = trackerModel.getEventModel(m.getEvent()
+                                                              .getClassName());
+               if (!Objects.isNull(eventModel)) {
+                 loadTrackerConfigurationMethod.addStatement("super.eventBus.addHandler($T.TYPE, e -> tracker.$L(e))",
+                                                 ClassName.get(eventModel.getEvent()
+                                                                         .getPackage(),
+                                                               eventModel.getEvent()
+                                                                         .getSimpleName()),
+                                                 m.getMethodName());
+               }
+             });
       loadTrackerConfigurationMethod.addStatement("tracker.bind()");
       loadTrackerConfigurationMethod.addStatement("return tracker");
     } else {

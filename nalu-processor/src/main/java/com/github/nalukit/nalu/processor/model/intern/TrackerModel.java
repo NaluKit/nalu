@@ -24,6 +24,7 @@ public class TrackerModel {
   private ClassNameModel          tracker;
   private List<EventHandlerModel> eventHandlers;
   private List<EventModel>        eventModels;
+  private boolean                 hasTrackerAnnotation;
 
   private TrackerModel() {
     this.eventHandlers = new ArrayList<>();
@@ -32,6 +33,10 @@ public class TrackerModel {
 
   public TrackerModel(ClassNameModel tracker) {
     this();
+    this.tracker = tracker;
+  }
+
+  public void setTracker(ClassNameModel tracker) {
     this.tracker = tracker;
   }
 
@@ -63,5 +68,13 @@ public class TrackerModel {
                              .equals(className))
                .findFirst()
                .orElse(null);
+  }
+
+  public boolean isHasTrackerAnnotation() {
+    return hasTrackerAnnotation;
+  }
+
+  public void setHasTrackerAnnotation(boolean hasTrackerAnnotation) {
+    this.hasTrackerAnnotation = hasTrackerAnnotation;
   }
 }

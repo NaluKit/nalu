@@ -316,18 +316,26 @@ public class ModuleGenerator {
                                                                                 .build());
 
     this.metaModel.getFilters()
-                  .forEach(classNameModel -> loadFiltersMethod.addStatement("$T $L = new $T()",
-                                                                            ClassName.get(classNameModel.getPackage(),
-                                                                                          classNameModel.getSimpleName()),
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()),
-                                                                            ClassName.get(classNameModel.getPackage(),
-                                                                                          classNameModel.getSimpleName()))
-                                                              .addStatement("$L.setContext(super.moduleContext)",
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()))
-                                                              .addStatement("$L.setEventBus(super.eventBus)",
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName()))
-                                                              .addStatement("routerConfiguration.getFilters().add($L)",
-                                                                            this.processorUtils.createFullClassName(classNameModel.getClassName())));
+                  .forEach(filterModel -> loadFiltersMethod.addStatement("$T $L = new $T()",
+                                                                         ClassName.get(filterModel.getFilter()
+                                                                                                  .getPackage(),
+                                                                                       filterModel.getFilter()
+                                                                                                  .getSimpleName()),
+                                                                         this.processorUtils.createFullClassName(filterModel.getFilter()
+                                                                                                                            .getClassName()),
+                                                                         ClassName.get(filterModel.getFilter()
+                                                                                                  .getPackage(),
+                                                                                       filterModel.getFilter()
+                                                                                                  .getSimpleName()))
+                                                           .addStatement("$L.setContext(super.moduleContext)",
+                                                                         this.processorUtils.createFullClassName(filterModel.getFilter()
+                                                                                                                            .getClassName()))
+                                                           .addStatement("$L.setEventBus(super.eventBus)",
+                                                                         this.processorUtils.createFullClassName(filterModel.getFilter()
+                                                                                                                            .getClassName()))
+                                                           .addStatement("routerConfiguration.getFilters().add($L)",
+                                                                         this.processorUtils.createFullClassName(filterModel.getFilter()
+                                                                                                                            .getClassName())));
 
     typeSpec.addMethod(loadFiltersMethod.build());
   }
@@ -368,14 +376,20 @@ public class ModuleGenerator {
 
     this.metaModel.getHandlers()
                   .forEach(handler -> {
-                    String variableName = this.processorUtils.createFullClassName(handler.getHandler().getPackage(),
-                                                                                  handler.getHandler().getSimpleName());
+                    String variableName = this.processorUtils.createFullClassName(handler.getHandler()
+                                                                                         .getPackage(),
+                                                                                  handler.getHandler()
+                                                                                         .getSimpleName());
                     loadHandlersMethod.addStatement("$T $L = new $T()",
-                                                    ClassName.get(handler.getHandler().getPackage(),
-                                                                  handler.getHandler().getSimpleName()),
+                                                    ClassName.get(handler.getHandler()
+                                                                         .getPackage(),
+                                                                  handler.getHandler()
+                                                                         .getSimpleName()),
                                                     variableName,
-                                                    ClassName.get(handler.getHandler().getPackage(),
-                                                                  handler.getHandler().getSimpleName()))
+                                                    ClassName.get(handler.getHandler()
+                                                                         .getPackage(),
+                                                                  handler.getHandler()
+                                                                         .getSimpleName()))
                                       .addStatement("$L.setContext(super.moduleContext)",
                                                     variableName)
                                       .addStatement("$L.setEventBus(super.eventBus)",
