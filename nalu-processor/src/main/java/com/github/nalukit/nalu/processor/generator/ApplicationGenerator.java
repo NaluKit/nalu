@@ -298,8 +298,7 @@ public class ApplicationGenerator {
                                          typeSpec.build())
                                 .build();
     try {
-      // TODO wieder rausnehmen
-            System.out.println(javaFile.toString());
+//            System.out.println(javaFile.toString());
       javaFile.writeTo(this.processingEnvironment.getFiler());
       //      FileObject fileObject = this.processingEnvironment.getFiler()
       //                                                        .createSourceFile()
