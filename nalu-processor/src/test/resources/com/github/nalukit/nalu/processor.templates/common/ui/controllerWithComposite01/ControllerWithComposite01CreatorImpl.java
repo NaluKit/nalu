@@ -21,7 +21,7 @@ public final class ControllerWithComposite01CreatorImpl extends AbstractControll
                                               SimpleEventBus eventBus) {
     super(router, context, eventBus);
   }
-  
+
   @Override
   public ControllerInstance create(String route) {
     ControllerInstance controllerInstance = new ControllerInstance();
@@ -38,6 +38,7 @@ public final class ControllerWithComposite01CreatorImpl extends AbstractControll
       controller.setCached(false);
       controller.setRelatedRoute(route);
       controller.setRelatedSelector("selector01");
+      controller.setActivateNaluCommand(() -> {});
     } else {
       controllerInstance.setController(storedController);
       controllerInstance.setCached(true);
@@ -45,7 +46,7 @@ public final class ControllerWithComposite01CreatorImpl extends AbstractControll
     }
     return controllerInstance;
   }
-  
+
   @Override
   public void onFinishCreating(Object object) {
     ControllerWithComposite01 controller = (ControllerWithComposite01) object;
@@ -55,7 +56,7 @@ public final class ControllerWithComposite01CreatorImpl extends AbstractControll
     component.render();
     component.bind();
   }
-  
+
   @Override
   public void setParameter(Object object, String... params) throws RoutingInterceptionException {
     ControllerWithComposite01 controller = (ControllerWithComposite01) object;

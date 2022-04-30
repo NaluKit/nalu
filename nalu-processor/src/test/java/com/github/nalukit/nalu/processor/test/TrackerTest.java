@@ -29,7 +29,7 @@ import static com.google.testing.compile.Compiler.javac;
 
 @SuppressWarnings("serial")
 public class TrackerTest {
-  
+
   @Test
   void testTrackerAnnotationOnAMethod() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -39,7 +39,7 @@ public class TrackerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("@Tracker can only be used on a type (interface)");
   }
-  
+
   @Test
   void testTrackerAnnotationOnAClass() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -49,7 +49,7 @@ public class TrackerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Tracker can only be used on a type (interface)");
   }
-  
+
   @Test
   void testTrackerAnnotationWithoutExtendsIsApplication() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -59,7 +59,7 @@ public class TrackerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Tracker can only be used on interfaces that extends IsApplication");
   }
-  
+
   @Test
   public void testTrackerAnnotationOnClassWithoutApplicationAnnotation() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -69,7 +69,7 @@ public class TrackerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: @Tracker can only be used with an interfaces annotated with @Annotation");
   }
-  
+
   @Test
   void testApplicationWithTracker() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
@@ -86,9 +86,9 @@ public class TrackerTest {
                       .generatedSourceFile("com/github/nalukit/nalu/processor/tracker/applicationWithTracker/ApplicationWithTrackerImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/applicationWithTracker/ApplicationWithTrackerImpl.java"));
   }
-  
+
   @Test
-  void testApplicationWithTrackerThatDoesNotExtendsAbstractracker() {
+  void testApplicationWithTrackerThatDoesNotExtendsAbstractTracker() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/applicationWithTrackerError01/ApplicationWithTrackerError01.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/applicationWithTrackerError01/TrackerError01.java"),
@@ -101,5 +101,76 @@ public class TrackerTest {
     CompilationSubject.assertThat(compilation)
                       .hadErrorContaining("Nalu-Processor: value of @Tracker annotation needs to extends AbstractTracker<C>");
   }
-  
+
+  @Test
+  void testApplicationWithTrackerWithEventHandler() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/eventhandler/eventHandlerOnATrackerOk01/ApplicationWithTracker.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/eventhandler/eventHandlerOnATrackerOk01/MockTrackerWithEventHandler.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockTracker.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
+    CompilationSubject.assertThat(compilation)
+                      .succeeded();
+    CompilationSubject.assertThat(compilation)
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/tracker/eventhandler/eventHandlerOnATrackerOk01/ApplicationWithTrackerImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/eventhandler/eventHandlerOnATrackerOk01/ApplicationWithTrackerImpl.java"));
+  }
+
+  @Test
+  void testApplicationWithTrackerWithEventHandlerWithoutParameter() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/eventhandler/eventHandlerMethodWithoutParameter/ApplicationWithTracker.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/eventhandler/eventHandlerMethodWithoutParameter/MockTrackerWithEventHandler.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockTracker.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("NaluProcessor: @EventHandler -> method >> handleEvent<< should have only one parameter and that should be an event");
+  }
+
+  @Test
+  void testApplicationWithTrackerWithEventHandlerWithTwoParameter() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/eventhandler/eventHandlerMethodWithTwoParameter/ApplicationWithTracker.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/eventhandler/eventHandlerMethodWithTwoParameter/MockTrackerWithEventHandler.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockTracker.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("NaluProcessor: @EventHandler -> method >> handleEvent<< should have only one parameter and that should be an event");
+  }
+
+  @Test
+  void testApplicationWithTrackerWithEventHandlerWithWrongParameter() {
+    Compilation compilation = javac().withProcessors(new NaluProcessor())
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/eventhandler/eventHandlerWithWrongParameter/ApplicationWithTracker.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/tracker/eventhandler/eventHandlerWithWrongParameter/MockTrackerWithEventHandler.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockContext.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/MockTracker.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/IComponent01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/component01/Component01.java")));
+    CompilationSubject.assertThat(compilation)
+                      .failed();
+    CompilationSubject.assertThat(compilation)
+                      .hadErrorContaining("NaluProcessor: class >>java.lang.String<< - method >>handleEvent<< has wrong data type. Parameter needs to extend org.gwtproject.event.shared.Event");
+  }
+
+
+
 }

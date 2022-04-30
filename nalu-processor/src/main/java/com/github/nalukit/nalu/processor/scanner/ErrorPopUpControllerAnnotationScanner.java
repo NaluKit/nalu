@@ -89,12 +89,21 @@ public class ErrorPopUpControllerAnnotationScanner {
     if (Objects.isNull(context)) {
       throw new ProcessorException("Nalu-Processor: controller >>" + errorPopUpControllerElement.toString() + "<< does not have a context generic!");
     }
+
+    EventHandlerAnnotationScanner.EventMetaData eventMetaData = EventHandlerAnnotationScanner.builder()
+                                                                                             .processingEnvironment(this.processingEnvironment)
+                                                                                             .parentElement(this.errorPopUpControllerElement)
+                                                                                             .build()
+                                                                                             .scan();
+
     // save model ...
     return new ErrorPopUpControllerModel(new ClassNameModel(context),
                                          new ClassNameModel(errorPopUpControllerElement.toString()),
                                          new ClassNameModel(componentInterfaceTypeElement.toString()),
                                          new ClassNameModel(componentTypeElement.toString()),
-                                         isComponentCreator);
+                                         isComponentCreator,
+                                         eventMetaData.getEventHandlerModels(),
+                                         eventMetaData.getEventModels());
   }
   
   private TypeElement getComponentTypeElement(ErrorPopUpController annotation) {

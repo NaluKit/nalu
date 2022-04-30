@@ -16,19 +16,28 @@
 
 package com.github.nalukit.nalu.processor.model.intern;
 
-public class PopUpControllerModel {
-  
-  private String name;
-  private ClassNameModel context;
-  private ClassNameModel controller;
-  private ClassNameModel componentInterface;
-  private ClassNameModel component;
-  private ClassNameModel provider;
-  public  ClassNameModel condition;
+import java.util.ArrayList;
+import java.util.List;
 
-  private boolean componentCreator;
-  private boolean alwaysRenderComponent;
-  
+public class PopUpControllerModel {
+
+  public  ClassNameModel          condition;
+  private String                  name;
+  private ClassNameModel          context;
+  private ClassNameModel          controller;
+  private ClassNameModel          componentInterface;
+  private ClassNameModel          component;
+  private ClassNameModel          provider;
+  private boolean                 componentCreator;
+  private boolean                 alwaysRenderComponent;
+  private List<EventHandlerModel> eventHandlers;
+  private List<EventModel>        eventModels;
+
+  public PopUpControllerModel() {
+    this.eventHandlers = new ArrayList<>();
+    this.eventModels   = new ArrayList<>();
+  }
+
   public PopUpControllerModel(String name,
                               ClassNameModel context,
                               ClassNameModel controller,
@@ -37,54 +46,60 @@ public class PopUpControllerModel {
                               ClassNameModel provider,
                               ClassNameModel condition,
                               boolean componentCreator,
-                              boolean alwaysRenderComponent) {
-    this.name               = name;
-    this.context            = context;
-    this.controller         = controller;
-    this.componentInterface = componentInterface;
-    this.component          = component;
-    this.provider           = provider;
-    this.componentCreator   = componentCreator;
-    this.condition= condition;
+                              boolean alwaysRenderComponent,
+                              List<EventHandlerModel> eventHandlers,
+                              List<EventModel> eventModels) {
+    this();
+
+    this.name                  = name;
+    this.context               = context;
+    this.controller            = controller;
+    this.componentInterface    = componentInterface;
+    this.component             = component;
+    this.provider              = provider;
+    this.componentCreator      = componentCreator;
+    this.condition             = condition;
     this.alwaysRenderComponent = alwaysRenderComponent;
+    this.eventHandlers         = eventHandlers;
+    this.eventModels           = eventModels;
   }
-  
+
   public String getName() {
     return name;
   }
-  
+
   public void setName(String name) {
     this.name = name;
   }
-  
+
   public ClassNameModel getContext() {
     return context;
   }
-  
+
   public void setContext(ClassNameModel context) {
     this.context = context;
   }
-  
+
   public ClassNameModel getController() {
     return controller;
   }
-  
+
   public void setController(ClassNameModel controller) {
     this.controller = controller;
   }
-  
+
   public ClassNameModel getComponentInterface() {
     return componentInterface;
   }
-  
+
   public void setComponentInterface(ClassNameModel componentInterface) {
     this.componentInterface = componentInterface;
   }
-  
+
   public ClassNameModel getComponent() {
     return component;
   }
-  
+
   public void setComponent(ClassNameModel component) {
     this.component = component;
   }
@@ -96,15 +111,15 @@ public class PopUpControllerModel {
   public ClassNameModel getProvider() {
     return provider;
   }
-  
+
   public void setProvider(ClassNameModel provider) {
     this.provider = provider;
   }
-  
+
   public boolean isComponentCreator() {
     return componentCreator;
   }
-  
+
   public void setComponentCreator(boolean componentCreator) {
     this.componentCreator = componentCreator;
   }
@@ -116,4 +131,31 @@ public class PopUpControllerModel {
   public void setAlwaysRenderComponent(boolean alwaysRenderComponent) {
     this.alwaysRenderComponent = alwaysRenderComponent;
   }
+
+  public List<EventHandlerModel> getEventHandlers() {
+    return eventHandlers;
+  }
+
+  public void setEventHandlers(List<EventHandlerModel> eventHandlers) {
+    this.eventHandlers = eventHandlers;
+  }
+
+  public List<EventModel> getEventModels() {
+    return eventModels;
+  }
+
+  public void setEventModels(List<EventModel> eventModels) {
+    this.eventModels = eventModels;
+  }
+
+  public EventModel getEventModel(String className) {
+    return this.getEventModels()
+               .stream()
+               .filter(c -> c.getEvent()
+                             .getClassName()
+                             .equals(className))
+               .findFirst()
+               .orElse(null);
+  }
+
 }

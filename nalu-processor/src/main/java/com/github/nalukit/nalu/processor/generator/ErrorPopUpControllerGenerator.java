@@ -17,6 +17,7 @@ package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.application.event.LogEvent;
 import com.github.nalukit.nalu.processor.model.MetaModel;
+import com.github.nalukit.nalu.processor.model.intern.EventModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -69,6 +70,7 @@ public class ErrorPopUpControllerGenerator {
                                              .addStatement("errorPopUpController.setContext(context)")
                                              .addStatement("errorPopUpController.setEventBus(eventBus)")
                                              .addStatement("errorPopUpController.setRouter(router)");
+
       if (this.metaModel.getErrorPopUpController()
                         .isComponentCreator()) {
         createErrorPopUpControllerMethodBuilder.addStatement("$T component = controller.createErrorPopUpComponent()",
@@ -96,8 +98,25 @@ public class ErrorPopUpControllerGenerator {
       createErrorPopUpControllerMethodBuilder.addStatement("component.setController(errorPopUpController)")
                                              .addStatement("errorPopUpController.setComponent(component)")
                                              .addStatement("component.render()")
-                                             .addStatement("component.bind()")
-                                             .addStatement("errorPopUpController.bind()")
+                                             .addStatement("component.bind()");
+
+      this.metaModel.getErrorPopUpController()
+                    .getEventHandlers()
+                    .forEach(m -> {
+                      EventModel eventModel = this.metaModel.getErrorPopUpController()
+                                                            .getEventModel(m.getEvent()
+                                                                            .getClassName());
+                      if (!Objects.isNull(eventModel)) {
+                        createErrorPopUpControllerMethodBuilder.addStatement("super.eventBus.addHandler($T.TYPE, e -> errorPopUpController.$L(e))",
+                                                                             ClassName.get(eventModel.getEvent()
+                                                                                                     .getPackage(),
+                                                                                           eventModel.getEvent()
+                                                                                                     .getSimpleName()),
+                                                                             m.getMethodName());
+                      }
+                    });
+
+      createErrorPopUpControllerMethodBuilder.addStatement("errorPopUpController.bind()")
                                              .addStatement("errorPopUpController.onLoad()");
     }
     typeSpec.addMethod(createErrorPopUpControllerMethodBuilder.build());

@@ -23,6 +23,7 @@ import com.github.nalukit.nalu.client.internal.application.ShellInstance;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
+import com.github.nalukit.nalu.processor.model.intern.EventModel;
 import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
 import com.squareup.javapoet.*;
@@ -31,6 +32,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
+import java.util.Objects;
 
 public class ShellCreatorGenerator {
   
@@ -102,8 +104,23 @@ public class ShellCreatorGenerator {
                                                 .addStatement("shellInstance.setShell(shell)")
                                                 .addStatement("shell.setContext(context)")
                                                 .addStatement("shell.setEventBus(eventBus)")
-                                                .addStatement("shell.setRouter(router)")
-                                                .addStatement("return shellInstance");
+                                                .addStatement("shell.setRouter(router)");
+
+    this.shellModel.getEventHandlers()
+                   .forEach(m -> {
+                     EventModel eventModel = this.shellModel.getEventModel(m.getEvent()
+                                                                            .getClassName());
+                     if (!Objects.isNull(eventModel)) {
+                       createMethod.addStatement("super.eventBus.addHandler($T.TYPE, e -> shell.$L(e))",
+                                                 ClassName.get(eventModel.getEvent()
+                                                                         .getPackage(),
+                                                               eventModel.getEvent()
+                                                                         .getSimpleName()),
+                                                 m.getMethodName());
+                     }
+                   });
+
+    createMethod.addStatement("return shellInstance");
     typeSpec.addMethod(createMethod.build());
     
     // create Method

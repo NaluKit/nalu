@@ -98,6 +98,16 @@ public final class VersionAnnotationImpl extends AbstractApplication<MockModuleC
   }
 
   @Override
+  protected void loadEvents() {
+
+  }
+
+  @Override
+  protected void loadEventHandlers() {
+
+  }
+
+  @Override
   public void loadModules() {
     super.onFinishModuleLoading();
   }

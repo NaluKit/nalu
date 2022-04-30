@@ -37,6 +37,7 @@ public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockCon
       if (!scopeGlobal) {
         composite.setSelector(selector);
       }
+      composite.setActivateNaluCommand(() -> {});
       ICompositeComponent component = new CompositeComponent();
       component.setController(composite);
       composite.setComponent(component);

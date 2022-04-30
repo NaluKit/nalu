@@ -90,6 +90,14 @@ public class BlockControllerAnnotationScanner {
     if (Objects.isNull(context)) {
       throw new ProcessorException("Nalu-Processor: controller >>" + blockControllerElement.toString() + "<< does not have a generic context!");
     }
+    // check for event handlers ...
+
+    EventHandlerAnnotationScanner.EventMetaData eventMetaData = EventHandlerAnnotationScanner.builder()
+                                                                                             .processingEnvironment(this.processingEnvironment)
+                                                                                             .parentElement(this.blockControllerElement)
+                                                                                             .build()
+                                                                                             .scan();
+
     // save model ...
     return new BlockControllerModel(annotation.name(),
                                     new ClassNameModel(context),
@@ -99,7 +107,9 @@ public class BlockControllerAnnotationScanner {
                                     new ClassNameModel(blockControllerElement.toString()),
                                     componentController,
                                     new ClassNameModel(Objects.requireNonNull(getConditionElement(annotation))
-                                                              .toString()));
+                                                              .toString()),
+                                    eventMetaData.getEventHandlerModels(),
+                                    eventMetaData.getEventModels());
   }
   
   private TypeElement getComponentTypeElement(BlockController annotation) {

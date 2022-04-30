@@ -21,64 +21,71 @@ import java.util.List;
 import java.util.Optional;
 
 public class CompositeModel {
-  
-  private ClassNameModel provider;
-  private ClassNameModel componentInterface;
-  private ClassNameModel component;
-  private ClassNameModel context;
+
+  private ClassNameModel               provider;
+  private ClassNameModel               componentInterface;
+  private ClassNameModel               component;
+  private ClassNameModel               context;
   private List<ParameterAcceptorModel> parameterAcceptors;
-  
-  private boolean componentCreator;
-  
+  private List<EventHandlerModel>      eventHandlers;
+  private List<EventModel>             eventModels;
+  private boolean                      componentCreator;
+
   public CompositeModel() {
+    this.eventHandlers = new ArrayList<>();
+    this.eventModels   = new ArrayList<>();
   }
-  
+
   public CompositeModel(ClassNameModel context,
                         ClassNameModel provider,
                         ClassNameModel componentInterface,
                         ClassNameModel component,
-                        boolean componentCreator) {
+                        boolean componentCreator,
+                        List<EventHandlerModel> eventHandlers,
+                        List<EventModel> eventModels) {
     this.context            = context;
     this.provider           = provider;
     this.componentInterface = componentInterface;
     this.component          = component;
     this.componentCreator   = componentCreator;
-    
+    this.eventHandlers      = eventHandlers;
+    this.eventModels        = eventModels;
+
     this.parameterAcceptors = new ArrayList<>();
   }
-  
+
   public ClassNameModel getContext() {
     return context;
   }
-  
+
   public void setContext(ClassNameModel context) {
     this.context = context;
   }
-  
+
   public ClassNameModel getProvider() {
     return provider;
   }
-  
+
   public void setProvider(ClassNameModel provider) {
     this.provider = provider;
   }
-  
+
   public ClassNameModel getComponentInterface() {
     return componentInterface;
   }
-  
+
   public void setComponentInterface(ClassNameModel componentInterface) {
     this.componentInterface = componentInterface;
   }
-  
+
   public ClassNameModel getComponent() {
     return component;
   }
-  
+
   public void setComponent(ClassNameModel component) {
     this.component = component;
   }
-  
+
   public List<ParameterAcceptorModel> getParameterAcceptors() {
     return parameterAcceptors;
   }
@@ -98,13 +105,39 @@ public class CompositeModel {
     return optional.map(ParameterAcceptorModel::getMethodName)
                    .orElse(null);
   }
-  
+
   public boolean isComponentCreator() {
     return componentCreator;
   }
-  
+
   public void setComponentCreator(boolean componentCreator) {
     this.componentCreator = componentCreator;
   }
-  
+
+  public List<EventHandlerModel> getEventHandlers() {
+    return eventHandlers;
+  }
+
+  public void setEventHandlers(List<EventHandlerModel> eventHandlers) {
+    this.eventHandlers = eventHandlers;
+  }
+
+  public List<EventModel> getEventModels() {
+    return eventModels;
+  }
+
+  public void setEventModels(List<EventModel> eventModels) {
+    this.eventModels = eventModels;
+  }
+
+  public EventModel getEventModel(String className) {
+    return this.getEventModels()
+               .stream()
+               .filter(c -> c.getEvent()
+                             .getClassName()
+                             .equals(className))
+               .findFirst()
+               .orElse(null);
+  }
+
 }

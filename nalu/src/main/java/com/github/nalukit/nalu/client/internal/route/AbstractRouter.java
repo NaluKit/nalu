@@ -18,7 +18,12 @@ package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.NaluConstants;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
-import com.github.nalukit.nalu.client.component.*;
+import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.component.AbstractCompositeController;
+import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
+import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
+import com.github.nalukit.nalu.client.component.IsController;
+import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.event.NaluErrorEvent;
 import com.github.nalukit.nalu.client.event.RouterStateEvent;
 import com.github.nalukit.nalu.client.event.RouterStateEvent.RouterState;
@@ -28,7 +33,15 @@ import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.Utils;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.internal.application.*;
+import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
+import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
+import com.github.nalukit.nalu.client.internal.application.ControllerCallback;
+import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
+import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
+import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
+import com.github.nalukit.nalu.client.internal.application.ShellCallback;
+import com.github.nalukit.nalu.client.internal.application.ShellFactory;
+import com.github.nalukit.nalu.client.internal.application.ShellInstance;
 import com.github.nalukit.nalu.client.module.IsModule;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.ConfirmHandler;
@@ -36,44 +49,49 @@ import com.github.nalukit.nalu.client.seo.SeoDataProvider;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import org.gwtproject.event.shared.SimpleEventBus;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 abstract class AbstractRouter
     implements IsConfigurableRouter {
 
+  /* instance of AlwaysLoadComposite-class */
+  protected AlwaysLoadComposite alwaysLoadComposite;
+  /* instance of AlwaysShowPopUp-class */
+  protected AlwaysShowPopUp     alwaysShowPopUp;
   // the plugin
   IsNaluProcessorPlugin plugin;
-
-  /* instance of AlwaysLoadComposite-class */
-  protected AlwaysLoadComposite                alwaysLoadComposite;
-  /* instance of AlwaysShowPopUp-class */
-  protected AlwaysShowPopUp                    alwaysShowPopUp;
   // composite configuration
-  private   List<CompositeControllerReference> compositeControllerReferences;
+  private List<CompositeControllerReference> compositeControllerReferences;
   // List of the application shells
-  private   ShellConfiguration                 shellConfiguration;
+  private ShellConfiguration                 shellConfiguration;
   // List of the routes of the application
-  private   RouterConfiguration                routerConfiguration;
+  private RouterConfiguration                routerConfiguration;
   // List of active components
-  private   Map<String, ControllerInstance>    activeComponents;
+  private Map<String, ControllerInstance>    activeComponents;
   // hash of last successful routing
-  private   String                             lastExecutedHash = "";
+  private String                             lastExecutedHash = "";
   // current route
-  private   String                             currentRoute     = "";
+  private String                             currentRoute     = "";
   // current parameters
-  private   String[]                           currentParameters;
+  private String[]                           currentParameters;
   // last added shell - used, to check if the shell needs an shell replacement
-  private   String                             lastAddedShell;
+  private String                             lastAddedShell;
   // instance of the current shell
-  private   IsShell                            shell;
+  private IsShell                            shell;
   // list of routes used for handling the current route - used to detect loops
-  private   List<String>                       loopDetectionList;
+  private List<String>                       loopDetectionList;
   // the tracker: if not null, track the users routing
-  private   IsTracker                          tracker;
+  private IsTracker                          tracker;
   // the application event bus
-  private   SimpleEventBus                     eventBus;
+  private SimpleEventBus                     eventBus;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
                  ShellConfiguration shellConfiguration,
@@ -276,7 +294,7 @@ abstract class AbstractRouter
 
   /**
    * The method updates the hash without doing a routing.
-   *
+   * <p>
    * In case it is called, it will:
    * <ul>
    * <li>create a new hash</li>
@@ -289,7 +307,7 @@ abstract class AbstractRouter
    */
   @Override
   public void fakeRoute(String newRoute,
-                           String... params) {
+                        String... params) {
     // fire souring event ...
     this.fireRouterStateEvent(RouterState.START_ROUTING,
                               newRoute,
@@ -550,6 +568,10 @@ abstract class AbstractRouter
                                            false);
                               // clear loop detection list ...
                               loopDetectionList.clear();
+                              fireRouterStateEvent(RouterState.ROUTING_CANCELED_BY_USER,
+                                                   routeResult.getRoute(),
+                                                   routeResult.getParameterValues()
+                                                              .toArray(new String[0]));
                             }
                           });
     }
@@ -1104,28 +1126,53 @@ abstract class AbstractRouter
           }
         }
         // let's call active for all related composite
-        compositeControllers.forEach(AbstractCompositeController::activate);
+        compositeControllers.forEach(c -> {
+          if (!Objects.isNull(c.getActivateNaluCommand())) {
+            c.getActivateNaluCommand().execute();
+          }
+          c.activate();
+        });
         controllerInstance.getController()
                           .getComposites()
                           .values()
-                          .forEach(AbstractCompositeController::activate);
+                          .forEach(c -> {
+                            if (!Objects.isNull(c.getActivateNaluCommand())) {
+                              c.getActivateNaluCommand().execute();
+                            }
+                            c.activate();
+                          });
+        if (!Objects.isNull(controllerInstance.getController()
+                                              .getActivateNaluCommand())) {
+          controllerInstance.getController()
+                            .getActivateNaluCommand()
+                            .execute();
+        }
         controllerInstance.getController()
                           .activate();
       } else {
-        compositeControllers.forEach(s -> {
-          if (!s.isCached()) {
-            s.start();
+        compositeControllers.forEach(c -> {
+          if (!c.isCached()) {
+            c.start();
             // in case we are cached globally we need to set cached
             // to true after the first time the
             // composite is created
-            if (s.isCachedGlobal()) {
-              s.setCached(true);
+            if (c.isCachedGlobal()) {
+              c.setCached(true);
             }
           }
-          s.activate();
+          if (!Objects.isNull(c.getActivateNaluCommand())) {
+            c.getActivateNaluCommand().execute();
+          }
+          c.activate();
         });
         controllerInstance.getController()
                           .start();
+        if (!Objects.isNull(controllerInstance.getController()
+                                              .getActivateNaluCommand())) {
+          controllerInstance.getController()
+                            .getActivateNaluCommand()
+                            .execute();
+        }
         controllerInstance.getController()
                           .activate();
       }

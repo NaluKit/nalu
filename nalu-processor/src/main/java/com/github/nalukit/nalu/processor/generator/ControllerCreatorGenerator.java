@@ -30,7 +30,13 @@ import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
-import com.squareup.javapoet.*;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeSpec;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -145,12 +151,33 @@ public class ControllerCreatorGenerator {
                                           .addStatement("controller.setCached(false)")
                                           .addStatement("controller.setRelatedRoute(route)")
                                           .addStatement("controller.setRelatedSelector($S)",
-                                                        controllerModel.getSelector())
-                                          .nextControlFlow("else")
-                                          .addStatement("controllerInstance.setController(storedController)")
-                                          .addStatement("controllerInstance.setCached(true)")
-                                          .addStatement("controllerInstance.getController().setCached(true)")
-                                          .endControlFlow();
+                                                        controllerModel.getSelector());
+    if (this.controllerModel.getEventHandlers()
+                            .size() > 0) {
+      CodeBlock.Builder lambdaBuilder = CodeBlock.builder()
+                                                 .add("() -> {\n")
+                                                 .indent();
+      this.controllerModel.getEventModels()
+                          .forEach(m -> lambdaBuilder.addStatement("controller.getHandlerRegistrations().add(this.eventBus.addHandler($T.TYPE, e -> controller.$L(e)))",
+                                                                   ClassName.get(m.getEvent()
+                                                                                  .getPackage(),
+                                                                                 m.getEvent()
+                                                                                  .getSimpleName()),
+                                                                   m.getMethodNameOfHandler()));
+      lambdaBuilder.unindent()
+                   .add("}");
+      method.addStatement("controller.setActivateNaluCommand($L)",
+                          lambdaBuilder.build()
+                                       .toString());
+    } else {
+      method.addStatement("controller.setActivateNaluCommand(() -> {})");
+    }
+
+    method.nextControlFlow("else")
+          .addStatement("controllerInstance.setController(storedController)")
+          .addStatement("controllerInstance.setCached(true)")
+          .addStatement("controllerInstance.getController().setCached(true)")
+          .endControlFlow();
     method.addStatement("return controllerInstance");
     return method.build();
   }

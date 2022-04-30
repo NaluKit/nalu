@@ -18,13 +18,14 @@ package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
+import com.github.nalukit.nalu.client.internal.NaluCommand;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public abstract class AbstractCompositeController<C extends IsContext, V extends IsCompositeComponent<?, W>, W>
     extends AbstractController<C>
     implements IsComposite<W>,
                IsCompositeComponent.Controller {
-  
+
   /* component of the controller */
   protected V                    component;
   /* list of registered global handlers */
@@ -38,12 +39,14 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   /* flag, if the controller is cached or not */
   private   boolean              cached;
   /* flag, if the controller is cached or not in Scope GLOBAL! */
-  private   boolean              cachedGlobal;
-  
+  private boolean     cachedGlobal;
+  /* internal Nalu request. Don't use this */
+  private NaluCommand activateNaluCommand;
+
   public AbstractCompositeController() {
     super();
   }
-  
+
   /**
    * Returns the root element which will be attached to the DOM
    *
@@ -56,7 +59,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   public final W asElement() {
     return this.component.asElement();
   }
-  
+
   /**
    * Gets the parent controller associated with this instance of the composite
    *
@@ -69,7 +72,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   public final String getParentClassName() {
     return this.parentClassName;
   }
-  
+
   /**
    * Sets the parent controller associated with this instance of the composite
    *
@@ -82,7 +85,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   public final void setParentClassName(String parentClassName) {
     this.parentClassName = parentClassName;
   }
-  
+
   /**
    * Method is called during onAttach.
    * Nalu uses the method to call the onAttach-method of the component.
@@ -93,7 +96,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   public final void onAttach() {
     component.onAttach();
   }
-  
+
   /**
    * Method is called during onDetach.
    * Nalu uses the method to call the onDetach-method of the component.
@@ -105,12 +108,12 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   public final void onDetach() {
     component.onDetach();
   }
-  
+
   @Override
   public String mayStop() {
     return null;
   }
-  
+
   /**
    * internal framework method! Will be called by the framework after the
    * stop-method of the controller is called
@@ -123,7 +126,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
     this.globalHandlerRegistrations.removeHandler();
     this.globalHandlerRegistrations = new HandlerRegistrations();
   }
-  
+
   /**
    * internal framework method! Will be called by the framework after the
    * deactivate-method of the controller is called
@@ -136,7 +139,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
     this.handlerRegistrations.removeHandler();
     this.handlerRegistrations = new HandlerRegistrations();
   }
-  
+
   /**
    * The activate-method will be called instead of the start-method
    * in case the controller is cached.
@@ -147,7 +150,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   @Override
   public void activate() {
   }
-  
+
   /**
    * The deactivate-method will be called instead of the stop-method
    * in case the controller is cached.
@@ -158,7 +161,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   @Override
   public void deactivate() {
   }
-  
+
   /**
    * The stop-method will be called at the start of the controller's life cycle.
    * <p>
@@ -168,7 +171,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   @Override
   public void start() {
   }
-  
+
   /**
    * The stop-method will be called at the end of the controller's life cycle.
    * <p>
@@ -178,7 +181,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   @Override
   public void stop() {
   }
-  
+
   /**
    * Get the component
    *
@@ -187,12 +190,12 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   public V getComponent() {
     return this.component;
   }
-  
+
   @NaluInternalUse
   public final void setComponent(V component) {
     this.component = component;
   }
-  
+
   /**
    * Indicates, if the controller is newly created or not
    *
@@ -201,7 +204,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   public boolean isCached() {
     return cached;
   }
-  
+
   /**
    * Sets the value, if the controller is newly created or cached!
    * <b>This field is used by Nalu! Setting the value can lead to unexpected behavior!</b>
@@ -211,7 +214,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   public void setCached(boolean cached) {
     this.cached = cached;
   }
-  
+
   /**
    * Indicates, if the controller is newly created or not
    *
@@ -220,7 +223,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   public boolean isCachedGlobal() {
     return cachedGlobal;
   }
-  
+
   /**
    * Sets the value, if the controller is newly created or cached!
    * <b>This field is used by Nalu! Setting the value can lead to unexpected behavior!</b>
@@ -230,7 +233,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   public void setCachedGlobal(boolean cachedGlobal) {
     this.cachedGlobal = cachedGlobal;
   }
-  
+
   /**
    * Returns the selector of the composite.
    * <p>
@@ -242,7 +245,7 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   public String getSelector() {
     return selector;
   }
-  
+
   /**
    * sets the selector
    * <p>
@@ -255,5 +258,39 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   public final void setSelector(String selector) {
     this.selector = selector;
   }
-  
+
+  /**
+   * Gets the activate Nalu command. This will be used by Nalu in case the controller gets activated.
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @return
+   */
+  @NaluInternalUse
+  public final NaluCommand getActivateNaluCommand() {
+    return activateNaluCommand;
+  }
+
+  /**
+   * Sets the activate Nalu command. This will be used by Nalu in case the controller gets activated.
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @param activateNaluCommand Nalu activation command
+   */
+  @NaluInternalUse
+  public final void setActivateNaluCommand(NaluCommand activateNaluCommand) {
+    this.activateNaluCommand = activateNaluCommand;
+  }
+
+  /**
+   * Gets the handler registrations of this controller
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @return handler registrations
+   */
+  @NaluInternalUse
+  @Deprecated
+  public HandlerRegistrations getHandlerRegistrations() {
+    return this.handlerRegistrations;
+  }
+
 }

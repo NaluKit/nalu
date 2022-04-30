@@ -52,16 +52,16 @@ public final class ApplicationWithComposite07Impl extends AbstractApplication<Mo
     StringBuilder sb01 = new StringBuilder();
     sb01.append("load shell references");
     ClientLogger.get().logDetailed(sb01.toString(), 2);
-    super.shellConfiguration.getShells().add(new ShellConfig("/mockShell", "com.github.nalukit.nalu.processor.common.MockShell"));
+    super.shellConfiguration.getShells().add(new ShellConfig("/mockShell", "com.github.nalukit.nalu.processor.common.ui.MockShell"));
     sb01.setLength(0);
-    sb01.append("register shell >>/mockShell<< with class >>com.github.nalukit.nalu.processor.common.MockShell<<");
+    sb01.append("register shell >>/mockShell<< with class >>com.github.nalukit.nalu.processor.common.ui.MockShell<<");
     ClientLogger.get().logDetailed(sb01.toString(), 3);
   }
 
   @Override
   public void loadShellFactory() {
-    // create ShellCreator for: com.github.nalukit.nalu.processor.common.MockShell
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockShell", new com.github.nalukit.nalu.processor.common.MockShellCreatorImpl(router, context, eventBus));
+    // create ShellCreator for: com.github.nalukit.nalu.processor.common.ui.MockShell
+    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.ui.MockShell", new com.github.nalukit.nalu.processor.common.ui.MockShellCreatorImpl(router, context, eventBus));
   }
 
   @Override

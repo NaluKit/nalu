@@ -79,7 +79,6 @@ public class ControllerAnnotationScanner {
     handleAcceptParameters(roundEnvironment,
                            controllerElement,
                            controllerModel);
-    // TODO validiere alle controller und Router!
     return controllerModel;
   }
 
@@ -117,6 +116,13 @@ public class ControllerAnnotationScanner {
     if (Objects.isNull(context)) {
       throw new ProcessorException("Nalu-Processor: controller >>" + controllerElement + "<< does not have a generic context!");
     }
+
+    EventHandlerAnnotationScanner.EventMetaData eventMetaData = EventHandlerAnnotationScanner.builder()
+                                                                                             .processingEnvironment(this.processingEnvironment)
+                                                                                             .parentElement(this.controllerElement)
+                                                                                             .build()
+                                                                                             .scan();
+
     // save model ...
     return new ControllerModel(annotation.route(),
                                getRoute(annotation.route()),
@@ -127,7 +133,9 @@ public class ControllerAnnotationScanner {
                                new ClassNameModel(componentInterfaceTypeElement.toString()),
                                new ClassNameModel(componentTypeElement.toString()),
                                new ClassNameModel(controllerElement.toString()),
-                               componentController);
+                               componentController,
+                               eventMetaData.getEventHandlerModels(),
+                               eventMetaData.getEventModels());
   }
 
   private void handleAcceptParameters(RoundEnvironment roundEnvironment,
