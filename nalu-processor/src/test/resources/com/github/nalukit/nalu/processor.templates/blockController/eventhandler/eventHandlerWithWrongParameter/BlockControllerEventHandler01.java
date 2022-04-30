@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.processor.blockController.blockControllerNameDuplicate;
+package com.github.nalukit.nalu.processor.blockController.eventhandler.eventHandlerWithWrongParameter;
 
 import com.github.nalukit.nalu.client.component.AbstractBlockComponentController;
 import com.github.nalukit.nalu.client.component.IsBlockComponentController;

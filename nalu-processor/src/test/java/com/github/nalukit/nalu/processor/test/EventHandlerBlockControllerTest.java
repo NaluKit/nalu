@@ -33,11 +33,11 @@ public class EventHandlerBlockControllerTest {
   @Test
   void testEventHandlerOnABlockControllerOk01() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk01/BlockControllerEventHandler01.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk01/TestApplication.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk01/content/Controller01.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk01/content/Component01.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk01/content/IComponent01.java"),
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk01/BlockControllerEventHandler01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk01/TestApplication.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk01/content/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk01/content/Component01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk01/content/IComponent01.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java")));
     CompilationSubject.assertThat(compilation)
@@ -53,11 +53,11 @@ public class EventHandlerBlockControllerTest {
   @Test
   void testEventHandlerOnABlockControllerOk02() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk02/BlockControllerEventHandler01.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk02/TestApplication.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk02/content/Controller01.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk02/content/Component01.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk02/content/IComponent01.java"),
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk02/BlockControllerEventHandler01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk02/TestApplication.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk02/content/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk02/content/Component01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk02/content/IComponent01.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java")));
     CompilationSubject.assertThat(compilation)
@@ -73,13 +73,13 @@ public class EventHandlerBlockControllerTest {
   @Test
   void testEventHandlerOnABlockControllerOk03() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk03/BlockControllerEventHandler01.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk03/BlockControllerEventHandler02.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk03/BlockControllerEventHandler03.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk03/TestApplication.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk03/content/Controller01.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk03/content/Component01.java"),
-                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerOnABlockControllerOk03/content/IComponent01.java"),
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk03/BlockControllerEventHandler01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk03/BlockControllerEventHandler02.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk03/BlockControllerEventHandler03.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk03/TestApplication.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk03/content/Controller01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk03/content/Component01.java"),
+                                                            JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerOnABlockControllerOk03/content/IComponent01.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockErrorShell.java")));
     CompilationSubject.assertThat(compilation)
@@ -101,7 +101,7 @@ public class EventHandlerBlockControllerTest {
   @Test
   void testErrorEventHandlerMethodWithoutParameter() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerMethodWithoutParameter/BlockControllerEventHandler01.java")));
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerMethodWithoutParameter/BlockControllerEventHandler01.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -111,7 +111,7 @@ public class EventHandlerBlockControllerTest {
   @Test
   void testErrorEventHandlerMethodWithTwoParameter() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerMethodWithTwoParameter/BlockControllerEventHandler01.java")));
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerMethodWithTwoParameter/BlockControllerEventHandler01.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
@@ -121,7 +121,7 @@ public class EventHandlerBlockControllerTest {
   @Test
   void testErrorEventHandlerMethodWithWrongParameter() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockcontroller/eventhandler/eventHandlerWithWrongParameter/BlockControllerEventHandler01.java")));
+                                     .compile(Collections.singletonList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/blockController/eventhandler/eventHandlerWithWrongParameter/BlockControllerEventHandler01.java")));
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
