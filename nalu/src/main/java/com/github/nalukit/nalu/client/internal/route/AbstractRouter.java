@@ -63,35 +63,35 @@ abstract class AbstractRouter
     implements IsConfigurableRouter {
 
   /* instance of AlwaysLoadComposite-class */
-  protected AlwaysLoadComposite                alwaysLoadComposite;
+  protected AlwaysLoadComposite alwaysLoadComposite;
   /* instance of AlwaysShowPopUp-class */
-  protected AlwaysShowPopUp                    alwaysShowPopUp;
+  protected AlwaysShowPopUp     alwaysShowPopUp;
   // the plugin
   IsNaluProcessorPlugin plugin;
   // composite configuration
-  private   List<CompositeControllerReference> compositeControllerReferences;
+  private List<CompositeControllerReference> compositeControllerReferences;
   // List of the application shells
-  private   ShellConfiguration                 shellConfiguration;
+  private ShellConfiguration                 shellConfiguration;
   // List of the routes of the application
-  private   RouterConfiguration                routerConfiguration;
+  private RouterConfiguration                routerConfiguration;
   // List of active components
-  private   Map<String, ControllerInstance>    activeComponents;
+  private Map<String, ControllerInstance>    activeComponents;
   // hash of last successful routing
-  private   String                             lastExecutedHash = "";
+  private String                             lastExecutedHash = "";
   // current route
-  private   String                             currentRoute     = "";
+  private String                             currentRoute     = "";
   // current parameters
-  private   String[]                           currentParameters;
+  private String[]                           currentParameters;
   // last added shell - used, to check if the shell needs an shell replacement
-  private   String                             lastAddedShell;
+  private String                             lastAddedShell;
   // instance of the current shell
-  private   IsShell                            shell;
+  private IsShell                            shell;
   // list of routes used for handling the current route - used to detect loops
-  private   List<String>                       loopDetectionList;
+  private List<String>                       loopDetectionList;
   // the tracker: if not null, track the users routing
-  private   IsTracker                          tracker;
+  private IsTracker                          tracker;
   // the application event bus
-  private   SimpleEventBus                     eventBus;
+  private SimpleEventBus                     eventBus;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
                  ShellConfiguration shellConfiguration,
@@ -1126,28 +1126,53 @@ abstract class AbstractRouter
           }
         }
         // let's call active for all related composite
-        compositeControllers.forEach(AbstractCompositeController::activate);
+        compositeControllers.forEach(c -> {
+          if (!Objects.isNull(c.getActivateNaluCommand())) {
+            c.getActivateNaluCommand().execute();
+          }
+          c.activate();
+        });
         controllerInstance.getController()
                           .getComposites()
                           .values()
-                          .forEach(AbstractCompositeController::activate);
+                          .forEach(c -> {
+                            if (!Objects.isNull(c.getActivateNaluCommand())) {
+                              c.getActivateNaluCommand().execute();
+                            }
+                            c.activate();
+                          });
+        if (!Objects.isNull(controllerInstance.getController()
+                                              .getActivateNaluCommand())) {
+          controllerInstance.getController()
+                            .getActivateNaluCommand()
+                            .execute();
+        }
         controllerInstance.getController()
                           .activate();
       } else {
-        compositeControllers.forEach(s -> {
-          if (!s.isCached()) {
-            s.start();
+        compositeControllers.forEach(c -> {
+          if (!c.isCached()) {
+            c.start();
             // in case we are cached globally we need to set cached
             // to true after the first time the
             // composite is created
-            if (s.isCachedGlobal()) {
-              s.setCached(true);
+            if (c.isCachedGlobal()) {
+              c.setCached(true);
             }
           }
-          s.activate();
+          if (!Objects.isNull(c.getActivateNaluCommand())) {
+            c.getActivateNaluCommand().execute();
+          }
+          c.activate();
         });
         controllerInstance.getController()
                           .start();
+        if (!Objects.isNull(controllerInstance.getController()
+                                              .getActivateNaluCommand())) {
+          controllerInstance.getController()
+                            .getActivateNaluCommand()
+                            .execute();
+        }
         controllerInstance.getController()
                           .activate();
       }

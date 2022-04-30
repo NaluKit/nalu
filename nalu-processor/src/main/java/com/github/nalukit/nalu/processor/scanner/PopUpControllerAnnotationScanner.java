@@ -78,7 +78,7 @@ public class PopUpControllerAnnotationScanner {
   private PopUpControllerModel handlePopUpController()
       throws ProcessorException {
     // get Annotation ...
-    PopUpController annotation = popUpControllerElement.getAnnotation(PopUpController.class);
+    PopUpController annotation = this.popUpControllerElement.getAnnotation(PopUpController.class);
     // handle ...
     TypeElement componentTypeElement = this.getComponentTypeElement(annotation);
     if (componentTypeElement == null) {
@@ -89,17 +89,24 @@ public class PopUpControllerAnnotationScanner {
       throw new ProcessorException("Nalu-Processor: @PopUpController - componentInterfaceTypeElement is null");
     }
     // check, if the controller implements IsComponentController
-    boolean componentController = this.checkIsComponentCreator(popUpControllerElement,
+    boolean componentController = this.checkIsComponentCreator(this.popUpControllerElement,
                                                                componentInterfaceTypeElement);
     // get context!
-    String context = this.getContextType(popUpControllerElement);
+    String context = this.getContextType(this.popUpControllerElement);
     if (Objects.isNull(context)) {
       throw new ProcessorException("Nalu-Processor: controller >>" +
-                                   popUpControllerElement.toString() +
+                                   this.popUpControllerElement.toString() +
                                    "<< does not have a generic context!");
     }
     // always render component???
     boolean alwaysRenderComponent = annotation.alwaysRenderComponent();
+
+    EventHandlerAnnotationScanner.EventMetaData eventMetaData = EventHandlerAnnotationScanner.builder()
+                                                                                             .processingEnvironment(this.processingEnvironment)
+                                                                                             .parentElement(this.popUpControllerElement)
+                                                                                             .build()
+                                                                                             .scan();
+
     // save model ...
     return new PopUpControllerModel(annotation.name(),
                                     new ClassNameModel(context),
@@ -110,7 +117,9 @@ public class PopUpControllerAnnotationScanner {
                                     new ClassNameModel(Objects.requireNonNull(getPopUpConditionElement(annotation))
                                                               .toString()),
                                     componentController,
-                                    alwaysRenderComponent);
+                                    alwaysRenderComponent,
+                                    eventMetaData.getEventHandlerModels(),
+                                    eventMetaData.getEventModels());
   }
 
   private TypeElement getComponentTypeElement(PopUpController annotation) {

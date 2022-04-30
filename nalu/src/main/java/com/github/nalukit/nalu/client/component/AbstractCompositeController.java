@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.client.component;
 
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
+import com.github.nalukit.nalu.client.internal.NaluCommand;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 public abstract class AbstractCompositeController<C extends IsContext, V extends IsCompositeComponent<?, W>, W>
@@ -38,7 +39,9 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   /* flag, if the controller is cached or not */
   private   boolean              cached;
   /* flag, if the controller is cached or not in Scope GLOBAL! */
-  private   boolean              cachedGlobal;
+  private boolean     cachedGlobal;
+  /* internal Nalu request. Don't use this */
+  private NaluCommand activateNaluCommand;
 
   public AbstractCompositeController() {
     super();
@@ -254,6 +257,40 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   @NaluInternalUse
   public final void setSelector(String selector) {
     this.selector = selector;
+  }
+
+  /**
+   * Gets the activate Nalu command. This will be used by Nalu in case the controller gets activated.
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @return
+   */
+  @NaluInternalUse
+  public final NaluCommand getActivateNaluCommand() {
+    return activateNaluCommand;
+  }
+
+  /**
+   * Sets the activate Nalu command. This will be used by Nalu in case the controller gets activated.
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @param activateNaluCommand Nalu activation command
+   */
+  @NaluInternalUse
+  public final void setActivateNaluCommand(NaluCommand activateNaluCommand) {
+    this.activateNaluCommand = activateNaluCommand;
+  }
+
+  /**
+   * Gets the handler registrations of this controller
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @return handler registrations
+   */
+  @NaluInternalUse
+  @Deprecated
+  public HandlerRegistrations getHandlerRegistrations() {
+    return this.handlerRegistrations;
   }
 
 }

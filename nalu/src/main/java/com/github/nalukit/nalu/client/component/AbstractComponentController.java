@@ -19,6 +19,7 @@ package com.github.nalukit.nalu.client.component;
 import com.github.nalukit.nalu.client.context.IsContext;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
+import com.github.nalukit.nalu.client.internal.NaluCommand;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.HashMap;
@@ -30,21 +31,23 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
                IsComponent.Controller {
 
   /* component of the controller */
-  protected V                                                 component;
+  protected     V                                                 component;
   /* list of registered global handlers */
-  protected HandlerRegistrations                              globalHandlerRegistrations = new HandlerRegistrations();
+  protected     HandlerRegistrations                              globalHandlerRegistrations = new HandlerRegistrations();
   /* list of registered handlers */
-  protected HandlerRegistrations                              handlerRegistrations       = new HandlerRegistrations();
+  protected     HandlerRegistrations                              handlerRegistrations       = new HandlerRegistrations();
   /* list fo composite controllers */
-  private   Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
+  private final Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
   /* the route the controller is related to */
-  private   String                                            relatedRoute;
+  private       String                                            relatedRoute;
   /* the selector the controller is related to */
-  private   String                                            relatedSelector;
+  private       String                                            relatedSelector;
   /* flag, if the controller is cached or not */
-  private   boolean                                           cached;
+  private       boolean                                           cached;
   /* redraw mode */
   private   Mode                                              mode;
+  /* internal Nalu request. Don't use this */
+  private   NaluCommand                                       activateNaluCommand;
 
   public AbstractComponentController() {
     super();
@@ -324,4 +327,37 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
 
   }
 
+  /**
+   * Gets the activate Nalu command. This will be used by Nalu in case the controller gets activated.
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @return
+   */
+  @NaluInternalUse
+  public final NaluCommand getActivateNaluCommand() {
+    return activateNaluCommand;
+  }
+
+  /**
+   * Sets the activate Nalu command. This will be used by Nalu in case the controller gets activated.
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @param activateNaluCommand Nalu activation command
+   */
+  @NaluInternalUse
+  public final void setActivateNaluCommand(NaluCommand activateNaluCommand) {
+    this.activateNaluCommand = activateNaluCommand;
+  }
+
+  /**
+   * Gets the handler registrations of this controller
+   * <b>Do not use this method. This will lead to unexpected results</b>
+   *
+   * @return handler registrations
+   */
+  @NaluInternalUse
+  @Deprecated
+  public HandlerRegistrations getHandlerRegistrations() {
+    return this.handlerRegistrations;
+  }
 }

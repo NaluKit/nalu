@@ -16,17 +16,27 @@
 
 package com.github.nalukit.nalu.processor.model.intern;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PopUpControllerModel {
 
-  public  ClassNameModel condition;
-  private String         name;
-  private ClassNameModel context;
-  private ClassNameModel controller;
-  private ClassNameModel componentInterface;
-  private ClassNameModel component;
-  private ClassNameModel provider;
-  private boolean componentCreator;
-  private boolean alwaysRenderComponent;
+  public  ClassNameModel          condition;
+  private String                  name;
+  private ClassNameModel          context;
+  private ClassNameModel          controller;
+  private ClassNameModel          componentInterface;
+  private ClassNameModel          component;
+  private ClassNameModel          provider;
+  private boolean                 componentCreator;
+  private boolean                 alwaysRenderComponent;
+  private List<EventHandlerModel> eventHandlers;
+  private List<EventModel>        eventModels;
+
+  public PopUpControllerModel() {
+    this.eventHandlers = new ArrayList<>();
+    this.eventModels   = new ArrayList<>();
+  }
 
   public PopUpControllerModel(String name,
                               ClassNameModel context,
@@ -36,7 +46,11 @@ public class PopUpControllerModel {
                               ClassNameModel provider,
                               ClassNameModel condition,
                               boolean componentCreator,
-                              boolean alwaysRenderComponent) {
+                              boolean alwaysRenderComponent,
+                              List<EventHandlerModel> eventHandlers,
+                              List<EventModel> eventModels) {
+    this();
+
     this.name                  = name;
     this.context               = context;
     this.controller            = controller;
@@ -46,6 +60,8 @@ public class PopUpControllerModel {
     this.componentCreator      = componentCreator;
     this.condition             = condition;
     this.alwaysRenderComponent = alwaysRenderComponent;
+    this.eventHandlers         = eventHandlers;
+    this.eventModels           = eventModels;
   }
 
   public String getName() {
@@ -115,4 +131,31 @@ public class PopUpControllerModel {
   public void setAlwaysRenderComponent(boolean alwaysRenderComponent) {
     this.alwaysRenderComponent = alwaysRenderComponent;
   }
+
+  public List<EventHandlerModel> getEventHandlers() {
+    return eventHandlers;
+  }
+
+  public void setEventHandlers(List<EventHandlerModel> eventHandlers) {
+    this.eventHandlers = eventHandlers;
+  }
+
+  public List<EventModel> getEventModels() {
+    return eventModels;
+  }
+
+  public void setEventModels(List<EventModel> eventModels) {
+    this.eventModels = eventModels;
+  }
+
+  public EventModel getEventModel(String className) {
+    return this.getEventModels()
+               .stream()
+               .filter(c -> c.getEvent()
+                             .getClassName()
+                             .equals(className))
+               .findFirst()
+               .orElse(null);
+  }
+
 }

@@ -36,7 +36,7 @@ public class ShellCreatorTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     CompilationSubject.assertThat(compilation)
-                      .generatedSourceFile("com/github/nalukit/nalu/processor/common/MockShellCreatorImpl")
+                      .generatedSourceFile("com/github/nalukit/nalu/processor/common/ui/MockShellCreatorImpl")
                       .hasSourceEquivalentTo(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/shellCreator/ok/MockShellCreatorImpl.java"));
   }
 

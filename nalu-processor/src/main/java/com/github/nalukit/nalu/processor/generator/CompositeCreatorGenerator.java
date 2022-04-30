@@ -31,6 +31,7 @@ import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -155,6 +156,26 @@ public class CompositeCreatorGenerator {
                 .beginControlFlow("if (!scopeGlobal)")
                 .addStatement("composite.setSelector(selector)")
                 .endControlFlow();
+
+    if (this.compositeModel.getEventHandlers().size() > 0) {
+      CodeBlock.Builder lambdaBuilder = CodeBlock.builder()
+                                                 .add("() -> {\n")
+                                                 .indent();
+      this.compositeModel.getEventModels()
+                         .forEach(m -> lambdaBuilder.addStatement("composite.getHandlerRegistrations().add(this.eventBus.addHandler($T.TYPE, e -> composite.$L(e)))",
+                                                                  ClassName.get(m.getEvent()
+                                                                                 .getPackage(),
+                                                                                m.getEvent()
+                                                                                 .getSimpleName()),
+                                                                  m.getMethodNameOfHandler()));
+      lambdaBuilder.unindent()
+                   .add("}");
+      createMethod.addStatement("composite.setActivateNaluCommand($L)",
+                                lambdaBuilder.build().toString());
+    } else {
+      createMethod.addStatement("composite.setActivateNaluCommand(() -> {})");
+    }
+
     if (compositeModel.isComponentCreator()) {
       createMethod.addStatement("$T component = composite.createComponent()",
                                 ClassName.get(compositeModel.getComponentInterface()

@@ -38,6 +38,7 @@ public final class MultiRouteController01CreatorImpl extends AbstractControllerC
       controller.setCached(false);
       controller.setRelatedRoute(route);
       controller.setRelatedSelector("selector01");
+      controller.setActivateNaluCommand(() -> {});
     } else {
       controllerInstance.setController(storedController);
       controllerInstance.setCached(true);

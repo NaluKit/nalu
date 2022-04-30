@@ -16,16 +16,21 @@
 
 package com.github.nalukit.nalu.processor.model.intern;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BlockControllerModel {
 
-  private String         name;
-  private ClassNameModel context;
-  private ClassNameModel controller;
-  private ClassNameModel componentInterface;
-  private ClassNameModel component;
-  private ClassNameModel provider;
-  private boolean        componentCreator;
-  private ClassNameModel conndition;
+  private String                  name;
+  private ClassNameModel          context;
+  private ClassNameModel          controller;
+  private ClassNameModel          componentInterface;
+  private ClassNameModel          component;
+  private ClassNameModel          provider;
+  private boolean                 componentCreator;
+  private ClassNameModel          conndition;
+  private List<EventHandlerModel> eventHandlers;
+  private List<EventModel>        eventModels;
 
   public BlockControllerModel(String name,
                               ClassNameModel context,
@@ -34,7 +39,9 @@ public class BlockControllerModel {
                               ClassNameModel component,
                               ClassNameModel provider,
                               boolean componentCreator,
-                              ClassNameModel condition) {
+                              ClassNameModel conndition,
+                              List<EventHandlerModel> eventHandlers,
+                              List<EventModel> eventModels) {
     this.name               = name;
     this.context            = context;
     this.controller         = controller;
@@ -42,7 +49,9 @@ public class BlockControllerModel {
     this.component          = component;
     this.provider           = provider;
     this.componentCreator   = componentCreator;
-    this.conndition         = condition;
+    this.conndition         = conndition;
+    this.eventHandlers      = eventHandlers;
+    this.eventModels        = eventModels;
   }
 
   public String getName() {
@@ -107,6 +116,32 @@ public class BlockControllerModel {
 
   public void setConndition(ClassNameModel conndition) {
     this.conndition = conndition;
+  }
+
+  public List<EventHandlerModel> getEventHandlers() {
+    return eventHandlers;
+  }
+
+  public void setEventHandlers(List<EventHandlerModel> eventHandlers) {
+    this.eventHandlers = eventHandlers;
+  }
+
+  public List<EventModel> getEventModels() {
+    return eventModels;
+  }
+
+  public void setEventModels(List<EventModel> eventModels) {
+    this.eventModels = eventModels;
+  }
+
+  public EventModel getEventModel(String className) {
+    return this.getEventModels()
+               .stream()
+               .filter(c -> c.getEvent()
+                             .getClassName()
+                             .equals(className))
+               .findFirst()
+               .orElse(null);
   }
 
 }

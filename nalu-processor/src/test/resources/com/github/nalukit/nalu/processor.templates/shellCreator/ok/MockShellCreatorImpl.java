@@ -1,25 +1,26 @@
-package com.github.nalukit.nalu.processor.common;
+package com.github.nalukit.nalu.processor.common.ui;
 
 import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.AbstractShellCreator;
 import com.github.nalukit.nalu.client.internal.application.IsShellCreator;
 import com.github.nalukit.nalu.client.internal.application.ShellInstance;
+import com.github.nalukit.nalu.processor.common.MockContext;
 import java.lang.Override;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>%VERSION_TAG%<< at >>2020.09.16-22:14:22<<
+ * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.16-20:35:13<<
  */
 public final class MockShellCreatorImpl extends AbstractShellCreator<MockContext> implements IsShellCreator {
     public MockShellCreatorImpl(IsRouter router, MockContext context, SimpleEventBus eventBus) {
         super(router, context, eventBus);
     }
-    
+
     @Override
     public ShellInstance create() {
         ShellInstance shellInstance = new ShellInstance();
-        shellInstance.setShellClassName("com.github.nalukit.nalu.processor.common.MockShell");
+        shellInstance.setShellClassName("com.github.nalukit.nalu.processor.common.ui.MockShell");
         MockShell shell = new MockShell();
         shellInstance.setShell(shell);
         shell.setContext(context);
@@ -27,7 +28,7 @@ public final class MockShellCreatorImpl extends AbstractShellCreator<MockContext
         shell.setRouter(router);
         return shellInstance;
     }
-    
+
     @Override
     public void onFinishCreating() throws RoutingInterceptionException {
     }

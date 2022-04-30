@@ -26,11 +26,20 @@ import com.github.nalukit.nalu.processor.test.ConsistenceTest;
 import com.github.nalukit.nalu.processor.test.ControllerCreatorTest;
 import com.github.nalukit.nalu.processor.test.ControllerTest;
 import com.github.nalukit.nalu.processor.test.ErrorPopUpControllerTest;
+import com.github.nalukit.nalu.processor.test.EventHandlerBlockControllerTest;
+import com.github.nalukit.nalu.processor.test.EventHandlerCompositeTest;
+import com.github.nalukit.nalu.processor.test.EventHandlerControllerTest;
+import com.github.nalukit.nalu.processor.test.EventHandlerErrorPopUpControllerTest;
+import com.github.nalukit.nalu.processor.test.EventHandlerHandlerTest;
+import com.github.nalukit.nalu.processor.test.EventHandlerPopUpControllerTest;
+import com.github.nalukit.nalu.processor.test.EventHandlerShellTest;
+import com.github.nalukit.nalu.processor.test.EventHandlerTest;
 import com.github.nalukit.nalu.processor.test.FiltersTest;
 import com.github.nalukit.nalu.processor.test.HandlerTest;
 import com.github.nalukit.nalu.processor.test.LoggerTest;
 import com.github.nalukit.nalu.processor.test.ModuleTest;
 import com.github.nalukit.nalu.processor.test.ParameterConstraintRuleTest;
+import com.github.nalukit.nalu.processor.test.ParameterConstraintTest;
 import com.github.nalukit.nalu.processor.test.PopUpControllerCreatorTest;
 import com.github.nalukit.nalu.processor.test.PopUpFiltersTest;
 import com.github.nalukit.nalu.processor.test.ShellCreatorTest;
@@ -54,12 +63,21 @@ import org.junit.runner.RunWith;
                  ControllerModelTest.class,
                  ControllerTest.class,
                  ErrorPopUpControllerTest.class,
+                 EventHandlerTest.class,
+                 EventHandlerBlockControllerTest.class,
+                 EventHandlerCompositeTest.class,
+                 EventHandlerControllerTest.class,
+                 EventHandlerErrorPopUpControllerTest.class,
+                 EventHandlerHandlerTest.class,
+                 EventHandlerPopUpControllerTest.class,
+                 EventHandlerShellTest.class,
                  FiltersTest.class,
                  HandlerTest.class,
                  LoggerTest.class,
                  MetaModelTest.class,
                  ModuleTest.class,
                  ParameterConstraintRuleTest.class,
+                 ParameterConstraintTest.class,
                  PopUpControllerCreatorTest.class,
                  PopUpFiltersTest.class,
                  PropertiesTest.class,

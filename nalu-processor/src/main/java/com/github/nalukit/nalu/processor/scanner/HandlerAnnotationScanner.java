@@ -19,6 +19,7 @@ package com.github.nalukit.nalu.processor.scanner;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
+import com.github.nalukit.nalu.processor.model.intern.HandlerModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -26,11 +27,14 @@ import javax.lang.model.element.Element;
 
 public class HandlerAnnotationScanner {
 
+  private ProcessingEnvironment processingEnvironment;
+
   private Element handlerElement;
 
   @SuppressWarnings("unused")
   private HandlerAnnotationScanner(Builder builder) {
     super();
+    this.processingEnvironment = builder.processingEnvironment;
     this.handlerElement = builder.handlerElement;
     setUp();
   }
@@ -42,9 +46,20 @@ public class HandlerAnnotationScanner {
   private void setUp() {
   }
 
-  public ClassNameModel scan()
+  public HandlerModel scan()
       throws ProcessorException {
-    return new ClassNameModel(handlerElement.toString());
+    HandlerModel handlerModel = new HandlerModel(new ClassNameModel(handlerElement.toString()));
+
+    EventHandlerAnnotationScanner.EventMetaData eventMetaData = EventHandlerAnnotationScanner.builder()
+                                                                             .processingEnvironment(this.processingEnvironment)
+                                                                             .parentElement(this.handlerElement)
+                                                                             .build()
+                                                                             .scan();
+
+    handlerModel.setEventModels(eventMetaData.getEventModels());
+    handlerModel.setEventHandlers(eventMetaData.getEventHandlerModels());
+
+    return handlerModel;
   }
 
   public static class Builder {

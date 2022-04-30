@@ -21,14 +21,20 @@ import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ErrorPopUpControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.EventHandlerModel;
+import com.github.nalukit.nalu.processor.model.intern.EventModel;
+import com.github.nalukit.nalu.processor.model.intern.FilterModel;
+import com.github.nalukit.nalu.processor.model.intern.HandlerModel;
 import com.github.nalukit.nalu.processor.model.intern.ModuleModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleModel;
 import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ShellModel;
+import com.github.nalukit.nalu.processor.model.intern.TrackerModel;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class MetaModel {
 
@@ -53,15 +59,15 @@ public class MetaModel {
   private ErrorPopUpControllerModel          errorPopUpController;
   private boolean                            hasPluginsAnnotation;
   private boolean                            hasLoggerAnnotation;
-  private boolean                            hasTrackerAnnotation;
-  private ClassNameModel                     tracker;
   private List<ControllerModel>              controllers;
   private List<BlockControllerModel>         blockControllers;
   private List<ParameterConstraintRuleModel> parameterConstraintRules;
   private List<PopUpControllerModel>         popUpControllers;
-  private List<ClassNameModel>               filters;
+  private TrackerModel                       tracker;
+  // TODO auf FilterModel mit Event & EventHandler umstellen!
+  private List<FilterModel>                  filters;
   private List<ClassNameModel>               popUpFilters;
-  private List<ClassNameModel>               handlers;
+  private List<HandlerModel>                 handlers;
   private ClassNameModel                     componentType;
   private List<CompositeModel>               compositeModels;
   private ClassNameModel                     logger;
@@ -176,19 +182,19 @@ public class MetaModel {
     this.popUpControllers = popUpControllers;
   }
 
-  public List<ClassNameModel> getFilters() {
+  public List<FilterModel> getFilters() {
     return filters;
   }
 
-  public void setFilters(List<ClassNameModel> filters) {
+  public void setFilters(List<FilterModel> filters) {
     this.filters = filters;
   }
 
-  public List<ClassNameModel> getHandlers() {
+  public List<HandlerModel> getHandlers() {
     return handlers;
   }
 
-  public void setHandlers(List<ClassNameModel> handlers) {
+  public void setHandlers(List<HandlerModel> handlers) {
     this.handlers = handlers;
   }
 
@@ -295,22 +301,6 @@ public class MetaModel {
     this.history = history;
   }
 
-  public boolean hasTrackerAnnotation() {
-    return hasTrackerAnnotation;
-  }
-
-  public void setHasTrackerAnnotation(boolean hasTrackerAnnotation) {
-    this.hasTrackerAnnotation = hasTrackerAnnotation;
-  }
-
-  public ClassNameModel getTracker() {
-    return tracker;
-  }
-
-  public void setTracker(ClassNameModel tracker) {
-    this.tracker = tracker;
-  }
-
   public ClassNameModel getLogger() {
     return logger;
   }
@@ -365,5 +355,13 @@ public class MetaModel {
 
   public void setParameterConstraintRules(List<ParameterConstraintRuleModel> parameterConstraintRules) {
     this.parameterConstraintRules = parameterConstraintRules;
+  }
+
+  public TrackerModel getTracker() {
+    return tracker;
+  }
+
+  public void setTracker(TrackerModel tracker) {
+    this.tracker = tracker;
   }
 }

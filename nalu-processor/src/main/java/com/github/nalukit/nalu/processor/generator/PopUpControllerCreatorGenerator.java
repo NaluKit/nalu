@@ -22,6 +22,7 @@ import com.github.nalukit.nalu.client.internal.application.PopUpControllerInstan
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
+import com.github.nalukit.nalu.processor.model.intern.EventModel;
 import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
 import com.squareup.javapoet.ClassName;
@@ -35,6 +36,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
+import java.util.Objects;
 
 public class PopUpControllerCreatorGenerator {
 
@@ -92,25 +94,40 @@ public class PopUpControllerCreatorGenerator {
                                                               ClassName.get(PopUpControllerInstance.class),
                                                               ClassName.get(PopUpControllerInstance.class))
                                                 .addStatement("popUpControllerInstance.setPopUpControllerClassName($S)",
-                                                              popUpControllerModel.getController()
-                                                                                  .getClassName())
+                                                              this.popUpControllerModel.getController()
+                                                                                       .getClassName())
                                                 .addStatement("popUpControllerInstance.setAlwaysRenderComponent($L)",
-                                                              popUpControllerModel.isAlwaysRenderComponent() ? "true" : "false")
+                                                              this.popUpControllerModel.isAlwaysRenderComponent() ? "true" : "false")
                                                 .addStatement("$T controller = new $T()",
-                                                              ClassName.get(popUpControllerModel.getProvider()
-                                                                                                .getPackage(),
-                                                                            popUpControllerModel.getProvider()
-                                                                                                .getSimpleName()),
-                                                              ClassName.get(popUpControllerModel.getProvider()
-                                                                                                .getPackage(),
-                                                                            popUpControllerModel.getProvider()
-                                                                                                .getSimpleName()))
+                                                              ClassName.get(this.popUpControllerModel.getProvider()
+                                                                                                     .getPackage(),
+                                                                            this.popUpControllerModel.getProvider()
+                                                                                                     .getSimpleName()),
+                                                              ClassName.get(this.popUpControllerModel.getProvider()
+                                                                                                     .getPackage(),
+                                                                            this.popUpControllerModel.getProvider()
+                                                                                                     .getSimpleName()))
                                                 .addStatement("popUpControllerInstance.setController(controller)")
                                                 .addStatement("controller.setContext(context)")
                                                 .addStatement("controller.setEventBus(eventBus)")
                                                 .addStatement("controller.setRouter(router)")
                                                 .addStatement("controller.setName($S)",
-                                                              popUpControllerModel.getName());
+                                                              this.popUpControllerModel.getName());
+
+    this.popUpControllerModel.getEventHandlers()
+                             .forEach(m -> {
+                               EventModel eventModel = this.popUpControllerModel.getEventModel(m.getEvent()
+                                                                                                .getClassName());
+                               if (!Objects.isNull(eventModel)) {
+                                 createMethod.addStatement("super.eventBus.addHandler($T.TYPE, e -> controller.$L(e))",
+                                                           ClassName.get(eventModel.getEvent()
+                                                                                   .getPackage(),
+                                                                         eventModel.getEvent()
+                                                                                   .getSimpleName()),
+                                                           m.getMethodName());
+                               }
+                             });
+
     createMethod.addStatement("return popUpControllerInstance");
     typeSpec.addMethod(createMethod.build());
 

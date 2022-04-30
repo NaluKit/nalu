@@ -16,28 +16,38 @@
 
 package com.github.nalukit.nalu.processor.model.intern;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ErrorPopUpControllerModel {
 
-  private ClassNameModel context;
+  private ClassNameModel          context;
+  private ClassNameModel          controller;
+  private ClassNameModel          componentInterface;
+  private ClassNameModel          component;
+  private boolean                 componentCreator;
+  private List<EventHandlerModel> eventHandlers;
+  private List<EventModel>        eventModels;
 
-  private ClassNameModel controller;
-
-  private ClassNameModel componentInterface;
-
-  private ClassNameModel component;
-
-  private boolean componentCreator;
+  public ErrorPopUpControllerModel() {
+    this.eventHandlers = new ArrayList<>();
+    this.eventModels   = new ArrayList<>();
+  }
 
   public ErrorPopUpControllerModel(ClassNameModel context,
                                    ClassNameModel controller,
                                    ClassNameModel componentInterface,
                                    ClassNameModel component,
-                                   boolean componentCreator) {
+                                   boolean componentCreator,
+                                   List<EventHandlerModel> eventHandlers,
+                                   List<EventModel> eventModels) {
     this.context            = context;
     this.controller         = controller;
     this.componentInterface = componentInterface;
     this.component          = component;
     this.componentCreator   = componentCreator;
+    this.eventHandlers      = eventHandlers;
+    this.eventModels        = eventModels;
   }
 
   public ClassNameModel getContext() {
@@ -78,6 +88,32 @@ public class ErrorPopUpControllerModel {
 
   public void setComponentCreator(boolean componentCreator) {
     this.componentCreator = componentCreator;
+  }
+
+  public List<EventHandlerModel> getEventHandlers() {
+    return eventHandlers;
+  }
+
+  public void setEventHandlers(List<EventHandlerModel> eventHandlers) {
+    this.eventHandlers = eventHandlers;
+  }
+
+  public List<EventModel> getEventModels() {
+    return eventModels;
+  }
+
+  public void setEventModels(List<EventModel> eventModels) {
+    this.eventModels = eventModels;
+  }
+
+  public EventModel getEventModel(String className) {
+    return this.getEventModels()
+               .stream()
+               .filter(c -> c.getEvent()
+                             .getClassName()
+                             .equals(className))
+               .findFirst()
+               .orElse(null);
   }
 
 }

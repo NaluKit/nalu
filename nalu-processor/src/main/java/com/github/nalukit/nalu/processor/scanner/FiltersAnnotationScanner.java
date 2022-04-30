@@ -17,13 +17,17 @@
 package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.application.annotation.Filters;
+import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
+import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
+import com.github.nalukit.nalu.processor.model.intern.FilterModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.MirroredTypeException;
 import javax.lang.model.type.TypeMirror;
 import java.util.Arrays;
 import java.util.List;
@@ -50,11 +54,29 @@ public class FiltersAnnotationScanner {
   private void setUp() {
   }
 
-  public List<ClassNameModel> scan(RoundEnvironment roundEnvironment) {
-    return this.getFiltersAsList()
-               .stream()
-               .map(ClassNameModel::new)
-               .collect(Collectors.toList());
+  public List<FilterModel> scan(RoundEnvironment roundEnvironment)
+      throws ProcessorException {
+    List<FilterModel> filters = this.getFiltersAsList()
+                                    .stream()
+                                    .map(ClassNameModel::new)
+                                    .map(FilterModel::new)
+                                    .collect(Collectors.toList());
+
+    for (FilterModel filter : filters) {
+      TypeElement typeElement = this.processingEnvironment.getElementUtils()
+                                                          .getTypeElement(filter.getFilter()
+                                                                                .getClassName());
+      EventHandlerAnnotationScanner.EventMetaData eventMetaData = EventHandlerAnnotationScanner.builder()
+                                                                                               .processingEnvironment(this.processingEnvironment)
+                                                                                               .parentElement(typeElement)
+                                                                                               .build()
+                                                                                               .scan();
+
+      filter.setEventHandlers(eventMetaData.getEventHandlerModels());
+      filter.setEventModels(eventMetaData.getEventModels());
+    }
+
+    return filters;
   }
 
   private List<String> getFiltersAsList() {

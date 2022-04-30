@@ -28,6 +28,7 @@ import com.github.nalukit.nalu.client.component.annotation.ErrorPopUpController;
 import com.github.nalukit.nalu.client.component.annotation.PopUpController;
 import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
+import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.client.module.annotation.Module;
 import com.github.nalukit.nalu.client.module.annotation.Modules;
@@ -46,10 +47,13 @@ import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ErrorPopUpControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.FilterModel;
+import com.github.nalukit.nalu.processor.model.intern.HandlerModel;
 import com.github.nalukit.nalu.processor.model.intern.ModuleModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleModel;
 import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ShellModel;
+import com.github.nalukit.nalu.processor.model.intern.TrackerModel;
 import com.github.nalukit.nalu.processor.scanner.ApplicationAnnotationScanner;
 import com.github.nalukit.nalu.processor.scanner.BlockControllerAnnotationScanner;
 import com.github.nalukit.nalu.processor.scanner.CompositeControllerAnnotationScanner;
@@ -132,6 +136,7 @@ public class NaluProcessor
                      CompositeController.class.getCanonicalName(),
                      Controller.class.getCanonicalName(),
                      ErrorPopUpController.class.getCanonicalName(),
+                     EventHandler.class.getCanonicalName(),
                      Filters.class.getCanonicalName(),
                      Logger.class.getCanonicalName(),
                      Handler.class.getCanonicalName(),
@@ -471,22 +476,23 @@ public class NaluProcessor
                                 .build()
                                 .validate(filtersElement);
       // scan filter element
-      List<ClassNameModel> filterModels = FiltersAnnotationScanner.builder()
-                                                                  .processingEnvironment(processingEnv)
-                                                                  .metaModel(this.metaModel)
-                                                                  .filtersElement(filtersElement)
-                                                                  .build()
-                                                                  .scan(roundEnv);
+      List<FilterModel> filterModels = FiltersAnnotationScanner.builder()
+                                                               .processingEnvironment(processingEnv)
+                                                               .metaModel(this.metaModel)
+                                                               .filtersElement(filtersElement)
+                                                               .build()
+                                                               .scan(roundEnv);
       // check, if the one of the shell in the list is already
       // added to the the meta model
-      //
       // in case it is, remove it.
       filterModels.forEach(model -> {
-        Optional<ClassNameModel> optional = this.metaModel.getFilters()
-                                                          .stream()
-                                                          .filter(s -> model.getClassName()
-                                                                            .equals(s.getClassName()))
-                                                          .findFirst();
+        Optional<FilterModel> optional = this.metaModel.getFilters()
+                                                       .stream()
+                                                       .filter(s -> model.getFilter()
+                                                                         .getClassName()
+                                                                         .equals(s.getFilter()
+                                                                                  .getClassName()))
+                                                       .findFirst();
         optional.ifPresent(optionalFilter -> this.metaModel.getFilters()
                                                            .remove(optionalFilter));
       });
@@ -508,21 +514,23 @@ public class NaluProcessor
                                 .build()
                                 .validate();
       // scan handler element
-      ClassNameModel handlerModel = HandlerAnnotationScanner.builder()
-                                                            .processingEnvironment(processingEnv)
-                                                            .metaModel(this.metaModel)
-                                                            .handlerElement(handlerElement)
-                                                            .build()
-                                                            .scan();
+      HandlerModel handlerModel = HandlerAnnotationScanner.builder()
+                                                          .processingEnvironment(processingEnv)
+                                                          .metaModel(this.metaModel)
+                                                          .handlerElement(handlerElement)
+                                                          .build()
+                                                          .scan();
       // check, if the handler is already
       // added to the the meta model
       //
       // in case it is, remove it.
-      final String handlerClassname = handlerModel.getClassName();
-      Optional<ClassNameModel> optional = this.metaModel.getHandlers()
-                                                        .stream()
-                                                        .filter(s -> handlerClassname.equals(s.getClassName()))
-                                                        .findFirst();
+      final String handlerClassname = handlerModel.getHandler()
+                                                  .getClassName();
+      Optional<HandlerModel> optional = this.metaModel.getHandlers()
+                                                      .stream()
+                                                      .filter(s -> handlerClassname.equals(s.getHandler()
+                                                                                            .getClassName()))
+                                                      .findFirst();
       optional.ifPresent(optionalHandler -> this.metaModel.getHandlers()
                                                           .remove(optionalHandler));
       // save handler data in metaModel
@@ -749,6 +757,7 @@ public class NaluProcessor
 
   private void handleTrackerAnnotation(RoundEnvironment roundEnv)
       throws ProcessorException {
+    //TODO why to iterate over different Tackers?  It should be only one element?
     for (Element trackerElement : roundEnv.getElementsAnnotatedWith(Tracker.class)) {
       // validate filter element
       TrackerAnnotationValidator.builder()
@@ -757,14 +766,15 @@ public class NaluProcessor
                                 .trackerElement(trackerElement)
                                 .build()
                                 .validate();
-      // scan tracker element and save data in metaModel
-      this.metaModel = TrackerAnnotationScanner.builder()
-                                               .processingEnvironment(processingEnv)
-                                               .metaModel(this.metaModel)
-                                               .trackerElement(trackerElement)
-                                               .build()
-                                               .scan(roundEnv);
 
+      // scan tracker element and save data in metaModel
+      TrackerModel trackerModel = TrackerAnnotationScanner.builder()
+                                                          .processingEnvironment(processingEnv)
+                                                          .trackerElement(trackerElement)
+                                                          .build()
+                                                          .scan(roundEnv);
+
+      this.metaModel.setTracker(trackerModel);
     }
   }
 
