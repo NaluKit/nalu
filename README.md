@@ -108,16 +108,16 @@ To use Nalu add the following dependencies to your pom:
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
-    <version>2.9.0-gwt-2.8.2</version>
+    <version>2.10.0-gwt-2.8.2</version>
 </dependency>
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
-    <version>2.9.0-gwt-2.8.2</version>
+    <version>2.10.0-gwt-2.8.2</version>
     <scope>provided</scope>
 </dependency>
 ```
-* **GWT 2.9.0 - SNAPSHOT**
+* **GWT 2.9.0 (and newer) - SNAPSHOT**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -131,17 +131,17 @@ To use Nalu add the following dependencies to your pom:
     <scope>provided</scope>
 </dependency>
 ```
-* **GWT 2.9.0 - Release**
+* **GWT 2.9.0 (and newer)  - Release**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
-    <version>2.9.0</version>
+    <version>2.10.0</version>
 </dependency>
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
-    <version>2.9.0</version>
+    <version>2.10.0</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -155,10 +155,10 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
-    <version>2.9.0-gwt-2.8.2</version>
+    <version>2.10.0-gwt-2.8.2</version>
 ```
 
-* **GWT 2.9.0 - SNAPSHOT**
+* **GWT 2.9.0 (and newer)  - SNAPSHOT**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -166,12 +166,12 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
     <version>HEAD-SNAPSHOT</version>
 ```
 
-* **GWT 2.9.0 - Release**
+* **GWT 2.9.0 (and newer)  - Release**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
-    <version>2.9.0</version>
+    <version>2.10.0</version>
 </dependency>
 ```
 
@@ -182,11 +182,11 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemento</artifactId>
-    <version>2.9.0-gwt-2.8.2</version>
+    <version>2.10.0-gwt-2.8.2</version>
 </dependency>
 ```
 
-* **GWT 2.9.0 - SNAPSHOT**
+* **GWT 2.9.0 (and newer)  - SNAPSHOT**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
@@ -195,12 +195,12 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
 </dependency>
 ```
 
-* **GWT 2.9.0 - Release**
+* **GWT 2.9.0 (and newer)  - Release**
 ```XML
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemento</artifactId>
-    <version>2.9.0</version>
+    <version>2.10.0</version>
 </dependency>
 ```
 
@@ -215,17 +215,17 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
    <dependency>
      <groupId>com.github.nalukit</groupId>
      <artifactId>nalu-plugin-gwt</artifactId>
-     <version>2.9.0-gwt-2.8.2</version>
+     <version>2.10.0-gwt-2.8.2</version>
    </dependency>
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
-      <version>2.9.0-gwt-2.8.2</version>
+      <version>2.10.0-gwt-2.8.2</version>
       <scope>provided</scope>
    </dependency>
 ```
 
-* **GWT 2.9.0 - SNAPSHOT**
+* **GWT 2.9.0 (and newer)  - SNAPSHOT**
 ```XML
    <dependency>
       <groupId>com.github.nalukit</groupId>
@@ -240,17 +240,17 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
    </dependency>
 ```
 
-* **GWT 2.9.0 - Release**
+* **GWT 2.9.0 (and newer)  - Release**
 ```XML
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
-      <version>2.9.0</version>
+      <version>2.10.0</version>
    </dependency>
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
-      <version>2.9.0</version>
+      <version>2.10.0</version>
       <scope>provided</scope>
    </dependency>
 ```
@@ -280,12 +280,15 @@ Here you will find many examples that show Nalu in action: [https://github.com/n
 ## YouTube
 You will find a session about Nalu at the GWT Community Channel [here](https://www.youtube.com/watch?v=GsHY4f3cvRU).
 
-## Project Generator
-To speed up creating a Nalu project, the [Nalu Boot Starter Project Generator](http://www.mvp4g.org/boot-starter-nalu/BootStarterNalu.html) (which is also based on Nalu) can be used to create a Nalu based project with a few clicks. The project generator will generate a Maven project, which can be imported to your preferred IDE. The project is ready to use.
+[//]: # (## Project Generator)
 
-Look into the **readme.txt** how to run the project.
+[//]: # (To speed up creating a Nalu project, the [Nalu Boot Starter Project Generator]&#40;http://www.mvp4g.org/boot-starter-nalu/BootStarterNalu.html&#41; &#40;which is also based on Nalu&#41; can be used to create a Nalu based project with a few clicks. The project generator will generate a Maven project, which can be imported to your preferred IDE. The project is ready to use.)
 
-More information about the generator and the source code can be found here: [Nalu Project Generator](https://github.com/nalukit/gwt-boot-starter-nalu).
+[//]: # ()
+[//]: # (Look into the **readme.txt** how to run the project.)
+
+[//]: # ()
+[//]: # (More information about the generator and the source code can be found here: [Nalu Project Generator]&#40;https://github.com/nalukit/gwt-boot-starter-nalu&#41;.)
 
 ## Notes
 In case you find a bug, please open an issue or post it inside the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
