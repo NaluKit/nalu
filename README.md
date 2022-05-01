@@ -108,12 +108,12 @@ To use Nalu add the following dependencies to your pom:
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
-    <version>gwt-2.8.2-HEAD-SNAPSHOT</version>
+    <version>2.10.0-gwt-2.8.2</version>
 </dependency>
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
-    <version>gwt-2.8.2-HEAD-SNAPSHOT</version>
+    <version>2.10.0-gwt-2.8.2</version>
     <scope>provided</scope>
 </dependency>
 ```
