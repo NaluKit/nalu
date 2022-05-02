@@ -1,7 +1,7 @@
 # Event Bus
 Every Nalu application has an event bus. This enables the application to fire events and handle events. The event bus is injected in every handler, filter and controller.
 
-Nalu uses the event bus from the `org.gwtproject.events` artifact which is ready to use with j2cl.
+Nalu uses the event bus from the `org.gwtproject.events` artifact which is ready to use with J2CL.
 
 ## Event - Firing & Handling
 
@@ -9,7 +9,7 @@ Nalu uses the `org.gwtproject.events.Event`-module to handle events. This module
 
 ### Event Firing
 
-The event bis is injected in every Nalu controller, filter, loader and handler. To fire an event, use:
+The event bus is injected in every Nalu controller, filter, loader and handler. To fire an event, use:
 
 ```java
 this.eventBus.fireEvent(new MyEvent());
