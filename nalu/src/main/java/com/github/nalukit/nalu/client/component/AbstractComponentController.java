@@ -240,7 +240,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   }
 
   /**
-   * The stop-method will be called at the start of the controller's life cycle.
+   * The start-method will be called at the start of the controller's life cycle.
    * <p>
    * If you have to do something in case controller gets active,
    * that's the right place.
