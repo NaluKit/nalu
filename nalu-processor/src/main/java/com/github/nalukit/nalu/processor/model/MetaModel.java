@@ -64,7 +64,6 @@ public class MetaModel {
   private List<ParameterConstraintRuleModel> parameterConstraintRules;
   private List<PopUpControllerModel>         popUpControllers;
   private TrackerModel                       tracker;
-  // TODO auf FilterModel mit Event & EventHandler umstellen!
   private List<FilterModel>                  filters;
   private List<ClassNameModel>               popUpFilters;
   private List<HandlerModel>                 handlers;

@@ -790,11 +790,10 @@ public class NaluProcessor
                                 .validate();
       // scan version element and save data in metaModel
       this.metaModel = VersionAnnotationScanner.builder()
-                                               .processingEnvironment(processingEnv)
                                                .metaModel(this.metaModel)
                                                .versionElement(trackerElement)
                                                .build()
-                                               .scan(roundEnv);
+                                               .scan();
 
     }
   }
