@@ -19,39 +19,32 @@ package com.github.nalukit.nalu.processor.scanner;
 import com.github.nalukit.nalu.client.application.annotation.Version;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.MirroredTypeException;
 
 import static java.util.Objects.isNull;
 
 public class VersionAnnotationScanner {
-  
-  private ProcessingEnvironment processingEnvironment;
-  
-  private Element versionElement;
-  
-  private MetaModel metaModel;
-  
+
+  private final Element versionElement;
+
+  private final MetaModel metaModel;
+
   @SuppressWarnings("unused")
   private VersionAnnotationScanner(Builder builder) {
     super();
-    this.processingEnvironment = builder.processingEnvironment;
-    this.versionElement        = builder.versionElement;
-    this.metaModel             = builder.metaModel;
+    this.versionElement = builder.versionElement;
+    this.metaModel      = builder.metaModel;
     setUp();
   }
-  
-  private void setUp() {
-  }
-  
+
   public static Builder builder() {
     return new Builder();
   }
-  
-  public MetaModel scan(RoundEnvironment roundEnvironment) {
+
+  private void setUp() {
+  }
+
+  public MetaModel scan() {
     // handle debug-annotation
     Version versionAnnotation = versionElement.getAnnotation(Version.class);
     if (isNull(versionAnnotation)) {
@@ -61,44 +54,27 @@ public class VersionAnnotationScanner {
     }
     return this.metaModel;
   }
-  
-  private TypeElement getVersion(Version versionAnnotation) {
-    try {
-      versionAnnotation.value();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
-    }
-    return null;
-  }
-  
+
   public static class Builder {
-    
-    ProcessingEnvironment processingEnvironment;
-    
+
     Element versionElement;
-    
+
     MetaModel metaModel;
-    
-    public Builder processingEnvironment(ProcessingEnvironment processingEnvironment) {
-      this.processingEnvironment = processingEnvironment;
+
+    public Builder versionElement(Element versionElement) {
+      this.versionElement = versionElement;
       return this;
     }
-    
-    public Builder versionElement(Element debugElement) {
-      this.versionElement = debugElement;
-      return this;
-    }
-    
+
     public Builder metaModel(MetaModel metaModel) {
       this.metaModel = metaModel;
       return this;
     }
-    
+
     public VersionAnnotationScanner build() {
       return new VersionAnnotationScanner(this);
     }
-    
+
   }
-  
+
 }
