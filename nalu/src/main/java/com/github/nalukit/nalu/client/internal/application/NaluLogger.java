@@ -50,12 +50,17 @@ public class NaluLogger<C extends IsContext> {
    * @param event the Log Event containing all information
    */
   private void onLog(LogEvent event) {
-    if (!Objects.isNull(this.clientLogger)) {
-      if (!event.isSdmOnly() || this.isSDM()) {
-        event.getMessages()
-             .forEach(m -> this.clientLogger.log(m));
+    if (event.isSdmOnly()) {
+      if (!this.isSDM()) {
+        return;
       }
     }
+
+    if (!Objects.isNull(this.clientLogger)) {
+        event.getMessages()
+             .forEach(m -> this.clientLogger.log(m));
+    }
+
     if (!Objects.isNull(this.customLogger)) {
       this.customLogger.log(event.getMessages(),
                             event.isSdmOnly());
