@@ -28,7 +28,7 @@ public final class LoggerAnnotationOk01Impl extends AbstractApplication<MockCont
   @Override
   public void loadLoggerConfiguration() {
     MockDebug clientLogger = new MockDebug();
-    this.naluLogger.setClientLogger(clientLoggerZ);
+    this.naluLogger.setClientLogger(clientLogger);
     MockLogger customLogger = new MockLogger();
     customLogger.setContext(this.context);
     this.naluLogger.setCustomLogger(customLogger);
