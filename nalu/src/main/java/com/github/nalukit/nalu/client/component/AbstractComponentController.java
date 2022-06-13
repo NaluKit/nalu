@@ -356,7 +356,6 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * @return handler registrations
    */
   @NaluInternalUse
-  @Deprecated
   public HandlerRegistrations getHandlerRegistrations() {
     return this.handlerRegistrations;
   }
