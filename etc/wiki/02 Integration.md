@@ -15,8 +15,6 @@ Nalu has dependencies to the following projects:
 * JavaPoet ([Download here](https://github.com/square/javapoet/releases))
 * gwt-events  ([Download here](https://github.com/gwtproject/gwt-events))
 
-See [#9](https://github.com/NaluKit/nalu/issues/9) for current status before downloading the dependencies.
-
 ## Maven
 Working with Maven, you # Integration
 To integrate Nalu into your project, the following steps need to be done:
@@ -85,10 +83,7 @@ In case the project is based on GWT widgets, add the following plugin to your po
 ## Requirements
 At the moment Nalu requires at least Java 8 and GWT 2.8.x. We recommend to use always the latest version GWT.
 
-
-## Important Note: com.github.nalukit.nalu.internal.*
-All code inside the `com.github.nalukit.nalu.internal.*` packages is considered private API and should not be relied upon at all. It can change at any time and with no announcement.
- need to add the following maven dependency:
+You need to add the following maven dependency:
 ```XML
     <dependency>
       <groupId>com.github.nalukit</groupId>
@@ -132,9 +127,8 @@ In case the project is based on GWT widgets, add the following plugin to your po
 
 **Nalu is available on Maven central.**
 
-## Requirements
-At the moment Nalu requires at least Java 8 and GWT 2.8.x. We recommend to use always the latest version GWT.
-
-
 ## Important Note: com.github.nalukit.nalu.internal.*
 All code inside the `com.github.nalukit.nalu.internal.*` packages is considered private API and should not be relied upon at all. It can change at any time and with no announcement.
+
+## Classes and Methods annotated with @NaluInternalUse
+All classes and methods in Nalu annotated with **@NaluInternalUse** is considered private API and should not be relied upon at all. It can change at any time and with no announcement.

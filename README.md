@@ -48,7 +48,6 @@ Nalu supports:
 
 * Tracking user routing (in case a tracker is added)
 
-
 ## Basic Concept
 Nalu uses a hash to navigate. **Starting with version 1.1.0 Nalu supports the use of hash less URLs.** Everything explained here will also work without hash. In case of working with a hash less URL, you need to implement something on the server to handle a reload.
 
@@ -279,9 +278,9 @@ More useful information about Nalu and how to use it, can be found inside the [W
 ## J2CL / GWT3
 With the next version of GWT (GWT 3) and the new J2CL transpiler, there will be major changes in the GWT development. For example: JSNI and generators, besides other things, will be gone. To be prepared for the future things like JSNI, generators or any other dependency to GWT has to be removed and must be avoided.
 
- Nalu uses only the already migrated `gwt-events` from `org.gwtproject`. (As long as gwt-events is not on Maven Central the sources of gwt-events will be part of Nalu. See **[#9 Replace gwt-event source files with gwt-event from Maven Central](https://github.com/NaluKit/nalu/issues/9)**)
-
-Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not use JSNI, generators or anything else from GWT (except the nalu-plugin-gwt).
+Nalu uses only the already migrated `gwt-events` from `org.gwtproject`.
+ 
+Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not use JSNI, generators or anything else from GWT (except the nalu-plugin-gwt) which will block moving to J2CL.
 
 Nalu is ready to use with J2CL / GWT 3 as long as you do not use the nalu-plugin-gwt!
 
@@ -303,3 +302,7 @@ More information about the generator and the source code can be found here: [Nal
 
 ## Notes
 In case you find a bug, please open an issue or post it inside the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
+
+## Comparsion between GWT Activities & Places versus Nalu
+Anyone, who is familiar with GWT Activities & Places, will find [here](https://github.com/NaluKit/nalu/wiki/01.-Motivation-&-Concepts#comparison-gwt-versus-nalu) a comparison between GWT Activities & Places and Nalu.
+

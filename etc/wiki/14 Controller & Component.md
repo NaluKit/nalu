@@ -19,9 +19,9 @@ A visual part in Nalu will always be a combination of a controller and a compone
 To create a controller, you have to:
 
 * extend AbstractComponentController<C, V, W>
-    - C: type of the context
-    - V: type of the view (interface) that will be injected in the controller
-    - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
+   - C: type of the context
+   - V: type of the view (interface) that will be injected in the controller
+   - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
 
 By extending AbstractComponentController you will have access to the allowing instances:
 
@@ -63,8 +63,8 @@ To let Nalu automatically create a controller the controller class (which extend
 The `@Controller` annotation has four required attributes:
 
 * route: the route which activates the controller. A route has two parts:
-    - the first part contains the path to the controller. A route starts always with a '/' and is used to separate routes
-    - the second part are the parameters that will be injected in the controller. To define a parameter inside a route, use '/:parameter name'. Parameters are optional
+   - the first part contains the path to the controller. A route starts always with a '/' and is used to separate routes
+   - the second part are the parameters that will be injected in the controller. To define a parameter inside a route, use '/:parameter name'. Parameters are optional
 * selector: a selector defines an ID inside the DOM (using the element plugin) or an `add`-method (using the GWT-plugin) which will be called to add a widget to the DOM.
 * componentInterface: the type of the interface for your component
 * component: the type of the component
@@ -299,8 +299,8 @@ A component represents the visual part. This is the place where the layout is cr
 To create a component, you have to:
 
 * extend AbstractComponent<C, W>
-    - C: type of the controller (defined as interface)
-    - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
+   - C: type of the controller (defined as interface)
+   - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
 
 A component requires a
 
@@ -331,9 +331,9 @@ Composites in Nalu are treated like controllers, but can **not** be used by a ro
 To create a composite, you have to:
 
 * extend AbstractCompositeController<C, V, W>
-    - C: type of the context
-    - V: type of the view (interface) that will be injected in the controller
-    - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
+   - C: type of the context
+   - V: type of the view (interface) that will be injected in the controller
+   - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
 
 By extending AbstractCompositeController you will have access to the allowing instances:
 
@@ -423,8 +423,8 @@ A component represents the visual part. This is the place where the layout is cr
 A composite component looks like a normal component. To create a composite component, you have to:
 
 * extend AbstractCompositeComponent<C, W>
-    - C: type of the composite controller (defined as interface)
-    - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
+   - C: type of the composite controller (defined as interface)
+   - W: type of the base class of your widget library (for GWT & GXT: Widget, Elemento and Domino-UI: HTMLElement)
 
 A composite component requires
 
@@ -545,8 +545,8 @@ A BlockController has the following features:
 To create a BlockController, you have to:
 
 * extend AbstractBlockComponentController<C, V>
-    * C: type of the context
-    * V: type of the view (interface) that will be injected in the controller
+  * C: type of the context
+  * V: type of the view (interface) that will be injected in the controller
 
 By extending AbstractBlockComponentController you will have access to the allowing instances:
 
@@ -562,7 +562,7 @@ A controller requires a
 * a public, zero-argument constructor
 * annotate the controller with `@BlockController`
 * extends AbstractBlockComponentController
-*
+
 Here is an example of a controller:
 
 ```java_holder_method_tree
@@ -689,8 +689,8 @@ A PopUpController has the following features:
 To create a pop-up Controller, you have to:
 
 * extend AbstractPopUpComponentController<C, V>
-    - C: type of the context
-    - V: type of the view (interface) that will be injected in the controller
+   - C: type of the context
+   - V: type of the view (interface) that will be injected in the controller
 
 By extending AbstractPopUpComponentController you will have access to the allowing instances:
 
@@ -765,16 +765,38 @@ A PopUpController is not bound to a route. To trigger a PopUpController fire the
 The following code shows how to trigger a PopUpController in Nalu:
 
 ```java_holder_method_tree
+this.eventBus.fireEvent(ShowPopUpEvent.show("PopUpEditor"));
+```
+
+The code above triggers the PopUpController using the name 'PopUpEditor'.
+
+The `showPopUpEvent` offers two features to pass data to the PopUpController:
+#### Passing and retrieving Strings
+
+```java_holder_method_tree
 this.eventBus.fireEvent(ShowPopUpEvent.show("PopUpEditor")
                                       .using("id",
                                              "4711"));
 ```
-The code above triggers the PopUpController using the name 'PopUpEditor' and adds 'id' to the event. (A parameter value must be a String)
+The code triggers the PopUpController and adds 'id' to the event. (A parameter value must be a String)
 
 Nalu will inject the parameters into the `dataStore` inside the `AbstractPopUpComponentController`-class. To retrieve the value use:
 
 ```java_holder_method_tree
 String id = super.dataStore.get("id");
+```
+#### Passing and retrieving arbitrary objects (since v2.9.0)
+```java_holder_method_tree
+this.eventBus.fireEvent(ShowPopUpEvent.show("PopUpEditor")
+                                      .usingObject("id",
+                                             new MyObject("withMyContent")));
+```
+The code triggers the PopUpController and adds 'id' to the event. (The parameter value can be an arbitrary object)
+
+Nalu will inject the parameters into the `dataObjectStore` inside the `AbstractPopUpComponentController`-class. To retrieve the value use:
+
+```java_holder_method_tree
+Object id = super.dataObjectStore.get("id"); //or cast it to your class ;)
 ```
 
 ### Life Cycle
@@ -1073,124 +1095,3 @@ public class MyController
 ```
 
 Note: At the time Nalu calls the `createPopUpComponent`-method, the context is already injected.
-
-## Multiple Route Support
-A controller in Nalu can be atteched to more than one route. To define a controller for several routes, use a list of Strings for the `route`-attribute.
-
-
-```java_holder_method_tree
-@Controller(route = { "/shell/route01/route02/:id",
-                      "/shell/route03/:id/route04",
-                      "/shell/route01/route02/route03/:id" },
-            selector = "content",
-            componentInterface = MultiRouteComponent.class,
-            component = MultiRouteComponentImpl.class)
-public class MultiRouteController
-  extends AbstractComponentController<MultiRouteContext, MultiRouteComponent, HTMLElement>
-  implements MultiRouteComponent.Controller {
-
-  private String id;
-
-  public MultiRouteController() {
-  }
-  
-  @AcceptParameter("id")
-  public void setId(String s) {
-    this.id = (s != null) ? s : "";
-  }
-}
-```
-
-Nalu will validate, that
-
-* all routes have the same number of parameters
-* all parameters have the same name
-* there is no duplicate route
-
-## Caching
-Nalu provides a caching mechanism. This allows to store a controller/component for a route. Next the route will be used, Nalu restores the cached controller/component instead of creating a new controller and component.
-
-To tell Nalu to cache a controller/component, use the `router.storeInCache(this)`-command inside the controller. Now, caching for this route is active. To stop caching, call `router.removeFromCache(this)`.
-
-You can also cache composites.
-
-Since 1.3.2 there is also a possibility to cache a composite as a singleton, so different sites can share a composite with the same state. You can configure this with the attribute scope in the annotation @Composites of the controllers which contain the composites:
-
-```java_holder_method_tree
-  @Composites({ @Composite(name = "myComposite",
-                           compositeController = MyComposite.class,
-                           selector = "my-composite",
-                           scope = Scope.GLOBAL) })
-  public class MyCompositeContainerController {
-    
-    ...
-  }
-```
-
-There are two kind of scopes:
-
-* Scope.GLOBAL to cache the composite as a singleton (share between components / sites)
-* Scope.LOCAL to cache the composite only for this component / site (default)
-
-## Reusing Controllers & Components
-
-In case you have a controller/component pair (using a route f.e. like this: `/application/person/detail/:id`) and you want to page through the person data, which means, the only thing that changes is the `id`, you can do this by using the same route and only changing the id. Nalu will always create a new controller/component pair in case of routing.
-
-Starting with version 2.1.0, Nalu will offer a new way to deal with this use case. Instead of always creating new components, you can tell Nalu to reuse them. To do so, just use `super.setMode(Mode.REUSE);`. this is the example code of a controller:
-
-```java_holder_method_tree
-@Controller(route = "/application/person/detail/:id",
-            selector = "content",
-            componentInterface = IDetailComponent.class,
-            component = DetailComponent.class)
-public class DetailController
-    extends AbstractComponentController<Context, IDetailComponent, HTMLElement>
-    implements IDetailComponent.Controller,
-               IsComponentCreator<IDetailComponent> {
-  
-  private long id;
-  
-  public DetailController() {
-  }
-  
-  @Override
-  public void start() {
-    super.setMode(Mode.REUSE);
-  }
-  
-  @Override
-  public void activate() {
-    // ToDo: load data, set up component, etc.
-  }
-  
-  @AcceptParameter("id")
-  public void setId(String id)
-      throws RoutingInterceptionException {
-    try {
-      this.id = Long.parseLong(id);
-    } catch (NumberFormatException e) {
-      // ToDo: error handling 
-    }
-  }
-  
-}
-
-```
-
-To create a controller, that can be reused:
-
-* add `super.setMode(Mode.REUSE);` to the `start`-method of the controller
-
-* use the `activate`-method to load data, set up the compoment, etc.
-
-With `Mode` set to `REUSE`, Nalu will compare the last executed hash with the new one. In case both hashes are not equal, Nalu will work as always, creating everything, etc.
-
-In case the last used hash is equal to the current hash, Nalu will execute the following steps:
-
-* call the `mayStop`-method (so, the routing can be interrupted)
-
-* call `deactivate`-method to deactivate the controller/composites
-
-* inject the new parameter values into the controller
-
-* call the `activate`-method
