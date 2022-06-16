@@ -86,7 +86,7 @@
   </distributionManagement>
 
   <properties>
-    <revision>2.10.1-gwt-2.8.2</revision>
+    <revision>gwt-2.8.2-HEAD-SNAPSHOT</revision>
     <github.global.server>github</github.global.server>
 
     <auto-common.version>1.0</auto-common.version>
