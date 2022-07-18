@@ -97,7 +97,7 @@
     <guava.version>31.1-jre</guava.version>
     <gwt-event.version>1.0.0-RC1</gwt-event.version>
     <gwt-regexp.version>1.0.0-RC1</gwt-regexp.version>
-    <gwt.version>2.9.0</gwt.version>
+    <gwt.version>2.10.0</gwt.version>
     <hamcrest-core.version>2.2</hamcrest-core.version>
     <javapoet.version>1.13.0</javapoet.version>
     <jsinterop-annotations.version>2.0.0</jsinterop-annotations.version>
