@@ -18,12 +18,7 @@ package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.NaluConstants;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
-import com.github.nalukit.nalu.client.component.AbstractComponentController;
-import com.github.nalukit.nalu.client.component.AbstractCompositeController;
-import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
-import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
-import com.github.nalukit.nalu.client.component.IsController;
-import com.github.nalukit.nalu.client.component.IsShell;
+import com.github.nalukit.nalu.client.component.*;
 import com.github.nalukit.nalu.client.event.NaluErrorEvent;
 import com.github.nalukit.nalu.client.event.RouterStateEvent;
 import com.github.nalukit.nalu.client.event.RouterStateEvent.RouterState;
@@ -33,15 +28,7 @@ import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.Utils;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
-import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
-import com.github.nalukit.nalu.client.internal.application.ControllerCallback;
-import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
-import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
-import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
-import com.github.nalukit.nalu.client.internal.application.ShellCallback;
-import com.github.nalukit.nalu.client.internal.application.ShellFactory;
-import com.github.nalukit.nalu.client.internal.application.ShellInstance;
+import com.github.nalukit.nalu.client.internal.application.*;
 import com.github.nalukit.nalu.client.module.IsModule;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.ConfirmHandler;
@@ -49,49 +36,43 @@ import com.github.nalukit.nalu.client.seo.SeoDataProvider;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import org.gwtproject.event.shared.SimpleEventBus;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 abstract class AbstractRouter
     implements IsConfigurableRouter {
 
+  // composite configuration
+  private final List<CompositeControllerReference> compositeControllerReferences;
+  // List of the application shells
+  private final ShellConfiguration                 shellConfiguration;
+  // List of the routes of the application
+  private final RouterConfiguration                routerConfiguration;
+  // List of active components
+  private final Map<String, ControllerInstance>    activeComponents;
+  // list of routes used for handling the current route - used to detect loops
+  private final List<String>                       loopDetectionList;
+  // the tracker: if not null, track the users routing
+  private final IsTracker                          tracker;
   /* instance of AlwaysLoadComposite-class */
-  protected AlwaysLoadComposite alwaysLoadComposite;
+  protected     AlwaysLoadComposite                alwaysLoadComposite;
   /* instance of AlwaysShowPopUp-class */
-  protected AlwaysShowPopUp     alwaysShowPopUp;
+  protected     AlwaysShowPopUp                    alwaysShowPopUp;
   // the plugin
   IsNaluProcessorPlugin plugin;
-  // composite configuration
-  private List<CompositeControllerReference> compositeControllerReferences;
-  // List of the application shells
-  private ShellConfiguration                 shellConfiguration;
-  // List of the routes of the application
-  private RouterConfiguration                routerConfiguration;
-  // List of active components
-  private Map<String, ControllerInstance>    activeComponents;
   // hash of last successful routing
-  private String                             lastExecutedHash = "";
+  private String         lastExecutedHash = "";
   // current route
-  private String                             currentRoute     = "";
+  private String         currentRoute     = "";
   // current parameters
-  private String[]                           currentParameters;
+  private String[]       currentParameters;
   // last added shell - used, to check if the shell needs an shell replacement
-  private String                             lastAddedShell;
+  private String         lastAddedShell;
   // instance of the current shell
-  private IsShell                            shell;
-  // list of routes used for handling the current route - used to detect loops
-  private List<String>                       loopDetectionList;
-  // the tracker: if not null, track the users routing
-  private IsTracker                          tracker;
+  private IsShell        shell;
   // the application event bus
-  private SimpleEventBus                     eventBus;
+  private SimpleEventBus eventBus;
 
   AbstractRouter(List<CompositeControllerReference> compositeControllerReferences,
                  ShellConfiguration shellConfiguration,
@@ -972,8 +953,7 @@ abstract class AbstractRouter
                                                                     s.getComposite(),
                                                                     routeResult.getRoute(),
                                                                     routeResult.getParameterValues()
-                                                                               .toArray(new String[routeResult.getParameterValues()
-                                                                                                              .size()]))) {
+                                                                               .toArray(new String[0]))) {
                 CompositeInstance compositeInstance = CompositeFactory.get()
                                                                       .getComposite(controllerInstance.getControllerClassName(),
                                                                                     s.getComposite(),
@@ -1070,8 +1050,7 @@ abstract class AbstractRouter
                                                                   compositeControllerReference.getComposite(),
                                                                   routeResult.getRoute(),
                                                                   routeResult.getParameterValues()
-                                                                             .toArray(new String[routeResult.getParameterValues()
-                                                                                                            .size()]))) {
+                                                                             .toArray(new String[0]))) {
               try {
                 CompositeInstance compositeInstance = CompositeFactory.get()
                                                                       .getComposite(controllerInstance.getControllerClassName(),
@@ -1128,7 +1107,8 @@ abstract class AbstractRouter
         // let's call active for all related composite
         compositeControllers.forEach(c -> {
           if (!Objects.isNull(c.getActivateNaluCommand())) {
-            c.getActivateNaluCommand().execute();
+            c.getActivateNaluCommand()
+             .execute();
           }
           c.activate();
         });
@@ -1137,7 +1117,8 @@ abstract class AbstractRouter
                           .values()
                           .forEach(c -> {
                             if (!Objects.isNull(c.getActivateNaluCommand())) {
-                              c.getActivateNaluCommand().execute();
+                              c.getActivateNaluCommand()
+                               .execute();
                             }
                             c.activate();
                           });
@@ -1161,7 +1142,8 @@ abstract class AbstractRouter
             }
           }
           if (!Objects.isNull(c.getActivateNaluCommand())) {
-            c.getActivateNaluCommand().execute();
+            c.getActivateNaluCommand()
+             .execute();
           }
           c.activate();
         });
