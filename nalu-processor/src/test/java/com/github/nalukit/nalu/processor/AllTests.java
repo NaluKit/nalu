@@ -18,41 +18,14 @@ package com.github.nalukit.nalu.processor;
 
 import com.github.nalukit.nalu.processor.model.MetaModelTest;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModelTest;
-import com.github.nalukit.nalu.processor.test.ApplicationTest;
-import com.github.nalukit.nalu.processor.test.BlockControllerTest;
-import com.github.nalukit.nalu.processor.test.CompositeCreatorTest;
-import com.github.nalukit.nalu.processor.test.CompositeTest;
-import com.github.nalukit.nalu.processor.test.ConsistenceTest;
-import com.github.nalukit.nalu.processor.test.ControllerCreatorTest;
-import com.github.nalukit.nalu.processor.test.ControllerTest;
-import com.github.nalukit.nalu.processor.test.ErrorPopUpControllerTest;
-import com.github.nalukit.nalu.processor.test.EventHandlerBlockControllerTest;
-import com.github.nalukit.nalu.processor.test.EventHandlerCompositeTest;
-import com.github.nalukit.nalu.processor.test.EventHandlerControllerTest;
-import com.github.nalukit.nalu.processor.test.EventHandlerErrorPopUpControllerTest;
-import com.github.nalukit.nalu.processor.test.EventHandlerHandlerTest;
-import com.github.nalukit.nalu.processor.test.EventHandlerPopUpControllerTest;
-import com.github.nalukit.nalu.processor.test.EventHandlerShellTest;
-import com.github.nalukit.nalu.processor.test.EventHandlerTest;
-import com.github.nalukit.nalu.processor.test.FiltersTest;
-import com.github.nalukit.nalu.processor.test.HandlerTest;
-import com.github.nalukit.nalu.processor.test.LoggerTest;
-import com.github.nalukit.nalu.processor.test.ModuleTest;
-import com.github.nalukit.nalu.processor.test.ParameterConstraintRuleTest;
-import com.github.nalukit.nalu.processor.test.ParameterConstraintTest;
-import com.github.nalukit.nalu.processor.test.PopUpControllerCreatorTest;
-import com.github.nalukit.nalu.processor.test.PopUpFiltersTest;
-import com.github.nalukit.nalu.processor.test.ShellCreatorTest;
-import com.github.nalukit.nalu.processor.test.ShellTest;
-import com.github.nalukit.nalu.processor.test.TrackerTest;
-import com.github.nalukit.nalu.processor.test.VersionTest;
+import com.github.nalukit.nalu.processor.test.*;
 import com.github.nalukit.nalu.processor.test.model.intern.ClassNameModelTest;
 import com.github.nalukit.nalu.processor.test.model.property.PropertiesTest;
-import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-@RunWith(JUnitPlatform.class)
+@RunWith(Suite.class)
 @SelectClasses({ ApplicationTest.class,
                  BlockControllerTest.class,
                  ClassNameModelTest.class,
