@@ -298,18 +298,7 @@ public class ApplicationGenerator {
                                          typeSpec.build())
                                 .build();
     try {
-//            System.out.println(javaFile.toString());
       javaFile.writeTo(this.processingEnvironment.getFiler());
-      //      FileObject fileObject = this.processingEnvironment.getFiler()
-      //                                                        .createSourceFile()
-      //                                                        .createResource(SOURCE_OUTPUT,
-      //                                                                        metaModel.getGenerateToPackage(),
-      //                                                                        metaModel.getApplication()
-      //                                                                                 .getSimpleName() + ApplicationGenerator.IMPL_NAME + ".java");
-      //      Writer writer = fileObject.openWriter();
-      //      writer.write(javaFile.toString());
-      //      writer.flush();
-      //      writer.close();
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
                                    metaModel.getApplication()
