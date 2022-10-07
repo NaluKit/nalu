@@ -97,6 +97,12 @@
       <version>${junit-jupiter-platform.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-suite</artifactId>
+      <version>${junit-jupiter-platform.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
 
@@ -106,8 +112,6 @@
         <directory>src/main/java</directory>
         <includes>
           <include>**/nalu/**</include>
-          <!-- gwt-events: once it is on maven central, remove the next statement -->
-          <include>**/event/**</include>
         </includes>
       </resource>
       <resource>
