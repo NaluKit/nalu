@@ -21,12 +21,13 @@ import com.github.nalukit.nalu.processor.model.intern.ControllerModelTest;
 import com.github.nalukit.nalu.processor.test.*;
 import com.github.nalukit.nalu.processor.test.model.intern.ClassNameModelTest;
 import com.github.nalukit.nalu.processor.test.model.property.PropertiesTest;
+import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
 
-@Suite
+@RunWith(JUnitPlatform.class)
 @SelectClasses({ ApplicationTest.class,
                  BlockControllerTest.class,
                  ClassNameModelTest.class,

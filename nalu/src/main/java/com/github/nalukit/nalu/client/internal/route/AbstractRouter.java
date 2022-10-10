@@ -864,18 +864,19 @@ abstract class AbstractRouter
                              shell = shellInstance.getShell();
                              // save the last added shellCreator ....
                              lastAddedShell = routeResult.getShell();
-//                             shellInstance.getShell()
-//                                          .attachShell();
+                             // append shell
+                             shellInstance.getShell()
+                                          .attachShell();
 
                              Js.debugger();
-//                             if (Objects.isNull(controllerInstance.getController())) {
-//                               String sb = "no controller found for hash >>" + hash + "<<";
-//                               this.eventBus.fireEvent(LogEvent.create()
-//                                                               .sdmOnly(true)
-//                                                               .addMessage(sb));
-//                               this.eventBus.fireEvent(NaluErrorEvent.createNaluError()
-//                                                                     .errorId(NaluConstants.NALU_ERROR_NO_CONTROLLER_INSTANCE_FOUND)
-//                                                                     .message(sb)
+                             //                             if (Objects.isNull(controllerInstance.getController())) {
+                             //                               String sb = "no controller found for hash >>" + hash + "<<";
+                             //                               this.eventBus.fireEvent(LogEvent.create()
+                             //                                                               .sdmOnly(true)
+                             //                                                               .addMessage(sb));
+                             //                               this.eventBus.fireEvent(NaluErrorEvent.createNaluError()
+                             //                                                                     .errorId(NaluConstants.NALU_ERROR_NO_CONTROLLER_INSTANCE_FOUND)
+                             //                                                                     .message(sb)
 //                                                                     .route(routeResult.getRoute()));
 //                             } else {
 //                               // inject the router instance into the controller!
@@ -1012,31 +1013,31 @@ abstract class AbstractRouter
                                                                              e.getRoute(),
                                                                              e.getParameter());
                                          route(e.getRoute(),
-                                                    true,
-                                                    true,
-                                                    false,
-                                                    e.getParameter());
+                                               true,
+                                               true,
+                                               false,
+                                               e.getParameter());
                                          return;
                                        }
                                      }
                                    }
-//                                 }
-                               }
-//                               if (!handlingModeReuse) {
-                                 // call the onAttach method (for the component).
-                                 // we will do it in both cases, cached and not cached!
-                                 shellInstance.getShell()
-                                              .attachShell();
-                                 compositeControllers.forEach(AbstractCompositeController::onAttach);
-//                               }
-                               // in case the controller is cached, we call only activate  ...
-//                               if (controllerInstance.isCached() || handlingModeReuse) {
-//                                 // in case we have a REDRAW handling mode, set the parameters
-//                                 if (handlingModeReuse) {
-//                                   try {
-//                                     controllerInstance.getControllerCreator()
-//                                                       .setParameter(controllerInstance.getController(),
-//                                                                     routeResult.getParameterValues()
+                                   //                                 }
+                                 }
+                             //                               if (!handlingModeReuse) {
+                             // call the onAttach method (for the component).
+                             // we will do it in both cases, cached and not cached!
+                             //                                 shellInstance.getShell()
+                             //                                              .attachShell();
+                             compositeControllers.forEach(AbstractCompositeController::onAttach);
+                             //                               }
+                             // in case the controller is cached, we call only activate  ...
+                             //                               if (controllerInstance.isCached() || handlingModeReuse) {
+                             //                                 // in case we have a REDRAW handling mode, set the parameters
+                             //                                 if (handlingModeReuse) {
+                             //                                   try {
+                             //                                     controllerInstance.getControllerCreator()
+                             //                                                       .setParameter(controllerInstance.getController(),
+                             //                                                                     routeResult.getParameterValues()
 //                                                                                .toArray(new String[0]));
 //                                   } catch (RoutingInterceptionException e) {
 //                                     this.logControllerInterceptsRouting(e.getControllerClassName(),
