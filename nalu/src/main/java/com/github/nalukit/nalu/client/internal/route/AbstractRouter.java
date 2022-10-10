@@ -864,8 +864,8 @@ abstract class AbstractRouter
                              shell = shellInstance.getShell();
                              // save the last added shellCreator ....
                              lastAddedShell = routeResult.getShell();
-                             shellInstance.getShell()
-                                          .attachShell();
+//                             shellInstance.getShell()
+//                                          .attachShell();
 
                              Js.debugger();
 //                             if (Objects.isNull(controllerInstance.getController())) {

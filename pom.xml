@@ -86,7 +86,7 @@
   </distributionManagement>
 
   <properties>
-    <revision>FEATURE-278-LOCAL-SNAPSHOT</revision>
+    <revision>2.11.0-SNAPSHOT</revision>
     <github.global.server>github</github.global.server>
 
     <auto-common.version>1.0</auto-common.version>
