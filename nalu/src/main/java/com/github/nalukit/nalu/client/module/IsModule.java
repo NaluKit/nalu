@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import com.github.nalukit.nalu.client.context.IsModuleContext;
-import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
+import com.github.nalukit.nalu.client.internal.CompositeReference;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
@@ -73,6 +73,6 @@ public interface IsModule<C extends IsModuleContext> {
   List<RouteConfig> getRouteConfigs();
 
   @NaluInternalUse
-  List<CompositeControllerReference> getCompositeReferences();
+  List<CompositeReference> getCompositeReferences();
 
 }

@@ -16,7 +16,7 @@
 package com.github.nalukit.nalu.processor.generator;
 
 import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
-import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
+import com.github.nalukit.nalu.client.internal.application.CompositeConditionFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
@@ -90,7 +90,7 @@ public class ControllerGenerator {
                                                           .equals(controllerCompositeModel.getCondition()
                                                                                           .getSimpleName())) {
                                loadComponentsMethodBuilder.addStatement("$T.get().registerCondition($S, $S, super.alwaysLoadComposite)",
-                                                                        ClassName.get(ControllerCompositeConditionFactory.class),
+                                                                        ClassName.get(CompositeConditionFactory.class),
                                                                         controllerModel.getProvider()
                                                                                        .getPackage() +
                                                                         "." +
@@ -132,7 +132,7 @@ public class ControllerGenerator {
                                                                                           .getClassName());
                                }
                                loadComponentsMethodBuilder.addStatement("$T.get().registerCondition($S, $S, $L)",
-                                                                        ClassName.get(ControllerCompositeConditionFactory.class),
+                                                                        ClassName.get(CompositeConditionFactory.class),
                                                                         controllerModel.getProvider()
                                                                                        .getPackage() +
                                                                         "." +

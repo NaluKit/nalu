@@ -22,20 +22,20 @@ import java.util.Optional;
 
 public class ControllerModel {
 
-  private String[]                       originalRoute;
-  private List<String>                   parameters;
-  private ClassNameModel                 provider;
-  private List<ParameterAcceptorModel>   parameterAcceptors;
-  private boolean                        componentCreator;
-  private List<String>                   route;
-  private String                         selector;
-  private ClassNameModel                 context;
-  private ClassNameModel                 controller;
-  private ClassNameModel                 componentInterface;
-  private ClassNameModel                 component;
-  private List<ControllerCompositeModel> composites;
-  private List<EventHandlerModel>        eventHandlers;
-  private List<EventModel>               eventModels;
+  private String[]                               originalRoute;
+  private List<String>                           parameters;
+  private ClassNameModel                         provider;
+  private List<ParameterAcceptorModel>           parameterAcceptors;
+  private boolean                                componentCreator;
+  private List<String>                           route;
+  private String                                 selector;
+  private ClassNameModel                         context;
+  private ClassNameModel                         controller;
+  private ClassNameModel                         componentInterface;
+  private ClassNameModel                         component;
+  private List<ShellAndControllerCompositeModel> composites;
+  private List<EventHandlerModel>                eventHandlers;
+  private List<EventModel>                       eventModels;
 
   public ControllerModel() {
     this.parameterAcceptors = new ArrayList<>();
@@ -172,11 +172,11 @@ public class ControllerModel {
     this.context = context;
   }
 
-  public List<ControllerCompositeModel> getComposites() {
+  public List<ShellAndControllerCompositeModel> getComposites() {
     return composites;
   }
 
-  public void setComposites(List<ControllerCompositeModel> composites) {
+  public void setComposites(List<ShellAndControllerCompositeModel> composites) {
     this.composites = composites;
   }
 

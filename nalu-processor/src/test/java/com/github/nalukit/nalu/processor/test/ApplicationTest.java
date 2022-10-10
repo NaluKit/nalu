@@ -31,7 +31,7 @@ import static com.google.testing.compile.Compiler.javac;
 public class ApplicationTest {
 
   @Test
-  void testApplicationAnnotationStartRouteOK() {
+  public void testApplicationAnnotationStartRouteOK() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
                                      .compile(Arrays.asList(JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/application/startRouteOK/StartRouteOK.java"),
                                                             JavaFileObjects.forResource("com/github/nalukit/nalu/processor/common/ui/MockShell.java"),

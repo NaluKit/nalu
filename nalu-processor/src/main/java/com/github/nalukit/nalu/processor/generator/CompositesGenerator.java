@@ -15,10 +15,11 @@
  */
 package com.github.nalukit.nalu.processor.generator;
 
-import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
+import com.github.nalukit.nalu.client.internal.CompositeReference;
 import com.github.nalukit.nalu.processor.model.MetaModel;
-import com.github.nalukit.nalu.processor.model.intern.ControllerCompositeModel;
+import com.github.nalukit.nalu.processor.model.intern.ShellAndControllerCompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -53,17 +54,30 @@ public class CompositesGenerator {
     MethodSpec.Builder loadCompositesMethodBuilder = MethodSpec.methodBuilder("loadCompositeReferences")
                                                                .addModifiers(Modifier.PUBLIC)
                                                                .addAnnotation(Override.class);
+    for (ShellModel shellModel : this.metaModel.getShells()) {
+      for (ShellAndControllerCompositeModel shellAndControllerCompositeModel : shellModel.getComposites()) {
+        loadCompositesMethodBuilder.addStatement("this.compositeReferences.add(new $T($S, $S, $S, $S, $L))",
+                                                 ClassName.get(CompositeReference.class),
+                                                 shellModel.getShell().getClassName(),
+                                                 shellAndControllerCompositeModel.getName(),
+                                                 shellAndControllerCompositeModel.getComposite()
+                                                                                 .getClassName(),
+                                                 shellAndControllerCompositeModel.getSelector(),
+                                                 shellAndControllerCompositeModel.isScopeGlobal());
+
+      }
+    }
     for (ControllerModel controllerModel : this.metaModel.getControllers()) {
-      for (ControllerCompositeModel controllerCompositeModel : controllerModel.getComposites()) {
-        loadCompositesMethodBuilder.addStatement("this.compositeControllerReferences.add(new $T($S, $S, $S, $S, $L))",
-                                                 ClassName.get(CompositeControllerReference.class),
+      for (ShellAndControllerCompositeModel shellAndControllerCompositeModel : controllerModel.getComposites()) {
+        loadCompositesMethodBuilder.addStatement("this.compositeReferences.add(new $T($S, $S, $S, $S, $L))",
+                                                 ClassName.get(CompositeReference.class),
                                                  controllerModel.getProvider()
                                                                 .getClassName(),
-                                                 controllerCompositeModel.getName(),
-                                                 controllerCompositeModel.getComposite()
-                                                                         .getClassName(),
-                                                 controllerCompositeModel.getSelector(),
-                                                 controllerCompositeModel.isScopeGlobal());
+                                                 shellAndControllerCompositeModel.getName(),
+                                                 shellAndControllerCompositeModel.getComposite()
+                                                                                 .getClassName(),
+                                                 shellAndControllerCompositeModel.getSelector(),
+                                                 shellAndControllerCompositeModel.isScopeGlobal());
 
       }
     }

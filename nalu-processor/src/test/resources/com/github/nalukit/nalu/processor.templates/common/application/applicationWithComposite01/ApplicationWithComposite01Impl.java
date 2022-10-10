@@ -2,10 +2,10 @@ package com.github.nalukit.nalu.processor.common.application.applicationWithComp
 
 import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
-import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
+import com.github.nalukit.nalu.client.internal.CompositeReference;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
-import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
+import com.github.nalukit.nalu.client.internal.application.CompositeConditionFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
@@ -58,7 +58,7 @@ public final class ApplicationWithComposite01Impl extends AbstractApplication<Mo
   @Override
   public void loadComponents() {
     ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01", new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01CreatorImpl(router, context, eventBus));
-    ControllerCompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01", super.alwaysLoadComposite);
+    CompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01", super.alwaysLoadComposite);
   }
   
   @Override
@@ -93,7 +93,7 @@ public final class ApplicationWithComposite01Impl extends AbstractApplication<Mo
 
   @Override
   public void loadCompositeReferences() {
-    this.compositeControllerReferences.add(new CompositeControllerReference("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01", "testComposite", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01", "selector", false));
+    this.compositeReferences.add(new CompositeReference("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.ControllerWithComposite01", "testComposite", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite01.composite.CompositeController01", "selector", false));
   }
 
   @Override

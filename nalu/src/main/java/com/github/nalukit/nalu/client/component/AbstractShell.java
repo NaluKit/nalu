@@ -23,6 +23,9 @@ import com.github.nalukit.nalu.client.internal.HandlerRegistrations;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.SimpleEventBus;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class AbstractShell<C extends IsContext>
     implements IsShell {
 
@@ -30,11 +33,40 @@ public abstract class AbstractShell<C extends IsContext>
 
   protected C context;
 
-  protected SimpleEventBus eventBus;
+  protected     SimpleEventBus                                    eventBus;
+  /* list fo composite controllers */
+  private final Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
 
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
 
   public AbstractShell() {
+    super();
+    this.compositeControllers = new HashMap<>();
+  }
+
+  /**
+   * The map of the depending composites of the shell
+   *
+   * @return Map of depending composites
+   */
+  @Override
+  public Map<String, AbstractCompositeController<?, ?, ?>> getComposites() {
+    return compositeControllers;
+  }
+
+  /**
+   * Returns the composite stored under the composite name.
+   *
+   * @param name the name of the composite
+   * @param <S>  type of the composite
+   * @return instance of the composite
+   */
+  @Override
+  @SuppressWarnings({ "unchecked",
+                      "TypeParameterUnusedInFormals" })
+  public <S extends AbstractCompositeController<?, ?, ?>> S getComposite(String name) {
+    return (S) this.getComposites()
+                   .get(name);
   }
 
   @NaluInternalUse
@@ -66,7 +98,7 @@ public abstract class AbstractShell<C extends IsContext>
   /**
    * internal framework method! Will be called by the framework after the
    * stop-method f the controller is called
-   *
+   * <p>
    * <b>DO NOT CALL THIS METHOD! THIS WILL LEAD TO UNEXPECTED BEHAVIOR!</b>
    */
   @Override

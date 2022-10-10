@@ -19,6 +19,8 @@ package com.github.nalukit.nalu.client.component;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
+import java.util.Map;
+
 public interface IsController<V, W> {
 
   /**
@@ -148,6 +150,22 @@ public interface IsController<V, W> {
    */
   void bind(ControllerLoader loader)
       throws RoutingInterceptionException;
+
+  /**
+   * The map of the depending composites of the shell
+   *
+   * @return Map of depending composites
+   */
+  Map<String, AbstractCompositeController<?, ?, ?>> getComposites();
+
+  /**
+   * Returns the composite stored under the composite name.
+   *
+   * @param name the name of the composite
+   * @param <S>  type of the composite
+   * @return instance of the composite
+   */
+  <S extends AbstractCompositeController<?, ?, ?>> S getComposite(String name);
 
   /**
    * Modes, that define Nalu's behavior in case the component is

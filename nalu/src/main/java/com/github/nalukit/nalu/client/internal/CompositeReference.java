@@ -16,9 +16,9 @@
 
 package com.github.nalukit.nalu.client.internal;
 
-public class CompositeControllerReference {
+public class CompositeReference {
 
-  private String controller;
+  private String source;
 
   private String compositeName;
 
@@ -28,20 +28,20 @@ public class CompositeControllerReference {
 
   private boolean scopeGlobal;
 
-  public CompositeControllerReference(String controller,
-                                      String compositeName,
-                                      String composite,
-                                      String selector,
-                                      boolean scopeGlobal) {
-    this.controller    = controller;
+  public CompositeReference(String source,
+                            String compositeName,
+                            String composite,
+                            String selector,
+                            boolean scopeGlobal) {
+    this.source        = source;
     this.compositeName = compositeName;
     this.composite     = composite;
     this.selector      = selector;
     this.scopeGlobal   = scopeGlobal;
   }
 
-  public String getController() {
-    return controller;
+  public String getSource() {
+    return source;
   }
 
   public String getCompositeName() {

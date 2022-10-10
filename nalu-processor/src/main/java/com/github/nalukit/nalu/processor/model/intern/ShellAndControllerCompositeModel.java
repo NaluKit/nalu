@@ -16,10 +16,7 @@
 
 package com.github.nalukit.nalu.processor.model.intern;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ControllerCompositeModel {
+public class ShellAndControllerCompositeModel {
 
   public  ClassNameModel          condition;
   private String                  name;
@@ -28,14 +25,14 @@ public class ControllerCompositeModel {
   private boolean                 scopeGlobal;
 
 
-  public ControllerCompositeModel() {
+  public ShellAndControllerCompositeModel() {
   }
 
-  public ControllerCompositeModel(String name,
-                                  ClassNameModel composite,
-                                  String selector,
-                                  ClassNameModel condition,
-                                  boolean scopeGlobal) {
+  public ShellAndControllerCompositeModel(String name,
+                                          ClassNameModel composite,
+                                          String selector,
+                                          ClassNameModel condition,
+                                          boolean scopeGlobal) {
     this();
 
     this.condition     = condition;

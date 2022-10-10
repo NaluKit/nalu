@@ -20,7 +20,7 @@ import com.github.nalukit.nalu.client.component.annotation.Composite;
 import com.github.nalukit.nalu.client.component.annotation.Composite.Scope;
 import com.github.nalukit.nalu.client.component.annotation.Composites;
 import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
-import com.github.nalukit.nalu.processor.model.intern.ControllerCompositeModel;
+import com.github.nalukit.nalu.processor.model.intern.ShellAndControllerCompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -30,7 +30,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.MirroredTypeException;
 import java.util.Objects;
 
-public class CompositesAnnotationScanner {
+public class ControllerCompositesAnnotationScanner {
 
   private ProcessingEnvironment processingEnvironment;
 
@@ -39,7 +39,7 @@ public class CompositesAnnotationScanner {
   private Element controllerElement;
 
   @SuppressWarnings("unused")
-  private CompositesAnnotationScanner(Builder builder) {
+  private ControllerCompositesAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
     this.controllerModel       = builder.controllerModel;
@@ -60,11 +60,11 @@ public class CompositesAnnotationScanner {
     if (annotation != null) {
       for (Composite composite : annotation.value()) {
         controllerModel.getComposites()
-                       .add(new ControllerCompositeModel(composite.name(),
-                                                         new ClassNameModel(Objects.requireNonNull(getCompositeTypeElement(composite))
+                       .add(new ShellAndControllerCompositeModel(composite.name(),
+                                                                 new ClassNameModel(Objects.requireNonNull(getCompositeTypeElement(composite))
                                                                                    .toString()),
-                                                         composite.selector(),
-                                                         new ClassNameModel(Objects.requireNonNull(getCompositeConditionElement(composite))
+                                                                 composite.selector(),
+                                                                 new ClassNameModel(Objects.requireNonNull(getCompositeConditionElement(composite))
                                                                                    .toString()),
                                                          Scope.GLOBAL == composite.scope()));
       }
@@ -115,8 +115,8 @@ public class CompositesAnnotationScanner {
       return this;
     }
 
-    public CompositesAnnotationScanner build() {
-      return new CompositesAnnotationScanner(this);
+    public ControllerCompositesAnnotationScanner build() {
+      return new ControllerCompositesAnnotationScanner(this);
     }
 
   }

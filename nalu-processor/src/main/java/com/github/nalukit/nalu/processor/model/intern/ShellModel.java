@@ -25,11 +25,13 @@ public class ShellModel {
 
   private ClassNameModel shell;
 
-  private ClassNameModel          context;
-  private List<EventHandlerModel> eventHandlers;
-  private List<EventModel>        eventModels;
+  private ClassNameModel                         context;
+  private List<EventHandlerModel>                eventHandlers;
+  private List<ShellAndControllerCompositeModel> composites;
+  private List<EventModel>                       eventModels;
 
   public ShellModel() {
+    this.composites    = new ArrayList<>();
     this.eventHandlers = new ArrayList<>();
     this.eventModels   = new ArrayList<>();
   }
@@ -39,6 +41,9 @@ public class ShellModel {
                     ClassNameModel context,
                     List<EventHandlerModel> eventHandlers,
                     List<EventModel> eventModels) {
+    this()
+
+    ;
     this.name          = name;
     this.shell         = shell;
     this.context       = context;
@@ -84,6 +89,14 @@ public class ShellModel {
 
   public void setEventModels(List<EventModel> eventModels) {
     this.eventModels = eventModels;
+  }
+
+  public List<ShellAndControllerCompositeModel> getComposites() {
+    return composites;
+  }
+
+  public void setComposites(List<ShellAndControllerCompositeModel> composites) {
+    this.composites = composites;
   }
 
   public EventModel getEventModel(String className) {

@@ -30,14 +30,14 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
     implements IsController<V, W>,
                IsComponent.Controller {
 
+  /* list fo composite controllers */
+  private final Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
   /* component of the controller */
   protected     V                                                 component;
   /* list of registered global handlers */
   protected     HandlerRegistrations                              globalHandlerRegistrations = new HandlerRegistrations();
   /* list of registered handlers */
   protected     HandlerRegistrations                              handlerRegistrations       = new HandlerRegistrations();
-  /* list fo composite controllers */
-  private final Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
   /* the route the controller is related to */
   private       String                                            relatedRoute;
   /* the selector the controller is related to */
@@ -45,9 +45,9 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
   /* flag, if the controller is cached or not */
   private       boolean                                           cached;
   /* redraw mode */
-  private   Mode                                              mode;
+  private       Mode                                              mode;
   /* internal Nalu request. Don't use this */
-  private   NaluCommand                                       activateNaluCommand;
+  private       NaluCommand                                       activateNaluCommand;
 
   public AbstractComponentController() {
     super();
@@ -331,7 +331,7 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * Gets the activate Nalu command. This will be used by Nalu in case the controller gets activated.
    * <b>Do not use this method. This will lead to unexpected results</b>
    *
-   * @return
+   * @return the activated Nalu command
    */
   @NaluInternalUse
   public final NaluCommand getActivateNaluCommand() {

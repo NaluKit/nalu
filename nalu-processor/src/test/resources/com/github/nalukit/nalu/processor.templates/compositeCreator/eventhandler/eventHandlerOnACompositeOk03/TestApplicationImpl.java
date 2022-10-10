@@ -2,10 +2,10 @@ package com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHan
 
 import com.github.nalukit.nalu.client.application.IsLoader;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
-import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
+import com.github.nalukit.nalu.client.internal.CompositeReference;
 import com.github.nalukit.nalu.client.internal.application.AbstractApplication;
 import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
-import com.github.nalukit.nalu.client.internal.application.ControllerCompositeConditionFactory;
+import com.github.nalukit.nalu.client.internal.application.CompositeConditionFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
@@ -62,9 +62,9 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
   @Override
   public void loadComponents() {
     ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.Controller01", new com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.Controller01CreatorImpl(router, context, eventBus));
-    ControllerCompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.Controller01", "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite01", super.alwaysLoadComposite);
-    ControllerCompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.Controller01", "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite02", super.alwaysLoadComposite);
-    ControllerCompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.Controller01", "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite03", super.alwaysLoadComposite);
+    CompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.Controller01", "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite01", super.alwaysLoadComposite);
+    CompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.Controller01", "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite02", super.alwaysLoadComposite);
+    CompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.Controller01", "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite03", super.alwaysLoadComposite);
   }
 
   @Override
@@ -99,9 +99,9 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
 
   @Override
   public void loadCompositeReferences() {
-    this.compositeControllerReferences.add(new CompositeControllerReference("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.Controller01", "composite01", "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite01", "composite01", false));
-    this.compositeControllerReferences.add(new CompositeControllerReference("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.Controller01", "composite02", "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite02", "composite02", false));
-    this.compositeControllerReferences.add(new CompositeControllerReference("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.Controller01", "composite03", "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite03", "composite03", false));
+    this.compositeReferences.add(new CompositeReference("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.Controller01", "composite01", "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite01", "composite01", false));
+    this.compositeReferences.add(new CompositeReference("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.Controller01", "composite02", "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite02", "composite02", false));
+    this.compositeReferences.add(new CompositeReference("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.Controller01", "composite03", "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite03", "composite03", false));
   }
 
   @Override
