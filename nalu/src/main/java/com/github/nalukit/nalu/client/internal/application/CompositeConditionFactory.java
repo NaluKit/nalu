@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2020 - Frank Hossfeld
+ * Copyright (c) 2018 Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -19,40 +19,36 @@ package com.github.nalukit.nalu.client.internal.application;
 import com.github.nalukit.nalu.client.component.IsLoadCompositeCondition;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @NaluInternalUse
-public class ControllerCompositeConditionFactory {
+public class CompositeConditionFactory {
 
   /* instance of the controller factory */
-  private static ControllerCompositeConditionFactory   instance;
+  private static CompositeConditionFactory             instance;
   /* map of conditions (key: controller name, value: ConditionContainer)  */
   private final  Map<String, List<ConditionContainer>> conditionContainerMap;
 
-  private ControllerCompositeConditionFactory() {
+  private CompositeConditionFactory() {
     this.conditionContainerMap = new HashMap<>();
   }
 
-  public static ControllerCompositeConditionFactory get() {
+  public static CompositeConditionFactory get() {
     if (instance == null) {
-      instance = new ControllerCompositeConditionFactory();
+      instance = new CompositeConditionFactory();
     }
     return instance;
   }
 
-  public void registerCondition(String controllerClassName,
+  public void registerCondition(String sourceClassName,
                                 String compositeName,
                                 IsLoadCompositeCondition condition) {
-    if (this.conditionContainerMap.containsKey(controllerClassName)) {
-      this.conditionContainerMap.get(controllerClassName)
+    if (this.conditionContainerMap.containsKey(sourceClassName)) {
+      this.conditionContainerMap.get(sourceClassName)
                                 .add(new ConditionContainer(compositeName,
                                                             condition));
     } else {
-      this.conditionContainerMap.computeIfAbsent(controllerClassName,
+      this.conditionContainerMap.computeIfAbsent(sourceClassName,
                                                  v -> new ArrayList<>())
                                 .add(new ConditionContainer(compositeName,
                                                             condition));
@@ -62,17 +58,17 @@ public class ControllerCompositeConditionFactory {
   /**
    * Will tell Nalu if the composite can be loaded or not!
    *
-   * @param controllerClassName name of the controller containing the composites
-   * @param compositeName       name of the composite which condition is requested
-   * @param route               the route
-   * @param params              parameter (0 .. n)
+   * @param sourceClassName name of the source containing the composites
+   * @param compositeName   name of the composite which condition is requested
+   * @param route           the route
+   * @param params          parameter (0 .. n)
    * @return true: load composite; false:  do not load composite
    */
-  public boolean loadComposite(String controllerClassName,
+  public boolean loadComposite(String sourceClassName,
                                String compositeName,
                                String route,
                                String... params) {
-    List<ConditionContainer> conditionContainers = this.conditionContainerMap.get(controllerClassName);
+    List<ConditionContainer> conditionContainers = this.conditionContainerMap.get(sourceClassName);
     if (Objects.isNull(conditionContainers)) {
       return false;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2020 - Frank Hossfeld
+ * Copyright (c) 2018 Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -16,9 +16,9 @@
 
 package com.github.nalukit.nalu.client.internal;
 
-public class CompositeControllerReference {
+public class CompositeReference {
 
-  private String controller;
+  private String source;
 
   private String compositeName;
 
@@ -28,20 +28,20 @@ public class CompositeControllerReference {
 
   private boolean scopeGlobal;
 
-  public CompositeControllerReference(String controller,
-                                      String compositeName,
-                                      String composite,
-                                      String selector,
-                                      boolean scopeGlobal) {
-    this.controller    = controller;
+  public CompositeReference(String source,
+                            String compositeName,
+                            String composite,
+                            String selector,
+                            boolean scopeGlobal) {
+    this.source        = source;
     this.compositeName = compositeName;
     this.composite     = composite;
     this.selector      = selector;
     this.scopeGlobal   = scopeGlobal;
   }
 
-  public String getController() {
-    return controller;
+  public String getSource() {
+    return source;
   }
 
   public String getCompositeName() {

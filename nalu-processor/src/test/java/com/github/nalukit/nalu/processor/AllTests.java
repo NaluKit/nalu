@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2020 - Frank Hossfeld
+ * Copyright (c) 2018 Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -21,11 +21,13 @@ import com.github.nalukit.nalu.processor.model.intern.ControllerModelTest;
 import com.github.nalukit.nalu.processor.test.*;
 import com.github.nalukit.nalu.processor.test.model.intern.ClassNameModelTest;
 import com.github.nalukit.nalu.processor.test.model.property.PropertiesTest;
+import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
+import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
 
-@Suite
+@RunWith(JUnitPlatform.class)
 @SelectClasses({ ApplicationTest.class,
                  BlockControllerTest.class,
                  ClassNameModelTest.class,

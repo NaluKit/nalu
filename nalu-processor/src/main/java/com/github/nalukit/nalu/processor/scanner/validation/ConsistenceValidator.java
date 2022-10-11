@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2020 - Frank Hossfeld
+ * Copyright (c) 2018 Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -18,7 +18,7 @@ package com.github.nalukit.nalu.processor.scanner.validation;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.BlockControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.ControllerCompositeModel;
+import com.github.nalukit.nalu.processor.model.intern.ShellAndControllerCompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 
@@ -64,6 +64,8 @@ public class ConsistenceValidator {
     this.validateDuplicateShellName();
     // check, is there are duplicate block controller names
     this.validateDuplicateBlockControllerName();
+    // check, is there are duplicate names for composites inside one shell
+    this.validateDuplicateCompositeNamesInAShell();
     // check, is there are duplicate names for composites inside one controller
     this.validateDuplicateCompositeNamesInAController();
     // check, is there are duplicate block controller names
@@ -169,14 +171,32 @@ public class ConsistenceValidator {
       throws ProcessorException {
     List<String> compareList = new ArrayList<>();
     for (ControllerModel controllerModel : this.metaModel.getControllers()) {
-      for (ControllerCompositeModel controllerCompositeModel : controllerModel.getComposites()) {
-        if (compareList.contains(controllerCompositeModel.getName())) {
+      for (ShellAndControllerCompositeModel shellAndControllerCompositeModel : controllerModel.getComposites()) {
+        if (compareList.contains(shellAndControllerCompositeModel.getName())) {
           throw new ProcessorException("Nalu-Processor:" +
                                        "@Compiste: the name >>" +
-                                       controllerCompositeModel.getName() +
+                                       shellAndControllerCompositeModel.getName() +
                                        "<< is duplicate! Please use another unique name!");
         }
-        compareList.add(controllerCompositeModel.getName());
+        compareList.add(shellAndControllerCompositeModel.getName());
+      }
+      // reset compare list
+      compareList = new ArrayList<>();
+    }
+  }
+
+  private void validateDuplicateCompositeNamesInAShell()
+      throws ProcessorException {
+    List<String> compareList = new ArrayList<>();
+    for (ShellModel shellModel : this.metaModel.getShells()) {
+      for (ShellAndControllerCompositeModel shellAndControllerCompositeModel : shellModel.getComposites()) {
+        if (compareList.contains(shellAndControllerCompositeModel.getName())) {
+          throw new ProcessorException("Nalu-Processor:" +
+                                       "@Compiste: the name >>" +
+                                       shellAndControllerCompositeModel.getName() +
+                                       "<< is duplicate! Please use another unique name!");
+        }
+        compareList.add(shellAndControllerCompositeModel.getName());
       }
       // reset compare list
       compareList = new ArrayList<>();

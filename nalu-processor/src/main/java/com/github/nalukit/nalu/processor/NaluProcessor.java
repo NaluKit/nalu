@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2020 - Frank Hossfeld
+ * Copyright (c) 2018 Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -54,23 +54,7 @@ import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleMod
 import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 import com.github.nalukit.nalu.processor.model.intern.TrackerModel;
-import com.github.nalukit.nalu.processor.scanner.ApplicationAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.BlockControllerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.CompositeControllerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.CompositesAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.ControllerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.ErrorPopUpControllerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.FiltersAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.HandlerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.LoggerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.ModuleAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.ModulesAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.ParameterConstraintRuleAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.PopUpControllerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.PopUpFiltersAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.ShellAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.TrackerAnnotationScanner;
-import com.github.nalukit.nalu.processor.scanner.VersionAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.*;
 import com.github.nalukit.nalu.processor.scanner.validation.ApplicationAnnotationValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.BlockControllerAnnotationValidator;
 import com.github.nalukit.nalu.processor.scanner.validation.CompositeControllerAnnotationValidator;
@@ -405,12 +389,12 @@ public class NaluProcessor
                                                                    .scan(roundEnv);
 
       // Composites-Annotation in controller
-      controllerModel = CompositesAnnotationScanner.builder()
-                                                   .processingEnvironment(processingEnv)
-                                                   .controllerModel(controllerModel)
-                                                   .controllerElement(controllerElement)
-                                                   .build()
-                                                   .scan(roundEnv);
+      controllerModel = ControllerCompositesAnnotationScanner.builder()
+                                                             .processingEnvironment(processingEnv)
+                                                             .controllerModel(controllerModel)
+                                                             .controllerElement(controllerElement)
+                                                             .build()
+                                                             .scan(roundEnv);
       // create the ControllerCreator
       ControllerCreatorGenerator.builder()
                                 .metaModel(this.metaModel)
@@ -726,6 +710,15 @@ public class NaluProcessor
                                                     .shellElement(shellElement)
                                                     .build()
                                                     .scan(roundEnv);
+
+      // Composites-Annotation in controller
+      shellModel = ShellCompositesAnnotationScanner.builder()
+                                                   .processingEnvironment(processingEnv)
+                                                   .shellModel(shellModel)
+                                                   .shellElement(shellElement)
+                                                   .build()
+                                                   .scan(roundEnv);
+
       // generate ShellCreator
       ShellCreatorGenerator.builder()
                            .processingEnvironment(processingEnv)

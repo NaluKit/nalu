@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2020 - Frank Hossfeld
+ * Copyright (c) 2018 Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -24,7 +24,7 @@ import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.context.IsContext;
-import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
+import com.github.nalukit.nalu.client.internal.CompositeReference;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import com.github.nalukit.nalu.client.internal.route.IsConfigurableRouter;
 import com.github.nalukit.nalu.client.internal.route.RouteParser;
@@ -74,17 +74,17 @@ public abstract class AbstractApplication<C extends IsContext>
   /* instance of AlwaysLoadComposite-class */
   protected AlwaysLoadComposite                alwaysLoadComposite;
   /* instance of AlwaysShowPopUp-class */
-  protected AlwaysShowPopUp                    alwaysShowPopUp;
+  protected AlwaysShowPopUp          alwaysShowPopUp;
   /* List of CompositeControllerReferences */
-  protected List<CompositeControllerReference> compositeControllerReferences;
+  protected List<CompositeReference> compositeReferences;
   /* Nalu Logger instance */
-  protected NaluLogger<C>                      naluLogger;
+  protected NaluLogger<C>            naluLogger;
   /* The call counter */
   protected int                                callCounter;
 
   public AbstractApplication() {
     super();
-    this.compositeControllerReferences = new ArrayList<>();
+    this.compositeReferences = new ArrayList<>();
   }
 
   @Override
@@ -140,7 +140,7 @@ public abstract class AbstractApplication<C extends IsContext>
     this.router = new RouterImpl(this.plugin,
                                  this.shellConfiguration,
                                  this.routerConfiguration,
-                                 this.compositeControllerReferences,
+                                 this.compositeReferences,
                                  this.tracker,
                                  this.startRoute,
                                  this.illegalRouteTarget,

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2020 - Frank Hossfeld
+ * Copyright (c) 2018 Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -22,20 +22,20 @@ import java.util.Optional;
 
 public class ControllerModel {
 
-  private String[]                       originalRoute;
-  private List<String>                   parameters;
-  private ClassNameModel                 provider;
-  private List<ParameterAcceptorModel>   parameterAcceptors;
-  private boolean                        componentCreator;
-  private List<String>                   route;
-  private String                         selector;
-  private ClassNameModel                 context;
-  private ClassNameModel                 controller;
-  private ClassNameModel                 componentInterface;
-  private ClassNameModel                 component;
-  private List<ControllerCompositeModel> composites;
-  private List<EventHandlerModel>        eventHandlers;
-  private List<EventModel>               eventModels;
+  private String[]                               originalRoute;
+  private List<String>                           parameters;
+  private ClassNameModel                         provider;
+  private List<ParameterAcceptorModel>           parameterAcceptors;
+  private boolean                                componentCreator;
+  private List<String>                           route;
+  private String                                 selector;
+  private ClassNameModel                         context;
+  private ClassNameModel                         controller;
+  private ClassNameModel                         componentInterface;
+  private ClassNameModel                         component;
+  private List<ShellAndControllerCompositeModel> composites;
+  private List<EventHandlerModel>                eventHandlers;
+  private List<EventModel>                       eventModels;
 
   public ControllerModel() {
     this.parameterAcceptors = new ArrayList<>();
@@ -172,11 +172,11 @@ public class ControllerModel {
     this.context = context;
   }
 
-  public List<ControllerCompositeModel> getComposites() {
+  public List<ShellAndControllerCompositeModel> getComposites() {
     return composites;
   }
 
-  public void setComposites(List<ControllerCompositeModel> composites) {
+  public void setComposites(List<ShellAndControllerCompositeModel> composites) {
     this.composites = composites;
   }
 

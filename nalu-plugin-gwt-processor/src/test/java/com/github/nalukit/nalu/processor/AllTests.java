@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2020 - Frank Hossfeld
+ * Copyright (c) 2018 Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -17,11 +17,12 @@
 package com.github.nalukit.nalu.processor;
 
 import com.github.nalukit.nalu.processor.test.ProviderTest;
+import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 import org.junit.runner.RunWith;
 
-@Suite
+@RunWith(JUnitPlatform.class)
 @SelectClasses({ ProviderTest.class })
 public class AllTests {
 

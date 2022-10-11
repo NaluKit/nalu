@@ -1,6 +1,6 @@
 package com.github.nalukit.nalu.client;
 
-import com.github.nalukit.nalu.client.internal.CompositeControllerReference;
+import com.github.nalukit.nalu.client.internal.CompositeReference;
 import com.github.nalukit.nalu.client.internal.route.RouteConfig;
 import com.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
@@ -139,9 +139,9 @@ class Utils {
     return routerConfiguration;
   }
 
-  static List<CompositeControllerReference> createCompositeConfiguration() {
-    List<CompositeControllerReference> compositeControllerReferences = new ArrayList<>();
-    return compositeControllerReferences;
+  static List<CompositeReference> createCompositeConfiguration() {
+    List<CompositeReference> compositeReferences = new ArrayList<>();
+    return compositeReferences;
   }
 
 }
