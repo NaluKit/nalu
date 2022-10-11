@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 - 2020 - Frank Hossfeld
+ * Copyright (c) 2018 Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -27,12 +27,15 @@ public class ProcessorConstants {
   public final static String META_INF            = "META-INF";
   public final static String NALU_FOLDER_NAME    = "nalu-route";
   public final static String PARAMETER_DELIMITER = "_pPp_";
+  @Deprecated // TODO remove next Iteration
   public final static String TYPE_DELIMITER      = "_tTt_";
+  @Deprecated // TODO remove next Iteration
   public final static String PROPERTIES_POSTFIX  = ".properties";
   public final static String CREATOR_IMPL        = "CreatorImpl";
   public final static String IMPL                = "Impl";
   public final static String LOADER_IMPL         = "LoaderImpl";
   public final static String MODULE_IMPL         = "ModuleImpl";
+  @Deprecated // TODO remove next Iteration
   public final static String PLUGIN_IMPL         = "PluginImpl";
   public final static String PROCESSOR_VERSION   = Nalu.getVersion();
   public final static String BUILD_TIME          = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(new Date(System.currentTimeMillis()));
