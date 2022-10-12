@@ -54,18 +54,12 @@ public class ParameterConstraintRuleRegisterGenerator {
     MethodSpec.Builder loadParameterConstraintRulesMethodBuilder = MethodSpec.methodBuilder("loadParameterConstraintRules")
                                                                              .addModifiers(Modifier.PUBLIC)
                                                                              .addAnnotation(Override.class);
-    this.metaModel.getParameterConstraintRules()
+    this.metaModel.getUsedParameterConstraints()
                   .forEach(m -> loadParameterConstraintRulesMethodBuilder.addStatement("$T.get().registerParameterConstraintRule($S, new $L())",
                                                                                        ClassName.get(ParameterConstraintRuleFactory.class),
-                                                                                       m.getParameterConstraintRule()
-                                                                                        .getPackage() +
-                                                                                       "." +
-                                                                                       m.getParameterConstraintRule()
-                                                                                        .getSimpleName(),
-                                                                                       ClassName.get(m.getParameterConstraintRule()
-                                                                                                      .getPackage(),
-                                                                                                     m.getParameterConstraintRule()
-                                                                                                      .getSimpleName() +
+                                                                                       m.getPackage() + "." + m.getSimpleName(),
+                                                                                       ClassName.get(m.getPackage(),
+                                                                                                     m.getSimpleName() +
                                                                                                      ProcessorConstants.IMPL)));
     typeSpec.addMethod(loadParameterConstraintRulesMethodBuilder.build());
   }

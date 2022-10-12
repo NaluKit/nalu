@@ -109,9 +109,14 @@ public class ControllerAnnotationScanner {
       ClassNameModel compareValue = new ClassNameModel(componentTypeTypeMirror.toString());
       if (!metaModel.getComponentType()
                     .equals(compareValue)) {
-        throw new ProcessorException("Nalu-Processor: componentType >>" +
+        throw new ProcessorException("Nalu-Processor: componentType of >>" +
+                                     componentTypeElement.toString() +
+                                     "<< is different (>>" +
+                                     metaModel.getComponentType()
+                                              .getClassName() +
+                                     "<< versus >>" +
                                      compareValue.getClassName() +
-                                     "<< is different. All controllers must implement the componentType!");
+                                     "<<). All controllers, controller interfaces and components must implement the same componentType!");
       }
     }
     // check, if the controller implements IsComponentController
@@ -171,6 +176,8 @@ public class ControllerAnnotationScanner {
         if (parameterConstraintTypeElement != null) {
           parameterConstraintModel = new ParameterConstraintModel(parameterConstraintTypeElement.toString(),
                                                                   parameterConstraintAnnotation.illegalParameterRoute());
+          // register rule so that we know which rule needs to be loaded.
+          this.metaModel.addParameterConstraintUsing(new ClassNameModel(parameterConstraintTypeElement.toString()));
         }
       }
       controllerModel.getParameterAcceptors()
