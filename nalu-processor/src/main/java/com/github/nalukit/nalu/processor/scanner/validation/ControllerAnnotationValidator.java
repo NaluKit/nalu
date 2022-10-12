@@ -79,7 +79,7 @@ public class ControllerAnnotationValidator {
                                                      this.processingEnvironment.getElementUtils()
                                                                                .getTypeElement(IsController.class.getCanonicalName())
                                                                                .asType())) {
-      throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController or IsShell");
+      throw new ProcessorException("Nalu-Processor: @Controller can only be used on a class that extends IsController");
     }
     // check if route start with "/"
     Controller controllerAnnotation = this.controllerElement.getAnnotation(Controller.class);
