@@ -16,25 +16,12 @@
 
 package com.github.nalukit.nalu.processor.model;
 
-import com.github.nalukit.nalu.processor.model.intern.BlockControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
-import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
-import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.ErrorPopUpControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.EventHandlerModel;
-import com.github.nalukit.nalu.processor.model.intern.EventModel;
-import com.github.nalukit.nalu.processor.model.intern.FilterModel;
-import com.github.nalukit.nalu.processor.model.intern.HandlerModel;
-import com.github.nalukit.nalu.processor.model.intern.ModuleModel;
-import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleModel;
-import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
-import com.github.nalukit.nalu.processor.model.intern.ShellModel;
-import com.github.nalukit.nalu.processor.model.intern.TrackerModel;
+import com.github.nalukit.nalu.processor.model.intern.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 public class MetaModel {
 
@@ -83,6 +70,8 @@ public class MetaModel {
   /* do we have to remove the URL parameter      */
   /* from the URL                                */
   private boolean                            removeUrlParameterAtStart;
+  /* list of used parameter constraints          */
+  private List<ClassNameModel>               usedParameterConstraints;
 
   public MetaModel() {
     this.modules                  = new ArrayList<>();
@@ -95,6 +84,7 @@ public class MetaModel {
     this.handlers                 = new ArrayList<>();
     this.compositeModels          = new ArrayList<>();
     this.parameterConstraintRules = new ArrayList<>();
+    this.usedParameterConstraints = new ArrayList<>();
 
     this.applicationVersion        = "APPLCIATION-VERSION-NOT-AVAILABLE";
     this.extendingIsModuleContext  = false;
@@ -354,6 +344,20 @@ public class MetaModel {
 
   public void setParameterConstraintRules(List<ParameterConstraintRuleModel> parameterConstraintRules) {
     this.parameterConstraintRules = parameterConstraintRules;
+  }
+
+  public void addParameterConstraintUsing(ClassNameModel model) {
+    Optional<ClassNameModel> optional = this.usedParameterConstraints.stream()
+                                                                     .filter(m -> m.getClassName()
+                                                                                   .equals(model.getClassName()))
+                                                                     .findFirst();
+    if (!optional.isPresent()) {
+      this.usedParameterConstraints.add(model);
+    }
+  }
+
+  public List<ClassNameModel> getUsedParameterConstraints() {
+    return usedParameterConstraints;
   }
 
   public TrackerModel getTracker() {

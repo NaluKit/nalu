@@ -110,7 +110,7 @@ public class CompositeControllerAnnotationScanner {
                                               .getClassName() +
                                      "<< versus >>" +
                                      compareValue.getClassName() +
-                                     "<<). All composite controllers, composites interfaces and components must implement the componentType!");
+                                     "<<). All composite controllers, composites interfaces and components must implement the same componentType!");
       }
     }
     // check, if the controller implements IsComponentController
@@ -171,6 +171,8 @@ public class CompositeControllerAnnotationScanner {
         if (parameterConstraintTypeElement != null) {
           parameterConstraintModel = new ParameterConstraintModel(parameterConstraintTypeElement.toString(),
                                                                   parameterConstraintAnnotation.illegalParameterRoute());
+          // register rule so that we know which rule needs to be loaded.
+          this.metaModel.addParameterConstraintUsing(new ClassNameModel(parameterConstraintTypeElement.toString()));
         }
       }
       compositeModel.getParameterAcceptors()
