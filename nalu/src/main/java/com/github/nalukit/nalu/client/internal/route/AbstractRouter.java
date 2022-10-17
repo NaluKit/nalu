@@ -18,7 +18,12 @@ package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.NaluConstants;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
-import com.github.nalukit.nalu.client.component.*;
+import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.component.AbstractCompositeController;
+import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
+import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
+import com.github.nalukit.nalu.client.component.IsController;
+import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.event.NaluErrorEvent;
 import com.github.nalukit.nalu.client.event.RouterStateEvent;
 import com.github.nalukit.nalu.client.event.RouterStateEvent.RouterState;
@@ -28,7 +33,15 @@ import com.github.nalukit.nalu.client.internal.CompositeReference;
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.Utils;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-import com.github.nalukit.nalu.client.internal.application.*;
+import com.github.nalukit.nalu.client.internal.application.CompositeConditionFactory;
+import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
+import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
+import com.github.nalukit.nalu.client.internal.application.ControllerCallback;
+import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
+import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
+import com.github.nalukit.nalu.client.internal.application.ShellCallback;
+import com.github.nalukit.nalu.client.internal.application.ShellFactory;
+import com.github.nalukit.nalu.client.internal.application.ShellInstance;
 import com.github.nalukit.nalu.client.module.IsModule;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.ConfirmHandler;
@@ -36,7 +49,13 @@ import com.github.nalukit.nalu.client.seo.SeoDataProvider;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import org.gwtproject.event.shared.SimpleEventBus;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -570,6 +589,22 @@ abstract class AbstractRouter
     // in case shellCreator changed or is not set, use the actual shellCreator!
     if (!routeResult.getShell()
                     .equals(this.lastAddedShell)) {
+      // in case a shell already exists, composites of that shell
+      // needs to be stopped. But before, we need to check if a
+      // shell instance is already set.
+      if (Objects.nonNull(this.shell)) {
+        // possible existing composites stopping ..
+        this.shell.getComposites()
+                  .values()
+                  .forEach(s -> {
+                    Utils.get()
+                         .deactivateCompositeController(s);
+                    if (!s.isCached()) {
+                      Utils.get()
+                           .stopCompositeController(s);
+                    }
+                  });
+      }
       updateShell(hash,
                   routeResult,
                   routeConfigurations);
@@ -791,19 +826,6 @@ abstract class AbstractRouter
                                                .filter(Objects::nonNull)
                                                .map(ControllerInstance::getController)
                                                .collect(Collectors.toList()));
-
-    }
-    if (Objects.nonNull(this.shell)) {
-      this.shell.getComposites()
-                .values()
-                .forEach(s -> {
-                  Utils.get()
-                       .deactivateCompositeController(s);
-                  if (!s.isCached()) {
-                    Utils.get()
-                         .stopCompositeController(s);
-                  }
-                });
     }
     controllerList.forEach(controller -> {
       // check, if it is a redraw case
