@@ -23,12 +23,16 @@ public class NaluApplicationEvent
 
   public final static Type<NaluApplicationEvent.NaluApplicationEventHandler> TYPE = new Type<>();
 
-  private String              event;
-  private Map<String, Object> dataStore;
+  private final Map<String, NaluApplicationEvent.ApplicationCommand> commandStore;
+  private final Map<String, String>                                  dataStore;
+  private final Map<String, Object>                                  dataObjectStore;
+  private       String                                               event;
 
   private NaluApplicationEvent() {
     super();
-    this.dataStore = new HashMap<>();
+    this.commandStore    = new HashMap<>();
+    this.dataStore       = new HashMap<>();
+    this.dataObjectStore = new HashMap<>();
   }
 
   /**
@@ -52,11 +56,25 @@ public class NaluApplicationEvent
   }
 
   /**
+   * Adds String-data to the String-data store.
+   *
+   * @param key   key of the parameter
+   * @param value value of the parameter
+   * @return instance of the event
+   */
+  public NaluApplicationEvent using(String key,
+                              String value) {
+    this.dataStore.put(key,
+                       value);
+    return this;
+  }
+
+  /**
    * Adds data to the data store.
    *
    * <b>Keep in mind, all parameters will be stored as objects!</b>
    *
-   * <p>Deprecated: please use the <b>usingObject</b>-method</p>
+   * <p>Deprecated (will be removed in 2.12.0): please use the <b>usingObject</b>-method</p>
    *
    * @param key   key of the parameter
    * @param value value of the parameter
@@ -81,8 +99,22 @@ public class NaluApplicationEvent
    */
   public NaluApplicationEvent usingObject(String key,
                                           Object value) {
-    this.dataStore.put(key,
-                       value);
+    this.dataObjectStore.put(key,
+                             value);
+    return this;
+  }
+
+  /**
+   * Adds a command to the command store.
+   *
+   * @param key   key of the parameter
+   * @param command command to store
+   * @return instance of the event
+   */
+  public NaluApplicationEvent add(String key,
+                                  NaluApplicationEvent.ApplicationCommand command) {
+    this.commandStore.put(key,
+                          command);
     return this;
   }
 
@@ -100,12 +132,43 @@ public class NaluApplicationEvent
    *
    * <b>Keep in mind to cast the return value.</b>
    *
+   * <p>Deprecated (will be removed in 2.12.0): please use <b>event.getDataObjectStore().get(key);</b> instead</p>
+   *
    * @param key key of the stored parameter
    * @return the value of the stored parameter using the key or null
    */
+  @Deprecated
   public Object get(String key) {
-    return this.dataStore.get(key);
+    return this.getDataObjectStore().get(key);
   }
+
+  /**
+   * Returns the command store
+   *
+   * @return the store containing key-value-pairs where value is a command
+   */
+  public Map<String, NaluApplicationEvent.ApplicationCommand> getCommandStore() {
+    return commandStore;
+  }
+
+  /**
+   * Returns the data store where all String are stored.
+   *
+   * @return the store containing key-value-pairs where value is a String
+   */
+  public Map<String, String> getDataStore() {
+    return dataStore;
+  }
+
+  /**
+   * Returns the data object store where all object are stored.
+   *
+   * @return the store containing key-value-pairs where value is an Object that needs to be cast
+   */
+  public Map<String, Object> getDataObjectStore() {
+    return dataObjectStore;
+  }
+
 
   @Override
   public Type<NaluApplicationEvent.NaluApplicationEventHandler> getAssociatedType() {
@@ -120,6 +183,15 @@ public class NaluApplicationEvent
   public interface NaluApplicationEventHandler {
 
     void onNaluApplicationEvent(NaluApplicationEvent event);
+
+  }
+
+
+
+  @FunctionalInterface
+  public interface ApplicationCommand {
+
+    void execute();
 
   }
 
