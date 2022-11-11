@@ -56,12 +56,31 @@ public class NaluApplicationEvent
    *
    * <b>Keep in mind, all parameters will be stored as objects!</b>
    *
+   * <p>Deprecated: please use the <b>usingObject</b>-method</p>
+   *
    * @param key   key of the parameter
    * @param value value of the parameter
    * @return instance of the event
    */
+  @Deprecated
   public NaluApplicationEvent data(String key,
                                    Object value) {
+    this.usingObject(key,
+                     value);
+    return this;
+  }
+
+  /**
+   * Adds data to the data store.
+   *
+   * <b>Keep in mind, all parameters will be stored as objects!</b>
+   *
+   * @param key   key of the parameter
+   * @param value value of the parameter
+   * @return instance of the event
+   */
+  public NaluApplicationEvent usingObject(String key,
+                                          Object value) {
     this.dataStore.put(key,
                        value);
     return this;
