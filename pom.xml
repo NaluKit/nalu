@@ -86,7 +86,7 @@
   </distributionManagement>
 
   <properties>
-    <revision>HEAD-SNAPSHOT</revision>
+    <revision>2.11.1</revision>
     <github.global.server>github</github.global.server>
 
     <auto-common.version>1.0</auto-common.version>
@@ -236,7 +236,7 @@
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>${plugin.version.javadoc}</version>
             <configuration>
-              <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+              <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
             </configuration>
             <executions>
               <execution>
@@ -328,7 +328,7 @@
               <links>
                 <link>http://www.gwtproject.org/javadoc/latest/</link>
               </links>
-              <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+              <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
             </configuration>
             <reportSets>
               <reportSet>
