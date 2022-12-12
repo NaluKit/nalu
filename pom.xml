@@ -86,7 +86,7 @@
   </distributionManagement>
 
   <properties>
-    <revision>2.11.1</revision>
+    <revision>HEAD-SNAPSHOT</revision>
     <github.global.server>github</github.global.server>
 
     <auto-common.version>1.0</auto-common.version>
