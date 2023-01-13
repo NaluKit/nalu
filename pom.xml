@@ -91,8 +91,8 @@
 
     <auto-common.version>1.0</auto-common.version>
     <auto-service.version>1.0.1</auto-service.version>
-    <compile-testing.version>0.19</compile-testing.version>
-    <gson.version>2.9.0</gson.version>
+    <compile-testing.version>0.21.0</compile-testing.version>
+    <gson.version>2.10.1</gson.version>
     <elemental2.version>1.1.0</elemental2.version>
     <guava.version>31.1-jre</guava.version>
     <gwt-event.version>1.0.0-RC1</gwt-event.version>
@@ -101,8 +101,8 @@
     <hamcrest-core.version>2.2</hamcrest-core.version>
     <javapoet.version>1.13.0</javapoet.version>
     <jsinterop-annotations.version>2.0.0</jsinterop-annotations.version>
-    <junit-jupiter.version>5.9.0</junit-jupiter.version>
-    <junit-jupiter-platform.version>1.9.0</junit-jupiter-platform.version>
+    <junit-jupiter.version>5.9.2</junit-jupiter.version>
+    <junit-jupiter-platform.version>1.9.2</junit-jupiter-platform.version>
     <truth.version>1.1.3</truth.version>
 
     <maven.compiler.source>1.8</maven.compiler.source>
