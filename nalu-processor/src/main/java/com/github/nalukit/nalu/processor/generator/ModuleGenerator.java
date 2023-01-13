@@ -20,7 +20,13 @@ import com.github.nalukit.nalu.client.component.AlwaysLoadComposite;
 import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import com.github.nalukit.nalu.client.context.ContextDataStore;
 import com.github.nalukit.nalu.client.internal.CompositeReference;
-import com.github.nalukit.nalu.client.internal.application.*;
+import com.github.nalukit.nalu.client.internal.application.BlockControllerFactory;
+import com.github.nalukit.nalu.client.internal.application.CompositeConditionFactory;
+import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
+import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
+import com.github.nalukit.nalu.client.internal.application.PopUpConditionFactory;
+import com.github.nalukit.nalu.client.internal.application.PopUpControllerFactory;
+import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.constrain.ParameterConstraintRuleFactory;
 import com.github.nalukit.nalu.client.internal.module.AbstractModule;
 import com.github.nalukit.nalu.client.internal.module.NoModuleLoader;
@@ -36,12 +42,22 @@ import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
 import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.EventModel;
-import com.squareup.javapoet.*;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeSpec;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class ModuleGenerator {
@@ -626,17 +642,29 @@ public class ModuleGenerator {
                                                                               ClassName.get(List.class),
                                                                               ClassName.get(CompositeReference.class),
                                                                               ClassName.get(ArrayList.class));
+    this.metaModel.getShells()
+                  .forEach(shellModel -> shellModel.getComposites()
+                                                   .forEach(shellAndControllerCompositeModel -> getCompositeReferencesMethod.addStatement("list.add(new $T($S, $S, $S, $S, $L))",
+                                                                                                                                          ClassName.get(CompositeReference.class),
+                                                                                                                                          shellModel.getShell()
+                                                                                                                                                    .getClassName(),
+                                                                                                                                          shellAndControllerCompositeModel.getName(),
+                                                                                                                                          shellAndControllerCompositeModel.getComposite()
+                                                                                                                                                                          .getClassName(),
+                                                                                                                                          shellAndControllerCompositeModel.getSelector(),
+                                                                                                                                          shellAndControllerCompositeModel.isScopeGlobal())));
+
     this.metaModel.getControllers()
-                  .forEach(controllerModel -> controllerModel.getComposites()
-                                                             .forEach(controllerCompositeModel -> getCompositeReferencesMethod.addStatement("list.add(new $T($S, $S, $S, $S, $L))",
-                                                                                                                                            ClassName.get(CompositeReference.class),
-                                                                                                                                            controllerModel.getProvider()
-                                                                                                                                                           .getClassName(),
-                                                                                                                                            controllerCompositeModel.getName(),
-                                                                                                                                            controllerCompositeModel.getComposite()
-                                                                                                                                                                    .getClassName(),
-                                                                                                                                            controllerCompositeModel.getSelector(),
-                                                                                                                                            controllerCompositeModel.isScopeGlobal())));
+                  .forEach(shellAndControllerCompositeModel -> shellAndControllerCompositeModel.getComposites()
+                                                                                               .forEach(controllerCompositeModel -> getCompositeReferencesMethod.addStatement("list.add(new $T($S, $S, $S, $S, $L))",
+                                                                                                                                                                              ClassName.get(CompositeReference.class),
+                                                                                                                                                                              shellAndControllerCompositeModel.getProvider()
+                                                                                                                                                                                                              .getClassName(),
+                                                                                                                                                                              controllerCompositeModel.getName(),
+                                                                                                                                                                              controllerCompositeModel.getComposite()
+                                                                                                                                                                                                      .getClassName(),
+                                                                                                                                                                              controllerCompositeModel.getSelector(),
+                                                                                                                                                                              controllerCompositeModel.isScopeGlobal())));
     getCompositeReferencesMethod.addStatement("return list");
     typeSpec.addMethod(getCompositeReferencesMethod.build());
   }
