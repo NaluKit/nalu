@@ -14,7 +14,7 @@ import java.lang.String;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2032.10.11-12:34:18<<
+ * Build with Nalu version >>2.11.2<< at >>2032.10.11-12:34:18<<
  */
 public final class ControllerWithComposite03CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
   public ControllerWithComposite03CreatorImpl(IsRouter router, MockContext context,
