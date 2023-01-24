@@ -2,23 +2,21 @@ package com.github.nalukit.nalu.client.internal.route;
 
 import com.github.nalukit.nalu.client.Nalu;
 import com.github.nalukit.nalu.client.application.event.LogEvent;
+import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+@NaluInternalUse
 public class RouteParser {
 
-  private static RouteParser instance = new RouteParser();
+  public static RouteParser INSTANCE = new RouteParser();
 
   private SimpleEventBus eventBus;
 
   private RouteParser() {
-  }
-
-  public static RouteParser get() {
-    return instance;
   }
 
   public void setEventBus(SimpleEventBus eventBus) {

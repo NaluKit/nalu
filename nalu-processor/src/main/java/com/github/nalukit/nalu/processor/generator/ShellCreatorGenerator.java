@@ -62,8 +62,7 @@ public class ShellCreatorGenerator {
       throws ProcessorException {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(shellModel.getShell()
                                                                 .getSimpleName() + ProcessorConstants.CREATOR_IMPL)
-                                        .addJavadoc(BuildWithNaluCommentProvider.get()
-                                                                                .getGeneratedComment())
+                                        .addJavadoc(BuildWithNaluCommentProvider.INSTANCE.getGeneratedComment())
                                         .superclass(ParameterizedTypeName.get(ClassName.get(AbstractShellCreator.class),
                                                                               shellModel.getContext()
                                                                                         .getTypeName()))

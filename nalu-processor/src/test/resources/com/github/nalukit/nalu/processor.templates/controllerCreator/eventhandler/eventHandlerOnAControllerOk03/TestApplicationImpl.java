@@ -11,7 +11,7 @@ import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import java.lang.Override;
+
 import java.util.Arrays;
 
 /**
@@ -45,8 +45,14 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
 
   @Override
   public void loadShellFactory() {
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.ui.MockShell", new com.github.nalukit.nalu.processor.common.ui.MockShellCreatorImpl(router, context, eventBus));
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockErrorShell", new com.github.nalukit.nalu.processor.common.MockErrorShellCreatorImpl(router, context, eventBus));
+    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.common.ui.MockShell",
+                                        new com.github.nalukit.nalu.processor.common.ui.MockShellCreatorImpl(router,
+                                                                                                             context,
+                                                                                                             eventBus));
+    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.common.MockErrorShell",
+                                        new com.github.nalukit.nalu.processor.common.MockErrorShellCreatorImpl(router,
+                                                                                                               context,
+                                                                                                               eventBus));
   }
 
   @Override
@@ -55,9 +61,18 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
 
   @Override
   public void loadComponents() {
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03.content.Controller01", new com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03.content.Controller01CreatorImpl(router, context, eventBus));
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03.content.Controller02", new com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03.content.Controller02CreatorImpl(router, context, eventBus));
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03.content.Controller03", new com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03.content.Controller03CreatorImpl(router, context, eventBus));
+    ControllerFactory.INSTANCE.registerController("com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03.content.Controller01",
+                                                  new com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03.content.Controller01CreatorImpl(router,
+                                                                                                                                                                                     context,
+                                                                                                                                                                                     eventBus));
+    ControllerFactory.INSTANCE.registerController("com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03.content.Controller02",
+                                                  new com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03.content.Controller02CreatorImpl(router,
+                                                                                                                                                                                     context,
+                                                                                                                                                                                     eventBus));
+    ControllerFactory.INSTANCE.registerController("com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03.content.Controller03",
+                                                  new com.github.nalukit.nalu.processor.controllerCreator.eventhandler.eventHandlerOnAControllerOk03.content.Controller03CreatorImpl(router,
+                                                                                                                                                                                     context,
+                                                                                                                                                                                     eventBus));
   }
 
   @Override

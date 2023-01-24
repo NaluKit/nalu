@@ -59,7 +59,7 @@ public class PopUpControllerGenerator {
     List<String> generatedConditionClassNames = new ArrayList<>();
     this.metaModel.getPopUpControllers()
                   .forEach(popUpControllerModel -> {
-                    loadPopUpControllerFactoryMethodBuilder.addStatement("$T.get().registerPopUpController($S, new $L(router, context, eventBus))",
+                    loadPopUpControllerFactoryMethodBuilder.addStatement("$T.INSTANCE.registerPopUpController($S, new $L(router, context, eventBus))",
                                                                          ClassName.get(PopUpControllerFactory.class),
                                                                          popUpControllerModel.getName(),
                                                                          ClassName.get(popUpControllerModel.getController()
@@ -70,7 +70,7 @@ public class PopUpControllerGenerator {
                     if (AlwaysShowPopUp.class.getSimpleName()
                                              .equals(popUpControllerModel.getCondition()
                                                                          .getSimpleName())) {
-                      loadPopUpControllerFactoryMethodBuilder.addStatement("$T.get().registerCondition($S,  super.alwaysShowPopUp)",
+                      loadPopUpControllerFactoryMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S,  super.alwaysShowPopUp)",
                                                                            ClassName.get(PopUpConditionFactory.class),
                                                                            popUpControllerModel.getName());
                     } else {
@@ -103,7 +103,7 @@ public class PopUpControllerGenerator {
                         generatedConditionClassNames.add(popUpControllerModel.getCondition()
                                                                              .getClassName());
                       }
-                      loadPopUpControllerFactoryMethodBuilder.addStatement("$T.get().registerCondition($S,  $L)",
+                      loadPopUpControllerFactoryMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S,  $L)",
                                                                            ClassName.get(PopUpConditionFactory.class),
                                                                            conditionVariableName);
                     }

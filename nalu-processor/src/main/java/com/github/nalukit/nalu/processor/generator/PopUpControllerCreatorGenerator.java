@@ -61,8 +61,7 @@ public class PopUpControllerCreatorGenerator {
       throws ProcessorException {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(popUpControllerModel.getController()
                                                                           .getSimpleName() + ProcessorConstants.CREATOR_IMPL)
-                                        .addJavadoc(BuildWithNaluCommentProvider.get()
-                                                                                .getGeneratedComment())
+                                        .addJavadoc(BuildWithNaluCommentProvider.INSTANCE.getGeneratedComment())
                                         .superclass(ParameterizedTypeName.get(ClassName.get(AbstractPopUpControllerCreator.class),
                                                                               popUpControllerModel.getContext()
                                                                                                   .getTypeName()))

@@ -83,7 +83,7 @@ public class ShellGenerator {
     this.metaModel.getShells()
                   .forEach(shellModel -> {
                     // add return statement
-                    loadShellFactoryMethodBuilder.addStatement("$T.get().registerShell($S, new $L(router, context, eventBus))",
+                    loadShellFactoryMethodBuilder.addStatement("$T.INSTANCE.registerShell($S, new $L(router, context, eventBus))",
                                                                ClassName.get(ShellFactory.class),
                                                                shellModel.getShell()
                                                                          .getPackage() +
@@ -104,17 +104,17 @@ public class ShellGenerator {
                                        if (AlwaysLoadComposite.class.getSimpleName()
                                                                     .equals(controllerCompositeModel.getCondition()
                                                                                                     .getSimpleName())) {
-                                         loadShellFactoryMethodBuilder.addStatement("$T.get().registerCondition($S, $S, super.alwaysLoadComposite)",
-                                                                                  ClassName.get(CompositeConditionFactory.class),
-                                                                                  shellModel.getShell()
-                                                                                                 .getPackage() +
-                                                                                  "." +
-                                                                                  shellModel.getShell()
-                                                                                                 .getSimpleName(),
-                                                                                  controllerCompositeModel.getComposite()
-                                                                                                          .getPackage() +
-                                                                                  "." +
-                                                                                  controllerCompositeModel.getComposite()
+                                         loadShellFactoryMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, super.alwaysLoadComposite)",
+                                                                                    ClassName.get(CompositeConditionFactory.class),
+                                                                                    shellModel.getShell()
+                                                                                              .getPackage() +
+                                                                                    "." +
+                                                                                    shellModel.getShell()
+                                                                                              .getSimpleName(),
+                                                                                    controllerCompositeModel.getComposite()
+                                                                                                            .getPackage() +
+                                                                                    "." +
+                                                                                    controllerCompositeModel.getComposite()
                                                                                                           .getSimpleName());
                                        } else {
                                          String conditionVariableName;
@@ -146,19 +146,19 @@ public class ShellGenerator {
                                            generatedConditionClassNames.add(controllerCompositeModel.getCondition()
                                                                                                     .getClassName());
                                          }
-                                         loadShellFactoryMethodBuilder.addStatement("$T.get().registerCondition($S, $S, $L)",
-                                                                                  ClassName.get(CompositeConditionFactory.class),
-                                                                                  shellModel.getShell()
-                                                                                                 .getPackage() +
-                                                                                  "." +
-                                                                                  shellModel.getShell()
-                                                                                                 .getSimpleName(),
-                                                                                  controllerCompositeModel.getComposite()
-                                                                                                          .getPackage() +
-                                                                                  "." +
-                                                                                  controllerCompositeModel.getComposite()
+                                         loadShellFactoryMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, $L)",
+                                                                                    ClassName.get(CompositeConditionFactory.class),
+                                                                                    shellModel.getShell()
+                                                                                              .getPackage() +
+                                                                                    "." +
+                                                                                    shellModel.getShell()
+                                                                                              .getSimpleName(),
+                                                                                    controllerCompositeModel.getComposite()
+                                                                                                            .getPackage() +
+                                                                                    "." +
+                                                                                    controllerCompositeModel.getComposite()
                                                                                                           .getSimpleName(),
-                                                                                  conditionVariableName);
+                                                                                    conditionVariableName);
                                        }
                                      });
                     }

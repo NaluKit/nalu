@@ -64,8 +64,7 @@ public class BlockControllerCreatorGenerator {
       throws ProcessorException {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(blockControllerModel.getController()
                                                                           .getSimpleName() + ProcessorConstants.CREATOR_IMPL)
-                                        .addJavadoc(BuildWithNaluCommentProvider.get()
-                                                                                .getGeneratedComment())
+                                        .addJavadoc(BuildWithNaluCommentProvider.INSTANCE.getGeneratedComment())
                                         .superclass(ParameterizedTypeName.get(ClassName.get(AbstractBlockControllerCreator.class),
                                                                               blockControllerModel.getContext()
                                                                                                   .getTypeName()))

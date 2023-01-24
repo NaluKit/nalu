@@ -24,8 +24,6 @@ import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
 import com.github.nalukit.nalu.client.internal.application.IsCompositeCreator;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import java.lang.Object;
-import java.lang.String;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
@@ -40,7 +38,9 @@ public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockCon
                                   boolean scopeGlobal) throws RoutingInterceptionException {
     CompositeInstance compositeInstance = new CompositeInstance();
     compositeInstance.setCompositeClassName("com.github.nalukit.nalu.processor.compositeCreator.ok.Composite");
-    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.get().getCompositeFormStore(parentControllerClassName, "com.github.nalukit.nalu.processor.compositeCreator.ok.Composite", selector);
+    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.INSTANCE.getCompositeFormStore(parentControllerClassName,
+                                                                                                           "com.github.nalukit.nalu.processor.compositeCreator.ok.Composite",
+                                                                                                           selector);
     if (storedComposite == null) {
       Composite composite = new Composite();
       compositeInstance.setComposite(composite);

@@ -55,7 +55,7 @@ public class ParameterConstraintRuleRegisterGenerator {
                                                                              .addModifiers(Modifier.PUBLIC)
                                                                              .addAnnotation(Override.class);
     this.metaModel.getUsedParameterConstraints()
-                  .forEach(m -> loadParameterConstraintRulesMethodBuilder.addStatement("$T.get().registerParameterConstraintRule($S, new $L())",
+                  .forEach(m -> loadParameterConstraintRulesMethodBuilder.addStatement("$T.INSTANCE.registerParameterConstraintRule($S, new $L())",
                                                                                        ClassName.get(ParameterConstraintRuleFactory.class),
                                                                                        m.getPackage() + "." + m.getSimpleName(),
                                                                                        ClassName.get(m.getPackage(),

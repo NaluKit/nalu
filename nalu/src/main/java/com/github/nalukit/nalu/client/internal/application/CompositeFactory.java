@@ -31,7 +31,7 @@ public class CompositeFactory {
   private final static String DELIMITER = "<<||>>";
 
   /* instance of the controller factory */
-  private static CompositeFactory                                  instance;
+  public static  CompositeFactory                                  INSTANCE = new CompositeFactory();
   /* map of components (key: name of class, Value: ControllerCreator */
   private final  Map<String, IsCompositeCreator>                   compositeCreatorFactory;
   /* map of stored components (key: name of class, Value: instance of controller */
@@ -43,13 +43,6 @@ public class CompositeFactory {
     this.compositeCreatorFactory        = new HashMap<>();
     this.compositeControllerStore       = new HashMap<>();
     this.cachedGlobalCompositeInstances = new HashMap<>();
-  }
-
-  public static CompositeFactory get() {
-    if (instance == null) {
-      instance = new CompositeFactory();
-    }
-    return instance;
   }
 
   public void registerComposite(String controller,

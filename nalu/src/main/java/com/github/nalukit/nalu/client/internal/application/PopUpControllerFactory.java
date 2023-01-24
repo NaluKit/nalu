@@ -33,7 +33,7 @@ import java.util.Objects;
 public class PopUpControllerFactory {
 
   /* instance of the popup controller factory */
-  private static PopUpControllerFactory                instance;
+  public static  PopUpControllerFactory                INSTANCE = new PopUpControllerFactory();
   /* map of components (key: name of class, Value: ControllerCreator */
   private final  Map<String, IsPopUpControllerCreator> creatorStore;
   /* map of components (key: name of class, Value: controller instance */
@@ -47,13 +47,6 @@ public class PopUpControllerFactory {
     this.creatorStore         = new HashMap<>();
     this.popUpControllerStore = new HashMap<>();
     this.popUpFilterStore     = new HashMap<>();
-  }
-
-  public static PopUpControllerFactory get() {
-    if (instance == null) {
-      instance = new PopUpControllerFactory();
-    }
-    return instance;
   }
 
   public void registerPopUpController(String popUpName,
@@ -97,8 +90,7 @@ public class PopUpControllerFactory {
       return;
     }
 
-    if (!PopUpConditionFactory.get()
-                              .showPopUp(event)) {
+    if (!PopUpConditionFactory.INSTANCE.showPopUp(event)) {
       return;
     }
 

@@ -8,8 +8,6 @@ import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
 import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import java.lang.String;
-import java.lang.StringBuilder;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public final class ControllerC05CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
@@ -22,7 +20,7 @@ public final class ControllerC05CreatorImpl extends AbstractControllerCreator<Mo
     ControllerInstance controllerInstance = new ControllerInstance();
     controllerInstance.setControllerCreator(this);
     controllerInstance.setControllerClassName("com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter02.ControllerC05");
-    AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter02.ControllerC05");
+    AbstractComponentController<?, ?, ?> storedController = ControllerFactory.INSTANCE.getControllerFormStore("com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter02.ControllerC05");
     if (storedController == null) {
       sb01.append("controller >>com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithTwoParameter02.ControllerC05<< --> will be created");
       ClientLogger.get().logSimple(sb01.toString(), 3);

@@ -14,7 +14,7 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.ui.errorPopUp01.ErrorEventComponent01;
 import com.github.nalukit.nalu.processor.common.ui.errorPopUp01.ErrorEventController01;
 import com.github.nalukit.nalu.processor.common.ui.errorPopUp01.IErrorEventComponent01;
-import java.lang.Override;
+
 import java.util.Arrays;
 
 /**
@@ -48,8 +48,14 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
   
   @Override
   public void loadShellFactory() {
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.ui.MockShell", new com.github.nalukit.nalu.processor.common.ui.MockShellCreatorImpl(router, context, eventBus));
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.MockErrorShell", new com.github.nalukit.nalu.processor.common.MockErrorShellCreatorImpl(router, context, eventBus));
+    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.common.ui.MockShell",
+                                        new com.github.nalukit.nalu.processor.common.ui.MockShellCreatorImpl(router,
+                                                                                                             context,
+                                                                                                             eventBus));
+    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.common.MockErrorShell",
+                                        new com.github.nalukit.nalu.processor.common.MockErrorShellCreatorImpl(router,
+                                                                                                               context,
+                                                                                                               eventBus));
   }
   
   @Override
@@ -58,7 +64,10 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
   
   @Override
   public void loadComponents() {
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01", new com.github.nalukit.nalu.processor.common.ui.component01.Controller01CreatorImpl(router, context, eventBus));
+    ControllerFactory.INSTANCE.registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01",
+                                                  new com.github.nalukit.nalu.processor.common.ui.component01.Controller01CreatorImpl(router,
+                                                                                                                                      context,
+                                                                                                                                      eventBus));
   }
   
   @Override

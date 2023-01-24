@@ -19,25 +19,22 @@ package com.github.nalukit.nalu.client.internal.application;
 import com.github.nalukit.nalu.client.component.IsLoadCompositeCondition;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @NaluInternalUse
 public class CompositeConditionFactory {
 
   /* instance of the controller factory */
-  private static CompositeConditionFactory             instance;
+  public static CompositeConditionFactory             INSTANCE = new CompositeConditionFactory();
   /* map of conditions (key: controller name, value: ConditionContainer)  */
-  private final  Map<String, List<ConditionContainer>> conditionContainerMap;
+  private final Map<String, List<ConditionContainer>> conditionContainerMap;
 
   private CompositeConditionFactory() {
     this.conditionContainerMap = new HashMap<>();
-  }
-
-  public static CompositeConditionFactory get() {
-    if (instance == null) {
-      instance = new CompositeConditionFactory();
-    }
-    return instance;
   }
 
   public void registerCondition(String sourceClassName,

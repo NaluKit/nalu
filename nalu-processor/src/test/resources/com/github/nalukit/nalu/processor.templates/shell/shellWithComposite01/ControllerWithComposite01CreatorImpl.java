@@ -24,9 +24,6 @@ import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
 import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import java.lang.Object;
-import java.lang.Override;
-import java.lang.String;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
@@ -43,7 +40,7 @@ public final class ControllerWithComposite01CreatorImpl extends AbstractControll
     ControllerInstance controllerInstance = new ControllerInstance();
     controllerInstance.setControllerCreator(this);
     controllerInstance.setControllerClassName("com.github.nalukit.nalu.processor.shell.shellWithComposite01.ControllerWithComposite01");
-    AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("com.github.nalukit.nalu.processor.shell.shellWithComposite01.ControllerWithComposite01");
+    AbstractComponentController<?, ?, ?> storedController = ControllerFactory.INSTANCE.getControllerFormStore("com.github.nalukit.nalu.processor.shell.shellWithComposite01.ControllerWithComposite01");
     if (storedController == null) {
       ControllerWithComposite01 controller = new ControllerWithComposite01();
       controllerInstance.setController(controller);

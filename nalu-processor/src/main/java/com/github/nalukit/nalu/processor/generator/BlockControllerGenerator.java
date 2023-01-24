@@ -48,7 +48,7 @@ public class BlockControllerGenerator {
                                                                            .addModifiers(Modifier.PUBLIC)
                                                                            .addAnnotation(Override.class);
     this.metaModel.getBlockControllers()
-                  .forEach(blockControllerModel -> loadBlockControllerFactoryMethodBuilder.addStatement("$T.get().registerBlockController($S, new $L(router, context, eventBus))",
+                  .forEach(blockControllerModel -> loadBlockControllerFactoryMethodBuilder.addStatement("$T.INSTANCE.registerBlockController($S, new $L(router, context, eventBus))",
                                                                                                         ClassName.get(BlockControllerFactory.class),
                                                                                                         blockControllerModel.getName(),
                                                                                                         ClassName.get(blockControllerModel.getController()

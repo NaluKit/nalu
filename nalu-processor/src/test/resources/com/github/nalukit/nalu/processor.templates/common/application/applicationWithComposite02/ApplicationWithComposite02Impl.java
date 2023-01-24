@@ -15,7 +15,7 @@ import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.CompositeCondition02;
-import java.lang.Override;
+
 import java.util.Arrays;
 
 /**
@@ -48,20 +48,31 @@ public final class ApplicationWithComposite02Impl extends AbstractApplication<Mo
   
   @Override
   public void loadShellFactory() {
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.ui.MockShell", new com.github.nalukit.nalu.processor.common.ui.MockShellCreatorImpl(router, context, eventBus));
+    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.common.ui.MockShell",
+                                        new com.github.nalukit.nalu.processor.common.ui.MockShellCreatorImpl(router,
+                                                                                                             context,
+                                                                                                             eventBus));
   }
   
   @Override
   public void loadCompositeController() {
-    CompositeFactory.get().registerComposite("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite.CompositeController02", new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite.CompositeController02CreatorImpl(router, context, eventBus));
+    CompositeFactory.INSTANCE.registerComposite("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite.CompositeController02",
+                                                new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite.CompositeController02CreatorImpl(router,
+                                                                                                                                                                     context,
+                                                                                                                                                                     eventBus));
   }
   
   @Override
   public void loadComponents() {
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02", new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02CreatorImpl(router, context, eventBus));
+    ControllerFactory.INSTANCE.registerController("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02",
+                                                  new com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02CreatorImpl(router,
+                                                                                                                                                                 context,
+                                                                                                                                                                 eventBus));
     CompositeCondition02 compositeCondition02_1 = new CompositeCondition02();
     compositeCondition02_1.setContext(super.context);
-    CompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02", "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite.CompositeController02", compositeCondition02_1);
+    CompositeConditionFactory.INSTANCE.registerCondition("com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.ControllerWithComposite02",
+                                                         "com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite.CompositeController02",
+                                                         compositeCondition02_1);
   }
   
   @Override

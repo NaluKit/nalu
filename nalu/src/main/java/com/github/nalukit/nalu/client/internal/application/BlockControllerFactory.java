@@ -33,7 +33,7 @@ import java.util.Objects;
 public class BlockControllerFactory {
 
   /* instance of the popup controller factory */
-  private static BlockControllerFactory               instance;
+  public static  BlockControllerFactory               INSTANCE = new BlockControllerFactory();
   /* map of components (key: name of class, Value: controller instance */
   private final  Map<String, BlockControllerInstance> blockControllerInstanceStore;
   /* list of visibles blocks (using block name) */
@@ -44,13 +44,6 @@ public class BlockControllerFactory {
   private BlockControllerFactory() {
     this.blockControllerInstanceStore = new HashMap<>();
     this.visiblesBlocks               = new ArrayList<>();
-  }
-
-  public static BlockControllerFactory get() {
-    if (instance == null) {
-      instance = new BlockControllerFactory();
-    }
-    return instance;
   }
 
   public void registerBlockController(String blockName,
