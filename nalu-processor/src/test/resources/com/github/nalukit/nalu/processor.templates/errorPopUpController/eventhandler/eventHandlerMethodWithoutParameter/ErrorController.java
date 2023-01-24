@@ -20,6 +20,7 @@ import com.github.nalukit.nalu.client.component.AbstractErrorPopUpComponentContr
 import com.github.nalukit.nalu.client.component.annotation.ErrorPopUpController;
 import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import java.lang.Override;
 
 @ErrorPopUpController(componentInterface = IErrorComponent.class,
                       component = ErrorComponent.class)

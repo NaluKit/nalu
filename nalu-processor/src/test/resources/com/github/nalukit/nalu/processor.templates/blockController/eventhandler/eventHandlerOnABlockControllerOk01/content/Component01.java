@@ -19,6 +19,7 @@ package com.github.nalukit.nalu.processor.blockController.eventhandler.eventHand
 import com.github.nalukit.nalu.client.component.AbstractComponent;
 import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.processor.common.event.MockEvent01;
+import java.lang.Override;
 
 public class Component01
     extends AbstractComponent<IComponent01.Controller, String>

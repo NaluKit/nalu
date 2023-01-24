@@ -21,6 +21,8 @@ import com.github.nalukit.nalu.client.NaluTest;
 import com.github.nalukit.nalu.client.RouterImplTest;
 import com.github.nalukit.nalu.client.RouterUtilsTest;
 import com.github.nalukit.nalu.client.RoutingTest;
+import com.github.nalukit.nalu.client.internal.application.RouterStateEventFactory;
+import com.github.nalukit.nalu.client.internal.application.RouterStateEventFactoryTest;
 import com.github.nalukit.nalu.client.internal.route.RouteConfigTest;
 import com.github.nalukit.nalu.client.internal.route.RouteParserTest;
 import com.github.nalukit.nalu.client.internal.route.RouterHashImplTest;
@@ -39,6 +41,7 @@ import org.junit.runner.RunWith;
                  RouterImplTest.class,
                  RouterUtilsTest.class,
                  RoutingTest.class,
-                 RouteValidationTest.class })
+                 RouteValidationTest.class,
+                 RouterStateEventFactoryTest.class })
 public class AllTests {
 }

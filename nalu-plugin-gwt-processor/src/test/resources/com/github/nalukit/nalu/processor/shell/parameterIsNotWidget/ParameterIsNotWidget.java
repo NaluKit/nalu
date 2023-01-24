@@ -4,6 +4,7 @@ import com.github.nalukit.nalu.client.component.AbstractShell;
 import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.plugin.gwt.client.annotation.Selector;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import java.lang.Override;
 
 /**
  * this is the presenter of the shell. The shell divides the browser in

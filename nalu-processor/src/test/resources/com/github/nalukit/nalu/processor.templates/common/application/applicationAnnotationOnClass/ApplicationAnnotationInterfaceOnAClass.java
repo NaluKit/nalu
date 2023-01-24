@@ -20,6 +20,7 @@ import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import java.lang.Override;
 
 @Application(startRoute = "/mockShell/search",
              context = MockContext.class)

@@ -3,6 +3,7 @@ package com.github.nalukit.nalu.processor.composites.popup;
 import com.github.nalukit.nalu.client.component.AbstractCompositeComponent;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
+import java.lang.Override;
 
 import static elemental2.dom.DomGlobal.document;
 

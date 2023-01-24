@@ -22,6 +22,7 @@ import elemental2.dom.CSSProperties;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
+import java.lang.Override;
 
 import static elemental2.dom.DomGlobal.document;
 

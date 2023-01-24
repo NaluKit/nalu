@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.processor.filter.eventhandler.eventHandlerWithWr
 
 import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.client.filter.AbstractFilter;
+import java.lang.Override;
 
 public class MockFilter
     extends AbstractFilter<MockContext> {

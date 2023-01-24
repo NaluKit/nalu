@@ -7,6 +7,7 @@ import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import elemental2.dom.*;
 import jsinterop.base.Js;
+import java.lang.Override;
 
 @Shell("mockShell")
 @Composites(@Composite(name = "shellComposite",

@@ -8,6 +8,7 @@ import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
 import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import java.lang.Override;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 public final class ControllerC05CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {

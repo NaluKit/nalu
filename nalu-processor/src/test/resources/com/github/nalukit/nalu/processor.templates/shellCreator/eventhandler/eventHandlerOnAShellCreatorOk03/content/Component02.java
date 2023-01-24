@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.content;
 
 import com.github.nalukit.nalu.client.component.AbstractComponent;
+import java.lang.Override;
 
 public class Component02
     extends AbstractComponent<IComponent02.Controller, String>

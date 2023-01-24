@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.processor.common;
 
 import com.github.nalukit.nalu.client.application.AbstractLogger;
 import java.util.List;
+import java.lang.Override;
 
 /**
  * Default implementation of Nalu's logger.

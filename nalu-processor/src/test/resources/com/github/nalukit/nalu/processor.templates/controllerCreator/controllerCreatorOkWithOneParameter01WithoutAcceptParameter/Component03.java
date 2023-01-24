@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.processor.controllerCreator.controllerCreatorOkWithOneParameter01WithoutAcceptParameter;
 
 import com.github.nalukit.nalu.client.component.AbstractComponent;
+import java.lang.Override;
 
 public class Component03
     extends AbstractComponent<IComponent03.Controller, String>

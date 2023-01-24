@@ -108,8 +108,7 @@ public abstract class AbstractApplication<C extends IsContext>
     // set event bus in RouteParser
     RouteParser.INSTANCE.setEventBus(this.eventBus);
     // set up RoterStateEventFactory
-    // TODO activate again
-    //    RouterStateEventFactory.INSTANCE.register(this.eventBus);
+    RouterStateEventFactory.INSTANCE.register(this.eventBus);
     // log development messages
     this.eventBus.fireEvent(LogEvent.create()
                                     .sdmOnly(true)

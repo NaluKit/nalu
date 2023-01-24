@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.processor.controller.controllerWithIsComponentControllerNotOK.ui.content01;
 
 import com.github.nalukit.nalu.client.component.AbstractComponent;
+import java.lang.Override;
 
 public class Content02Component
     extends AbstractComponent<IContent02Component.Controller, String>

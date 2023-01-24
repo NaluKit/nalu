@@ -8,6 +8,7 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.shell.shellWithComposite03.composite.CompositeController03;
 import elemental2.dom.*;
 import jsinterop.base.Js;
+import java.lang.Override;
 
 @Shell("mockShell")
 @Composites(@Composite(name = "shellComposite", compositeController = CompositeController03.class, selector = "shellComposte"))

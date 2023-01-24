@@ -15,6 +15,7 @@ import com.github.nalukit.nalu.processor.common.event.MockEvent01;
 import com.github.nalukit.nalu.processor.common.event.MockEvent02;
 
 import java.util.Arrays;
+import java.lang.Override;
 
 /**
  * Build with Nalu version >>%VERSION_TAG%<< at >>2020.11.18-06:46:24<<

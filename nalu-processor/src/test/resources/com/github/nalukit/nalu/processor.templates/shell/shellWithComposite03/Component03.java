@@ -19,6 +19,7 @@ package com.github.nalukit.nalu.processor.shell.shellWithComposite03;
 import com.github.nalukit.nalu.client.component.AbstractComponent;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
+import java.lang.Override;
 
 import static elemental2.dom.DomGlobal.document;
 

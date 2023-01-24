@@ -19,6 +19,7 @@ package com.github.nalukit.nalu.processor.common.application.applicationAnnotati
 
 import com.github.nalukit.nalu.client.application.AbstractLoader;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import java.lang.Override;
 
 public class MockApplicationPostLoader
     extends AbstractLoader<MockContext> {

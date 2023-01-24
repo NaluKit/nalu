@@ -6,6 +6,7 @@ import com.github.nalukit.nalu.client.handler.IsHandler;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.event.MockEvent01;
+import java.lang.Override;
 
 @Handler
 public class EventHandlerMethodWithoutParameter

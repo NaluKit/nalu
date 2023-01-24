@@ -16,6 +16,7 @@
 package com.github.nalukit.nalu.processor.common;
 
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
+import java.lang.Override;
 
 public class MockPlugin
     implements IsNaluProcessorPlugin {

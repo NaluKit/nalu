@@ -22,6 +22,7 @@ import elemental2.dom.HTMLElement;
 
 import static elemental2.dom.DomGlobal.document;
 import static org.jboss.gwt.elemento.core.Elements.*;
+import java.lang.Override;
 
 public class MockShell
     extends AbstractShell<MockContext> {
