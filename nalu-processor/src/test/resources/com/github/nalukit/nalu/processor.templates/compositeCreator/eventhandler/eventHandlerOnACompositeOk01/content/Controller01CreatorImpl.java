@@ -8,8 +8,10 @@ import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
 import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import org.gwtproject.event.shared.SimpleEventBus;
+import java.lang.Object;
 import java.lang.Override;
+import java.lang.String;
+import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
  * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.19-11:01:13<<

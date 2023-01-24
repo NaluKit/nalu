@@ -8,8 +8,9 @@ import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
 import com.github.nalukit.nalu.client.internal.application.IsCompositeCreator;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import java.lang.Object;
+import java.lang.String;
 import org.gwtproject.event.shared.SimpleEventBus;
-import java.lang.Override;
 
 /**
  * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.19-10:29:36<<

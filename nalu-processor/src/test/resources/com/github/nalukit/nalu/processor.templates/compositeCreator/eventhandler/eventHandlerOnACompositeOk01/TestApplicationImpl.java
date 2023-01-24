@@ -14,11 +14,11 @@ import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
-
+import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.19-10:56:31<<
+ * Build with Nalu version >>%VERSION_TAG%<< at >>2021.07.29-07:45:00<<
  */
 public final class TestApplicationImpl extends AbstractApplication<MockContext> implements TestApplication {
   public TestApplicationImpl() {
@@ -32,7 +32,7 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
 
   @Override
   public void logProcessorVersion() {
-    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>%VERSION_TAG%<< used to generate this source").addMessage("=================================================================================").addMessage(""));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source").addMessage("=================================================================================").addMessage(""));
   }
 
   @Override
@@ -48,33 +48,19 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
 
   @Override
   public void loadShellFactory() {
-    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.common.ui.MockShell",
-                                        new com.github.nalukit.nalu.processor.common.ui.MockShellCreatorImpl(router,
-                                                                                                             context,
-                                                                                                             eventBus));
-    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.common.MockErrorShell",
-                                        new com.github.nalukit.nalu.processor.common.MockErrorShellCreatorImpl(router,
-                                                                                                               context,
-                                                                                                               eventBus));
+    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.common.ui.MockShell", new com.github.nalukit.nalu.processor.common.ui.MockShellCreatorImpl(router, context, eventBus));
+    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.common.MockErrorShell", new com.github.nalukit.nalu.processor.common.MockErrorShellCreatorImpl(router, context, eventBus));
   }
 
   @Override
   public void loadCompositeController() {
-    CompositeFactory.INSTANCE.registerComposite("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.composite.Composite01",
-                                                new com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.composite.Composite01CreatorImpl(router,
-                                                                                                                                                                                          context,
-                                                                                                                                                                                          eventBus));
+    CompositeFactory.INSTANCE.registerComposite("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.composite.Composite01", new com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.composite.Composite01CreatorImpl(router, context, eventBus));
   }
 
   @Override
   public void loadComponents() {
-    ControllerFactory.INSTANCE.registerController("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.Controller01",
-                                                  new com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.Controller01CreatorImpl(router,
-                                                                                                                                                                                   context,
-                                                                                                                                                                                   eventBus));
-    CompositeConditionFactory.INSTANCE.registerCondition("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.Controller01",
-                                                         "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.composite.Composite01",
-                                                         super.alwaysLoadComposite);
+    ControllerFactory.INSTANCE.registerController("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.Controller01", new com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.Controller01CreatorImpl(router, context, eventBus));
+    CompositeConditionFactory.INSTANCE.registerCondition("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.Controller01", "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk01.content.composite.Composite01", super.alwaysLoadComposite);
   }
 
   @Override
