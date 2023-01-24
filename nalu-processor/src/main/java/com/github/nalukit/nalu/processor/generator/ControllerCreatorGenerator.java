@@ -66,8 +66,7 @@ public class ControllerCreatorGenerator {
       throws ProcessorException {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(controllerModel.getController()
                                                                      .getSimpleName() + ProcessorConstants.CREATOR_IMPL)
-                                        .addJavadoc(BuildWithNaluCommentProvider.get()
-                                                                                .getGeneratedComment())
+                                        .addJavadoc(BuildWithNaluCommentProvider.INSTANCE.getGeneratedComment())
                                         .superclass(ParameterizedTypeName.get(ClassName.get(AbstractControllerCreator.class),
                                                                               controllerModel.getContext()
                                                                                              .getTypeName()))
@@ -128,7 +127,7 @@ public class ControllerCreatorGenerator {
                                           .addStatement("controllerInstance.setControllerClassName($S)",
                                                         controllerModel.getController()
                                                                        .getClassName())
-                                          .addStatement("$T<?, ?, ?> storedController = $T.get().getControllerFormStore($S)",
+                                          .addStatement("$T<?, ?, ?> storedController = $T.INSTANCE.getControllerFormStore($S)",
                                                         ClassName.get(AbstractComponentController.class),
                                                         ClassName.get(ControllerFactory.class),
                                                         controllerModel.getController()
@@ -259,7 +258,7 @@ public class ControllerCreatorGenerator {
             ParameterConstraintModel parameterConstraintModel = controllerModel.getConstraintModelFor(controllerModel.getParameters()
                                                                                                                      .get(i));
             if (parameterConstraintModel != null) {
-              method.addStatement("$T rule = $T.get().get($S)",
+              method.addStatement("$T rule = $T.INSTANCE.get($S)",
                                   ClassName.get(IsParameterConstraintRule.class),
                                   ClassName.get(ParameterConstraintRuleFactory.class),
                                   parameterConstraintModel.getKey());

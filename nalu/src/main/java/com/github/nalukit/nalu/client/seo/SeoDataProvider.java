@@ -7,21 +7,15 @@ import java.util.Objects;
 public class SeoDataProvider {
 
   /* instance of the factory */
-  private static SeoDataProvider       instance;
+  public static SeoDataProvider INSTANCE = new SeoDataProvider();
+
   /* Nalu plugin */
-  private        IsNaluProcessorPlugin plugin;
+  private IsNaluProcessorPlugin plugin;
   /* data for next update */
-  private        SeoData               seoData;
+  private SeoData               seoData;
 
   private SeoDataProvider() {
     this.seoData = new SeoData();
-  }
-
-  public static SeoDataProvider get() {
-    if (Objects.isNull(instance)) {
-      instance = new SeoDataProvider();
-    }
-    return instance;
   }
 
   public void register(IsNaluProcessorPlugin plugin) {

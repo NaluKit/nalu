@@ -11,7 +11,7 @@ import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import java.lang.Override;
+
 import java.util.Arrays;
 
 /**
@@ -44,7 +44,10 @@ public final class ApplicationAnnotationOkWithPostLoaderImpl extends AbstractApp
   
   @Override
   public void loadShellFactory() {
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.ui.MockShell", new com.github.nalukit.nalu.processor.common.ui.MockShellCreatorImpl(router, context, eventBus));
+    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.common.ui.MockShell",
+                                        new com.github.nalukit.nalu.processor.common.ui.MockShellCreatorImpl(router,
+                                                                                                             context,
+                                                                                                             eventBus));
   }
   
   @Override
@@ -53,7 +56,10 @@ public final class ApplicationAnnotationOkWithPostLoaderImpl extends AbstractApp
   
   @Override
   public void loadComponents() {
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01", new com.github.nalukit.nalu.processor.common.ui.component01.Controller01CreatorImpl(router, context, eventBus));
+    ControllerFactory.INSTANCE.registerController("com.github.nalukit.nalu.processor.common.ui.component01.Controller01",
+                                                  new com.github.nalukit.nalu.processor.common.ui.component01.Controller01CreatorImpl(router,
+                                                                                                                                      context,
+                                                                                                                                      eventBus));
   }
   
   @Override

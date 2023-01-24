@@ -16,7 +16,7 @@ import com.github.nalukit.nalu.processor.common.event.MockEvent02;
 import com.github.nalukit.nalu.processor.errorPopUpController.eventhandler.eventHandlerOnAErrorPopUpControllerOk02.error.ErrorComponent;
 import com.github.nalukit.nalu.processor.errorPopUpController.eventhandler.eventHandlerOnAErrorPopUpControllerOk02.error.ErrorController;
 import com.github.nalukit.nalu.processor.errorPopUpController.eventhandler.eventHandlerOnAErrorPopUpControllerOk02.error.IErrorComponent;
-import java.lang.Override;
+
 import java.util.Arrays;
 
 /**
@@ -49,7 +49,10 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
 
   @Override
   public void loadShellFactory() {
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.common.ui.MockShell", new com.github.nalukit.nalu.processor.common.ui.MockShellCreatorImpl(router, context, eventBus));
+    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.common.ui.MockShell",
+                                        new com.github.nalukit.nalu.processor.common.ui.MockShellCreatorImpl(router,
+                                                                                                             context,
+                                                                                                             eventBus));
   }
 
   @Override
@@ -58,7 +61,10 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
 
   @Override
   public void loadComponents() {
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.errorPopUpController.eventhandler.eventHandlerOnAErrorPopUpControllerOk02.content.Controller01", new com.github.nalukit.nalu.processor.errorPopUpController.eventhandler.eventHandlerOnAErrorPopUpControllerOk02.content.Controller01CreatorImpl(router, context, eventBus));
+    ControllerFactory.INSTANCE.registerController("com.github.nalukit.nalu.processor.errorPopUpController.eventhandler.eventHandlerOnAErrorPopUpControllerOk02.content.Controller01",
+                                                  new com.github.nalukit.nalu.processor.errorPopUpController.eventhandler.eventHandlerOnAErrorPopUpControllerOk02.content.Controller01CreatorImpl(router,
+                                                                                                                                                                                                  context,
+                                                                                                                                                                                                  eventBus));
   }
 
   @Override

@@ -14,7 +14,7 @@ import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import java.lang.Override;
+
 import java.util.Arrays;
 
 /**
@@ -47,20 +47,36 @@ public final class ShellWithCompositeApplicationImpl extends AbstractApplication
 
   @Override
   public void loadShellFactory() {
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.shell.shellWithComposite01.ShellWithComposite", new com.github.nalukit.nalu.processor.shell.shellWithComposite01.ShellWithCompositeCreatorImpl(router, context, eventBus));
-    CompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.shell.shellWithComposite01.ShellWithComposite", "com.github.nalukit.nalu.processor.shell.shellWithComposite01.MockComposite", super.alwaysLoadComposite);
+    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.shell.shellWithComposite01.ShellWithComposite",
+                                        new com.github.nalukit.nalu.processor.shell.shellWithComposite01.ShellWithCompositeCreatorImpl(router,
+                                                                                                                                       context,
+                                                                                                                                       eventBus));
+    CompositeConditionFactory.INSTANCE.registerCondition("com.github.nalukit.nalu.processor.shell.shellWithComposite01.ShellWithComposite",
+                                                         "com.github.nalukit.nalu.processor.shell.shellWithComposite01.MockComposite",
+                                                         super.alwaysLoadComposite);
   }
 
   @Override
   public void loadCompositeController() {
-    CompositeFactory.get().registerComposite("com.github.nalukit.nalu.processor.shell.shellWithComposite01.MockComposite", new com.github.nalukit.nalu.processor.shell.shellWithComposite01.MockCompositeCreatorImpl(router, context, eventBus));
-    CompositeFactory.get().registerComposite("com.github.nalukit.nalu.processor.shell.shellWithComposite01.composite.CompositeController01", new com.github.nalukit.nalu.processor.shell.shellWithComposite01.composite.CompositeController01CreatorImpl(router, context, eventBus));
+    CompositeFactory.INSTANCE.registerComposite("com.github.nalukit.nalu.processor.shell.shellWithComposite01.MockComposite",
+                                                new com.github.nalukit.nalu.processor.shell.shellWithComposite01.MockCompositeCreatorImpl(router,
+                                                                                                                                          context,
+                                                                                                                                          eventBus));
+    CompositeFactory.INSTANCE.registerComposite("com.github.nalukit.nalu.processor.shell.shellWithComposite01.composite.CompositeController01",
+                                                new com.github.nalukit.nalu.processor.shell.shellWithComposite01.composite.CompositeController01CreatorImpl(router,
+                                                                                                                                                            context,
+                                                                                                                                                            eventBus));
   }
 
   @Override
   public void loadComponents() {
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.shell.shellWithComposite01.ControllerWithComposite01", new com.github.nalukit.nalu.processor.shell.shellWithComposite01.ControllerWithComposite01CreatorImpl(router, context, eventBus));
-    CompositeConditionFactory.get().registerCondition("com.github.nalukit.nalu.processor.shell.shellWithComposite01.ControllerWithComposite01", "com.github.nalukit.nalu.processor.shell.shellWithComposite01.composite.CompositeController01", super.alwaysLoadComposite);
+    ControllerFactory.INSTANCE.registerController("com.github.nalukit.nalu.processor.shell.shellWithComposite01.ControllerWithComposite01",
+                                                  new com.github.nalukit.nalu.processor.shell.shellWithComposite01.ControllerWithComposite01CreatorImpl(router,
+                                                                                                                                                        context,
+                                                                                                                                                        eventBus));
+    CompositeConditionFactory.INSTANCE.registerCondition("com.github.nalukit.nalu.processor.shell.shellWithComposite01.ControllerWithComposite01",
+                                                         "com.github.nalukit.nalu.processor.shell.shellWithComposite01.composite.CompositeController01",
+                                                         super.alwaysLoadComposite);
   }
 
   @Override

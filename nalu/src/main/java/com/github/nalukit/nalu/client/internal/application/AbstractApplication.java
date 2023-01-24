@@ -106,8 +106,10 @@ public abstract class AbstractApplication<C extends IsContext>
     this.naluLogger.bind();
     this.loadLoggerConfiguration();
     // set event bus in RouteParser
-    RouteParser.get()
-               .setEventBus(this.eventBus);
+    RouteParser.INSTANCE.setEventBus(this.eventBus);
+    // set up RoterStateEventFactory
+    // TODO activate again
+    //    RouterStateEventFactory.INSTANCE.register(this.eventBus);
     // log development messages
     this.eventBus.fireEvent(LogEvent.create()
                                     .sdmOnly(true)
@@ -121,7 +123,7 @@ public abstract class AbstractApplication<C extends IsContext>
     // load illegal route target
     this.loadIllegalRouteTarget();
     // Register plugin
-    SeoDataProvider.get()
+    SeoDataProvider.INSTANCE
                    .register(this.plugin);
     // load everything you need to start
     this.loadShells();
@@ -131,10 +133,10 @@ public abstract class AbstractApplication<C extends IsContext>
     // load optional tracker
     this.tracker = this.loadTrackerConfiguration();
     // initialize block factory
-    BlockControllerFactory.get()
+    BlockControllerFactory.INSTANCE
                           .register(this.eventBus);
     // initialize popup factory
-    PopUpControllerFactory.get()
+    PopUpControllerFactory.INSTANCE
                           .register(this.eventBus);
     // create router ...
     this.router = new RouterImpl(this.plugin,

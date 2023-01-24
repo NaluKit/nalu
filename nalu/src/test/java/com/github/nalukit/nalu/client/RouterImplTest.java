@@ -35,7 +35,7 @@ public class RouterImplTest {
                                  false,
                                  false,
                                  false);
-    RouteParser.get()
+    RouteParser.INSTANCE
                .setEventBus(new SimpleEventBus());
   }
 

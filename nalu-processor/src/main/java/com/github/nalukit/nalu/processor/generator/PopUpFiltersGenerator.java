@@ -75,7 +75,7 @@ public class PopUpFiltersGenerator {
                                                                                  this.processorUtils.createFullClassName(classNameModel.getClassName()))
                                                                    .addStatement("$L.setEventBus(super.eventBus)",
                                                                                  this.processorUtils.createFullClassName(classNameModel.getClassName()))
-                                                                   .addStatement("$T.get().registerPopUpFilter($S, $L)",
+                                                                   .addStatement("$T.INSTANCE.registerPopUpFilter($S, $L)",
                                                                                  ClassName.get(PopUpControllerFactory.class),
                                                                                  this.processorUtils.createFullClassName(classNameModel.getClassName()),
                                                                                  this.processorUtils.createFullClassName(classNameModel.getClassName())));

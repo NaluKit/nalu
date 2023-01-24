@@ -22,7 +22,7 @@ public class RouteParserTest {
     this.routerConfiguration = new RouterConfiguration();
     this.shellConfiguration  = new ShellConfiguration();
 
-    RouteParser.get()
+    RouteParser.INSTANCE
                .setEventBus(new SimpleEventBus());
 
     this.routerConfiguration.getRouters()
@@ -84,10 +84,9 @@ public class RouteParserTest {
   void parse01() {
     String route = "/application/person/search";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -108,10 +107,9 @@ public class RouteParserTest {
   void parse02() {
     String route = "/application/person/search/";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -132,10 +130,9 @@ public class RouteParserTest {
   void parse03() {
     String route = "/application/person/search/S";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -156,10 +153,9 @@ public class RouteParserTest {
   void parse04() {
     String route = "/application/person/search/S/";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -180,10 +176,9 @@ public class RouteParserTest {
   void parse05() {
     String route = "/application/person/search/S/T";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -204,10 +199,9 @@ public class RouteParserTest {
   void parse06() {
     String route = "/application/person/search/S/T/";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -228,10 +222,9 @@ public class RouteParserTest {
   void parse11() {
     String route = "/application/person/list";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -252,10 +245,9 @@ public class RouteParserTest {
   void parse12() {
     String route = "/application/person/list/";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -276,10 +268,9 @@ public class RouteParserTest {
   void parse13() {
     String route = "/application/person/list/S";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -300,10 +291,9 @@ public class RouteParserTest {
   void parse14() {
     String route = "/application/person/list/S/";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -324,10 +314,9 @@ public class RouteParserTest {
   void parse15() {
     String route = "/application/person/list/S/T";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -348,10 +337,9 @@ public class RouteParserTest {
   void parse16() {
     String route = "/application/person/list/S/T/";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -372,10 +360,9 @@ public class RouteParserTest {
   void parse21() {
     String route = "/application/person/detail";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -393,10 +380,9 @@ public class RouteParserTest {
   void parse22() {
     String route = "/application/person/detail/";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -414,10 +400,9 @@ public class RouteParserTest {
   void parse23() {
     String route = "/application/person/detail/1";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -435,10 +420,9 @@ public class RouteParserTest {
   void parse24() {
     String route = "/application/person/detail/1/";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -456,10 +440,9 @@ public class RouteParserTest {
   void parse31() {
     String route = "/application/person//detail";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -477,10 +460,9 @@ public class RouteParserTest {
   void parse32() {
     String route = "/application/person//detail/";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -498,10 +480,9 @@ public class RouteParserTest {
   void parse33() {
     String route = "/application/person/1/detail";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -519,10 +500,9 @@ public class RouteParserTest {
   void parse34() {
     String route = "/application/person/1/detail/";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -540,10 +520,9 @@ public class RouteParserTest {
   void parse35() {
     String route = "/application/person/:ptNr/detail/";
     try {
-      RouteResult routeResult = RouteParser.get()
-                                           .parse(route,
-                                                  this.shellConfiguration,
-                                                  this.routerConfiguration);
+      RouteResult routeResult = RouteParser.INSTANCE.parse(route,
+                                                           this.shellConfiguration,
+                                                           this.routerConfiguration);
       MatcherAssert.assertThat(routeResult.getShell(),
                                is("/application"));
       MatcherAssert.assertThat(routeResult.getRoute(),
@@ -559,47 +538,42 @@ public class RouteParserTest {
 
   @Test
   void generate01() {
-    String hash = RouteParser.get()
-                             .generate("/application/person/detail",
-                                       "1");
+    String hash = RouteParser.INSTANCE.generate("/application/person/detail",
+                                                "1");
     MatcherAssert.assertThat(hash,
                              is("application/person/detail/1"));
   }
 
   @Test
   void generate02() {
-    String hash = RouteParser.get()
-                             .generate("/application/person/*/detail",
-                                       "1");
+    String hash = RouteParser.INSTANCE.generate("/application/person/*/detail",
+                                                "1");
     MatcherAssert.assertThat(hash,
                              is("application/person/1/detail"));
   }
 
   @Test
   void generate03() {
-    String hash = RouteParser.get()
-                             .generate("/application/person/list",
-                                       "A",
-                                       "B");
+    String hash = RouteParser.INSTANCE.generate("/application/person/list",
+                                                "A",
+                                                "B");
     MatcherAssert.assertThat(hash,
                              is("application/person/list/A/B"));
   }
 
   @Test
   void generate04() {
-    String hash = RouteParser.get()
-                             .generate("/application/person/list",
-                                       "A");
+    String hash = RouteParser.INSTANCE.generate("/application/person/list",
+                                                "A");
     MatcherAssert.assertThat(hash,
                              is("application/person/list/A"));
   }
 
   @Test
   void generate05() {
-    String hash = RouteParser.get()
-                             .generate("/application/person/list/:name/:citty",
-                                       null,
-                                       null);
+    String hash = RouteParser.INSTANCE.generate("/application/person/list/:name/:citty",
+                                                null,
+                                                null);
     MatcherAssert.assertThat(hash,
                              is("application/person/list//"));
   }

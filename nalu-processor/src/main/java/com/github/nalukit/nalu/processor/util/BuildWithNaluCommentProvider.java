@@ -3,20 +3,11 @@ package com.github.nalukit.nalu.processor.util;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.squareup.javapoet.CodeBlock;
 
-import java.util.Objects;
-
 public class BuildWithNaluCommentProvider {
 
-  private static BuildWithNaluCommentProvider instance;
+  public static BuildWithNaluCommentProvider INSTANCE = new BuildWithNaluCommentProvider();
 
   private BuildWithNaluCommentProvider() {
-  }
-
-  public static BuildWithNaluCommentProvider get() {
-    if (Objects.isNull(instance)) {
-      instance = new BuildWithNaluCommentProvider();
-    }
-    return instance;
   }
 
   public CodeBlock getGeneratedComment() {

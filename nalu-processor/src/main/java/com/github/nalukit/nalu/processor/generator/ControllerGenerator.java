@@ -68,7 +68,7 @@ public class ControllerGenerator {
                                                                .addAnnotation(Override.class);
     this.getAllComponents(this.metaModel.getControllers())
         .forEach(controllerModel -> {
-          loadComponentsMethodBuilder.addStatement("$T.get().registerController($S, new $L(router, context, eventBus))",
+          loadComponentsMethodBuilder.addStatement("$T.INSTANCE.registerController($S, new $L(router, context, eventBus))",
                                                    ClassName.get(ControllerFactory.class),
                                                    controllerModel.getProvider()
                                                                   .getPackage() +
@@ -89,7 +89,7 @@ public class ControllerGenerator {
                              if (AlwaysLoadComposite.class.getSimpleName()
                                                           .equals(controllerCompositeModel.getCondition()
                                                                                           .getSimpleName())) {
-                               loadComponentsMethodBuilder.addStatement("$T.get().registerCondition($S, $S, super.alwaysLoadComposite)",
+                               loadComponentsMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, super.alwaysLoadComposite)",
                                                                         ClassName.get(CompositeConditionFactory.class),
                                                                         controllerModel.getProvider()
                                                                                        .getPackage() +
@@ -131,7 +131,7 @@ public class ControllerGenerator {
                                  generatedConditionClassNames.add(controllerCompositeModel.getCondition()
                                                                                           .getClassName());
                                }
-                               loadComponentsMethodBuilder.addStatement("$T.get().registerCondition($S, $S, $L)",
+                               loadComponentsMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, $L)",
                                                                         ClassName.get(CompositeConditionFactory.class),
                                                                         controllerModel.getProvider()
                                                                                        .getPackage() +

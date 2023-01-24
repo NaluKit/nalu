@@ -76,8 +76,7 @@ public class ApplicationGenerator {
     // generate code
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(metaModel.getApplication()
                                                                .getSimpleName() + ApplicationGenerator.IMPL_NAME)
-                                        .addJavadoc(BuildWithNaluCommentProvider.get()
-                                                                                .getGeneratedComment())
+                                        .addJavadoc(BuildWithNaluCommentProvider.INSTANCE.getGeneratedComment())
                                         .superclass(ParameterizedTypeName.get(ClassName.get(AbstractApplication.class),
                                                                               metaModel.getContext()
                                                                                        .getTypeName()))

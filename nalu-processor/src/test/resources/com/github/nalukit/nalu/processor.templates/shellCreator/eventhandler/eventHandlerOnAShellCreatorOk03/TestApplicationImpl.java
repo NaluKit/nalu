@@ -15,7 +15,7 @@ import com.github.nalukit.nalu.processor.common.event.MockEvent01;
 import com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.error.ErrorComponent;
 import com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.error.ErrorController;
 import com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.error.IErrorComponent;
-import java.lang.Override;
+
 import java.util.Arrays;
 
 /**
@@ -50,9 +50,18 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
 
   @Override
   public void loadShellFactory() {
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.MockShell01", new com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.MockShell01CreatorImpl(router, context, eventBus));
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.MockShell02", new com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.MockShell02CreatorImpl(router, context, eventBus));
-    ShellFactory.get().registerShell("com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.MockShell03", new com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.MockShell03CreatorImpl(router, context, eventBus));
+    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.MockShell01",
+                                        new com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.MockShell01CreatorImpl(router,
+                                                                                                                                                               context,
+                                                                                                                                                               eventBus));
+    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.MockShell02",
+                                        new com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.MockShell02CreatorImpl(router,
+                                                                                                                                                               context,
+                                                                                                                                                               eventBus));
+    ShellFactory.INSTANCE.registerShell("com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.MockShell03",
+                                        new com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.MockShell03CreatorImpl(router,
+                                                                                                                                                               context,
+                                                                                                                                                               eventBus));
   }
 
   @Override
@@ -61,9 +70,18 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
 
   @Override
   public void loadComponents() {
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.content.Controller01", new com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.content.Controller01CreatorImpl(router, context, eventBus));
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.content.Controller02", new com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.content.Controller02CreatorImpl(router, context, eventBus));
-    ControllerFactory.get().registerController("com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.content.Controller03", new com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.content.Controller03CreatorImpl(router, context, eventBus));
+    ControllerFactory.INSTANCE.registerController("com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.content.Controller01",
+                                                  new com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.content.Controller01CreatorImpl(router,
+                                                                                                                                                                                  context,
+                                                                                                                                                                                  eventBus));
+    ControllerFactory.INSTANCE.registerController("com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.content.Controller02",
+                                                  new com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.content.Controller02CreatorImpl(router,
+                                                                                                                                                                                  context,
+                                                                                                                                                                                  eventBus));
+    ControllerFactory.INSTANCE.registerController("com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.content.Controller03",
+                                                  new com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.content.Controller03CreatorImpl(router,
+                                                                                                                                                                                  context,
+                                                                                                                                                                                  eventBus));
   }
 
   @Override

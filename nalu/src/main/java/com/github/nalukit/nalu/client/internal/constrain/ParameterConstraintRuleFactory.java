@@ -26,19 +26,19 @@ import java.util.Map;
 public class ParameterConstraintRuleFactory {
 
   /* instance of the controller factory */
-  private static ParameterConstraintRuleFactory         instance;
+  public static ParameterConstraintRuleFactory         INSTANCE = new ParameterConstraintRuleFactory();
   /* map of parameter constraint rules (key: key for parameter constraint rule, value: parameter constraint rule instance)  */
-  private final  Map<String, IsParameterConstraintRule> parameterConstraintRuleMap;
+  private final Map<String, IsParameterConstraintRule> parameterConstraintRuleMap;
 
   private ParameterConstraintRuleFactory() {
     this.parameterConstraintRuleMap = new HashMap<>();
   }
 
   public static ParameterConstraintRuleFactory get() {
-    if (instance == null) {
-      instance = new ParameterConstraintRuleFactory();
+    if (INSTANCE == null) {
+      INSTANCE = new ParameterConstraintRuleFactory();
     }
-    return instance;
+    return INSTANCE;
   }
 
   public void registerParameterConstraintRule(String key,

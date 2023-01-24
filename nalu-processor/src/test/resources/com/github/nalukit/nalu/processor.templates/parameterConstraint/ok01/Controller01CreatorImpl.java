@@ -10,9 +10,6 @@ import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
 import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
 import com.github.nalukit.nalu.client.internal.constrain.ParameterConstraintRuleFactory;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import java.lang.Object;
-import java.lang.Override;
-import java.lang.String;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
@@ -28,7 +25,7 @@ public final class Controller01CreatorImpl extends AbstractControllerCreator<Moc
     ControllerInstance controllerInstance = new ControllerInstance();
     controllerInstance.setControllerCreator(this);
     controllerInstance.setControllerClassName("com.github.nalukit.nalu.processor.parameterConstraint.ok01.Controller01");
-    AbstractComponentController<?, ?, ?> storedController = ControllerFactory.get().getControllerFormStore("com.github.nalukit.nalu.processor.parameterConstraint.ok01.Controller01");
+    AbstractComponentController<?, ?, ?> storedController = ControllerFactory.INSTANCE.getControllerFormStore("com.github.nalukit.nalu.processor.parameterConstraint.ok01.Controller01");
     if (storedController == null) {
       Controller01 controller = new Controller01();
       controllerInstance.setController(controller);
@@ -63,7 +60,7 @@ public final class Controller01CreatorImpl extends AbstractControllerCreator<Moc
     Controller01 controller = (Controller01) object;
     if (params != null) {
       if (params.length >= 1) {
-        IsParameterConstraintRule rule = ParameterConstraintRuleFactory.get().get("com.github.nalukit.nalu.processor.parameterConstraint.ParameterConstraintRule01");
+        IsParameterConstraintRule rule = ParameterConstraintRuleFactory.INSTANCE.get("com.github.nalukit.nalu.processor.parameterConstraint.ParameterConstraintRule01");
         if (rule != null) {
           if (!rule.isValid(params[0])) {
             throw new RoutingInterceptionException("Controller01", "asdfasd");

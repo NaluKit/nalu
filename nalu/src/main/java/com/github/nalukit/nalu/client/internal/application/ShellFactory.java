@@ -26,20 +26,13 @@ import java.util.Map;
 public class ShellFactory {
 
   /* instance of the controller factory */
-  private static ShellFactory instance;
+  public static ShellFactory INSTANCE = new ShellFactory();
 
   /* map of components (key: name of class, Value: ShellCreator */
   private Map<String, IsShellCreator> shellFactory;
 
   private ShellFactory() {
     this.shellFactory = new HashMap<>();
-  }
-
-  public static ShellFactory get() {
-    if (instance == null) {
-      instance = new ShellFactory();
-    }
-    return instance;
   }
 
   public void registerShell(String shellName,

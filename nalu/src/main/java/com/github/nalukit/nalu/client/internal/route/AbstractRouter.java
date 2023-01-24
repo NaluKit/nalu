@@ -134,9 +134,9 @@ abstract class AbstractRouter
    */
   @Override
   public void clearCache() {
-    ControllerFactory.get()
+    ControllerFactory.INSTANCE
                      .clearControllerCache();
-    CompositeFactory.get()
+    CompositeFactory.INSTANCE
                     .clearCompositeControllerCache();
   }
 
@@ -153,9 +153,8 @@ abstract class AbstractRouter
   @Override
   public String generate(String route,
                          String... params) {
-    return RouteParser.get()
-                      .generate(route,
-                                params);
+    return RouteParser.INSTANCE.generate(route,
+                                         params);
   }
 
   /**
@@ -335,7 +334,7 @@ abstract class AbstractRouter
    */
   @Override
   public <C extends AbstractComponentController<?, ?, ?>> void removeFromCache(C controller) {
-    ControllerFactory.get()
+    ControllerFactory.INSTANCE
                      .removeFromCache(controller);
     controller.setCached(false);
   }
@@ -348,7 +347,7 @@ abstract class AbstractRouter
    */
   @Override
   public <C extends AbstractCompositeController<?, ?, ?>> void removeFromCache(C compositeController) {
-    CompositeFactory.get()
+    CompositeFactory.INSTANCE
                     .removeFromCache(compositeController);
     compositeController.setCached(false);
   }
@@ -362,7 +361,7 @@ abstract class AbstractRouter
    */
   @Override
   public <C extends AbstractComponentController<?, ?, ?>> void storeInCache(C controller) {
-    ControllerFactory.get()
+    ControllerFactory.INSTANCE
                      .storeInCache(controller);
     controller.setCached(true);
   }
@@ -376,7 +375,7 @@ abstract class AbstractRouter
    */
   @Override
   public <C extends AbstractCompositeController<?, ?, ?>> void storeInCache(C compositeController) {
-    CompositeFactory.get()
+    CompositeFactory.INSTANCE
                     .storeInCache(compositeController);
     compositeController.setCached(true);
   }
@@ -720,10 +719,9 @@ abstract class AbstractRouter
   public RouteResult parse(String route)
       throws RouterException {
     String decodedUrl = this.plugin.decode(route);
-    return RouteParser.get()
-                      .parse(decodedUrl,
-                             this.shellConfiguration,
-                             this.routerConfiguration);
+    return RouteParser.INSTANCE.parse(decodedUrl,
+                                      this.shellConfiguration,
+                                      this.routerConfiguration);
   }
 
   /**
@@ -803,7 +801,7 @@ abstract class AbstractRouter
     }
     this.shell.onAttachedComponent();
     // update seo-meta-data
-    SeoDataProvider.get()
+    SeoDataProvider.INSTANCE
                    .update();
     // fire Router StateEvent
     this.fireRouterStateEvent(RouterState.ROUTING_DONE,
@@ -871,7 +869,7 @@ abstract class AbstractRouter
     // add shellCreator to the viewport
     ShellConfig shellConfig = this.shellConfiguration.match(routeResult.getShell());
     if (!Objects.isNull(shellConfig)) {
-      ShellFactory.get()
+      ShellFactory.INSTANCE
                   .shell(shellConfig.getClassName(),
                          new ShellCallback() {
 
@@ -899,21 +897,19 @@ abstract class AbstractRouter
                                compositeForShell.forEach(s -> {
                                  try {
                                    // check for composite loader
-                                   if (CompositeConditionFactory.get()
-                                                                .loadComposite(shell.getClass()
-                                                                                    .getCanonicalName(),
-                                                                               s.getComposite(),
-                                                                               routeResult.getRoute(),
-                                                                               routeResult.getParameterValues()
-                                                                                          .toArray(new String[0]))) {
-                                     CompositeInstance compositeInstance = CompositeFactory.get()
-                                                                                           .getComposite(shell.getClass()
-                                                                                                              .getCanonicalName(),
-                                                                                                         s.getComposite(),
-                                                                                                         s.getSelector(),
-                                                                                                         s.isScopeGlobal(),
-                                                                                                         routeResult.getParameterValues()
-                                                                                                                    .toArray(new String[0]));
+                                   if (CompositeConditionFactory.INSTANCE.loadComposite(shell.getClass()
+                                                                                             .getCanonicalName(),
+                                                                                        s.getComposite(),
+                                                                                        routeResult.getRoute(),
+                                                                                        routeResult.getParameterValues()
+                                                                                                   .toArray(new String[0]))) {
+                                     CompositeInstance compositeInstance = CompositeFactory.INSTANCE.getComposite(shell.getClass()
+                                                                                                                       .getCanonicalName(),
+                                                                                                                  s.getComposite(),
+                                                                                                                  s.getSelector(),
+                                                                                                                  s.isScopeGlobal(),
+                                                                                                                  routeResult.getParameterValues()
+                                                                                                                             .toArray(new String[0]));
                                      if (compositeInstance == null) {
                                        eventBus.fireEvent(LogEvent.create()
                                                                   .sdmOnly(true)
@@ -986,22 +982,20 @@ abstract class AbstractRouter
                                                                                            .filter(CompositeReference::isScopeGlobal)
                                                                                            .collect(Collectors.toList());
                                for (CompositeReference compositeReference : globalComposite) {
-                                 if (CompositeConditionFactory.get()
-                                                              .loadComposite(shell.getClass()
-                                                                                  .getCanonicalName(),
-                                                                             compositeReference.getComposite(),
-                                                                             routeResult.getRoute(),
-                                                                             routeResult.getParameterValues()
-                                                                                        .toArray(new String[0]))) {
+                                 if (CompositeConditionFactory.INSTANCE.loadComposite(shell.getClass()
+                                                                                           .getCanonicalName(),
+                                                                                      compositeReference.getComposite(),
+                                                                                      routeResult.getRoute(),
+                                                                                      routeResult.getParameterValues()
+                                                                                                 .toArray(new String[0]))) {
                                    try {
-                                     CompositeInstance compositeInstance = CompositeFactory.get()
-                                                                                           .getComposite(shell.getClass()
-                                                                                                              .getCanonicalName(),
-                                                                                                         compositeReference.getComposite(),
-                                                                                                         compositeReference.getSelector(),
-                                                                                                         true,
-                                                                                                         routeResult.getParameterValues()
-                                                                                                                    .toArray(new String[0]));
+                                     CompositeInstance compositeInstance = CompositeFactory.INSTANCE.getComposite(shell.getClass()
+                                                                                                                       .getCanonicalName(),
+                                                                                                                  compositeReference.getComposite(),
+                                                                                                                  compositeReference.getSelector(),
+                                                                                                                  true,
+                                                                                                                  routeResult.getParameterValues()
+                                                                                                                             .toArray(new String[0]));
                                      append(compositeReference.getSelector(),
                                             compositeInstance.getComposite());
                                    } catch (RoutingInterceptionException e) {
@@ -1082,7 +1076,7 @@ abstract class AbstractRouter
   private void handleRouteConfig(RouteConfig routeConfiguration,
                                  RouteResult routeResult,
                                  String hash) {
-    ControllerFactory.get()
+    ControllerFactory.INSTANCE
                      .controller(routeConfiguration.getRoute(),
                                  routeConfiguration.getClassName(),
                                  new ControllerCallback() {
@@ -1145,19 +1139,17 @@ abstract class AbstractRouter
           compositeForController.forEach(s -> {
             try {
               // check for composite loader
-              if (CompositeConditionFactory.get()
-                                           .loadComposite(controllerInstance.getControllerClassName(),
-                                                          s.getComposite(),
-                                                          routeResult.getRoute(),
-                                                          routeResult.getParameterValues()
-                                                                     .toArray(new String[0]))) {
-                CompositeInstance compositeInstance = CompositeFactory.get()
-                                                                      .getComposite(controllerInstance.getControllerClassName(),
-                                                                                    s.getComposite(),
-                                                                                    s.getSelector(),
-                                                                                    s.isScopeGlobal(),
-                                                                                    routeResult.getParameterValues()
-                                                                                               .toArray(new String[0]));
+              if (CompositeConditionFactory.INSTANCE.loadComposite(controllerInstance.getControllerClassName(),
+                                                                   s.getComposite(),
+                                                                   routeResult.getRoute(),
+                                                                   routeResult.getParameterValues()
+                                                                              .toArray(new String[0]))) {
+                CompositeInstance compositeInstance = CompositeFactory.INSTANCE.getComposite(controllerInstance.getControllerClassName(),
+                                                                                             s.getComposite(),
+                                                                                             s.getSelector(),
+                                                                                             s.isScopeGlobal(),
+                                                                                             routeResult.getParameterValues()
+                                                                                                        .toArray(new String[0]));
                 if (compositeInstance == null) {
                   this.eventBus.fireEvent(LogEvent.create()
                                                   .sdmOnly(true)
@@ -1242,20 +1234,18 @@ abstract class AbstractRouter
                                                                            .filter(CompositeReference::isScopeGlobal)
                                                                            .collect(Collectors.toList());
           for (CompositeReference compositeReference : globalComposite) {
-            if (CompositeConditionFactory.get()
-                                         .loadComposite(controllerInstance.getControllerClassName(),
-                                                        compositeReference.getComposite(),
-                                                        routeResult.getRoute(),
-                                                        routeResult.getParameterValues()
-                                                                   .toArray(new String[0]))) {
+            if (CompositeConditionFactory.INSTANCE.loadComposite(controllerInstance.getControllerClassName(),
+                                                                 compositeReference.getComposite(),
+                                                                 routeResult.getRoute(),
+                                                                 routeResult.getParameterValues()
+                                                                            .toArray(new String[0]))) {
               try {
-                CompositeInstance compositeInstance = CompositeFactory.get()
-                                                                      .getComposite(controllerInstance.getControllerClassName(),
-                                                                                    compositeReference.getComposite(),
-                                                                                    compositeReference.getSelector(),
-                                                                                    true,
-                                                                                    routeResult.getParameterValues()
-                                                                                               .toArray(new String[0]));
+                CompositeInstance compositeInstance = CompositeFactory.INSTANCE.getComposite(controllerInstance.getControllerClassName(),
+                                                                                             compositeReference.getComposite(),
+                                                                                             compositeReference.getSelector(),
+                                                                                             true,
+                                                                                             routeResult.getParameterValues()
+                                                                                                        .toArray(new String[0]));
                 this.append(compositeReference.getSelector(),
                             compositeInstance.getComposite());
               } catch (RoutingInterceptionException e) {

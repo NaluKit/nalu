@@ -28,19 +28,12 @@ import java.util.Objects;
 public class PopUpConditionFactory {
 
   /* instance of the controller factory */
-  private static PopUpConditionFactory             instance;
+  public static PopUpConditionFactory             INSTANCE = new PopUpConditionFactory();
   /* map of popup condition */
-  private final  Map<String, IsShowPopUpCondition> conditionMap;
+  private final Map<String, IsShowPopUpCondition> conditionMap;
 
   private PopUpConditionFactory() {
     this.conditionMap = new HashMap<>();
-  }
-
-  public static PopUpConditionFactory get() {
-    if (instance == null) {
-      instance = new PopUpConditionFactory();
-    }
-    return instance;
   }
 
   public void registerCondition(String popUpName,

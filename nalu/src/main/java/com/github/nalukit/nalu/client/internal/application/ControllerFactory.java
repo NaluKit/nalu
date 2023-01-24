@@ -28,7 +28,7 @@ import java.util.Map;
 public class ControllerFactory {
 
   /* instance of the controller factory */
-  private static ControllerFactory                                 instance;
+  public static  ControllerFactory                                 INSTANCE = new ControllerFactory();
   /* map of components (key: name of class, Value: ControllerCreator */
   private final  Map<String, IsControllerCreator>                  controllerFactory;
   /* map of stored components (key: name of class, Value: instance of controller */
@@ -37,13 +37,6 @@ public class ControllerFactory {
   private ControllerFactory() {
     this.controllerFactory = new HashMap<>();
     this.controllerStore   = new HashMap<>();
-  }
-
-  public static ControllerFactory get() {
-    if (instance == null) {
-      instance = new ControllerFactory();
-    }
-    return instance;
   }
 
   public void registerController(String controller,

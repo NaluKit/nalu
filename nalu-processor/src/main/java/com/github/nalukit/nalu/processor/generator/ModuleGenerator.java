@@ -177,7 +177,7 @@ public class ModuleGenerator {
     this.metaModel.getShells()
                   .forEach(shellModel -> {
                     // add return statement
-                    loadShellFactoryMethodBuilder.addStatement("$T.get().registerShell($S, new $L(router, moduleContext, eventBus))",
+                    loadShellFactoryMethodBuilder.addStatement("$T.INSTANCE.registerShell($S, new $L(router, moduleContext, eventBus))",
                                                                ClassName.get(ShellFactory.class),
                                                                shellModel.getShell()
                                                                          .getPackage() +
@@ -198,7 +198,7 @@ public class ModuleGenerator {
                                   if (AlwaysLoadComposite.class.getSimpleName()
                                                                .equals(controllerCompositeModel.getCondition()
                                                                                                .getSimpleName())) {
-                                    loadShellFactoryMethodBuilder.addStatement("$T.get().registerCondition($S, $S, super.alwaysLoadComposite)",
+                                    loadShellFactoryMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, super.alwaysLoadComposite)",
                                                                                ClassName.get(CompositeConditionFactory.class),
                                                                                shellModel.getShell()
                                                                                          .getPackage() +
@@ -231,7 +231,7 @@ public class ModuleGenerator {
                                       generatedConditionClassNames.add(controllerCompositeModel.getCondition()
                                                                                                .getClassName());
                                     }
-                                    loadShellFactoryMethodBuilder.addStatement("$T.get().registerCondition($S, $S, $L)",
+                                    loadShellFactoryMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, $L)",
                                                                                ClassName.get(CompositeConditionFactory.class),
                                                                                shellModel.getShell()
                                                                                          .getPackage() +
@@ -258,7 +258,7 @@ public class ModuleGenerator {
                                                                .addModifiers(Modifier.PUBLIC)
                                                                .addAnnotation(Override.class);
     for (CompositeModel compositeModel : this.metaModel.getCompositeModels()) {
-      loadCompositesMethodBuilder.addStatement("$T.get().registerComposite($S, new $L(router, moduleContext, eventBus))",
+      loadCompositesMethodBuilder.addStatement("$T.INSTANCE.registerComposite($S, new $L(router, moduleContext, eventBus))",
                                                ClassName.get(CompositeFactory.class),
                                                compositeModel.getProvider()
                                                              .getPackage() +
@@ -280,7 +280,7 @@ public class ModuleGenerator {
                                                                .addAnnotation(Override.class);
     this.getAllComponents(this.metaModel.getControllers())
         .forEach(controllerModel -> {
-          loadComponentsMethodBuilder.addStatement("$T.get().registerController($S, new $L(router, moduleContext, eventBus))",
+          loadComponentsMethodBuilder.addStatement("$T.INSTANCE.registerController($S, new $L(router, moduleContext, eventBus))",
                                                    ClassName.get(ControllerFactory.class),
                                                    controllerModel.getProvider()
                                                                   .getPackage() +
@@ -301,7 +301,7 @@ public class ModuleGenerator {
                              if (AlwaysLoadComposite.class.getSimpleName()
                                                           .equals(controllerCompositeModel.getCondition()
                                                                                           .getSimpleName())) {
-                               loadComponentsMethodBuilder.addStatement("$T.get().registerCondition($S, $S, super.alwaysLoadComposite)",
+                               loadComponentsMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, super.alwaysLoadComposite)",
                                                                         ClassName.get(CompositeConditionFactory.class),
                                                                         controllerModel.getProvider()
                                                                                        .getPackage() +
@@ -334,7 +334,7 @@ public class ModuleGenerator {
                                  generatedConditionClassNames.add(controllerCompositeModel.getCondition()
                                                                                           .getClassName());
                                }
-                               loadComponentsMethodBuilder.addStatement("$T.get().registerCondition($S, $S, $L)",
+                               loadComponentsMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, $L)",
                                                                         ClassName.get(CompositeConditionFactory.class),
                                                                         controllerModel.getProvider()
                                                                                        .getPackage() +
@@ -429,7 +429,7 @@ public class ModuleGenerator {
                                                                                  this.processorUtils.createFullClassName(classNameModel.getClassName()))
                                                                    .addStatement("$L.setEventBus(super.eventBus)",
                                                                                  this.processorUtils.createFullClassName(classNameModel.getClassName()))
-                                                                   .addStatement("$T.get().registerPopUpFilter($S, $L)",
+                                                                   .addStatement("$T.INSTANCE.registerPopUpFilter($S, $L)",
                                                                                  ClassName.get(PopUpControllerFactory.class),
                                                                                  this.processorUtils.createFullClassName(classNameModel.getClassName()),
                                                                                  this.processorUtils.createFullClassName(classNameModel.getClassName())));
@@ -494,7 +494,7 @@ public class ModuleGenerator {
                                                                              .addModifiers(Modifier.PUBLIC)
                                                                              .addAnnotation(Override.class);
     this.metaModel.getParameterConstraintRules()
-                  .forEach(m -> loadParameterConstraintRulesMethodBuilder.addStatement("$T.get().registerParameterConstraintRule($S, new $L())",
+                  .forEach(m -> loadParameterConstraintRulesMethodBuilder.addStatement("$T.INSTANCE.registerParameterConstraintRule($S, new $L())",
                                                                                        ClassName.get(ParameterConstraintRuleFactory.class),
                                                                                        m.getParameterConstraintRule()
                                                                                         .getPackage() +
@@ -517,7 +517,7 @@ public class ModuleGenerator {
     List<String> generatedConditionClassNames = new ArrayList<>();
     this.metaModel.getPopUpControllers()
                   .forEach(popUpControllerModel -> {
-                    loadPopUpControllersMethod.addStatement("$T.get().registerPopUpController($S, new $L(super.router, super.moduleContext, super.eventBus))",
+                    loadPopUpControllersMethod.addStatement("$T.INSTANCE.registerPopUpController($S, new $L(super.router, super.moduleContext, super.eventBus))",
                                                             ClassName.get(PopUpControllerFactory.class),
                                                             popUpControllerModel.getName(),
                                                             ClassName.get(popUpControllerModel.getController()
@@ -528,7 +528,7 @@ public class ModuleGenerator {
                     if (AlwaysShowPopUp.class.getSimpleName()
                                              .equals(popUpControllerModel.getCondition()
                                                                          .getSimpleName())) {
-                      loadPopUpControllersMethod.addStatement("$T.get().registerCondition($S,  super.alwaysShowPopUp)",
+                      loadPopUpControllersMethod.addStatement("$T.INSTANCE.registerCondition($S,  super.alwaysShowPopUp)",
                                                               ClassName.get(PopUpConditionFactory.class),
                                                               popUpControllerModel.getName());
                     } else {
@@ -561,7 +561,7 @@ public class ModuleGenerator {
                         generatedConditionClassNames.add(popUpControllerModel.getCondition()
                                                                              .getClassName());
                       }
-                      loadPopUpControllersMethod.addStatement("$T.get().registerCondition($S,  $L)",
+                      loadPopUpControllersMethod.addStatement("$T.INSTANCE.registerCondition($S,  $L)",
                                                               ClassName.get(PopUpConditionFactory.class),
                                                               conditionVariableName);
                     }
@@ -575,7 +575,7 @@ public class ModuleGenerator {
                                                               .addAnnotation(Override.class)
                                                               .addModifiers(Modifier.PUBLIC);
     this.metaModel.getBlockControllers()
-                  .forEach(blockControllerModel -> loadBlockControllersMethod.addStatement("$T.get().registerBlockController($S, new $L(super.router, super.moduleContext, super.eventBus))",
+                  .forEach(blockControllerModel -> loadBlockControllersMethod.addStatement("$T.INSTANCE.registerBlockController($S, new $L(super.router, super.moduleContext, super.eventBus))",
                                                                                            ClassName.get(BlockControllerFactory.class),
                                                                                            blockControllerModel.getName(),
                                                                                            ClassName.get(blockControllerModel.getController()

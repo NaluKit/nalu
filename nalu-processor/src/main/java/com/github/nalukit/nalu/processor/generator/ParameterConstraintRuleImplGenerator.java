@@ -56,8 +56,7 @@ public class ParameterConstraintRuleImplGenerator {
       throws ProcessorException {
     TypeSpec.Builder typeSpec = TypeSpec.classBuilder(parameterConstraintRuleModel.getParameterConstraintRule()
                                                                                   .getSimpleName() + ProcessorConstants.IMPL)
-                                        .addJavadoc(BuildWithNaluCommentProvider.get()
-                                                                                .getGeneratedComment())
+                                        .addJavadoc(BuildWithNaluCommentProvider.INSTANCE.getGeneratedComment())
                                         .superclass(ClassName.get(AbstractParameterConstraintRule.class))
                                         .addModifiers(Modifier.PUBLIC,
                                                       Modifier.FINAL)
