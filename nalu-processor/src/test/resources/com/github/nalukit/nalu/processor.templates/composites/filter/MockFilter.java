@@ -22,6 +22,7 @@ import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.client.filter.AbstractFilter;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.event.MockEvent01;
+import java.lang.Override;
 
 @Composites(@Composite(name = "composite", compositeController = MockComposite.class, selector = "shellComposte"))
 public class MockFilter

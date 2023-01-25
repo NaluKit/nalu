@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.client.internal.application;
 
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+import com.github.nalukit.nalu.client.internal.route.PopUpControllerInstance;
 
 @NaluInternalUse
 public interface IsPopUpControllerCreator {

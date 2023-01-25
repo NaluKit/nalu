@@ -22,6 +22,7 @@ import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.controller.controllerWithIsComponentControllerOK.ui.content01.Content01Component;
 import com.github.nalukit.nalu.processor.controller.controllerWithIsComponentControllerOK.ui.content01.IContent01Component;
+import java.lang.Override;
 
 @Controller(route = "/route01",
             selector = "selector01",

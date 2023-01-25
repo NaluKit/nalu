@@ -21,6 +21,7 @@ import com.github.nalukit.nalu.client.component.annotation.Composites;
 import com.github.nalukit.nalu.client.handler.AbstractHandler;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import java.lang.Override;
 
 @Handler
 @Composites(@Composite(name = "composite", compositeController = MockComposite.class, selector = "composite"))

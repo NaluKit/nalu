@@ -24,6 +24,8 @@ import com.github.nalukit.nalu.client.internal.application.CompositeFactory;
 import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
 import com.github.nalukit.nalu.client.internal.application.IsCompositeCreator;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import java.lang.Object;
+import java.lang.String;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**

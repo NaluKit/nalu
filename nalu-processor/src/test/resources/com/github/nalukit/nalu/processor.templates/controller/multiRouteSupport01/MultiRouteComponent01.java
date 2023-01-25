@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.processor.controller.multiRouteSupport01;
 
 import com.github.nalukit.nalu.client.component.AbstractComponent;
+import java.lang.Override;
 
 public class MultiRouteComponent01
     extends AbstractComponent<IMultiRouteComponent01.Controller, String>

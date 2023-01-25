@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02.composite;
 
 import com.github.nalukit.nalu.client.component.AbstractCompositeComponent;
+import java.lang.Override;
 
 public class CompositeComponent02
     extends AbstractCompositeComponent<ICompositeComponent02.Controller, String>

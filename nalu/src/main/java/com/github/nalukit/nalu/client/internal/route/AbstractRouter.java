@@ -25,8 +25,6 @@ import com.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import com.github.nalukit.nalu.client.component.IsController;
 import com.github.nalukit.nalu.client.component.IsShell;
 import com.github.nalukit.nalu.client.event.NaluErrorEvent;
-import com.github.nalukit.nalu.client.event.RouterStateEvent;
-import com.github.nalukit.nalu.client.event.RouterStateEvent.RouterState;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.filter.IsFilter;
 import com.github.nalukit.nalu.client.internal.CompositeReference;
@@ -39,6 +37,7 @@ import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
 import com.github.nalukit.nalu.client.internal.application.ControllerCallback;
 import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
+import com.github.nalukit.nalu.client.internal.application.RouterStateEventFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellCallback;
 import com.github.nalukit.nalu.client.internal.application.ShellFactory;
 import com.github.nalukit.nalu.client.internal.application.ShellInstance;
@@ -172,10 +171,6 @@ abstract class AbstractRouter
   @Override
   public void route(String newRoute,
                     String... params) {
-    // fire souring event ...
-    this.fireRouterStateEvent(RouterState.START_ROUTING,
-                              newRoute,
-                              params);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -206,10 +201,6 @@ abstract class AbstractRouter
   @Override
   public void forceRoute(String newRoute,
                          String... params) {
-    // fire souring event ...
-    this.fireRouterStateEvent(RouterState.START_ROUTING,
-                              newRoute,
-                              params);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -242,10 +233,6 @@ abstract class AbstractRouter
   @Override
   public void forceStealthRoute(String newRoute,
                                 String... params) {
-    // fire souring event ...
-    this.fireRouterStateEvent(RouterState.START_ROUTING,
-                              newRoute,
-                              params);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -274,10 +261,6 @@ abstract class AbstractRouter
   @Override
   public void stealthRoute(String newRoute,
                            String... params) {
-    // fire souring event ...
-    this.fireRouterStateEvent(RouterState.START_ROUTING,
-                              newRoute,
-                              params);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -307,10 +290,6 @@ abstract class AbstractRouter
   @Override
   public void fakeRoute(String newRoute,
                         String... params) {
-    // fire souring event ...
-    this.fireRouterStateEvent(RouterState.START_ROUTING,
-                              newRoute,
-                              params);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -321,9 +300,8 @@ abstract class AbstractRouter
     this.plugin.route(newRouteWithParams,
                       true,
                       false);
-    this.fireRouterStateEvent(RouterState.ROUTING_DONE,
-                              newRoute,
-                              params);
+    RouterStateEventFactory.INSTANCE.fireDoneRoutingEvent(newRoute,
+                                                          params);
   }
 
   /**
@@ -383,7 +361,7 @@ abstract class AbstractRouter
   /**
    * Returns a map of query parameters that was available at application start.
    *
-   * @return list of query parameters at application start
+   * @return map of query parameters at application start
    */
   @Override
   public Map<String, String> getStartQueryParameters() {
@@ -439,6 +417,7 @@ abstract class AbstractRouter
 
   void handleRouting(String hash,
                      boolean forceRouting) {
+
     // in some cases the hash contains protocol, port and URI, we clean it
     if (hash.contains("#")) {
       hash = hash.substring(hash.indexOf("#") + 1);
@@ -454,14 +433,12 @@ abstract class AbstractRouter
       try {
         // parse it again to get more informations to add to the event
         RouteResult routeResult = this.parse(hash);
-        this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
-                                  routeResult.getRoute(),
-                                  routeResult.getParameterValues()
-                                             .toArray(new String[0]));
+        RouterStateEventFactory.INSTANCE.fireAbortRoutingEvent(routeResult.getRoute(),
+                                                               routeResult.getParameterValues()
+                                                                          .toArray(new String[0]));
       } catch (RouterException e) {
         // Ups ... does not work ... lets use the hash
-        this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
-                                  hash);
+        RouterStateEventFactory.INSTANCE.fireAbortRoutingEvent(hash);
       }
       // loop discovered .... -> create message
       StringBuilder sb = new StringBuilder();
@@ -498,6 +475,10 @@ abstract class AbstractRouter
                                  e);
       return;
     }
+    // fire Router StateEvent
+    RouterStateEventFactory.INSTANCE.fireStartRoutingEvent(routeResult.getRoute(),
+                                                           routeResult.getParameterValues()
+                                                                               .toArray(new String[0]));
     // First we have to check if there is a filter
     // if there are filters ==>  filter the route
     for (IsFilter filter : this.routerConfiguration.getFilters()) {
@@ -505,10 +486,9 @@ abstract class AbstractRouter
                          routeResult.getParameterValues()
                                     .toArray(new String[0]))) {
         // fire Router StateEvent
-        this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
-                                  routeResult.getRoute(),
-                                  routeResult.getParameterValues()
-                                             .toArray(new String[0]));
+        RouterStateEventFactory.INSTANCE.fireAbortRoutingEvent(routeResult.getRoute(),
+                                                               routeResult.getParameterValues()
+                                                                          .toArray(new String[0]));
         // redirect to new route!
         String        redirectTo = filter.redirectTo();
         String[]      parms      = filter.parameters();
@@ -568,10 +548,9 @@ abstract class AbstractRouter
                                            false);
                               // clear loop detection list ...
                               loopDetectionList.clear();
-                              fireRouterStateEvent(RouterState.ROUTING_CANCELED_BY_USER,
-                                                   routeResult.getRoute(),
-                                                   routeResult.getParameterValues()
-                                                              .toArray(new String[0]));
+                              RouterStateEventFactory.INSTANCE.fireCancelByUserRoutingEvent(routeResult.getRoute(),
+                                                                                            routeResult.getParameterValues()
+                                                                                                       .toArray(new String[0]));
                             }
                           });
     }
@@ -682,13 +661,11 @@ abstract class AbstractRouter
       // fire Router StateEvent
       try {
         RouteResult routeResult = this.parse(hash);
-        this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
-                                  routeResult.getRoute(),
-                                  routeResult.getParameterValues()
-                                             .toArray(new String[0]));
+        RouterStateEventFactory.INSTANCE.fireAbortRoutingEvent(routeResult.getRoute(),
+                                                               routeResult.getParameterValues()
+                                                                          .toArray(new String[0]));
       } catch (RouterException e1) {
-        this.fireRouterStateEvent(RouterState.ROUTING_ABORTED,
-                                  hash);
+        RouterStateEventFactory.INSTANCE.fireAbortRoutingEvent(hash);
       }
       // Fire error event ....
       StringBuilder sb = new StringBuilder();
@@ -804,10 +781,9 @@ abstract class AbstractRouter
     SeoDataProvider.INSTANCE
                    .update();
     // fire Router StateEvent
-    this.fireRouterStateEvent(RouterState.ROUTING_DONE,
-                              routeResult.getRoute(),
-                              routeResult.getParameterValues()
-                                         .toArray(new String[0]));
+    RouterStateEventFactory.INSTANCE.fireDoneRoutingEvent(routeResult.getRoute(),
+                                                          routeResult.getParameterValues()
+                                                                     .toArray(new String[0]));
   }
 
   private void stopController(List<RouteConfig> routeConfigurations,
@@ -1449,36 +1425,6 @@ abstract class AbstractRouter
       value = value.substring(1);
     }
     return value;
-  }
-
-  /**
-   * Fires a router state event to inform the application about the state
-   * of routing.
-   *
-   * @param state routing state
-   * @param route current route
-   */
-  private void fireRouterStateEvent(RouterState state,
-                                    String route) {
-    this.fireRouterStateEvent(state,
-                              route,
-                              new String[0]);
-  }
-
-  /**
-   * Fires a router state event to inform the application about the state
-   * of routing.
-   *
-   * @param state  routing state
-   * @param route  current route
-   * @param params parameter
-   */
-  private void fireRouterStateEvent(RouterState state,
-                                    String route,
-                                    String... params) {
-    this.eventBus.fireEvent(new RouterStateEvent(state,
-                                                 route,
-                                                 params));
   }
 
   private void logControllerInterceptsRouting(String controllerClassName,

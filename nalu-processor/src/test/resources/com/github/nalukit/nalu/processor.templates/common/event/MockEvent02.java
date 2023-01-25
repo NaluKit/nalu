@@ -1,6 +1,7 @@
 package com.github.nalukit.nalu.processor.common.event;
 
 import org.gwtproject.event.shared.Event;
+import java.lang.Override;
 
 public class MockEvent02
     extends Event<MockEvent02.MockEvent02Handler> {

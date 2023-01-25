@@ -22,6 +22,7 @@ import com.github.nalukit.nalu.client.component.AbstractPopUpComponentController
 import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.client.component.annotation.PopUpController;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import java.lang.Override;
 
 import java.util.Objects;
 

@@ -21,6 +21,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 
 import static elemental2.dom.DomGlobal.document;
+import java.lang.Override;
 
 public class Component04
     extends AbstractComponent<IComponent04.Controller, HTMLElement>

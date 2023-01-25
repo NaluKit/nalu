@@ -20,6 +20,7 @@ import com.github.nalukit.nalu.client.component.AbstractPopUpComponentController
 import com.github.nalukit.nalu.client.component.annotation.PopUpController;
 import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import java.lang.Override;
 
 @PopUpController(name = "PopUpController01",
                  componentInterface = IPopUpComponent01.class,

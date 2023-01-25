@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.processor.common.ui.error;
 
 import com.github.nalukit.nalu.client.component.AbstractComponent;
+import java.lang.Override;
 
 public class ErrorComponent
     extends AbstractComponent<IErrorComponent.Controller, String>

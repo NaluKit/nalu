@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.processor.common;
 
 import com.github.nalukit.nalu.client.tracker.AbstractTracker;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
+import java.lang.Override;
 
 /**
  * Default implementation of Nalu's logger.

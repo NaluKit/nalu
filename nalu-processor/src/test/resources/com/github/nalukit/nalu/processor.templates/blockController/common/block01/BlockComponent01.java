@@ -19,6 +19,7 @@ package com.github.nalukit.nalu.processor.blockController.common.block01;
 
 import com.github.nalukit.nalu.client.component.AbstractBlockComponent;
 import com.github.nalukit.nalu.processor.blockController.common.block01.IBlockComponent01.Controller;
+import java.lang.Override;
 
 public class BlockComponent01
     extends AbstractBlockComponent<Controller>

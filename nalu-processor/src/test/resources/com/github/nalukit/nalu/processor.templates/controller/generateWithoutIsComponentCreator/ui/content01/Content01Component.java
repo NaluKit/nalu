@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.processor.controller.generateWithoutIsComponentCreator.ui.content01;
 
 import com.github.nalukit.nalu.client.component.AbstractComponent;
+import java.lang.Override;
 
 public class Content01Component
     extends AbstractComponent<IContent01Component.Controller, String>

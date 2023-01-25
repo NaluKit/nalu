@@ -3,7 +3,7 @@ package com.github.nalukit.nalu.processor.popUpControllerCreator.ok;
 import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.internal.AbstractPopUpControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.IsPopUpControllerCreator;
-import com.github.nalukit.nalu.client.internal.application.PopUpControllerInstance;
+import com.github.nalukit.nalu.client.internal.route.PopUpControllerInstance;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import java.lang.Object;
 import java.lang.Override;

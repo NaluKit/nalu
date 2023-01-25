@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.processor.shellCreator.eventhandler.eventHandlerOnAShellCreatorOk03.error;
 
 import com.github.nalukit.nalu.client.component.AbstractErrorPopUpComponent;
+import java.lang.Override;
 
 public class ErrorComponent
     extends AbstractErrorPopUpComponent<IErrorComponent.Controller>

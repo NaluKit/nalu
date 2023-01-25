@@ -2,6 +2,7 @@ package com.github.nalukit.nalu.processor.common.ui.controllerWithComposite02;
 
 import com.github.nalukit.nalu.client.component.AbstractCompositeCondition;
 import com.github.nalukit.nalu.processor.common.MockContext;
+import java.lang.Override;
 
 public class CompositeCondition02
     extends AbstractCompositeCondition<MockContext> {

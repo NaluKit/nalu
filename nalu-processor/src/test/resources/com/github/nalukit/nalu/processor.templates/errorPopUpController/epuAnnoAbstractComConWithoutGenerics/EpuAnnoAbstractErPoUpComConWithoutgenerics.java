@@ -22,6 +22,7 @@ import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.client.component.annotation.ErrorPopUpController;
 import com.github.nalukit.nalu.processor.common.ui.errorPopUp01.IErrorEventComponent01;
 import com.github.nalukit.nalu.processor.common.ui.errorPopUp01.ErrorEventComponent01;
+import java.lang.Override;
 
 @ErrorPopUpController(componentInterface = IErrorEventComponent01.class,
                       component = ErrorEventComponent01.class)

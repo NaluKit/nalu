@@ -17,6 +17,7 @@
 package com.github.nalukit.nalu.processor.controller.acceptAnnotation04;
 
 import com.github.nalukit.nalu.client.component.AbstractComponent;
+import java.lang.Override;
 
 public class Component04
     extends AbstractComponent<IComponent04.Controller, String>
