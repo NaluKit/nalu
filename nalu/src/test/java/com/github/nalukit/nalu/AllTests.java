@@ -21,7 +21,6 @@ import com.github.nalukit.nalu.client.NaluTest;
 import com.github.nalukit.nalu.client.RouterImplTest;
 import com.github.nalukit.nalu.client.RouterUtilsTest;
 import com.github.nalukit.nalu.client.RoutingTest;
-import com.github.nalukit.nalu.client.internal.application.RouterStateEventFactory;
 import com.github.nalukit.nalu.client.internal.application.RouterStateEventFactoryTest;
 import com.github.nalukit.nalu.client.internal.route.RouteConfigTest;
 import com.github.nalukit.nalu.client.internal.route.RouteParserTest;

@@ -18,7 +18,7 @@ package com.github.nalukit.nalu.processor.generator;
 import com.github.nalukit.nalu.client.IsRouter;
 import com.github.nalukit.nalu.client.internal.AbstractPopUpControllerCreator;
 import com.github.nalukit.nalu.client.internal.application.IsPopUpControllerCreator;
-import com.github.nalukit.nalu.client.internal.application.PopUpControllerInstance;
+import com.github.nalukit.nalu.client.internal.route.PopUpControllerInstance;
 import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;

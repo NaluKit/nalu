@@ -21,6 +21,7 @@ import com.github.nalukit.nalu.client.component.AbstractPopUpFilter;
 import com.github.nalukit.nalu.client.component.event.ShowPopUpEvent;
 import com.github.nalukit.nalu.client.filter.IsPopUpFilter;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+import com.github.nalukit.nalu.client.internal.route.PopUpControllerInstance;
 import org.gwtproject.event.shared.EventBus;
 
 import java.util.ArrayList;

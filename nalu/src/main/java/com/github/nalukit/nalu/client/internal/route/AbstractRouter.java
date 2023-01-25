@@ -171,9 +171,6 @@ abstract class AbstractRouter
   @Override
   public void route(String newRoute,
                     String... params) {
-    // fire souring event ...
-    RouterStateEventFactory.INSTANCE.fireStartRoutingEvent(newRoute,
-                                                           params);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -204,9 +201,6 @@ abstract class AbstractRouter
   @Override
   public void forceRoute(String newRoute,
                          String... params) {
-    // fire souring event ...
-    RouterStateEventFactory.INSTANCE.fireStartRoutingEvent(newRoute,
-                                                           params);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -239,9 +233,6 @@ abstract class AbstractRouter
   @Override
   public void forceStealthRoute(String newRoute,
                                 String... params) {
-    // fire souring event ...
-    RouterStateEventFactory.INSTANCE.fireStartRoutingEvent(newRoute,
-                                                           params);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -270,9 +261,6 @@ abstract class AbstractRouter
   @Override
   public void stealthRoute(String newRoute,
                            String... params) {
-    // fire souring event ...
-    RouterStateEventFactory.INSTANCE.fireStartRoutingEvent(newRoute,
-                                                           params);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -302,9 +290,6 @@ abstract class AbstractRouter
   @Override
   public void fakeRoute(String newRoute,
                         String... params) {
-    // fire souring event ...
-    RouterStateEventFactory.INSTANCE.fireStartRoutingEvent(newRoute,
-                                                           params);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -432,6 +417,7 @@ abstract class AbstractRouter
 
   void handleRouting(String hash,
                      boolean forceRouting) {
+
     // in some cases the hash contains protocol, port and URI, we clean it
     if (hash.contains("#")) {
       hash = hash.substring(hash.indexOf("#") + 1);
@@ -489,6 +475,10 @@ abstract class AbstractRouter
                                  e);
       return;
     }
+    // fire Router StateEvent
+    RouterStateEventFactory.INSTANCE.fireStartRoutingEvent(routeResult.getRoute(),
+                                                           routeResult.getParameterValues()
+                                                                               .toArray(new String[0]));
     // First we have to check if there is a filter
     // if there are filters ==>  filter the route
     for (IsFilter filter : this.routerConfiguration.getFilters()) {
