@@ -25,11 +25,17 @@ public class RouterStateEventFactoryTest {
 
   @Test
   void testStartRoutingEvent01() {
+    AtomicInteger i = new AtomicInteger();
+    List<RouterStateEvent.RouterState> states = Arrays.asList(RouterStateEvent.RouterState.START_ROUTING,
+                                                              RouterStateEvent.RouterState.ROUTING_DONE);
     this.eventBus.addHandler(RouterStateEvent.TYPE,
-                             e -> assertEquals(RouterStateEvent.RouterState.START_ROUTING,
-                                             e.getState()));
+                             e -> assertEquals(states.get(i.getAndIncrement()),
+                                               e.getState()));
 
     RouterStateEventFactory.INSTANCE.fireStartRoutingEvent("/shell/route01",
+                                                           "param01",
+                                                           "param02");
+    RouterStateEventFactory.INSTANCE.fireDoneRoutingEvent("/shell/route01",
                                                            "param01",
                                                            "param02");
   }

@@ -4,16 +4,19 @@ import java.util.Objects;
 
 public class NaluUtils {
 
-  private static NaluUtils instance;
+  public static NaluUtils INSTANCE = new NaluUtils();
 
   private NaluUtils() {
   }
 
+  /**
+   * Returns an instance of NaluUtils!
+   *
+   * <b>Deprecated: please use NaluUtils.INSTANCE instead!</b>
+   */
+  @Deprecated
   public static NaluUtils get() {
-    if (Objects.isNull(instance)) {
-      instance = new NaluUtils();
-    }
-    return instance;
+    return NaluUtils.INSTANCE;
   }
 
   /**
@@ -23,13 +26,13 @@ public class NaluUtils {
    *
    * @param route01 first route of the compare
    * @param route02 second route of the compare
-   * @return true in case the no parameter parts are equal otherwise false
+   * @return true in case the the parts of the route without parameters are equal otherwise false
    */
   public boolean compareRoutes(String route01,
                                String route02) {
-    String convertedRoute01 = NaluUtils.get()
+    String convertedRoute01 = NaluUtils.INSTANCE
                                        .convertRoute(route01);
-    String convertedRoute02 = NaluUtils.get()
+    String convertedRoute02 = NaluUtils.INSTANCE
                                        .convertRoute(route02);
     return convertedRoute01.equals(convertedRoute02);
   }
