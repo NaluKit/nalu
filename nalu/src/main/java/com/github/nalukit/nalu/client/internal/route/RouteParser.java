@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 @NaluInternalUse
 public class RouteParser {
 
-  public static RouteParser INSTANCE = new RouteParser();
+  public final static RouteParser INSTANCE = new RouteParser();
 
   private SimpleEventBus eventBus;
 
@@ -218,13 +218,6 @@ public class RouteParser {
     String generatedRoute = sb.toString();
     if (generatedRoute.startsWith("/")) {
       generatedRoute = generatedRoute.substring(1);
-    }
-    StringBuilder parameters = new StringBuilder();
-    for (int i = 0; i < params.length; i++) {
-      parameters.append(params[i]);
-      if (i < params.length - 1) {
-        parameters.append(",");
-      }
     }
     return generatedRoute;
   }

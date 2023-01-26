@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class NaluUtils {
 
-  public static NaluUtils INSTANCE = new NaluUtils();
+  public final static NaluUtils INSTANCE = new NaluUtils();
 
   private NaluUtils() {
   }

@@ -29,9 +29,9 @@ import java.util.Objects;
 public class CompositeConditionFactory {
 
   /* instance of the controller factory */
-  public static CompositeConditionFactory             INSTANCE = new CompositeConditionFactory();
+  public final static CompositeConditionFactory             INSTANCE = new CompositeConditionFactory();
   /* map of conditions (key: controller name, value: ConditionContainer)  */
-  private final Map<String, List<ConditionContainer>> conditionContainerMap;
+  private final       Map<String, List<ConditionContainer>> conditionContainerMap;
 
   private CompositeConditionFactory() {
     this.conditionContainerMap = new HashMap<>();

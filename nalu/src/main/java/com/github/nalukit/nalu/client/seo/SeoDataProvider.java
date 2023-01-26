@@ -7,7 +7,7 @@ import java.util.Objects;
 public class SeoDataProvider {
 
   /* instance of the factory */
-  public static SeoDataProvider INSTANCE = new SeoDataProvider();
+  public final static SeoDataProvider INSTANCE = new SeoDataProvider();
 
   /* Nalu plugin */
   private IsNaluProcessorPlugin plugin;

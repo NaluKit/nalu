@@ -28,9 +28,9 @@ import java.util.Objects;
 public class PopUpConditionFactory {
 
   /* instance of the controller factory */
-  public static PopUpConditionFactory             INSTANCE = new PopUpConditionFactory();
+  public final static PopUpConditionFactory             INSTANCE = new PopUpConditionFactory();
   /* map of popup condition */
-  private final Map<String, IsShowPopUpCondition> conditionMap;
+  private final       Map<String, IsShowPopUpCondition> conditionMap;
 
   private PopUpConditionFactory() {
     this.conditionMap = new HashMap<>();

@@ -31,9 +31,9 @@ public class CompositeFactory {
   private final static String DELIMITER = "<<||>>";
 
   /* instance of the controller factory */
-  public static  CompositeFactory                                  INSTANCE = new CompositeFactory();
+  public final static CompositeFactory                             INSTANCE = new CompositeFactory();
   /* map of components (key: name of class, Value: ControllerCreator */
-  private final  Map<String, IsCompositeCreator>                   compositeCreatorFactory;
+  private final       Map<String, IsCompositeCreator>              compositeCreatorFactory;
   /* map of stored components (key: name of class, Value: instance of controller */
   private final  Map<String, AbstractCompositeController<?, ?, ?>> compositeControllerStore;
   /* list of global cached composites */

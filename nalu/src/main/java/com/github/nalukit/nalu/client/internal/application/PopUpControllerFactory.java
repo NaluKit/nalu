@@ -34,9 +34,9 @@ import java.util.Objects;
 public class PopUpControllerFactory {
 
   /* instance of the popup controller factory */
-  public static  PopUpControllerFactory                INSTANCE = new PopUpControllerFactory();
+  public final static PopUpControllerFactory                INSTANCE = new PopUpControllerFactory();
   /* map of components (key: name of class, Value: ControllerCreator */
-  private final  Map<String, IsPopUpControllerCreator> creatorStore;
+  private final       Map<String, IsPopUpControllerCreator> creatorStore;
   /* map of components (key: name of class, Value: controller instance */
   private final  Map<String, PopUpControllerInstance>  popUpControllerStore;
   /* map of filters (key: name of class, Value: filter instance */

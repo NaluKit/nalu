@@ -28,7 +28,7 @@ public class ParameterConstraintRuleFactory {
   /* instance of the controller factory */
   public static ParameterConstraintRuleFactory         INSTANCE = new ParameterConstraintRuleFactory();
   /* map of parameter constraint rules (key: key for parameter constraint rule, value: parameter constraint rule instance)  */
-  private final Map<String, IsParameterConstraintRule> parameterConstraintRuleMap;
+  private final    Map<String, IsParameterConstraintRule> parameterConstraintRuleMap;
 
   private ParameterConstraintRuleFactory() {
     this.parameterConstraintRuleMap = new HashMap<>();

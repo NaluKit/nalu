@@ -26,7 +26,7 @@ import java.util.Map;
 public class ShellFactory {
 
   /* instance of the controller factory */
-  public static ShellFactory INSTANCE = new ShellFactory();
+  public final static ShellFactory INSTANCE = new ShellFactory();
 
   /* map of components (key: name of class, Value: ShellCreator */
   private Map<String, IsShellCreator> shellFactory;

@@ -33,9 +33,9 @@ import java.util.Objects;
 public class BlockControllerFactory {
 
   /* instance of the popup controller factory */
-  public static  BlockControllerFactory               INSTANCE = new BlockControllerFactory();
+  public final static BlockControllerFactory               INSTANCE = new BlockControllerFactory();
   /* map of components (key: name of class, Value: controller instance */
-  private final  Map<String, BlockControllerInstance> blockControllerInstanceStore;
+  private final       Map<String, BlockControllerInstance> blockControllerInstanceStore;
   /* list of visibles blocks (using block name) */
   private final  List<String>                         visiblesBlocks;
   /* Nalu event bus to catch the RouteState-Event */
