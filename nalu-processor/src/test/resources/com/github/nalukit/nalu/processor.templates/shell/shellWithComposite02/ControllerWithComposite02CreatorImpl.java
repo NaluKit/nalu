@@ -8,11 +8,10 @@ import com.github.nalukit.nalu.client.internal.application.ControllerFactory;
 import com.github.nalukit.nalu.client.internal.application.ControllerInstance;
 import com.github.nalukit.nalu.client.internal.application.IsControllerCreator;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import java.lang.Override;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>2.11.3<< at >>2022.10.11-12:34:18<<
+ * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2022.10.11-12:34:18<<
  */
 public final class ControllerWithComposite02CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
   public ControllerWithComposite02CreatorImpl(IsRouter router, MockContext context,
