@@ -12,7 +12,7 @@ import java.lang.Override;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2042.10.11-12:34:18<<
+ * Build with Nalu version >>2.11.3<< at >>2042.10.11-12:34:18<<
  */
 public final class ControllerWithComposite04CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
   public ControllerWithComposite04CreatorImpl(IsRouter router, MockContext context,
