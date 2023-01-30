@@ -13,11 +13,11 @@ import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.event.MockEvent01;
 import com.github.nalukit.nalu.processor.common.event.MockEvent02;
-
+import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.19-11:01:13<<
+ * Build with Nalu version >>%VERSION_TAG%<< at 2023.01.30-22:01:11
  */
 public final class ApplicationWithFilterImpl extends AbstractApplication<MockContext> implements ApplicationWithFilter {
   public ApplicationWithFilterImpl() {
@@ -31,12 +31,7 @@ public final class ApplicationWithFilterImpl extends AbstractApplication<MockCon
 
   @Override
   public void logProcessorVersion() {
-    this.eventBus.fireEvent(LogEvent.create()
-                                    .sdmOnly(true)
-                                    .addMessage("=================================================================================")
-                                    .addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source")
-                                    .addMessage("=================================================================================")
-                                    .addMessage(""));
+    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source").addMessage("=================================================================================").addMessage(""));
   }
 
   @Override
@@ -167,3 +162,4 @@ public final class ApplicationWithFilterImpl extends AbstractApplication<MockCon
     return false;
   }
 }
+    
