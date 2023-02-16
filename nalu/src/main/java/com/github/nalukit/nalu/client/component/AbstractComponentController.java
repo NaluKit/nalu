@@ -339,8 +339,8 @@ public abstract class AbstractComponentController<C extends IsContext, V extends
    * However, Nalu will stop working!
    * <p>
    * Also, if you want to stop unloading, you need to call
-   * <b>stopUnloadCommand.stopUnloadCommand()</b>. However Nalu stays in a undeifined
-   * state, which can cause problem later!
+   * <b>stopUnloadCommand.stopUnloadCommand()</b>. This will clear the Nalu state. Otherwise Nalu will stay
+   * in a undefined state, which can cause problems with the next routing!
    * <p>
    * Inside the method the routing process cen be interrupted
    * by throwing a RoutingInterceptionException.

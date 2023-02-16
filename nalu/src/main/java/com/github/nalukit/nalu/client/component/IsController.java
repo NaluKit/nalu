@@ -156,8 +156,12 @@ public interface IsController<V, W> {
    * This method runs after the mayStop-Method is called.
    * <p>
    * Keep in mind, that the method is asynchronous. Once you have
-   * done your work, you have to call <b>command.continueUnloading()</b>.
-   * Otherwise Nalu will stop working!
+   * done your work, you have to call <b>continueUnloadCommand.continueUnloading()</b>.
+   * However, Nalu will stop working!
+   * <p>
+   * Also, if you want to stop unloading, you need to call
+   * <b>stopUnloadCommand.stopUnloadCommand()</b>. This will clear the Nalu state. Otherwise Nalu will stay
+   * in a undefined state, which can cause problems with the next routing!
    * <p>
    * Inside the method the routing process cen be interrupted
    * by throwing a RoutingInterceptionException.
@@ -165,7 +169,7 @@ public interface IsController<V, W> {
    * <b>The method will not be called in case a controller is cached!</b>
    * <p>
    * <b>Attention:</b>
-   * Do not call super.unbind(command)! Cause this will create a loop.
+   * Do not call super.unbind(continueUnloadCommand, stopUnloadCommand)! because this will create a loop.
    *
    * @param continueUnloadCommand call to tell Nalu to continue unloading the controller
    * @param stopUnloadCommand     call to tell Nalu to stop unloading the controller
