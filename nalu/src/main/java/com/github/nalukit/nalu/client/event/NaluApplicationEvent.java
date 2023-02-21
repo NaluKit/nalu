@@ -74,7 +74,7 @@ public class NaluApplicationEvent
    *
    * <b>Keep in mind, all parameters will be stored as objects!</b>
    *
-   * <p>Deprecated (will be removed in 2.12.0): please use the <b>usingObject</b>-method</p>
+   * <p>Deprecated (will be removed in HEAD-SNAPSHOT): please use the <b>usingObject</b>-method</p>
    *
    * @param key   key of the parameter
    * @param value value of the parameter
@@ -132,7 +132,7 @@ public class NaluApplicationEvent
    *
    * <b>Keep in mind to cast the return value.</b>
    *
-   * <p>Deprecated (will be removed in 2.12.0): please use <b>event.getDataObjectStore().get(key);</b> instead</p>
+   * <p>Deprecated (will be removed in HEAD-SNAPSHOT): please use <b>event.getDataObjectStore().get(key);</b> instead</p>
    *
    * @param key key of the stored parameter
    * @return the value of the stored parameter using the key or null
