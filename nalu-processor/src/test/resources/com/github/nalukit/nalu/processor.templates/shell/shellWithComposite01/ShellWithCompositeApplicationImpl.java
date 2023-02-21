@@ -18,7 +18,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2022.10.11-12:30:10<<
+ * Build with Nalu version >>2.12.0<< at >>2022.10.11-12:30:10<<
  */
 public final class ShellWithCompositeApplicationImpl extends AbstractApplication<MockContext> implements ShellWithCompositeApplication {
   public ShellWithCompositeApplicationImpl() {
@@ -35,7 +35,7 @@ public final class ShellWithCompositeApplicationImpl extends AbstractApplication
     this.eventBus.fireEvent(LogEvent.create()
                                     .sdmOnly(true)
                                     .addMessage("=================================================================================")
-                                    .addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source")
+                                    .addMessage("Nalu processor version  >>2.12.0<< used to generate this source")
                                     .addMessage("=================================================================================")
                                     .addMessage(""));
   }
