@@ -135,14 +135,13 @@ public interface IsController<V, W> {
    * done your work, you have to call <b>loader.continueLoading()</b>.
    * Otherwise Nalu will stop working!
    * <p>
-   * Inside the method can the routing process gets interrupted
+   * Inside the method the routing process can be interrupted
    * by throwing a RoutingInterceptionException.
    * <p>
    * <b>The method will not be called in case a controller is cached!</b>
    * <p>
    * <b>Attention:</b>
-   * Do not call super.bind(loader)! Cause this will tell Nalu to
-   * continue loading!
+   * Do not call super.bind(loader)! Cause this will create a loop.
    *
    * @param loader loader to tell Nalu to continue loading the controller
    * @throws RoutingInterceptionException in case the create controller
@@ -150,6 +149,33 @@ public interface IsController<V, W> {
    */
   void bind(ControllerLoader loader)
       throws RoutingInterceptionException;
+
+  /**
+   * The unbind-method will be called before the controller is stopped.
+   * <p>
+   * This method runs after the mayStop-Method is called.
+   * <p>
+   * Keep in mind, that the method is asynchronous. Once you have
+   * done your work, you have to call <b>continueUnloadCommand.continueUnloading()</b>.
+   * However, Nalu will stop working!
+   * <p>
+   * Also, if you want to stop unloading, you need to call
+   * <b>stopUnloadCommand.stopUnloadCommand()</b>. This will clear the Nalu state. Otherwise Nalu will stay
+   * in a undefined state, which can cause problems with the next routing!
+   * <p>
+   * Inside the method the routing process cen be interrupted
+   * by throwing a RoutingInterceptionException.
+   * <p>
+   * <b>The method will not be called in case a controller is cached!</b>
+   * <p>
+   * <b>Attention:</b>
+   * Do not call super.unbind(continueUnloadCommand, stopUnloadCommand)! because this will create a loop.
+   *
+   * @param continueUnloadCommand call to tell Nalu to continue unloading the controller
+   * @param stopUnloadCommand     call to tell Nalu to stop unloading the controller
+   */
+  void unbind(ContinueUnloadCommand continueUnloadCommand,
+              StopUnloadCommand stopUnloadCommand);
 
   /**
    * The map of the depending composites of the shell
@@ -194,6 +220,22 @@ public interface IsController<V, W> {
   interface ControllerLoader {
 
     void continueLoading();
+
+  }
+
+
+
+  interface ContinueUnloadCommand {
+
+    void continueUnloading();
+
+  }
+
+
+
+  interface StopUnloadCommand {
+
+    void stopUnloading();
 
   }
 

@@ -91,6 +91,8 @@ abstract class AbstractRouter
   private IsShell        shell;
   // the application event bus
   private SimpleEventBus eventBus;
+  // internal counter for callback handling
+  private int            callCounter;
 
   AbstractRouter(List<CompositeReference> compositeReferences,
                  ShellConfiguration shellConfiguration,
@@ -436,6 +438,9 @@ abstract class AbstractRouter
         RouterStateEventFactory.INSTANCE.fireAbortRoutingEvent(routeResult.getRoute(),
                                                                routeResult.getParameterValues()
                                                                           .toArray(new String[0]));
+        RouterStateEventFactory.INSTANCE.fireDoneRoutingEvent(routeResult.getRoute(),
+                                                              routeResult.getParameterValues()
+                                                                         .toArray(new String[0]));
       } catch (RouterException e) {
         // Ups ... does not work ... lets use the hash
         RouterStateEventFactory.INSTANCE.fireAbortRoutingEvent(hash);
@@ -520,12 +525,12 @@ abstract class AbstractRouter
     }
     // search for a matching routing
     List<RouteConfig> routeConfigurations = this.routerConfiguration.match(routeResult.getRoute());
-    // check whether or not the routing is possible ...
+    // check whether the routing is possible ...
     if (forceRouting) {
       // in case of 'forceRouting' we route without confirmation!
-      doRouting(hash,
-                routeResult,
-                routeConfigurations);
+      this.unbindController(hash,
+                            routeResult,
+                            routeConfigurations);
     } else {
       String finalHash = hash;
       this.confirmRouting(routeResult,
@@ -534,11 +539,9 @@ abstract class AbstractRouter
 
                             @Override
                             public void onOk() {
-                              // in case of 'forceRouting' we route without confirmation!
-                              doRouting(finalHash,
-                                        routeResult,
-                                        routeConfigurations);
-
+                              unbindController(finalHash,
+                                               routeResult,
+                                               routeConfigurations);
                             }
 
                             @Override
@@ -551,8 +554,52 @@ abstract class AbstractRouter
                               RouterStateEventFactory.INSTANCE.fireCancelByUserRoutingEvent(routeResult.getRoute(),
                                                                                             routeResult.getParameterValues()
                                                                                                        .toArray(new String[0]));
+                              RouterStateEventFactory.INSTANCE.fireDoneRoutingEvent(routeResult.getRoute(),
+                                                                                    routeResult.getParameterValues()
+                                                                                               .toArray(new String[0]));
                             }
                           });
+    }
+  }
+
+  private void unbindController(String hash,
+                                RouteResult routeResult,
+                                List<RouteConfig> routeConfigurations) {
+    List<ControllerInstance> instances = routeConfigurations.stream()
+                                                            .map(config -> this.activeComponents.get(config.getSelector()))
+                                                            .filter(Objects::nonNull)
+                                                            .collect(Collectors.toList());
+    if (instances.size() == 0) {
+      this.doRouting(hash,
+                     routeResult,
+                     routeConfigurations);
+    } else {
+      this.callCounter = instances.size();
+      instances.forEach(i -> i.getController()
+                              .unbind(() -> this.handleUnbindCallBack(hash,
+                                                                      routeResult,
+                                                                      routeConfigurations),
+                                      () -> {
+                                        // clear loop detection list ...
+                                        loopDetectionList.clear();
+                                        RouterStateEventFactory.INSTANCE.fireCancelByUserRoutingEvent(routeResult.getRoute(),
+                                                                                                      routeResult.getParameterValues()
+                                                                                                                 .toArray(new String[0]));
+                                        RouterStateEventFactory.INSTANCE.fireDoneRoutingEvent(routeResult.getRoute(),
+                                                                                              routeResult.getParameterValues()
+                                                                                                         .toArray(new String[0]));
+                                      }));
+    }
+  }
+
+  private void handleUnbindCallBack(String hash,
+                                    RouteResult routeResult,
+                                    List<RouteConfig> routeConfigurations) {
+    this.callCounter--;
+    if (this.callCounter == 0) {
+      this.doRouting(hash,
+                     routeResult,
+                     routeConfigurations);
     }
   }
 
@@ -664,6 +711,9 @@ abstract class AbstractRouter
         RouterStateEventFactory.INSTANCE.fireAbortRoutingEvent(routeResult.getRoute(),
                                                                routeResult.getParameterValues()
                                                                           .toArray(new String[0]));
+        RouterStateEventFactory.INSTANCE.fireDoneRoutingEvent(routeResult.getRoute(),
+                                                              routeResult.getParameterValues()
+                                                                         .toArray(new String[0]));
       } catch (RouterException e1) {
         RouterStateEventFactory.INSTANCE.fireAbortRoutingEvent(hash);
       }
