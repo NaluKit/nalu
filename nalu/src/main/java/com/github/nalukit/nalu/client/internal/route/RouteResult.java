@@ -21,31 +21,14 @@ import java.util.List;
 
 public class RouteResult {
 
-  private String shell;
-
-  private String route;
-
+  private String       shell;
+  private String       route;
+  private List<String> parameterKeys;
   private List<String> parameterValues;
 
   public RouteResult() {
-    this(null,
-         null,
-         new ArrayList<>());
-  }
-
-  public RouteResult(String shell,
-                     String route,
-                     List<String> parameterValues) {
-    this.shell           = shell;
-    this.route           = route;
-    this.parameterValues = parameterValues;
-  }
-
-  public RouteResult(String shell,
-                     String route) {
-    this(shell,
-         route,
-         new ArrayList<>());
+    this.parameterKeys   = new ArrayList<>();
+    this.parameterValues = new ArrayList<>();
   }
 
   public String getRoute() {
@@ -56,12 +39,16 @@ public class RouteResult {
     this.route = route;
   }
 
-  public List<String> getParameterValues() {
-    return parameterValues;
+  public List<String> getParameterKeys() {
+    return parameterKeys;
   }
 
-  public void setParameterValues(List<String> parameterValues) {
-    this.parameterValues = parameterValues;
+  public void setParameterKeys(List<String> parameterKeys) {
+    this.parameterKeys = parameterKeys;
+  }
+
+  public List<String> getParameterValues() {
+    return parameterValues;
   }
 
   public String getShell() {

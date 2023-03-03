@@ -11,10 +11,11 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.List;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2022.10.11-12:34:18<<
+ * Build with Nalu version >>%VERSION_TAG%<< at >>2022.10.11-12:34:18<<
  */
 public final class ControllerWithComposite02CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
   public ControllerWithComposite02CreatorImpl(IsRouter router, MockContext context,
@@ -58,7 +59,8 @@ public final class ControllerWithComposite02CreatorImpl extends AbstractControll
   }
 
   @Override
-  public void setParameter(Object object, String... params) throws RoutingInterceptionException {
+  public void setParameter(Object object, List<String> parameterKeys, List<String> parameterValues)
+          throws RoutingInterceptionException {
     ControllerWithComposite02 controller = (ControllerWithComposite02) object;
     if (params != null) {
       if (params.length >= 1) {

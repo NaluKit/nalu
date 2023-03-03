@@ -9,6 +9,7 @@ import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
 import com.github.nalukit.nalu.client.internal.application.IsCompositeCreator;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import java.lang.Override;
+import java.util.List;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
@@ -51,6 +52,7 @@ public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockCon
     return compositeInstance;
   }
   
-  public void setParameter(Object object, String... params) throws RoutingInterceptionException {
+  public void setParameter(Object object, List<String> parameterKeys, List<String> parameterValues)
+          throws RoutingInterceptionException {
   }
 }

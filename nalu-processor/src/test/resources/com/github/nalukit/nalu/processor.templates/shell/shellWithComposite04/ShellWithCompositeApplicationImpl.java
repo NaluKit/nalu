@@ -18,7 +18,7 @@ import java.lang.Override;
 import java.util.Arrays;
 
 /**
- * Build with Nalu version >>HEAD-SNAPSHOT<< at >>2022.10.11-22:19:02<<
+ * Build with Nalu version >>%VERSION_TAG%<< at >>2022.10.11-22:19:02<<
  */
 public final class ShellWithCompositeApplicationImpl extends AbstractApplication<MockContext> implements ShellWithCompositeApplication {
   public ShellWithCompositeApplicationImpl() {

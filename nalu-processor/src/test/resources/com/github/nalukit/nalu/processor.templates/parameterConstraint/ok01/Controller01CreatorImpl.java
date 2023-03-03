@@ -13,10 +13,11 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.List;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>%VERSION_TAG%<< at >>2021.07.29-07:45:00<<
+ * Build with Nalu version >>%VERSION_TAG%<< at 2023.03.03-17:47:24
  */
 public final class Controller01CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
   public Controller01CreatorImpl(IsRouter router, MockContext context, SimpleEventBus eventBus) {
@@ -59,17 +60,20 @@ public final class Controller01CreatorImpl extends AbstractControllerCreator<Moc
   }
 
   @Override
-  public void setParameter(Object object, String... params) throws RoutingInterceptionException {
+  public void setParameter(Object object, List<String> parameterKeys, List<String> parameterValues)
+      throws RoutingInterceptionException {
     Controller01 controller = (Controller01) object;
-    if (params != null) {
-      if (params.length >= 1) {
-        IsParameterConstraintRule rule = ParameterConstraintRuleFactory.INSTANCE.get("com.github.nalukit.nalu.processor.parameterConstraint.ParameterConstraintRule01");
-        if (rule != null) {
-          if (!rule.isValid(params[0])) {
-            throw new RoutingInterceptionException("Controller01", "asdfasd");
+    if (parameterKeys != null && parameterValues != null) {
+      for (int i = 0; i < parameterKeys.size(); i++) {
+        if ("parameter01".equals(parameterKeys.get(i))) {
+          IsParameterConstraintRule rule = ParameterConstraintRuleFactory.INSTANCE.get("com.github.nalukit.nalu.processor.parameterConstraint.ParameterConstraintRule01");
+          if (rule != null) {
+            if (!rule.isValid(parameterValues.get(i))) {
+              throw new RoutingInterceptionException("Controller01", "asdfasd");
+            }
           }
+          controller.setParameter01(parameterValues.get(i));
         }
-        controller.setParameter01(params[0]);
       }
     }
   }

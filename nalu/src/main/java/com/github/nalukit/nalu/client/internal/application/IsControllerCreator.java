@@ -19,6 +19,8 @@ package com.github.nalukit.nalu.client.internal.application;
 import com.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
+import java.util.List;
+
 @NaluInternalUse
 public interface IsControllerCreator {
 
@@ -27,7 +29,8 @@ public interface IsControllerCreator {
   void onFinishCreating(Object object);
 
   void setParameter(Object object,
-                    String... params)
+                    List<String> parameterKeys,
+                    List<String> parameterValues)
       throws RoutingInterceptionException;
 
 }

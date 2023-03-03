@@ -11,6 +11,7 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.List;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
@@ -59,6 +60,7 @@ public final class Controller03CreatorImpl extends AbstractControllerCreator<Moc
   }
 
   @Override
-  public void setParameter(Object object, String... params) throws RoutingInterceptionException {
+  public void setParameter(Object object, List<String> parameterKeys, List<String> parameterValues)
+          throws RoutingInterceptionException {
   }
 }

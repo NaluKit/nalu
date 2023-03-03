@@ -22,6 +22,7 @@ import com.github.nalukit.nalu.client.internal.Utils;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -55,7 +56,8 @@ public class CompositeFactory {
                                         String compositeControllerClassName,
                                         String selector,
                                         boolean scopeGlobal,
-                                        String... params)
+                                        List<String> parameterKeys,
+                                        List<String> parameterValues)
       throws RoutingInterceptionException {
     // in case scopeGlobal is true ,check if the instance already exists
     if (scopeGlobal) {
@@ -80,7 +82,8 @@ public class CompositeFactory {
                                                 compositeInstance);
       }
       compositeCreator.setParameter(compositeInstance.getComposite(),
-                                    params);
+                                    parameterKeys,
+                                    parameterValues);
       return compositeInstance;
     }
     return null;

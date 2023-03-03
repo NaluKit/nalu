@@ -9,11 +9,13 @@ import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
 import com.github.nalukit.nalu.client.internal.application.IsCompositeCreator;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import java.lang.Object;
+import java.lang.Override;
 import java.lang.String;
+import java.util.List;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>%VERSION_TAG%<< at >>2022.04.19-11:55:40<<
+ * Build with Nalu version >>%VERSION_TAG%<< at 2023.03.03-17:56:30
  */
 public final class Composite02CreatorImpl extends AbstractCompositeCreator<MockContext> implements IsCompositeCreator {
   public Composite02CreatorImpl(IsRouter router, MockContext context, SimpleEventBus eventBus) {
@@ -24,9 +26,7 @@ public final class Composite02CreatorImpl extends AbstractCompositeCreator<MockC
                                   boolean scopeGlobal) throws RoutingInterceptionException {
     CompositeInstance compositeInstance = new CompositeInstance();
     compositeInstance.setCompositeClassName("com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite02");
-    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.INSTANCE.getCompositeFormStore(parentControllerClassName,
-                                                                                                           "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite02",
-                                                                                                           selector);
+    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.INSTANCE.getCompositeFormStore(parentControllerClassName, "com.github.nalukit.nalu.processor.compositeCreator.eventhandler.eventHandlerOnACompositeOk03.content.composite.Composite02", selector);
     if (storedComposite == null) {
       Composite02 composite = new Composite02();
       compositeInstance.setComposite(composite);
@@ -53,6 +53,8 @@ public final class Composite02CreatorImpl extends AbstractCompositeCreator<MockC
     return compositeInstance;
   }
 
-  public void setParameter(Object object, String... params) throws RoutingInterceptionException {
+  @Override
+  public void setParameter(Object object, List<String> parameterKeys, List<String> parameterValues)
+      throws RoutingInterceptionException {
   }
 }

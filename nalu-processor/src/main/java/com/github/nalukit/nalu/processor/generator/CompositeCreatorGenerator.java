@@ -28,6 +28,7 @@ import com.github.nalukit.nalu.processor.ProcessorConstants;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.model.MetaModel;
 import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
+import com.github.nalukit.nalu.processor.model.intern.ParameterAcceptorModel;
 import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintModel;
 import com.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
 import com.squareup.javapoet.ClassName;
@@ -42,6 +43,7 @@ import org.gwtproject.event.shared.SimpleEventBus;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
+import java.util.List;
 
 public class CompositeCreatorGenerator {
 
@@ -81,7 +83,7 @@ public class CompositeCreatorGenerator {
                                          typeSpec.build())
                                 .build();
     try {
-      //      System.out.println(javaFile.toString());
+//      System.out.println(javaFile.toString());
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
@@ -207,15 +209,19 @@ public class CompositeCreatorGenerator {
 
   private MethodSpec createSetParameterMethod() {
     MethodSpec.Builder method = MethodSpec.methodBuilder("setParameter")
+                                          .addAnnotation(ClassName.get(Override.class))
                                           .addModifiers(Modifier.PUBLIC)
                                           .addParameter(ParameterSpec.builder(Object.class,
                                                                               "object")
                                                                      .build())
-                                          .addParameter(ParameterSpec.builder(String[].class,
-                                                                              "params")
+                                          .addParameter(ParameterSpec.builder(ParameterizedTypeName.get(ClassName.get(List.class),
+                                                                                                        ClassName.get(String.class)),
+                                                                              "parameterKeys")
                                                                      .build())
-                                          .varargs()
-                                          //                                                .returns(ClassName.get(CompositeInstance.class))
+                                          .addParameter(ParameterSpec.builder(ParameterizedTypeName.get(ClassName.get(List.class),
+                                                                                                        ClassName.get(String.class)),
+                                                                              "parameterValues")
+                                                                     .build())
                                           .addException(ClassName.get(RoutingInterceptionException.class));
     // compositeModel has parameters?
     if (compositeModel.getParameterAcceptors()
@@ -232,30 +238,23 @@ public class CompositeCreatorGenerator {
                                                         .getPackage(),
                                           compositeModel.getProvider()
                                                         .getSimpleName()));
-        method.beginControlFlow("if (params != null)");
+        method.beginControlFlow("if (parameterKeys != null && parameterValues != null)");
+        method.beginControlFlow("for (int i = 0; i < parameterKeys.size(); i++)");
         for (int i = 0; i <
                         compositeModel.getParameterAcceptors()
                                       .size(); i++) {
-          //          method.beginControlFlow("if (params.length >= " + (i + 1) + ")")
-          //                .addStatement("composite." +
-          //                              compositeModel.getParameterAcceptors()
-          //                                            .get(i)
-          //                                            .getMethodName() + "(params[" +
-          //                              i +
-          //                              "])")
-          //                .endControlFlow();
-
-          method.beginControlFlow("if (params.length >= " + (i + 1) + ")");
-          ParameterConstraintModel parameterConstraintModel = compositeModel.getParameterAcceptors()
-                                                                            .get(i)
-                                                                            .getParameterConstrait();
+          ParameterAcceptorModel parameterAcceptor = compositeModel.getParameterAcceptors()
+                                                                   .get(i);
+          method.beginControlFlow("if ($S.equals(parameterKeys.get(i)))",
+                                  parameterAcceptor.getParameterName());
+          ParameterConstraintModel parameterConstraintModel = compositeModel.getConstraintModelFor(parameterAcceptor.getParameterName());
           if (parameterConstraintModel != null) {
             method.addStatement("$T rule = $T.INSTANCE.get($S)",
                                 ClassName.get(IsParameterConstraintRule.class),
                                 ClassName.get(ParameterConstraintRuleFactory.class),
                                 parameterConstraintModel.getKey());
             method.beginControlFlow("if (rule != null)")
-                  .beginControlFlow("if (!rule.isValid(params[" + i + "]))")
+                  .beginControlFlow("if (!rule.isValid(parameterValues.get(i)))")
                   .addStatement("throw new $T($S, $S)",
                                 ClassName.get(RoutingInterceptionException.class),
                                 compositeModel.getProvider()
@@ -264,17 +263,12 @@ public class CompositeCreatorGenerator {
                   .endControlFlow()
                   .endControlFlow();
           }
-          method.addStatement("composite." +
-                              compositeModel.getParameterAcceptors()
-                                            .get(i)
-                                            .getMethodName() +
-                              "(params[" +
-                              i +
-                              "])")
-                .endControlFlow();
+          method.addStatement("composite." + parameterAcceptor.getMethodName() + "(parameterValues.get(i))");
+          method.endControlFlow();
         }
+        method.endControlFlow();
+        method.endControlFlow();
       }
-      method.endControlFlow();
     }
     return method.build();
   }

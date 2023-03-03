@@ -86,6 +86,8 @@ public class RouteParser {
       if (optionalRouterConfig.isPresent()) {
         routeResult.setRoute(optionalRouterConfig.get()
                                                  .getRoute());
+        routeResult.setParameterKeys(optionalRouterConfig.get()
+                                                         .getParameters());
         if (routeResult.getRoute()
                        .contains("*")) {
           String[] partsOfRoute = routeValue.split("/");

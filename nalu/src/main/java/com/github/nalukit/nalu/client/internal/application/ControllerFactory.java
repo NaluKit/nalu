@@ -22,6 +22,7 @@ import com.github.nalukit.nalu.client.internal.Utils;
 import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @NaluInternalUse
@@ -48,13 +49,15 @@ public class ControllerFactory {
   public void controller(String route,
                          String controller,
                          ControllerCallback callback,
-                         String... params) {
+                         List<String> parameterKeys,
+                         List<String> parameterValues) {
     if (this.controllerFactory.containsKey(controller)) {
       IsControllerCreator controllerCreator  = this.controllerFactory.get(controller);
       ControllerInstance  controllerInstance = controllerCreator.create(route);
       try {
         controllerCreator.setParameter(controllerInstance.getController(),
-                                       params);
+                                       parameterKeys,
+                                       parameterValues);
       } catch (RoutingInterceptionException e) {
         callback.onRoutingInterceptionException(e);
         return;
