@@ -1,19 +1,3 @@
-/*
- * Copyright © 2018 Frank Hossfeld
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.github.nalukit.nalu.processor.compositeCreator.ok;
 
 import com.github.nalukit.nalu.client.IsRouter;
@@ -25,24 +9,24 @@ import com.github.nalukit.nalu.client.internal.application.CompositeInstance;
 import com.github.nalukit.nalu.client.internal.application.IsCompositeCreator;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import java.lang.Object;
+import java.lang.Override;
 import java.lang.String;
+import java.util.List;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>%VERSION_TAG%<< at >>2020.11.08-16:38:33<<
+ * Build with Nalu version >>%VERSION_TAG%<< at 2023.03.03-20:27:20
  */
 public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockContext> implements IsCompositeCreator {
   public CompositeCreatorImpl(IsRouter router, MockContext context, SimpleEventBus eventBus) {
     super(router, context, eventBus);
   }
-  
+
   public CompositeInstance create(String parentControllerClassName, String selector,
                                   boolean scopeGlobal) throws RoutingInterceptionException {
     CompositeInstance compositeInstance = new CompositeInstance();
     compositeInstance.setCompositeClassName("com.github.nalukit.nalu.processor.compositeCreator.ok.Composite");
-    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.INSTANCE.getCompositeFormStore(parentControllerClassName,
-                                                                                                           "com.github.nalukit.nalu.processor.compositeCreator.ok.Composite",
-                                                                                                           selector);
+    AbstractCompositeController<?, ?, ?> storedComposite = CompositeFactory.INSTANCE.getCompositeFormStore(parentControllerClassName, "com.github.nalukit.nalu.processor.compositeCreator.ok.Composite", selector);
     if (storedComposite == null) {
       Composite composite = new Composite();
       compositeInstance.setComposite(composite);
@@ -68,7 +52,9 @@ public final class CompositeCreatorImpl extends AbstractCompositeCreator<MockCon
     }
     return compositeInstance;
   }
-  
-  public void setParameter(Object object, String... params) throws RoutingInterceptionException {
+
+  @Override
+  public void setParameter(Object object, List<String> parameterKeys, List<String> parameterValues)
+      throws RoutingInterceptionException {
   }
 }

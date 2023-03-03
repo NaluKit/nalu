@@ -11,16 +11,17 @@ import com.github.nalukit.nalu.processor.common.MockContext;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.List;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 /**
- * Build with Nalu version >>%VERSION_TAG%<< at >>2020.08.31-11:52:30<<
+ * Build with Nalu version >>%VERSION_TAG%<< at 2023.03.03-20:27:20
  */
 public final class ControllerC02CreatorImpl extends AbstractControllerCreator<MockContext> implements IsControllerCreator {
   public ControllerC02CreatorImpl(IsRouter router, MockContext context, SimpleEventBus eventBus) {
     super(router, context, eventBus);
   }
-  
+
   @Override
   public ControllerInstance create(String route) {
     ControllerInstance controllerInstance = new ControllerInstance();
@@ -45,7 +46,7 @@ public final class ControllerC02CreatorImpl extends AbstractControllerCreator<Mo
     }
     return controllerInstance;
   }
-  
+
   @Override
   public void onFinishCreating(Object object) {
     ControllerC02 controller = (ControllerC02) object;
@@ -55,13 +56,16 @@ public final class ControllerC02CreatorImpl extends AbstractControllerCreator<Mo
     component.render();
     component.bind();
   }
-  
+
   @Override
-  public void setParameter(Object object, String... params) throws RoutingInterceptionException {
+  public void setParameter(Object object, List<String> parameterKeys, List<String> parameterValues)
+      throws RoutingInterceptionException {
     ControllerC02 controller = (ControllerC02) object;
-    if (params != null) {
-      if (params.length >= 1) {
-        controller.setParameter01(params[0]);
+    if (parameterKeys != null && parameterValues != null) {
+      for (int i = 0; i < parameterKeys.size(); i++) {
+        if ("parameter01".equals(parameterKeys.get(i))) {
+          controller.setParameter01(parameterValues.get(i));
+        }
       }
     }
   }
