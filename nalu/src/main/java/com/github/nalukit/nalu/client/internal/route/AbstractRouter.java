@@ -934,8 +934,8 @@ abstract class AbstractRouter
                                                                                                                   s.getComposite(),
                                                                                                                   s.getSelector(),
                                                                                                                   s.isScopeGlobal(),
-                                                                                                                  routeResult.getParameterValues()
-                                                                                                                             .toArray(new String[0]));
+                                                                                                                  routeResult.getParameterKeys(),
+                                                                                                                  routeResult.getParameterValues());
                                      if (compositeInstance == null) {
                                        eventBus.fireEvent(LogEvent.create()
                                                                   .sdmOnly(true)
@@ -1020,8 +1020,8 @@ abstract class AbstractRouter
                                                                                                                   compositeReference.getComposite(),
                                                                                                                   compositeReference.getSelector(),
                                                                                                                   true,
-                                                                                                                  routeResult.getParameterValues()
-                                                                                                                             .toArray(new String[0]));
+                                                                                                                  routeResult.getParameterKeys(),
+                                                                                                                  routeResult.getParameterValues());
                                      append(compositeReference.getSelector(),
                                             compositeInstance.getComposite());
                                    } catch (RoutingInterceptionException e) {
@@ -1127,8 +1127,8 @@ abstract class AbstractRouter
                                                controller);
                                    }
                                  },
-                                 routeResult.getParameterValues()
-                                            .toArray(new String[0]));
+                                 routeResult.getParameterKeys(),
+                                 routeResult.getParameterValues());
   }
 
   private void doRouting(String hash,
@@ -1174,8 +1174,8 @@ abstract class AbstractRouter
                                                                                              s.getComposite(),
                                                                                              s.getSelector(),
                                                                                              s.isScopeGlobal(),
-                                                                                             routeResult.getParameterValues()
-                                                                                                        .toArray(new String[0]));
+                                                                                             routeResult.getParameterKeys(),
+                                                                                             routeResult.getParameterValues());
                 if (compositeInstance == null) {
                   this.eventBus.fireEvent(LogEvent.create()
                                                   .sdmOnly(true)
@@ -1270,8 +1270,8 @@ abstract class AbstractRouter
                                                                                              compositeReference.getComposite(),
                                                                                              compositeReference.getSelector(),
                                                                                              true,
-                                                                                             routeResult.getParameterValues()
-                                                                                                        .toArray(new String[0]));
+                                                                                             routeResult.getParameterKeys(),
+                                                                                             routeResult.getParameterValues());
                 this.append(compositeReference.getSelector(),
                             compositeInstance.getComposite());
               } catch (RoutingInterceptionException e) {
@@ -1303,8 +1303,8 @@ abstract class AbstractRouter
           try {
             controllerInstance.getControllerCreator()
                               .setParameter(controllerInstance.getController(),
-                                            routeResult.getParameterValues()
-                                                       .toArray(new String[0]));
+                                            routeResult.getParameterKeys(),
+                                            routeResult.getParameterValues());
           } catch (RoutingInterceptionException e) {
             this.logControllerInterceptsRouting(e.getControllerClassName(),
                                                 e.getRoute(),
