@@ -45,4 +45,15 @@ public abstract class AbstractHandler<C extends IsContext>
     this.router = router;
   }
 
+  /**
+   * In case you want to do something when the application is started
+   * and the handler created. F.e.: adding event handler
+   * <p>
+   * Of course, it is possible to use the @EventHandler-annotation
+   * for adding event hadnler. In this case you don't need to override
+   * the bind-method.
+   */
+  @Override
+  public void bind() {
+  }
 }
