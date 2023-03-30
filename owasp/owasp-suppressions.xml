@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+  <!--    <suppress>-->
+  <!--        <notes><![CDATA[-->
+  <!--   file name: commons-io-2.4.jar-->
+  <!--   ]]></notes>-->
+  <!--        <packageUrl regex="true">^pkg:maven/commons\-io/commons\-io@.*$</packageUrl>-->
+  <!--        <cve>CVE-2021-29425</cve>-->
+  <!--    </suppress>-->
+  <!--    <suppress>-->
+  <!--        <notes><![CDATA[-->
+  <!--   file name: domino-jackson-processor-1.0.0-RC3.jar (shaded: com.google.guava:guava:27.1-jre)-->
+  <!--   ]]></notes>-->
+  <!--        <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>-->
+  <!--        <cve>CVE-2020-8908</cve>-->
+  <!--    </suppress>-->
+  <!--    <suppress>-->
+  <!--        <notes><![CDATA[-->
+  <!--   file name: snakeyaml-1.33.jar-->
+  <!--   ]]></notes>-->
+  <!--        <packageUrl regex="true">^pkg:maven/org\.yaml/snakeyaml@.*$</packageUrl>-->
+  <!--        <vulnerabilityName>CVE-2022-1471</vulnerabilityName>-->
+  <!--    </suppress>-->
+</suppressions>
