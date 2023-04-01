@@ -108,7 +108,7 @@ jobs:
           cache: maven
           server-id: ossrh
           server-username: OSSRH_USERNAME
-          sever-password: OSSRH_PASSWORD
+          server-password: OSSRH_PASSWORD
       - name: Extract Maven project version
         run: echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
         id: project
@@ -122,6 +122,6 @@ jobs:
             core.setFailed('Version not valid for dev')
       - name: Deploy with Maven
         env:
-          OSSRH_USERNAME: $OSSRH_USERNAME
-          OSSRH_PASSWORD: $OSSRH_PASSWORD
+          OSSRH_USERNAME: $
+          OSSRH_PASSWORD: $
         run: mvn deploy -ntp -DskipTests -Daether.checksums.algorithms=MD5 -s ./.github/workflows/settings.xml
