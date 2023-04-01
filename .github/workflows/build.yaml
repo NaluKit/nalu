@@ -109,6 +109,11 @@ jobs:
           server-id: ossrh
           server-username: OSSRH_USERNAME
           server-password: OSSRH_PASSWORD
+      - name: Install gpg secret key
+        run: |
+           cat <(echo -e "$") | gpg --batch --import
+           gpg --list-secret-keys --keyid-format LONG
+        id: install-secret-key
       - name: Extract Maven project version
         run: echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
         id: project
@@ -124,4 +129,4 @@ jobs:
         env:
           OSSRH_USERNAME: $
           OSSRH_PASSWORD: $
-        run: mvn deploy -ntp -DskipTests -Daether.checksums.algorithms=MD5 -s ./.github/workflows/settings.xml
+        run: mvn deploy -ntp -DskipTests -Dgpg.passphrase=$ -Daether.checksums.algorithms=MD5 -s ./.github/workflows/settings.xml
