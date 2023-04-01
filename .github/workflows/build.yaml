@@ -122,6 +122,6 @@ jobs:
             core.setFailed('Version not valid for dev')
       - name: Deploy with Maven
         env:
-          OSSRH_USERNAME: $
-          OSSRH_PASSWORD: $
+          OSSRH_USERNAME: $OSSRH_USERNAME
+          OSSRH_PASSWORD: $OSSRH_PASSWORD
         run: mvn deploy -ntp -DskipTests -Daether.checksums.algorithms=MD5 -s ./.github/workflows/settings.xml
