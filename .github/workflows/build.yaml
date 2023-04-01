@@ -120,10 +120,10 @@ jobs:
         with:
           script: |
             core.setFailed('Version not valid for dev')
-      - name: Decode keystore file
-        run: |
-          echo "${{ secrets.OSSRH_GPG_SECRET }}" > release.keystore.asc
-          gpg -d --passphrase "${{ secrets.OSSRH_GPG_SECRET_KEY }}" --batch release.keystore.asc > signing-key.jks
+#      - name: Decode keystore file
+#        run: |
+#          echo "${{ secrets.OSSRH_GPG_SECRET }}" > release.keystore.asc
+#          gpg -d --passphrase "${{ secrets.OSSRH_GPG_SECRET_KEY }}" --batch release.keystore.asc > signing-key.jks
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
