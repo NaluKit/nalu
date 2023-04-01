@@ -109,13 +109,6 @@ jobs:
           server-id: ossrh
           server-username: OSSRH_USERNAME
           server-password: OSSRH_PASSWORD
-      - id: install-secret-key
-        name: Install gpg secret key
-        run: |
-          # Install gpg secret key
-          cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
-          # Verify gpg secret key
-          gpg --list-secret-keys --keyid-format LONG
       - name: Extract Maven project version
         run: echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
         id: project
@@ -127,7 +120,24 @@ jobs:
         with:
           script: |
             core.setFailed('Version not valid for dev')
-      - name: Deploy with Maven
+      - name: Decode keystore file
+        run: |
+          echo "${{ secrets.KEY_STORE }}" > release.keystore.asc
+          gpg -d --passphrase "${{ secrets.OSSRH_GPG_SECRET_KEY }}" --batch release.keystore.asc > signing-key.jks
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: release.keystore.asc
+          path:
+            release.keystore.asc
+      - id: install-secret-key
+        name: Install gpg secret key
+        run: |
+          # Install gpg secret key
+          cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
+          # Verify gpg secret key
+          gpg --list-secret-keys --keyid-format LONG
+          - name: Deploy with Maven
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
