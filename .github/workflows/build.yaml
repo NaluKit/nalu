@@ -130,7 +130,7 @@ jobs:
           name: release.keystore.asc
           path: release.keystore.asc
       - id: install-secret-key
-        name: Install gpg secret key
+        name: Install GPG secret key
         run: |
           # Install gpg secret key
           cat <(echo -e "${{ secrets.OSSRH_GPG_KEY }}") | gpg --batch --import
