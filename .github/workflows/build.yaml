@@ -107,8 +107,8 @@ jobs:
           java-version: '8'
           cache: maven
           server-id: ossrh
-          server-username: OSSRH_USERNAME
-          server-password: OSSRH_PASSWORD
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
       - name: Extract Maven project version
         run: echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
         id: project
