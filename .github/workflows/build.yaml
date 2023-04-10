@@ -119,11 +119,6 @@ jobs:
         with:
           script: |
             core.setFailed('Version not valid for dev')
-      - uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: release.keystore.asc
-          path: release.keystore.asc
       - id: install-secret-key
         name: Install GPG secret key
         run: |
