@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Frank Hossfeld
+ * Copyright (c) 2018 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -15,9 +15,6 @@
  */
 
 package com.github.nalukit.nalu.client.event.annotation;
-
-import com.github.nalukit.nalu.client.component.IsComponent;
-import org.gwtproject.event.shared.Event;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

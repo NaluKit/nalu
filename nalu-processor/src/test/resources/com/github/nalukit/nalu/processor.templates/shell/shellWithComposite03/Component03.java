@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Frank Hossfeld
+ * Copyright (c) 2018 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -19,7 +19,6 @@ package com.github.nalukit.nalu.processor.shell.shellWithComposite03;
 import com.github.nalukit.nalu.client.component.AbstractComponent;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import java.lang.Override;
 
 import static elemental2.dom.DomGlobal.document;
 

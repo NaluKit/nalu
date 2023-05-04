@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Frank Hossfeld
+ * Copyright (c) 2018 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -17,8 +17,8 @@
 package com.github.nalukit.nalu.processor.common;
 
 import com.github.nalukit.nalu.client.application.AbstractLogger;
+
 import java.util.List;
-import java.lang.Override;
 
 /**
  * Default implementation of Nalu's logger.

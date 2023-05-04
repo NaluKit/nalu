@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Frank Hossfeld
+ * Copyright (c) 2018 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -16,7 +16,18 @@
 
 package com.github.nalukit.nalu.processor.model;
 
-import com.github.nalukit.nalu.processor.model.intern.*;
+import com.github.nalukit.nalu.processor.model.intern.BlockControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ClassNameModel;
+import com.github.nalukit.nalu.processor.model.intern.CompositeModel;
+import com.github.nalukit.nalu.processor.model.intern.ControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ErrorPopUpControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.FilterModel;
+import com.github.nalukit.nalu.processor.model.intern.HandlerModel;
+import com.github.nalukit.nalu.processor.model.intern.ModuleModel;
+import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleModel;
+import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
+import com.github.nalukit.nalu.processor.model.intern.ShellModel;
+import com.github.nalukit.nalu.processor.model.intern.TrackerModel;
 
 import java.util.ArrayList;
 import java.util.List;

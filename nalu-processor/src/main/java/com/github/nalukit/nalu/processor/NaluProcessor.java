@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Frank Hossfeld
+ * Copyright (c) 2018 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -21,7 +21,13 @@ import com.github.nalukit.nalu.client.application.annotation.Filters;
 import com.github.nalukit.nalu.client.application.annotation.Logger;
 import com.github.nalukit.nalu.client.application.annotation.PopUpFilters;
 import com.github.nalukit.nalu.client.application.annotation.Version;
-import com.github.nalukit.nalu.client.component.annotation.*;
+import com.github.nalukit.nalu.client.component.annotation.BlockController;
+import com.github.nalukit.nalu.client.component.annotation.CompositeController;
+import com.github.nalukit.nalu.client.component.annotation.Composites;
+import com.github.nalukit.nalu.client.component.annotation.Controller;
+import com.github.nalukit.nalu.client.component.annotation.ErrorPopUpController;
+import com.github.nalukit.nalu.client.component.annotation.PopUpController;
+import com.github.nalukit.nalu.client.component.annotation.Shell;
 import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
 import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.client.handler.annotation.Handler;
@@ -49,8 +55,42 @@ import com.github.nalukit.nalu.processor.model.intern.ParameterConstraintRuleMod
 import com.github.nalukit.nalu.processor.model.intern.PopUpControllerModel;
 import com.github.nalukit.nalu.processor.model.intern.ShellModel;
 import com.github.nalukit.nalu.processor.model.intern.TrackerModel;
-import com.github.nalukit.nalu.processor.scanner.*;
-import com.github.nalukit.nalu.processor.scanner.validation.*;
+import com.github.nalukit.nalu.processor.scanner.ApplicationAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.BlockControllerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.CompositeControllerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.ControllerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.ControllerCompositesAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.ErrorPopUpControllerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.FiltersAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.HandlerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.LoggerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.ModuleAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.ModulesAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.ParameterConstraintRuleAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.PopUpControllerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.PopUpFiltersAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.ShellAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.ShellCompositesAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.TrackerAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.VersionAnnotationScanner;
+import com.github.nalukit.nalu.processor.scanner.validation.ApplicationAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.BlockControllerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.CompositeControllerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.CompositesAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.ConsistenceValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.ControllerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.ErrorPopUpControllerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.FiltersAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.HandlerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.LoggerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.ModuleAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.ModulesAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.ParameterConstraintRuleAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.PopUpControllerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.PopUpFiltersAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.ShellAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.TrackerAnnotationValidator;
+import com.github.nalukit.nalu.processor.scanner.validation.VersionAnnotationValidator;
 import com.google.auto.service.AutoService;
 import com.google.common.base.Stopwatch;
 import com.google.gson.Gson;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Frank Hossfeld
+ * Copyright (c) 2018 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -20,7 +20,6 @@ import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import java.lang.Override;
 
 @Application(startRoute = "/mockShell/search",
              context = MockContext.class)

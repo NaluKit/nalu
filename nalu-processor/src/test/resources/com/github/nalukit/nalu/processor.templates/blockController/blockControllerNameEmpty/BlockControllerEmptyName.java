@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Frank Hossfeld
+ * Copyright (c) 2018 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -17,9 +17,7 @@
 package com.github.nalukit.nalu.processor.blockController.blockControllerNameEmpty;
 
 import com.github.nalukit.nalu.client.component.AbstractBlockComponentController;
-import com.github.nalukit.nalu.client.component.IsBlockComponentController;
 import com.github.nalukit.nalu.client.component.annotation.BlockController;
-import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.blockController.common.block01.BlockComponent01;
 import com.github.nalukit.nalu.processor.blockController.common.block01.IBlockComponent01;
 
