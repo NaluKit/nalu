@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Frank Hossfeld
+ * Copyright (c) 2018 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -16,10 +16,14 @@
 
 package com.github.nalukit.nalu.processor.parameterConstraintRule.complete;
 
-import com.github.nalukit.nalu.client.constraint.annotation.*;
 import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
-
-import javax.validation.constraints.NotNull;
+import com.github.nalukit.nalu.client.constraint.annotation.BlackListing;
+import com.github.nalukit.nalu.client.constraint.annotation.MaxLength;
+import com.github.nalukit.nalu.client.constraint.annotation.MinLength;
+import com.github.nalukit.nalu.client.constraint.annotation.NotEmpty;
+import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraintRule;
+import com.github.nalukit.nalu.client.constraint.annotation.Pattern;
+import com.github.nalukit.nalu.client.constraint.annotation.WhiteListing;
 
 @ParameterConstraintRule
 @NotEmpty
