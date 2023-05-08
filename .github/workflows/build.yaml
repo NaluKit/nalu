@@ -80,7 +80,7 @@ jobs:
         run: docker cp $(docker ps -aqf "name=owasp-db"):/dependency-check/data ./dependency-checker-db/
       - name: OWASP Check
         run: |
-          mvn org.owasp:dependency-check-maven:check \
+          mvn org.owasp:dependency-check-maven:aggregate \
           -DdataDirectory=./dependency-checker-db \
           -DfailBuildOnCVSS=11 \
           -Dodc.outputDirectory=reports \
