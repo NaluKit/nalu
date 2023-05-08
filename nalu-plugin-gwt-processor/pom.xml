@@ -87,6 +87,12 @@
       <groupId>org.gwtproject</groupId>
       <artifactId>gwt-dev</artifactId>
       <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>gson</artifactId>
+          <groupId>com.google.code.gson</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -104,6 +110,12 @@
       <groupId>com.google.auto.service</groupId>
       <artifactId>auto-service</artifactId>
       <version>${auto-service.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>checker-qual</artifactId>
+          <groupId>org.checkerframework</groupId>
+        </exclusion>
+      </exclusions>
       <optional>true</optional>
     </dependency>
     <dependency>

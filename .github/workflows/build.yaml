@@ -82,7 +82,7 @@ jobs:
         run: |
           mvn org.owasp:dependency-check-maven:aggregate \
           -DdataDirectory=./dependency-checker-db \
-          -DfailBuildOnCVSS=11 \
+          -DfailBuildOnCVSS=7 \
           -Dodc.outputDirectory=reports \
           -Dformat=HTML \
           -DautoUpdate=false \
