@@ -13,6 +13,7 @@
     <cve>CVE-2020-8022</cve>
     <cve>CVE-2021-42340</cve>
     <cve>CVE-2022-23101</cve>
+    <cve>CVE-2022-23181</cve>
     <cve>CVE-2022-25762</cve>
     <cve>CVE-2022-29885</cve>
     <cve>CVE-2022-42252</cve>
@@ -46,6 +47,7 @@
   <suppress>
     <notes><![CDATA[file name: htmlunit-core-js-2.55.0.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit\-core\-js@.*$</packageUrl>
+    <cve>CVE-2022-29546</cve>
     <cve>CVE-2023-26119</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
@@ -60,6 +62,12 @@
     <notes><![CDATA[file name: icu4j-63.1.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/com\.ibm\.icu/icu4j@.*$</packageUrl>
     <cve>CVE-2018-18928</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[file name: jetty-http-9.4.44.v20210927.jar]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-http@.*$</packageUrl>
+    <cve>CVE-2022-2048</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
