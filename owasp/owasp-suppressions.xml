@@ -20,57 +20,43 @@
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
-    <notes><![CDATA[
-   file name: commons-net-3.8.0.jar
-   ]]></notes>
+    <notes><![CDATA[file name: commons-net-3.8.0.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/commons\-net/commons\-net@.*$</packageUrl>
     <cpe>cpe:/a:apache:commons_net</cpe>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
-    <notes><![CDATA[
-   file name: commons-net-3.8.0.jar
-   ]]></notes>
+    <notes><![CDATA[file name: commons-net-3.8.0.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/commons\-net/commons\-net@.*$</packageUrl>
     <cpe>cpe:/a:apache:commons_net</cpe>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
-    <notes><![CDATA[
-   file name: gson-2.6.2.jar
-   ]]></notes>
+    <notes><![CDATA[file name: gson-2.6.2.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/com\.google\.code\.gson/gson@.*$</packageUrl>
     <cpe>cpe:/a:google:gson</cpe>
   </suppress>
   <!-- auto-service-dependency; should never be deployed! -->
   <suppress>
-    <notes><![CDATA[
-   file name: guava-31.0.1-jre.jar
-   ]]></notes>
+    <notes><![CDATA[file name: guava-31.0.1-jre.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
     <cpe>cpe:/a:google:guava</cpe>
   </suppress>
   <!-- processor-dependency; should never be deployed! -->
   <suppress>
-    <notes><![CDATA[
-   file name: guava-31.1-jre.jar
-   ]]></notes>
+    <notes><![CDATA[file name: guava-31.1-jre.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
     <cpe>cpe:/a:google:guava</cpe>
   </suppress>
   <!-- auto-service-dependency; should never be deployed! -->
   <suppress>
-    <notes><![CDATA[
-   file name: htmlunit-core-js-2.55.0.jar
-   ]]></notes>
+    <notes><![CDATA[file name: htmlunit-core-js-2.55.0.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit\-core\-js@.*$</packageUrl>
     <cpe>cpe:/a:htmlunit_project:htmlunit</cpe>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
-    <notes><![CDATA[
-   file name: icu4j-63.1.jar
-   ]]></notes>
+    <notes><![CDATA[file name: icu4j-63.1.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/com\.ibm\.icu/icu4j@.*$</packageUrl>
     <cve>CVE-2018-18928</cve>
   </suppress>
