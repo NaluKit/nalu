@@ -8,15 +8,33 @@
 
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
+    <notes><![CDATA[file name: apache-jsp-8.5.70.jar]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.mortbay\.jasper/apache\-jsp@.*$</packageUrl>
+    <cve>CVE-2020-8022</cve>
+    <cve>CVE-2021-42340</cve>
+    <cve>CVE-2022-23101</cve>
+    <cve>CVE-2022-25762</cve>
+    <cve>CVE-2022-29885</cve>
+    <cve>CVE-2022-42252</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
     <notes><![CDATA[file name: commons-net-3.8.0.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/commons\-net/commons\-net@.*$</packageUrl>
     <cve>CVE-2023-22551</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
+    <notes><![CDATA[file name: apache-jsp-9.4.44.v20210927.jar]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/apache\-jsp@.*$</packageUrl>
+    <cve>CVE-2022-2048</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
     <notes><![CDATA[file name: commons-text-1.9.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.apache\.commons/commons\-text@.*$</packageUrl>
     <cve>CVE-2022-42889</cve>
+    <cve>CVE-2022-29546</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -26,10 +44,22 @@
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
+    <notes><![CDATA[file name: htmlunit-core-js-2.55.0.jar]]></notes>
+    <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit\-core\-js@.*$</packageUrl>
+    <cve>CVE-2023-26119</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
     <notes><![CDATA[file name: htmlunit-2.55.0.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit@.*$</packageUrl>
     <cve>CVE-2022-29546</cve>
     <cve>CVE-2023-26119</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[file name: icu4j-63.1.jar]]></notes>
+    <packageUrl regex="true">^pkg:maven/com\.ibm\.icu/icu4j@.*$</packageUrl>
+    <cve>CVE-2018-18928</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -45,10 +75,17 @@
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
+    <notes><![CDATA[file name: jetty-xml-9.4.44.v20210927.jar]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-xml@.*$</packageUrl>
+    <cve>CVE-2022-2048</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
     <notes><![CDATA[file name: neko-htmlunit-2.55.0.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/neko\-htmlunit@.*$</packageUrl>
     <cve>CVE-2023-2048</cve>
     <cve>CVE-2022-28366</cve>
+    <cve>CVE-2022-29546</cve>
     <cve>CVE-2023-26119</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
