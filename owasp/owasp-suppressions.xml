@@ -83,6 +83,12 @@
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
+    <notes><![CDATA[file name: jetty-jndi-9.4.44.v20210927.jar]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-jndi@.*$</packageUrl>
+    <cve>CVE-2022-2048</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
     <notes><![CDATA[file name: jetty-server-9.4.44.v20210927.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-server@.*$</packageUrl>
     <cve>CVE-2022-2048</cve>
