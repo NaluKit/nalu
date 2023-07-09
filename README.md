@@ -278,16 +278,6 @@ Here you will find many examples that show Nalu in action: [https://github.com/n
 ## YouTube
 You will find a session about Nalu at the GWT Community Channel [here](https://www.youtube.com/watch?v=GsHY4f3cvRU).
 
-[//]: # (## Project Generator)
-
-[//]: # (To speed up creating a Nalu project, the [Nalu Boot Starter Project Generator]&#40;http://www.mvp4g.org/boot-starter-nalu/BootStarterNalu.html&#41; &#40;which is also based on Nalu&#41; can be used to create a Nalu based project with a few clicks. The project generator will generate a Maven project, which can be imported to your preferred IDE. The project is ready to use.)
-
-[//]: # ()
-[//]: # (Look into the **readme.txt** how to run the project.)
-
-[//]: # ()
-[//]: # (More information about the generator and the source code can be found here: [Nalu Project Generator]&#40;https://github.com/nalukit/gwt-boot-starter-nalu&#41;.)
-
 ## Notes
 In case you find a bug, please open an issue or post it inside the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
 
