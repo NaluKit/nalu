@@ -298,12 +298,26 @@
     <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-continuation@.*$</packageUrl>
     <cpe>cpe:/a:mortbay_jetty:jetty</cpe>
   </suppress>
-  <!-- only test use -->
+  <!-- test use only -->
   <suppress>
     <notes><![CDATA[
    file name: htmlunit-core-js-2.55.0.jar
    ]]></notes>
     <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit\-core\-js@.*$</packageUrl>
     <cve>CVE-2023-2798</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: htmlunit-2.55.0.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit@.*$</packageUrl>
+    <cve>CVE-2023-2798</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: guava-31.0.1-jre.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
+    <cpe>cpe:/a:google:guava</cpe>
   </suppress>
 </suppressions>
