@@ -319,5 +319,6 @@
    ]]></notes>
     <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
     <cpe>cpe:/a:google:guava</cpe>
+    <cve>CVE-2023-2976</cve>
   </suppress>
 </suppressions>
