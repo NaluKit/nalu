@@ -130,7 +130,7 @@ jobs:
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-        run: mvn deploy -ntp -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD_NALUKIT_GITHUB_USER }} -DskipTests -Daether.checksums.algorithms=MD5
+        run: mvn deploy -ntp -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD_NALUKIT_GITHUB_USER }} -DskipTests -Daether.checksums.algorithms=SHA-512
 
   maven-deploy-main:
     runs-on: ubuntu-latest
