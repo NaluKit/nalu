@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Frank Hossfeld
+ * Copyright (c) 2018 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -17,15 +17,11 @@
 package com.github.nalukit.nalu.processor.popUpControllerCreator.eventhandler.eventHandlerOnAPopUpControllerOk03.popUp;
 
 import com.github.nalukit.nalu.client.component.AbstractPopUpComponentController;
-import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.client.component.annotation.PopUpController;
 import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.processor.common.MockContext;
 import com.github.nalukit.nalu.processor.common.event.MockEvent01;
 import com.github.nalukit.nalu.processor.common.event.MockEvent02;
-import java.lang.Override;
-
-import java.util.Objects;
 
 @PopUpController(name = "PopUpController01",
                  componentInterface = IPopUpComponent01.class,

@@ -36,7 +36,7 @@ public final class ShellWithCompositeApplicationImpl extends AbstractApplication
     this.eventBus.fireEvent(LogEvent.create()
                                     .sdmOnly(true)
                                     .addMessage("=================================================================================")
-                                    .addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source")
+                                    .addMessage("Nalu processor version  >>2.12.2<< used to generate this source")
                                     .addMessage("=================================================================================")
                                     .addMessage(""));
   }

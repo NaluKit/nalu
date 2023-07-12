@@ -1,5 +1,5 @@
 #
-# Copyright © 2020 The GWT Project Authors
+# Copyright © 2018 - Frank Hossfeld
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,22 +14,179 @@
 # limitations under the License.
 #
 
-name: CI
+name: Build & Deploy
 
 on:
   push:
     branches:
+      - dev
       - main
     pull_request:
       branches:
+        - dev
         - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-      - name: Build with Maven
-        run: JAVA_HOME=$JAVA_HOME_8_X64 mvn -V -B -ntp -U -e verify
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: adopt
+          java-version: '8'
+          cache: maven
+      - name: Compile with Maven
+        run: mvn compile -ntp
 
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: adopt
+          java-version: '8'
+          cache: maven
+      - name: Test with Maven
+        run: mvn test -ntp
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: surefire-report
+          path: target/surefire-reports/
+
+  build-and-owasp:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    needs: test
+    services:
+      owasp-db:
+        image: philkohl/owasp-maven-action:latest
+        options: --entrypoint /bin/sh --name owasp-db --hostname owasp-db
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: adopt
+          java-version: '8'
+          cache: maven
+      - name: Build with Maven
+        run: mvn install -ntp
+      - name: Copy owasp database from container to runner
+        run: docker cp $(docker ps -aqf "name=owasp-db"):/dependency-check/data ./dependency-checker-db/
+      - name: OWASP Check
+        run: |
+          mvn org.owasp:dependency-check-maven:aggregate \
+          -DdataDirectory=./dependency-checker-db \
+          -DfailBuildOnCVSS=7 \
+          -Dodc.outputDirectory=reports \
+          -Dformat=HTML \
+          -DautoUpdate=false \
+          -DsuppressionFiles=./owasp/owasp-suppressions.xml
+      - name: Upload OWASP results
+        if: always()
+        uses: actions/upload-artifact@master
+        with:
+          name: OWASP report
+          path: ${{github.workspace}}/**/reports/dependency-check-report.html
+
+  maven-deploy-dev:
+    runs-on: ubuntu-latest
+    needs: build-and-owasp
+    if: github.ref == 'refs/heads/dev'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: adopt
+          java-version: '8'
+          cache: maven
+          server-id: ossrh
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+      - name: Extract Maven project version
+        run: echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+        id: project
+      - name: Show extracted Maven project version
+        run: echo ${{ steps.project.outputs.version }}
+      - name: Check version
+        if: ${{ !endsWith(steps.project.outputs.version, '-SNAPSHOT') }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.setFailed('Version not valid for dev')
+      - id: install-secret-key
+        name: Install GPG secret key
+        run: |
+          # Install gpg secret key
+          cat <(echo -e "${{ secrets.OSSRH_GPG_KEY }}") | gpg --batch --import
+          # Verify gpg secret key
+          gpg --list-secret-keys --keyid-format LONG
+      - name: Deploy with Maven
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+        run: mvn deploy -ntp -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD_NALUKIT_GITHUB_USER }} -DskipTests
+
+  maven-deploy-main:
+    runs-on: ubuntu-latest
+    needs: build-and-owasp
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: adopt
+          java-version: '8'
+          cache: maven
+          server-id: ossrh
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+      - name: Extract Maven project version
+        run: echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+        id: project
+      - name: Show extracted Maven project version
+        run: echo ${{ steps.project.outputs.version }}
+      - name: Check version
+        if: ${{ endsWith(steps.project.outputs.version, '-SNAPSHOT') }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.setFailed('Version not valid for main')
+      - name: Check if tag already exists
+        id: version-check
+        run: |
+          echo $(git tag -l "${{ steps.project.outputs.version }}")
+          if [ $(git tag -l "${{ steps.project.outputs.version }}") ]; then
+            echo Version ${{ steps.project.outputs.version }} already exists!
+            echo "already-exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo Version ${{ steps.project.outputs.version }} do not exists!
+            echo "already-exists=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Test unique version
+        run: |
+          echo Version '${{ steps.project.outputs.version }}' already exists! Do not release!
+          exit 1
+        if: ${{ steps.version-check.outputs.already-exists == 'true' }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body: Relase of version ${{ steps.project.outputs.version }}
+          tag_name: ${{ steps.project.outputs.version }}
+      - id: install-secret-key
+        name: Install GPG secret key
+        run: |
+          # Install gpg secret key
+          cat <(echo -e "${{ secrets.OSSRH_GPG_KEY }}") | gpg --batch --import
+          # Verify gpg secret key
+          gpg --list-secret-keys --keyid-format LONG
+      - name: Deploy with Maven
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+        run: mvn deploy -ntp -P release -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD_NALUKIT_GITHUB_USER }} -DskipTests -Daether.checksums.algorithms=MD5

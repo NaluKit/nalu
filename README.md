@@ -3,9 +3,8 @@
 [![License](https://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 ![GWT3/J2CL compatible](https://img.shields.io/badge/GWT3/J2CL-compatible-brightgreen.svg) 
 [![Join the chat at https://gitter.im/Nalukit42/Lobby](https://badges.gitter.im/Nalukit42/Lobby.svg)](https://gitter.im/Nalukit42/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.nalukit/nalu.svg?colorB=44cc11)](https://search.maven.org/artifact/com.github.nalukit/nalu)
-[![CI](https://github.com/NaluKit/nalu/workflows/CI/badge.svg)](https://github.com/NaluKit/nalu/actions)
-![Test](https://github.com/NaluKit/nalu/workflows/Test/badge.svg)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.nalukit/nalu.svg?colorB=44cc11)](https://central.sonatype.com/artifact/com.github.nalukit/nalu)
+[![Build & Deploy](https://github.com/NaluKit/nalu/actions/workflows/build.yaml/badge.svg?branch=dev)](https://github.com/NaluKit/nalu/actions/workflows/build.yaml)
 
 
 Nalu is a tiny framework that helps you to create GWT based applications quite easily. Using the HTML 5 history for routing and navigation, Nalu supports the browser's back-, forward-, and reload-button by default and without any need to implement anything.
@@ -135,12 +134,12 @@ To use Nalu add the following dependencies to your pom:
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
-    <version>2.12.1</version>
+    <version>2.12.2</version>
 </dependency>
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
-    <version>2.12.1</version>
+    <version>2.12.2</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -170,7 +169,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
-    <version>2.12.1</version>
+    <version>2.12.2</version>
 </dependency>
 ```
 
@@ -199,7 +198,7 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemento</artifactId>
-    <version>2.12.1</version>
+    <version>2.12.2</version>
 </dependency>
 ```
 
@@ -244,12 +243,12 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
-      <version>2.12.1</version>
+      <version>2.12.2</version>
    </dependency>
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
-      <version>2.12.1</version>
+      <version>2.12.2</version>
       <scope>provided</scope>
    </dependency>
 ```
@@ -278,16 +277,6 @@ Here you will find many examples that show Nalu in action: [https://github.com/n
 
 ## YouTube
 You will find a session about Nalu at the GWT Community Channel [here](https://www.youtube.com/watch?v=GsHY4f3cvRU).
-
-[//]: # (## Project Generator)
-
-[//]: # (To speed up creating a Nalu project, the [Nalu Boot Starter Project Generator]&#40;http://www.mvp4g.org/boot-starter-nalu/BootStarterNalu.html&#41; &#40;which is also based on Nalu&#41; can be used to create a Nalu based project with a few clicks. The project generator will generate a Maven project, which can be imported to your preferred IDE. The project is ready to use.)
-
-[//]: # ()
-[//]: # (Look into the **readme.txt** how to run the project.)
-
-[//]: # ()
-[//]: # (More information about the generator and the source code can be found here: [Nalu Project Generator]&#40;https://github.com/nalukit/gwt-boot-starter-nalu&#41;.)
 
 ## Notes
 In case you find a bug, please open an issue or post it inside the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).

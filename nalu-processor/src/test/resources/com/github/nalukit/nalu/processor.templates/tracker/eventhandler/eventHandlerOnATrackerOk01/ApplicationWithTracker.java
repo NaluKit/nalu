@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Frank Hossfeld
+ * Copyright (c) 2018 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -18,10 +18,8 @@ package com.github.nalukit.nalu.processor.tracker.eventhandler.eventHandlerOnATr
 
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
-import com.github.nalukit.nalu.client.event.annotation.EventHandler;
 import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import com.github.nalukit.nalu.processor.common.event.MockEvent01;
 
 @Application(startRoute = "/mockShell/route01",
              context = MockContext.class)

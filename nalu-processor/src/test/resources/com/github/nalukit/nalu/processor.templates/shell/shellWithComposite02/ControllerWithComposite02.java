@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Frank Hossfeld
+ * Copyright (c) 2018 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -22,8 +22,8 @@ import com.github.nalukit.nalu.client.component.annotation.Composite;
 import com.github.nalukit.nalu.client.component.annotation.Composites;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import com.github.nalukit.nalu.processor.shell.shellWithComposite02.composite.CompositeController02;
 import com.github.nalukit.nalu.processor.shell.shellWithComposite02.composite.Composite02Condition;
+import com.github.nalukit.nalu.processor.shell.shellWithComposite02.composite.CompositeController02;
 import elemental2.dom.HTMLElement;
 
 @Controller(route = "/mockShell/route01/:parameter01",

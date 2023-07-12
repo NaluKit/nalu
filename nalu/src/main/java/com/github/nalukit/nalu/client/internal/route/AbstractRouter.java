@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Frank Hossfeld
+ * Copyright (c) 2018 - Frank Hossfeld
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  *  use this file except in compliance with the License. You may obtain a copy of
@@ -135,10 +135,8 @@ abstract class AbstractRouter
    */
   @Override
   public void clearCache() {
-    ControllerFactory.INSTANCE
-                     .clearControllerCache();
-    CompositeFactory.INSTANCE
-                    .clearCompositeControllerCache();
+    ControllerFactory.INSTANCE.clearControllerCache();
+    CompositeFactory.INSTANCE.clearCompositeControllerCache();
   }
 
   /**
@@ -314,8 +312,7 @@ abstract class AbstractRouter
    */
   @Override
   public <C extends AbstractComponentController<?, ?, ?>> void removeFromCache(C controller) {
-    ControllerFactory.INSTANCE
-                     .removeFromCache(controller);
+    ControllerFactory.INSTANCE.removeFromCache(controller);
     controller.setCached(false);
   }
 
@@ -327,8 +324,7 @@ abstract class AbstractRouter
    */
   @Override
   public <C extends AbstractCompositeController<?, ?, ?>> void removeFromCache(C compositeController) {
-    CompositeFactory.INSTANCE
-                    .removeFromCache(compositeController);
+    CompositeFactory.INSTANCE.removeFromCache(compositeController);
     compositeController.setCached(false);
   }
 
@@ -341,8 +337,7 @@ abstract class AbstractRouter
    */
   @Override
   public <C extends AbstractComponentController<?, ?, ?>> void storeInCache(C controller) {
-    ControllerFactory.INSTANCE
-                     .storeInCache(controller);
+    ControllerFactory.INSTANCE.storeInCache(controller);
     controller.setCached(true);
   }
 
@@ -355,8 +350,7 @@ abstract class AbstractRouter
    */
   @Override
   public <C extends AbstractCompositeController<?, ?, ?>> void storeInCache(C compositeController) {
-    CompositeFactory.INSTANCE
-                    .storeInCache(compositeController);
+    CompositeFactory.INSTANCE.storeInCache(compositeController);
     compositeController.setCached(true);
   }
 
@@ -483,7 +477,7 @@ abstract class AbstractRouter
     // fire Router StateEvent
     RouterStateEventFactory.INSTANCE.fireStartRoutingEvent(routeResult.getRoute(),
                                                            routeResult.getParameterValues()
-                                                                               .toArray(new String[0]));
+                                                                      .toArray(new String[0]));
     // First we have to check if there is a filter
     // if there are filters ==>  filter the route
     for (IsFilter filter : this.routerConfiguration.getFilters()) {
@@ -580,6 +574,9 @@ abstract class AbstractRouter
                                                                       routeResult,
                                                                       routeConfigurations),
                                       () -> {
+                                        plugin.route(lastExecutedHash,
+                                                     false,
+                                                     false);
                                         // clear loop detection list ...
                                         loopDetectionList.clear();
                                         RouterStateEventFactory.INSTANCE.fireCancelByUserRoutingEvent(routeResult.getRoute(),
@@ -828,8 +825,7 @@ abstract class AbstractRouter
     }
     this.shell.onAttachedComponent();
     // update seo-meta-data
-    SeoDataProvider.INSTANCE
-                   .update();
+    SeoDataProvider.INSTANCE.update();
     // fire Router StateEvent
     RouterStateEventFactory.INSTANCE.fireDoneRoutingEvent(routeResult.getRoute(),
                                                           routeResult.getParameterValues()
@@ -895,200 +891,199 @@ abstract class AbstractRouter
     // add shellCreator to the viewport
     ShellConfig shellConfig = this.shellConfiguration.match(routeResult.getShell());
     if (!Objects.isNull(shellConfig)) {
-      ShellFactory.INSTANCE
-                  .shell(shellConfig.getClassName(),
-                         new ShellCallback() {
+      ShellFactory.INSTANCE.shell(shellConfig.getClassName(),
+                                  new ShellCallback() {
 
-                           @Override
-                           public void onFinish(ShellInstance shellInstance) {
-                             // in case there is an instance of an shellCreator existing, call the onDetach method inside the shellCreator
-                             if (!Objects.isNull(shell)) {
-                               detachShell();
-                             }
-                             // set new shellCreator value
-                             shell = shellInstance.getShell();
-                             // save the last added shellCreator ....
-                             lastAddedShell = routeResult.getShell();
-                             // append shell
-                             shellInstance.getShell()
-                                          .attachShell();
-                             // composites of the controller
-                             List<AbstractCompositeController<?, ?, ?>> compositeControllers = new ArrayList<>();
-                             // in case the controller is not cached, that means it is newly created, we have to deal with composites
-                             // handle composite of the controller
-                             // get a list of composites for this controller (might be empty ...
-                             List<CompositeReference> compositeForShell = getCompositeForClassName(shell.getClass()
-                                                                                                        .getCanonicalName());
-                             if (compositeForShell.size() > 0) {
-                               compositeForShell.forEach(s -> {
-                                 try {
-                                   // check for composite loader
-                                   if (CompositeConditionFactory.INSTANCE.loadComposite(shell.getClass()
-                                                                                             .getCanonicalName(),
-                                                                                        s.getComposite(),
-                                                                                        routeResult.getRoute(),
-                                                                                        routeResult.getParameterValues()
-                                                                                                   .toArray(new String[0]))) {
-                                     CompositeInstance compositeInstance = CompositeFactory.INSTANCE.getComposite(shell.getClass()
-                                                                                                                       .getCanonicalName(),
-                                                                                                                  s.getComposite(),
-                                                                                                                  s.getSelector(),
-                                                                                                                  s.isScopeGlobal(),
-                                                                                                                  routeResult.getParameterKeys(),
-                                                                                                                  routeResult.getParameterValues());
-                                     if (compositeInstance == null) {
-                                       eventBus.fireEvent(LogEvent.create()
-                                                                  .sdmOnly(true)
-                                                                  .addMessage("controller >>" +
-                                                                              shell.getClass()
-                                                                                   .getCanonicalName() +
-                                                                              "<< --> compositeController >>" +
-                                                                              s.getCompositeName() +
-                                                                              "<< not found"));
-                                     } else {
-                                       compositeControllers.add(compositeInstance.getComposite());
-                                       // inject router into composite
-                                       compositeInstance.getComposite()
-                                                        .setRouter(AbstractRouter.this);
-                                       // inject composite into controller
-                                       shell.getComposites()
-                                            .put(s.getCompositeName(),
-                                                 compositeInstance.getComposite());
-                                     }
-                                   }
-                                 } catch (RoutingInterceptionException e) {
-                                   logControllerInterceptsRouting(e.getControllerClassName(),
-                                                                  e.getRoute(),
-                                                                  e.getParameter());
-                                   route(e.getRoute(),
-                                         true,
-                                         true,
-                                         false,
-                                         e.getParameter());
-                                 }
-                               });
-                               // try to find a reference with selector check
-                               for (AbstractCompositeController<?, ?, ?> compositeController : compositeControllers) {
-                                 CompositeReference reference = null;
-                                 for (CompositeReference sfc : compositeForShell) {
-                                   if (compositeController.getClass()
-                                                          .getCanonicalName()
-                                                          .equals(sfc.getComposite())) {
-                                     if (compositeController.getSelector() != null) {
-                                       if (compositeController.getSelector()
-                                                              .equals(sfc.getSelector())) {
-                                         reference = sfc;
-                                         break;
-                                       }
-                                     }
-                                   }
-                                 }
-                                 // uiiih nothiung found ... do it again without checking selector
-                                 if (reference == null) {
-                                   // try to find a reference without selector check
-                                   for (CompositeReference sfc : compositeForShell) {
-                                     if (compositeController.getClass()
-                                                            .getCanonicalName()
-                                                            .equals(sfc.getComposite())) {
-                                       if (compositeController.getSelector() == null) {
-                                         reference = sfc;
-                                         break;
-                                       }
-                                     }
-                                   }
-                                 }
-                                 if (reference != null) {
-                                   append(reference.getSelector(),
-                                          compositeController);
-                                 }
-                               }
-                               // in case we have a cached controller, we need to look for global composites
-                               // and append them!
-                               List<CompositeReference> globalComposite = compositeForShell.stream()
-                                                                                           .filter(CompositeReference::isScopeGlobal)
-                                                                                           .collect(Collectors.toList());
-                               for (CompositeReference compositeReference : globalComposite) {
-                                 if (CompositeConditionFactory.INSTANCE.loadComposite(shell.getClass()
-                                                                                           .getCanonicalName(),
-                                                                                      compositeReference.getComposite(),
-                                                                                      routeResult.getRoute(),
-                                                                                      routeResult.getParameterValues()
-                                                                                                 .toArray(new String[0]))) {
-                                   try {
-                                     CompositeInstance compositeInstance = CompositeFactory.INSTANCE.getComposite(shell.getClass()
-                                                                                                                       .getCanonicalName(),
-                                                                                                                  compositeReference.getComposite(),
-                                                                                                                  compositeReference.getSelector(),
-                                                                                                                  true,
-                                                                                                                  routeResult.getParameterKeys(),
-                                                                                                                  routeResult.getParameterValues());
-                                     append(compositeReference.getSelector(),
-                                            compositeInstance.getComposite());
-                                   } catch (RoutingInterceptionException e) {
-                                     logControllerInterceptsRouting(e.getControllerClassName(),
-                                                                    e.getRoute(),
-                                                                    e.getParameter());
-                                     route(e.getRoute(),
-                                           true,
-                                           true,
-                                           false,
-                                           e.getParameter());
-                                     return;
-                                   }
-                                 }
-                               }
-                               //                                 }
-                             }
-                             compositeControllers.forEach(AbstractCompositeController::onAttach);
-                             compositeControllers.forEach(c -> {
-                               if (!c.isCached()) {
-                                 c.start();
-                                 // in case we are cached globally we need to set cached
-                                 // to true after the first time the
-                                 // composite is created
-                                 if (c.isCachedGlobal()) {
-                                   c.setCached(true);
-                                 }
-                               }
-                               if (!Objects.isNull(c.getActivateNaluCommand())) {
-                                 c.getActivateNaluCommand()
-                                  .execute();
-                               }
-                               c.activate();
-                             });
-                             // get shellCreator matching root configs ...
-                             List<RouteConfig> shellMatchingRouteConfigurations = routerConfiguration.match(routeResult.getShell());
-                             for (RouteConfig routeConfiguration : shellMatchingRouteConfigurations) {
-                               handleRouteConfig(routeConfiguration,
-                                                 routeResult,
-                                                 hash);
-                             }
-                             postProcessHandleRouting(hash,
-                                                      routeResult,
-                                                      routeConfigurations);
-                           }
+                                    @Override
+                                    public void onFinish(ShellInstance shellInstance) {
+                                      // in case there is an instance of an shellCreator existing, call the onDetach method inside the shellCreator
+                                      if (!Objects.isNull(shell)) {
+                                        detachShell();
+                                      }
+                                      // set new shellCreator value
+                                      shell = shellInstance.getShell();
+                                      // save the last added shellCreator ....
+                                      lastAddedShell = routeResult.getShell();
+                                      // append shell
+                                      shellInstance.getShell()
+                                                   .attachShell();
+                                      // composites of the controller
+                                      List<AbstractCompositeController<?, ?, ?>> compositeControllers = new ArrayList<>();
+                                      // in case the controller is not cached, that means it is newly created, we have to deal with composites
+                                      // handle composite of the controller
+                                      // get a list of composites for this controller (might be empty ...
+                                      List<CompositeReference> compositeForShell = getCompositeForClassName(shell.getClass()
+                                                                                                                 .getCanonicalName());
+                                      if (compositeForShell.size() > 0) {
+                                        compositeForShell.forEach(s -> {
+                                          try {
+                                            // check for composite loader
+                                            if (CompositeConditionFactory.INSTANCE.loadComposite(shell.getClass()
+                                                                                                      .getCanonicalName(),
+                                                                                                 s.getComposite(),
+                                                                                                 routeResult.getRoute(),
+                                                                                                 routeResult.getParameterValues()
+                                                                                                            .toArray(new String[0]))) {
+                                              CompositeInstance compositeInstance = CompositeFactory.INSTANCE.getComposite(shell.getClass()
+                                                                                                                                .getCanonicalName(),
+                                                                                                                           s.getComposite(),
+                                                                                                                           s.getSelector(),
+                                                                                                                           s.isScopeGlobal(),
+                                                                                                                           routeResult.getParameterKeys(),
+                                                                                                                           routeResult.getParameterValues());
+                                              if (compositeInstance == null) {
+                                                eventBus.fireEvent(LogEvent.create()
+                                                                           .sdmOnly(true)
+                                                                           .addMessage("controller >>" +
+                                                                                       shell.getClass()
+                                                                                            .getCanonicalName() +
+                                                                                       "<< --> compositeController >>" +
+                                                                                       s.getCompositeName() +
+                                                                                       "<< not found"));
+                                              } else {
+                                                compositeControllers.add(compositeInstance.getComposite());
+                                                // inject router into composite
+                                                compositeInstance.getComposite()
+                                                                 .setRouter(AbstractRouter.this);
+                                                // inject composite into controller
+                                                shell.getComposites()
+                                                     .put(s.getCompositeName(),
+                                                          compositeInstance.getComposite());
+                                              }
+                                            }
+                                          } catch (RoutingInterceptionException e) {
+                                            logControllerInterceptsRouting(e.getControllerClassName(),
+                                                                           e.getRoute(),
+                                                                           e.getParameter());
+                                            route(e.getRoute(),
+                                                  true,
+                                                  true,
+                                                  false,
+                                                  e.getParameter());
+                                          }
+                                        });
+                                        // try to find a reference with selector check
+                                        for (AbstractCompositeController<?, ?, ?> compositeController : compositeControllers) {
+                                          CompositeReference reference = null;
+                                          for (CompositeReference sfc : compositeForShell) {
+                                            if (compositeController.getClass()
+                                                                   .getCanonicalName()
+                                                                   .equals(sfc.getComposite())) {
+                                              if (compositeController.getSelector() != null) {
+                                                if (compositeController.getSelector()
+                                                                       .equals(sfc.getSelector())) {
+                                                  reference = sfc;
+                                                  break;
+                                                }
+                                              }
+                                            }
+                                          }
+                                          // uiiih nothiung found ... do it again without checking selector
+                                          if (reference == null) {
+                                            // try to find a reference without selector check
+                                            for (CompositeReference sfc : compositeForShell) {
+                                              if (compositeController.getClass()
+                                                                     .getCanonicalName()
+                                                                     .equals(sfc.getComposite())) {
+                                                if (compositeController.getSelector() == null) {
+                                                  reference = sfc;
+                                                  break;
+                                                }
+                                              }
+                                            }
+                                          }
+                                          if (reference != null) {
+                                            append(reference.getSelector(),
+                                                   compositeController);
+                                          }
+                                        }
+                                        // in case we have a cached controller, we need to look for global composites
+                                        // and append them!
+                                        List<CompositeReference> globalComposite = compositeForShell.stream()
+                                                                                                    .filter(CompositeReference::isScopeGlobal)
+                                                                                                    .collect(Collectors.toList());
+                                        for (CompositeReference compositeReference : globalComposite) {
+                                          if (CompositeConditionFactory.INSTANCE.loadComposite(shell.getClass()
+                                                                                                    .getCanonicalName(),
+                                                                                               compositeReference.getComposite(),
+                                                                                               routeResult.getRoute(),
+                                                                                               routeResult.getParameterValues()
+                                                                                                          .toArray(new String[0]))) {
+                                            try {
+                                              CompositeInstance compositeInstance = CompositeFactory.INSTANCE.getComposite(shell.getClass()
+                                                                                                                                .getCanonicalName(),
+                                                                                                                           compositeReference.getComposite(),
+                                                                                                                           compositeReference.getSelector(),
+                                                                                                                           true,
+                                                                                                                           routeResult.getParameterKeys(),
+                                                                                                                           routeResult.getParameterValues());
+                                              append(compositeReference.getSelector(),
+                                                     compositeInstance.getComposite());
+                                            } catch (RoutingInterceptionException e) {
+                                              logControllerInterceptsRouting(e.getControllerClassName(),
+                                                                             e.getRoute(),
+                                                                             e.getParameter());
+                                              route(e.getRoute(),
+                                                    true,
+                                                    true,
+                                                    false,
+                                                    e.getParameter());
+                                              return;
+                                            }
+                                          }
+                                        }
+                                        //                                 }
+                                      }
+                                      compositeControllers.forEach(AbstractCompositeController::onAttach);
+                                      compositeControllers.forEach(c -> {
+                                        if (!c.isCached()) {
+                                          c.start();
+                                          // in case we are cached globally we need to set cached
+                                          // to true after the first time the
+                                          // composite is created
+                                          if (c.isCachedGlobal()) {
+                                            c.setCached(true);
+                                          }
+                                        }
+                                        if (!Objects.isNull(c.getActivateNaluCommand())) {
+                                          c.getActivateNaluCommand()
+                                           .execute();
+                                        }
+                                        c.activate();
+                                      });
+                                      // get shellCreator matching root configs ...
+                                      List<RouteConfig> shellMatchingRouteConfigurations = routerConfiguration.match(routeResult.getShell());
+                                      for (RouteConfig routeConfiguration : shellMatchingRouteConfigurations) {
+                                        handleRouteConfig(routeConfiguration,
+                                                          routeResult,
+                                                          hash);
+                                      }
+                                      postProcessHandleRouting(hash,
+                                                               routeResult,
+                                                               routeConfigurations);
+                                    }
 
-                           private void detachShell() {
-                             shell.detachShell();
-                           }
+                                    private void detachShell() {
+                                      shell.detachShell();
+                                    }
 
-                           @Override
-                           public void onShellNotFound() {
-                             eventBus.fireEvent(NaluErrorEvent.createNaluError()
-                                                              .errorId(NaluConstants.NALU_ERROR_SHELL_NOT_FOUND)
-                                                              .message("no shell found for route: >>" +
-                                                                       shellConfig.getRoute() +
-                                                                       "<<")
-                                                              .route(shellConfig.getRoute()));
-                           }
+                                    @Override
+                                    public void onShellNotFound() {
+                                      eventBus.fireEvent(NaluErrorEvent.createNaluError()
+                                                                       .errorId(NaluConstants.NALU_ERROR_SHELL_NOT_FOUND)
+                                                                       .message("no shell found for route: >>" +
+                                                                                shellConfig.getRoute() +
+                                                                                "<<")
+                                                                       .route(shellConfig.getRoute()));
+                                    }
 
-                           @Override
-                           public void onRoutingInterceptionException(RoutingInterceptionException e) {
-                             logControllerInterceptsRouting(e.getControllerClassName(),
-                                                            e.getRoute(),
-                                                            e.getParameter());
-                           }
-                         });
+                                    @Override
+                                    public void onRoutingInterceptionException(RoutingInterceptionException e) {
+                                      logControllerInterceptsRouting(e.getControllerClassName(),
+                                                                     e.getRoute(),
+                                                                     e.getParameter());
+                                    }
+                                  });
     }
   }
 
@@ -1102,33 +1097,32 @@ abstract class AbstractRouter
   private void handleRouteConfig(RouteConfig routeConfiguration,
                                  RouteResult routeResult,
                                  String hash) {
-    ControllerFactory.INSTANCE
-                     .controller(routeConfiguration.getRoute(),
-                                 routeConfiguration.getClassName(),
-                                 new ControllerCallback() {
+    ControllerFactory.INSTANCE.controller(routeConfiguration.getRoute(),
+                                          routeConfiguration.getClassName(),
+                                          new ControllerCallback() {
 
-                                   @Override
-                                   public void onRoutingInterceptionException(RoutingInterceptionException e) {
-                                     logControllerInterceptsRouting(e.getControllerClassName(),
-                                                                    e.getRoute(),
-                                                                    e.getParameter());
-                                     route(e.getRoute(),
-                                           true,
-                                           true,
-                                           false,
-                                           e.getParameter());
-                                   }
+                                            @Override
+                                            public void onRoutingInterceptionException(RoutingInterceptionException e) {
+                                              logControllerInterceptsRouting(e.getControllerClassName(),
+                                                                             e.getRoute(),
+                                                                             e.getParameter());
+                                              route(e.getRoute(),
+                                                    true,
+                                                    true,
+                                                    false,
+                                                    e.getParameter());
+                                            }
 
-                                   @Override
-                                   public void onFinish(ControllerInstance controller) {
-                                     doRouting(hash,
-                                               routeResult,
-                                               routeConfiguration,
-                                               controller);
-                                   }
-                                 },
-                                 routeResult.getParameterKeys(),
-                                 routeResult.getParameterValues());
+                                            @Override
+                                            public void onFinish(ControllerInstance controller) {
+                                              doRouting(hash,
+                                                        routeResult,
+                                                        routeConfiguration,
+                                                        controller);
+                                            }
+                                          },
+                                          routeResult.getParameterKeys(),
+                                          routeResult.getParameterValues());
   }
 
   private void doRouting(String hash,
