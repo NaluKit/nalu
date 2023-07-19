@@ -127,7 +127,7 @@
     <plugin.version.sonatype>1.6.3</plugin.version.sonatype>
     <plugin.version.source>3.2.1</plugin.version.source>
     <plugin.version.surfire>2.22.2</plugin.version.surfire>
-    <plugin.version.flatten>1.2.2</plugin.version.flatten>
+    <plugin.version.flatten>1.5.0</plugin.version.flatten>
     <plugin.version.clean>3.1.0</plugin.version.clean>
     <plugin.version.replacer>1.5.2</plugin.version.replacer>
 
@@ -151,7 +151,7 @@
         <executions>
           <execution>
             <id>flatten</id>
-            <phase>package</phase>
+            <phase>process-resources</phase>
             <goals>
               <goal>flatten</goal>
             </goals>
