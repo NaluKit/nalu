@@ -52,6 +52,15 @@
         <role>Java Developer</role>
       </roles>
     </developer>
+    <developer>
+      <name>Philipp Kohl</name>
+      <id>philippkohl</id>
+      <email>contact@nalu-solutions.de</email>
+      <organization>Nalu Solutions GmbH</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
   </developers>
 
   <scm>
