@@ -35,6 +35,7 @@
     <module>nalu</module>
     <module>nalu-processor</module>
     <module>nalu-plugin-core-web</module>
+    <module>nalu-plugin-domino-2</module>
     <module>nalu-plugin-elemental2</module>
     <module>nalu-plugin-elemento</module>
     <module>nalu-plugin-gwt</module>
@@ -222,6 +223,7 @@
         <module>nalu</module>
         <module>nalu-processor</module>
         <module>nalu-plugin-core-web</module>
+        <module>nalu-plugin-domino-2</module>
         <module>nalu-plugin-elemental2</module>
         <module>nalu-plugin-gwt</module>
         <module>nalu-plugin-gwt-processor</module>
@@ -321,6 +323,7 @@
         <module>nalu</module>
         <module>nalu-processor</module>
         <module>nalu-plugin-core-web</module>
+        <module>nalu-plugin-domino-2</module>
         <module>nalu-plugin-elemental2</module>
         <module>nalu-plugin-gwt</module>
         <module>nalu-plugin-gwt-processor</module>
