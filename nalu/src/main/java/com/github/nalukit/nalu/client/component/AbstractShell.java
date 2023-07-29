@@ -45,9 +45,9 @@ public abstract class AbstractShell<C extends IsContext>
   }
 
   /**
-   * The map of the depending composites of the shell
+   * The map of the depending on composites of the shell
    *
-   * @return Map of depending composites
+   * @return Map of depending on composites
    */
   @Override
   public Map<String, AbstractCompositeController<?, ?, ?>> getComposites() {
