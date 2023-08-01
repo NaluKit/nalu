@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.plugin.domino.client.component;
 
 import com.github.nalukit.nalu.client.component.AbstractErrorPopUpComponent;
 import com.github.nalukit.nalu.client.component.IsErrorPopUpComponent;
+import org.dominokit.domino.ui.dialogs.DialogStyles;
 import org.dominokit.domino.ui.style.DominoCss;
 import org.dominokit.domino.ui.utils.ElementsFactory;
 
@@ -25,5 +26,6 @@ public abstract class AbstractDominoErrorPopUpComponent<C extends IsErrorPopUpCo
     extends AbstractErrorPopUpComponent<C>
     implements IsErrorPopUpComponent<C>,
                ElementsFactory,
-               DominoCss {
+               DominoCss,
+               DialogStyles {
 }
