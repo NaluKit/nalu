@@ -17,7 +17,6 @@
 package com.github.nalukit.nalu.plugin.domino.client.component;
 
 import com.github.nalukit.nalu.client.component.AbstractComponent;
-import com.github.nalukit.nalu.client.component.IsComponent;
 import org.dominokit.domino.ui.IsElement;
 import org.dominokit.domino.ui.style.DominoCss;
 import org.dominokit.domino.ui.utils.ElementsFactory;

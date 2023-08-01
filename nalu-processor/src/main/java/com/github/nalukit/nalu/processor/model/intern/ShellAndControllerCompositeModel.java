@@ -18,12 +18,11 @@ package com.github.nalukit.nalu.processor.model.intern;
 
 public class ShellAndControllerCompositeModel {
 
-  public  ClassNameModel          condition;
-  private String                  name;
-  private ClassNameModel          composite;
-  private String                  selector;
-  private boolean                 scopeGlobal;
-
+  public  ClassNameModel condition;
+  private String         name;
+  private ClassNameModel composite;
+  private String         selector;
+  private boolean        scopeGlobal;
 
   public ShellAndControllerCompositeModel() {
   }
@@ -35,12 +34,12 @@ public class ShellAndControllerCompositeModel {
                                           boolean scopeGlobal) {
     this();
 
-    this.condition     = condition;
-    this.name          = name;
-    this.composite     = composite;
-    this.selector      = selector;
-    this.scopeGlobal   = scopeGlobal;
-   }
+    this.condition   = condition;
+    this.name        = name;
+    this.composite   = composite;
+    this.selector    = selector;
+    this.scopeGlobal = scopeGlobal;
+  }
 
   public String getName() {
     return name;

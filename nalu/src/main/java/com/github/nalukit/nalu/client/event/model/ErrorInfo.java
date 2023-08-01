@@ -15,9 +15,9 @@ public class ErrorInfo {
   /* route of error (optional) */
   private String              route;
   /* error message */
-  private String              message;
+  private       String              message;
   /* additional data */
-  private Map<String, String> dataStore;
+  private final Map<String, String> dataStore;
 
   public ErrorInfo() {
     this.dataStore = new HashMap<>();
@@ -114,7 +114,7 @@ public class ErrorInfo {
    */
   public enum ErrorType {
     NALU_INTERNAL_ERROR,
-    APPLICATION_ERROR;
+    APPLICATION_ERROR
   }
 
 }

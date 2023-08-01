@@ -20,9 +20,9 @@ package com.github.nalukit.nalu.client.exception;
 public class RoutingInterceptionException
     extends Exception {
 
-  private String   controllerClassName;
-  private String   route;
-  private String[] parameter;
+  private final String controllerClassName;
+  private final String route;
+  private final String[] parameter;
 
   /**
    * create a RoutingInterceptionException

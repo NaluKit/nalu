@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class ShellGenerator {
 
-  private MetaModel metaModel;
+  private MetaModel            metaModel;
   private TypeSpec.Builder     typeSpec;
   private Map<String, Integer> variableCounterMap;
 
@@ -97,70 +97,70 @@ public class ShellGenerator {
                                                                              ProcessorConstants.CREATOR_IMPL));
 
                     if (shellModel.getComposites()
-                                       .size() > 0) {
+                                  .size() > 0) {
                       List<String> generatedConditionClassNames = new ArrayList<>();
                       shellModel.getComposites()
-                                     .forEach(controllerCompositeModel -> {
-                                       if (AlwaysLoadComposite.class.getSimpleName()
-                                                                    .equals(controllerCompositeModel.getCondition()
-                                                                                                    .getSimpleName())) {
-                                         loadShellFactoryMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, super.alwaysLoadComposite)",
-                                                                                    ClassName.get(CompositeConditionFactory.class),
-                                                                                    shellModel.getShell()
-                                                                                              .getPackage() +
-                                                                                    "." +
-                                                                                    shellModel.getShell()
-                                                                                              .getSimpleName(),
-                                                                                    controllerCompositeModel.getComposite()
-                                                                                                            .getPackage() +
-                                                                                    "." +
-                                                                                    controllerCompositeModel.getComposite()
-                                                                                                          .getSimpleName());
-                                       } else {
-                                         String conditionVariableName;
-                                         if (generatedConditionClassNames.contains(controllerCompositeModel.getCondition()
-                                                                                                           .getClassName())) {
-                                           conditionVariableName = this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
-                                                                                                                             .getSimpleName()) +
-                                                                   this.getNameWithVariableCount(controllerCompositeModel.getCondition(),
-                                                                                                 false);
-                                         } else {
-                                           conditionVariableName = this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
-                                                                                                                             .getSimpleName()) +
-                                                                   this.getNameWithVariableCount(controllerCompositeModel.getCondition(),
-                                                                                                 true);
+                                .forEach(controllerCompositeModel -> {
+                                  if (AlwaysLoadComposite.class.getSimpleName()
+                                                               .equals(controllerCompositeModel.getCondition()
+                                                                                               .getSimpleName())) {
+                                    loadShellFactoryMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, super.alwaysLoadComposite)",
+                                                                               ClassName.get(CompositeConditionFactory.class),
+                                                                               shellModel.getShell()
+                                                                                         .getPackage() +
+                                                                               "." +
+                                                                               shellModel.getShell()
+                                                                                         .getSimpleName(),
+                                                                               controllerCompositeModel.getComposite()
+                                                                                                       .getPackage() +
+                                                                               "." +
+                                                                               controllerCompositeModel.getComposite()
+                                                                                                       .getSimpleName());
+                                  } else {
+                                    String conditionVariableName;
+                                    if (generatedConditionClassNames.contains(controllerCompositeModel.getCondition()
+                                                                                                      .getClassName())) {
+                                      conditionVariableName = this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
+                                                                                                                        .getSimpleName()) +
+                                                              this.getNameWithVariableCount(controllerCompositeModel.getCondition(),
+                                                                                            false);
+                                    } else {
+                                      conditionVariableName = this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
+                                                                                                                        .getSimpleName()) +
+                                                              this.getNameWithVariableCount(controllerCompositeModel.getCondition(),
+                                                                                            true);
 
-                                           loadShellFactoryMethodBuilder.addStatement("$T $L = new $T()",
-                                                                                    ClassName.get(controllerCompositeModel.getCondition()
-                                                                                                                          .getPackage(),
-                                                                                                  controllerCompositeModel.getCondition()
-                                                                                                                          .getSimpleName()),
-                                                                                    conditionVariableName,
-                                                                                    ClassName.get(controllerCompositeModel.getCondition()
-                                                                                                                          .getPackage(),
-                                                                                                  controllerCompositeModel.getCondition()
-                                                                                                                          .getSimpleName()))
-                                                                      .addStatement("$L.setContext(super.context)",
-                                                                                    conditionVariableName);
-                                           // remember generated condition to avoid creating the same class again!
-                                           generatedConditionClassNames.add(controllerCompositeModel.getCondition()
-                                                                                                    .getClassName());
-                                         }
-                                         loadShellFactoryMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, $L)",
-                                                                                    ClassName.get(CompositeConditionFactory.class),
-                                                                                    shellModel.getShell()
-                                                                                              .getPackage() +
-                                                                                    "." +
-                                                                                    shellModel.getShell()
-                                                                                              .getSimpleName(),
-                                                                                    controllerCompositeModel.getComposite()
-                                                                                                            .getPackage() +
-                                                                                    "." +
-                                                                                    controllerCompositeModel.getComposite()
-                                                                                                          .getSimpleName(),
-                                                                                    conditionVariableName);
-                                       }
-                                     });
+                                      loadShellFactoryMethodBuilder.addStatement("$T $L = new $T()",
+                                                                                 ClassName.get(controllerCompositeModel.getCondition()
+                                                                                                                       .getPackage(),
+                                                                                               controllerCompositeModel.getCondition()
+                                                                                                                       .getSimpleName()),
+                                                                                 conditionVariableName,
+                                                                                 ClassName.get(controllerCompositeModel.getCondition()
+                                                                                                                       .getPackage(),
+                                                                                               controllerCompositeModel.getCondition()
+                                                                                                                       .getSimpleName()))
+                                                                   .addStatement("$L.setContext(super.context)",
+                                                                                 conditionVariableName);
+                                      // remember generated condition to avoid creating the same class again!
+                                      generatedConditionClassNames.add(controllerCompositeModel.getCondition()
+                                                                                               .getClassName());
+                                    }
+                                    loadShellFactoryMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, $L)",
+                                                                               ClassName.get(CompositeConditionFactory.class),
+                                                                               shellModel.getShell()
+                                                                                         .getPackage() +
+                                                                               "." +
+                                                                               shellModel.getShell()
+                                                                                         .getSimpleName(),
+                                                                               controllerCompositeModel.getComposite()
+                                                                                                       .getPackage() +
+                                                                               "." +
+                                                                               controllerCompositeModel.getComposite()
+                                                                                                       .getSimpleName(),
+                                                                               conditionVariableName);
+                                  }
+                                });
                     }
                   });
     typeSpec.addMethod(loadShellFactoryMethodBuilder.build());

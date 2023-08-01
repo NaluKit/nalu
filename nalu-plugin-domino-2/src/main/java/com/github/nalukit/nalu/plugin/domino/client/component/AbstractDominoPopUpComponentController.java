@@ -16,17 +16,8 @@
 
 package com.github.nalukit.nalu.plugin.domino.client.component;
 
-import com.github.nalukit.nalu.client.component.AbstractController;
 import com.github.nalukit.nalu.client.component.AbstractPopUpComponentController;
-import com.github.nalukit.nalu.client.component.IsComponent;
-import com.github.nalukit.nalu.client.component.IsPopUpComponent;
-import com.github.nalukit.nalu.client.component.IsPopUpController;
-import com.github.nalukit.nalu.client.component.event.ShowPopUpEvent;
 import com.github.nalukit.nalu.client.context.IsContext;
-import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public abstract class AbstractDominoPopUpComponentController<C extends IsContext, V extends IsDominoPopUpComponent<?>>
     extends AbstractPopUpComponentController<C, V>

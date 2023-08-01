@@ -87,7 +87,7 @@ public @interface Composite {
    */
   enum Scope {
     LOCAL,
-    GLOBAL;
+    GLOBAL
   }
 
 }

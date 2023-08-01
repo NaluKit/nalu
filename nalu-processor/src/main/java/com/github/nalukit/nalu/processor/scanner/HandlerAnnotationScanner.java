@@ -27,15 +27,15 @@ import javax.lang.model.element.Element;
 
 public class HandlerAnnotationScanner {
 
-  private ProcessingEnvironment processingEnvironment;
+  private final ProcessingEnvironment processingEnvironment;
 
-  private Element handlerElement;
+  private final Element handlerElement;
 
   @SuppressWarnings("unused")
   private HandlerAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.handlerElement = builder.handlerElement;
+    this.handlerElement        = builder.handlerElement;
     setUp();
   }
 
@@ -51,10 +51,10 @@ public class HandlerAnnotationScanner {
     HandlerModel handlerModel = new HandlerModel(new ClassNameModel(handlerElement.toString()));
 
     EventHandlerAnnotationScanner.EventMetaData eventMetaData = EventHandlerAnnotationScanner.builder()
-                                                                             .processingEnvironment(this.processingEnvironment)
-                                                                             .parentElement(this.handlerElement)
-                                                                             .build()
-                                                                             .scan();
+                                                                                             .processingEnvironment(this.processingEnvironment)
+                                                                                             .parentElement(this.handlerElement)
+                                                                                             .build()
+                                                                                             .scan();
 
     handlerModel.setEventModels(eventMetaData.getEventModels());
     handlerModel.setEventHandlers(eventMetaData.getEventHandlerModels());

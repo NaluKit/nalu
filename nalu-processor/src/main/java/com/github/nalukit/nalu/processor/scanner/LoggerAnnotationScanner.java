@@ -31,11 +31,11 @@ import static java.util.Objects.isNull;
 
 public class LoggerAnnotationScanner {
 
-  private ProcessingEnvironment processingEnvironment;
+  private final ProcessingEnvironment processingEnvironment;
 
-  private Element loggerElement;
+  private final Element loggerElement;
 
-  private MetaModel metaModel;
+  private final MetaModel metaModel;
 
   @SuppressWarnings("unused")
   private LoggerAnnotationScanner(Builder builder) {

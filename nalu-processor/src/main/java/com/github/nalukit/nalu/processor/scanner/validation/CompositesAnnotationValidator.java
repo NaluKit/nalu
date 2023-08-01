@@ -72,7 +72,9 @@ public class CompositesAnnotationValidator {
                                                      this.processingEnvironment.getElementUtils()
                                                                                .getTypeElement(IsShell.class.getCanonicalName())
                                                                                .asType())) {
-      throw new ProcessorException("Nalu-Processor: -> >>" + element.toString() + "<< - @Composites can only be used on a class that extends IsController or IsShell");
+      throw new ProcessorException("Nalu-Processor: -> >>" +
+                                   element.toString() +
+                                   "<< - @Composites can only be used on a class that extends IsController or IsShell");
     }
   }
 

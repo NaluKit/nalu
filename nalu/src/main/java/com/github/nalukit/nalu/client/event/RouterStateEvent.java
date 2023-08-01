@@ -7,9 +7,9 @@ public class RouterStateEvent
 
   public static final Type<RouterStateEvent.RouterStateHandler> TYPE = new Type<>();
 
-  private RouterState state;
-  private String      route;
-  private String[]    params;
+  private final RouterState state;
+  private final String      route;
+  private final String[]    params;
 
   public RouterStateEvent(RouterState state,
                           String route,
@@ -46,7 +46,7 @@ public class RouterStateEvent
     START_ROUTING,
     ROUTING_ABORTED,
     ROUTING_CANCELED_BY_USER,
-    ROUTING_DONE;
+    ROUTING_DONE
   }
 
 

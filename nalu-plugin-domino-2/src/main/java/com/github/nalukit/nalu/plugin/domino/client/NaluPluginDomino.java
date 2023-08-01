@@ -26,7 +26,6 @@ import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import elemental2.core.Global;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLMetaElement;
 import elemental2.dom.NodeList;
 import org.dominokit.domino.ui.IsElement;

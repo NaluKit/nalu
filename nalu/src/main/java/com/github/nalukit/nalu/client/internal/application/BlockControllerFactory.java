@@ -37,9 +37,9 @@ public class BlockControllerFactory {
   /* map of components (key: name of class, Value: controller instance */
   private final       Map<String, BlockControllerInstance> blockControllerInstanceStore;
   /* list of visibles blocks (using block name) */
-  private final  List<String>                         visiblesBlocks;
+  private final       List<String>                         visiblesBlocks;
   /* Nalu event bus to catch the RouteState-Event */
-  private        EventBus                             eventBus;
+  private             EventBus                             eventBus;
 
   private BlockControllerFactory() {
     this.blockControllerInstanceStore = new HashMap<>();

@@ -31,9 +31,9 @@ import java.util.stream.Collectors;
 
 public class PopUpFiltersAnnotationScanner {
 
-  private ProcessingEnvironment processingEnvironment;
+  private final ProcessingEnvironment processingEnvironment;
 
-  private TypeElement filtersElement;
+  private final TypeElement filtersElement;
 
   @SuppressWarnings("unused")
   private PopUpFiltersAnnotationScanner(Builder builder) {
@@ -70,18 +70,18 @@ public class PopUpFiltersAnnotationScanner {
                                                                            .entrySet()
                                                                            .stream())
                               .findFirst()
-                              .<List<String>>map(entry -> Arrays.stream(entry.getValue()
-                                                                             .toString()
-                                                                             .replace("{",
+                              .map(entry -> Arrays.stream(entry.getValue()
+                                                               .toString()
+                                                               .replace("{",
                                                                                       "")
-                                                                             .replace("}",
+                                                               .replace("}",
                                                                                       "")
-                                                                             .replace(" ",
+                                                               .replace(" ",
                                                                                       "")
-                                                                             .split(","))
-                                                                .map((v) -> v.substring(0,
+                                                               .split(","))
+                                                  .map((v) -> v.substring(0,
                                                                                         v.indexOf(".class")))
-                                                                .collect(Collectors.toList()))
+                                                  .collect(Collectors.toList()))
                               .orElse(null);
   }
 

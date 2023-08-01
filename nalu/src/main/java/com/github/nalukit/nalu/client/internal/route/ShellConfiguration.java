@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ShellConfiguration {
 
-  private List<ShellConfig> shells;
+  private final List<ShellConfig> shells;
 
   public ShellConfiguration() {
     super();

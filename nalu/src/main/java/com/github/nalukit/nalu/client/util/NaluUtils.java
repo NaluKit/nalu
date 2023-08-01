@@ -30,10 +30,8 @@ public class NaluUtils {
    */
   public boolean compareRoutes(String route01,
                                String route02) {
-    String convertedRoute01 = NaluUtils.INSTANCE
-                                       .convertRoute(route01);
-    String convertedRoute02 = NaluUtils.INSTANCE
-                                       .convertRoute(route02);
+    String convertedRoute01 = NaluUtils.INSTANCE.convertRoute(route01);
+    String convertedRoute02 = NaluUtils.INSTANCE.convertRoute(route02);
     return convertedRoute01.equals(convertedRoute02);
   }
 

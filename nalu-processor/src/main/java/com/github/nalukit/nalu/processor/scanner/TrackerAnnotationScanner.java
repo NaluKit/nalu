@@ -32,9 +32,9 @@ import static java.util.Objects.isNull;
 
 public class TrackerAnnotationScanner {
 
-  private ProcessingEnvironment processingEnvironment;
+  private final ProcessingEnvironment processingEnvironment;
 
-  private Element trackerElement;
+  private final Element trackerElement;
 
   @SuppressWarnings("unused")
   private TrackerAnnotationScanner(Builder builder) {

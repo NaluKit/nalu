@@ -18,9 +18,9 @@ package com.github.nalukit.nalu.processor.model.intern;
 
 public class ParameterAcceptorModel {
 
-  private String                   parameterName;
-  private String                   methodName;
-  private ParameterConstraintModel parameterConstrait;
+  private final String parameterName;
+  private final String methodName;
+  private final ParameterConstraintModel parameterConstrait;
 
   public ParameterAcceptorModel(String parameterName,
                                 String methodName,
