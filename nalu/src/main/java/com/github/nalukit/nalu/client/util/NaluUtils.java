@@ -77,33 +77,21 @@ public class NaluUtils {
    * @param route route to clean
    * @return cleaned route
    */
-//  public String cleanRoute(String route) {
-//    if (PropertyFactory.INSTANCE.isUsingHash()) {
-//
-//    }
-//    if (Objects.isNull(route)) {
-//      return "";
-//    }
-//    if
-//    if ("/".equals(route)) {
-//      return route;
-//    }
-//    String[]      splits   = route.split("/");
-//    StringBuilder newRoute = new StringBuilder();
-//    for (int i = 1; i < splits.length; i++) {
-//      String s = splits[i];
-//      if (!Objects.isNull(s)) {
-//        if ("*".equals(s) || (s.startsWith("{") && s.endsWith("}"))) {
-//          newRoute.append("/*");
-//        } else if (s.startsWith(":") || (s.startsWith("{") && s.endsWith("}"))) {
-//          newRoute.append("/*");
-//        } else {
-//          newRoute.append("/")
-//                  .append(s);
-//        }
-//      }
-//    }
-//    return newRoute.toString();
-//  }
+  public String cleanRoute(String route) {
+    if (PropertyFactory.INSTANCE.isUsingHash()) {
+      return route;
+    }
+    if (Objects.isNull(route)) {
+      return "";
+    }
+    String cleanedRoute = route;
+    int    positionHash = route.indexOf("#");
+    //    int positionQuestionMark = route.indexOf("?");
+    if (positionHash > -1) {
+      cleanedRoute = route.substring(0,
+                                     positionHash);
+    }
+    return cleanedRoute;
+  }
 
 }
