@@ -136,14 +136,14 @@ public class NaluPluginCoreWeb {
     // in case we need to remove the parameter, update history ...
     if (PropertyFactory.get()
                        .isRemoveUrlParameterAtStart()) {
-      if (queryParameters.size() > 0) {
+      if (!queryParameters.isEmpty()) {
         String href = location.href;
         String newUrl;
         if (href.contains("?")) {
           newUrl = href.substring(0,
                                   href.indexOf("?"));
           if (startRoute != null) {
-            if (startRoute.length() > 0) {
+            if (!startRoute.isEmpty()) {
               newUrl = newUrl + "#" + startRoute;
             }
           }
@@ -183,7 +183,7 @@ public class NaluPluginCoreWeb {
         newUrl = (String) event.state;
         if (Objects.isNull(newUrl) ||
             newUrl.trim()
-                  .length() == 0) {
+                  .isEmpty()) {
           newUrl = PropertyFactory.get()
                                   .getStartRoute();
         }
@@ -212,7 +212,7 @@ public class NaluPluginCoreWeb {
       newUrl = newUrl.substring(1);
     }
     if (newUrl.trim()
-              .length() == 0) {
+              .isEmpty()) {
       // In case we have an empty newUrl, we have moved back to the start page ==> use startRoute!
       NaluPluginCoreWeb.route(PropertyFactory.get()
                                              .getStartRoute(),
@@ -235,9 +235,9 @@ public class NaluPluginCoreWeb {
       newRouteToken = newRoute.startsWith("#") ? newRoute : "#" + newRoute;
     } else {
       newRouteToken = "/";
-      if (PropertyFactory.get()
-                         .getContextPath()
-                         .length() > 0) {
+      if (!PropertyFactory.get()
+                          .getContextPath()
+                          .isEmpty()) {
         newRouteToken = newRouteToken +
                         PropertyFactory.get()
                                        .getContextPath() +
