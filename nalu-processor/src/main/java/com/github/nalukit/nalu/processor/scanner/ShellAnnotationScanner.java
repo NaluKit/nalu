@@ -40,9 +40,9 @@ public class ShellAnnotationScanner {
 
   private ProcessorUtils processorUtils;
 
-  private ProcessingEnvironment processingEnvironment;
+  private final ProcessingEnvironment processingEnvironment;
 
-  private Element shellElement;
+  private final Element shellElement;
 
   @SuppressWarnings("unused")
   private ShellAnnotationScanner(Builder builder) {

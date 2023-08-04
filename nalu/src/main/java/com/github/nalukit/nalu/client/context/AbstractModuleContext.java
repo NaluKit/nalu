@@ -18,9 +18,9 @@ public abstract class AbstractModuleContext
   private final static String APPLICATION_VERSION    = "APPLICATION_VERSION";
 
   /* context - available in main- and sub-modules */
-  private ContextDataStore applicationContext;
+  private       ContextDataStore applicationContext;
   /* context - not manged by Nalu */
-  private ContextDataStore context;
+  private final ContextDataStore context;
 
   public AbstractModuleContext() {
     this.applicationContext = new ContextDataStore();

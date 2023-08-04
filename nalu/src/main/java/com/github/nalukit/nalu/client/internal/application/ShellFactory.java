@@ -29,7 +29,7 @@ public class ShellFactory {
   public final static ShellFactory INSTANCE = new ShellFactory();
 
   /* map of components (key: name of class, Value: ShellCreator */
-  private Map<String, IsShellCreator> shellFactory;
+  private final Map<String, IsShellCreator> shellFactory;
 
   private ShellFactory() {
     this.shellFactory = new HashMap<>();

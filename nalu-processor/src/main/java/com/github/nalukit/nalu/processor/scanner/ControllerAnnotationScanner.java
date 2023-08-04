@@ -109,8 +109,7 @@ public class ControllerAnnotationScanner {
       ClassNameModel compareValue = new ClassNameModel(componentTypeTypeMirror.toString());
       if (!metaModel.getComponentType()
                     .equals(compareValue)) {
-        throw new ProcessorException("Nalu-Processor: componentType of >>" +
-                                     componentTypeElement.toString() +
+        throw new ProcessorException("Nalu-Processor: componentType of >>" + componentTypeElement +
                                      "<< is different (>>" +
                                      metaModel.getComponentType()
                                               .getClassName() +
@@ -444,14 +443,13 @@ public class ControllerAnnotationScanner {
           result.add(s.substring(1,
                                  s.length() - 1));
         } else {
-          StringBuilder sb = new StringBuilder();
-          sb.append("Nalu-Processor: controller >>")
-            .append(this.controllerElement.getEnclosingElement()
-                                          .toString())
-            .append("<<  - parameter has illegal definition (missing '}' at the end of the parameter) >>")
-            .append(s)
-            .append("<<");
-          throw new ProcessorException(sb.toString());
+          String sb = "Nalu-Processor: controller >>" +
+                      this.controllerElement.getEnclosingElement()
+                                            .toString() +
+                      "<<  - parameter has illegal definition (missing '}' at the end of the parameter) >>" +
+                      s +
+                      "<<";
+          throw new ProcessorException(sb);
         }
       }
     }

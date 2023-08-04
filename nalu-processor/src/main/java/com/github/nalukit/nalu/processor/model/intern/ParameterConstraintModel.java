@@ -18,8 +18,8 @@ package com.github.nalukit.nalu.processor.model.intern;
 
 public class ParameterConstraintModel {
 
-  private String key;
-  private String illegalParameterRoute;
+  private final String key;
+  private final String illegalParameterRoute;
 
   public ParameterConstraintModel(String key,
                                   String illegalParameterRoute) {

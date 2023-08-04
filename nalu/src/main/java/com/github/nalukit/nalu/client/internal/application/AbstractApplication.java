@@ -52,27 +52,27 @@ public abstract class AbstractApplication<C extends IsContext>
     implements IsApplication {
 
   /* start route */
-  protected String                             startRoute;
+  protected String                   startRoute;
   /* illegat route target */
-  protected String                             illegalRouteTarget;
+  protected String                   illegalRouteTarget;
   /* Shell */
-  protected IsShell                            shell;
+  protected IsShell                  shell;
   /* Shell Configuration */
-  protected ShellConfiguration                 shellConfiguration;
+  protected ShellConfiguration       shellConfiguration;
   /* Router Configuration */
-  protected RouterConfiguration                routerConfiguration;
+  protected RouterConfiguration      routerConfiguration;
   /* Router */
-  protected IsConfigurableRouter               router;
+  protected IsConfigurableRouter     router;
   /* application context */
-  protected C                                  context;
+  protected C                        context;
   /* the event bus of the application */
-  protected SimpleEventBus                     eventBus;
+  protected SimpleEventBus           eventBus;
   /* plugin */
-  protected IsNaluProcessorPlugin              plugin;
+  protected IsNaluProcessorPlugin    plugin;
   /* Tracker instance */
-  protected IsTracker                          tracker;
+  protected IsTracker                tracker;
   /* instance of AlwaysLoadComposite-class */
-  protected AlwaysLoadComposite                alwaysLoadComposite;
+  protected AlwaysLoadComposite      alwaysLoadComposite;
   /* instance of AlwaysShowPopUp-class */
   protected AlwaysShowPopUp          alwaysShowPopUp;
   /* List of CompositeControllerReferences */
@@ -80,7 +80,7 @@ public abstract class AbstractApplication<C extends IsContext>
   /* Nalu Logger instance */
   protected NaluLogger<C>            naluLogger;
   /* The call counter */
-  protected int                                callCounter;
+  protected int                      callCounter;
 
   public AbstractApplication() {
     super();
@@ -122,8 +122,7 @@ public abstract class AbstractApplication<C extends IsContext>
     // load illegal route target
     this.loadIllegalRouteTarget();
     // Register plugin
-    SeoDataProvider.INSTANCE
-                   .register(this.plugin);
+    SeoDataProvider.INSTANCE.register(this.plugin);
     // load everything you need to start
     this.loadShells();
     this.loadRoutes();
@@ -132,11 +131,9 @@ public abstract class AbstractApplication<C extends IsContext>
     // load optional tracker
     this.tracker = this.loadTrackerConfiguration();
     // initialize block factory
-    BlockControllerFactory.INSTANCE
-                          .register(this.eventBus);
+    BlockControllerFactory.INSTANCE.register(this.eventBus);
     // initialize popup factory
-    PopUpControllerFactory.INSTANCE
-                          .register(this.eventBus);
+    PopUpControllerFactory.INSTANCE.register(this.eventBus);
     // create router ...
     this.router = new RouterImpl(this.plugin,
                                  this.shellConfiguration,

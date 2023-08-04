@@ -39,9 +39,9 @@ public abstract class AbstractCompositeController<C extends IsContext, V extends
   /* flag, if the controller is cached or not */
   private   boolean              cached;
   /* flag, if the controller is cached or not in Scope GLOBAL! */
-  private boolean     cachedGlobal;
+  private   boolean              cachedGlobal;
   /* internal Nalu request. Don't use this */
-  private NaluCommand activateNaluCommand;
+  private   NaluCommand          activateNaluCommand;
 
   public AbstractCompositeController() {
     super();

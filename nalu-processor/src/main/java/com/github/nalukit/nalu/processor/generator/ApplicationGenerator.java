@@ -46,7 +46,7 @@ public class ApplicationGenerator {
 
   private ProcessorUtils processorUtils;
 
-  private ProcessingEnvironment processingEnvironment;
+  private final ProcessingEnvironment processingEnvironment;
 
   @SuppressWarnings("unused")
   private ApplicationGenerator(Builder builder) {

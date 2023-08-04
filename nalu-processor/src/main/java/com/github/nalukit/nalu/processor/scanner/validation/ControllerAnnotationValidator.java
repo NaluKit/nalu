@@ -120,8 +120,7 @@ public class ControllerAnnotationValidator {
             if (parameters.size() != 1) {
               throw new ProcessorException("Nalu-Processor: controller >>" +
                                            controllerElement.toString() +
-                                           "<< - @AcceptParameter annotated on >>" +
-                                           executableType.toString() +
+                                           "<< - @AcceptParameter annotated on >>" + executableType +
                                            "<< need one parameter of type String");
             }
             if (!String.class.getCanonicalName()
@@ -129,8 +128,7 @@ public class ControllerAnnotationValidator {
                                                .toString())) {
               throw new ProcessorException("Nalu-Processor: controller >>" +
                                            controllerElement.toString() +
-                                           "<< - @AcceptParameter on >>" +
-                                           element.toString() +
+                                           "<< - @AcceptParameter on >>" + element +
                                            "<< parameter has the wrong type -> must be a String");
             }
           }
@@ -318,7 +316,7 @@ public class ControllerAnnotationValidator {
 
   private List<String> getParametersFromRoute(String route)
       throws ProcessorException {
-    List<String> list   = Arrays.asList(route.split("/"));
+    String[]     list   = route.split("/");
     List<String> result = new ArrayList<>();
     for (String s : list) {
       if (s.startsWith(":")) {
@@ -330,14 +328,13 @@ public class ControllerAnnotationValidator {
           result.add(s.substring(1,
                                  s.length() - 1));
         } else {
-          StringBuilder sb = new StringBuilder();
-          sb.append("Nalu-Processor: controller >>")
-            .append(this.controllerElement.getEnclosingElement()
-                                          .toString())
-            .append("<<  - parameter has illegal definition (missing '}' at the end of the parameter) >>")
-            .append(s)
-            .append("<<");
-          throw new ProcessorException(sb.toString());
+          String sb = "Nalu-Processor: controller >>" +
+                      this.controllerElement.getEnclosingElement()
+                                            .toString() +
+                      "<<  - parameter has illegal definition (missing '}' at the end of the parameter) >>" +
+                      s +
+                      "<<";
+          throw new ProcessorException(sb);
         }
       }
     }

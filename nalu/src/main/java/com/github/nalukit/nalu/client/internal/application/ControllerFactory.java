@@ -29,11 +29,11 @@ import java.util.Map;
 public class ControllerFactory {
 
   /* instance of the controller factory */
-  public final static ControllerFactory                            INSTANCE = new ControllerFactory();
+  public final static ControllerFactory                                 INSTANCE = new ControllerFactory();
   /* map of components (key: name of class, Value: ControllerCreator */
-  private final       Map<String, IsControllerCreator>             controllerFactory;
+  private final       Map<String, IsControllerCreator>                  controllerFactory;
   /* map of stored components (key: name of class, Value: instance of controller */
-  private final  Map<String, AbstractComponentController<?, ?, ?>> controllerStore;
+  private final       Map<String, AbstractComponentController<?, ?, ?>> controllerStore;
 
   private ControllerFactory() {
     this.controllerFactory = new HashMap<>();

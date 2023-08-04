@@ -17,7 +17,7 @@
 package com.github.nalukit.nalu.plugin.domino.client.component;
 
 import com.github.nalukit.nalu.client.component.AbstractPopUpComponent;
-import com.github.nalukit.nalu.client.component.IsPopUpComponent;
+import org.dominokit.domino.ui.dialogs.DialogStyles;
 import org.dominokit.domino.ui.style.DominoCss;
 import org.dominokit.domino.ui.utils.ElementsFactory;
 
@@ -25,6 +25,7 @@ public abstract class AbstractDominoPopUpComponent<C extends IsDominoPopUpCompon
     extends AbstractPopUpComponent<C>
     implements IsDominoPopUpComponent<C>,
                ElementsFactory,
-               DominoCss {
+               DominoCss,
+               DialogStyles {
 
 }

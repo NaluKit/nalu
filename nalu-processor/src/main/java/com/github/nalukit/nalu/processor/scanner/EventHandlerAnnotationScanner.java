@@ -44,13 +44,10 @@ import java.util.Optional;
 
 public class EventHandlerAnnotationScanner {
 
-  private ProcessorUtils processorUtils;
-
   private final ProcessingEnvironment processingEnvironment;
-
   private final MetaModel metaModel;
-
   private final Element parentElement;
+  private ProcessorUtils processorUtils;
 
   @SuppressWarnings("unused")
   private EventHandlerAnnotationScanner(Builder builder) {
@@ -298,8 +295,8 @@ public class EventHandlerAnnotationScanner {
 
   public class EventMetaData {
 
-    private List<EventHandlerModel> eventHandlerModels;
-    private List<EventModel>        eventModels;
+    private final List<EventHandlerModel> eventHandlerModels;
+    private final List<EventModel>        eventModels;
 
     public EventMetaData() {
       this.eventHandlerModels = new ArrayList<>();

@@ -32,11 +32,11 @@ import java.util.Objects;
 
 public class ControllerCompositesAnnotationScanner {
 
-  private ProcessingEnvironment processingEnvironment;
+  private final ProcessingEnvironment processingEnvironment;
 
-  private ControllerModel controllerModel;
+  private final ControllerModel controllerModel;
 
-  private Element controllerElement;
+  private final Element controllerElement;
 
   @SuppressWarnings("unused")
   private ControllerCompositesAnnotationScanner(Builder builder) {
@@ -62,11 +62,11 @@ public class ControllerCompositesAnnotationScanner {
         controllerModel.getComposites()
                        .add(new ShellAndControllerCompositeModel(composite.name(),
                                                                  new ClassNameModel(Objects.requireNonNull(getCompositeTypeElement(composite))
-                                                                                   .toString()),
+                                                                                           .toString()),
                                                                  composite.selector(),
                                                                  new ClassNameModel(Objects.requireNonNull(getCompositeConditionElement(composite))
-                                                                                   .toString()),
-                                                         Scope.GLOBAL == composite.scope()));
+                                                                                           .toString()),
+                                                                 Scope.GLOBAL == composite.scope()));
       }
     }
     return this.controllerModel;

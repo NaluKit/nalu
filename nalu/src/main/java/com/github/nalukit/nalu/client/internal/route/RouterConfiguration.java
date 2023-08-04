@@ -24,9 +24,9 @@ import java.util.stream.Collectors;
 
 public class RouterConfiguration {
 
-  private List<RouteConfig> routers;
+  private final List<RouteConfig> routers;
 
-  private List<IsFilter> filters;
+  private final List<IsFilter> filters;
 
   public RouterConfiguration() {
     super();

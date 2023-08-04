@@ -21,9 +21,9 @@ import com.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 @NaluInternalUse
 public class EventModel {
 
-  private ClassNameModel event;
-  private ClassNameModel eventHandlerOfEvent;
-  private String         methodNameOfHandler;
+  private final ClassNameModel event;
+  private final ClassNameModel eventHandlerOfEvent;
+  private final String         methodNameOfHandler;
 
   public EventModel(ClassNameModel event,
                     ClassNameModel eventHandlerOfEvent,

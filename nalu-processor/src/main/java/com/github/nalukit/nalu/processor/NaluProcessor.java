@@ -195,7 +195,7 @@ public class NaluProcessor
                                                 .equals(annotation.toString())) {
               handleCompositeControllerAnnotation(roundEnv);
             } else if (Composites.class.getCanonicalName()
-                                                .equals(annotation.toString())) {
+                                       .equals(annotation.toString())) {
               handleCompositesAnnotation(roundEnv);
             } else if (Controller.class.getCanonicalName()
                                        .equals(annotation.toString())) {

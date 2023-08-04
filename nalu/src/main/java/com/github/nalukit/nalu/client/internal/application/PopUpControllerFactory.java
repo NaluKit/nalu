@@ -38,11 +38,11 @@ public class PopUpControllerFactory {
   /* map of components (key: name of class, Value: ControllerCreator */
   private final       Map<String, IsPopUpControllerCreator> creatorStore;
   /* map of components (key: name of class, Value: controller instance */
-  private final  Map<String, PopUpControllerInstance>  popUpControllerStore;
+  private final       Map<String, PopUpControllerInstance>  popUpControllerStore;
   /* map of filters (key: name of class, Value: filter instance */
-  private final  Map<String, AbstractPopUpFilter<?>>   popUpFilterStore;
+  private final       Map<String, AbstractPopUpFilter<?>>   popUpFilterStore;
   /* Nalu event bus to catch the ShowPopUpEvents */
-  private        EventBus                              eventBus;
+  private             EventBus                              eventBus;
 
   private PopUpControllerFactory() {
     this.creatorStore         = new HashMap<>();

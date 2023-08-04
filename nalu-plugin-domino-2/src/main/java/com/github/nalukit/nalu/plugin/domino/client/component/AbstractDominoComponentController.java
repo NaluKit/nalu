@@ -22,5 +22,5 @@ import org.dominokit.domino.ui.IsElement;
 
 public abstract class AbstractDominoComponentController<C extends IsContext, V extends IsDominoComponent<?>>
     extends AbstractComponentController<C, V, IsElement<?>>
-implements IsDominoComponent.Controller {
+    implements IsDominoComponent.Controller {
 }

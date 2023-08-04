@@ -20,9 +20,9 @@ import java.util.Map;
 
 public class NaluStartModel {
 
-  private String startRoute;
+  private final String startRoute;
 
-  private Map<String, String> queryParameters;
+  private final Map<String, String> queryParameters;
 
   public NaluStartModel(String startRoute,
                         Map<String, String> queryParameters) {

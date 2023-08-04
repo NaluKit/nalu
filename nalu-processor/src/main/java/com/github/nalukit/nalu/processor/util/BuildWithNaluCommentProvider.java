@@ -11,10 +11,7 @@ public class BuildWithNaluCommentProvider {
   }
 
   public CodeBlock getGeneratedComment() {
-    String sb = "Build with Nalu version >>" +
-                ProcessorConstants.PROCESSOR_VERSION +
-                "<< at " +
-                ProcessorConstants.BUILD_TIME;
+    String sb = "Build with Nalu version >>" + ProcessorConstants.PROCESSOR_VERSION + "<< at " + ProcessorConstants.BUILD_TIME;
     return CodeBlock.builder()
                     .add(sb)
                     .build();

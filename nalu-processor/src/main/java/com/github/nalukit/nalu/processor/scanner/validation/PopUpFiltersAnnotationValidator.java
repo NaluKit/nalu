@@ -41,7 +41,6 @@ public class PopUpFiltersAnnotationValidator {
     this.processorUtils        = ProcessorUtils.builder()
                                                .processingEnvironment(processingEnvironment)
                                                .build();
-    ;
 
     setUp();
   }

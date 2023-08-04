@@ -63,7 +63,7 @@ public class NaluApplicationEvent
    * @return instance of the event
    */
   public NaluApplicationEvent using(String key,
-                              String value) {
+                                    String value) {
     this.dataStore.put(key,
                        value);
     return this;
@@ -108,7 +108,7 @@ public class NaluApplicationEvent
   /**
    * Adds a command to the command store.
    *
-   * @param key   key of the parameter
+   * @param key     key of the parameter
    * @param command command to store
    * @return instance of the event
    */
@@ -141,7 +141,8 @@ public class NaluApplicationEvent
    */
   @Deprecated
   public Object get(String key) {
-    return this.getDataObjectStore().get(key);
+    return this.getDataObjectStore()
+               .get(key);
   }
 
   /**
@@ -170,7 +171,6 @@ public class NaluApplicationEvent
   public Map<String, Object> getDataObjectStore() {
     return dataObjectStore;
   }
-
 
   @Override
   public Type<NaluApplicationEvent.NaluApplicationEventHandler> getAssociatedType() {

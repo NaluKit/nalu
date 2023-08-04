@@ -36,12 +36,12 @@ public class TrackerModel {
     this.tracker = tracker;
   }
 
-  public void setTracker(ClassNameModel tracker) {
-    this.tracker = tracker;
-  }
-
   public ClassNameModel getTracker() {
     return tracker;
+  }
+
+  public void setTracker(ClassNameModel tracker) {
+    this.tracker = tracker;
   }
 
   public List<EventHandlerModel> getEventHandlers() {

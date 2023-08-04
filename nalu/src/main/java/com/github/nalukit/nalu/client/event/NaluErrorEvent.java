@@ -21,7 +21,7 @@ public class NaluErrorEvent
   public final static Type<NaluErrorEvent.NaluErrorEventHandler> TYPE = new Type<>();
 
   /* the error info object */
-  private ErrorInfo errorInfo;
+  private final ErrorInfo errorInfo;
 
   private NaluErrorEvent(ErrorType errorEventType) {
     super();

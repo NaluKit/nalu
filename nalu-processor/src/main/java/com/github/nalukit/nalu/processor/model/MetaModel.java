@@ -41,17 +41,17 @@ public class MetaModel {
   private ClassNameModel                     loader;
   private ClassNameModel                     postLoader;
   private ClassNameModel                     customAlertPresenter;
-  private ClassNameModel                     customConfirmPresenter;
-  private List<ClassNameModel>               modules;
-  private boolean                            usingHash;
+  private       ClassNameModel       customConfirmPresenter;
+  private final List<ClassNameModel> modules;
+  private       boolean              usingHash;
   private boolean                            usingColonForParametersInUrl;
   private boolean                            stayOnSide;
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
   /* with a a plugin and not with application  */
-  private ModuleModel                        moduleModel;
-  private List<ShellModel>                   shells;
-  private ClassNameModel                     context;
+  private       ModuleModel      moduleModel;
+  private final List<ShellModel> shells;
+  private       ClassNameModel   context;
   private String                             startRoute;
   private String                             illegalRouteTarget;
   private ErrorPopUpControllerModel          errorPopUpController;
@@ -65,9 +65,9 @@ public class MetaModel {
   private List<FilterModel>                  filters;
   private List<ClassNameModel>               popUpFilters;
   private List<HandlerModel>                 handlers;
-  private ClassNameModel                     componentType;
-  private List<CompositeModel>               compositeModels;
-  private ClassNameModel                     logger;
+  private       ClassNameModel       componentType;
+  private final List<CompositeModel> compositeModels;
+  private       ClassNameModel       logger;
   private ClassNameModel                     clientLogger;
   /* flag, that indicates, if a Nalu application */
   /* uses a history token or not.                */
@@ -80,9 +80,9 @@ public class MetaModel {
   private boolean                            extendingIsModuleContext;
   /* do we have to remove the URL parameter      */
   /* from the URL                                */
-  private boolean                            removeUrlParameterAtStart;
+  private       boolean              removeUrlParameterAtStart;
   /* list of used parameter constraints          */
-  private List<ClassNameModel>               usedParameterConstraints;
+  private final List<ClassNameModel> usedParameterConstraints;
 
   public MetaModel() {
     this.modules                  = new ArrayList<>();

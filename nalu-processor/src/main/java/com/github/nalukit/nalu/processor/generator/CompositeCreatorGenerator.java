@@ -83,7 +83,7 @@ public class CompositeCreatorGenerator {
                                          typeSpec.build())
                                 .build();
     try {
-//      System.out.println(javaFile.toString());
+      //      System.out.println(javaFile.toString());
       javaFile.writeTo(this.processingEnvironment.getFiler());
     } catch (IOException e) {
       throw new ProcessorException("Unable to write generated file: >>" +
@@ -158,7 +158,8 @@ public class CompositeCreatorGenerator {
                 .addStatement("composite.setSelector(selector)")
                 .endControlFlow();
 
-    if (this.compositeModel.getEventHandlers().size() > 0) {
+    if (this.compositeModel.getEventHandlers()
+                           .size() > 0) {
       CodeBlock.Builder lambdaBuilder = CodeBlock.builder()
                                                  .add("() -> {\n")
                                                  .indent();
@@ -172,7 +173,8 @@ public class CompositeCreatorGenerator {
       lambdaBuilder.unindent()
                    .add("}");
       createMethod.addStatement("composite.setActivateNaluCommand($L)",
-                                lambdaBuilder.build().toString());
+                                lambdaBuilder.build()
+                                             .toString());
     } else {
       createMethod.addStatement("composite.setActivateNaluCommand(() -> {})");
     }

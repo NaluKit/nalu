@@ -18,15 +18,15 @@ package com.github.nalukit.nalu.client.internal;
 
 public class CompositeReference {
 
-  private String source;
+  private final String source;
 
-  private String compositeName;
+  private final String compositeName;
 
-  private String composite;
+  private final String composite;
 
-  private String selector;
+  private final String selector;
 
-  private boolean scopeGlobal;
+  private final boolean scopeGlobal;
 
   public CompositeReference(String source,
                             String compositeName,

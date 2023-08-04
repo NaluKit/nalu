@@ -26,5 +26,4 @@ public abstract class AbstractDominoShell<C extends IsContext>
     implements ElementsFactory,
                DominoCss {
 
-
 }
