@@ -1,5 +1,6 @@
 package com.github.nalukit.nalu.client.util;
 
+import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -323,19 +324,43 @@ public class NaluUtilsTest {
     Assertions.assertFalse(result);
   }
 
-  //  @Test
-  //  void testCleanRoute01() {
-  //    Assertions.assertEquals("", NaluUtils.INSTANCE.cleanRoute("#"));
-  //  }
-  //
-  //  @Test
-  //  void testCleanRoute02() {
-  //    Assertions.assertEquals("/login/user",  NaluUtils.INSTANCE.cleanRoute("/login/user#"));
-  //  }
-  //
-  //  @Test
-  //  void testCleanRoute03() {
-  //    Assertions.assertEquals("/login/user/", NaluUtils.INSTANCE.cleanRoute("/login/user/#"));
-  //  }
+  @Test
+  void testCleanRoute01() {
+    PropertyFactory.INSTANCE.register("/shell/login/",
+                                      "/shell/login/",
+                                      true,
+                                      false,
+                                      false,
+                                      false,
+                                      true);
+    Assertions.assertEquals("",
+                            NaluUtils.INSTANCE.cleanRoute("#"));
+  }
+
+  @Test
+  void testCleanRoute02() {
+    PropertyFactory.INSTANCE.register("/shell/login/",
+                                      "/shell/login/",
+                                      true,
+                                      false,
+                                      false,
+                                      false,
+                                      true);
+    Assertions.assertEquals("/login/user",
+                            NaluUtils.INSTANCE.cleanRoute("/login/user#"));
+  }
+
+  @Test
+  void testCleanRoute03() {
+    PropertyFactory.INSTANCE.register("/shell/login/",
+                                      "/shell/login/",
+                                      true,
+                                      false,
+                                      false,
+                                      false,
+                                      true);
+    Assertions.assertEquals("/login/user/",
+                            NaluUtils.INSTANCE.cleanRoute("/login/user/#"));
+  }
 
 }
