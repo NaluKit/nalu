@@ -27,17 +27,17 @@ public class Nalu {
   }
 
   public static boolean hasHistory() {
-    return PropertyFactory.get()
+    return PropertyFactory.INSTANCE
                           .hasHistory();
   }
 
   public static boolean isUsingHash() {
-    return PropertyFactory.get()
+    return PropertyFactory.INSTANCE
                           .isUsingHash();
   }
 
   public static boolean isUsingColonForParametersInUrl() {
-    return PropertyFactory.get()
+    return PropertyFactory.INSTANCE
                           .isUsingColonForParametersInUrl();
   }
 

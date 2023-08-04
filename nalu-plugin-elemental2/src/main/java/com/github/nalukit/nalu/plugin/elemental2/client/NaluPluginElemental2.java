@@ -97,14 +97,14 @@ public class NaluPluginElemental2
 
   @Override
   public void register(RouteChangeHandler handler) {
-    if (PropertyFactory.get()
+    if (PropertyFactory.INSTANCE
                        .hasHistory()) {
-      if (PropertyFactory.get()
+      if (PropertyFactory.INSTANCE
                          .isUsingHash()) {
         NaluPluginCoreWeb.addOnHashChangeHandler(handler);
       } else {
         NaluPluginCoreWeb.addPopStateHandler(handler,
-                                             PropertyFactory.get()
+                                             PropertyFactory.INSTANCE
                                                             .getContextPath());
       }
     } else {

@@ -69,7 +69,7 @@ public class RouteParserTest {
     this.shellConfiguration.getShells()
                            .add(new ShellConfig("/login",
                                                 "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.login.LoginShell"));
-    PropertyFactory.get()
+    PropertyFactory.INSTANCE
                    .register("/login",
                              "",
                              true,

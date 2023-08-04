@@ -41,7 +41,7 @@ public class NaluPluginCoreWeb {
 
   @SuppressWarnings("StringSplitter")
   public static void getContextPath(ShellConfiguration shellConfiguration) {
-    if (PropertyFactory.get()
+    if (PropertyFactory.INSTANCE
                        .isUsingHash()) {
       return;
     }
@@ -70,14 +70,14 @@ public class NaluPluginCoreWeb {
             context.append(partOfContext);
           }
         }
-        PropertyFactory.get()
+        PropertyFactory.INSTANCE
                        .setContextPath(context.toString());
       } else {
-        PropertyFactory.get()
+        PropertyFactory.INSTANCE
                        .setContextPath("");
       }
     }
-    PropertyFactory.get()
+    PropertyFactory.INSTANCE
                    .setContextPath("");
   }
 
@@ -104,7 +104,7 @@ public class NaluPluginCoreWeb {
             });
     }
     String startRoute;
-    if (PropertyFactory.get()
+    if (PropertyFactory.INSTANCE
                        .isUsingHash()) {
       startRoute = getHashValue(location.hash);
     } else {
@@ -115,9 +115,9 @@ public class NaluPluginCoreWeb {
             startRoute = startRoute.substring(1);
           }
         }
-        if (startRoute.startsWith(PropertyFactory.get()
+        if (startRoute.startsWith(PropertyFactory.INSTANCE
                                                  .getContextPath())) {
-          startRoute = startRoute.substring(PropertyFactory.get()
+          startRoute = startRoute.substring(PropertyFactory.INSTANCE
                                                            .getContextPath()
                                                            .length());
         }
@@ -134,7 +134,7 @@ public class NaluPluginCoreWeb {
     }
 
     // in case we need to remove the parameter, update history ...
-    if (PropertyFactory.get()
+    if (PropertyFactory.INSTANCE
                        .isRemoveUrlParameterAtStart()) {
       if (!queryParameters.isEmpty()) {
         String href = location.href;
@@ -174,7 +174,7 @@ public class NaluPluginCoreWeb {
                                         String contextPath) {
     DomGlobal.window.onpopstate = e -> {
       String newUrl;
-      if (PropertyFactory.get()
+      if (PropertyFactory.INSTANCE
                          .isUsingHash()) {
         Location location = Js.uncheckedCast(DomGlobal.location);
         newUrl = location.hash;
@@ -184,7 +184,7 @@ public class NaluPluginCoreWeb {
         if (Objects.isNull(newUrl) ||
             newUrl.trim()
                   .isEmpty()) {
-          newUrl = PropertyFactory.get()
+          newUrl = PropertyFactory.INSTANCE
                                   .getStartRoute();
         }
       }
@@ -214,9 +214,9 @@ public class NaluPluginCoreWeb {
     if (newUrl.trim()
               .isEmpty()) {
       // In case we have an empty newUrl, we have moved back to the start page ==> use startRoute!
-      NaluPluginCoreWeb.route(PropertyFactory.get()
+      NaluPluginCoreWeb.route(PropertyFactory.INSTANCE
                                              .getStartRoute(),
-                              !PropertyFactory.get()
+                              !PropertyFactory.INSTANCE
                                               .isStayOnSide(),
                               false,
                               handler);
@@ -230,22 +230,22 @@ public class NaluPluginCoreWeb {
                            boolean stealthMode,
                            RouteChangeHandler handler) {
     String newRouteToken;
-    if (PropertyFactory.get()
+    if (PropertyFactory.INSTANCE
                        .isUsingHash()) {
       newRouteToken = newRoute.startsWith("#") ? newRoute : "#" + newRoute;
     } else {
       newRouteToken = "/";
-      if (!PropertyFactory.get()
+      if (!PropertyFactory.INSTANCE
                           .getContextPath()
                           .isEmpty()) {
         newRouteToken = newRouteToken +
-                        PropertyFactory.get()
+                        PropertyFactory.INSTANCE
                                        .getContextPath() +
                         "/";
       }
       newRouteToken = newRouteToken + newRoute;
     }
-    if (PropertyFactory.get()
+    if (PropertyFactory.INSTANCE
                        .hasHistory()) {
       if (!stealthMode) {
         if (replace) {

@@ -120,7 +120,7 @@ abstract class AbstractRouter
     this.activeComponents  = new HashMap<>();
     this.loopDetectionList = new ArrayList<>();
     // set up PropertyFactory
-    PropertyFactory.get()
+    PropertyFactory.INSTANCE
                    .register(startRoute,
                              illegalRouteTarget,
                              hasHistory,
@@ -697,9 +697,9 @@ abstract class AbstractRouter
   @Override
   public void handleRouterException(String hash,
                                     RouterException e) {
-    if (PropertyFactory.get()
+    if (PropertyFactory.INSTANCE
                        .getIllegalRouteTarget() == null ||
-        PropertyFactory.get()
+        PropertyFactory.INSTANCE
                        .getIllegalRouteTarget()
                        .isEmpty()) {
       // fire Router StateEvent
@@ -727,7 +727,7 @@ abstract class AbstractRouter
                                             .message(sb.toString())
                                             .route(hash));
     } else {
-      this.route(PropertyFactory.get()
+      this.route(PropertyFactory.INSTANCE
                                 .getIllegalRouteTarget());
     }
   }

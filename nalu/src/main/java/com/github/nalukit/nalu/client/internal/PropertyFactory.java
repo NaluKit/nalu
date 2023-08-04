@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class PropertyFactory {
 
-  private static PropertyFactory instance;
+  public static PropertyFactory INSTANCE = new PropertyFactory();
 
   // context path
   private String  contextPath;
@@ -25,13 +25,6 @@ public class PropertyFactory {
   private boolean removeUrlParameterAtStart;
 
   private PropertyFactory() {
-  }
-
-  public static PropertyFactory get() {
-    if (Objects.isNull(instance)) {
-      instance = new PropertyFactory();
-    }
-    return instance;
   }
 
   /**
