@@ -46,6 +46,7 @@ import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.ConfirmHandler;
 import com.github.nalukit.nalu.client.seo.SeoDataProvider;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
+import com.github.nalukit.nalu.client.util.NaluUtils;
 import org.gwtproject.event.shared.SimpleEventBus;
 
 import java.util.ArrayList;
@@ -120,14 +121,13 @@ abstract class AbstractRouter
     this.activeComponents  = new HashMap<>();
     this.loopDetectionList = new ArrayList<>();
     // set up PropertyFactory
-    PropertyFactory.INSTANCE
-                   .register(startRoute,
-                             illegalRouteTarget,
-                             hasHistory,
-                             usingHash,
-                             usingColonForParametersInUrl,
-                             stayOnSite,
-                             removeUrlParameterAtStart);
+    PropertyFactory.INSTANCE.register(startRoute,
+                                      illegalRouteTarget,
+                                      hasHistory,
+                                      usingHash,
+                                      usingColonForParametersInUrl,
+                                      stayOnSite,
+                                      removeUrlParameterAtStart);
   }
 
   /**
@@ -171,6 +171,9 @@ abstract class AbstractRouter
   @Override
   public void route(String newRoute,
                     String... params) {
+    // clean route in case we have 'useHash=false' and the newRoute contains
+    // a '#' we have to clean this
+    newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -201,6 +204,9 @@ abstract class AbstractRouter
   @Override
   public void forceRoute(String newRoute,
                          String... params) {
+    // clean route in case we have 'useHash=false' and the newRoute contains
+    // a '#' we have to clean this
+    newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -233,6 +239,9 @@ abstract class AbstractRouter
   @Override
   public void forceStealthRoute(String newRoute,
                                 String... params) {
+    // clean route in case we have 'useHash=false' and the newRoute contains
+    // a '#' we have to clean this
+    newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -261,6 +270,9 @@ abstract class AbstractRouter
   @Override
   public void stealthRoute(String newRoute,
                            String... params) {
+    // clean route in case we have 'useHash=false' and the newRoute contains
+    // a '#' we have to clean this
+    newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -290,6 +302,9 @@ abstract class AbstractRouter
   @Override
   public void fakeRoute(String newRoute,
                         String... params) {
+    // clean route in case we have 'useHash=false' and the newRoute contains
+    // a '#' we have to clean this
+    newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)
     if (!Objects.isNull(this.tracker)) {
       this.tracker.track(newRoute,
@@ -697,11 +712,9 @@ abstract class AbstractRouter
   @Override
   public void handleRouterException(String hash,
                                     RouterException e) {
-    if (PropertyFactory.INSTANCE
-                       .getIllegalRouteTarget() == null ||
-        PropertyFactory.INSTANCE
-                       .getIllegalRouteTarget()
-                       .isEmpty()) {
+    if (PropertyFactory.INSTANCE.getIllegalRouteTarget() == null ||
+        PropertyFactory.INSTANCE.getIllegalRouteTarget()
+                                .isEmpty()) {
       // fire Router StateEvent
       try {
         RouteResult routeResult = this.parse(hash);
@@ -727,8 +740,7 @@ abstract class AbstractRouter
                                             .message(sb.toString())
                                             .route(hash));
     } else {
-      this.route(PropertyFactory.INSTANCE
-                                .getIllegalRouteTarget());
+      this.route(PropertyFactory.INSTANCE.getIllegalRouteTarget());
     }
   }
 
