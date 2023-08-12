@@ -34,11 +34,11 @@ import java.util.Set;
 
 public class ProcessorUtils {
 
-  private ProcessingEnvironment processingEnvironment;
+  private final ProcessingEnvironment processingEnvironment;
 
-  private Messager messager;
+  private final Messager messager;
 
-  private Elements elements;
+  private final Elements elements;
 
   @SuppressWarnings("unused")
   private ProcessorUtils(Builder builder) {

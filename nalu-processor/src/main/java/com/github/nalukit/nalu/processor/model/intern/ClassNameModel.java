@@ -23,7 +23,7 @@ import java.util.Objects;
 
 public class ClassNameModel {
 
-  private String className;
+  private final String className;
 
   public ClassNameModel(String className) {
     this.className = Objects.requireNonNull(className);

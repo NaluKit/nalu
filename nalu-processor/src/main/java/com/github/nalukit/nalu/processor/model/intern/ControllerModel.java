@@ -24,9 +24,9 @@ public class ControllerModel {
 
   private String[]                               originalRoute;
   private List<String>                           parameters;
-  private ClassNameModel                         provider;
-  private List<ParameterAcceptorModel>           parameterAcceptors;
-  private boolean                                componentCreator;
+  private       ClassNameModel               provider;
+  private final List<ParameterAcceptorModel> parameterAcceptors;
+  private       boolean                      componentCreator;
   private List<String>                           route;
   private String                                 selector;
   private ClassNameModel                         context;

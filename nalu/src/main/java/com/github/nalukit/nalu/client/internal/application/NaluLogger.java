@@ -57,8 +57,8 @@ public class NaluLogger<C extends IsContext> {
     }
 
     if (!Objects.isNull(this.clientLogger)) {
-        event.getMessages()
-             .forEach(m -> this.clientLogger.log(m));
+      event.getMessages()
+           .forEach(m -> this.clientLogger.log(m));
     }
 
     if (!Objects.isNull(this.customLogger)) {

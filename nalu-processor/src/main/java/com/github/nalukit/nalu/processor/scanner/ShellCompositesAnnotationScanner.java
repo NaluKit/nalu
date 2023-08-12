@@ -32,18 +32,18 @@ import java.util.Objects;
 
 public class ShellCompositesAnnotationScanner {
 
-  private ProcessingEnvironment processingEnvironment;
+  private final ProcessingEnvironment processingEnvironment;
 
-  private ShellModel shellModel;
+  private final ShellModel shellModel;
 
-  private Element shellElement;
+  private final Element shellElement;
 
   @SuppressWarnings("unused")
   private ShellCompositesAnnotationScanner(Builder builder) {
     super();
     this.processingEnvironment = builder.processingEnvironment;
-    this.shellModel       = builder.shellModel;
-    this.shellElement     = builder.shellElement;
+    this.shellModel            = builder.shellModel;
+    this.shellElement          = builder.shellElement;
     setUp();
   }
 
@@ -60,13 +60,13 @@ public class ShellCompositesAnnotationScanner {
     if (annotation != null) {
       for (Composite composite : annotation.value()) {
         shellModel.getComposites()
-                       .add(new ShellAndControllerCompositeModel(composite.name(),
-                                                                 new ClassNameModel(Objects.requireNonNull(getCompositeTypeElement(composite))
-                                                                                   .toString()),
-                                                                 composite.selector(),
-                                                                 new ClassNameModel(Objects.requireNonNull(getCompositeConditionElement(composite))
-                                                                                   .toString()),
-                                                         Scope.GLOBAL == composite.scope()));
+                  .add(new ShellAndControllerCompositeModel(composite.name(),
+                                                            new ClassNameModel(Objects.requireNonNull(getCompositeTypeElement(composite))
+                                                                                      .toString()),
+                                                            composite.selector(),
+                                                            new ClassNameModel(Objects.requireNonNull(getCompositeConditionElement(composite))
+                                                                                      .toString()),
+                                                            Scope.GLOBAL == composite.scope()));
       }
     }
     return this.shellModel;

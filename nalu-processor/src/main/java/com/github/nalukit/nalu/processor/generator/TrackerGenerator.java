@@ -38,7 +38,7 @@ public class TrackerGenerator {
 
   private TrackerGenerator(Builder builder) {
     this.metaModel = builder.metaModel;
-    this.typeSpec     = builder.typeSpec;
+    this.typeSpec  = builder.typeSpec;
   }
 
   public static Builder builder() {
@@ -66,18 +66,18 @@ public class TrackerGenerator {
       loadTrackerConfigurationMethod.addStatement("tracker.setEventBus(super.eventBus)");
 
       trackerModel.getEventHandlers()
-             .forEach(m -> {
-               EventModel eventModel = trackerModel.getEventModel(m.getEvent()
-                                                              .getClassName());
-               if (!Objects.isNull(eventModel)) {
-                 loadTrackerConfigurationMethod.addStatement("super.eventBus.addHandler($T.TYPE, e -> tracker.$L(e))",
-                                                 ClassName.get(eventModel.getEvent()
-                                                                         .getPackage(),
-                                                               eventModel.getEvent()
-                                                                         .getSimpleName()),
-                                                 m.getMethodName());
-               }
-             });
+                  .forEach(m -> {
+                    EventModel eventModel = trackerModel.getEventModel(m.getEvent()
+                                                                        .getClassName());
+                    if (!Objects.isNull(eventModel)) {
+                      loadTrackerConfigurationMethod.addStatement("super.eventBus.addHandler($T.TYPE, e -> tracker.$L(e))",
+                                                                  ClassName.get(eventModel.getEvent()
+                                                                                          .getPackage(),
+                                                                                eventModel.getEvent()
+                                                                                          .getSimpleName()),
+                                                                  m.getMethodName());
+                    }
+                  });
       loadTrackerConfigurationMethod.addStatement("tracker.bind()");
       loadTrackerConfigurationMethod.addStatement("return tracker");
     } else {

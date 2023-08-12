@@ -58,7 +58,8 @@ public class CompositesGenerator {
       for (ShellAndControllerCompositeModel shellAndControllerCompositeModel : shellModel.getComposites()) {
         loadCompositesMethodBuilder.addStatement("this.compositeReferences.add(new $T($S, $S, $S, $S, $L))",
                                                  ClassName.get(CompositeReference.class),
-                                                 shellModel.getShell().getClassName(),
+                                                 shellModel.getShell()
+                                                           .getClassName(),
                                                  shellAndControllerCompositeModel.getName(),
                                                  shellAndControllerCompositeModel.getComposite()
                                                                                  .getClassName(),

@@ -23,21 +23,21 @@ public class Nalu {
 
   public static String getVersion() {
     // TODO Change this for other versions
-    return "2.12.4";
+    return "2.12.5";
   }
 
   public static boolean hasHistory() {
-    return PropertyFactory.get()
+    return PropertyFactory.INSTANCE
                           .hasHistory();
   }
 
   public static boolean isUsingHash() {
-    return PropertyFactory.get()
+    return PropertyFactory.INSTANCE
                           .isUsingHash();
   }
 
   public static boolean isUsingColonForParametersInUrl() {
-    return PropertyFactory.get()
+    return PropertyFactory.INSTANCE
                           .isUsingColonForParametersInUrl();
   }
 

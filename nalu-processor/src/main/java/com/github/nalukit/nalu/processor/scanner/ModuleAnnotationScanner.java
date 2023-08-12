@@ -44,9 +44,9 @@ public class ModuleAnnotationScanner {
 
   private ProcessorUtils processorUtils;
 
-  private ProcessingEnvironment processingEnvironment;
+  private final ProcessingEnvironment processingEnvironment;
 
-  private Element moduleElement;
+  private final Element moduleElement;
 
   @SuppressWarnings("unused")
   private ModuleAnnotationScanner(Builder builder) {

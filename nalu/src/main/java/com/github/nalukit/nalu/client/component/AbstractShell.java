@@ -29,14 +29,11 @@ import java.util.Map;
 public abstract class AbstractShell<C extends IsContext>
     implements IsShell {
 
-  protected IsRouter router;
-
-  protected C context;
-
-  protected     SimpleEventBus                                    eventBus;
   /* list fo composite controllers */
   private final Map<String, AbstractCompositeController<?, ?, ?>> compositeControllers;
-
+  protected IsRouter router;
+  protected C context;
+  protected     SimpleEventBus                                    eventBus;
   protected HandlerRegistrations handlerRegistrations = new HandlerRegistrations();
 
   public AbstractShell() {
@@ -45,9 +42,9 @@ public abstract class AbstractShell<C extends IsContext>
   }
 
   /**
-   * The map of the depending composites of the shell
+   * The map of the depending on composites of the shell
    *
-   * @return Map of depending composites
+   * @return Map of depending on composites
    */
   @Override
   public Map<String, AbstractCompositeController<?, ?, ?>> getComposites() {

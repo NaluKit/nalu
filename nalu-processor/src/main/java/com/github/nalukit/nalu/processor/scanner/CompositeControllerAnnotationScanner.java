@@ -51,13 +51,10 @@ import java.util.stream.Collectors;
 
 public class CompositeControllerAnnotationScanner {
 
-  private ProcessorUtils processorUtils;
-
   private final ProcessingEnvironment processingEnvironment;
-
   private final MetaModel metaModel;
-
   private final Element compositeElement;
+  private ProcessorUtils processorUtils;
 
   @SuppressWarnings("unused")
   private CompositeControllerAnnotationScanner(Builder builder) {
@@ -113,8 +110,7 @@ public class CompositeControllerAnnotationScanner {
       ClassNameModel compareValue = new ClassNameModel(componentTypeTypeMirror.toString());
       if (!metaModel.getComponentType()
                     .equals(compareValue)) {
-        throw new ProcessorException("Nalu-Processor: componentType of >>" +
-                                     componentTypeElement.toString() +
+        throw new ProcessorException("Nalu-Processor: componentType of >>" + componentTypeElement +
                                      "<< is different (>>" +
                                      metaModel.getComponentType()
                                               .getClassName() +

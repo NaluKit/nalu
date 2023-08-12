@@ -197,7 +197,7 @@ public class ErrorPopUpControllerAnnotationScanner {
     if (!componentInterfaceTypeElement.toString()
                                       .equals(result[0].toString())) {
       throw new ProcessorException("Nalu-Processor: controller >>" +
-                                   element.toString() +
+                                   element +
                                    "<< is declared as IsPopUpComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
     }
     return true;

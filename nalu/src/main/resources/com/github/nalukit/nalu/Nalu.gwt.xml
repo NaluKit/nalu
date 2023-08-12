@@ -26,7 +26,7 @@
 
   <!-- Other module inherits                                      -->
   <inherits name="org.gwtproject.event.Event"/>
-  <inherits name="org.gwtproject.regexp.RegExp" />
+  <inherits name="org.gwtproject.regexp.RegExp"/>
 
   <!-- sources -->
   <source path="client"/>

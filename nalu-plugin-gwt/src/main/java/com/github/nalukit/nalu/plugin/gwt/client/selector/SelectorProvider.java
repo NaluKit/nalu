@@ -21,9 +21,9 @@ import java.util.Map;
 
 public class SelectorProvider {
 
-  private static SelectorProvider instance = new SelectorProvider();
+  private static final SelectorProvider instance = new SelectorProvider();
 
-  private Map<String, SelectorCommand> selectorCommands;
+  private final Map<String, SelectorCommand> selectorCommands;
 
   private SelectorProvider() {
     this.selectorCommands = new HashMap<>();

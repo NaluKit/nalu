@@ -23,8 +23,8 @@ public class RouteResult {
 
   private String       shell;
   private String       route;
-  private List<String> parameterKeys;
-  private List<String> parameterValues;
+  private       List<String> parameterKeys;
+  private final List<String> parameterValues;
 
   public RouteResult() {
     this.parameterKeys   = new ArrayList<>();

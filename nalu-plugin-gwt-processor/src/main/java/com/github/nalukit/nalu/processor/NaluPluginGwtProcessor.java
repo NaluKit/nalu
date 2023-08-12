@@ -239,11 +239,11 @@ public class NaluPluginGwtProcessor
 
   static class SelectorMetaModel {
 
-    private String selector;
+    private final String selector;
 
-    private String enclosingElement;
+    private final String enclosingElement;
 
-    private Element selectorElement;
+    private final Element selectorElement;
 
     public SelectorMetaModel(String selector,
                              String enclosingElement,

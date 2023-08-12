@@ -31,11 +31,11 @@ import java.util.stream.Collectors;
 
 public class ModulesAnnotationScanner {
 
-  private ProcessingEnvironment processingEnvironment;
+  private final ProcessingEnvironment processingEnvironment;
 
-  private MetaModel metaModel;
+  private final MetaModel metaModel;
 
-  private Element modulesElement;
+  private final Element modulesElement;
 
   @SuppressWarnings("unused")
   private ModulesAnnotationScanner(Builder builder) {

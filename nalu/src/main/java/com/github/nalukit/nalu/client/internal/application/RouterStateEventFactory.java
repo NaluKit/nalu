@@ -114,7 +114,8 @@ public class RouterStateEventFactory {
   private RouteStateInfo getRouteStateInfo(String route,
                                            String[] params) {
     for (RouteStateInfo info : this.routeStateInfoList) {
-      if (NaluUtils.INSTANCE.compareRoutes(info.getRoute(),route)) {
+      if (NaluUtils.INSTANCE.compareRoutes(info.getRoute(),
+                                           route)) {
         if (this.checkParams(info.getParams(),
                              params)) {
           return info;
