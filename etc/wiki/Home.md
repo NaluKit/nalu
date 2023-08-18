@@ -4,7 +4,7 @@ Inside the wiki you will find a lot of useful information about Nalu.
 
 If you have any questions about the framework, please use the [Nalu Gitter room](https://gitter.im/NaluKit42/lobby).
 
-The current version of Nalu uses Java 8 and is tested with the latest GWT version.
+The current version of Nalu works with Java 8, 11 & 17 and is tested with the latest GWT version.
 
 [//]: # (## Nalu Project Generator)
 
