@@ -15,7 +15,7 @@ Nalu supports:
 
 * HTML links and programmatically routing thanks to a router
 
-* Browser's back- forward- and reload-button (In case the hasHistory-attribute of the `Application`-annotation is set to **true**)
+* Browser's back-, forward- and reload-button (In case the hasHistory-attribute of the `Application`-annotation is set to **true**)
 
 * An optional loader that will be executed at application start to load data from the server
 
@@ -23,7 +23,7 @@ Nalu supports:
 
 * Filters to intercept routing.
 
-* Separation of views into a controller and a component with framework sided instantiation.
+* Separation of views into a controller and a component with framework sided injection.
 
 * A controller life-cycle using `start`-, `mayStop`- and `stop`- similar to GWT Activities.
 
@@ -35,13 +35,13 @@ Nalu supports:
 
 * Composites to support smaller units
 
-* Controller & component caching
+* Controller & composite caching
 
 * Component creation inside a controller to support GWT replacement rules and static factory methods
 
 * Multi Shell Support
 
-* (nearly) Every widget lib (tested with: GWT, GXT, Domino-UI, Elemento, Elemental2, GWT-Material)
+* (nearly) Every widget lib (tested with: GWT, GXT, Domino-UI v1 & v2, Elemento, Elemental2, GWT-Material)
 
 * Maven multi module projects to separate an application in smaller parts (module feature)
 
