@@ -15,7 +15,7 @@ Nalu supports:
 
 * HTML links and programmatically routing thanks to a router
 
-* Browser's back- forward- and reload-button (In case the hasHistory-attribute of the `Application`-annotation is set to **true**)
+* Browser's back-, forward- and reload-button (In case the hasHistory-attribute of the `Application`-annotation is set to **true**)
 
 * An optional loader that will be executed at application start to load data from the server
 
@@ -23,7 +23,7 @@ Nalu supports:
 
 * Filters to intercept routing.
 
-* Separation of views into a controller and a component with framework sided instantiation.
+* Separation of views into a controller and a component with framework sided injection.
 
 * A controller life-cycle using `start`-, `mayStop`- and `stop`- similar to GWT Activities.
 
@@ -35,13 +35,13 @@ Nalu supports:
 
 * Composites to support smaller units
 
-* Controller & component caching
+* Controller & composite caching
 
 * Component creation inside a controller to support GWT replacement rules and static factory methods
 
 * Multi Shell Support
 
-* (nearly) Every widget lib (tested with: GWT, GXT, Domino-UI, Elemento, Elemental2, GWT-Material)
+* (nearly) Every widget lib (tested with: GWT, GXT, Domino-UI v1 & v2, Elemento, Elemental2, GWT-Material)
 
 * Maven multi module projects to separate an application in smaller parts (module feature)
 
@@ -134,12 +134,12 @@ To use Nalu add the following dependencies to your pom:
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
-    <version>2.12.5</version>
+    <version>2.12.6</version>
 </dependency>
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
-    <version>2.12.5</version>
+    <version>2.12.6</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -169,7 +169,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
-    <version>2.12.5</version>
+    <version>2.12.6</version>
 </dependency>
 ```
 
@@ -198,7 +198,7 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemento</artifactId>
-    <version>2.12.5</version>
+    <version>2.12.6</version>
 </dependency>
 ```
 
@@ -243,12 +243,12 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
-      <version>2.12.5</version>
+      <version>2.12.6</version>
    </dependency>
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
-      <version>2.12.5</version>
+      <version>2.12.6</version>
       <scope>provided</scope>
    </dependency>
 ```

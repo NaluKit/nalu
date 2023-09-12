@@ -129,14 +129,13 @@ public class NaluPluginCoreWeb {
     // in case we need to remove the parameter, update history ...
     if (PropertyFactory.INSTANCE.isRemoveUrlParameterAtStart()) {
       if (!queryParameters.isEmpty()) {
-        String href = location.href;
-        String newUrl;
-        if (href.contains("?")) {
-          newUrl = href.substring(0,
-                                  href.indexOf("?"));
-          if (startRoute != null) {
-            if (!startRoute.isEmpty()) {
-              newUrl = newUrl + "#" + startRoute;
+        String newUrl = null;
+        if (startRoute != null) {
+          if (location.href.contains("?")) {
+            if (PropertyFactory.INSTANCE.isUsingHash()) {
+              newUrl = location.origin + location.pathname + "#" + startRoute;
+            } else {
+              newUrl = location.origin + "/" + startRoute;
             }
           }
           DomGlobal.window.history.replaceState(newUrl,
@@ -175,8 +174,6 @@ public class NaluPluginCoreWeb {
         if (Objects.isNull(newUrl) ||
             newUrl.trim()
                   .isEmpty()) {
-          //          newUrl = PropertyFactory.INSTANCE
-          //                                  .getStartRoute();
           return null;
         }
       }

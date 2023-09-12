@@ -96,7 +96,7 @@
   </distributionManagement>
 
   <properties>
-    <revision>2.12.5</revision>
+    <revision>2.12.6</revision>
 
     <github.global.server>github</github.global.server>
 
