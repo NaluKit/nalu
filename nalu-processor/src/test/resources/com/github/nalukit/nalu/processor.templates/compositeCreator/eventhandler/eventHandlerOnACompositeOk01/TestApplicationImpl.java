@@ -14,11 +14,11 @@ import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import java.lang.Override;
+
 import java.util.Arrays;
 
 /**
- * Build with Nalu version 2.12.6 at 2023.01.30-21:40:27
+ * Build with Nalu version HEAD-SNAPSHOT at 2023.01.30-21:40:27
  */
 public final class TestApplicationImpl extends AbstractApplication<MockContext> implements TestApplication {
   public TestApplicationImpl() {
@@ -32,7 +32,12 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
 
   @Override
   public void logProcessorVersion() {
-    this.eventBus.fireEvent(LogEvent.create().sdmOnly(true).addMessage("=================================================================================").addMessage("Nalu processor version  >>2.12.6<< used to generate this source").addMessage("=================================================================================").addMessage(""));
+    this.eventBus.fireEvent(LogEvent.create()
+                                    .sdmOnly(true)
+                                    .addMessage("=================================================================================")
+                                    .addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source")
+                                    .addMessage("=================================================================================")
+                                    .addMessage(""));
   }
 
   @Override

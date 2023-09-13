@@ -14,7 +14,7 @@ import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.processor.common.MockContext;
-import java.lang.Override;
+
 import java.util.Arrays;
 
 /**
@@ -35,7 +35,7 @@ public final class ShellWithCompositeApplicationImpl extends AbstractApplication
     this.eventBus.fireEvent(LogEvent.create()
                                     .sdmOnly(true)
                                     .addMessage("=================================================================================")
-                                    .addMessage("Nalu processor version  >>2.12.6<< used to generate this source")
+                                    .addMessage("Nalu processor version  >>HEAD-SNAPSHOT<< used to generate this source")
                                     .addMessage("=================================================================================")
                                     .addMessage(""));
   }
