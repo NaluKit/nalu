@@ -99,6 +99,8 @@ To navigate to a new route use inside a controller:
 The router is injected in the controller. To route to a new component call the route method and add at least the new route. In case the route has parameters, just add them as additional parameters. (**Important note:** parameters are always Strings!)
 
 ## Using
+
+### Dependencies
 To use Nalu add the following dependencies to your pom:
 
 * **GWT 2.8.2**
@@ -256,6 +258,11 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
 **(This plugin will not work with J2CL / GWT 3)**
 
 See the wiki for more information about Nalu and how to use it.
+
+### Configuration
+
+Due to a bug in older version of the maven-compiler-plugin, the output of a annotation processor - during a Maven build - will not be logged.
+To ensure, that the processor output is logged, use the latest maven-compiler-plugin.
 
 ## Wiki
 More useful information about Nalu and how to use it, can be found inside the [Wiki](https://github.com/nalukit/nalu/wiki).
