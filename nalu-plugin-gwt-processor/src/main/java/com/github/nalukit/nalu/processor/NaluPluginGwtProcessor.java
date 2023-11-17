@@ -99,7 +99,7 @@ public class NaluPluginGwtProcessor
                                               this.stopwatch.stop()
                                                             .toString());
       } else {
-        if (annotations.size() > 0) {
+        if (!annotations.isEmpty()) {
           for (TypeElement annotation : annotations) {
             for (Element element : roundEnv.getElementsAnnotatedWith(Selector.class)) {
               validate(element);

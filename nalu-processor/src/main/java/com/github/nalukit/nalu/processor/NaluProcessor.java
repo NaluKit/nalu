@@ -183,7 +183,7 @@ public class NaluProcessor
                                               this.stopwatch.stop()
                                                             .toString());
       } else {
-        if (annotations.size() > 0) {
+        if (!annotations.isEmpty()) {
           for (TypeElement annotation : annotations) {
             if (Application.class.getCanonicalName()
                                  .equals(annotation.toString())) {
