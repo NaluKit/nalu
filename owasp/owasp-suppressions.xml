@@ -25,6 +25,8 @@
     <notes><![CDATA[file name: apache-jsp-9.4.44.v20210927.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/apache\-jsp@.*$</packageUrl>
     <cve>CVE-2022-2048</cve>
+    <cve>CVE-2023-44487</cve>
+    <cve>CVE-2023-36478</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -64,6 +66,8 @@
     <notes><![CDATA[file name: jetty-http-9.4.44.v20210927.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-http@.*$</packageUrl>
     <cve>CVE-2022-2048</cve>
+    <cve>CVE-2023-44487</cve>
+    <cve>CVE-2023-36478</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -88,6 +92,8 @@
     <notes><![CDATA[file name: jetty-server-9.4.44.v20210927.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-server@.*$</packageUrl>
     <cve>CVE-2022-2048</cve>
+    <cve>CVE-2023-44487</cve>
+    <cve>CVE-2023-36478</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -145,6 +151,8 @@
     <cve>CVE-2022-2048</cve>
     <cve>CVE-2023-26048</cve>
     <cve>CVE-2023-26049</cve>
+    <cve>CVE-2023-44487</cve>
+    <cve>CVE-2023-36478</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -176,6 +184,8 @@
     <cve>CVE-2023-26048</cve>
     <cve>CVE-2023-26049</cve>
     <cve>CVE-2022-2047</cve>
+    <cve>CVE-2023-44487</cve>
+    <cve>CVE-2023-36478</cve>
   </suppress>
   <suppress>
     <notes><![CDATA[
