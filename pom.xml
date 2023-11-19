@@ -190,8 +190,7 @@
 
   <repositories>
     <repository>
-      <id>oss-sonatype</id>
-      <name>oss-sonatype</name>
+      <id>google-snapshot</id>
       <url>https://oss.sonatype.org/content/repositories/google-snapshots/</url>
       <releases>
         <enabled>false</enabled>
@@ -199,6 +198,16 @@
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
+    </repository>
+    <repository>
+      <id>sonatype-snapshot</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
     </repository>
   </repositories>
 
