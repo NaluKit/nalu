@@ -104,7 +104,7 @@
     <auto-service.version>1.0.1</auto-service.version>
     <compile-testing.version>0.21.0</compile-testing.version>
     <gson.version>2.10.1</gson.version>
-    <elemental2.version>1.1.0</elemental2.version>
+    <elemental2.version>1.2.1</elemental2.version>
     <guava.version>32.1.1-jre</guava.version>
     <gwt-event.version>1.0.0-RC1</gwt-event.version>
     <gwt-regexp.version>1.0.0-RC1</gwt-regexp.version>
