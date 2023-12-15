@@ -23,7 +23,7 @@ Nalu supports:
 
 * Filters to intercept routing.
 
-* Separation of views into a controller and a component with framework sided injection.
+* Separation of views into controllers and components with framework sided injection - similar to GWT Activities.
 
 * A controller life-cycle using `start`-, `mayStop`- and `stop`- similar to GWT Activities.
 
@@ -33,7 +33,7 @@ Nalu supports:
 
 * UiBinder (nalu-plugin-gwt)
 
-* Composites to support smaller units
+* Composites to support smaller units of work
 
 * Controller & composite caching
 
