@@ -44,6 +44,17 @@
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
+    <notes><![CDATA[file name: commons-io-2.4.jar]]></notes>
+    <packageUrl regex="true">^pkg:maven/commons\-io/commons\-io@.*$</packageUrl>
+    <cpe>cpe:/a:apache:commons_io</cpe>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[file name: commons-net-3.8.0.jar]]></notes>
+    <packageUrl regex="true">^pkg:maven/commons\-net/commons\-net@.*$</packageUrl>
+    <cpe>cpe:/a:apache:commons_net</cpe>
+  </suppress>  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
     <notes><![CDATA[file name: commons-text-1.9.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.apache\.commons/commons\-text@.*$</packageUrl>
     <cve>CVE-2022-42889</cve>
@@ -56,6 +67,11 @@
     <vulnerabilityName>CVE-2022-25647</vulnerabilityName>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[file name: htmlunit-cssparser-1.10.0.jar]></notes>
+    <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit\-cssparser@.*$</packageUrl>
+    <cpe>cpe:/a:htmlunit:htmlunit</cpe>
+  </suppress>  <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
     <notes><![CDATA[file name: htmlunit-core-js-2.55.0.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit\-core\-js@.*$</packageUrl>
@@ -81,23 +97,6 @@
   <suppress>
     <notes><![CDATA[file name: jetty-http-9.4.44.v20210927.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-http@.*$</packageUrl>
-    <cve>CVE-2022-2048</cve>
-    <cve>CVE-2023-44487</cve>
-    <cve>CVE-2023-36478</cve>
-  </suppress>
-  <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: jetty-io-9.4.44.v20210927.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-io@.*$</packageUrl>
-    <cve>CVE-2022-2048</cve>
-  </suppress>
-  <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: jetty-jndi-9.4.44.v20210927.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-jndi@.*$</packageUrl>
-    <cve>CVE-2022-2048</cve>
-    <cve>CVE-2023-44487</cve>
-    <cve>CVE-2023-36478</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
