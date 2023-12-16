@@ -10,23 +10,28 @@
   <suppress>
     <notes><![CDATA[file name: apache-jsp-8.5.70.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.mortbay\.jasper/apache\-jsp@.*$</packageUrl>
-    <cve>CVE-2020-8022</cve>
-    <cve>CVE-2022-23101</cve>
-    <cve>CVE-2022-23181</cve>
-    <cve>CVE-2022-25762</cve>
-    <cve>CVE-2023-28708</cve>
-    <cve>CVE-2022-29885</cve>
-    <cve>CVE-2022-34305</cve>
-    <cve>CVE-2023-36478</cve>
-    <cve>CVE-2023-41080</cve>
-    <cve>CVE-2022-42252</cve>
-    <cve>CVE-2023-42795</cve>
-    <cve>CVE-2021-42340</cve>
-    <cve>CVE-2023-42980</cve>
-    <cve>CVE-2021-43980</cve>
-    <cve>CVE-2023-44487</cve>
-    <cve>CVE-2023-45648</cve>
-    <cve>CVE-2023-46589</cve>
+    <cpe>cpe:/a:apache:tomcat</cpe>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[file name: apache-jsp-8.5.70.jar]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.mortbay\.jasper/apache\-jsp@.*$</packageUrl>
+<!--    <cve>CVE-2020-8022</cve>-->
+<!--    <cve>CVE-2022-23101</cve>-->
+<!--    <cve>CVE-2022-23181</cve>-->
+<!--    <cve>CVE-2022-25762</cve>-->
+<!--    <cve>CVE-2023-28708</cve>-->
+<!--    <cve>CVE-2022-29885</cve>-->
+<!--    <cve>CVE-2022-34305</cve>-->
+<!--    <cve>CVE-2023-36478</cve>-->
+<!--    <cve>CVE-2023-41080</cve>-->
+<!--    <cve>CVE-2022-42252</cve>-->
+<!--    <cve>CVE-2023-42795</cve>-->
+<!--    <cve>CVE-2021-42340</cve>-->
+<!--    <cve>CVE-2023-42980</cve>-->
+<!--    <cve>CVE-2021-43980</cve>-->
+<!--    <cve>CVE-2023-44487</cve>-->
+<!--    <cve>CVE-2023-45648</cve>-->
+<!--    <cve>CVE-2023-46589</cve>-->
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
