@@ -84,11 +84,7 @@
     <vulnerabilityName>CVE-2022-25647</vulnerabilityName>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: htmlunit-cssparser-1.10.0.jar]></notes>
-    <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit\-cssparser@.*$</packageUrl>
-    <cpe>cpe:/a:htmlunit:htmlunit</cpe>
-  </suppress>  <!-- gwt-dev-dependency; should never be deployed! -->
+  <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
     <notes><![CDATA[file name: htmlunit-core-js-2.55.0.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit\-core\-js@.*$</packageUrl>
