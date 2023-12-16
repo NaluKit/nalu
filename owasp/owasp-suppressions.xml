@@ -23,6 +23,7 @@
     <cve>CVE-2023-42795</cve>
     <cve>CVE-2021-42340</cve>
     <cve>CVE-2023-42980</cve>
+    <cve>CVE-2021-43980</cve>
     <cve>CVE-2023-44487</cve>
     <cve>CVE-2023-45648</cve>
     <cve>CVE-2023-46589</cve>
@@ -68,6 +69,7 @@
     <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit@.*$</packageUrl>
     <cve>CVE-2022-29546</cve>
     <cve>CVE-2023-26119</cve>
+    <cve>CVE-2023-49093</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -169,6 +171,9 @@
     <cve>CVE-2023-26048</cve>
     <cve>CVE-2023-26049</cve>
     <cve>CVE-2023-36478</cve>
+    <cve>CVE-2023-36479</cve>
+    <cve>CVE-2023-40167</cve>
+    <cve>CVE-2023-41900</cve>
     <cve>CVE-2023-44487</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
@@ -179,8 +184,11 @@
     <cve>CVE-2022-2048</cve>
     <cve>CVE-2023-26048</cve>
     <cve>CVE-2023-26049</cve>
-    <cve>CVE-2023-44487</cve>
     <cve>CVE-2023-36478</cve>
+    <cve>CVE-2023-36479</cve>
+    <cve>CVE-2023-40167</cve>
+    <cve>CVE-2023-41900</cve>
+    <cve>CVE-2023-44487</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
