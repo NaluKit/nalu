@@ -23,7 +23,7 @@ Nalu supports:
 
 * Filters to intercept routing.
 
-* Separation of views into a controller and a component with framework sided injection.
+* Separation of views into controllers and components with framework sided injection - similar to GWT Activities.
 
 * A controller life-cycle using `start`-, `mayStop`- and `stop`- similar to GWT Activities.
 
@@ -33,7 +33,7 @@ Nalu supports:
 
 * UiBinder (nalu-plugin-gwt)
 
-* Composites to support smaller units
+* Composites to support smaller units of work
 
 * Controller & composite caching
 
@@ -99,6 +99,8 @@ To navigate to a new route use inside a controller:
 The router is injected in the controller. To route to a new component call the route method and add at least the new route. In case the route has parameters, just add them as additional parameters. (**Important note:** parameters are always Strings!)
 
 ## Using
+
+### Dependencies
 To use Nalu add the following dependencies to your pom:
 
 * **GWT 2.8.2**
@@ -134,12 +136,12 @@ To use Nalu add the following dependencies to your pom:
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
-    <version>2.12.6</version>
+    <version>2.12.7</version>
 </dependency>
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
-    <version>2.12.6</version>
+    <version>2.12.7</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -169,7 +171,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
-    <version>2.12.6</version>
+    <version>2.12.7</version>
 </dependency>
 ```
 
@@ -198,7 +200,7 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemento</artifactId>
-    <version>2.12.6</version>
+    <version>2.12.7</version>
 </dependency>
 ```
 
@@ -243,12 +245,12 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
-      <version>2.12.6</version>
+      <version>2.12.7</version>
    </dependency>
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
-      <version>2.12.6</version>
+      <version>2.12.7</version>
       <scope>provided</scope>
    </dependency>
 ```
@@ -256,6 +258,11 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
 **(This plugin will not work with J2CL / GWT 3)**
 
 See the wiki for more information about Nalu and how to use it.
+
+### Configuration
+
+Due to a bug in older version of the maven-compiler-plugin, the output of a annotation processor - during a Maven build - will not be logged.
+To ensure, that the processor output is logged, use the latest maven-compiler-plugin.
 
 ## Wiki
 More useful information about Nalu and how to use it, can be found inside the [Wiki](https://github.com/nalukit/nalu/wiki).

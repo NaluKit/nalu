@@ -18,12 +18,8 @@ package com.github.nalukit.nalu.plugin.domino.v2.client.component;
 
 import com.github.nalukit.nalu.client.component.AbstractShell;
 import com.github.nalukit.nalu.client.context.IsContext;
-import org.dominokit.domino.ui.style.DominoCss;
-import org.dominokit.domino.ui.utils.ElementsFactory;
 
 public abstract class AbstractDominoV2Shell<C extends IsContext>
-    extends AbstractShell<C>
-    implements ElementsFactory,
-               DominoCss {
+    extends AbstractShell<C> {
 
 }

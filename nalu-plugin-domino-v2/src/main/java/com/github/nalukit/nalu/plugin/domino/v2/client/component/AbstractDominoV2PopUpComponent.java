@@ -23,9 +23,6 @@ import org.dominokit.domino.ui.utils.ElementsFactory;
 
 public abstract class AbstractDominoV2PopUpComponent<C extends IsDominoV2PopUpComponent.Controller>
     extends AbstractPopUpComponent<C>
-    implements IsDominoV2PopUpComponent<C>,
-               ElementsFactory,
-               DominoCss,
-               DialogStyles {
+    implements IsDominoV2PopUpComponent<C> {
 
 }

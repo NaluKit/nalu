@@ -19,12 +19,8 @@ package com.github.nalukit.nalu.plugin.domino.v2.client.component;
 import com.github.nalukit.nalu.client.component.AbstractCompositeComponent;
 import com.github.nalukit.nalu.client.component.IsComponent;
 import org.dominokit.domino.ui.IsElement;
-import org.dominokit.domino.ui.style.DominoCss;
-import org.dominokit.domino.ui.utils.ElementsFactory;
 
 public abstract class AbstractDominoV2CompositeComponent<C extends IsComponent.Controller>
     extends AbstractCompositeComponent<C, IsElement<?>>
-    implements IsDominoV2CompositeComponent<C>,
-               ElementsFactory,
-               DominoCss {
+    implements IsDominoV2CompositeComponent<C> {
 }
