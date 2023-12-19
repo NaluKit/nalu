@@ -96,7 +96,7 @@
   </distributionManagement>
 
   <properties>
-    <revision>HEAD-SNAPSHOT</revision>
+    <revision>2.12.7</revision>
 
     <github.global.server>github</github.global.server>
 
