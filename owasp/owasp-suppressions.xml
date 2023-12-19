@@ -74,6 +74,17 @@
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
+    <notes><![CDATA[
+   file name: htmlunit-cssparser-1.10.0.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit\-cssparser@.*$</packageUrl>
+    <cve>CVE-2023-2798</cve>
+    <cve>CVE-2020-5529</cve>
+    <cve>CVE-2023-26119</cve>
+    <cve>CVE-2022-28366</cve>
+    <cve>CVE-2022-29546</cve>
+  </suppress>  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
     <notes><![CDATA[file name: htmlunit-core-js-2.55.0.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit\-core\-js@.*$</packageUrl>
     <cve>CVE-2022-29546</cve>
@@ -95,6 +106,21 @@
     <cve>CVE-2018-18928</cve>
   </suppress>
     <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-io-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-io@.*$</packageUrl>
+    <cve>CVE-2022-2047</cve>
+    <cve>CVE-2022-2048</cve>
+    <cve>CVE-2023-26048</cve>
+    <cve>CVE-2023-26049</cve>
+    <cve>CVE-2023-36479</cve>
+    <cve>CVE-2023-40167</cve>
+    <cve>CVE-2023-41900</cve>
+    <cve>CVE-2023-44487</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
     <suppress>
       <notes><![CDATA[file name: jetty-plus-9.4.44.v20210927.jar]]></notes>
       <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-plus@.*$</packageUrl>
