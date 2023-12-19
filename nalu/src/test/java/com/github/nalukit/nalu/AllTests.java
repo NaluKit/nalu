@@ -29,9 +29,10 @@ import com.github.nalukit.nalu.client.internal.validation.RouteValidationTest;
 import com.github.nalukit.nalu.client.util.NaluUtilsTest;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 import org.junit.runner.RunWith;
 
-@RunWith(JUnitPlatform.class)
+@Suite()
 @SelectClasses({ NaluTest.class,
                  NaluUtilsTest.class,
                  RouteConfigTest.class,
