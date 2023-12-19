@@ -178,6 +178,15 @@
     </suppress>
     <suppress>
       <notes><![CDATA[
+     file name: jetty-continuation-9.4.44.v20210927.jar
+     ]]></notes>
+      <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-continuation@.*$</packageUrl>
+      <cve>CVE-2022-2048</cve>
+      <cve>CVE-2023-36478</cve>
+      <cve>CVE-2023-44487</cve>
+    </suppress>
+    <suppress>
+      <notes><![CDATA[
      file name: jetty-annotations-9.4.44.v20210927.jar
      ]]></notes>
       <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-annotations@.*$</packageUrl>
