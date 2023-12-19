@@ -110,6 +110,7 @@
     <gwt-regexp.version>1.0.0-RC1</gwt-regexp.version>
     <gwt.version>2.10.0</gwt.version>
     <hamcrest-core.version>2.2</hamcrest-core.version>
+    <java.doc.executable>${java.home}/bin/javadoc</java.doc.executable>
     <javapoet.version>1.13.0</javapoet.version>
     <jsinterop-annotations.version>2.0.0</jsinterop-annotations.version>
     <junit-jupiter.version>5.9.2</junit-jupiter.version>
@@ -279,7 +280,7 @@
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>${plugin.version.javadoc}</version>
             <configuration>
-              <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
+              <javadocExecutable>${java.doc.executable}</javadocExecutable>
             </configuration>
             <executions>
               <execution>

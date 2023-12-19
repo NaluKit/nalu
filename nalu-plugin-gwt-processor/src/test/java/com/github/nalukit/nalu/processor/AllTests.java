@@ -17,10 +17,8 @@
 package com.github.nalukit.nalu.processor;
 
 import com.github.nalukit.nalu.processor.test.ProviderTest;
-import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
-import org.junit.runner.RunWith;
 
 @Suite()
 @SelectClasses({ ProviderTest.class })
