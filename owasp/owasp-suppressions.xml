@@ -280,6 +280,21 @@
       <cve>CVE-2023-44487</cve>
       <cve>CVE-2023-36478</cve>
     </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-security-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-security@.*$</packageUrl>
+    <cve>CVE-2022-2047</cve>
+    <cve>CVE-2022-2048</cve>
+    <cve>CVE-2023-26048</cve>
+    <cve>CVE-2023-26049</cve>
+    <cve>CVE-2023-36478</cve>
+    <cve>CVE-2023-36479</cve>
+    <cve>CVE-2023-40167</cve>
+    <cve>CVE-2023-41900</cve>
+    <cve>CVE-2023-44467</cve>
+  </suppress>
     <suppress>
       <notes><![CDATA[
      file name: jetty-servlet-9.4.44.v20210927.jar
