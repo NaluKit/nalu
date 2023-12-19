@@ -84,7 +84,6 @@
     <vulnerabilityName>CVE-2022-25647</vulnerabilityName>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
-  <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
     <notes><![CDATA[file name: htmlunit-core-js-2.55.0.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit\-core\-js@.*$</packageUrl>
@@ -111,293 +110,293 @@
     <notes><![CDATA[file name: jetty-http-9.4.44.v20210927.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-http@.*$</packageUrl>
   </suppress>
-  <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: jetty-plus-9.4.44.v20210927.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-plus@.*$</packageUrl>
-    <cve>CVE-2022-2048</cve>
-    <cve>CVE-2023-44487</cve>
-    <cve>CVE-2023-36478</cve>
-  </suppress>
-  <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: jetty-server-9.4.44.v20210927.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-server@.*$</packageUrl>
-    <cve>CVE-2022-2047</cve>
-    <cve>CVE-2022-2048</cve>
-    <cve>CVE-2023-26048</cve>
-    <cve>CVE-2023-26049</cve>
-    <cve>CVE-2023-36479</cve>
-    <cve>CVE-2023-44487</cve>
-    <cve>CVE-2023-36478</cve>
-    <cve>CVE-2023-40167</cve>
-    <cve>CVE-2023-41900</cve>
-  </suppress>
-  <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: jetty-util-9.4.44.v20210927.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-util@.*$</packageUrl>
-    <cve>CVE-2022-2048</cve>
-    <cve>CVE-2023-44487</cve>
-    <cve>CVE-2023-36478</cve>
-  </suppress>
-  <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: jetty-xml-9.4.44.v20210927.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-xml@.*$</packageUrl>
-    <cve>CVE-2022-2047</cve>
-    <cve>CVE-2022-2048</cve>
-    <cve>CVE-2023-26048</cve>
-    <cve>CVE-2023-26049</cve>
-    <cve>CVE-2023-36478</cve>
-    <cve>CVE-2023-36479</cve>
-    <cve>CVE-2023-40167</cve>
-    <cve>CVE-2023-41900</cve>
-    <cve>CVE-2023-44487</cve>
-  </suppress>
-  <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: neko-htmlunit-2.55.0.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/neko\-htmlunit@.*$</packageUrl>
-    <cve>CVE-2023-2048</cve>
-    <cve>CVE-2023-2798</cve>
-    <cve>CVE-2022-28366</cve>
-    <cve>CVE-2022-29546</cve>
-    <cve>CVE-2023-26119</cve>
-    <cve>CVE-2023-49093</cve>
-  </suppress>
-  <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: serializer-2.7.2.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/xalan/serializer@.*$</packageUrl>
-    <cve>CVE-2022-34169</cve>
-  </suppress>
-  <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: tapestry-4.0.2.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/tapestry/tapestry@.*$</packageUrl>
-    <cve>CVE-2014-1972</cve>
-    <cve>CVE-2020-17531</cve>
-    <cve>CVE-2022-31781</cve>
-  </suppress>
-  <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: websocket-client-9.4.44.v20210927.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty\.websocket/websocket\-client@.*$</packageUrl>
-    <cve>CVE-2022-2047</cve>
-    <cve>CVE-2022-2048</cve>
-    <cve>CVE-2023-26048</cve>
-    <cve>CVE-2023-26049</cve>
-    <cve>CVE-2023-36478</cve>
-    <cve>CVE-2023-36479</cve>
-    <cve>CVE-2023-40167</cve>
-    <cve>CVE-2023-41900</cve>
-    <cve>CVE-2023-44487</cve>
-  </suppress>
-  <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: websocket-common-9.4.44.v20210927.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty\.websocket/websocket\-common@.*$</packageUrl>
-    <cve>CVE-2022-2047</cve>
-    <cve>CVE-2022-2048</cve>
-    <cve>CVE-2023-26048</cve>
-    <cve>CVE-2023-26049</cve>
-    <cve>CVE-2023-36478</cve>
-    <cve>CVE-2023-36479</cve>
-    <cve>CVE-2023-40167</cve>
-    <cve>CVE-2023-41900</cve>
-    <cve>CVE-2023-44487</cve>
-  </suppress>
-  <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: xalan-2.7.2.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/xalan/xalan@.*$</packageUrl>
-    <cve>CVE-2022-34169</cve>
-  </suppress>
-  <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: xercesImpl-2.12.1.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/xerces/xercesImpl@.*$</packageUrl>
-    <cve>CVE-2017-10355</cve>
-    <cve>CVE-2022-23437</cve>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[file name: jetty-client-9.4.44.v20210927.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-client@.*$</packageUrl>
-    <cve>CVE-2022-2047</cve>
-    <cve>CVE-2022-2048</cve>
-    <cve>CVE-2023-26048</cve>
-    <cve>CVE-2023-26049</cve>
-    <cve>CVE-2023-36479</cve>
-    <cve>CVE-2023-40167</cve>
-    <cve>CVE-2023-40167</cve>
-    <cve>CVE-2023-41900</cve>
-    <cve>CVE-2023-44487</cve>
-    <cve>CVE-2023-36478</cve>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[file name: jetty-webapp-9.4.44.v20210927.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-webapp@.*$</packageUrl>
-    <cve>CVE-2022-2048</cve>
-    <cve>CVE-2023-26048</cve>
-    <cve>CVE-2023-26049</cve>
-    <cve>CVE-2022-2047</cve>
-    <cve>CVE-2023-44487</cve>
-    <cve>CVE-2023-36478</cve>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-servlet-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-servlet@.*$</packageUrl>
-    <cve>CVE-2022-2048</cve>
-    <cve>CVE-2023-26048</cve>
-    <cve>CVE-2023-26049</cve>
-    <cve>CVE-2022-2047</cve>
-    <cve>CVE-2023-44487</cve>
-    <cve>CVE-2023-36478</cve>
-  </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetty-io-9.4.44.v20210927.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-io@.*$</packageUrl>
-        <cpe>cpe:/a:eclipse:jetty</cpe>
-    </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: neko-htmlunit-2.55.0.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/neko\-htmlunit@.*$</packageUrl>
-    <cpe>cpe:/a:htmlunit_project:htmlunit</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-security-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-security@.*$</packageUrl>
-    <cpe>cpe:/a:eclipse:jetty</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-security-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-security@.*$</packageUrl>
-    <cpe>cpe:/a:jetty:jetty</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-security-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-security@.*$</packageUrl>
-    <cpe>cpe:/a:mortbay_jetty:jetty</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-servlets-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-servlets@.*$</packageUrl>
-    <cpe>cpe:/a:eclipse:jetty</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-servlets-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-servlets@.*$</packageUrl>
-    <cpe>cpe:/a:jetty:jetty</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-servlets-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-servlets@.*$</packageUrl>
-    <cpe>cpe:/a:mortbay_jetty:jetty</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-util-ajax-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-util\-ajax@.*$</packageUrl>
-    <cpe>cpe:/a:eclipse:jetty</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-util-ajax-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-util\-ajax@.*$</packageUrl>
-    <cpe>cpe:/a:jetty:jetty</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-util-ajax-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-util\-ajax@.*$</packageUrl>
-    <cpe>cpe:/a:mortbay_jetty:jetty</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-annotations-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-annotations@.*$</packageUrl>
-    <cpe>cpe:/a:eclipse:jetty</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-annotations-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-annotations@.*$</packageUrl>
-    <cpe>cpe:/a:jetty:jetty</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-annotations-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-annotations@.*$</packageUrl>
-    <cpe>cpe:/a:mortbay_jetty:jetty</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-continuation-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-continuation@.*$</packageUrl>
-    <cpe>cpe:/a:eclipse:jetty</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-continuation-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-continuation@.*$</packageUrl>
-    <cpe>cpe:/a:jetty:jetty</cpe>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: jetty-continuation-9.4.44.v20210927.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-continuation@.*$</packageUrl>
-    <cpe>cpe:/a:mortbay_jetty:jetty</cpe>
-  </suppress>
-  <!-- test use only -->
-  <suppress>
-    <notes><![CDATA[
-   file name: htmlunit-core-js-2.55.0.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit\-core\-js@.*$</packageUrl>
-    <cve>CVE-2023-2798</cve>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: htmlunit-2.55.0.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit@.*$</packageUrl>
-    <cve>CVE-2023-2798</cve>
-  </suppress>
-  <suppress>
-    <notes><![CDATA[
-   file name: guava-31.0.1-jre.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
-    <cpe>cpe:/a:google:guava</cpe>
-    <cve>CVE-2020-8908</cve>
-    <cve>CVE-2023-2976</cve>
-  </suppress>
+<!--  &lt;!&ndash; gwt-dev-dependency; should never be deployed! &ndash;&gt;-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[file name: jetty-plus-9.4.44.v20210927.jar]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-plus@.*$</packageUrl>-->
+<!--    <cve>CVE-2022-2048</cve>-->
+<!--    <cve>CVE-2023-44487</cve>-->
+<!--    <cve>CVE-2023-36478</cve>-->
+<!--  </suppress>-->
+<!--  &lt;!&ndash; gwt-dev-dependency; should never be deployed! &ndash;&gt;-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[file name: jetty-server-9.4.44.v20210927.jar]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-server@.*$</packageUrl>-->
+<!--    <cve>CVE-2022-2047</cve>-->
+<!--    <cve>CVE-2022-2048</cve>-->
+<!--    <cve>CVE-2023-26048</cve>-->
+<!--    <cve>CVE-2023-26049</cve>-->
+<!--    <cve>CVE-2023-36479</cve>-->
+<!--    <cve>CVE-2023-44487</cve>-->
+<!--    <cve>CVE-2023-36478</cve>-->
+<!--    <cve>CVE-2023-40167</cve>-->
+<!--    <cve>CVE-2023-41900</cve>-->
+<!--  </suppress>-->
+<!--  &lt;!&ndash; gwt-dev-dependency; should never be deployed! &ndash;&gt;-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[file name: jetty-util-9.4.44.v20210927.jar]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-util@.*$</packageUrl>-->
+<!--    <cve>CVE-2022-2048</cve>-->
+<!--    <cve>CVE-2023-44487</cve>-->
+<!--    <cve>CVE-2023-36478</cve>-->
+<!--  </suppress>-->
+<!--  &lt;!&ndash; gwt-dev-dependency; should never be deployed! &ndash;&gt;-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[file name: jetty-xml-9.4.44.v20210927.jar]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-xml@.*$</packageUrl>-->
+<!--    <cve>CVE-2022-2047</cve>-->
+<!--    <cve>CVE-2022-2048</cve>-->
+<!--    <cve>CVE-2023-26048</cve>-->
+<!--    <cve>CVE-2023-26049</cve>-->
+<!--    <cve>CVE-2023-36478</cve>-->
+<!--    <cve>CVE-2023-36479</cve>-->
+<!--    <cve>CVE-2023-40167</cve>-->
+<!--    <cve>CVE-2023-41900</cve>-->
+<!--    <cve>CVE-2023-44487</cve>-->
+<!--  </suppress>-->
+<!--  &lt;!&ndash; gwt-dev-dependency; should never be deployed! &ndash;&gt;-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[file name: neko-htmlunit-2.55.0.jar]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/neko\-htmlunit@.*$</packageUrl>-->
+<!--    <cve>CVE-2023-2048</cve>-->
+<!--    <cve>CVE-2023-2798</cve>-->
+<!--    <cve>CVE-2022-28366</cve>-->
+<!--    <cve>CVE-2022-29546</cve>-->
+<!--    <cve>CVE-2023-26119</cve>-->
+<!--    <cve>CVE-2023-49093</cve>-->
+<!--  </suppress>-->
+<!--  &lt;!&ndash; gwt-dev-dependency; should never be deployed! &ndash;&gt;-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[file name: serializer-2.7.2.jar]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/xalan/serializer@.*$</packageUrl>-->
+<!--    <cve>CVE-2022-34169</cve>-->
+<!--  </suppress>-->
+<!--  &lt;!&ndash; gwt-dev-dependency; should never be deployed! &ndash;&gt;-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[file name: tapestry-4.0.2.jar]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/tapestry/tapestry@.*$</packageUrl>-->
+<!--    <cve>CVE-2014-1972</cve>-->
+<!--    <cve>CVE-2020-17531</cve>-->
+<!--    <cve>CVE-2022-31781</cve>-->
+<!--  </suppress>-->
+<!--  &lt;!&ndash; gwt-dev-dependency; should never be deployed! &ndash;&gt;-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[file name: websocket-client-9.4.44.v20210927.jar]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty\.websocket/websocket\-client@.*$</packageUrl>-->
+<!--    <cve>CVE-2022-2047</cve>-->
+<!--    <cve>CVE-2022-2048</cve>-->
+<!--    <cve>CVE-2023-26048</cve>-->
+<!--    <cve>CVE-2023-26049</cve>-->
+<!--    <cve>CVE-2023-36478</cve>-->
+<!--    <cve>CVE-2023-36479</cve>-->
+<!--    <cve>CVE-2023-40167</cve>-->
+<!--    <cve>CVE-2023-41900</cve>-->
+<!--    <cve>CVE-2023-44487</cve>-->
+<!--  </suppress>-->
+<!--  &lt;!&ndash; gwt-dev-dependency; should never be deployed! &ndash;&gt;-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[file name: websocket-common-9.4.44.v20210927.jar]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty\.websocket/websocket\-common@.*$</packageUrl>-->
+<!--    <cve>CVE-2022-2047</cve>-->
+<!--    <cve>CVE-2022-2048</cve>-->
+<!--    <cve>CVE-2023-26048</cve>-->
+<!--    <cve>CVE-2023-26049</cve>-->
+<!--    <cve>CVE-2023-36478</cve>-->
+<!--    <cve>CVE-2023-36479</cve>-->
+<!--    <cve>CVE-2023-40167</cve>-->
+<!--    <cve>CVE-2023-41900</cve>-->
+<!--    <cve>CVE-2023-44487</cve>-->
+<!--  </suppress>-->
+<!--  &lt;!&ndash; gwt-dev-dependency; should never be deployed! &ndash;&gt;-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[file name: xalan-2.7.2.jar]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/xalan/xalan@.*$</packageUrl>-->
+<!--    <cve>CVE-2022-34169</cve>-->
+<!--  </suppress>-->
+<!--  &lt;!&ndash; gwt-dev-dependency; should never be deployed! &ndash;&gt;-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[file name: xercesImpl-2.12.1.jar]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/xerces/xercesImpl@.*$</packageUrl>-->
+<!--    <cve>CVE-2017-10355</cve>-->
+<!--    <cve>CVE-2022-23437</cve>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[file name: jetty-client-9.4.44.v20210927.jar]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-client@.*$</packageUrl>-->
+<!--    <cve>CVE-2022-2047</cve>-->
+<!--    <cve>CVE-2022-2048</cve>-->
+<!--    <cve>CVE-2023-26048</cve>-->
+<!--    <cve>CVE-2023-26049</cve>-->
+<!--    <cve>CVE-2023-36479</cve>-->
+<!--    <cve>CVE-2023-40167</cve>-->
+<!--    <cve>CVE-2023-40167</cve>-->
+<!--    <cve>CVE-2023-41900</cve>-->
+<!--    <cve>CVE-2023-44487</cve>-->
+<!--    <cve>CVE-2023-36478</cve>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[file name: jetty-webapp-9.4.44.v20210927.jar]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-webapp@.*$</packageUrl>-->
+<!--    <cve>CVE-2022-2048</cve>-->
+<!--    <cve>CVE-2023-26048</cve>-->
+<!--    <cve>CVE-2023-26049</cve>-->
+<!--    <cve>CVE-2022-2047</cve>-->
+<!--    <cve>CVE-2023-44487</cve>-->
+<!--    <cve>CVE-2023-36478</cve>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-servlet-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-servlet@.*$</packageUrl>-->
+<!--    <cve>CVE-2022-2048</cve>-->
+<!--    <cve>CVE-2023-26048</cve>-->
+<!--    <cve>CVE-2023-26049</cve>-->
+<!--    <cve>CVE-2022-2047</cve>-->
+<!--    <cve>CVE-2023-44487</cve>-->
+<!--    <cve>CVE-2023-36478</cve>-->
+<!--  </suppress>-->
+<!--    <suppress>-->
+<!--        <notes><![CDATA[-->
+<!--   file name: jetty-io-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--        <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-io@.*$</packageUrl>-->
+<!--        <cpe>cpe:/a:eclipse:jetty</cpe>-->
+<!--    </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: neko-htmlunit-2.55.0.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/neko\-htmlunit@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:htmlunit_project:htmlunit</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-security-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-security@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:eclipse:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-security-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-security@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:jetty:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-security-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-security@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:mortbay_jetty:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-servlets-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-servlets@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:eclipse:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-servlets-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-servlets@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:jetty:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-servlets-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-servlets@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:mortbay_jetty:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-util-ajax-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-util\-ajax@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:eclipse:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-util-ajax-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-util\-ajax@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:jetty:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-util-ajax-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-util\-ajax@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:mortbay_jetty:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-annotations-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-annotations@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:eclipse:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-annotations-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-annotations@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:jetty:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-annotations-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-annotations@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:mortbay_jetty:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-continuation-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-continuation@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:eclipse:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-continuation-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-continuation@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:jetty:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: jetty-continuation-9.4.44.v20210927.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-continuation@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:mortbay_jetty:jetty</cpe>-->
+<!--  </suppress>-->
+<!--  &lt;!&ndash; test use only &ndash;&gt;-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: htmlunit-core-js-2.55.0.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit\-core\-js@.*$</packageUrl>-->
+<!--    <cve>CVE-2023-2798</cve>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: htmlunit-2.55.0.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit@.*$</packageUrl>-->
+<!--    <cve>CVE-2023-2798</cve>-->
+<!--  </suppress>-->
+<!--  <suppress>-->
+<!--    <notes><![CDATA[-->
+<!--   file name: guava-31.0.1-jre.jar-->
+<!--   ]]></notes>-->
+<!--    <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>-->
+<!--    <cpe>cpe:/a:google:guava</cpe>-->
+<!--    <cve>CVE-2020-8908</cve>-->
+<!--    <cve>CVE-2023-2976</cve>-->
+<!--  </suppress>-->
 </suppressions>
