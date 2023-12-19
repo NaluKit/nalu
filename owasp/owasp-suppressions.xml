@@ -138,6 +138,15 @@
     <cve>CVE-2023-44487</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-jndi-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-jndi@.*$</packageUrl>
+    <cve>CVE-2022-2048</cve>
+    <cve>CVE-2023-36478</cve>
+    <cve>CVE-2023-44487</cve>
+  </suppress> <!-- gwt-dev-dependency; should never be deployed! -->
     <suppress>
       <notes><![CDATA[file name: jetty-plus-9.4.44.v20210927.jar]]></notes>
       <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty\-plus@.*$</packageUrl>
