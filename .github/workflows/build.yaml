@@ -63,7 +63,7 @@ jobs:
     needs: test
     services:
       owasp-db:
-        image: philkohl/owasp-maven-action:latest
+        image: nalusolutionsgmbh/owasp-maven-action:latest
         options: --entrypoint /bin/sh --name owasp-db --hostname owasp-db
     steps:
       - uses: actions/checkout@v3

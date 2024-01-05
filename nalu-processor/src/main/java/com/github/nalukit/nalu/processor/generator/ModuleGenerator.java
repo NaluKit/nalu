@@ -190,9 +190,8 @@ public class ModuleGenerator {
                                                                                        .getSimpleName() +
                                                                              ProcessorConstants.CREATOR_IMPL));
 
-                    if (shellModel.getComposites()
-                                  .size() > 0) {
-                      List<String> generatedConditionClassNames = new ArrayList<>();
+                    if (!shellModel.getComposites()
+                                   .isEmpty()) {
                       shellModel.getComposites()
                                 .forEach(controllerCompositeModel -> {
                                   if (AlwaysLoadComposite.class.getSimpleName()
@@ -211,8 +210,7 @@ public class ModuleGenerator {
                                                                                controllerCompositeModel.getComposite()
                                                                                                        .getSimpleName());
                                   } else {
-                                    if (!generatedConditionClassNames.contains(controllerCompositeModel.getCondition()
-                                                                                                       .getClassName())) {
+                                    if (!this.metaModel.isCondtionAlreadyGenerated(controllerCompositeModel.getCondition())) {
                                       loadShellFactoryMethodBuilder.addStatement("$T $L = new $T()",
                                                                                  ClassName.get(controllerCompositeModel.getCondition()
                                                                                                                        .getPackage(),
@@ -228,8 +226,7 @@ public class ModuleGenerator {
                                                                                  this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
                                                                                                                                            .getSimpleName()));
                                       // remember generated condition to avoid creating the same class again!
-                                      generatedConditionClassNames.add(controllerCompositeModel.getCondition()
-                                                                                               .getClassName());
+                                      this.metaModel.addGeneratedCondition(controllerCompositeModel.getCondition());
                                     }
                                     loadShellFactoryMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, $L)",
                                                                                ClassName.get(CompositeConditionFactory.class),
@@ -293,9 +290,8 @@ public class ModuleGenerator {
                                                                                 .getSimpleName() +
                                                                  ProcessorConstants.CREATOR_IMPL));
 
-          if (controllerModel.getComposites()
-                             .size() > 0) {
-            List<String> generatedConditionClassNames = new ArrayList<>();
+          if (!controllerModel.getComposites()
+                              .isEmpty()) {
             controllerModel.getComposites()
                            .forEach(controllerCompositeModel -> {
                              if (AlwaysLoadComposite.class.getSimpleName()
@@ -314,8 +310,7 @@ public class ModuleGenerator {
                                                                         controllerCompositeModel.getComposite()
                                                                                                 .getSimpleName());
                              } else {
-                               if (!generatedConditionClassNames.contains(controllerCompositeModel.getCondition()
-                                                                                                  .getClassName())) {
+                               if (!this.metaModel.isCondtionAlreadyGenerated(controllerCompositeModel.getCondition())) {
                                  loadComponentsMethodBuilder.addStatement("$T $L = new $T()",
                                                                           ClassName.get(controllerCompositeModel.getCondition()
                                                                                                                 .getPackage(),
@@ -331,8 +326,7 @@ public class ModuleGenerator {
                                                                           this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
                                                                                                                                     .getSimpleName()));
                                  // remember generated condition to avoid creating the same class again!
-                                 generatedConditionClassNames.add(controllerCompositeModel.getCondition()
-                                                                                          .getClassName());
+                                 this.metaModel.addGeneratedCondition(controllerCompositeModel.getCondition());
                                }
                                loadComponentsMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, $L)",
                                                                         ClassName.get(CompositeConditionFactory.class),
@@ -514,7 +508,6 @@ public class ModuleGenerator {
     MethodSpec.Builder loadPopUpControllersMethod = MethodSpec.methodBuilder("loadPopUpControllers")
                                                               .addAnnotation(Override.class)
                                                               .addModifiers(Modifier.PUBLIC);
-    List<String> generatedConditionClassNames = new ArrayList<>();
     this.metaModel.getPopUpControllers()
                   .forEach(popUpControllerModel -> {
                     loadPopUpControllersMethod.addStatement("$T.INSTANCE.registerPopUpController($S, new $L(super.router, super.moduleContext, super.eventBus))",
@@ -533,8 +526,7 @@ public class ModuleGenerator {
                                                               popUpControllerModel.getName());
                     } else {
                       String conditionVariableName;
-                      if (generatedConditionClassNames.contains(popUpControllerModel.getCondition()
-                                                                                    .getClassName())) {
+                      if (this.metaModel.isCondtionAlreadyGenerated(popUpControllerModel.getCondition())) {
                         conditionVariableName = this.setFirstCharacterToLowerCase(popUpControllerModel.getCondition()
                                                                                                       .getSimpleName()) +
                                                 this.getNameWithVariableCount(popUpControllerModel.getCondition(),
@@ -558,8 +550,7 @@ public class ModuleGenerator {
                                                   .addStatement("$L.setContext(super.context)",
                                                                 conditionVariableName);
                         // remember generated condition to avoid creating the same class again!
-                        generatedConditionClassNames.add(popUpControllerModel.getCondition()
-                                                                             .getClassName());
+                        this.metaModel.addGeneratedCondition(popUpControllerModel.getCondition());
                       }
                       loadPopUpControllersMethod.addStatement("$T.INSTANCE.registerCondition($S,  $L)",
                                                               ClassName.get(PopUpConditionFactory.class),

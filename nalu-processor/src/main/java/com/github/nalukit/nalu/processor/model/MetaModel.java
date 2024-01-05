@@ -36,53 +36,54 @@ import java.util.Optional;
 
 public class MetaModel {
 
-  private String                             generateToPackage;
-  private ClassNameModel                     application;
-  private ClassNameModel                     loader;
-  private ClassNameModel                     postLoader;
-  private ClassNameModel                     customAlertPresenter;
-  private       ClassNameModel       customConfirmPresenter;
-  private final List<ClassNameModel> modules;
-  private       boolean              usingHash;
-  private boolean                            usingColonForParametersInUrl;
-  private boolean                            stayOnSide;
+  private       String                             generateToPackage;
+  private       ClassNameModel                     application;
+  private       ClassNameModel                     loader;
+  private       ClassNameModel                     postLoader;
+  private       ClassNameModel                     customAlertPresenter;
+  private       ClassNameModel                     customConfirmPresenter;
+  private final List<ClassNameModel>               modules;
+  private       boolean                            usingHash;
+  private       boolean                            usingColonForParametersInUrl;
+  private       boolean                            stayOnSide;
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
   /* with a a plugin and not with application  */
-  private       ModuleModel      moduleModel;
-  private final List<ShellModel> shells;
-  private       ClassNameModel   context;
-  private String                             startRoute;
-  private String                             illegalRouteTarget;
-  private ErrorPopUpControllerModel          errorPopUpController;
-  private boolean                            hasPluginsAnnotation;
-  private boolean                            hasLoggerAnnotation;
-  private List<ControllerModel>              controllers;
-  private List<BlockControllerModel>         blockControllers;
-  private List<ParameterConstraintRuleModel> parameterConstraintRules;
-  private List<PopUpControllerModel>         popUpControllers;
-  private TrackerModel                       tracker;
-  private List<FilterModel>                  filters;
-  private List<ClassNameModel>               popUpFilters;
-  private List<HandlerModel>                 handlers;
-  private       ClassNameModel       componentType;
-  private final List<CompositeModel> compositeModels;
-  private       ClassNameModel       logger;
-  private ClassNameModel                     clientLogger;
+  private       ModuleModel                        moduleModel;
+  private final List<ShellModel>                   shells;
+  private       ClassNameModel                     context;
+  private       String                             startRoute;
+  private       String                             illegalRouteTarget;
+  private       ErrorPopUpControllerModel          errorPopUpController;
+  private       boolean                            hasPluginsAnnotation;
+  private       boolean                            hasLoggerAnnotation;
+  private       List<ControllerModel>              controllers;
+  private       List<BlockControllerModel>         blockControllers;
+  private       List<ParameterConstraintRuleModel> parameterConstraintRules;
+  private       List<PopUpControllerModel>         popUpControllers;
+  private       TrackerModel                       tracker;
+  private       List<FilterModel>                  filters;
+  private       List<ClassNameModel>               popUpFilters;
+  private       List<HandlerModel>                 handlers;
+  private       ClassNameModel                     componentType;
+  private final List<CompositeModel>               compositeModels;
+  private       ClassNameModel                     logger;
+  private       ClassNameModel                     clientLogger;
   /* flag, that indicates, if a Nalu application */
   /* uses a history token or not.                */
-  private boolean                            history;
+  private       boolean                            history;
   /* Version of the applicaiton set by the       */
   /* Version annotation                          */
-  private String                             applicationVersion;
+  private       String                             applicationVersion;
   /* does the context extends                    */
   /* AbstractModuleContext?                      */
-  private boolean                            extendingIsModuleContext;
+  private       boolean                            extendingIsModuleContext;
   /* do we have to remove the URL parameter      */
   /* from the URL                                */
-  private       boolean              removeUrlParameterAtStart;
+  private       boolean                            removeUrlParameterAtStart;
   /* list of used parameter constraints          */
-  private final List<ClassNameModel> usedParameterConstraints;
+  private final List<ClassNameModel>               usedParameterConstraints;
+  private final List<ClassNameModel>               generatedConditions;
 
   public MetaModel() {
     this.modules                  = new ArrayList<>();
@@ -96,6 +97,7 @@ public class MetaModel {
     this.compositeModels          = new ArrayList<>();
     this.parameterConstraintRules = new ArrayList<>();
     this.usedParameterConstraints = new ArrayList<>();
+    this.generatedConditions      = new ArrayList<>();
 
     this.applicationVersion        = "APPLCIATION-VERSION-NOT-AVAILABLE";
     this.extendingIsModuleContext  = false;
@@ -362,13 +364,31 @@ public class MetaModel {
                                                                      .filter(m -> m.getClassName()
                                                                                    .equals(model.getClassName()))
                                                                      .findFirst();
-    if (!optional.isPresent()) {
+    if (optional.isEmpty()) {
       this.usedParameterConstraints.add(model);
     }
   }
 
   public List<ClassNameModel> getUsedParameterConstraints() {
     return usedParameterConstraints;
+  }
+
+  public void addGeneratedCondition(ClassNameModel condition) {
+    this.generatedConditions.add(condition);
+  }
+
+  public void clearGeneratedConditionList() {
+    this.generatedConditions.clear();
+  }
+
+  public boolean isCondtionAlreadyGenerated(ClassNameModel condition) {
+    if (Objects.isNull(condition)) {
+      return false;
+    }
+    return this.generatedConditions.stream()
+                                   .map(ClassNameModel::getClassName)
+                                   .anyMatch(m -> condition.getClassName()
+                                                           .equals(m));
   }
 
   public TrackerModel getTracker() {
