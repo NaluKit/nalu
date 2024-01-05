@@ -26,9 +26,7 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class PopUpControllerGenerator {
@@ -56,7 +54,6 @@ public class PopUpControllerGenerator {
     MethodSpec.Builder loadPopUpControllerFactoryMethodBuilder = MethodSpec.methodBuilder("loadPopUpControllerFactory")
                                                                            .addModifiers(Modifier.PUBLIC)
                                                                            .addAnnotation(Override.class);
-    List<String> generatedConditionClassNames = new ArrayList<>();
     this.metaModel.getPopUpControllers()
                   .forEach(popUpControllerModel -> {
                     loadPopUpControllerFactoryMethodBuilder.addStatement("$T.INSTANCE.registerPopUpController($S, new $L(router, context, eventBus))",
@@ -75,8 +72,7 @@ public class PopUpControllerGenerator {
                                                                            popUpControllerModel.getName());
                     } else {
                       String conditionVariableName;
-                      if (generatedConditionClassNames.contains(popUpControllerModel.getCondition()
-                                                                                    .getClassName())) {
+                      if (this.metaModel.isCondtionAlreadyGenerated(popUpControllerModel.getCondition())) {
                         conditionVariableName = this.setFirstCharacterToLowerCase(popUpControllerModel.getCondition()
                                                                                                       .getSimpleName()) +
                                                 this.getNameWithVariableCount(popUpControllerModel.getCondition(),
@@ -100,8 +96,7 @@ public class PopUpControllerGenerator {
                                                                .addStatement("$L.setContext(super.context)",
                                                                              conditionVariableName);
                         // remember generated condition to avoid creating the same class again!
-                        generatedConditionClassNames.add(popUpControllerModel.getCondition()
-                                                                             .getClassName());
+                        this.metaModel.addGeneratedCondition(popUpControllerModel.getCondition());
                       }
                       loadPopUpControllerFactoryMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S,  $L)",
                                                                            ClassName.get(PopUpConditionFactory.class),
