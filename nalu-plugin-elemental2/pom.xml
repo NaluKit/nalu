@@ -79,6 +79,12 @@
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu</artifactId>
       <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>elemental2-core</artifactId>
+          <groupId>com.google.elemental2</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.github.nalukit</groupId>
