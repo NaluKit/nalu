@@ -2,21 +2,8 @@
 ### GWT template
 *.class
 
-# gwt caches and compiled units #
-gwt-unitCache/
-
-# boilerplate generated classes #
-.apt_generated/
-
-# more caches and things from deploy #
-war/WEB-INF/deploy/
-war/WEB-INF/classes/
-
 #compilation logs
 .gwt/
-
-#gwt junit compilation files
-www-test/
 
 #old GWT (1.5) created this dir
 .gwt-tmp/
@@ -25,12 +12,6 @@ www-test/
 
 # Log file
 *.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
 
 # Package Files #
 *.jar
