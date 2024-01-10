@@ -99,7 +99,7 @@
     <guava.version>32.1.1-jre</guava.version>
     <gwt-event.version>1.0.0-RC1</gwt-event.version>
     <gwt-regexp.version>1.0.0-RC1</gwt-regexp.version>
-    <gwt.version>2.10.0</gwt.version>
+    <gwt.version>2.11.0</gwt.version>
     <hamcrest-core.version>2.2</hamcrest-core.version>
     <java.doc.executable>${java.home}/bin/javadoc</java.doc.executable>
     <javapoet.version>1.13.0</javapoet.version>
@@ -231,21 +231,6 @@
       </modules>
       <build>
         <plugins>
-          <!--          <plugin>-->
-          <!--            <groupId>org.apache.maven.plugins</groupId>-->
-          <!--            <artifactId>maven-release-plugin</artifactId>-->
-          <!--            <version>2.5.1</version>-->
-          <!--            <configuration>-->
-          <!--              <tagNameFormat>@{project.version}</tagNameFormat>-->
-          <!--            </configuration>-->
-          <!--            <dependencies>-->
-          <!--              <dependency>-->
-          <!--                <groupId>org.apache.maven.shared</groupId>-->
-          <!--                <artifactId>maven-invoker</artifactId>-->
-          <!--                <version>2.2</version>-->
-          <!--              </dependency>-->
-          <!--            </dependencies>-->
-          <!--          </plugin>-->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
@@ -303,17 +288,6 @@
               <skip>false</skip>
             </configuration>
           </plugin>
-          <!--          <plugin>-->
-          <!--            <groupId>org.sonatype.plugins</groupId>-->
-          <!--            <artifactId>nexus-staging-maven-plugin</artifactId>-->
-          <!--            <version>${plugin.version.nexus.staging}</version>-->
-          <!--            <extensions>true</extensions>-->
-          <!--            <configuration>-->
-          <!--              <serverId>ossrh</serverId>-->
-          <!--              <nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
-          <!--              <autoReleaseAfterClose>false</autoReleaseAfterClose>-->
-          <!--            </configuration>-->
-          <!--          </plugin>-->
         </plugins>
       </build>
     </profile>
@@ -329,41 +303,9 @@
         <module>nalu-plugin-gwt</module>
         <module>nalu-plugin-gwt-processor</module>
       </modules>
-      <!--      <build>-->
-      <!--        <plugins>-->
-      <!--          <plugin>-->
-      <!--            <groupId>com.github.github</groupId>-->
-      <!--            <artifactId>site-maven-plugin</artifactId>-->
-      <!--            <version>${plugin.version.github.site}</version>-->
-      <!--            <configuration>-->
-      <!--              <branch>refs/heads/site</branch>-->
-      <!--              <message>Creating site for ${project.name} ${project.version}</message>-->
-      <!--            </configuration>-->
-      <!--            <executions>-->
-      <!--              <execution>-->
-      <!--                <goals>-->
-      <!--                  <goal>site</goal>-->
-      <!--                </goals>-->
-      <!--                <phase>site</phase>-->
-      <!--              </execution>-->
-      <!--            </executions>-->
-      <!--          </plugin>-->
-      <!--        </plugins>-->
-      <!--      </build>-->
+
       <reporting>
         <plugins>
-          <!--          <plugin>-->
-          <!--            <groupId>org.apache.maven.plugins</groupId>-->
-          <!--            <artifactId>maven-project-info-reports-plugin</artifactId>-->
-          <!--            <version>${plugin.version.project.info.report}</version>-->
-          <!--            <reportSets>-->
-          <!--              <reportSet>-->
-          <!--                <reports>-->
-          <!--                  <report>index</report>-->
-          <!--                </reports>-->
-          <!--              </reportSet>-->
-          <!--            </reportSets>-->
-          <!--          </plugin>-->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
@@ -387,14 +329,5 @@
         </plugins>
       </reporting>
     </profile>
-    <!--    <profile>-->
-    <!--      <id>jdk-8-config</id>-->
-    <!--      <activation>-->
-    <!--        <jdk>1.8</jdk>-->
-    <!--      </activation>-->
-    <!--      <properties>-->
-    <!--        <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>-->
-    <!--      </properties>-->
-    <!--    </profile>-->
   </profiles>
 </project>
