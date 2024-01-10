@@ -83,6 +83,12 @@
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu</artifactId>
       <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>elemental2-core</artifactId>
+          <groupId>com.google.elemental2</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.github.nalukit</groupId>
@@ -116,6 +122,16 @@
       <groupId>org.dominokit</groupId>
       <artifactId>domino-ui</artifactId>
       <version>${domino.ui.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>elemental2-dom</artifactId>
+          <groupId>com.google.elemental2</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>elemental2-core</artifactId>
+          <groupId>com.google.elemental2</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.dominokit</groupId>

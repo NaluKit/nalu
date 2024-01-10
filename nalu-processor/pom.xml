@@ -79,6 +79,12 @@
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu</artifactId>
       <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>elemental2-core</artifactId>
+          <groupId>com.google.elemental2</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -131,6 +137,10 @@
         <exclusion>
           <artifactId>truth</artifactId>
           <groupId>com.google.truth</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>checker-qual</artifactId>
+          <groupId>org.checkerframework</groupId>
         </exclusion>
       </exclusions>
       <scope>test</scope>
