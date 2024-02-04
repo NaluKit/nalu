@@ -481,7 +481,7 @@ public class NaluProcessor
       errorPopUpControllerModels.add(errorPopUpControllerModel);
     }
     // save data in metaModel
-    if (errorPopUpControllerModels.size() > 0) {
+    if (!errorPopUpControllerModels.isEmpty()) {
       this.metaModel.setErrorPopUpController(errorPopUpControllerModels.get(0));
     }
   }
@@ -845,9 +845,12 @@ public class NaluProcessor
                                          .getResource(StandardLocation.CLASS_OUTPUT,
                                                       "",
                                                       this.createRelativeFileName());
-      return gson.fromJson(resource.getCharContent(true)
-                                   .toString(),
-                           MetaModel.class);
+      MetaModel model = gson.fromJson(resource.getCharContent(true)
+                                                   .toString(),
+                                           MetaModel.class);
+      // clear working lists
+      model.clearGeneratedConditionList();
+      return model;
     } catch (IOException e) {
       // every thing is ok -> no operation
       return null;

@@ -27,9 +27,7 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.Modifier;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ShellGenerator {
@@ -96,9 +94,8 @@ public class ShellGenerator {
                                                                                        .getSimpleName() +
                                                                              ProcessorConstants.CREATOR_IMPL));
 
-                    if (shellModel.getComposites()
-                                  .size() > 0) {
-                      List<String> generatedConditionClassNames = new ArrayList<>();
+                    if (!shellModel.getComposites()
+                                   .isEmpty()) {
                       shellModel.getComposites()
                                 .forEach(controllerCompositeModel -> {
                                   if (AlwaysLoadComposite.class.getSimpleName()
@@ -118,8 +115,7 @@ public class ShellGenerator {
                                                                                                        .getSimpleName());
                                   } else {
                                     String conditionVariableName;
-                                    if (generatedConditionClassNames.contains(controllerCompositeModel.getCondition()
-                                                                                                      .getClassName())) {
+                                    if (this.metaModel.isCondtionAlreadyGenerated(controllerCompositeModel.getCondition())) {
                                       conditionVariableName = this.setFirstCharacterToLowerCase(controllerCompositeModel.getCondition()
                                                                                                                         .getSimpleName()) +
                                                               this.getNameWithVariableCount(controllerCompositeModel.getCondition(),
@@ -143,8 +139,7 @@ public class ShellGenerator {
                                                                    .addStatement("$L.setContext(super.context)",
                                                                                  conditionVariableName);
                                       // remember generated condition to avoid creating the same class again!
-                                      generatedConditionClassNames.add(controllerCompositeModel.getCondition()
-                                                                                               .getClassName());
+                                      this.metaModel.addGeneratedCondition(controllerCompositeModel.getCondition());
                                     }
                                     loadShellFactoryMethodBuilder.addStatement("$T.INSTANCE.registerCondition($S, $S, $L)",
                                                                                ClassName.get(CompositeConditionFactory.class),

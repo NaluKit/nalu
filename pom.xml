@@ -62,15 +62,6 @@
         <role>Java Developer</role>
       </roles>
     </developer>
-    <developer>
-      <name>Philipp Kohl</name>
-      <id>philippkohl</id>
-      <email>contact@nalu-solutions.de</email>
-      <organization>Nalu Solutions GmbH</organization>
-      <roles>
-        <role>Java Developer</role>
-      </roles>
-    </developer>
   </developers>
 
   <scm>
@@ -96,25 +87,24 @@
   </distributionManagement>
 
   <properties>
-    <revision>2.12.7</revision>
+    <revision>2.20.0</revision>
 
     <github.global.server>github</github.global.server>
 
-    <auto-common.version>1.0</auto-common.version>
-    <auto-service.version>1.0.1</auto-service.version>
+    <auto-common.version>1.2.2</auto-common.version>
+    <auto-service.version>1.1.1</auto-service.version>
     <compile-testing.version>0.21.0</compile-testing.version>
     <gson.version>2.10.1</gson.version>
     <elemental2.version>1.2.1</elemental2.version>
-    <guava.version>32.1.1-jre</guava.version>
+    <guava.version>33.0.0-jre</guava.version>
     <gwt-event.version>1.0.0-RC1</gwt-event.version>
     <gwt-regexp.version>1.0.0-RC1</gwt-regexp.version>
-    <gwt.version>2.10.0</gwt.version>
+    <gwt.version>2.11.0</gwt.version>
     <hamcrest-core.version>2.2</hamcrest-core.version>
     <java.doc.executable>${java.home}/bin/javadoc</java.doc.executable>
     <javapoet.version>1.13.0</javapoet.version>
-    <jsinterop-annotations.version>2.0.0</jsinterop-annotations.version>
-    <junit-jupiter.version>5.9.2</junit-jupiter.version>
-    <junit-jupiter-platform.version>1.9.2</junit-jupiter-platform.version>
+    <junit-jupiter.version>5.10.1</junit-jupiter.version>
+    <junit-jupiter-platform.version>1.10.1</junit-jupiter-platform.version>
     <truth.version>1.1.3</truth.version>
 
     <maven.compiler.source>11</maven.compiler.source>
@@ -122,13 +112,12 @@
 
     <maven.deploy.plugin>3.1.1</maven.deploy.plugin>
     <plugin.version.github.site>0.12</plugin.version.github.site>
-    <plugin.version.gpg.maven>1.6</plugin.version.gpg.maven>
-    <plugin.version.javadoc>3.2.0</plugin.version.javadoc>
-    <plugin.version.nexus.staging>1.6.8</plugin.version.nexus.staging>
-    <plugin.version.project.info.report>3.0.0</plugin.version.project.info.report>
-    <plugin.version.sonatype>1.6.3</plugin.version.sonatype>
-    <plugin.version.source>3.2.1</plugin.version.source>
-    <plugin.version.surfire>3.2.2</plugin.version.surfire>
+    <plugin.version.gpg.maven>3.1.0</plugin.version.gpg.maven>
+    <plugin.version.javadoc>3.6.3</plugin.version.javadoc>
+    <plugin.version.project.info.report>3.5.0</plugin.version.project.info.report>
+    <plugin.version.sonatype>1.6.13</plugin.version.sonatype>
+    <plugin.version.source>3.3.0</plugin.version.source>
+    <plugin.version.surfire>3.2.3</plugin.version.surfire>
     <plugin.version.flatten>1.5.0</plugin.version.flatten>
     <plugin.version.clean>3.3.2</plugin.version.clean>
     <plugin.version.replacer>1.5.3</plugin.version.replacer>
@@ -240,21 +229,6 @@
       </modules>
       <build>
         <plugins>
-          <!--          <plugin>-->
-          <!--            <groupId>org.apache.maven.plugins</groupId>-->
-          <!--            <artifactId>maven-release-plugin</artifactId>-->
-          <!--            <version>2.5.1</version>-->
-          <!--            <configuration>-->
-          <!--              <tagNameFormat>@{project.version}</tagNameFormat>-->
-          <!--            </configuration>-->
-          <!--            <dependencies>-->
-          <!--              <dependency>-->
-          <!--                <groupId>org.apache.maven.shared</groupId>-->
-          <!--                <artifactId>maven-invoker</artifactId>-->
-          <!--                <version>2.2</version>-->
-          <!--              </dependency>-->
-          <!--            </dependencies>-->
-          <!--          </plugin>-->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
@@ -312,17 +286,6 @@
               <skip>false</skip>
             </configuration>
           </plugin>
-          <!--          <plugin>-->
-          <!--            <groupId>org.sonatype.plugins</groupId>-->
-          <!--            <artifactId>nexus-staging-maven-plugin</artifactId>-->
-          <!--            <version>${plugin.version.nexus.staging}</version>-->
-          <!--            <extensions>true</extensions>-->
-          <!--            <configuration>-->
-          <!--              <serverId>ossrh</serverId>-->
-          <!--              <nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
-          <!--              <autoReleaseAfterClose>false</autoReleaseAfterClose>-->
-          <!--            </configuration>-->
-          <!--          </plugin>-->
         </plugins>
       </build>
     </profile>
@@ -338,41 +301,9 @@
         <module>nalu-plugin-gwt</module>
         <module>nalu-plugin-gwt-processor</module>
       </modules>
-      <!--      <build>-->
-      <!--        <plugins>-->
-      <!--          <plugin>-->
-      <!--            <groupId>com.github.github</groupId>-->
-      <!--            <artifactId>site-maven-plugin</artifactId>-->
-      <!--            <version>${plugin.version.github.site}</version>-->
-      <!--            <configuration>-->
-      <!--              <branch>refs/heads/site</branch>-->
-      <!--              <message>Creating site for ${project.name} ${project.version}</message>-->
-      <!--            </configuration>-->
-      <!--            <executions>-->
-      <!--              <execution>-->
-      <!--                <goals>-->
-      <!--                  <goal>site</goal>-->
-      <!--                </goals>-->
-      <!--                <phase>site</phase>-->
-      <!--              </execution>-->
-      <!--            </executions>-->
-      <!--          </plugin>-->
-      <!--        </plugins>-->
-      <!--      </build>-->
+
       <reporting>
         <plugins>
-          <!--          <plugin>-->
-          <!--            <groupId>org.apache.maven.plugins</groupId>-->
-          <!--            <artifactId>maven-project-info-reports-plugin</artifactId>-->
-          <!--            <version>${plugin.version.project.info.report}</version>-->
-          <!--            <reportSets>-->
-          <!--              <reportSet>-->
-          <!--                <reports>-->
-          <!--                  <report>index</report>-->
-          <!--                </reports>-->
-          <!--              </reportSet>-->
-          <!--            </reportSets>-->
-          <!--          </plugin>-->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
@@ -396,14 +327,5 @@
         </plugins>
       </reporting>
     </profile>
-    <!--    <profile>-->
-    <!--      <id>jdk-8-config</id>-->
-    <!--      <activation>-->
-    <!--        <jdk>1.8</jdk>-->
-    <!--      </activation>-->
-    <!--      <properties>-->
-    <!--        <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>-->
-    <!--      </properties>-->
-    <!--    </profile>-->
   </profiles>
 </project>

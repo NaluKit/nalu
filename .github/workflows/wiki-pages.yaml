@@ -1,6 +1,9 @@
 name: WikiPages
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:

@@ -108,11 +108,31 @@
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu</artifactId>
       <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>base</artifactId>
+          <groupId>com.google.jsinterop</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>elemental2-promise</artifactId>
+          <groupId>com.google.elemental2</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
       <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>base</artifactId>
+          <groupId>com.google.jsinterop</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>elemental2-core</artifactId>
+          <groupId>com.google.elemental2</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -123,6 +143,10 @@
         <exclusion>
           <artifactId>checker-qual</artifactId>
           <groupId>org.checkerframework</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>guava</artifactId>
+          <groupId>com.google.guava</groupId>
         </exclusion>
       </exclusions>
       <optional>true</optional>
@@ -138,8 +162,11 @@
       <version>${javapoet.version}</version>
     </dependency>
 
-
-    <!-- only for testing -->
+    <dependency>
+      <artifactId>guava</artifactId>
+      <groupId>com.google.guava</groupId>
+      <version>${guava.version}</version>
+    </dependency>
 
     <!-- only for testing -->
     <dependency>
@@ -162,6 +189,10 @@
         <exclusion>
           <artifactId>truth</artifactId>
           <groupId>com.google.truth</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>checker-qual</artifactId>
+          <groupId>org.checkerframework</groupId>
         </exclusion>
       </exclusions>
       <scope>test</scope>
