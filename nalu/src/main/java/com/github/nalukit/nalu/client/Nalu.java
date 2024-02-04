@@ -23,7 +23,7 @@ public class Nalu {
 
   public static String getVersion() {
     // TODO Change this for other versions
-    return "2.20.0";
+    return "HEAD-SNAPSHOT";
   }
 
   public static boolean hasHistory() {
