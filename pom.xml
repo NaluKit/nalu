@@ -87,7 +87,7 @@
   </distributionManagement>
 
   <properties>
-    <revision>HEAD-SNAPSHOT</revision>
+    <revision>2.20.0</revision>
 
     <github.global.server>github</github.global.server>
 
