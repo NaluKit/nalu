@@ -193,12 +193,6 @@ public class ProcessorUtils {
     return null;
   }
 
-  //  public String createNameWithleadingUpperCase(String name) {
-  //    return name.substring(0,
-  //                          1)
-  //               .toUpperCase() + name.substring(1);
-  //  }
-
   public void createErrorMessage(String errorMessage) {
     StringWriter sw = new StringWriter();
     PrintWriter  pw = new PrintWriter(sw);
