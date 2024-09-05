@@ -102,7 +102,7 @@
     <java.doc.executable>${java.home}/bin/javadoc</java.doc.executable>
     <javapoet.version>1.13.0</javapoet.version>
     <junit-jupiter.version>5.10.3</junit-jupiter.version>
-    <junit-jupiter-platform.version>1.10.2</junit-jupiter-platform.version>
+    <junit-jupiter-platform.version>1.10.3</junit-jupiter-platform.version>
     <truth.version>1.4.2</truth.version>
 
     <maven.compiler.source>11</maven.compiler.source>
