@@ -150,13 +150,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <!-- gwt-events: once it is on maven central, use it!
-    <dependency>
-      <groupId>org.gwtproject.event</groupId>
-      <artifactId>gwt-event</artifactId>
-      <version>${gwt-events.version}</version>
-    </dependency>
-    -->
   </dependencies>
 
 

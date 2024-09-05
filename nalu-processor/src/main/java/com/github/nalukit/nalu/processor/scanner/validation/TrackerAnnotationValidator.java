@@ -18,6 +18,7 @@ package com.github.nalukit.nalu.processor.scanner.validation;
 import com.github.nalukit.nalu.client.application.IsApplication;
 import com.github.nalukit.nalu.client.application.annotation.Application;
 import com.github.nalukit.nalu.client.tracker.AbstractTracker;
+import com.github.nalukit.nalu.client.tracker.IsTracker;
 import com.github.nalukit.nalu.client.tracker.annotation.Tracker;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
@@ -110,7 +111,7 @@ public class TrackerAnnotationValidator {
 
   private TypeElement getTracker(Tracker trackerAnnotation) {
     try {
-      trackerAnnotation.value();
+      Class<? extends IsTracker> ignore = trackerAnnotation.value();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());

@@ -145,7 +145,7 @@ public class ControllerAnnotationValidator {
       route = route.substring(1);
     }
     // initial routes do not need a validation!
-    if (route.length() == 0) {
+    if (route.isEmpty()) {
       return;
     }
     String[] splits      = route.split("/");
@@ -153,7 +153,7 @@ public class ControllerAnnotationValidator {
     for (String s : splits) {
       partCounter++;
       // handle "//" -> not allowed
-      if (s.length() == 0) {
+      if (s.isEmpty()) {
         throw new ProcessorException("Nalu-Processor: controller >>" +
                                      this.controllerElement.getEnclosingElement()
                                                            .toString() +
@@ -213,7 +213,7 @@ public class ControllerAnnotationValidator {
                                                                            .size() > 1)
                                                              .map(Map.Entry::getKey)
                                                              .collect(Collectors.toList());
-    if (duplicateParameters.size() > 0) {
+    if (!duplicateParameters.isEmpty()) {
       StringBuilder sb = new StringBuilder();
       sb.append("Nalu-Processor: controller >>")
         .append(this.controllerElement.getEnclosingElement()
@@ -255,7 +255,7 @@ public class ControllerAnnotationValidator {
       for (String parameterFromFirstRoute : parametersOfFirstRoute) {
         compareParameters.remove(parameterFromFirstRoute);
       }
-      if (compareParameters.size() > 0) {
+      if (!compareParameters.isEmpty()) {
         StringBuilder sb = new StringBuilder();
         sb.append("Nalu-Processor: controller >>")
           .append(this.controllerElement.getEnclosingElement()
@@ -292,7 +292,7 @@ public class ControllerAnnotationValidator {
                                                                 .size() > 1)
                                                   .map(Map.Entry::getKey)
                                                   .collect(Collectors.toList());
-    if (duplicateRoutes.size() > 0) {
+    if (!duplicateRoutes.isEmpty()) {
       StringBuilder sb = new StringBuilder();
       sb.append("Nalu-Processor: controller >>")
         .append(this.controllerElement.getEnclosingElement()

@@ -22,20 +22,20 @@ import java.util.Optional;
 
 public class ControllerModel {
 
-  private String[]                               originalRoute;
-  private List<String>                           parameters;
-  private       ClassNameModel               provider;
-  private final List<ParameterAcceptorModel> parameterAcceptors;
-  private       boolean                      componentCreator;
-  private List<String>                           route;
-  private String                                 selector;
-  private ClassNameModel                         context;
-  private ClassNameModel                         controller;
-  private ClassNameModel                         componentInterface;
-  private ClassNameModel                         component;
-  private List<ShellAndControllerCompositeModel> composites;
-  private List<EventHandlerModel>                eventHandlers;
-  private List<EventModel>                       eventModels;
+  private       String[]                               originalRoute;
+  private       List<String>                           parameters;
+  private       ClassNameModel                         provider;
+  private final List<ParameterAcceptorModel>           parameterAcceptors;
+  private       boolean                                componentCreator;
+  private       List<String>                           route;
+  private       String                                 selector;
+  private       ClassNameModel                         context;
+  private       ClassNameModel                         controller;
+  private       ClassNameModel                         componentInterface;
+  private       ClassNameModel                         component;
+  private       List<ShellAndControllerCompositeModel> composites;
+  private       List<EventHandlerModel>                eventHandlers;
+  private       List<EventModel>                       eventModels;
 
   public ControllerModel() {
     this.parameterAcceptors = new ArrayList<>();
@@ -148,14 +148,6 @@ public class ControllerModel {
     return parameterAcceptors;
   }
 
-  public String getParameterAcceptors(String parameterName) {
-    Optional<ParameterAcceptorModel> optional = this.parameterAcceptors.stream()
-                                                                       .filter(a -> parameterName.equals(a.getParameterName()))
-                                                                       .findFirst();
-    return optional.map(ParameterAcceptorModel::getMethodName)
-                   .orElse(null);
-  }
-
   public ParameterConstraintModel getConstraintModelFor(String parameterName) {
     Optional<ParameterAcceptorModel> optional = this.parameterAcceptors.stream()
                                                                        .filter(a -> parameterName.equals(a.getParameterName()))
@@ -235,17 +227,6 @@ public class ControllerModel {
                                             shellOfRoute.indexOf("/"));
     }
     return shellOfRoute;
-  }
-
-  private boolean matchRouteWithoutShell(String route) {
-    for (String originalRoute : this.originalRoute) {
-      String routeWithoutShell      = this.getRouteWithoutShell(originalRoute);
-      String startRouteWithoutShell = this.getRouteWithoutShell(route);
-      if (routeWithoutShell.equals(startRouteWithoutShell)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   public List<EventHandlerModel> getEventHandlers() {

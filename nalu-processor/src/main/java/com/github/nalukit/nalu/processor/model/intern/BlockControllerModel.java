@@ -20,16 +20,16 @@ import java.util.List;
 
 public class BlockControllerModel {
 
-  private String                  name;
-  private ClassNameModel          context;
-  private ClassNameModel          controller;
-  private ClassNameModel          componentInterface;
-  private ClassNameModel          component;
-  private ClassNameModel          provider;
-  private boolean                 componentCreator;
-  private ClassNameModel          conndition;
-  private List<EventHandlerModel> eventHandlers;
-  private List<EventModel>        eventModels;
+  private       String                  name;
+  private       ClassNameModel          context;
+  private       ClassNameModel          controller;
+  private       ClassNameModel          componentInterface;
+  private       ClassNameModel          component;
+  private final ClassNameModel          provider;
+  private       boolean                 componentCreator;
+  private       ClassNameModel          conndition;
+  private       List<EventHandlerModel> eventHandlers;
+  private       List<EventModel>        eventModels;
 
   public BlockControllerModel(String name,
                               ClassNameModel context,
@@ -95,10 +95,6 @@ public class BlockControllerModel {
 
   public ClassNameModel getProvider() {
     return provider;
-  }
-
-  public void setProvider(ClassNameModel provider) {
-    this.provider = provider;
   }
 
   public boolean isComponentCreator() {

@@ -25,7 +25,6 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.MirroredTypeException;
 import java.util.Set;
 
 public class VersionAnnotationValidator {
@@ -69,7 +68,6 @@ public class VersionAnnotationValidator {
     }
     for (Element element : elementsWithVersionAnnotation) {
       if (element instanceof TypeElement) {
-        TypeElement typeElement = (TypeElement) element;
         // @Version can only be used on a interface
         if (!versionElement.getKind()
                            .isInterface()) {
@@ -91,16 +89,6 @@ public class VersionAnnotationValidator {
         throw new ProcessorException("Nalu-Processor: @Version can only be used on a type (interface)");
       }
     }
-  }
-
-  private TypeElement getVersion(Version versionAnnotation) {
-    try {
-      versionAnnotation.value();
-    } catch (MirroredTypeException exception) {
-      return (TypeElement) this.processingEnvironment.getTypeUtils()
-                                                     .asElement(exception.getTypeMirror());
-    }
-    return null;
   }
 
   public static final class Builder {
