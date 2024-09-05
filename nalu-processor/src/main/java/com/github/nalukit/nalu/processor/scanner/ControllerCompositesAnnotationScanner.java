@@ -16,6 +16,8 @@
 
 package com.github.nalukit.nalu.processor.scanner;
 
+import com.github.nalukit.nalu.client.component.AbstractCompositeController;
+import com.github.nalukit.nalu.client.component.IsLoadCompositeCondition;
 import com.github.nalukit.nalu.client.component.annotation.Composite;
 import com.github.nalukit.nalu.client.component.annotation.Composite.Scope;
 import com.github.nalukit.nalu.client.component.annotation.Composites;
@@ -74,7 +76,7 @@ public class ControllerCompositesAnnotationScanner {
 
   private TypeElement getCompositeTypeElement(Composite annotation) {
     try {
-      annotation.compositeController();
+      Class<? extends AbstractCompositeController<?, ?, ?>> ignore = annotation.compositeController();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());
@@ -84,7 +86,7 @@ public class ControllerCompositesAnnotationScanner {
 
   private TypeElement getCompositeConditionElement(Composite annotation) {
     try {
-      annotation.condition();
+      Class<? extends IsLoadCompositeCondition> ignore = annotation.condition();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());
