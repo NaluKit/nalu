@@ -73,7 +73,7 @@ jobs:
           java-version: '11'
           cache: maven
       - name: Build with Maven
-        run: mvn install -ntp
+        run: mvn install -DskipTests -ntp
       - name: Copy owasp database from container to runner
         run: docker cp $(docker ps -aqf "name=owasp-db"):/dependency-check/data ./dependency-checker-db/
       - name: OWASP Check
