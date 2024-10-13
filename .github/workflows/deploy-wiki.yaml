@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions4gh/configure-wiki@v1
+#      - uses: actions4gh/configure-wiki@v1
       - uses: actions4gh/deploy-wiki@v1
     env:
       GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
