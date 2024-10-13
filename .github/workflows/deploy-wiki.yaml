@@ -2,6 +2,7 @@ name: deploy-wiki
 on:
   push:
     branches:
+      - main
       - dev
     paths:
       - wiki/**
