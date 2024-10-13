@@ -18,11 +18,8 @@
 package com.github.nalukit.nalu.plugin.core.web;
 
 import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWebTest;
-import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;
-import org.junit.runner.RunWith;
 
-@RunWith(JUnitPlatform.class)
 @SelectClasses({ NaluPluginCoreWebTest.class })
 public class AllTests {
 

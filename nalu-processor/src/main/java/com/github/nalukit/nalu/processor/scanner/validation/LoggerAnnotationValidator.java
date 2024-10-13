@@ -106,7 +106,7 @@ public class LoggerAnnotationValidator {
 
   private TypeElement getLogger(Logger loggerAnnotation) {
     try {
-      loggerAnnotation.logger();
+      Class<? extends IsLogger<?>> ignore = loggerAnnotation.logger();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());

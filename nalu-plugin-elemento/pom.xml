@@ -75,7 +75,7 @@
   </issueManagement>
 
   <properties>
-    <elemento.version>1.0.3</elemento.version>
+    <elemento.version>1.6.5</elemento.version>
   </properties>
 
   <dependencies>
@@ -132,15 +132,24 @@
           <artifactId>jsinterop-annotations</artifactId>
           <groupId>com.google.jsinterop</groupId>
         </exclusion>
+        <exclusion>
+          <artifactId>junit-jupiter</artifactId>
+          <groupId>org.junit.jupiter</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>junit-jupiter-api</artifactId>
+          <groupId>org.junit.jupiter</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>junit-jupiter-engine</artifactId>
+          <groupId>org.junit.jupiter</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>junit-jupiter-params</artifactId>
+          <groupId>org.junit.jupiter</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
-    <!-- gwt-events: once it is on maven central, use it!
-    <dependency>
-      <groupId>org.gwtproject.event</groupId>
-      <artifactId>gwt-event</artifactId>
-      <version>${gwt-events.version}</version>
-    </dependency>
-    -->
   </dependencies>
 
 

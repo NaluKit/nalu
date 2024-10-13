@@ -18,9 +18,12 @@ package com.github.nalukit.nalu.processor.scanner;
 
 import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.AbstractController;
+import com.github.nalukit.nalu.client.component.IsAbstractComponent;
+import com.github.nalukit.nalu.client.component.IsComponent;
 import com.github.nalukit.nalu.client.component.IsComponentCreator;
 import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
+import com.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 import com.github.nalukit.nalu.client.constraint.annotation.ParameterConstraint;
 import com.github.nalukit.nalu.processor.ProcessorException;
 import com.github.nalukit.nalu.processor.ProcessorUtils;
@@ -95,11 +98,11 @@ public class ControllerAnnotationScanner {
     // handle ...
     TypeElement componentTypeElement = this.getComponentTypeElement(annotation);
     if (componentTypeElement == null) {
-      throw new ProcessorException("Nalu-Processor: componentTypeElement is null");
+      throw new ProcessorException("Nalu-Processor: component is null");
     }
     TypeElement componentInterfaceTypeElement = this.getComponentInterfaceTypeElement(annotation);
     if (componentInterfaceTypeElement == null) {
-      throw new ProcessorException("Nalu-Processor: @Controller - componentInterfaceTypeElement is null");
+      throw new ProcessorException("Nalu-Processor: @Controller - componentInterface is null");
     }
     TypeMirror componentTypeTypeMirror = this.getComponentType(controllerElement.asType());
     // check and save the component type ...
@@ -109,7 +112,8 @@ public class ControllerAnnotationScanner {
       ClassNameModel compareValue = new ClassNameModel(componentTypeTypeMirror.toString());
       if (!metaModel.getComponentType()
                     .equals(compareValue)) {
-        throw new ProcessorException("Nalu-Processor: componentType of >>" + componentTypeElement +
+        throw new ProcessorException("Nalu-Processor: componentType of >>" +
+                                     componentTypeElement +
                                      "<< is different (>>" +
                                      metaModel.getComponentType()
                                               .getClassName() +
@@ -189,7 +193,7 @@ public class ControllerAnnotationScanner {
 
   private TypeElement getRuleTypeElement(ParameterConstraint annotation) {
     try {
-      annotation.rule();
+      Class<? extends IsParameterConstraintRule> ignore = annotation.rule();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());
@@ -199,7 +203,7 @@ public class ControllerAnnotationScanner {
 
   private TypeElement getComponentTypeElement(Controller annotation) {
     try {
-      annotation.component();
+      Class<? extends IsAbstractComponent> ignore = annotation.component();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());
@@ -209,7 +213,7 @@ public class ControllerAnnotationScanner {
 
   private TypeElement getComponentInterfaceTypeElement(Controller annotation) {
     try {
-      annotation.componentInterface();
+      Class<? extends IsComponent<?, ?>> ignore = annotation.componentInterface();
     } catch (MirroredTypeException exception) {
       return (TypeElement) this.processingEnvironment.getTypeUtils()
                                                      .asElement(exception.getTypeMirror());
@@ -337,9 +341,7 @@ public class ControllerAnnotationScanner {
     // check generic!
     if (!componentInterfaceTypeElement.toString()
                                       .equals(result[0].toString())) {
-      throw new ProcessorException("Nalu-Processor: controller >>" +
-                                   element +
-                                   "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
+      throw new ProcessorException("Nalu-Processor: controller >>" + element + "<< is declared as IsComponentCreator, but the used reference of the component interface does not match with the one inside the controller.");
     }
     return true;
   }
@@ -408,7 +410,7 @@ public class ControllerAnnotationScanner {
       if (tmpRoute.startsWith("/")) {
         tmpRoute = tmpRoute.substring(1);
       }
-      if (tmpRoute.length() == 0) {
+      if (tmpRoute.isEmpty()) {
         convertedRoutes.add("/");
       } else {
         StringBuilder sbRoute = new StringBuilder();

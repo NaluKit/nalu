@@ -80,12 +80,12 @@ public class ConsistenceValidator {
       // Does the shell of the start route exist?
       Optional<String> optionalShell = this.metaModel.getShells()
                                                      .stream()
-                                                     .map(m -> m.getName())
+                                                     .map(ShellModel::getName)
                                                      .filter(s -> s.equals(this.metaModel.getShellOfStartRoute()))
                                                      .findFirst();
-      if (!optionalShell.isPresent()) {
-        if (this.metaModel.getModules()
-                          .size() > 0) {
+      if (optionalShell.isEmpty()) {
+        if (!this.metaModel.getModules()
+                           .isEmpty()) {
           this.processingEnvironment.getMessager()
                                     .printMessage(Diagnostic.Kind.NOTE,
                                                   "Nalu-Processor: The shell of the startRoute >>" +
@@ -103,9 +103,9 @@ public class ConsistenceValidator {
                                                               .stream()
                                                               .filter(m -> m.match(this.metaModel.getStartRoute()))
                                                               .findAny();
-      if (!optionalRoute.isPresent()) {
-        if (this.metaModel.getModules()
-                          .size() > 0) {
+      if (optionalRoute.isEmpty()) {
+        if (!this.metaModel.getModules()
+                           .isEmpty()) {
           this.processingEnvironment.getMessager()
                                     .printMessage(Diagnostic.Kind.NOTE,
                                                   "Nalu-Processor: The route of the startRoute >>" +
@@ -131,8 +131,8 @@ public class ConsistenceValidator {
   private void validateNoShellsDefined()
       throws ProcessorException {
     if (!Objects.isNull(metaModel.getApplication())) {
-      if (metaModel.getShells()
-                   .size() > 0) {
+      if (!metaModel.getShells()
+                    .isEmpty()) {
         return;
       }
       throw new ProcessorException("Nalu-Processor: No shells defined! Please define (at least) one shell.");

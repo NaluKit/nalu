@@ -21,13 +21,13 @@ import com.google.testing.compile.Compilation;
 import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import static com.google.testing.compile.Compiler.javac;
 
-@SuppressWarnings("serial")
 public class VersionTest {
 
   @Test
