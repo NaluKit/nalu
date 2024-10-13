@@ -4,7 +4,7 @@
 ![GWT3/J2CL compatible](https://img.shields.io/badge/GWT3/J2CL-compatible-brightgreen.svg) 
 [![Join the chat at https://gitter.im/Nalukit42/Lobby](https://badges.gitter.im/Nalukit42/Lobby.svg)](https://gitter.im/Nalukit42/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.nalukit/nalu.svg?colorB=44cc11)](https://central.sonatype.com/artifact/com.github.nalukit/nalu)
-[![Build & Deploy](https://github.com/NaluKit/nalu/actions/workflows/build.yaml/badge.svg?branch=dev)](https://github.com/NaluKit/nalu/actions/workflows/build.yaml)
+[![Build & Deploy](https://github.com/NaluKit/nalu/actions/workflows/build.yaml/badge.svg?branch=main)](https://github.com/NaluKit/nalu/actions/workflows/build.yaml)
 
 
 Nalu is a tiny framework that helps you to create GWT based applications quite easily. Using the HTML 5 history for routing and navigation, Nalu supports the browser's back-, forward-, and reload-button by default and without any need to implement anything.
@@ -136,12 +136,12 @@ To use Nalu add the following dependencies to your pom:
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
-    <version>2.20.0</version>
+    <version>2.20.1</version>
 </dependency>
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
-    <version>2.20.0</version>
+    <version>2.20.1</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -156,6 +156,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
     <version>2.10.1-gwt-2.8.2</version>
+</dependency>
 ```
 
 * **GWT 2.9.0 (and newer)  - SNAPSHOT**
@@ -164,6 +165,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
     <version>HEAD-SNAPSHOT</version>
+</dependency>
 ```
 
 * **GWT 2.9.0 (and newer)  - Release**
@@ -171,7 +173,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
-    <version>2.20.0</version>
+    <version>2.20.1</version>
 </dependency>
 ```
 
@@ -200,11 +202,29 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemento</artifactId>
-    <version>2.20.0</version>
+    <version>2.20.1</version>
 </dependency>
 ```
 
-The **nalu-plugin-elemento** can also be used with Domino-ui.
+For Domino-UI Version 2 there's also a dedicated plugin which supports `org.dominokit.domino.ui.IsElement` as widget type:
+
+* **GWT 2.9.0 (and newer)  - SNAPSHOT**
+```XML
+<dependency>
+    <groupId>com.github.nalukit</groupId>
+    <artifactId>nalu-plugin-domino-v2</artifactId>
+    <version>HEAD-SNAPSHOT</version>
+</dependency>
+```
+
+* **GWT 2.9.0 (and newer)  - Release**
+```XML
+<dependency>
+    <groupId>com.github.nalukit</groupId>
+    <artifactId>nalu-plugin-domino-v2</artifactId>
+    <version>2.20.1</version>
+</dependency>
+```
 
 **(These plugins are ready to use with J2CL / GWT 3)**
 
@@ -245,12 +265,12 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
-      <version>2.20.0</version>
+      <version>2.20.1</version>
    </dependency>
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
-      <version>2.20.0</version>
+      <version>2.20.1</version>
       <scope>provided</scope>
    </dependency>
 ```
