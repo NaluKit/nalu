@@ -34,7 +34,7 @@ public final class ApplicationWithFilterImpl extends AbstractApplication<MockCon
     this.eventBus.fireEvent(LogEvent.create()
                                     .sdmOnly(true)
                                     .addMessage("=================================================================================")
-                                    .addMessage("Nalu processor version  >>2.20.1<< used to generate this source")
+                                    .addMessage("Nalu processor version  >>2.20.2<< used to generate this source")
                                     .addMessage("=================================================================================")
                                     .addMessage(""));
   }

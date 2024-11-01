@@ -87,7 +87,7 @@
   </distributionManagement>
 
   <properties>
-    <revision>2.20.1</revision>
+    <revision>2.20.2</revision>
 
     <auto-common.version>1.2.2</auto-common.version>
     <auto-service.version>1.1.1</auto-service.version>
@@ -97,7 +97,7 @@
     <guava.version>33.2.1-jre</guava.version>
     <gwt-event.version>1.0.0-RC1</gwt-event.version>
     <gwt-regexp.version>1.0.0-RC1</gwt-regexp.version>
-    <gwt.version>2.11.0</gwt.version>
+    <gwt.version>2.12.0</gwt.version>
     <hamcrest.version>1.3</hamcrest.version>
     <hamcrest-core.version>2.2</hamcrest-core.version>
     <java.doc.executable>${java.home}/bin/javadoc</java.doc.executable>
