@@ -391,4 +391,11 @@
     <cve>CVE-2020-8908</cve>
     <cve>CVE-2023-2976</cve>
   </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-server-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-server@.*$</packageUrl>
+    <vulnerabilityName>CVE-2024-8184</vulnerabilityName>
+  </suppress>
 </suppressions>
