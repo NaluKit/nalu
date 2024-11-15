@@ -136,12 +136,12 @@ To use Nalu add the following dependencies to your pom:
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
-    <version>2.20.2</version>
+    <version>2.20.3</version>
 </dependency>
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
-    <version>2.20.2</version>
+    <version>2.20.3</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -173,7 +173,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
-    <version>2.20.2</version>
+    <version>2.20.3</version>
 </dependency>
 ```
 
@@ -202,7 +202,7 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemento</artifactId>
-    <version>2.20.2</version>
+    <version>2.20.3</version>
 </dependency>
 ```
 
@@ -222,7 +222,7 @@ For Domino-UI Version 2 there's also a dedicated plugin which supports `org.domi
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-domino-v2</artifactId>
-    <version>2.20.2</version>
+    <version>2.20.3</version>
 </dependency>
 ```
 
@@ -265,12 +265,12 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
-      <version>2.20.2</version>
+      <version>2.20.3</version>
    </dependency>
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
-      <version>2.20.2</version>
+      <version>2.20.3</version>
       <scope>provided</scope>
    </dependency>
 ```
