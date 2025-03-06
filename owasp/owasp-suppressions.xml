@@ -12,6 +12,8 @@
   <suppress>
     <notes><![CDATA[file name: apache-jsp-*.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.mortbay\.jasper/apache\-jsp@.*$</packageUrl>
+    <cve>CVE-2021-29425</cve>
+    <cve>CVE-2024-47554</cve>
     <cve>CVE-2022-2047</cve>
     <cve>CVE-2022-2048</cve>
     <cve>CVE-2020-8022</cve>
@@ -39,13 +41,6 @@
     <cve>CVE-2024-6763</cve>
     <cve>CVE-2024-8184</cve>
     <cve>CVE-2024-22201</cve>
-  </suppress>
- <!-- gwt-dev-dependency; should never be deployed! -->
-  <suppress>
-    <notes><![CDATA[file name: apache-jsp-*.jar]]></notes>
-    <packageUrl regex="true">^pkg:maven/commons\-io/commons\-io@.*$</packageUrl>
-    <cve>CVE-2021-29425</cve>
-    <cve>CVE-2024-47554</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -155,6 +150,7 @@
     <cve>CVE-2022-2048</cve>
     <cve>CVE-2023-44487</cve>
     <cve>CVE-2023-36478</cve>
+    <cve>CVE-2024-22201</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -226,6 +222,7 @@
     <cve>CVE-2023-40167</cve>
     <cve>CVE-2023-41900</cve>
     <cve>CVE-2023-44487</cve>
+    <cve>CVE-2024-22201</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -265,6 +262,7 @@
     <cve>CVE-2023-40167</cve>
     <cve>CVE-2023-41900</cve>
     <cve>CVE-2023-44487</cve>
+    <cve>CVE-2024-22201</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -279,6 +277,7 @@
     <cve>CVE-2023-40167</cve>
     <cve>CVE-2023-41900</cve>
     <cve>CVE-2023-44487</cve>
+    <cve>CVE-2024-22201</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -316,6 +315,7 @@
     <cve>CVE-2022-2047</cve>
     <cve>CVE-2023-44487</cve>
     <cve>CVE-2023-36478</cve>
+    <cve>CVE-2024-22201</cve>
   </suppress>
   <suppress>
     <notes><![CDATA[
@@ -342,6 +342,7 @@
     <cve>CVE-2022-2047</cve>
     <cve>CVE-2023-44487</cve>
     <cve>CVE-2023-36478</cve>
+    <cve>CVE-2024-22201</cve>
   </suppress>
   <suppress>
     <notes><![CDATA[file name: jetty-servlets-*.jar]]></notes>
