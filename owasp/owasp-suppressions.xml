@@ -398,4 +398,158 @@
     <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-server@.*$</packageUrl>
     <vulnerabilityName>CVE-2024-8184</vulnerabilityName>
   </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: apache-jsp-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/apache-jsp@.*$</packageUrl>
+    <cve>CVE-2024-22201</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-annotations-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-annotations@.*$</packageUrl>
+    <cve>CVE-2024-22201</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-annotations-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-annotations@.*$</packageUrl>
+    <cve>CVE-2023-36479</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-annotations-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-annotations@.*$</packageUrl>
+    <cve>CVE-2023-36479</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-annotations-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-annotations@.*$</packageUrl>
+    <cve>CVE-2022-2047</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-io-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-io@.*$</packageUrl>
+    <cve>CVE-2024-22201</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-io-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-io@.*$</packageUrl>
+    <cve>CVE-2024-8184</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-io-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-io@.*$</packageUrl>
+    <cve>CVE-2024-6763</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-jndi-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-jndi@.*$</packageUrl>
+    <cve>CVE-2024-22201</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-jndi-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-jndi@.*$</packageUrl>
+    <cve>CVE-2024-8184</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-jndi-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-jndi@.*$</packageUrl>
+    <cve>CVE-2023-26048</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-jndi-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-jndi@.*$</packageUrl>
+    <cve>CVE-2023-26049</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-jndi-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-jndi@.*$</packageUrl>
+    <cve>CVE-2023-40167</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-jndi-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-jndi@.*$</packageUrl>
+    <cve>CVE-2024-6763</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-jndi-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-jndi@.*$</packageUrl>
+    <cve>CVE-2023-36479</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-jndi-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-jndi@.*$</packageUrl>
+    <cve>CVE-2023-41900</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-jndi-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-jndi@.*$</packageUrl>
+    <cve>CVE-2022-2047</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-server-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-server@.*$</packageUrl>
+    <cve>CVE-2024-22201</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-server-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-server@.*$</packageUrl>
+    <cve>CVE-2024-6763</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+
 </suppressions>
