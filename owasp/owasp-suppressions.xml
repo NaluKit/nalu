@@ -336,6 +336,7 @@
     <cve>CVE-2023-41900</cve>
     <cve>CVE-2023-44467</cve>
     <cve>CVE-2023-44487</cve>
+    <cve>CVE-2024-22201</cve>
   </suppress>
   <suppress>
     <notes><![CDATA[file name: jetty-servlet-*.jar]]></notes>
