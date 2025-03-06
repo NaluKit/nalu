@@ -48,7 +48,7 @@ jobs:
           cache: maven
       - name: Test with Maven
         run: mvn test -ntp
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: surefire-report
