@@ -109,6 +109,7 @@
     <cve>CVE-2023-40167</cve>
     <cve>CVE-2023-41900</cve>
     <cve>CVE-2023-44487</cve>
+    <cve>CVE-2024-22201</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -176,6 +177,7 @@
     <cve>CVE-2022-2048</cve>
     <cve>CVE-2023-44487</cve>
     <cve>CVE-2023-36478</cve>
+    <cve>CVE-2024-22201</cve>
   </suppress>
   <suppress>
     <notes><![CDATA[file name: jetty-continuation-*.jar]]></notes>
@@ -356,6 +358,7 @@
     <cve>CVE-2023-40167</cve>
     <cve>CVE-2023-41900</cve>
     <cve>CVE-2023-44487</cve>
+    <cve>CVE-2024-22201</cve>
   </suppress>
   <!-- test use only -->
   <suppress>
