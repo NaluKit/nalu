@@ -85,6 +85,8 @@ jobs:
           java-version: '17'
           cache: maven
       - name: Test with Maven
+        env:
+          MAVEN_OPTS: "@jvm-build.options"
         run: mvn test -ntp
       - uses: actions/upload-artifact@v4
         if: failure()

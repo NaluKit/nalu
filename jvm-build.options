@@ -1,0 +1,12 @@
+--illegal-access=debug
+--add-opens java.base/java.io=ALL-UNNAMED
+--add-opens java.base/java.lang.reflect=ALL-UNNAMED
+--add-opens java.base/java.lang=ALL-UNNAMED
+--add-opens java.base/java.time=ALL-UNNAMED
+--add-opens java.base/java.util.concurrent.atomic=ALL-UNNAMED
+--add-opens java.base/java.util.regex=ALL-UNNAMED
+--add-opens java.base/javax.crypto=ALL-UNNAMED
+--add-opens java.base/sun.nio.ch=ALL-UNNAMED
+--add-opens jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED
+--add-opens jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED
+--add-opens jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED
