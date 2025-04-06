@@ -22,9 +22,9 @@ on:
       - dev
       - main
     paths-ignore:
-    - "README.md"
+      - "README.md"
 jobs:
-  build:
+  build-jdk11:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -35,10 +35,31 @@ jobs:
           cache: maven
       - name: Compile with Maven
         run: mvn compile -ntp
-
-  test:
+  build-jdk17:
     runs-on: ubuntu-latest
-    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Compile with Maven
+        run: mvn compile -ntp
+  build-jdk21:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Compile with Maven
+        run: mvn compile -ntp
+  test-jdk11:
+    runs-on: ubuntu-latest
+    needs: [ build-jdk11, build-jdk17, build-jdk21 ]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -53,7 +74,40 @@ jobs:
         with:
           name: surefire-report
           path: target/surefire-reports/
-
+  test-jdk17:
+    runs-on: ubuntu-latest
+    needs: [ build-jdk11, build-jdk17, build-jdk21 ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Test with Maven
+        run: mvn test -ntp
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: surefire-report
+          path: target/surefire-reports/
+  test-jdk21:
+    runs-on: ubuntu-latest
+    needs: [ build-jdk11, build-jdk17, build-jdk21 ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Test with Maven
+        run: mvn test -ntp
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: surefire-report
+          path: target/surefire-reports/
   owasp:
     runs-on: ubuntu-latest
     timeout-minutes: 8
@@ -61,7 +115,7 @@ jobs:
       actions: read
       contents: read
       security-events: write
-    needs: build
+    needs: [ build-jdk11, build-jdk17, build-jdk21 ]
     services:
       owasp-db:
         image: nalusolutionsgmbh/owasp-maven-action:latest
@@ -93,7 +147,7 @@ jobs:
 
   maven-deploy-dev:
     runs-on: ubuntu-latest
-    needs: [ test, owasp ]
+    needs: [ test-jdk11, test-jdk17, test-jdk21, owasp ]
     if: github.ref == 'refs/heads/dev'
     steps:
       - uses: actions/checkout@v4
@@ -131,7 +185,7 @@ jobs:
 
   maven-deploy-main:
     runs-on: ubuntu-latest
-    needs: [ test, owasp ]
+    needs: [ test-jdk11, test-jdk17, test-jdk21, owasp ]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
