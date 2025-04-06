@@ -1,0 +1,2 @@
+--illegal-access=debug
+--add-opens jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
