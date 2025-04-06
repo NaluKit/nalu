@@ -109,6 +109,7 @@
     <maven.compiler.target>11</maven.compiler.target>
 
     <maven.deploy.plugin>3.1.1</maven.deploy.plugin>
+    <plugin.version.compiler>3.14.0</plugin.version.compiler>
     <plugin.version.github.site>0.12</plugin.version.github.site>
     <plugin.version.gpg.maven>3.1.0</plugin.version.gpg.maven>
     <plugin.version.javadoc>3.6.3</plugin.version.javadoc>

@@ -75,7 +75,7 @@
   </issueManagement>
 
   <properties>
-    <domino.ui.version>2.0.2</domino.ui.version>
+    <domino.ui.version>2.0.4</domino.ui.version>
   </properties>
 
   <dependencies>
@@ -166,7 +166,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
+        <version>${plugin.version.compiler}</version>
         <configuration>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
