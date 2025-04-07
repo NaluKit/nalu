@@ -52,8 +52,8 @@ jobs:
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
-          retain_days: ${{ github.event.inputs.days }}
-          keep_minimum_runs: ${{ github.event.inputs.minimum_runs }}
+          retain_days: ${{ github.event.inputs.days || 30 }}
+          keep_minimum_runs: ${{ github.event.inputs.minimum_runs || 6 }}
           delete_workflow_pattern: ${{ github.event.inputs.delete_workflow_pattern }}
           delete_workflow_by_state_pattern: ${{ github.event.inputs.delete_workflow_by_state_pattern }}
           delete_run_by_conclusion_pattern: >-
