@@ -286,7 +286,7 @@ To ensure, that the processor output is logged, use the latest maven-compiler-pl
 
 ### System Requirements
 
-Nalu supports the latest versions of GWT and requires at least Java 11. During a build, Nalu is tested against Java 11, 17 and 21.
+Nalu supports the latest version of GWT and requires at least Java 11. During a build, Nalu is tested against Java 11, 17 and 21.
 
 ## Wiki
 More useful information about Nalu and how to use it, can be found inside the [Wiki](https://github.com/nalukit/nalu/wiki).
