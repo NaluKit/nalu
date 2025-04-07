@@ -284,6 +284,10 @@ See the wiki for more information about Nalu and how to use it.
 Due to a bug in older version of the maven-compiler-plugin, the output of a annotation processor - during a Maven build - will not be logged.
 To ensure, that the processor output is logged, use the latest maven-compiler-plugin.
 
+### System Requirements
+
+Nalu supports the latest versions of GWT and requires at least Java 11. During a build, Nalu is tested against Java 11, 17 and 21.
+
 ## Wiki
 More useful information about Nalu and how to use it, can be found inside the [Wiki](https://github.com/nalukit/nalu/wiki).
 
