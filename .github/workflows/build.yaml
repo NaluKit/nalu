@@ -127,6 +127,7 @@ jobs:
         with:
           name: surefire-report
           path: target/surefire-reports/
+
   owasp:
     runs-on: ubuntu-latest
     timeout-minutes: 8
