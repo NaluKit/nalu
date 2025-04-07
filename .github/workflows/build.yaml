@@ -74,7 +74,7 @@ jobs:
           java-version: '17'
           cache: maven
       - name: Check versions with Maven
-        run: mvn versions:display-dependency-updates -ntp -s ./.github/workflows/settings.xml
+        run: mvn versions:display-dependency-updates -ntp
 
   test-jdk11:
     runs-on: ubuntu-latest
@@ -166,7 +166,7 @@ jobs:
 
   maven-deploy-dev:
     runs-on: ubuntu-latest
-    needs: [ test-jdk11, test-jdk17, test-jdk21, owasp ]
+    needs: [ check-versions, test-jdk11, test-jdk17, test-jdk21, owasp ]
     if: github.ref == 'refs/heads/dev'
     steps:
       - uses: actions/checkout@v4
@@ -204,7 +204,7 @@ jobs:
 
   maven-deploy-main:
     runs-on: ubuntu-latest
-    needs: [ test-jdk11, test-jdk17, test-jdk21, owasp ]
+    needs: [ check-versions, test-jdk11, test-jdk17, test-jdk21, owasp ]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
