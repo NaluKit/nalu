@@ -120,6 +120,7 @@
     <plugin.version.flatten>1.5.0</plugin.version.flatten>
     <plugin.version.clean>3.3.2</plugin.version.clean>
     <plugin.version.replacer>1.5.3</plugin.version.replacer>
+    <plugin.version.versions>2.18.0</plugin.version.versions>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -327,4 +328,37 @@
       </reporting>
     </profile>
   </profiles>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>${plugin.version.versions}</version>
+        <configuration>
+          <ruleSet>
+            <ignoreVersions>
+              <igonreVersion>
+                <type>regex</type>
+                <version>(.+-M\d)</version>
+              </igonreVersion>
+              <igonreVersion>
+                <type>regex</type>
+                <version>.+-(alpha|beta).+</version>
+              </igonreVersion>
+            </ignoreVersions>
+          </ruleSet>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>dependency-updates-report</report>
+              <report>plugin-updates-report</report>
+              <report>property-updates-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>
