@@ -136,12 +136,12 @@ To use Nalu add the following dependencies to your pom:
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
-    <version>2.20.4</version>
+    <version>2.20.5</version>
 </dependency>
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
-    <version>2.20.4</version>
+    <version>2.20.5</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -173,7 +173,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
-    <version>2.20.4</version>
+    <version>2.20.5</version>
 </dependency>
 ```
 
@@ -202,7 +202,7 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemento</artifactId>
-    <version>2.20.4</version>
+    <version>2.20.5</version>
 </dependency>
 ```
 
@@ -222,7 +222,7 @@ For Domino-UI Version 2 there's also a dedicated plugin which supports `org.domi
 <dependency>
     <groupId>com.github.nalukit</groupId>
     <artifactId>nalu-plugin-domino-v2</artifactId>
-    <version>2.20.4</version>
+    <version>2.20.5</version>
 </dependency>
 ```
 
@@ -265,12 +265,12 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
-      <version>2.20.4</version>
+      <version>2.20.5</version>
    </dependency>
    <dependency>
       <groupId>com.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
-      <version>2.20.4</version>
+      <version>2.20.5</version>
       <scope>provided</scope>
    </dependency>
 ```
@@ -283,6 +283,10 @@ See the wiki for more information about Nalu and how to use it.
 
 Due to a bug in older version of the maven-compiler-plugin, the output of a annotation processor - during a Maven build - will not be logged.
 To ensure, that the processor output is logged, use the latest maven-compiler-plugin.
+
+### System Requirements
+
+Nalu supports the latest version of GWT and requires at least Java 11. During a build, Nalu is tested against Java 11, 17 and 21.
 
 ## Wiki
 More useful information about Nalu and how to use it, can be found inside the [Wiki](https://github.com/nalukit/nalu/wiki).

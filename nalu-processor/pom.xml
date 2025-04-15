@@ -212,7 +212,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
+        <version>${plugin.version.compiler}</version>
         <configuration>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
@@ -252,25 +252,6 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${plugin.version.surfire}</version>
-<!--        <executions>-->
-<!--          <execution>-->
-<!--            <id>unit-tests</id>-->
-<!--            <goals>-->
-<!--              <goal>test</goal>-->
-<!--            </goals>-->
-<!--            <phase>test</phase>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--        <configuration>-->
-<!--          <includes>-->
-<!--            <include>**/AllTests.java</include>-->
-<!--          </includes>-->
-<!--        </configuration>-->
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -355,6 +336,30 @@
           </filesets>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${plugin.version.surfire}</version>
+        <configuration>
+          <argLine>${test.jvm.flags}</argLine>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>add-exports</id>
+      <activation>
+        <jdk>[9,)</jdk>
+      </activation>
+      <properties>
+        <test.jvm.flags>
+          --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED
+          --add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED
+          --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
+        </test.jvm.flags>
+      </properties>
+    </profile>
+  </profiles>
 </project>

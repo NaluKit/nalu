@@ -75,7 +75,7 @@
   </issueManagement>
 
   <properties>
-    <elemento.version>1.6.5</elemento.version>
+    <elemento.version>1.7.0</elemento.version>
   </properties>
 
   <dependencies>
@@ -177,7 +177,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
+        <version>${plugin.version.compiler}</version>
         <configuration>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
