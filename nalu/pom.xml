@@ -124,11 +124,6 @@
           <include>**/*.gwt.xml</include>
           <include>**/*.html</include>
           <include>**/public/**</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>src/main/resources</directory>
-        <includes>
           <include>**/*.properties</include>
         </includes>
         <filtering>true</filtering>
