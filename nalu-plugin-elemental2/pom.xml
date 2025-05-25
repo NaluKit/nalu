@@ -179,8 +179,10 @@
       <plugin>
         <groupId>org.sonatype.central</groupId>
         <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>${plugin.version.central}</version>
+        <extensions>true</extensions>
         <configuration>
-          <skip>fals</skip>
+          <publishingServerId>central</publishingServerId>
         </configuration>
       </plugin>
       <!--      <plugin>-->
