@@ -75,16 +75,16 @@
     <url>https://github.com/nalukit/nalu/issues</url>
   </issueManagement>
 
-  <!--  <distributionManagement>-->
-  <!--    <snapshotRepository>-->
-  <!--      <id>ossrh</id>-->
-  <!--      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
-  <!--    </snapshotRepository>-->
-  <!--    <repository>-->
-  <!--      <id>ossrh</id>-->
-  <!--      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
-  <!--    </repository>-->
-  <!--  </distributionManagement>-->
+    <distributionManagement>
+      <snapshotRepository>
+        <id>central</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      </snapshotRepository>
+      <repository>
+        <id>central</id>
+        <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      </repository>
+    </distributionManagement>
 
   <properties>
     <revision>HEAD-SNAPSHOT</revision>
@@ -180,28 +180,28 @@
     </pluginManagement>
   </build>
 
-  <repositories>
-    <!--    <repository>-->
-    <!--      <id>google-snapshot</id>-->
-    <!--      <url>https://oss.sonatype.org/content/repositories/google-snapshots/</url>-->
-    <!--      <releases>-->
-    <!--        <enabled>false</enabled>-->
-    <!--      </releases>-->
-    <!--      <snapshots>-->
-    <!--        <enabled>true</enabled>-->
-    <!--      </snapshots>-->
-    <!--    </repository>-->
-    <repository>
-      <id>sonatype-snapshot</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-    </repository>
-  </repositories>
+<!--  <repositories>-->
+<!--    &lt;!&ndash;    <repository>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <id>google-snapshot</id>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <url>https://oss.sonatype.org/content/repositories/google-snapshots/</url>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <releases>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <enabled>false</enabled>&ndash;&gt;-->
+<!--    &lt;!&ndash;      </releases>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <snapshots>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <enabled>true</enabled>&ndash;&gt;-->
+<!--    &lt;!&ndash;      </snapshots>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </repository>&ndash;&gt;-->
+<!--    <repository>-->
+<!--      <id>sonatype-snapshot</id>-->
+<!--      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
+<!--      <snapshots>-->
+<!--        <enabled>true</enabled>-->
+<!--      </snapshots>-->
+<!--      <releases>-->
+<!--        <enabled>false</enabled>-->
+<!--      </releases>-->
+<!--    </repository>-->
+<!--  </repositories>-->
 
   <!--  <pluginRepositories>-->
   <!--    <pluginRepository>-->
@@ -286,7 +286,8 @@
             <extensions>true</extensions>
             <configuration>
               <publishingServerId>central</publishingServerId>
-              <centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
+              <autoPublish>false</autoPublish>
+              <waitUntil>validated</waitUntil>
             </configuration>
           </plugin>
         </plugins>
