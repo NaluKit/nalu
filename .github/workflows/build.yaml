@@ -176,7 +176,7 @@ jobs:
           distribution: temurin
           java-version: '11'
           cache: maven
-          server-id: ossrh
+          server-id: central
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
       - name: Extract Maven project version
@@ -214,7 +214,7 @@ jobs:
           distribution: temurin
           java-version: '11'
           cache: maven
-          server-id: ossrh
+          server-id: central
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
       - name: Extract Maven project version
