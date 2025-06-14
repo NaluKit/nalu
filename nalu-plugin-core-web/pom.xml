@@ -30,7 +30,10 @@
 
   <artifactId>nalu-plugin-core-web</artifactId>
   <packaging>jar</packaging>
+
+  <name>nalu-plugin-core-web</name>
   <description>Nalu's Core Web Plugin</description>
+  <url>https://github.com/nalukit/nalu</url>
 
   <inceptionYear>2019</inceptionYear>
 
