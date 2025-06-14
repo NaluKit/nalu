@@ -180,42 +180,6 @@
     </pluginManagement>
   </build>
 
-<!--  <repositories>-->
-<!--    &lt;!&ndash;    <repository>&ndash;&gt;-->
-<!--    &lt;!&ndash;      <id>google-snapshot</id>&ndash;&gt;-->
-<!--    &lt;!&ndash;      <url>https://oss.sonatype.org/content/repositories/google-snapshots/</url>&ndash;&gt;-->
-<!--    &lt;!&ndash;      <releases>&ndash;&gt;-->
-<!--    &lt;!&ndash;        <enabled>false</enabled>&ndash;&gt;-->
-<!--    &lt;!&ndash;      </releases>&ndash;&gt;-->
-<!--    &lt;!&ndash;      <snapshots>&ndash;&gt;-->
-<!--    &lt;!&ndash;        <enabled>true</enabled>&ndash;&gt;-->
-<!--    &lt;!&ndash;      </snapshots>&ndash;&gt;-->
-<!--    &lt;!&ndash;    </repository>&ndash;&gt;-->
-<!--    <repository>-->
-<!--      <id>sonatype-snapshot</id>-->
-<!--      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
-<!--      <snapshots>-->
-<!--        <enabled>true</enabled>-->
-<!--      </snapshots>-->
-<!--      <releases>-->
-<!--        <enabled>false</enabled>-->
-<!--      </releases>-->
-<!--    </repository>-->
-<!--  </repositories>-->
-
-  <!--  <pluginRepositories>-->
-  <!--    <pluginRepository>-->
-  <!--      <id>sonatype-plugins</id>-->
-  <!--      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
-  <!--      <snapshots>-->
-  <!--        <enabled>true</enabled>-->
-  <!--      </snapshots>-->
-  <!--      <releases>-->
-  <!--        <enabled>false</enabled>-->
-  <!--      </releases>-->
-  <!--    </pluginRepository>-->
-  <!--  </pluginRepositories>-->
-
   <profiles>
     <profile>
       <id>release</id>
@@ -286,8 +250,8 @@
             <extensions>true</extensions>
             <configuration>
               <publishingServerId>central</publishingServerId>
-              <autoPublish>false</autoPublish>
-              <waitUntil>validated</waitUntil>
+              <centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
+              <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots/</centralSnapshotsUrl>
             </configuration>
           </plugin>
         </plugins>
