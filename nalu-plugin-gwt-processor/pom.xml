@@ -307,11 +307,14 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>${maven.deploy.plugin}</version>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>${plugin.version.central}</version>
+        <extensions>true</extensions>
         <configuration>
-          <skip>false</skip>
+          <publishingServerId>central</publishingServerId>
+          <centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
+          <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots/</centralSnapshotsUrl>
         </configuration>
       </plugin>
     </plugins>

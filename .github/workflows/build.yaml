@@ -167,7 +167,7 @@ jobs:
 
   maven-deploy-dev:
     runs-on: ubuntu-latest
-    needs: [ check-versions, test-jdk11, test-jdk17, test-jdk21, owasp ]
+    needs: [ test-jdk11, test-jdk17, test-jdk21, owasp ]
     if: github.ref == 'refs/heads/dev'
     steps:
       - uses: actions/checkout@v4
@@ -176,7 +176,7 @@ jobs:
           distribution: temurin
           java-version: '11'
           cache: maven
-          server-id: ossrh
+          server-id: central
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
       - name: Extract Maven project version
@@ -199,13 +199,13 @@ jobs:
           gpg --list-secret-keys --keyid-format LONG
       - name: Deploy with Maven
         env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-        run: mvn deploy -ntp -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD_NALUKIT_GITHUB_USER }} -DskipTests -Drevision=HEAD-SNAPSHOT
+          MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
+        run: mvn deploy -ntp -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD_NALUKIT_GITHUB_USER }} -DskipTests -Drevision=HEAD-SNAPSHOT -P release
 
   maven-deploy-main:
     runs-on: ubuntu-latest
-    needs: [ check-versions, test-jdk11, test-jdk17, test-jdk21, owasp ]
+    needs: [ test-jdk11, test-jdk17, test-jdk21, owasp ]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
@@ -214,7 +214,7 @@ jobs:
           distribution: temurin
           java-version: '11'
           cache: maven
-          server-id: ossrh
+          server-id: central
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
       - name: Extract Maven project version
@@ -258,7 +258,7 @@ jobs:
           gpg --list-secret-keys --keyid-format LONG
       - name: Deploy with Maven
         env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
         run: mvn deploy -ntp -P release -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD_NALUKIT_GITHUB_USER }} -DskipTests -Daether.checksums.algorithms=MD5 -Drevision=${{ steps.project.outputs.version }}
 
