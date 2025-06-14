@@ -21,7 +21,7 @@ import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
-import com.github.nalukit.nalu.plugin.core.web.client.NaluCoreFactory;
+import com.github.nalukit.nalu.plugin.core.web.client.NaluCorePluginFactory;
 import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorCommand;
 import com.github.nalukit.nalu.plugin.gwt.client.selector.SelectorProvider;
@@ -107,10 +107,10 @@ public class NaluPluginGWT
                        .hasHistory()) {
       if (PropertyFactory.INSTANCE
                          .isUsingHash()) {
-        NaluCoreFactory.INSTANCE.addOnHashChangeHandler(handler);
+        NaluCorePluginFactory.INSTANCE.addOnHashChangeHandler(handler);
       } else {
-        NaluCoreFactory.INSTANCE.addPopStateHandler(handler,
-                                             PropertyFactory.INSTANCE
+        NaluCorePluginFactory.INSTANCE.addPopStateHandler(handler,
+                                                          PropertyFactory.INSTANCE
                                                             .getContextPath());
       }
     } else {
@@ -130,17 +130,17 @@ public class NaluPluginGWT
   public void route(String newRoute,
                     boolean replace,
                     boolean stealthMode) {
-    NaluCoreFactory.INSTANCE.route(newRoute,
-                            replace,
-                            stealthMode,
-                            this.routeChangeHandler);
+    NaluCorePluginFactory.INSTANCE.route(newRoute,
+                                         replace,
+                                         stealthMode,
+                                         this.routeChangeHandler);
   }
 
   @Override
   public void initialize(ShellConfiguration shellConfiguration) {
     // Sets the context path inside the PropertyFactory
-    NaluCoreFactory.INSTANCE.getContextPath(shellConfiguration);
-    this.naluStartModel = NaluCoreFactory.INSTANCE.getNaluStartModel();
+    NaluCorePluginFactory.INSTANCE.getContextPath(shellConfiguration);
+    this.naluStartModel = NaluCorePluginFactory.INSTANCE.getNaluStartModel();
   }
 
   @Override

@@ -21,14 +21,14 @@ import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.RouteChangeHa
 import com.github.nalukit.nalu.plugin.core.web.client.implementation.NaluPluginCoreWeb;
 import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 
-public class NaluCoreFactory
+public class NaluCorePluginFactory
     implements IsNaluCorePlugin {
 
-  public final static NaluCoreFactory INSTANCE = new NaluCoreFactory();
+  public final static NaluCorePluginFactory INSTANCE = new NaluCorePluginFactory();
 
   private IsNaluCorePlugin plugin;
 
-  public NaluCoreFactory() {
+  public NaluCorePluginFactory() {
     this.plugin = new NaluPluginCoreWeb();
   }
 
