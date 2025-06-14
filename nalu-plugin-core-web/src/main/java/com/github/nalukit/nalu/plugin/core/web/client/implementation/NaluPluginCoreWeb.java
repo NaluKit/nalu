@@ -14,12 +14,13 @@
  *  the License.
  */
 
-package com.github.nalukit.nalu.plugin.core.web.client;
+package com.github.nalukit.nalu.plugin.core.web.client.implementation;
 
 import com.github.nalukit.nalu.client.internal.PropertyFactory;
 import com.github.nalukit.nalu.client.internal.route.ShellConfig;
 import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.RouteChangeHandler;
+import com.github.nalukit.nalu.plugin.core.web.client.IsNaluCorePlugin;
 import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Location;
@@ -32,15 +33,30 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-public class NaluPluginCoreWeb {
+public class NaluPluginCoreWeb
+    implements IsNaluCorePlugin {
 
   public static boolean isSuperDevMode() {
     return "on".equals(System.getProperty("superdevmode",
                                           "off"));
   }
 
+  private static String getHashValue(String hash) {
+    if (!Objects.isNull(hash)) {
+      if (hash.startsWith("#")) {
+        if (hash.length() > 1) {
+          return hash.substring(1);
+        } else {
+          return "";
+        }
+      }
+    }
+    return null;
+  }
+
+  @Override
   @SuppressWarnings("StringSplitter")
-  public static void getContextPath(ShellConfiguration shellConfiguration) {
+  public void getContextPath(ShellConfiguration shellConfiguration) {
     if (PropertyFactory.INSTANCE.isUsingHash()) {
       return;
     }
@@ -77,8 +93,9 @@ public class NaluPluginCoreWeb {
     PropertyFactory.INSTANCE.setContextPath("");
   }
 
+  @Override
   @SuppressWarnings("StringSplitter")
-  public static NaluStartModel getNaluStartModel() {
+  public NaluStartModel getNaluStartModel() {
     Location            location        = Js.uncheckedCast(DomGlobal.location);
     Map<String, String> queryParameters = new HashMap<>();
     String              search          = location.search;
@@ -148,21 +165,9 @@ public class NaluPluginCoreWeb {
                               queryParameters);
   }
 
-  private static String getHashValue(String hash) {
-    if (!Objects.isNull(hash)) {
-      if (hash.startsWith("#")) {
-        if (hash.length() > 1) {
-          return hash.substring(1);
-        } else {
-          return "";
-        }
-      }
-    }
-    return null;
-  }
-
-  public static void addPopStateHandler(RouteChangeHandler handler,
-                                        String contextPath) {
+  @Override
+  public void addPopStateHandler(RouteChangeHandler handler,
+                                 String contextPath) {
     DomGlobal.window.onpopstate = e -> {
       String newUrl;
       if (PropertyFactory.INSTANCE.isUsingHash()) {
@@ -189,36 +194,39 @@ public class NaluPluginCoreWeb {
           newUrl = newUrl.substring(contextPath.length());
         }
       }
-      NaluPluginCoreWeb.handleChange(handler,
-                                     newUrl);
+      this.handleChange(handler,
+                        newUrl);
       return null;
     };
   }
 
-  private static void handleChange(RouteChangeHandler handler,
-                                   String newUrl) {
+  private void handleChange(RouteChangeHandler handler,
+                            String newUrl) {
     if (newUrl.startsWith("#")) {
       newUrl = newUrl.substring(1);
     }
     if (newUrl.trim()
               .isEmpty()) {
       // In case we have an empty newUrl, we have moved back to the start page ==> use startRoute!
-      NaluPluginCoreWeb.route(PropertyFactory.INSTANCE.getStartRoute(),
-                              !PropertyFactory.INSTANCE.isStayOnSide(),
-                              false,
-                              handler);
+      this.route(PropertyFactory.INSTANCE.getStartRoute(),
+                 !PropertyFactory.INSTANCE.isStayOnSide(),
+                 false,
+                 handler);
     } else {
       handler.onRouteChange(newUrl);
     }
   }
 
-  public static void route(String newRoute,
-                           boolean replace,
-                           boolean stealthMode,
-                           RouteChangeHandler handler) {
+  @Override
+  public void route(String newRoute,
+                    boolean replace,
+                    boolean stealthMode,
+                    RouteChangeHandler handler) {
     String newRouteToken;
     if (PropertyFactory.INSTANCE.isUsingHash()) {
-      newRouteToken = newRoute.startsWith("#") ? newRoute : "#" + newRoute;
+      newRouteToken = newRoute.startsWith("#") ?
+                      newRoute :
+                      "#" + newRoute;
     } else {
       newRouteToken = "/";
       if (!PropertyFactory.INSTANCE.getContextPath()
@@ -246,13 +254,14 @@ public class NaluPluginCoreWeb {
     }
   }
 
-  public static void addOnHashChangeHandler(RouteChangeHandler handler) {
+  @Override
+  public void addOnHashChangeHandler(RouteChangeHandler handler) {
     DomGlobal.window.onhashchange = e -> {
       String   newUrl;
       Location location = Js.uncheckedCast(DomGlobal.location);
       newUrl = location.hash;
-      NaluPluginCoreWeb.handleChange(handler,
-                                     newUrl);
+      this.handleChange(handler,
+                        newUrl);
       return null;
     };
   }

@@ -21,7 +21,7 @@ import com.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import com.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import com.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import com.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
-import com.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWeb;
+import com.github.nalukit.nalu.plugin.core.web.client.NaluCoreFactory;
 import com.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import elemental2.core.Global;
 import elemental2.dom.DomGlobal;
@@ -101,9 +101,9 @@ public class NaluPluginElemental2
                        .hasHistory()) {
       if (PropertyFactory.INSTANCE
                          .isUsingHash()) {
-        NaluPluginCoreWeb.addOnHashChangeHandler(handler);
+        NaluCoreFactory.INSTANCE.addOnHashChangeHandler(handler);
       } else {
-        NaluPluginCoreWeb.addPopStateHandler(handler,
+        NaluCoreFactory.INSTANCE.addPopStateHandler(handler,
                                              PropertyFactory.INSTANCE
                                                             .getContextPath());
       }
@@ -130,7 +130,7 @@ public class NaluPluginElemental2
   public void route(String newRoute,
                     boolean replace,
                     boolean stealthMode) {
-    NaluPluginCoreWeb.route(newRoute,
+    NaluCoreFactory.INSTANCE.route(newRoute,
                             replace,
                             stealthMode,
                             this.routeChangeHandler);
@@ -139,8 +139,8 @@ public class NaluPluginElemental2
   @Override
   public void initialize(ShellConfiguration shellConfiguration) {
     // Sets the context path inside the PropertyFactory
-    NaluPluginCoreWeb.getContextPath(shellConfiguration);
-    this.naluStartModel = NaluPluginCoreWeb.getNaluStartModel();
+    NaluCoreFactory.INSTANCE.getContextPath(shellConfiguration);
+    this.naluStartModel = NaluCoreFactory.INSTANCE.getNaluStartModel();
   }
 
   @Override
