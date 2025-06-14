@@ -30,7 +30,10 @@
 
   <artifactId>nalu-plugin-elemental2</artifactId>
   <packaging>jar</packaging>
+
+  <name>nalu-plugin-elemental2</name>
   <description>Nalu's Elemental 2 Plugin</description>
+  <url>https://github.com/nalukit/nalu</url>
 
   <inceptionYear>2018</inceptionYear>
 

@@ -30,7 +30,10 @@
 
   <artifactId>nalu-plugin-domino-v2</artifactId>
   <packaging>jar</packaging>
+
+  <name>nalu-plugin-domino-v2</name>
   <description>Nalu's Domino UI 2 Plugin</description>
+  <url>https://github.com/nalukit/nalu</url>
 
   <inceptionYear>2018</inceptionYear>
 

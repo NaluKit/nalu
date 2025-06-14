@@ -30,7 +30,10 @@
 
   <artifactId>nalu-processor</artifactId>
   <packaging>jar</packaging>
+
+  <name>nalu-processor</name>
   <description>Nalu's Processor</description>
+  <url>https://github.com/nalukit/nalu</url>
 
   <inceptionYear>2018</inceptionYear>
 
