@@ -30,7 +30,10 @@
 
   <artifactId>nalu</artifactId>
   <packaging>jar</packaging>
+
+  <name>nalu</name>
   <description>Routing based application framework for GWT 2, GWT 3 + J2CL</description>
+  <url>https://github.com/nalukit/nalu</url>
 
   <inceptionYear>2018</inceptionYear>
 
