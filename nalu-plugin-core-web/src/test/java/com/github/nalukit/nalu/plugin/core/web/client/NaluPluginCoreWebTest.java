@@ -9,14 +9,14 @@ public class NaluPluginCoreWebTest {
   void isSuperDevMode() {
     System.setProperty("superdevmode",
                        "on");
-    Assertions.assertTrue(NaluCoreFactory.isSuperDevMode());
+    Assertions.assertTrue(NaluCorePluginFactory.isSuperDevMode());
   }
 
   @Test
   void isNotSuperDevMode() {
     System.setProperty("superdevmode",
                        "off");
-    Assertions.assertFalse(NaluCoreFactory.isSuperDevMode());
+    Assertions.assertFalse(NaluCorePluginFactory.isSuperDevMode());
   }
 
 }
