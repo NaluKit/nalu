@@ -314,4 +314,3 @@ In case you find a bug, please open an issue or post it inside the [Nalu Gitter 
 
 ## Comparsion between GWT Activities & Places versus Nalu
 Anyone, who is familiar with GWT Activities & Places, will find [here](https://github.com/NaluKit/nalu/wiki/01.-Motivation-&-Concepts#comparison-gwt-activities--places-versus-nalu) a comparison between GWT Activities & Places and Nalu.
-
