@@ -23,7 +23,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.github.nalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-parent</artifactId>
     <version>${revision}</version>
   </parent>
@@ -109,7 +109,7 @@
     </dependency>
 
     <dependency>
-      <groupId>com.github.nalukit</groupId>
+      <groupId>io.github.nalukit</groupId>
       <artifactId>nalu</artifactId>
       <version>${project.version}</version>
       <exclusions>
@@ -124,7 +124,7 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>com.github.nalukit</groupId>
+      <groupId>io.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
       <version>${project.version}</version>
       <exclusions>
