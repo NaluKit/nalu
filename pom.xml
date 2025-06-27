@@ -22,7 +22,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.nalukit</groupId>
+  <groupId>io.github.nalukit</groupId>
   <artifactId>nalu-parent</artifactId>
   <version>${revision}</version>
   <packaging>pom</packaging>
