@@ -224,4 +224,4 @@ fabric.properties
 dependency-reduced-pom.xml
 
 # Generated processor resources
-src/test/resources/com/github/nalukit/nalu/processor/
+src/test/resources/io/github/nalukit/nalu/processor/

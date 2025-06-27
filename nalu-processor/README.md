@@ -4,7 +4,7 @@ This module contains the annotation processor. This module is essential in case 
 Always add the processor to your pom:
 ```xml
 <dependency>
-    <groupId>com.githubnalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
     <version>LATEST</version>
     <scope>provided</scope>
