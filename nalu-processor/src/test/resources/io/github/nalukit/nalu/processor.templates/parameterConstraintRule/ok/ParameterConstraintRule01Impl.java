@@ -1,0 +1,24 @@
+package io.github.nalukit.nalu.processor.parameterConstraintRule.ok;
+
+import io.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
+import io.github.nalukit.nalu.client.internal.constrain.AbstractParameterConstraintRule;
+import java.lang.Override;
+import java.lang.String;
+
+/**
+ * Build with Nalu version >>%VERSION_TAG%<< at >>2021.07.29-22:15:45<<
+ */
+public final class ParameterConstraintRule01Impl extends AbstractParameterConstraintRule implements IsParameterConstraintRule {
+  public ParameterConstraintRule01Impl() {
+  }
+
+  @Override
+  public String key() {
+    return "io.github.nalukit.nalu.processor.parameterConstraintRule.ok.ParameterConstraintRule01";
+  }
+
+  @Override
+  public boolean isValid(String parameter) {
+    return true;
+  }
+}
