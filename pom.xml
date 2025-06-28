@@ -75,17 +75,6 @@
     <url>https://github.com/nalukit/nalu/issues</url>
   </issueManagement>
 
-    <distributionManagement>
-      <snapshotRepository>
-        <id>central</id>
-        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      </snapshotRepository>
-      <repository>
-        <id>central</id>
-        <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-      </repository>
-    </distributionManagement>
-
   <properties>
     <revision>HEAD-SNAPSHOT</revision>
 
@@ -253,17 +242,6 @@
                 </goals>
               </execution>
             </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.sonatype.central</groupId>
-            <artifactId>central-publishing-maven-plugin</artifactId>
-            <version>${plugin.version.central}</version>
-            <extensions>true</extensions>
-            <configuration>
-              <publishingServerId>central</publishingServerId>
-              <centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
-              <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots/</centralSnapshotsUrl>
-            </configuration>
           </plugin>
         </plugins>
       </build>
