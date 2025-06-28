@@ -14,7 +14,7 @@ To use this plugin in your application, add the following lines to your POM:
 
 ```xml
 <dependency>
-    <groupId>com.github.nalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemento</artifactId>
     <version>LATEST</version>
 </dependency>

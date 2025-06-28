@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 ![GWT3/J2CL compatible](https://img.shields.io/badge/GWT3/J2CL-compatible-brightgreen.svg) 
 [![Join the chat at https://gitter.im/Nalukit42/Lobby](https://badges.gitter.im/Nalukit42/Lobby.svg)](https://gitter.im/Nalukit42/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.nalukit/nalu.svg?colorB=44cc11)](https://central.sonatype.com/artifact/com.github.nalukit/nalu)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.nalukit/nalu.svg?colorB=44cc11)](https://central.sonatype.com/artifact/io.github.nalukit/nalu)
 [![Build & Deploy](https://github.com/NaluKit/nalu/actions/workflows/build.yaml/badge.svg?branch=main)](https://github.com/NaluKit/nalu/actions/workflows/build.yaml)
 
 
@@ -120,12 +120,12 @@ To use Nalu add the following dependencies to your pom:
 * **GWT 2.9.0 (and newer) - SNAPSHOT**
 ```XML
 <dependency>
-    <groupId>com.github.nalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
     <version>HEAD-SNAPSHOT</version>
 </dependency>
 <dependency>
-    <groupId>com.github.nalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
     <version>HEAD-SNAPSHOT</version>
     <scope>provided</scope>
@@ -134,12 +134,12 @@ To use Nalu add the following dependencies to your pom:
 * **GWT 2.9.0 (and newer)  - Release**
 ```XML
 <dependency>
-    <groupId>com.github.nalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
     <version>2.20.6</version>
 </dependency>
 <dependency>
-    <groupId>com.github.nalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
     <version>2.20.6</version>
     <scope>provided</scope>
@@ -162,7 +162,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
 * **GWT 2.9.0 (and newer)  - SNAPSHOT**
 ```XML
 <dependency>
-    <groupId>com.github.nalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
     <version>HEAD-SNAPSHOT</version>
 </dependency>
@@ -171,7 +171,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
 * **GWT 2.9.0 (and newer)  - Release**
 ```XML
 <dependency>
-    <groupId>com.github.nalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
     <version>2.20.6</version>
 </dependency>
@@ -191,7 +191,7 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
 * **GWT 2.9.0 (and newer)  - SNAPSHOT**
 ```XML
 <dependency>
-    <groupId>com.github.nalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemento</artifactId>
     <version>HEAD-SNAPSHOT</version>
 </dependency>
@@ -200,7 +200,7 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
 * **GWT 2.9.0 (and newer)  - Release**
 ```XML
 <dependency>
-    <groupId>com.github.nalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemento</artifactId>
     <version>2.20.6</version>
 </dependency>
@@ -211,7 +211,7 @@ For Domino-UI Version 2 there's also a dedicated plugin which supports `org.domi
 * **GWT 2.9.0 (and newer)  - SNAPSHOT**
 ```XML
 <dependency>
-    <groupId>com.github.nalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-domino-v2</artifactId>
     <version>HEAD-SNAPSHOT</version>
 </dependency>
@@ -220,7 +220,7 @@ For Domino-UI Version 2 there's also a dedicated plugin which supports `org.domi
 * **GWT 2.9.0 (and newer)  - Release**
 ```XML
 <dependency>
-    <groupId>com.github.nalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-domino-v2</artifactId>
     <version>2.20.6</version>
 </dependency>
@@ -248,12 +248,12 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
 * **GWT 2.9.0 (and newer)  - SNAPSHOT**
 ```XML
    <dependency>
-      <groupId>com.github.nalukit</groupId>
+      <groupId>io.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
       <version>HEAD-SNAPSHOT</version>
    </dependency>
    <dependency>
-      <groupId>com.github.nalukit</groupId>
+      <groupId>io.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
       <version>HEAD-SNAPSHOT</version>
       <scope>provided</scope>
@@ -263,12 +263,12 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
 * **GWT 2.9.0 (and newer)  - Release**
 ```XML
    <dependency>
-      <groupId>com.github.nalukit</groupId>
+      <groupId>io.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
       <version>2.20.6</version>
    </dependency>
    <dependency>
-      <groupId>com.github.nalukit</groupId>
+      <groupId>io.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
       <version>2.20.6</version>
       <scope>provided</scope>
@@ -315,3 +315,9 @@ In case you find a bug, please open an issue or post it inside the [Nalu Gitter 
 ## Comparsion between GWT Activities & Places versus Nalu
 Anyone, who is familiar with GWT Activities & Places, will find [here](https://github.com/NaluKit/nalu/wiki/01.-Motivation-&-Concepts#comparison-gwt-activities--places-versus-nalu) a comparison between GWT Activities & Places and Nalu.
 
+## Migration to io.github
+
+Migration to the new namespace is quite simple. There only to things to do:
+
+1. change the groupId from `com.github.nalukit` to `ìo.github.nalukit`
+2. replace all imports from `import com.github.nalukit` to `import io.github.nalukit`

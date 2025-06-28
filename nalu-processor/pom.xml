@@ -23,7 +23,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.github.nalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-parent</artifactId>
     <version>${revision}</version>
   </parent>
@@ -79,7 +79,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.github.nalukit</groupId>
+      <groupId>io.github.nalukit</groupId>
       <artifactId>nalu</artifactId>
       <version>${project.version}</version>
       <exclusions>
@@ -269,10 +269,10 @@
             <configuration>
               <artifactSet>
                 <excludes>
-                  <exclude>com.github.nalukit:nalu</exclude>
-                  <exclude>com.github.nalukit:nalu-plugin-core</exclude>
-                  <exclude>com.github.nalukit:nalu-plugin-elemental2</exclude>
-                  <exclude>com.github.nalukit:nalu-plugin-elemento</exclude>
+                  <exclude>io.github.nalukit:nalu</exclude>
+                  <exclude>io.github.nalukit:nalu-plugin-core</exclude>
+                  <exclude>io.github.nalukit:nalu-plugin-elemental2</exclude>
+                  <exclude>io.github.nalukit:nalu-plugin-elemento</exclude>
                   <exclude>com.google.auto.service:*</exclude>
                   <exclude>org.slf4j:slf4j-api</exclude>
                   <exclude>com.google.elemental2:*</exclude>
@@ -306,9 +306,9 @@
           </execution>
         </executions>
         <configuration>
-          <basedir>${path.test.resources}/com/github/nalukit/nalu/processor.templates
+          <basedir>${path.test.resources}/io/github/nalukit/nalu/processor.templates
           </basedir>
-          <outputBasedir>${path.test.resources}/com/github/nalukit/nalu/</outputBasedir>
+          <outputBasedir>${path.test.resources}/io/github/nalukit/nalu/</outputBasedir>
           <outputDir>processor/</outputDir>
           <includes>**/*.java</includes>
           <replacements>
@@ -336,7 +336,7 @@
         <configuration>
           <filesets>
             <fileset>
-              <directory>${path.test.resources}/com/github/nalukit/nalu/processor</directory>
+              <directory>${path.test.resources}/io/github/nalukit/nalu/processor</directory>
               <followSymlinks>false</followSymlinks>
             </fileset>
           </filesets>
@@ -366,6 +366,74 @@
           --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
         </test.jvm.flags>
       </properties>
+    </profile>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${plugin.version.gpg.maven}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <!-- Prevent gpg from using pinentry programs -->
+              <gpgArguments>
+                <arg>--pinentry-mode</arg>
+                <arg>loopback</arg>
+              </gpgArguments>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>${plugin.version.central}</version>
+            <extensions>true</extensions>
+            <configuration>
+              <publishingServerId>central</publishingServerId>
+              <centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
+              <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots/</centralSnapshotsUrl>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${plugin.version.javadoc}</version>
+            <configuration>
+              <javadocExecutable>${java.doc.executable}</javadocExecutable>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${plugin.version.source}</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
 </project>

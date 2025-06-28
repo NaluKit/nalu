@@ -21,7 +21,7 @@ To use this plugin in your application, add the following lines to your POM:
 
 ```xml
 <dependency>
-    <groupId>com.github.nalukit</groupId>
+    <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-domino-v2</artifactId>
     <version>LATEST</version>
 </dependency>
@@ -71,5 +71,5 @@ This will work without any problems, but requires more coding.
 
 ### Compatibility
 
-This plugin can not be used wit Domino-UI version 1.x.x!
+This plugin can not be used with Domino-UI version 1.x.x!
 

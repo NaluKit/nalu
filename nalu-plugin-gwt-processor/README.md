@@ -10,7 +10,7 @@ Examples of GWT based widget libraries are:
 In case your are using a GWT based widget library, add this module to the dependencies using:
 ```xml
     <dependency>
-      <groupId>com.github.nalukit</groupId>
+      <groupId>io.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
       <version>LATEST</version>
     </dependency>

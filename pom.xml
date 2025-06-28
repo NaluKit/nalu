@@ -22,7 +22,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.nalukit</groupId>
+  <groupId>io.github.nalukit</groupId>
   <artifactId>nalu-parent</artifactId>
   <version>${revision}</version>
   <packaging>pom</packaging>
@@ -75,19 +75,8 @@
     <url>https://github.com/nalukit/nalu/issues</url>
   </issueManagement>
 
-    <distributionManagement>
-      <snapshotRepository>
-        <id>central</id>
-        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      </snapshotRepository>
-      <repository>
-        <id>central</id>
-        <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-      </repository>
-    </distributionManagement>
-
   <properties>
-    <revision>2.20.6</revision>
+    <revision>3.0.0</revision>
 
     <auto-common.version>1.2.2</auto-common.version>
     <auto-service.version>1.1.1</auto-service.version>
@@ -215,6 +204,17 @@
             </configuration>
           </plugin>
           <plugin>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>${plugin.version.central}</version>
+            <extensions>true</extensions>
+            <configuration>
+              <publishingServerId>central</publishingServerId>
+              <centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
+              <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots/</centralSnapshotsUrl>
+            </configuration>
+          </plugin>
+          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>${plugin.version.javadoc}</version>
@@ -243,85 +243,8 @@
               </execution>
             </executions>
           </plugin>
-          <plugin>
-            <groupId>org.sonatype.central</groupId>
-            <artifactId>central-publishing-maven-plugin</artifactId>
-            <version>${plugin.version.central}</version>
-            <extensions>true</extensions>
-            <configuration>
-              <publishingServerId>central</publishingServerId>
-              <centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
-              <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots/</centralSnapshotsUrl>
-            </configuration>
-          </plugin>
         </plugins>
       </build>
-    </profile>
-
-    <profile>
-      <id>site</id>
-      <modules>
-        <module>nalu</module>
-        <module>nalu-processor</module>
-        <module>nalu-plugin-core-web</module>
-        <module>nalu-plugin-domino-v2</module>
-        <module>nalu-plugin-elemental2</module>
-        <module>nalu-plugin-gwt</module>
-        <module>nalu-plugin-gwt-processor</module>
-      </modules>
-
-      <reporting>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>${plugin.version.javadoc}</version>
-            <configuration>
-              <detectLinks>true</detectLinks>
-              <links>
-                <link>http://www.gwtproject.org/javadoc/latest/</link>
-              </links>
-              <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
-            </configuration>
-            <reportSets>
-              <reportSet>
-                <id>aggregate</id>
-                <reports>
-                  <report>aggregate</report>
-                </reports>
-              </reportSet>
-            </reportSets>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>versions-maven-plugin</artifactId>
-            <version>${plugin.version.versions}</version>
-            <configuration>
-              <ruleSet>
-                <ignoreVersions>
-                  <igonreVersion>
-                    <type>regex</type>
-                    <version>(.+-M\d)</version>
-                  </igonreVersion>
-                  <igonreVersion>
-                    <type>regex</type>
-                    <version>.+-(alpha|beta).+</version>
-                  </igonreVersion>
-                </ignoreVersions>
-              </ruleSet>
-            </configuration>
-            <reportSets>
-              <reportSet>
-                <reports>
-                  <report>dependency-updates-report</report>
-                  <report>plugin-updates-report</report>
-                  <report>property-updates-report</report>
-                </reports>
-              </reportSet>
-            </reportSets>
-          </plugin>
-        </plugins>
-      </reporting>
     </profile>
   </profiles>
 </project>
