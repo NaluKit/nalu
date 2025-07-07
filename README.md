@@ -317,7 +317,7 @@ Anyone, who is familiar with GWT Activities & Places, will find [here](https://g
 
 ## Migration to io.github
 
-Migration to the new namespace is quite simple. There only to things to do:
+Migration to the new namespace is quite simple. This are the steps you need to do:
 
 1. change the groupId from `com.github.nalukit` to `ìo.github.nalukit`
 2. replace all imports from `import com.github.nalukit` to `import io.github.nalukit`
