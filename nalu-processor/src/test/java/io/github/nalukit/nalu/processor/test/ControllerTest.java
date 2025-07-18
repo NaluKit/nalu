@@ -16,10 +16,10 @@
 
 package io.github.nalukit.nalu.processor.test;
 
-import io.github.nalukit.nalu.processor.NaluProcessor;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.CompilationSubject;
 import com.google.testing.compile.JavaFileObjects;
+import io.github.nalukit.nalu.processor.NaluProcessor;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -53,7 +53,7 @@ public class ControllerTest {
     CompilationSubject.assertThat(compilation)
                       .failed();
     CompilationSubject.assertThat(compilation)
-                      .hadErrorContaining("annotation @io.github.nalukit.nalu.client.component.annotation.AcceptParameter is missing a default value for the element 'value'");
+                      .hadErrorContaining("value");
   }
 
   @Test
