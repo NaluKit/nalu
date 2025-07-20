@@ -16,15 +16,15 @@
 
 package io.github.nalukit.nalu.plugin.core.web.client.implementation;
 
+import elemental2.dom.DomGlobal;
+import elemental2.dom.Location;
+import elemental2.dom.PopStateEvent;
 import io.github.nalukit.nalu.client.internal.PropertyFactory;
 import io.github.nalukit.nalu.client.internal.route.ShellConfig;
 import io.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import io.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.RouteChangeHandler;
 import io.github.nalukit.nalu.plugin.core.web.client.IsNaluCorePlugin;
 import io.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.Location;
-import elemental2.dom.PopStateEvent;
 import jsinterop.base.Js;
 
 import java.util.Arrays;
@@ -142,25 +142,6 @@ public class NaluPluginCoreWeb
         startRoute = "";
       }
     }
-
-    // in case we need to remove the parameter, update history ...
-    if (PropertyFactory.INSTANCE.isRemoveUrlParameterAtStart()) {
-      if (!queryParameters.isEmpty()) {
-        String newUrl = null;
-        if (startRoute != null) {
-          if (location.href.contains("?")) {
-            if (PropertyFactory.INSTANCE.isUsingHash()) {
-              newUrl = location.origin + location.pathname + "#" + startRoute;
-            } else {
-              newUrl = location.origin + "/" + startRoute;
-            }
-          }
-          DomGlobal.window.history.replaceState(newUrl,
-                                                DomGlobal.document.title,
-                                                newUrl);
-        }
-      }
-    }
     return new NaluStartModel(startRoute,
                               queryParameters);
   }
@@ -222,29 +203,48 @@ public class NaluPluginCoreWeb
                     boolean replace,
                     boolean stealthMode,
                     RouteChangeHandler handler) {
-    String newRouteToken;
-    if (PropertyFactory.INSTANCE.isUsingHash()) {
-      newRouteToken = newRoute.startsWith("#") ?
-                      newRoute :
-                      "#" + newRoute;
-    } else {
-      newRouteToken = "/";
-      if (!PropertyFactory.INSTANCE.getContextPath()
-                                   .isEmpty()) {
-        newRouteToken = newRouteToken + PropertyFactory.INSTANCE.getContextPath() + "/";
-      }
-      newRouteToken = newRouteToken + newRoute;
-    }
     if (PropertyFactory.INSTANCE.hasHistory()) {
+      Map<String, String> queryParameters = this.getQueryParameters();
+      StringBuilder       newUrl          = new StringBuilder();
+      if (PropertyFactory.INSTANCE.isRemoveUrlParameterAtStart()) {
+        if (PropertyFactory.INSTANCE.isUsingHash()) {
+          newUrl.append(newRoute.startsWith("#") ?
+                        newRoute :
+                        "#" + newRoute);
+        } else {
+          newUrl.append("/");
+          if (!PropertyFactory.INSTANCE.getContextPath()
+                                       .isEmpty()) {
+            newUrl.append(PropertyFactory.INSTANCE.getContextPath())
+                  .append("/");
+          }
+          newUrl.append(newRoute);
+        }
+      } else {
+        if (!queryParameters.isEmpty()) {
+          if (PropertyFactory.INSTANCE.isUsingHash()) {
+            this.addQueryParaemterToURL(queryParameters,
+                                        newUrl);
+            newUrl.append(newRoute.startsWith("#") ?
+                          newRoute :
+                          "#" + newRoute);
+          } else {
+            this.addQueryParaemterToURL(queryParameters,
+                                        newUrl);
+            newUrl.append("/")
+                  .append(newRoute);
+          }
+        }
+      }
       if (!stealthMode) {
         if (replace) {
-          DomGlobal.window.history.replaceState(newRouteToken,
+          DomGlobal.window.history.replaceState(newUrl.toString(),
                                                 DomGlobal.document.title,
-                                                newRouteToken);
+                                                newUrl.toString());
         } else {
-          DomGlobal.window.history.pushState(newRouteToken,
+          DomGlobal.window.history.pushState(newUrl.toString(),
                                              DomGlobal.document.title,
-                                             newRouteToken);
+                                             newUrl.toString());
         }
       }
     } else {
@@ -264,6 +264,52 @@ public class NaluPluginCoreWeb
                         newUrl);
       return null;
     };
+  }
+
+  private Map<String, String> getQueryParameters() {
+    Location            location        = Js.uncheckedCast(DomGlobal.location);
+    Map<String, String> queryParameters = new HashMap<>();
+    String              search          = location.search;
+    if (!Objects.isNull(search)) {
+      if (search.startsWith("?")) {
+        search = search.substring(1);
+      }
+      Arrays.stream(search.split("&"))
+            .forEach(s -> {
+              String[] split = s.split("=");
+              if (split.length == 1) {
+                queryParameters.put(split[0],
+                                    "");
+              } else if (split.length == 2) {
+                queryParameters.put(split[0],
+                                    split[1]);
+
+              }
+            });
+    }
+    return queryParameters;
+  }
+
+  private void addQueryParaemterToURL(Map<String, String> queryParameters,
+                                      StringBuilder newUrl) {
+    boolean isQuestionMarkSet = false;
+    if (!PropertyFactory.INSTANCE.isRemoveUrlParameterAtStart()) {
+      for (String key : queryParameters.keySet()) {
+        if (Objects.nonNull(key) && key.length() > 0) {
+          if (!"uri".equals(key)) {
+            if (isQuestionMarkSet) {
+              newUrl.append("&");
+            } else {
+              newUrl.append("?");
+              isQuestionMarkSet = true;
+            }
+            newUrl.append(key)
+                  .append("=")
+                  .append(queryParameters.get(key));
+          }
+        }
+      }
+    }
   }
 
 }
