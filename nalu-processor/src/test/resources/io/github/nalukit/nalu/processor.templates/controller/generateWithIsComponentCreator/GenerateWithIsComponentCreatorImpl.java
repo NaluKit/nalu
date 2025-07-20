@@ -155,9 +155,4 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
   public boolean isStayOnSide() {
     return false;
   }
-
-  @Override
-  public boolean isRemoveUrlParameterAtStart() {
-    return false;
-  }
 }

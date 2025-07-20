@@ -154,9 +154,4 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
   public boolean isStayOnSide() {
     return false;
   }
-
-  @Override
-  public boolean isRemoveUrlParameterAtStart() {
-    return false;
-  }
 }

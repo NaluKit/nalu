@@ -26,7 +26,6 @@ public class NaluTest {
                              true,
                              true,
                              true,
-                             false,
                              false);
     Assertions.assertTrue(Nalu.hasHistory());
   }
@@ -39,7 +38,6 @@ public class NaluTest {
                              false,
                              true,
                              true,
-                             false,
                              false);
     Assertions.assertFalse(Nalu.hasHistory());
   }
@@ -52,7 +50,6 @@ public class NaluTest {
                              true,
                              true,
                              true,
-                             false,
                              false);
     Assertions.assertTrue(Nalu.isUsingHash());
   }
@@ -65,7 +62,6 @@ public class NaluTest {
                              true,
                              false,
                              true,
-                             false,
                              false);
     Assertions.assertFalse(Nalu.isUsingHash());
   }
@@ -78,7 +74,6 @@ public class NaluTest {
                              true,
                              true,
                              true,
-                             false,
                              false);
     Assertions.assertTrue(Nalu.isUsingColonForParametersInUrl());
   }
@@ -90,7 +85,6 @@ public class NaluTest {
                              "",
                              true,
                              true,
-                             false,
                              false,
                              false);
     Assertions.assertFalse(Nalu.isUsingColonForParametersInUrl());

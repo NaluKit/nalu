@@ -142,25 +142,6 @@ public class NaluPluginCoreWeb
         startRoute = "";
       }
     }
-
-    // in case we need to remove the parameter, update history ...
-    if (PropertyFactory.INSTANCE.isRemoveUrlParameterAtStart()) {
-      if (!queryParameters.isEmpty()) {
-        String newUrl = null;
-        if (startRoute != null) {
-          if (location.href.contains("?")) {
-            if (PropertyFactory.INSTANCE.isUsingHash()) {
-              newUrl = location.origin + location.pathname + "#" + startRoute;
-            } else {
-              newUrl = location.origin + "/" + startRoute;
-            }
-          }
-          DomGlobal.window.history.replaceState(newUrl,
-                                                DomGlobal.document.title,
-                                                newUrl);
-        }
-      }
-    }
     return new NaluStartModel(startRoute,
                               queryParameters);
   }

@@ -18,9 +18,6 @@ public class PropertyFactory {
   private boolean usingColonForParametersInUrl;
   // should the application replace history (stay on side) in case of empty hash
   private boolean stayOnSide;
-  /* do we have to remove the URL parameter      */
-  /* from the URL                                */
-  private boolean removeUrlParameterAtStart;
 
   private PropertyFactory() {
   }
@@ -98,15 +95,6 @@ public class PropertyFactory {
   }
 
   /**
-   * Do we need to remove the URL parameter?
-   *
-   * @return true -&gt; remove parameter from URL
-   */
-  public boolean isRemoveUrlParameterAtStart() {
-    return removeUrlParameterAtStart;
-  }
-
-  /**
    * Do NOT call this method!
    *
    * @param startRoute                   Start route of the application
@@ -115,15 +103,13 @@ public class PropertyFactory {
    * @param usingHash                    Will Nalu use a hash for Navigation?
    * @param usingColonForParametersInUrl Will Nalu use colons to mark parameters inside the url?
    * @param stayOnSide                   tells Nalu how do ahndle empty hash
-   * @param removeUrlParameterAtStart    tells Nalu to remove URL para,eters or not
    */
   public void register(String startRoute,
                        String illegalRouteTarget,
                        boolean hasHistory,
                        boolean usingHash,
                        boolean usingColonForParametersInUrl,
-                       boolean stayOnSide,
-                       boolean removeUrlParameterAtStart) {
+                       boolean stayOnSide) {
     if (startRoute.startsWith("/")) {
       this.startRoute = startRoute.substring(1);
     } else {
@@ -134,7 +120,6 @@ public class PropertyFactory {
     this.usingHash                    = usingHash;
     this.usingColonForParametersInUrl = usingColonForParametersInUrl;
     this.stayOnSide                   = stayOnSide;
-    this.removeUrlParameterAtStart    = removeUrlParameterAtStart;
   }
 
 }

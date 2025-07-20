@@ -161,10 +161,5 @@ public final class ApplicationWithFilterImpl extends AbstractApplication<MockCon
   public boolean isStayOnSide() {
     return false;
   }
-
-  @Override
-  public boolean isRemoveUrlParameterAtStart() {
-    return false;
-  }
 }
     

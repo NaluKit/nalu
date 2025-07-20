@@ -155,9 +155,4 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
   public boolean isStayOnSide() {
     return false;
   }
-
-  @Override
-  public boolean isRemoveUrlParameterAtStart() {
-    return false;
-  }
 }
