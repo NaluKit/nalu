@@ -159,9 +159,4 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   public boolean isStayOnSide() {
     return false;
   }
-
-  @Override
-  public boolean isRemoveUrlParameterAtStart() {
-    return false;
-  }
 }

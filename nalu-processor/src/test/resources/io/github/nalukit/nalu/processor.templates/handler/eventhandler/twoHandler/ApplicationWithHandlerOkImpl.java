@@ -173,9 +173,4 @@ public final class ApplicationWithHandlerOkImpl extends AbstractApplication<Mock
   public boolean isStayOnSide() {
     return false;
   }
-
-  @Override
-  public boolean isRemoveUrlParameterAtStart() {
-    return false;
-  }
 }

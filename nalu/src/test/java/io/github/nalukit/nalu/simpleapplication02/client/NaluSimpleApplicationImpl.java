@@ -147,11 +147,6 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
-  protected boolean isRemoveUrlParameterAtStart() {
-    return false;
-  }
-
-  @Override
   protected void loadShellFactory() {
 
   }

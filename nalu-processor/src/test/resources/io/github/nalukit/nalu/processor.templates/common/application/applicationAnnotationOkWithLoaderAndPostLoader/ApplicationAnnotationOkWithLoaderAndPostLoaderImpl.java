@@ -154,9 +154,4 @@ public final class ApplicationAnnotationOkWithLoaderAndPostLoaderImpl extends Ab
   public boolean isStayOnSide() {
     return false;
   }
-
-  @Override
-  public boolean isRemoveUrlParameterAtStart() {
-    return false;
-  }
 }

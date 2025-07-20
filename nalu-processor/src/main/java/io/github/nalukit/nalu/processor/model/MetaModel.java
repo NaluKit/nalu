@@ -78,9 +78,6 @@ public class MetaModel {
   /* does the context extends                    */
   /* AbstractModuleContext?                      */
   private       boolean                            extendingIsModuleContext;
-  /* do we have to remove the URL parameter      */
-  /* from the URL                                */
-  private       boolean                            removeUrlParameterAtStart;
   /* list of used parameter constraints          */
   private final List<ClassNameModel>               usedParameterConstraints;
   private final List<ClassNameModel>               generatedConditions;
@@ -101,7 +98,6 @@ public class MetaModel {
 
     this.applicationVersion        = "APPLCIATION-VERSION-NOT-AVAILABLE";
     this.extendingIsModuleContext  = false;
-    this.removeUrlParameterAtStart = false;
   }
 
   public ModuleModel getModuleModel() {
@@ -341,14 +337,6 @@ public class MetaModel {
 
   public void setIllegalRouteTarget(String illegalRouteTarget) {
     this.illegalRouteTarget = illegalRouteTarget;
-  }
-
-  public boolean isRemoveUrlParameterAtStart() {
-    return removeUrlParameterAtStart;
-  }
-
-  public void setRemoveUrlParameterAtStart(boolean removeUrlParameterAtStart) {
-    this.removeUrlParameterAtStart = removeUrlParameterAtStart;
   }
 
   public List<ParameterConstraintRuleModel> getParameterConstraintRules() {

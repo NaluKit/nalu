@@ -174,9 +174,4 @@ public final class ApplicationWithComposite07Impl extends AbstractApplication<Mo
   public boolean isStayOnSide() {
     return false;
   }
-
-  @Override
-  public boolean isRemoveUrlParameterAtStart() {
-    return false;
-  }
 }

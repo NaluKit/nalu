@@ -35,8 +35,7 @@ public final class RouterImpl
                     boolean hasHistory,
                     boolean usingHash,
                     boolean usingColonForParametersInUrl,
-                    boolean stayOnSide,
-                    boolean removeUrlParameterAtStart) {
+                    boolean stayOnSide) {
     super(compositeReferences,
           shellConfiguration,
           routerConfiguration,
@@ -47,8 +46,7 @@ public final class RouterImpl
           hasHistory,
           usingHash,
           usingColonForParametersInUrl,
-          stayOnSide,
-          removeUrlParameterAtStart);
+          stayOnSide);
     this.plugin.register(hash -> RouterImpl.super.handleRouting(hash,
                                                                 false));
   }
