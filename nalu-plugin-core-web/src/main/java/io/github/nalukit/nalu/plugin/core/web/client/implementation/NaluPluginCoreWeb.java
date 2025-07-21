@@ -96,6 +96,7 @@ public class NaluPluginCoreWeb
   @Override
   @SuppressWarnings("StringSplitter")
   public NaluStartModel getNaluStartModel() {
+    Js.debugger();
     Location            location        = Js.uncheckedCast(DomGlobal.location);
     Map<String, String> queryParameters = new HashMap<>();
     String              search          = location.search;
@@ -203,29 +204,32 @@ public class NaluPluginCoreWeb
                     boolean replace,
                     boolean stealthMode,
                     RouteChangeHandler handler) {
-    String newRouteToken;
+    String newRouteState;
     if (PropertyFactory.INSTANCE.isUsingHash()) {
-      newRouteToken = newRoute.startsWith("#") ?
+      newRouteState = newRoute.startsWith("#") ?
                       newRoute :
                       "#" + newRoute;
     } else {
-      newRouteToken = "/";
+      newRouteState = "/";
+      if (Objects.nonNull(PropertyFactory.INSTANCE.getBaseUrl()) && PropertyFactory.INSTANCE.getBaseUrl().length() > 1) {
+        newRouteState = newRouteState + PropertyFactory.INSTANCE.getBaseUrl() + "/";
+      }
       if (!PropertyFactory.INSTANCE.getContextPath()
                                    .isEmpty()) {
-        newRouteToken = newRouteToken + PropertyFactory.INSTANCE.getContextPath() + "/";
+        newRouteState = newRouteState + PropertyFactory.INSTANCE.getContextPath() + "/";
       }
-      newRouteToken = newRouteToken + newRoute;
+      newRouteState = newRouteState + newRoute;
     }
     if (PropertyFactory.INSTANCE.hasHistory()) {
       if (!stealthMode) {
         if (replace) {
-          DomGlobal.window.history.replaceState(newRouteToken,
+          DomGlobal.window.history.replaceState(newRouteState,
                                                 DomGlobal.document.title,
-                                                newRouteToken);
+                                                newRouteState);
         } else {
-          DomGlobal.window.history.pushState(newRouteToken,
+          DomGlobal.window.history.pushState(newRouteState,
                                              DomGlobal.document.title,
-                                             newRouteToken);
+                                             newRouteState);
         }
       }
     } else {
