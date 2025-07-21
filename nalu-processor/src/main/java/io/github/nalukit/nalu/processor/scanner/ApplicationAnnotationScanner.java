@@ -77,6 +77,7 @@ public class ApplicationAnnotationScanner {
       } else {
         metaModel.setContext(new ClassNameModel(contextTypeElement.toString()));
       }
+      metaModel.setBaseUrl(applicationAnnotation.baseUrl());
       metaModel.setStartRoute(applicationAnnotation.startRoute());
       metaModel.setIllegalRouteTarget(applicationAnnotation.illegalRouteTarget());
       metaModel.setUsingHash(applicationAnnotation.useHash());

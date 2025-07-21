@@ -22,6 +22,7 @@ public class NaluTest {
   void hasHistory01() {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
+                             "app",
                              "",
                              true,
                              true,
@@ -34,6 +35,7 @@ public class NaluTest {
   void hasHistory02() {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
+                             "app",
                              "",
                              false,
                              true,
@@ -46,6 +48,7 @@ public class NaluTest {
   void isUsingHash01() {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
+                             "app",
                              "",
                              true,
                              true,
@@ -58,6 +61,7 @@ public class NaluTest {
   void isUsingHash02() {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
+                             "app",
                              "",
                              true,
                              false,
@@ -70,6 +74,7 @@ public class NaluTest {
   void isUsingColonForParametersInUrl01() {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
+                             "app",
                              "",
                              true,
                              true,
@@ -82,6 +87,7 @@ public class NaluTest {
   void isUsingColonForParametersInUrl02() {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
+                             "app",
                              "",
                              true,
                              true,

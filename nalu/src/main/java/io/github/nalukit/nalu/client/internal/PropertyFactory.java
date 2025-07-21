@@ -8,6 +8,8 @@ public class PropertyFactory {
   private String  contextPath;
   // start route of the application
   private String  startRoute;
+  // baseUrl of the application
+  private String baseUrl;
   // illegal route target of the application
   private String  illegalRouteTarget;
   // does the application have history
@@ -77,12 +79,21 @@ public class PropertyFactory {
   }
 
   /**
-   * The start route of the applilcation
+   * The start route of the application
    *
    * @return start route of the application
    */
   public String getStartRoute() {
     return this.startRoute;
+  }
+
+  /**
+   * The baeUrl of the application
+   *
+   * @return baseUrl of the application
+   */
+  public String getBaseUrl() {
+    return this.baseUrl;
   }
 
   /**
@@ -97,6 +108,7 @@ public class PropertyFactory {
   /**
    * Do NOT call this method!
    *
+   * @param baseUrl                      tells Nalu the baseUrl of the application
    * @param startRoute                   Start route of the application
    * @param illegalRouteTarget           illegal route target used, in case of a illegal route
    * @param hasHistory                   Will Nalu support a history token?
@@ -104,12 +116,18 @@ public class PropertyFactory {
    * @param usingColonForParametersInUrl Will Nalu use colons to mark parameters inside the url?
    * @param stayOnSide                   tells Nalu how do ahndle empty hash
    */
-  public void register(String startRoute,
+  public void register(String baseUrl,
+                       String startRoute,
                        String illegalRouteTarget,
                        boolean hasHistory,
                        boolean usingHash,
                        boolean usingColonForParametersInUrl,
                        boolean stayOnSide) {
+    if (baseUrl.startsWith("/")) {
+      this.baseUrl = baseUrl.substring(1);
+    } else {
+      this.baseUrl = baseUrl;
+    }
     if (startRoute.startsWith("/")) {
       this.startRoute = startRoute.substring(1);
     } else {

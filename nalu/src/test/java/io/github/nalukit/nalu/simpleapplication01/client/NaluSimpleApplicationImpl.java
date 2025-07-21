@@ -59,6 +59,7 @@ public final class NaluSimpleApplicationImpl
 
   @Override
   public void loadDefaultRoutes() {
+    this.baseUrl = "/app";
     this.startRoute = "/search";
   }
 

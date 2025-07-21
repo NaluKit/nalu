@@ -327,6 +327,7 @@ public class NaluUtilsTest {
   @Test
   void testCleanRoute01() {
     PropertyFactory.INSTANCE.register("/shell/login/",
+                                      "app",
                                       "/shell/login/",
                                       true,
                                       false,
@@ -339,6 +340,7 @@ public class NaluUtilsTest {
   @Test
   void testCleanRoute02() {
     PropertyFactory.INSTANCE.register("/shell/login/",
+                                      "app",
                                       "/shell/login/",
                                       true,
                                       false,
@@ -351,6 +353,7 @@ public class NaluUtilsTest {
   @Test
   void testCleanRoute03() {
     PropertyFactory.INSTANCE.register("/shell/login/",
+                                      "app",
                                       "/shell/login/",
                                       true,
                                       false,

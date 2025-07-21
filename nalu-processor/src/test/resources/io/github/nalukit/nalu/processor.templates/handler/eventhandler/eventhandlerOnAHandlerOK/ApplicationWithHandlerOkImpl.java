@@ -13,7 +13,6 @@ import io.github.nalukit.nalu.client.tracker.IsTracker;
 import io.github.nalukit.nalu.processor.common.MockContext;
 import io.github.nalukit.nalu.processor.common.event.MockEvent01;
 import io.github.nalukit.nalu.processor.eventhandler.handler.eventhandlerOnAHandlerOK.EventHandlerOnAHandlerOk;
-import java.lang.Override;
 
 import java.util.Arrays;
 
@@ -141,6 +140,7 @@ public final class ApplicationWithHandlerOkImpl extends AbstractApplication<Mock
 
   @Override
   public void loadDefaultRoutes() {
+    this.baseUrl = "app";
     this.startRoute = "/mockShell/route01";
   }
 

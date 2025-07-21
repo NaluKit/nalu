@@ -12,6 +12,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*/edit";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -27,6 +28,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -42,6 +44,7 @@ public class RouterUtilsTest {
     String with  = "/app/*/person/edit";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -57,6 +60,7 @@ public class RouterUtilsTest {
     String with  = "/app/*/person/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -72,6 +76,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -87,6 +92,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -102,6 +108,7 @@ public class RouterUtilsTest {
     String with  = "/";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -117,6 +124,7 @@ public class RouterUtilsTest {
     String with  = "/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -132,6 +140,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*/edit";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -147,6 +156,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*/edit";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -162,6 +172,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -177,6 +188,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -193,6 +205,7 @@ public class RouterUtilsTest {
     String with  = "/app/*/person/edit";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -208,6 +221,7 @@ public class RouterUtilsTest {
     String with  = "/app/*/person/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -223,6 +237,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -238,6 +253,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -253,6 +269,7 @@ public class RouterUtilsTest {
     String with  = "/";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -268,6 +285,7 @@ public class RouterUtilsTest {
     String with  = "/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              true,
                              true,
@@ -283,6 +301,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*/edit";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -298,6 +317,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -313,6 +333,7 @@ public class RouterUtilsTest {
     String with  = "/app/*/person/edit";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -328,6 +349,7 @@ public class RouterUtilsTest {
     String with  = "/app/*/person/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -343,6 +365,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -358,6 +381,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -373,6 +397,7 @@ public class RouterUtilsTest {
     String with  = "/";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -388,6 +413,7 @@ public class RouterUtilsTest {
     String with  = "/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -403,6 +429,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*/edit";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -418,6 +445,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*/edit";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -433,6 +461,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -448,6 +477,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -464,6 +494,7 @@ public class RouterUtilsTest {
     String with  = "/app/*/person/edit";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -479,6 +510,7 @@ public class RouterUtilsTest {
     String with  = "/app/*/person/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -494,6 +526,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -509,6 +542,7 @@ public class RouterUtilsTest {
     String with  = "/app/person/*/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -524,6 +558,7 @@ public class RouterUtilsTest {
     String with  = "/";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,
@@ -539,6 +574,7 @@ public class RouterUtilsTest {
     String with  = "/*";
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
+                             "app",
                              "",
                              false,
                              true,

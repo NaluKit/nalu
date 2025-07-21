@@ -15,7 +15,7 @@ import io.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
 import io.github.nalukit.nalu.client.tracker.IsTracker;
 import io.github.nalukit.nalu.processor.common.MockContext;
 import io.github.nalukit.nalu.processor.shell.shellWithComposite02.composite.Composite02Condition;
-import java.lang.Override;
+
 import java.util.Arrays;
 
 /**
@@ -151,6 +151,7 @@ public final class ShellWithCompositeApplicationImpl extends AbstractApplication
 
   @Override
   public void loadDefaultRoutes() {
+    this.baseUrl = "app";
     this.startRoute = "/mockShell/route01";
   }
 

@@ -16,6 +16,11 @@
 
 package io.github.nalukit.nalu.processor.generator;
 
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeSpec;
 import io.github.nalukit.nalu.client.application.IsLoader;
 import io.github.nalukit.nalu.client.application.event.LogEvent;
 import io.github.nalukit.nalu.client.internal.NoCustomAlertPresenter;
@@ -29,11 +34,6 @@ import io.github.nalukit.nalu.processor.ProcessorException;
 import io.github.nalukit.nalu.processor.ProcessorUtils;
 import io.github.nalukit.nalu.processor.model.MetaModel;
 import io.github.nalukit.nalu.processor.util.BuildWithNaluCommentProvider;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeSpec;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
@@ -311,6 +311,8 @@ public class ApplicationGenerator {
     typeSpec.addMethod(MethodSpec.methodBuilder("loadDefaultRoutes")
                                  .addModifiers(Modifier.PUBLIC)
                                  .addAnnotation(Override.class)
+                                 .addStatement("this.baseUrl = $S",
+                                               metaModel.getBaseUrl())
                                  .addStatement("this.startRoute = $S",
                                                metaModel.getStartRoute())
                                  .build());

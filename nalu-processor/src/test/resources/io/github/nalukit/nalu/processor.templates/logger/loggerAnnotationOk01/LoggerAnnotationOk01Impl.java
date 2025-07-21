@@ -13,7 +13,7 @@ import io.github.nalukit.nalu.client.tracker.IsTracker;
 import io.github.nalukit.nalu.processor.common.MockContext;
 import io.github.nalukit.nalu.processor.common.MockDebug;
 import io.github.nalukit.nalu.processor.common.MockLogger;
-import java.lang.Override;
+
 import java.util.Arrays;
 
 /**
@@ -134,6 +134,7 @@ public final class LoggerAnnotationOk01Impl extends AbstractApplication<MockCont
   
   @Override
   public void loadDefaultRoutes() {
+    this.baseUrl = "app";
     this.startRoute = "/mockShell/route01";
   }
 

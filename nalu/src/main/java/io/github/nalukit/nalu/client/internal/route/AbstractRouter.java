@@ -100,6 +100,7 @@ abstract class AbstractRouter
                  RouterConfiguration routerConfiguration,
                  IsNaluProcessorPlugin plugin,
                  IsTracker tracker,
+                 String baseUrl,
                  String startRoute,
                  String illegalRouteTarget,
                  boolean hasHistory,
@@ -120,7 +121,8 @@ abstract class AbstractRouter
     this.activeComponents  = new HashMap<>();
     this.loopDetectionList = new ArrayList<>();
     // set up PropertyFactory
-    PropertyFactory.INSTANCE.register(startRoute,
+    PropertyFactory.INSTANCE.register(baseUrl,
+                                      startRoute,
                                       illegalRouteTarget,
                                       hasHistory,
                                       usingHash,

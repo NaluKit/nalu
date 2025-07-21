@@ -14,7 +14,6 @@ import io.github.nalukit.nalu.processor.common.MockContext;
 import io.github.nalukit.nalu.processor.common.ui.errorPopUp01.ErrorEventComponent01;
 import io.github.nalukit.nalu.processor.common.ui.errorPopUp01.ErrorEventController01;
 import io.github.nalukit.nalu.processor.common.ui.errorPopUp01.IErrorEventComponent01;
-import java.lang.Override;
 
 import java.util.Arrays;
 
@@ -146,6 +145,7 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
   
   @Override
   public void loadDefaultRoutes() {
+    this.baseUrl = "app";
     this.startRoute = "/mockShell/route01";
   }
 

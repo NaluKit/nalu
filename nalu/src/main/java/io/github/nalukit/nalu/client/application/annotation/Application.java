@@ -84,6 +84,13 @@ public @interface Application {
   String startRoute();
 
   /**
+   * starting part of the url/route
+   *
+   * @return return the baseUrl
+   */
+  String baseUrl() default "app";
+
+  /**
    * The context of the application. it can be compared to the session of the server side.
    * Use the context to store application wide data.
    *

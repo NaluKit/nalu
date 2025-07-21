@@ -29,6 +29,7 @@ public class RouterImplTest {
                                  Utils.createCompositeConfiguration(),
                                  null,
                                  "startShell/startRoute",
+                                 "app",
                                  "",
                                  true,
                                  true,
@@ -269,8 +270,8 @@ public class RouterImplTest {
       this.router.parse("/MockShell/testRoute03/testRoute04/testRoute05/testParameter01");
       Assertions.fail("Expected exception to be thrown");
     } catch (RouterException e) {
-      Assertions.assertEquals(e.getMessage(),
-                              "no matching route found for route >>/MockShell/testRoute03/testRoute04/testRoute05/testParameter01<< --> Routing aborted!");
+      Assertions.assertEquals("no matching route found for route >>/MockShell/testRoute03/testRoute04/testRoute05/testParameter01<< --> Routing aborted!",
+                              e.getMessage());
     }
   }
 

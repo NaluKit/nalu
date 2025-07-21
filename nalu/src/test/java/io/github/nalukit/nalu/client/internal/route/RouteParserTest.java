@@ -71,6 +71,7 @@ public class RouteParserTest {
                                                 "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.shell.login.LoginShell"));
     PropertyFactory.INSTANCE
                    .register("/login",
+                             "app",
                              "",
                              true,
                              true,

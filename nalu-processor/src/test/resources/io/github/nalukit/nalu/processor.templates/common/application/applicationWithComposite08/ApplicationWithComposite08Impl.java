@@ -14,7 +14,7 @@ import io.github.nalukit.nalu.client.tracker.IsTracker;
 import io.github.nalukit.nalu.processor.common.MockContext;
 import io.github.nalukit.nalu.processor.common.ui.controllerWithComposite07.CompositeCondition01;
 import io.github.nalukit.nalu.processor.common.ui.controllerWithComposite07.CompositeCondition02;
-import java.lang.Override;
+
 import java.util.Arrays;
 
 /**
@@ -212,6 +212,7 @@ public final class ApplicationWithComposite07Impl extends AbstractApplication<Mo
   @Override
   public void loadDefaultRoutes() {
     StringBuilder sb01 = new StringBuilder();
+    this.baseUrl = "app";
     this.startRoute = "/mockShell/route05";
     sb01.append("found startRoute >>/mockShell/route05<<");
     ClientLogger.get().logDetailed(sb01.toString(), 2);

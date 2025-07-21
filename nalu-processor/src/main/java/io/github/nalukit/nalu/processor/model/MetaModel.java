@@ -52,6 +52,7 @@ public class MetaModel {
   private       ModuleModel                        moduleModel;
   private final List<ShellModel>                   shells;
   private       ClassNameModel                     context;
+  private String baseUrl;
   private       String                             startRoute;
   private       String                             illegalRouteTarget;
   private       ErrorPopUpControllerModel          errorPopUpController;
@@ -146,6 +147,14 @@ public class MetaModel {
 
   public void setContext(ClassNameModel context) {
     this.context = context;
+  }
+
+  public String getBaseUrl() {
+    return baseUrl;
+  }
+
+  public void setBaseUrl(String baseUrl) {
+    this.baseUrl = baseUrl;
   }
 
   public String getStartRoute() {

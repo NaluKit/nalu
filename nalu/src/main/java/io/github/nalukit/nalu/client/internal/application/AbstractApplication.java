@@ -51,6 +51,8 @@ import java.util.List;
 public abstract class AbstractApplication<C extends IsContext>
     implements IsApplication {
 
+  /* base url */
+  protected String baseUrl;
   /* start route */
   protected String                   startRoute;
   /* illegat route target */
@@ -140,6 +142,7 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.routerConfiguration,
                                  this.compositeReferences,
                                  this.tracker,
+                                 this.baseUrl,
                                  this.startRoute,
                                  this.illegalRouteTarget,
                                  this.hasHistory(),
