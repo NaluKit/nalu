@@ -211,9 +211,9 @@ public class NaluPluginCoreWeb
                       "#" + newRoute;
     } else {
       newRouteState = "/";
-      if (Objects.nonNull(PropertyFactory.INSTANCE.getBaseUrl()) && PropertyFactory.INSTANCE.getBaseUrl().length() > 1) {
-        newRouteState = newRouteState + PropertyFactory.INSTANCE.getBaseUrl() + "/";
-      }
+//      if (Objects.nonNull(PropertyFactory.INSTANCE.getBaseUrl()) && PropertyFactory.INSTANCE.getBaseUrl().length() > 1) {
+//        newRouteState = newRouteState + PropertyFactory.INSTANCE.getBaseUrl() + "/";
+//      }
       if (!PropertyFactory.INSTANCE.getContextPath()
                                    .isEmpty()) {
         newRouteState = newRouteState + PropertyFactory.INSTANCE.getContextPath() + "/";
