@@ -321,3 +321,4 @@ Migration to the new namespace is quite simple. This are the steps you need to d
 
 1. change the groupId from `com.github.nalukit` to `io.github.nalukit`
 2. replace all imports from `import com.github.nalukit` to `import io.github.nalukit`
+3. update th einerits inside the module descriptor `com.github.nalukit` to `io.github.nalukit`
