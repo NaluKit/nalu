@@ -54,6 +54,24 @@ public class NaluPluginCoreWeb
     return null;
   }
 
+  /**
+   * Removes the contextPath from a given path if it starts with it.
+   * If the contextPath is null or empty, the path is returned unchanged.
+   *
+   * @param path the path from which the contextPath should be removed
+   * @param contextPath the contextPath to be removed
+   * @return the path without the contextPath if it was present, otherwise the original path
+   */
+  private String removeContextPath(String path, String contextPath) {
+    if (Objects.isNull(contextPath) || contextPath.isEmpty()) {
+      return path;
+    }
+    if (path.startsWith(contextPath)) {
+      return path.substring(contextPath.length());
+    }
+    return path;
+  }
+
   @Override
   @SuppressWarnings("StringSplitter")
   public void getContextPath(ShellConfiguration shellConfiguration) {
@@ -117,20 +135,16 @@ public class NaluPluginCoreWeb
             });
     }
     String startRoute;
+    String contextPath = PropertyFactory.INSTANCE.getContextPath();
     if (PropertyFactory.INSTANCE.isUsingHash()) {
       startRoute = getHashValue(location.hash);
     } else {
       startRoute = queryParameters.get("uri");
       if (!Objects.isNull(startRoute)) {
         if (startRoute.startsWith("/")) {
-          if (startRoute.length() > 1) {
-            startRoute = startRoute.substring(1);
-          }
+          startRoute = startRoute.substring(1);
         }
-        if (startRoute.startsWith(PropertyFactory.INSTANCE.getContextPath())) {
-          startRoute = startRoute.substring(PropertyFactory.INSTANCE.getContextPath()
-                                                                    .length());
-        }
+        startRoute = removeContextPath(startRoute, contextPath);
         if (startRoute.startsWith("/")) {
           startRoute = startRoute.substring(1);
         }
@@ -163,18 +177,10 @@ public class NaluPluginCoreWeb
           return null;
         }
       }
-      // remove leading '/'
-      if (newUrl.length() > 1) {
-        if (newUrl.startsWith("/")) {
-          newUrl = newUrl.substring(1);
-        }
+      if (newUrl.length() > 1 && newUrl.startsWith("/")) {
+        newUrl = newUrl.substring(1);
       }
-      // remove contextPath
-      if (!Objects.isNull(contextPath)) {
-        if (newUrl.length() > contextPath.length()) {
-          newUrl = newUrl.substring(contextPath.length());
-        }
-      }
+      newUrl = removeContextPath(newUrl, contextPath);
       this.handleChange(handler,
                         newUrl);
       return null;
@@ -204,15 +210,16 @@ public class NaluPluginCoreWeb
                     boolean stealthMode,
                     RouteChangeHandler handler) {
     String newRouteToken;
+    String contextPath = PropertyFactory.INSTANCE.getContextPath();
     if (PropertyFactory.INSTANCE.isUsingHash()) {
       newRouteToken = newRoute.startsWith("#") ?
                       newRoute :
                       "#" + newRoute;
     } else {
       newRouteToken = "/";
-      if (!PropertyFactory.INSTANCE.getContextPath()
-                                   .isEmpty()) {
-        newRouteToken = newRouteToken + PropertyFactory.INSTANCE.getContextPath() + "/";
+      if (!Objects.isNull(contextPath)
+              && !contextPath.isEmpty()) {
+        newRouteToken = newRouteToken + contextPath + "/";
       }
       newRouteToken = newRouteToken + newRoute;
     }
