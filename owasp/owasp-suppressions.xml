@@ -320,6 +320,15 @@
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
     <notes><![CDATA[
+   file name: jetty-annotations-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-annotations@.*$</packageUrl>
+    <cve>CVE-2024-9823</cve>
+    <cve>CVE-2024-13009</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
    file name: jetty-plus-9.4.44.v20210927.jar
    ]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-plus@.*$</packageUrl>
@@ -333,6 +342,7 @@
    ]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-security@.*$</packageUrl>
     <cve>CVE-2024-6763</cve>
+    <cve>CVE-2024-8184</cve>
     <cve>CVE-2024-9823</cve>
     <cve>CVE-2024-13009</cve>
   </suppress>
@@ -352,6 +362,17 @@
    ]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty\.websocket/websocket-common@.*$</packageUrl>
     <cve>CVE-2024-6763</cve>
+    <cve>CVE-2024-9823</cve>
+    <cve>CVE-2024-13009</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-util-ajax-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-util-ajax@.*$</packageUrl>
+    <cve>CVE-2024-6763</cve>
+    <cve>CVE-2024-8184</cve>
     <cve>CVE-2024-9823</cve>
     <cve>CVE-2024-13009</cve>
   </suppress>
