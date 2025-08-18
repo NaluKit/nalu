@@ -292,9 +292,46 @@
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
     <notes><![CDATA[
+   file name: jetty-client-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-client@.*$</packageUrl>
+    <cve>CVE-2024-6763</cve>
+    <cve>CVE-2024-8184</cve>
+    <cve>CVE-2024-9823</cve>
+    <cve>CVE-2024-13009</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-continuation-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-continuation@.*$</packageUrl>
+    <cve>CVE-2022-2047</cve>
+    <cve>CVE-2023-26048</cve>
+    <cve>CVE-2023-26049</cve>
+    <cve>CVE-2023-36479</cve>
+    <cve>CVE-2023-40167</cve>
+    <cve>CVE-2023-41900</cve>
+    <cve>CVE-2024-6763</cve>
+    <cve>CVE-2024-8184</cve>
+    <cve>CVE-2024-9823</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-jndi-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-jndi@.*$</packageUrl>
+    <cve>CVE-2024-9823</cve>
+    <cve>CVE-2024-13009</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
    file name: websocket-common-9.4.44.v20210927.jar
    ]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty\.websocket/websocket-common@.*$</packageUrl>
+    <cve>CVE-2024-6763</cve>
     <cve>CVE-2024-9823</cve>
     <cve>CVE-2024-13009</cve>
   </suppress>
