@@ -315,6 +315,26 @@
     <cve>CVE-2024-6763</cve>
     <cve>CVE-2024-8184</cve>
     <cve>CVE-2024-9823</cve>
+    <cve>CVE-2024-13009</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-plus-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-plus@.*$</packageUrl>
+    <cve>CVE-2024-9823</cve>
+    <cve>CVE-2024-13009</cve>
+  </suppress>
+  <!-- gwt-dev-dependency; should never be deployed! -->
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-security-9.4.44.v20210927.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-security@.*$</packageUrl>
+    <cve>CVE-2024-6763</cve>
+    <cve>CVE-2024-9823</cve>
+    <cve>CVE-2024-13009</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
