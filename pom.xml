@@ -93,8 +93,8 @@
     <junit-jupiter-platform.version>1.10.3</junit-jupiter-platform.version>
     <truth.version>1.4.4</truth.version>
 
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
 
     <!--    <maven.deploy.plugin>3.1.4</maven.deploy.plugin>-->
     <plugin.version.clean>3.3.2</plugin.version.clean>

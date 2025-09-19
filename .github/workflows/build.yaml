@@ -23,6 +23,17 @@ on:
     paths-ignore:
       - "README.md"
 jobs:
+  build-jdk11:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+          cache: maven
+      - name: Compile with Maven
+        run: mvn compile -ntp
   build-jdk17:
     runs-on: ubuntu-latest
     steps:
@@ -48,10 +59,15 @@ jobs:
 
   check-versions:
     runs-on: ubuntu-latest
-    needs: [ build-jdk17, build-jdk21 ]
+    needs: [ build-jdk11, build-jdk17, build-jdk21 ]
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+          cache: maven
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -60,6 +76,23 @@ jobs:
       - name: Check versions with Maven
         run: mvn versions:display-dependency-updates -ntp
 
+  test-jdk11:
+    runs-on: ubuntu-latest
+    needs: [ build-jdk11 ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+          cache: maven
+      - name: Test with Maven
+        run: mvn test -ntp
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: surefire-report
+          path: target/surefire-reports/
   test-jdk17:
     runs-on: ubuntu-latest
     needs: [ build-jdk17 ]
@@ -102,7 +135,7 @@ jobs:
       actions: read
       contents: read
       security-events: write
-    needs: [ build-jdk17, build-jdk21 ]
+    needs: [ build-jdk11, build-jdk17, build-jdk21 ]
     services:
       owasp-db:
         image: nalusolutionsgmbh/owasp-maven-action:latest
@@ -112,7 +145,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: '11'
           cache: maven
       - name: Copy owasp database from container to runner
         run: docker cp $(docker ps -aqf "name=owasp-db"):/dependency-check/data ./dependency-checker-db/
@@ -134,14 +167,14 @@ jobs:
 
   maven-deploy-dev:
     runs-on: ubuntu-latest
-    needs: [ test-jdk17, test-jdk21, owasp ]
+    needs: [ test-jdk11, test-jdk17, test-jdk21, owasp ]
     if: github.ref == 'refs/heads/dev'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: '11'
           cache: maven
           server-id: central
           server-username: MAVEN_USERNAME
@@ -179,7 +212,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: '11'
           cache: maven
           server-id: central
           server-username: MAVEN_USERNAME
