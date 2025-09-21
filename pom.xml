@@ -80,7 +80,7 @@
 
     <auto-common.version>1.2.2</auto-common.version>
     <auto-service.version>1.1.1</auto-service.version>
-    <compile-testing.version>0.23.0</compile-testing.version>
+    <compile-testing.version>0.21.0</compile-testing.version>
     <elemental2.version>1.2.3</elemental2.version>
     <gson.version>2.13.2</gson.version>
     <guava.version>33.5.0-jre</guava.version>
