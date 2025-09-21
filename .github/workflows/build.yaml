@@ -68,11 +68,6 @@ jobs:
           distribution: temurin
           java-version: '11'
           cache: maven
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-          cache: maven
       - name: Check versions with Maven
         run: mvn versions:display-dependency-updates -ntp
 
