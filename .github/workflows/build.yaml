@@ -153,6 +153,7 @@ jobs:
           -Dformat=HTML \
           -DautoUpdate=false \
           -DsuppressionFiles=./owasp/owasp-suppressions.xml
+          -DdisableOssIndex=true
       - name: Upload OWASP results
         if: always()
         uses: actions/upload-artifact@master
