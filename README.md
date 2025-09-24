@@ -76,7 +76,7 @@ public class MyController
     implements ISearchComponent.Controller {
     
   @AcceptParameter("parameter_01")
-  public void setParaemter01(String p01)
+  public void setParameter01(String p01)
       throws RoutingInterceptionException {
       ...
   }
@@ -301,7 +301,7 @@ Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not us
 Nalu is ready to use with J2CL / GWT 3 as long as you do not use the nalu-plugin-gwt!
 
 ## To get in touch with the developer
-Please visit use us at [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
+Please visit us at [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
 
 ## Examples
 Here you will find many examples that show Nalu in action: [https://github.com/nalukit/nalu-examples](https://github.com/nalukit/nalu-examples).
@@ -312,12 +312,12 @@ You will find a session about Nalu at the GWT Community Channel [here](https://w
 ## Notes
 In case you find a bug, please open an issue or post it inside the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
 
-## Comparsion between GWT Activities & Places versus Nalu
+## Comparison between GWT Activities & Places versus Nalu
 Anyone, who is familiar with GWT Activities & Places, will find [here](https://github.com/NaluKit/nalu/wiki/01.-Motivation-&-Concepts#comparison-gwt-activities--places-versus-nalu) a comparison between GWT Activities & Places and Nalu.
 
 ## Migration to io.github
 
-Migration to the new namespace is quite simple. This are the steps you need to do:
+Migration to the new namespace is quite simple. These are the steps you need to do:
 
 1. change the groupId from `com.github.nalukit` to `io.github.nalukit`
 2. replace all imports from `import com.github.nalukit` to `import io.github.nalukit`
