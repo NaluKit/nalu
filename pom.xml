@@ -257,14 +257,14 @@
         <configuration>
           <ruleSet>
             <ignoreVersions>
-              <igonreVersion>
+              <ignoreVersion>
                 <type>regex</type>
                 <version>(.+-M\d)</version>
-              </igonreVersion>
-              <igonreVersion>
+              </ignoreVersion>
+              <ignoreVersion>
                 <type>regex</type>
                 <version>.+-(alpha|beta).+</version>
-              </igonreVersion>
+              </ignoreVersion>
             </ignoreVersions>
           </ruleSet>
         </configuration>
