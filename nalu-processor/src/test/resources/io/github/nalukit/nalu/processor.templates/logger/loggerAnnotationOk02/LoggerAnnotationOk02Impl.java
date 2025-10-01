@@ -136,6 +136,11 @@ public final class LoggerAnnotationOk02Impl extends AbstractApplication<MockCont
   }
 
   @Override
+  public void loadBaseHref() {
+    this.baseHref = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }

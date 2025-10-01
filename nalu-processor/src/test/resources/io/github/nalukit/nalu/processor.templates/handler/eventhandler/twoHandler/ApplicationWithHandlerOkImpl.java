@@ -155,6 +155,11 @@ public final class ApplicationWithHandlerOkImpl extends AbstractApplication<Mock
   }
 
   @Override
+  public void loadBaseHref() {
+    this.baseHref = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }

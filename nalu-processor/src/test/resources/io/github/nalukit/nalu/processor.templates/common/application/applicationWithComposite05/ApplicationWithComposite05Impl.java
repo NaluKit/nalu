@@ -158,6 +158,11 @@ public final class ApplicationWithComposite05Impl extends AbstractApplication<Mo
   }
 
   @Override
+  public void loadBaseHref() {
+    this.baseHref = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }

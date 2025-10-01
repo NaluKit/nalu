@@ -137,6 +137,11 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
   }
 
   @Override
+  public void loadBaseHref() {
+    this.baseHref = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }

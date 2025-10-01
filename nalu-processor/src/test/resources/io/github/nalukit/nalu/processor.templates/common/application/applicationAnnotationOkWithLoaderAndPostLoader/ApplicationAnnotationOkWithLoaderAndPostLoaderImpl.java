@@ -136,6 +136,11 @@ public final class ApplicationAnnotationOkWithLoaderAndPostLoaderImpl extends Ab
   }
 
   @Override
+  public void loadBaseHref() {
+    this.baseHref = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }

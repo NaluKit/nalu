@@ -143,6 +143,11 @@ public final class VersionAnnotationImpl extends AbstractApplication<MockModuleC
   }
 
   @Override
+  public void loadBaseHref() {
+    this.baseHref = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }

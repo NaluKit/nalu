@@ -72,6 +72,7 @@ public class RouteParserTest {
     PropertyFactory.INSTANCE
                    .register("/login",
                              "",
+                             "",
                              true,
                              true,
                              false,

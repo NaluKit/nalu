@@ -141,6 +141,11 @@ public final class ApplicationWithTrackerImpl extends AbstractApplication<MockCo
   }
 
   @Override
+  public void loadBaseHref() {
+    this.baseHref = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }

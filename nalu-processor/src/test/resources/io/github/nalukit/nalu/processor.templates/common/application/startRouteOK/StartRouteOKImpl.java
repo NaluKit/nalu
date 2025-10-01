@@ -141,6 +141,11 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
   }
 
   @Override
+  public void loadBaseHref() {
+    this.baseHref = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }
