@@ -203,68 +203,6 @@ public class ConsistenceValidator {
     }
   }
 
-  //  private boolean matchRoute(String controllerRoute,
-  //                             String errorRoute) {
-  //    // first check, if equals
-  //    if (controllerRoute.equals(errorRoute)) {
-  //      return true;
-  //    }
-  //    // analyse controller route
-  //    String controllerRouteShell = this.getShellFromRoute(controllerRoute);
-  //    String controllerReducedRoute = this.getRouteWithoutShellAndParameter(controllerRoute);
-  //    String errorRouteShell = this.getShellFromRoute(errorRoute);
-  //    String errorRouteReduced = this.getRouteWithoutShellAndParameter(errorRoute);
-  //    // wildcard ->  check route
-  //    if ("*".equals(controllerRouteShell)) {
-  //      if (controllerReducedRoute.equals(errorRouteReduced)) {
-  //        return true;
-  //      }
-  //    }
-  //    if (controllerRouteShell.startsWith("[")) {
-  //      controllerRouteShell = controllerRouteShell.substring(1);
-  //    }
-  //    if (controllerRouteShell.endsWith("]")) {
-  //      controllerRouteShell = controllerRouteShell.substring(0,
-  //                                                            controllerRouteShell.indexOf("]"));
-  //    }
-  //    Optional<String> optional = Arrays.asList(controllerRouteShell.split("\\|"))
-  //                                      .stream()
-  //                                      .filter(s -> s.equals(errorRouteShell))
-  //                                      .findFirst();
-  //    return optional.isPresent();
-  //  }
-
-  //  private String getShellFromRoute(String route) {
-  //    String shell = route;
-  //    // remove leading "/"
-  //    if (shell.startsWith("/")) {
-  //      shell = shell.substring(1);
-  //    }
-  //    // separate shellCreator
-  //    if (shell.contains("/")) {
-  //      shell = shell.substring(0,
-  //                              shell.indexOf("/"));
-  //    }
-  //    return shell;
-  //  }
-
-  //  private String getRouteWithoutShellAndParameter(String route) {
-  //    String reducedRoute = route;
-  //    if (route.startsWith("/")) {
-  //      reducedRoute = reducedRoute.substring(1);
-  //    }
-  //    // remove shellCreator
-  //    if (reducedRoute.contains("/")) {
-  //      reducedRoute = reducedRoute.substring(reducedRoute.indexOf("/"));
-  //    }
-  //    // remove parameters
-  //    if (reducedRoute.contains("/:")) {
-  //      reducedRoute = reducedRoute.substring(0,
-  //                                            reducedRoute.indexOf("/:"));
-  //    }
-  //    return reducedRoute;
-  //  }
-
   private void vallidateErrorPopUpControllerInSubModule()
       throws ProcessorException {
     // current compilation source is a sub module
