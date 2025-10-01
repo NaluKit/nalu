@@ -136,6 +136,11 @@ public final class ApplicationAnnotationOkWithPostLoaderImpl extends AbstractApp
   }
 
   @Override
+  public void loadBaseHref() {
+    this.baseHref = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }

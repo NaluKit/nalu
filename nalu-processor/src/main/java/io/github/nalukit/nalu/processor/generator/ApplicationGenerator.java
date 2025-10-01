@@ -282,6 +282,8 @@ public class ApplicationGenerator {
                                metaModel);
     generateLoadIllegalRouteTarget(typeSpec,
                                    metaModel);
+    generateLoadBaseHref(typeSpec,
+                                   metaModel);
     generateHasHistoryMethod(typeSpec,
                              metaModel);
     generateIsUsingHashMethod(typeSpec,
@@ -323,6 +325,16 @@ public class ApplicationGenerator {
                                  .addAnnotation(Override.class)
                                  .addStatement("this.illegalRouteTarget = $S",
                                                metaModel.getIllegalRouteTarget())
+                                 .build());
+  }
+
+  private void generateLoadBaseHref(TypeSpec.Builder typeSpec,
+                                              MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("loadBaseHref")
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .addAnnotation(Override.class)
+                                 .addStatement("this.baseHref = $S",
+                                               metaModel.getBaseHref())
                                  .build());
   }
 

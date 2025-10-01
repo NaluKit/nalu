@@ -10,6 +10,8 @@ public class PropertyFactory {
   private String  startRoute;
   // illegal route target of the application
   private String  illegalRouteTarget;
+  // static app part of the URI
+  private String  baseHref;
   // does the application have history
   private boolean hasHistory;
   // is the application using hash in url?
@@ -95,10 +97,20 @@ public class PropertyFactory {
   }
 
   /**
+   * App-part of the Uri. Usually use at the start of the URI
+   *
+   * @return app-part of the URI
+   */
+  public String getHref() {
+    return this.getHref();
+  }
+
+  /**
    * Do NOT call this method!
    *
    * @param startRoute                   Start route of the application
    * @param illegalRouteTarget           illegal route target used, in case of a illegal route
+   * @param baseHref                     app-part of the URI
    * @param hasHistory                   Will Nalu support a history token?
    * @param usingHash                    Will Nalu use a hash for Navigation?
    * @param usingColonForParametersInUrl Will Nalu use colons to mark parameters inside the url?
@@ -106,6 +118,7 @@ public class PropertyFactory {
    */
   public void register(String startRoute,
                        String illegalRouteTarget,
+                       String baseHref,
                        boolean hasHistory,
                        boolean usingHash,
                        boolean usingColonForParametersInUrl,
@@ -116,6 +129,7 @@ public class PropertyFactory {
       this.startRoute = startRoute;
     }
     this.illegalRouteTarget           = illegalRouteTarget;
+    this.baseHref           = baseHref;
     this.hasHistory                   = hasHistory;
     this.usingHash                    = usingHash;
     this.usingColonForParametersInUrl = usingColonForParametersInUrl;

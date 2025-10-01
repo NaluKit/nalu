@@ -102,6 +102,7 @@ abstract class AbstractRouter
                  IsTracker tracker,
                  String startRoute,
                  String illegalRouteTarget,
+                 String baseHref,
                  boolean hasHistory,
                  boolean usingHash,
                  boolean usingColonForParametersInUrl,
@@ -122,6 +123,7 @@ abstract class AbstractRouter
     // set up PropertyFactory
     PropertyFactory.INSTANCE.register(startRoute,
                                       illegalRouteTarget,
+                                      baseHref,
                                       hasHistory,
                                       usingHash,
                                       usingColonForParametersInUrl,

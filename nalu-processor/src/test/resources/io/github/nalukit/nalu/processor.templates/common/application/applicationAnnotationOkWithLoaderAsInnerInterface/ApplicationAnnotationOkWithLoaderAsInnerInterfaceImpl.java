@@ -137,6 +137,11 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   }
 
   @Override
+  public void loadBaseHref() {
+    this.baseHref = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }

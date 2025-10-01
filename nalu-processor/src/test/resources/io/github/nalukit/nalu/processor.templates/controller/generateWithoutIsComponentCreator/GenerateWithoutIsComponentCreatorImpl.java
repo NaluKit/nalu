@@ -137,6 +137,11 @@ public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplica
   }
 
   @Override
+  public void loadBaseHref() {
+    this.baseHref = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }

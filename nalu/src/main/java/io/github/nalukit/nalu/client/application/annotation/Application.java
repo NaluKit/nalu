@@ -155,4 +155,14 @@ public @interface Application {
    */
   String illegalRouteTarget() default "";
 
+  /**
+   * This attribute will tell Nalu the part app part of the URI. Nalu will
+   * add the value to the PropertyFactory.
+   * <br>
+   * Defaul is a<b>empty</b> value, which means no app part
+   *
+   * @return empty String (default) or the static app part.
+   */
+  String baseHref() default "";
+
 }

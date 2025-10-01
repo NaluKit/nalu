@@ -143,6 +143,11 @@ public final class ApplicationWithFilterImpl extends AbstractApplication<MockCon
   }
 
   @Override
+  public void loadBaseHref() {
+    this.baseHref = "";
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }

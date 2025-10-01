@@ -64,7 +64,12 @@ public final class NaluSimpleApplicationImpl
 
   @Override
   public void loadIllegalRouteTarget() {
-    this.startRoute = "";
+    this.illegalRouteTarget = "";
+  }
+
+  @Override
+  public void loadBaseHref() {
+    this.baseHref = "";
   }
 
   @Override
