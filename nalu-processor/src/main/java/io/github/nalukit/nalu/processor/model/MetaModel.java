@@ -16,6 +16,7 @@
 
 package io.github.nalukit.nalu.processor.model;
 
+import io.github.nalukit.nalu.client.util.NaluUtils;
 import io.github.nalukit.nalu.processor.model.intern.BlockControllerModel;
 import io.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import io.github.nalukit.nalu.processor.model.intern.CompositeModel;
@@ -282,9 +283,7 @@ public class MetaModel {
 
   private String getShellFromRoute(String route) {
     String shellFromRoute = route;
-    if (shellFromRoute.startsWith("/")) {
-      shellFromRoute = shellFromRoute.substring(1);
-    }
+    shellFromRoute = NaluUtils.removeLeading("/", shellFromRoute);
     if (shellFromRoute.contains("/")) {
       shellFromRoute = shellFromRoute.substring(0,
                                                 shellFromRoute.indexOf("/"));
