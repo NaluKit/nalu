@@ -136,8 +136,8 @@ public final class ApplicationAnnotationOkWithoutLoaderImpl extends AbstractAppl
   }
 
   @Override
-  public void loadBaseHref() {
-    this.baseHref = "";
+  public boolean isHandlingBaseHref() {
+    return false;
   }
 
   @Override

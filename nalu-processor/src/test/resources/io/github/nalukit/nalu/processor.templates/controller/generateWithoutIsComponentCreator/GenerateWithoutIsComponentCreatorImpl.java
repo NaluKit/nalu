@@ -137,8 +137,8 @@ public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplica
   }
 
   @Override
-  public void loadBaseHref() {
-    this.baseHref = "";
+  public boolean isHandlingBaseHref() {
+    return false;
   }
 
   @Override

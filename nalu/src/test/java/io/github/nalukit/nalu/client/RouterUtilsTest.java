@@ -13,7 +13,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              false,
@@ -29,7 +29,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              false,
@@ -45,7 +45,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              false,
@@ -61,7 +61,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              false,
@@ -77,7 +77,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              false,
@@ -93,7 +93,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              false,
@@ -109,7 +109,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              false,
@@ -125,7 +125,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              false,
@@ -141,7 +141,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              false,
@@ -157,7 +157,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              true,
@@ -173,7 +173,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              true,
@@ -189,7 +189,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              true,
@@ -206,7 +206,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              true,
@@ -222,7 +222,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              true,
@@ -238,7 +238,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              true,
@@ -254,7 +254,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              true,
@@ -270,7 +270,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              true,
@@ -286,7 +286,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              true,
@@ -302,7 +302,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              false,
@@ -318,7 +318,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              false,
@@ -334,7 +334,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              false,
@@ -350,7 +350,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              false,
@@ -366,7 +366,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              false,
@@ -382,7 +382,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              false,
@@ -398,7 +398,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              false,
@@ -414,7 +414,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              false,
@@ -430,7 +430,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              false,
@@ -446,7 +446,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              true,
@@ -462,7 +462,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              true,
@@ -478,7 +478,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              true,
@@ -495,7 +495,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              true,
@@ -511,7 +511,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              true,
@@ -527,7 +527,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              true,
@@ -543,7 +543,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              true,
@@ -559,7 +559,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              true,
@@ -575,7 +575,7 @@ public class RouterUtilsTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              true,

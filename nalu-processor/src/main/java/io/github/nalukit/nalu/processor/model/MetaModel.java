@@ -55,7 +55,7 @@ public class MetaModel {
   private       ClassNameModel                     context;
   private       String                             startRoute;
   private       String                             illegalRouteTarget;
-  private       String                             baseHref;
+  private       boolean                            usingBaseHref;
   private       ErrorPopUpControllerModel          errorPopUpController;
   private       boolean                            hasPluginsAnnotation;
   private       boolean                            hasLoggerAnnotation;
@@ -339,12 +339,12 @@ public class MetaModel {
     this.illegalRouteTarget = illegalRouteTarget;
   }
 
-  public String getBaseHref() {
-    return baseHref;
+  public boolean hasBaseHref() {
+    return usingBaseHref;
   }
 
-  public void setBaseHref(String baseHref) {
-    this.baseHref = baseHref;
+  public void setBaseHref(boolean usingBaseHref) {
+    this.usingBaseHref = usingBaseHref;
   }
 
   public List<ParameterConstraintRuleModel> getParameterConstraintRules() {

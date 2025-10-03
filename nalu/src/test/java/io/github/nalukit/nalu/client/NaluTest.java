@@ -23,7 +23,7 @@ public class NaluTest {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              true,
@@ -36,7 +36,7 @@ public class NaluTest {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
-                             "",
+                             false,
                              false,
                              true,
                              true,
@@ -49,7 +49,7 @@ public class NaluTest {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              true,
@@ -62,7 +62,7 @@ public class NaluTest {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
-                             "",
+                             false,
                              true,
                              false,
                              true,
@@ -75,7 +75,7 @@ public class NaluTest {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              true,
@@ -88,7 +88,7 @@ public class NaluTest {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
-                             "",
+                             false,
                              true,
                              true,
                              false,

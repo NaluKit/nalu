@@ -156,13 +156,12 @@ public @interface Application {
   String illegalRouteTarget() default "";
 
   /**
-   * This attribute will tell Nalu the part app part of the URI. Nalu will
-   * add the value to the PropertyFactory.
+   * This attribute will tell Nalu to handle the usingBaseHref.
    * <br>
-   * Defaul is a<b>empty</b> value, which means no app part
+   * Defaul is a<b>false</b> value, which means usingBaseHref-handling is diabled
    *
-   * @return empty String (default) or the static app part.
+   * @return a boolean.
    */
-  String baseHref() default "";
+  boolean usingBaseHref() default false;
 
 }

@@ -143,8 +143,8 @@ public final class LoggerAnnotationOk01Impl extends AbstractApplication<MockCont
   }
 
   @Override
-  public void loadBaseHref() {
-    this.baseHref = "";
+  public boolean isHandlingBaseHref() {
+    return false;
   }
 
   @Override

@@ -155,8 +155,8 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
   }
 
   @Override
-  public void loadBaseHref() {
-    this.baseHref = "";
+  public boolean isHandlingBaseHref() {
+    return false;
   }
 
   @Override

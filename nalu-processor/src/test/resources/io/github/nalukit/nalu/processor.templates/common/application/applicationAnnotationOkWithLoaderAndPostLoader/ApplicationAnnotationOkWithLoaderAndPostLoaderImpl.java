@@ -136,8 +136,8 @@ public final class ApplicationAnnotationOkWithLoaderAndPostLoaderImpl extends Ab
   }
 
   @Override
-  public void loadBaseHref() {
-    this.baseHref = "";
+  public boolean isHandlingBaseHref() {
+    return false;
   }
 
   @Override

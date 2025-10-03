@@ -137,8 +137,8 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
   }
 
   @Override
-  public void loadBaseHref() {
-    this.baseHref = "";
+  public boolean isHandlingBaseHref() {
+    return false;
   }
 
   @Override

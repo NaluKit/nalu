@@ -137,8 +137,8 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   }
 
   @Override
-  public void loadBaseHref() {
-    this.baseHref = "";
+  public boolean isHandlingBaseHref() {
+    return false;
   }
 
   @Override

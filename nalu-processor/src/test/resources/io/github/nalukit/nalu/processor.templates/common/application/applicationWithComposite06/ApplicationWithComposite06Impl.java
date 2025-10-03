@@ -148,8 +148,8 @@ public final class ApplicationWithComposite06Impl extends AbstractApplication<Mo
   }
 
   @Override
-  public void loadBaseHref() {
-    this.baseHref = "";
+  public boolean isHandlingBaseHref() {
+    return false;
   }
 
   @Override

@@ -55,8 +55,6 @@ public abstract class AbstractApplication<C extends IsContext>
   protected String                   startRoute;
   /* illegal route target */
   protected String                   illegalRouteTarget;
-  /* baseHref of the URI */
-  protected String                   baseHref;
   /* Shell */
   protected IsShell                  shell;
   /* Shell Configuration */
@@ -123,8 +121,8 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadDefaultRoutes();
     // load illegal route target
     this.loadIllegalRouteTarget();
-    // load baseHref
-    this.loadBaseHref();
+    // load usingBaseHref
+    this.isHandlingBaseHref();
     // Register plugin
     SeoDataProvider.INSTANCE.register(this.plugin);
     // load everything you need to start
@@ -146,7 +144,7 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.tracker,
                                  this.startRoute,
                                  this.illegalRouteTarget,
-                                 this.baseHref,
+                                 this.isHandlingBaseHref(),
                                  this.hasHistory(),
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl(),
@@ -197,7 +195,7 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract void loadIllegalRouteTarget();
 
-  protected abstract void loadBaseHref();
+  protected abstract boolean isHandlingBaseHref();
 
   protected abstract void loadShells();
 

@@ -282,8 +282,8 @@ public class ApplicationGenerator {
                                metaModel);
     generateLoadIllegalRouteTarget(typeSpec,
                                    metaModel);
-    generateLoadBaseHref(typeSpec,
-                                   metaModel);
+    generateIsHandlingBaseHref(typeSpec,
+                               metaModel);
     generateHasHistoryMethod(typeSpec,
                              metaModel);
     generateIsUsingHashMethod(typeSpec,
@@ -328,13 +328,16 @@ public class ApplicationGenerator {
                                  .build());
   }
 
-  private void generateLoadBaseHref(TypeSpec.Builder typeSpec,
-                                              MetaModel metaModel) {
-    typeSpec.addMethod(MethodSpec.methodBuilder("loadBaseHref")
+  private void generateIsHandlingBaseHref(TypeSpec.Builder typeSpec,
+                                          MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("isHandlingBaseHref")
                                  .addModifiers(Modifier.PUBLIC)
                                  .addAnnotation(Override.class)
-                                 .addStatement("this.baseHref = $S",
-                                               metaModel.getBaseHref())
+                                 .returns(boolean.class)
+                                 .addStatement("return $L",
+                                               metaModel.hasBaseHref() ?
+                                               "true" :
+                                               "false")
                                  .build());
   }
 
@@ -345,7 +348,9 @@ public class ApplicationGenerator {
                                  .addModifiers(Modifier.PUBLIC)
                                  .returns(boolean.class)
                                  .addStatement("return $L",
-                                               metaModel.hasHistory() ? "true" : "false")
+                                               metaModel.hasHistory() ?
+                                               "true" :
+                                               "false")
                                  .build());
   }
 
@@ -356,7 +361,9 @@ public class ApplicationGenerator {
                                  .addModifiers(Modifier.PUBLIC)
                                  .returns(boolean.class)
                                  .addStatement("return $L",
-                                               metaModel.isUsingHash() ? "true" : "false")
+                                               metaModel.isUsingHash() ?
+                                               "true" :
+                                               "false")
                                  .build());
   }
 
@@ -367,7 +374,9 @@ public class ApplicationGenerator {
                                  .addModifiers(Modifier.PUBLIC)
                                  .returns(boolean.class)
                                  .addStatement("return $L",
-                                               metaModel.isUsingColonForParametersInUrl() ? "true" : "false")
+                                               metaModel.isUsingColonForParametersInUrl() ?
+                                               "true" :
+                                               "false")
                                  .build());
   }
 
@@ -378,7 +387,9 @@ public class ApplicationGenerator {
                                  .addModifiers(Modifier.PUBLIC)
                                  .returns(boolean.class)
                                  .addStatement("return $L",
-                                               metaModel.isStayOnSide() ? "true" : "false")
+                                               metaModel.isStayOnSide() ?
+                                               "true" :
+                                               "false")
                                  .build());
   }
 

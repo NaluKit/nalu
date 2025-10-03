@@ -68,8 +68,8 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
-  public void loadBaseHref() {
-    this.baseHref = "";
+  public boolean isHandlingBaseHref() {
+    return false;
   }
 
   @Override

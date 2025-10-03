@@ -155,8 +155,8 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
   }
 
   @Override
-  public void loadBaseHref() {
-    this.baseHref = "";
+  public boolean isHandlingBaseHref() {
+    return false;
   }
 
   @Override

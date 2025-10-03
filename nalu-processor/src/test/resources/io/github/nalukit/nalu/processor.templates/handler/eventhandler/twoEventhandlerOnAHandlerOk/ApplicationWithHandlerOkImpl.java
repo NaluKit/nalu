@@ -146,8 +146,8 @@ public final class ApplicationWithHandlerOkImpl extends AbstractApplication<Mock
   }
 
   @Override
-  public void loadBaseHref() {
-    this.baseHref = "";
+  public boolean isHandlingBaseHref() {
+    return false;
   }
 
   @Override
