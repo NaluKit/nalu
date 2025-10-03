@@ -89,7 +89,7 @@ public abstract class AbstractModuleContext
    * Returns the application version. The value can be set by using
    * the @Version annotation.
    *
-   * @return version of the applicaiton set by the Version annotation
+   * @return version of the application set by the Version annotation
    */
   public String getApplicationVersion() {
     return (String) this.applicationContext.get(AbstractModuleContext.APPLICATION_VERSION);

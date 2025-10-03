@@ -71,7 +71,7 @@ public interface IsModuleContext
    * Returns the application version. The value can be set by using
    * the @Version annotation.
    *
-   * @return version of the applicaiton set by the Version annotation
+   * @return version of the application set by the Version annotation
    */
   String getApplicationVersion();
 

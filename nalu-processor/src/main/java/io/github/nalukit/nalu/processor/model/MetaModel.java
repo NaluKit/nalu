@@ -73,7 +73,7 @@ public class MetaModel {
   /* flag, that indicates, if a Nalu application */
   /* uses a history token or not.                */
   private       boolean                            history;
-  /* Version of the applicaiton set by the       */
+  /* Version of the application set by the       */
   /* Version annotation                          */
   private       String                             applicationVersion;
   /* does the context extends                    */
