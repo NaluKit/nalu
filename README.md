@@ -82,7 +82,7 @@ public class MyController
   }
     
   @AcceptParameter("parameter_02")
-  public void setParaemter02(String p02)
+  public void setParameter02(String p02)
       throws RoutingInterceptionException {
       ...
   }
