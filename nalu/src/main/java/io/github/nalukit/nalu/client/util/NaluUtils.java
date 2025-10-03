@@ -97,4 +97,18 @@ public class NaluUtils {
     return cleanedRoute;
   }
 
+  /**
+   * Removes the leading sign from the string if it is present.
+   *
+   * @param leadingSign the leading sign to be removed
+   * @param string the string from which the leading sign should be removed
+   * @return the string without the leading sign if it was present, otherwise the original string
+   */
+  public static String removeLeading(String leadingSign, String string) {
+    if (string.startsWith(leadingSign)) {
+      return string.substring(leadingSign.length());
+    }
+    return string;
+  }
+
 }

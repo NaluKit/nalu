@@ -21,6 +21,7 @@ import io.github.nalukit.nalu.client.internal.route.RouteConfig;
 import io.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import io.github.nalukit.nalu.client.internal.route.ShellConfig;
 import io.github.nalukit.nalu.client.internal.route.ShellConfiguration;
+import io.github.nalukit.nalu.client.util.NaluUtils;
 
 import java.util.Optional;
 
@@ -66,9 +67,8 @@ public class RouteValidation {
 
   private static String getShellFromRoute(String route) {
     String shell = route;
-    if (shell.startsWith("/")) {
-      shell = shell.substring(1);
-    }
+    shell = NaluUtils.removeLeading("/", shell);
+
     if (shell.contains("/")) {
       return shell.substring(0,
                              shell.indexOf("/"));
@@ -79,9 +79,8 @@ public class RouteValidation {
 
   private static String getRouteWithoutShellAndParameter(String route) {
     String routeWithoutShell = route;
-    if (routeWithoutShell.startsWith("/")) {
-      routeWithoutShell = routeWithoutShell.substring(1);
-    }
+    routeWithoutShell = NaluUtils.removeLeading("/", routeWithoutShell);
+
     if (routeWithoutShell.contains("/")) {
       routeWithoutShell = routeWithoutShell.substring(routeWithoutShell.indexOf("/"));
     } else {

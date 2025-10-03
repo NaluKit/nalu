@@ -25,6 +25,7 @@ import io.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import io.github.nalukit.nalu.client.component.annotation.Controller;
 import io.github.nalukit.nalu.client.constraint.IsParameterConstraintRule;
 import io.github.nalukit.nalu.client.constraint.annotation.ParameterConstraint;
+import io.github.nalukit.nalu.client.util.NaluUtils;
 import io.github.nalukit.nalu.processor.ProcessorException;
 import io.github.nalukit.nalu.processor.ProcessorUtils;
 import io.github.nalukit.nalu.processor.model.MetaModel;
@@ -407,9 +408,7 @@ public class ControllerAnnotationScanner {
   private List<String> getRoute(String[] routes) {
     List<String> convertedRoutes = new ArrayList<>();
     for (String tmpRoute : routes) {
-      if (tmpRoute.startsWith("/")) {
-        tmpRoute = tmpRoute.substring(1);
-      }
+      tmpRoute = NaluUtils.removeLeading("/", tmpRoute);
       if (tmpRoute.isEmpty()) {
         convertedRoutes.add("/");
       } else {

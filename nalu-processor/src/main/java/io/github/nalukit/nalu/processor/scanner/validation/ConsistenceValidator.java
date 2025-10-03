@@ -15,6 +15,7 @@
  */
 package io.github.nalukit.nalu.processor.scanner.validation;
 
+import io.github.nalukit.nalu.client.util.NaluUtils;
 import io.github.nalukit.nalu.processor.ProcessorException;
 import io.github.nalukit.nalu.processor.model.MetaModel;
 import io.github.nalukit.nalu.processor.model.intern.BlockControllerModel;
@@ -216,9 +217,7 @@ public class ConsistenceValidator {
 
   private String[] splitRoute(String route) {
     String tmpRoute = route;
-    if (tmpRoute.startsWith("/")) {
-      tmpRoute = tmpRoute.substring(1);
-    }
+    tmpRoute = NaluUtils.removeLeading("/", tmpRoute);
     return tmpRoute.split("/");
   }
 

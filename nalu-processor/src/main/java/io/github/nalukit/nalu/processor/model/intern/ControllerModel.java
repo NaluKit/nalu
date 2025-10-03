@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import io.github.nalukit.nalu.client.util.NaluUtils;
+
 public class ControllerModel {
 
   private       String[]                               originalRoute;
@@ -202,9 +204,7 @@ public class ControllerModel {
 
   private String getRouteWithoutShell(String route) {
     String routeWithoutShell = route;
-    if (routeWithoutShell.startsWith("/")) {
-      routeWithoutShell = routeWithoutShell.substring(1);
-    }
+    routeWithoutShell = NaluUtils.removeLeading("/", routeWithoutShell);
     if (routeWithoutShell.contains("/")) {
       routeWithoutShell = routeWithoutShell.substring(routeWithoutShell.indexOf("/"));
       if (routeWithoutShell.contains("/:")) {
@@ -219,9 +219,7 @@ public class ControllerModel {
 
   private String getShellFromRoute(String route) {
     String shellOfRoute = route;
-    if (shellOfRoute.startsWith("/")) {
-      shellOfRoute = shellOfRoute.substring(1);
-    }
+    shellOfRoute = NaluUtils.removeLeading("/", shellOfRoute);
     if (shellOfRoute.contains("/")) {
       shellOfRoute = shellOfRoute.substring(0,
                                             shellOfRoute.indexOf("/"));

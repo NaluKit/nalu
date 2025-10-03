@@ -20,6 +20,7 @@ import io.github.nalukit.nalu.client.internal.PropertyFactory;
 import io.github.nalukit.nalu.client.internal.route.ShellConfig;
 import io.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import io.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.RouteChangeHandler;
+import io.github.nalukit.nalu.client.util.NaluUtils;
 import io.github.nalukit.nalu.plugin.core.web.client.IsNaluCorePlugin;
 import io.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import elemental2.dom.DomGlobal;
@@ -118,9 +119,7 @@ public class NaluPluginCoreWeb
     Map<String, String> queryParameters = new HashMap<>();
     String              search          = location.search;
     if (!Objects.isNull(search)) {
-      if (search.startsWith("?")) {
-        search = search.substring(1);
-      }
+      search = NaluUtils.removeLeading("?", search);
       Arrays.stream(search.split("&"))
             .forEach(s -> {
               String[] split = s.split("=");
@@ -141,13 +140,9 @@ public class NaluPluginCoreWeb
     } else {
       startRoute = queryParameters.get("uri");
       if (!Objects.isNull(startRoute)) {
-        if (startRoute.startsWith("/")) {
-          startRoute = startRoute.substring(1);
-        }
+        startRoute = NaluUtils.removeLeading("/", startRoute);
         startRoute = removeContextPath(startRoute, contextPath);
-        if (startRoute.startsWith("/")) {
-          startRoute = startRoute.substring(1);
-        }
+        startRoute = NaluUtils.removeLeading("/", startRoute);
         if (startRoute.endsWith("/")) {
           startRoute = startRoute.substring(0,
                                             startRoute.length() - 1);
@@ -189,9 +184,7 @@ public class NaluPluginCoreWeb
 
   private void handleChange(RouteChangeHandler handler,
                             String newUrl) {
-    if (newUrl.startsWith("#")) {
-      newUrl = newUrl.substring(1);
-    }
+    newUrl = NaluUtils.removeLeading("#", newUrl);
     if (newUrl.trim()
               .isEmpty()) {
       // In case we have an empty newUrl, we have moved back to the start page ==> use startRoute!

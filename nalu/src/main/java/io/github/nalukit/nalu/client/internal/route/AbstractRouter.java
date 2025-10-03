@@ -1474,12 +1474,8 @@ abstract class AbstractRouter
 
   private String pimpUpHashForLoopDetection(String hash) {
     String value = hash;
-    if (value.startsWith("#")) {
-      value = value.substring(1);
-    }
-    if (value.startsWith("/")) {
-      value = value.substring(1);
-    }
+    value = NaluUtils.removeLeading("#", value);
+    value = NaluUtils.removeLeading("/", value);
     return value;
   }
 
