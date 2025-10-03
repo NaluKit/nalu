@@ -129,7 +129,7 @@ public class PropertyFactory {
       this.startRoute = startRoute;
     }
     this.illegalRouteTarget           = illegalRouteTarget;
-    this.baseHref           = baseHref;
+    this.baseHref                     = baseHref;
     this.hasHistory                   = hasHistory;
     this.usingHash                    = usingHash;
     this.usingColonForParametersInUrl = usingColonForParametersInUrl;
