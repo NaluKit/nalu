@@ -23,12 +23,16 @@ import io.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.RouteChangeHan
 import io.github.nalukit.nalu.client.util.NaluUtils;
 import io.github.nalukit.nalu.plugin.core.web.client.IsNaluCorePlugin;
 import io.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
+import elemental2.dom.Document;
 import elemental2.dom.DomGlobal;
+import elemental2.dom.HTMLBaseElement;
+import elemental2.dom.HTMLHeadElement;
 import elemental2.dom.Location;
+import elemental2.dom.Node;
 import elemental2.dom.PopStateEvent;
+import elemental2.dom.URL;
 import jsinterop.base.Js;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -73,6 +77,44 @@ public class NaluPluginCoreWeb
     return path;
   }
 
+  /**
+   * Ensures or updates the <base> element (href only).
+   * @param href the href to set
+   */
+  private static final void ensureOrUpdateBase(String href) {
+    ensureOrUpdateBase(href, null);
+  }
+
+  /**
+   * Ensures or updates the <base> element (href + optional target).
+   * @param href the href to set
+   * @param target the target to set (optional, can be null or empty)
+   */
+  private static final void ensureOrUpdateBase(String href, String target) {
+
+    Document doc = DomGlobal.document;
+    HTMLBaseElement base =
+        (HTMLBaseElement) doc.querySelector("base");
+
+    if (base == null) {
+      base = (HTMLBaseElement) doc.createElement("base");
+      HTMLHeadElement head = (HTMLHeadElement) doc.querySelector("head");
+      // Insert as first child of <head>, so all following <link>/<script> will benefit from it.
+      Node first = head.firstChild;
+      if (first != null) {
+          head.insertBefore(base, first);
+      } else {
+          head.appendChild(base);
+      }
+    }
+
+    base.href = href;
+
+    if (target != null && !target.isEmpty()) {
+      base.target = target; // "_top", "_self", "contentFrame"
+    }
+  }
+
   @Override
   @SuppressWarnings("StringSplitter")
   public void getContextPath(ShellConfiguration shellConfiguration) {
@@ -80,59 +122,46 @@ public class NaluPluginCoreWeb
       return;
     }
     Location location = Js.uncheckedCast(DomGlobal.location);
-    String   pathName = location.pathname;
-    if (pathName.startsWith("/") && pathName.length() > 1) {
+    String pathName = location.pathname;
+
+    if (PropertyFactory.INSTANCE.isUsingBaseHref()) {
+        ensureOrUpdateBase(location.pathname);
+    }
+
+    if (pathName.startsWith("/")) {
       pathName = pathName.substring(1);
     }
-    if (pathName.contains(".")) {
-      if (pathName.contains("/")) {
-        pathName = pathName.substring(0,
-                                      pathName.lastIndexOf("/"));
-        StringBuilder context = new StringBuilder();
-        for (String partOfContext : pathName.split("/")) {
-          Optional<String> optional = shellConfiguration.getShells()
-                                                        .stream()
-                                                        .map(ShellConfig::getRoute)
-                                                        .filter(f -> f.equals("/" + partOfContext))
-                                                        .findAny();
-          if (optional.isPresent()) {
-            break;
-          } else {
-            if (context.length() > 0) {
-              context.append("/");
-            }
-            context.append(partOfContext);
-          }
-        }
-        PropertyFactory.INSTANCE.setContextPath(context.toString());
+
+    StringBuilder context = new StringBuilder();
+
+    for (String partOfContext : pathName.split("/")) {
+      Optional<String> optional = shellConfiguration.getShells()
+                                                    .stream()
+                                                    .map(ShellConfig::getRoute)
+                                                    .filter(f -> f.equals("/" + partOfContext))
+                                                    .findAny();
+      if (optional.isPresent()) {
+        break;
       } else {
-        PropertyFactory.INSTANCE.setContextPath("");
+        if (context.length() > 0) {
+          context.append("/");
+        }
+        context.append(partOfContext);
       }
     }
-    PropertyFactory.INSTANCE.setContextPath("");
+
+    String calculatedContextPath = context.toString();
+    PropertyFactory.INSTANCE.setContextPath(calculatedContextPath);
   }
 
   @Override
-  @SuppressWarnings("StringSplitter")
   public NaluStartModel getNaluStartModel() {
     Location            location        = Js.uncheckedCast(DomGlobal.location);
     Map<String, String> queryParameters = new HashMap<>();
-    String              search          = location.search;
-    if (!Objects.isNull(search)) {
-      search = NaluUtils.removeLeading("?", search);
-      Arrays.stream(search.split("&"))
-            .forEach(s -> {
-              String[] split = s.split("=");
-              if (split.length == 1) {
-                queryParameters.put(split[0],
-                                    "");
-              } else if (split.length == 2) {
-                queryParameters.put(split[0],
-                                    split[1]);
 
-              }
-            });
-    }
+    URL url = new URL(location.href);
+    url.searchParams.forEach((value, key) -> queryParameters.put(key, value));
+
     String startRoute;
     String contextPath = PropertyFactory.INSTANCE.getContextPath();
     if (PropertyFactory.INSTANCE.isUsingHash()) {
