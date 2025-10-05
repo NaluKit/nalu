@@ -244,6 +244,10 @@ public class NaluPluginCoreWeb
         newRouteToken = newRouteToken + contextPath + "/";
       }
       newRouteToken = newRouteToken + newRoute;
+
+      if (!newRouteToken.endsWith("/")) {
+        newRouteToken += "/";
+      }
     }
     if (PropertyFactory.INSTANCE.hasHistory()) {
       if (!stealthMode) {
