@@ -204,7 +204,7 @@ public class NaluPluginCoreWeb
       if (newUrl.length() > 1 && newUrl.startsWith("/")) {
         newUrl = newUrl.substring(1);
       }
-      newUrl = removeContextPath(newUrl, contextPath);
+      newUrl = removeContextPath(newUrl, PropertyFactory.INSTANCE.getContextPath());
       this.handleChange(handler,
                         newUrl);
       return null;
