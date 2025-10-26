@@ -154,28 +154,32 @@ public class RouteParser {
    */
   String generate(String route,
                   String... params) {
-    StringBuilder sb         = new StringBuilder();
+    StringBuilder newRoute         = new StringBuilder();
     String        routeValue = route;
     routeValue = NaluUtils.removeLeading("/", routeValue);
 
     String[] partsOfRoute = routeValue.split("/");
 
     int parameterIndex = 0;
-    for (String s : partsOfRoute) {
-      sb.append("/");
-      if ("*".equals(s) || s.startsWith(":") || (s.startsWith("{") && s.endsWith("}"))) {
+    for (String routePart : partsOfRoute) {
+      newRoute.append("/");
+      if ("*".equals(routePart) || routePart.startsWith(":") || (routePart.startsWith("{") && routePart.endsWith("}"))) {
         if (Nalu.isUsingColonForParametersInUrl()) {
-          sb.append(":");
+          if (routePart.startsWith(":")) {
+            newRoute.append(routePart);
+          } else {
+             newRoute.append(":");
+          }
         }
         if (params.length - 1 >= parameterIndex) {
           if (!Objects.isNull(params[parameterIndex])) {
-            sb.append(params[parameterIndex].replace("/",
+            newRoute.append(params[parameterIndex].replace("/",
                                                      RouterConstants.NALU_SLASH_REPLACEMENT));
           }
           parameterIndex++;
         }
       } else {
-        sb.append(s);
+        newRoute.append(routePart);
       }
     }
 
@@ -195,22 +199,22 @@ public class RouteParser {
                                       .sdmOnly(true)
                                       .addMessage(sbExeption));
       for (int i = parameterIndex; i < params.length; i++) {
-        sb.append("/");
+        newRoute.append("/");
         if (Nalu.isUsingColonForParametersInUrl()) {
-          sb.append(":");
+          newRoute.append(":");
         }
         if (!Objects.isNull(params[parameterIndex])) {
-          sb.append(params[parameterIndex].replace("/",
+          newRoute.append(params[parameterIndex].replace("/",
                                                    RouterConstants.NALU_SLASH_REPLACEMENT));
         } else {
-          sb.append("null");
+          newRoute.append("null");
         }
         parameterIndex++;
       }
     }
 
     // remove leading '/'
-    return NaluUtils.removeLeading("/", sb.toString());
+    return NaluUtils.removeLeading("/", newRoute.toString());
   }
 
 }
