@@ -282,6 +282,8 @@ public class ApplicationGenerator {
                                metaModel);
     generateLoadIllegalRouteTarget(typeSpec,
                                    metaModel);
+    generateIsHandlingBaseHref(typeSpec,
+                               metaModel);
     generateHasHistoryMethod(typeSpec,
                              metaModel);
     generateIsUsingHashMethod(typeSpec,
@@ -290,8 +292,6 @@ public class ApplicationGenerator {
                                            metaModel);
     generateIsStayOnSide(typeSpec,
                          metaModel);
-    generateIsRemoveUrlParameterAtStart(typeSpec,
-                                        metaModel);
 
     JavaFile javaFile = JavaFile.builder(metaModel.getGenerateToPackage(),
                                          typeSpec.build())
@@ -328,6 +328,19 @@ public class ApplicationGenerator {
                                  .build());
   }
 
+  private void generateIsHandlingBaseHref(TypeSpec.Builder typeSpec,
+                                          MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("isHandlingBaseHref")
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .addAnnotation(Override.class)
+                                 .returns(boolean.class)
+                                 .addStatement("return $L",
+                                               metaModel.hasBaseHref() ?
+                                               "true" :
+                                               "false")
+                                 .build());
+  }
+
   private void generateHasHistoryMethod(TypeSpec.Builder typeSpec,
                                         MetaModel metaModel) {
     typeSpec.addMethod(MethodSpec.methodBuilder("hasHistory")
@@ -335,7 +348,9 @@ public class ApplicationGenerator {
                                  .addModifiers(Modifier.PUBLIC)
                                  .returns(boolean.class)
                                  .addStatement("return $L",
-                                               metaModel.hasHistory() ? "true" : "false")
+                                               metaModel.hasHistory() ?
+                                               "true" :
+                                               "false")
                                  .build());
   }
 
@@ -346,7 +361,9 @@ public class ApplicationGenerator {
                                  .addModifiers(Modifier.PUBLIC)
                                  .returns(boolean.class)
                                  .addStatement("return $L",
-                                               metaModel.isUsingHash() ? "true" : "false")
+                                               metaModel.isUsingHash() ?
+                                               "true" :
+                                               "false")
                                  .build());
   }
 
@@ -357,7 +374,9 @@ public class ApplicationGenerator {
                                  .addModifiers(Modifier.PUBLIC)
                                  .returns(boolean.class)
                                  .addStatement("return $L",
-                                               metaModel.isUsingColonForParametersInUrl() ? "true" : "false")
+                                               metaModel.isUsingColonForParametersInUrl() ?
+                                               "true" :
+                                               "false")
                                  .build());
   }
 
@@ -368,18 +387,9 @@ public class ApplicationGenerator {
                                  .addModifiers(Modifier.PUBLIC)
                                  .returns(boolean.class)
                                  .addStatement("return $L",
-                                               metaModel.isStayOnSide() ? "true" : "false")
-                                 .build());
-  }
-
-  private void generateIsRemoveUrlParameterAtStart(TypeSpec.Builder typeSpec,
-                                                   MetaModel metaModel) {
-    typeSpec.addMethod(MethodSpec.methodBuilder("isRemoveUrlParameterAtStart")
-                                 .addAnnotation(Override.class)
-                                 .addModifiers(Modifier.PUBLIC)
-                                 .returns(boolean.class)
-                                 .addStatement("return $L",
-                                               metaModel.isRemoveUrlParameterAtStart() ? "true" : "false")
+                                               metaModel.isStayOnSide() ?
+                                               "true" :
+                                               "false")
                                  .build());
   }
 

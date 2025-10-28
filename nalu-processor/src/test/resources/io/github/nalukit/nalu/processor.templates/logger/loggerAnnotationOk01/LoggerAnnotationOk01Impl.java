@@ -143,6 +143,11 @@ public final class LoggerAnnotationOk01Impl extends AbstractApplication<MockCont
   }
 
   @Override
+  public boolean isHandlingBaseHref() {
+    return false;
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }
@@ -159,11 +164,6 @@ public final class LoggerAnnotationOk01Impl extends AbstractApplication<MockCont
 
   @Override
   public boolean isStayOnSide() {
-    return false;
-  }
-
-  @Override
-  public boolean isRemoveUrlParameterAtStart() {
     return false;
   }
 }

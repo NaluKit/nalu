@@ -32,11 +32,11 @@ public final class RouterImpl
                     IsTracker tracker,
                     String startRoute,
                     String illegalRouteTarget,
+                    boolean usingBaseHref,
                     boolean hasHistory,
                     boolean usingHash,
                     boolean usingColonForParametersInUrl,
-                    boolean stayOnSide,
-                    boolean removeUrlParameterAtStart) {
+                    boolean stayOnSide) {
     super(compositeReferences,
           shellConfiguration,
           routerConfiguration,
@@ -44,11 +44,11 @@ public final class RouterImpl
           tracker,
           startRoute,
           illegalRouteTarget,
+          usingBaseHref,
           hasHistory,
           usingHash,
           usingColonForParametersInUrl,
-          stayOnSide,
-          removeUrlParameterAtStart);
+          stayOnSide);
     this.plugin.register(hash -> RouterImpl.super.handleRouting(hash,
                                                                 false));
   }

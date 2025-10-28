@@ -328,8 +328,8 @@ public class NaluUtilsTest {
   void testCleanRoute01() {
     PropertyFactory.INSTANCE.register("/shell/login/",
                                       "/shell/login/",
-                                      true,
                                       false,
+                                      true,
                                       false,
                                       false,
                                       true);
@@ -341,8 +341,8 @@ public class NaluUtilsTest {
   void testCleanRoute02() {
     PropertyFactory.INSTANCE.register("/shell/login/",
                                       "/shell/login/",
-                                      true,
                                       false,
+                                      true,
                                       false,
                                       false,
                                       true);
@@ -354,11 +354,11 @@ public class NaluUtilsTest {
   void testCleanRoute03() {
     PropertyFactory.INSTANCE.register("/shell/login/",
                                       "/shell/login/",
+                                      false,
                                       true,
                                       false,
                                       false,
-                                      false,
-                                      true);
+                                      false);
     Assertions.assertEquals("/login/user/",
                             NaluUtils.INSTANCE.cleanRoute("/login/user/#"));
   }

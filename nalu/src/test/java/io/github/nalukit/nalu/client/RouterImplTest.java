@@ -30,9 +30,9 @@ public class RouterImplTest {
                                  null,
                                  "startShell/startRoute",
                                  "",
-                                 true,
-                                 true,
                                  false,
+                                 true,
+                                 true,
                                  false,
                                  false);
     RouteParser.INSTANCE

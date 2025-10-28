@@ -14,7 +14,7 @@ public class NaluTest {
   void getVersion()
       throws IOException {
     // TODO Change this if you want to test against another version
-    Assertions.assertEquals("3.0.0",
+    Assertions.assertEquals("3.1.0",
                             Nalu.getVersion());
   }
 
@@ -23,10 +23,10 @@ public class NaluTest {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(Nalu.hasHistory());
   }
@@ -37,9 +37,9 @@ public class NaluTest {
                    .register("/startShell/startRoute01/startRoute02",
                              "",
                              false,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false);
     Assertions.assertFalse(Nalu.hasHistory());
   }
@@ -49,10 +49,10 @@ public class NaluTest {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(Nalu.isUsingHash());
   }
@@ -62,10 +62,10 @@ public class NaluTest {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
-                             true,
                              false,
                              true,
                              false,
+                             true,
                              false);
     Assertions.assertFalse(Nalu.isUsingHash());
   }
@@ -75,10 +75,10 @@ public class NaluTest {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(Nalu.isUsingColonForParametersInUrl());
   }
@@ -88,9 +88,9 @@ public class NaluTest {
     PropertyFactory.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(Nalu.isUsingColonForParametersInUrl());

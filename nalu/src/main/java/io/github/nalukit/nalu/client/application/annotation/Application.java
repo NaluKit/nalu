@@ -156,12 +156,12 @@ public @interface Application {
   String illegalRouteTarget() default "";
 
   /**
-   * This attribute will tell Nalu to remove all URL-parameter from the URL at start.
+   * This attribute will tell Nalu to handle the usingBaseHref.
    * <br>
-   * Defaul is <b>false</b>
+   * Defaul is a<b>false</b> value, which means usingBaseHref-handling is diabled
    *
-   * @return true -&gt; remove URL-parameter at application start
+   * @return a boolean.
    */
-  boolean removeUrlParameterAtStart() default false;
+  boolean usingBaseHref() default false;
 
 }

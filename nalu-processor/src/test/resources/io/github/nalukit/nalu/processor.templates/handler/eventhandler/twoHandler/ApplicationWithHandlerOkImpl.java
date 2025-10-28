@@ -155,6 +155,11 @@ public final class ApplicationWithHandlerOkImpl extends AbstractApplication<Mock
   }
 
   @Override
+  public boolean isHandlingBaseHref() {
+    return false;
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }
@@ -171,11 +176,6 @@ public final class ApplicationWithHandlerOkImpl extends AbstractApplication<Mock
 
   @Override
   public boolean isStayOnSide() {
-    return false;
-  }
-
-  @Override
-  public boolean isRemoveUrlParameterAtStart() {
     return false;
   }
 }

@@ -44,48 +44,48 @@ public class RouteValidationTest {
                                                  Arrays.asList("name",
                                                                "city"),
                                                  "content",
-                                                 "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.list.ListController"));
+                                                 "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.content.list.ListController"));
     this.routerConfiguration.getRouters()
                             .add(new RouteConfig("/application/person/search/*/*",
                                                  Arrays.asList("searchName",
                                                                "searchCity"),
                                                  "content",
-                                                 "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.search.SearchController"));
+                                                 "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.content.search.SearchController"));
     this.routerConfiguration.getRouters()
                             .add(new RouteConfig("/application",
                                                  Collections.emptyList(),
                                                  "footer",
-                                                 "com.github.nalukit.example.nalu.simpleapplication.client.ui.footer.FooterController"));
+                                                 "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.footer.FooterController"));
     this.routerConfiguration.getRouters()
                             .add(new RouteConfig("/error/show",
                                                  Collections.emptyList(),
                                                  "content",
-                                                 "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.error.ErrorController"));
+                                                 "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.content.error.ErrorController"));
     this.routerConfiguration.getRouters()
                             .add(new RouteConfig("/application",
                                                  Collections.emptyList(),
                                                  "navigation",
-                                                 "com.github.nalukit.example.nalu.simpleapplication.client.ui.navigation.NavigationController"));
+                                                 "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.navigation.NavigationController"));
     this.routerConfiguration.getRouters()
                             .add(new RouteConfig("/application/person/detail/*",
                                                  Collections.singletonList("id"),
                                                  "content",
-                                                 "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
+                                                 "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     this.routerConfiguration.getRouters()
                             .add(new RouteConfig("/application/person/*/detail",
                                                  Collections.singletonList("id"),
                                                  "content",
-                                                 "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
+                                                 "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
 
     this.shellConfiguration.getShells()
                            .add(new ShellConfig("/error",
-                                                "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.error.ErrorShell"));
+                                                "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.shell.error.ErrorShell"));
     this.shellConfiguration.getShells()
                            .add(new ShellConfig("/application",
-                                                "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.application.ApplicationShell"));
+                                                "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.shell.application.ApplicationShell"));
     this.shellConfiguration.getShells()
                            .add(new ShellConfig("/login",
-                                                "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.login.LoginShell"));
+                                                "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.shell.login.LoginShell"));
   }
 
   @Test
@@ -93,9 +93,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -108,9 +108,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -123,9 +123,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -138,9 +138,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -153,9 +153,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -168,9 +168,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -183,9 +183,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -198,9 +198,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -213,9 +213,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -228,9 +228,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -243,9 +243,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -258,9 +258,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -273,9 +273,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -288,9 +288,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -303,9 +303,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -318,9 +318,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -333,9 +333,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -350,10 +350,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -365,10 +365,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -380,10 +380,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -395,10 +395,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -410,10 +410,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
@@ -425,10 +425,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -440,10 +440,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
@@ -455,10 +455,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
@@ -470,10 +470,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
@@ -485,10 +485,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
@@ -500,10 +500,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
@@ -515,10 +515,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -530,10 +530,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -545,10 +545,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -560,10 +560,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -575,10 +575,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -590,10 +590,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -605,9 +605,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -620,9 +620,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -635,9 +635,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -650,9 +650,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -665,9 +665,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -680,9 +680,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -695,9 +695,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -710,9 +710,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -725,9 +725,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -740,9 +740,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -755,9 +755,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -770,9 +770,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -785,9 +785,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -800,9 +800,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -815,9 +815,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -830,9 +830,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -845,9 +845,9 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
                              false,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
@@ -862,10 +862,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -877,10 +877,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -892,10 +892,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -907,10 +907,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -922,10 +922,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
@@ -937,10 +937,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -952,10 +952,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
@@ -967,10 +967,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
@@ -982,10 +982,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
@@ -997,10 +997,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
@@ -1012,10 +1012,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
@@ -1027,10 +1027,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -1042,10 +1042,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -1057,10 +1057,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -1072,10 +1072,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -1087,10 +1087,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
@@ -1102,10 +1102,10 @@ public class RouteValidationTest {
     PropertyFactory.INSTANCE
                    .register("startShell/startRoute",
                              "",
-                             true,
-                             true,
-                             true,
                              false,
+                             true,
+                             true,
+                             true,
                              false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,

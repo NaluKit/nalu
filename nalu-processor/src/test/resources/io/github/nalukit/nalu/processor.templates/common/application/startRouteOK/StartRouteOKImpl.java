@@ -141,6 +141,11 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
   }
 
   @Override
+  public boolean isHandlingBaseHref() {
+    return false;
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }
@@ -157,11 +162,6 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
 
   @Override
   public boolean isStayOnSide() {
-    return false;
-  }
-
-  @Override
-  public boolean isRemoveUrlParameterAtStart() {
     return false;
   }
 }

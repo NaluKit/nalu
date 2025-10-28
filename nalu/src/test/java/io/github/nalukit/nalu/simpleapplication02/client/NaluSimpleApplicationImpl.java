@@ -65,7 +65,12 @@ public final class NaluSimpleApplicationImpl
 
   @Override
   public void loadIllegalRouteTarget() {
-    this.startRoute = "";
+    this.illegalRouteTarget = "";
+  }
+
+  @Override
+  public boolean isHandlingBaseHref() {
+    return false;
   }
 
   @Override
@@ -143,11 +148,6 @@ public final class NaluSimpleApplicationImpl
 
   @Override
   protected boolean isStayOnSide() {
-    return false;
-  }
-
-  @Override
-  protected boolean isRemoveUrlParameterAtStart() {
     return false;
   }
 

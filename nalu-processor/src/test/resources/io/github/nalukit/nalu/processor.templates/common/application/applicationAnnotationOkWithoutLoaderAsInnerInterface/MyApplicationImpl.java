@@ -137,6 +137,11 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
   }
 
   @Override
+  public boolean isHandlingBaseHref() {
+    return false;
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }
@@ -153,11 +158,6 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
 
   @Override
   public boolean isStayOnSide() {
-    return false;
-  }
-
-  @Override
-  public boolean isRemoveUrlParameterAtStart() {
     return false;
   }
 }

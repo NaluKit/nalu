@@ -21,6 +21,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import io.github.nalukit.nalu.client.util.NaluUtils;
+
 public class RouteConfig {
 
   /* shellCreator */
@@ -59,9 +61,7 @@ public class RouteConfig {
     this.className  = className;
     // get shellCreator from route
     String tmpValue = route;
-    if (tmpValue.startsWith("/")) {
-      tmpValue = tmpValue.substring(1);
-    }
+    tmpValue = NaluUtils.removeLeading("/", tmpValue);
     String shellFromRoute = "";
     if (tmpValue.contains("/")) {
       shellFromRoute         = tmpValue.substring(0,
@@ -71,9 +71,7 @@ public class RouteConfig {
       shellFromRoute         = tmpValue;
       this.routeWithoutShell = "/";
     }
-    if (shellFromRoute.startsWith("[")) {
-      shellFromRoute = shellFromRoute.substring(1);
-    }
+    shellFromRoute = NaluUtils.removeLeading("[", shellFromRoute);
     if (shellFromRoute.endsWith("]")) {
       shellFromRoute = shellFromRoute.substring(0,
                                                 shellFromRoute.length() - 1);
@@ -105,9 +103,7 @@ public class RouteConfig {
     }
     // separate shellCreator from route
     String shellOfRoute = route;
-    if (shellOfRoute.startsWith("/")) {
-      shellOfRoute = shellOfRoute.substring(1);
-    }
+    shellOfRoute = NaluUtils.removeLeading("/", shellOfRoute);
     if (shellOfRoute.contains("/")) {
       shellOfRoute = shellOfRoute.substring(0,
                                             shellOfRoute.indexOf("/"));
@@ -118,9 +114,7 @@ public class RouteConfig {
   private boolean matchRouteWithoutShell(String route) {
     // separate shellCreator from route
     String routeWithoutShell = route;
-    if (routeWithoutShell.startsWith("/")) {
-      routeWithoutShell = routeWithoutShell.substring(1);
-    }
+    routeWithoutShell = NaluUtils.removeLeading("/", routeWithoutShell);
     if (routeWithoutShell.contains("/")) {
       routeWithoutShell = routeWithoutShell.substring(routeWithoutShell.indexOf("/") + 1);
     } else {

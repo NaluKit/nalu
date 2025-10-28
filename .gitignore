@@ -219,3 +219,4 @@ fabric.properties
 # Flattened poms
 **/.flattened-pom.xml
 
+/dependency-checker-db/

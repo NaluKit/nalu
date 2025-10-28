@@ -34,7 +34,7 @@ public final class ApplicationWithFilterImpl extends AbstractApplication<MockCon
     this.eventBus.fireEvent(LogEvent.create()
                                     .sdmOnly(true)
                                     .addMessage("=================================================================================")
-                                    .addMessage("Nalu processor version  >>3.0.0<< used to generate this source")
+                                    .addMessage("Nalu processor version  >>3.1.0<< used to generate this source")
                                     .addMessage("=================================================================================")
                                     .addMessage(""));
   }
@@ -143,6 +143,11 @@ public final class ApplicationWithFilterImpl extends AbstractApplication<MockCon
   }
 
   @Override
+  public boolean isHandlingBaseHref() {
+    return false;
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }
@@ -159,11 +164,6 @@ public final class ApplicationWithFilterImpl extends AbstractApplication<MockCon
 
   @Override
   public boolean isStayOnSide() {
-    return false;
-  }
-
-  @Override
-  public boolean isRemoveUrlParameterAtStart() {
     return false;
   }
 }

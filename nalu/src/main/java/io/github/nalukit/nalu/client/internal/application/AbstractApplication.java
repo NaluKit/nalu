@@ -53,7 +53,7 @@ public abstract class AbstractApplication<C extends IsContext>
 
   /* start route */
   protected String                   startRoute;
-  /* illegat route target */
+  /* illegal route target */
   protected String                   illegalRouteTarget;
   /* Shell */
   protected IsShell                  shell;
@@ -121,6 +121,8 @@ public abstract class AbstractApplication<C extends IsContext>
     this.loadDefaultRoutes();
     // load illegal route target
     this.loadIllegalRouteTarget();
+    // load usingBaseHref
+    this.isHandlingBaseHref();
     // Register plugin
     SeoDataProvider.INSTANCE.register(this.plugin);
     // load everything you need to start
@@ -142,11 +144,11 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.tracker,
                                  this.startRoute,
                                  this.illegalRouteTarget,
+                                 this.isHandlingBaseHref(),
                                  this.hasHistory(),
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl(),
-                                 this.isStayOnSide(),
-                                 this.isRemoveUrlParameterAtStart());
+                                 this.isStayOnSide());
     this.router.setAlwaysLoadComposite(this.alwaysLoadComposite);
     this.router.setAlwaysShowPopUp(this.alwaysShowPopUp);
     this.router.setEventBus(this.eventBus);
@@ -193,6 +195,8 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract void loadIllegalRouteTarget();
 
+  protected abstract boolean isHandlingBaseHref();
+
   protected abstract void loadShells();
 
   protected abstract void loadRoutes();
@@ -210,8 +214,6 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract boolean isUsingColonForParametersInUrl();
 
   protected abstract boolean isStayOnSide();
-
-  protected abstract boolean isRemoveUrlParameterAtStart();
 
   protected abstract void loadShellFactory();
 

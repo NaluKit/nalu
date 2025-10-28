@@ -151,6 +151,11 @@ public final class ShellWithCompositeApplicationImpl extends AbstractApplication
   }
 
   @Override
+  public boolean isHandlingBaseHref() {
+    return false;
+  }
+
+  @Override
   public boolean hasHistory() {
     return true;
   }
@@ -167,11 +172,6 @@ public final class ShellWithCompositeApplicationImpl extends AbstractApplication
 
   @Override
   public boolean isStayOnSide() {
-    return false;
-  }
-
-  @Override
-  public boolean isRemoveUrlParameterAtStart() {
     return false;
   }
 }

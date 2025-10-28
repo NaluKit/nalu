@@ -16,6 +16,7 @@
 
 package io.github.nalukit.nalu.processor.model;
 
+import io.github.nalukit.nalu.client.util.NaluUtils;
 import io.github.nalukit.nalu.processor.model.intern.BlockControllerModel;
 import io.github.nalukit.nalu.processor.model.intern.ClassNameModel;
 import io.github.nalukit.nalu.processor.model.intern.CompositeModel;
@@ -54,6 +55,7 @@ public class MetaModel {
   private       ClassNameModel                     context;
   private       String                             startRoute;
   private       String                             illegalRouteTarget;
+  private       boolean                            usingBaseHref;
   private       ErrorPopUpControllerModel          errorPopUpController;
   private       boolean                            hasPluginsAnnotation;
   private       boolean                            hasLoggerAnnotation;
@@ -72,15 +74,12 @@ public class MetaModel {
   /* flag, that indicates, if a Nalu application */
   /* uses a history token or not.                */
   private       boolean                            history;
-  /* Version of the applicaiton set by the       */
+  /* Version of the application set by the       */
   /* Version annotation                          */
   private       String                             applicationVersion;
   /* does the context extends                    */
   /* AbstractModuleContext?                      */
   private       boolean                            extendingIsModuleContext;
-  /* do we have to remove the URL parameter      */
-  /* from the URL                                */
-  private       boolean                            removeUrlParameterAtStart;
   /* list of used parameter constraints          */
   private final List<ClassNameModel>               usedParameterConstraints;
   private final List<ClassNameModel>               generatedConditions;
@@ -101,7 +100,6 @@ public class MetaModel {
 
     this.applicationVersion        = "APPLCIATION-VERSION-NOT-AVAILABLE";
     this.extendingIsModuleContext  = false;
-    this.removeUrlParameterAtStart = false;
   }
 
   public ModuleModel getModuleModel() {
@@ -285,9 +283,7 @@ public class MetaModel {
 
   private String getShellFromRoute(String route) {
     String shellFromRoute = route;
-    if (shellFromRoute.startsWith("/")) {
-      shellFromRoute = shellFromRoute.substring(1);
-    }
+    shellFromRoute = NaluUtils.removeLeading("/", shellFromRoute);
     if (shellFromRoute.contains("/")) {
       shellFromRoute = shellFromRoute.substring(0,
                                                 shellFromRoute.indexOf("/"));
@@ -343,12 +339,12 @@ public class MetaModel {
     this.illegalRouteTarget = illegalRouteTarget;
   }
 
-  public boolean isRemoveUrlParameterAtStart() {
-    return removeUrlParameterAtStart;
+  public boolean hasBaseHref() {
+    return usingBaseHref;
   }
 
-  public void setRemoveUrlParameterAtStart(boolean removeUrlParameterAtStart) {
-    this.removeUrlParameterAtStart = removeUrlParameterAtStart;
+  public void setBaseHref(boolean usingBaseHref) {
+    this.usingBaseHref = usingBaseHref;
   }
 
   public List<ParameterConstraintRuleModel> getParameterConstraintRules() {

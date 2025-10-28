@@ -108,7 +108,8 @@
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-core</artifactId>
       <version>${hamcrest.version}</version>
-    </dependency>  </dependencies>
+    </dependency>
+  </dependencies>
 
 
   <build>

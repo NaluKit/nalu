@@ -18,6 +18,7 @@ package io.github.nalukit.nalu.processor.scanner.validation;
 import io.github.nalukit.nalu.client.component.IsController;
 import io.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import io.github.nalukit.nalu.client.component.annotation.Controller;
+import io.github.nalukit.nalu.client.util.NaluUtils;
 import io.github.nalukit.nalu.processor.ProcessorException;
 import io.github.nalukit.nalu.processor.ProcessorUtils;
 
@@ -141,9 +142,7 @@ public class ControllerAnnotationValidator {
   private void validateRoute(String route)
       throws ProcessorException {
     // extract route first:
-    if (route.startsWith("/")) {
-      route = route.substring(1);
-    }
+    route = NaluUtils.removeLeading("/", route);
     // initial routes do not need a validation!
     if (route.isEmpty()) {
       return;

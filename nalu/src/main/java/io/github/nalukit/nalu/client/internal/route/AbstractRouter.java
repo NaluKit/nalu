@@ -102,11 +102,11 @@ abstract class AbstractRouter
                  IsTracker tracker,
                  String startRoute,
                  String illegalRouteTarget,
+                 boolean usingBaseHref,
                  boolean hasHistory,
                  boolean usingHash,
                  boolean usingColonForParametersInUrl,
-                 boolean stayOnSite,
-                 boolean removeUrlParameterAtStart) {
+                 boolean stayOnSite) {
     // save the composite configuration reference
     this.compositeReferences = compositeReferences;
     // save the shell configuration reference
@@ -123,11 +123,11 @@ abstract class AbstractRouter
     // set up PropertyFactory
     PropertyFactory.INSTANCE.register(startRoute,
                                       illegalRouteTarget,
+                                      usingBaseHref,
                                       hasHistory,
                                       usingHash,
                                       usingColonForParametersInUrl,
-                                      stayOnSite,
-                                      removeUrlParameterAtStart);
+                                      stayOnSite);
   }
 
   /**
@@ -1474,12 +1474,8 @@ abstract class AbstractRouter
 
   private String pimpUpHashForLoopDetection(String hash) {
     String value = hash;
-    if (value.startsWith("#")) {
-      value = value.substring(1);
-    }
-    if (value.startsWith("/")) {
-      value = value.substring(1);
-    }
+    value = NaluUtils.removeLeading("#", value);
+    value = NaluUtils.removeLeading("/", value);
     return value;
   }
 

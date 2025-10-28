@@ -76,13 +76,13 @@ public class MyController
     implements ISearchComponent.Controller {
     
   @AcceptParameter("parameter_01")
-  public void setParaemter01(String p01)
+  public void setParameter01(String p01)
       throws RoutingInterceptionException {
       ...
   }
     
   @AcceptParameter("parameter_02")
-  public void setParaemter02(String p02)
+  public void setParameter02(String p02)
       throws RoutingInterceptionException {
       ...
   }
@@ -122,12 +122,12 @@ To use Nalu add the following dependencies to your pom:
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
-    <version>HEAD-SNAPSHOT</version>
+    <version>3.1.0</version>
 </dependency>
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
-    <version>HEAD-SNAPSHOT</version>
+    <version>3.1.0</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -136,12 +136,12 @@ To use Nalu add the following dependencies to your pom:
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
-    <version>2.20.6</version>
+    <version>3.0.0</version>
 </dependency>
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
-    <version>2.20.6</version>
+    <version>3.0.0</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -164,7 +164,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
-    <version>HEAD-SNAPSHOT</version>
+    <version>3.1.0</version>
 </dependency>
 ```
 
@@ -173,7 +173,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
-    <version>2.20.6</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
@@ -193,7 +193,7 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemento</artifactId>
-    <version>HEAD-SNAPSHOT</version>
+    <version>3.1.0</version>
 </dependency>
 ```
 
@@ -202,7 +202,7 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemento</artifactId>
-    <version>2.20.6</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
@@ -213,7 +213,7 @@ For Domino-UI Version 2 there's also a dedicated plugin which supports `org.domi
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-domino-v2</artifactId>
-    <version>HEAD-SNAPSHOT</version>
+    <version>3.1.0</version>
 </dependency>
 ```
 
@@ -222,7 +222,7 @@ For Domino-UI Version 2 there's also a dedicated plugin which supports `org.domi
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-domino-v2</artifactId>
-    <version>2.20.6</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
@@ -250,12 +250,12 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
    <dependency>
       <groupId>io.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
-      <version>HEAD-SNAPSHOT</version>
+      <version>3.1.0</version>
    </dependency>
    <dependency>
       <groupId>io.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
-      <version>HEAD-SNAPSHOT</version>
+      <version>3.1.0</version>
       <scope>provided</scope>
    </dependency>
 ```
@@ -265,12 +265,12 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
    <dependency>
       <groupId>io.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
-      <version>2.20.6</version>
+      <version>3.0.0</version>
    </dependency>
    <dependency>
       <groupId>io.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
-      <version>2.20.6</version>
+      <version>3.0.0</version>
       <scope>provided</scope>
    </dependency>
 ```
@@ -301,7 +301,7 @@ Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not us
 Nalu is ready to use with J2CL / GWT 3 as long as you do not use the nalu-plugin-gwt!
 
 ## To get in touch with the developer
-Please visit use us at [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
+Please visit us at [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
 
 ## Examples
 Here you will find many examples that show Nalu in action: [https://github.com/nalukit/nalu-examples](https://github.com/nalukit/nalu-examples).
@@ -312,12 +312,13 @@ You will find a session about Nalu at the GWT Community Channel [here](https://w
 ## Notes
 In case you find a bug, please open an issue or post it inside the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
 
-## Comparsion between GWT Activities & Places versus Nalu
+## Comparison between GWT Activities & Places versus Nalu
 Anyone, who is familiar with GWT Activities & Places, will find [here](https://github.com/NaluKit/nalu/wiki/01.-Motivation-&-Concepts#comparison-gwt-activities--places-versus-nalu) a comparison between GWT Activities & Places and Nalu.
 
 ## Migration to io.github
 
-Migration to the new namespace is quite simple. There only to things to do:
+Migration to the new namespace is quite simple. These are the steps you need to do:
 
-1. change the groupId from `com.github.nalukit` to `ìo.github.nalukit`
+1. change the groupId from `com.github.nalukit` to `io.github.nalukit`
 2. replace all imports from `import com.github.nalukit` to `import io.github.nalukit`
+3. update the inherits inside the module descriptor from `com.github.nalukit` to `io.github.nalukit`

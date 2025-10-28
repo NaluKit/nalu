@@ -10,6 +10,8 @@ public class PropertyFactory {
   private String  startRoute;
   // illegal route target of the application
   private String  illegalRouteTarget;
+  // static app part of the URI
+  private boolean  usingBaseHref;
   // does the application have history
   private boolean hasHistory;
   // is the application using hash in url?
@@ -18,9 +20,6 @@ public class PropertyFactory {
   private boolean usingColonForParametersInUrl;
   // should the application replace history (stay on side) in case of empty hash
   private boolean stayOnSide;
-  /* do we have to remove the URL parameter      */
-  /* from the URL                                */
-  private boolean removeUrlParameterAtStart;
 
   private PropertyFactory() {
   }
@@ -98,12 +97,12 @@ public class PropertyFactory {
   }
 
   /**
-   * Do we need to remove the URL parameter?
+   * App-part of the Uri. Usually use at the start of the URI
    *
-   * @return true -&gt; remove parameter from URL
+   * @return app-part of the URI
    */
-  public boolean isRemoveUrlParameterAtStart() {
-    return removeUrlParameterAtStart;
+  public boolean isUsingBaseHref() {
+    return this.usingBaseHref;
   }
 
   /**
@@ -111,30 +110,30 @@ public class PropertyFactory {
    *
    * @param startRoute                   Start route of the application
    * @param illegalRouteTarget           illegal route target used, in case of a illegal route
+   * @param usingBaseHref                     app-part of the URI
    * @param hasHistory                   Will Nalu support a history token?
    * @param usingHash                    Will Nalu use a hash for Navigation?
    * @param usingColonForParametersInUrl Will Nalu use colons to mark parameters inside the url?
    * @param stayOnSide                   tells Nalu how do ahndle empty hash
-   * @param removeUrlParameterAtStart    tells Nalu to remove URL para,eters or not
    */
   public void register(String startRoute,
                        String illegalRouteTarget,
+                       boolean usingBaseHref,
                        boolean hasHistory,
                        boolean usingHash,
                        boolean usingColonForParametersInUrl,
-                       boolean stayOnSide,
-                       boolean removeUrlParameterAtStart) {
+                       boolean stayOnSide) {
     if (startRoute.startsWith("/")) {
       this.startRoute = startRoute.substring(1);
     } else {
       this.startRoute = startRoute;
     }
     this.illegalRouteTarget           = illegalRouteTarget;
+    this.usingBaseHref                     = usingBaseHref;
     this.hasHistory                   = hasHistory;
     this.usingHash                    = usingHash;
     this.usingColonForParametersInUrl = usingColonForParametersInUrl;
     this.stayOnSide                   = stayOnSide;
-    this.removeUrlParameterAtStart    = removeUrlParameterAtStart;
   }
 
 }

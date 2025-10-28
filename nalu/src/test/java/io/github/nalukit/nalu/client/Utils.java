@@ -102,7 +102,7 @@ class Utils {
     ShellConfiguration shellConfiguration = new ShellConfiguration();
     shellConfiguration.getShells()
                       .add(new ShellConfig("/MockShell",
-                                           "com.github.nalukit.example.nalu.simpleapplication.client.ui.shell.Shell"));
+                                           "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.shell.Shell"));
     return shellConfiguration;
   }
 
@@ -112,30 +112,30 @@ class Utils {
                        .add(new RouteConfig("/MockShell/",
                                             Arrays.asList(new String[] {}),
                                             "content",
-                                            "com.github.nalukit.example.nalu.simpleapplication.client.ui.footer.FooterController"));
+                                            "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.footer.FooterController"));
     routerConfiguration.getRouters()
                        .add(new RouteConfig("/MockShell/testRoute01",
                                             Arrays.asList(new String[] {}),
                                             "content",
-                                            "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
+                                            "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     routerConfiguration.getRouters()
                        .add(new RouteConfig("/MockShell/testRoute02/*/*",
                                             Arrays.asList("testParaemter01",
                                                           "testParameter02"),
                                             "content",
-                                            "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
+                                            "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     routerConfiguration.getRouters()
                        .add(new RouteConfig("/MockShell/testRoute03/testRoute04/testRoute05",
                                             Arrays.asList(new String[] {}),
                                             "content",
-                                            "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
+                                            "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     routerConfiguration.getRouters()
                        .add(new RouteConfig("/MockShell/testRoute06/testRoute07/*/*",
                                             Arrays.asList("testParameter01",
                                                           "testParameter02",
                                                           "testParameter03"),
                                             "content",
-                                            "com.github.nalukit.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
+                                            "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.content.detail.DetailController"));
     return routerConfiguration;
   }
 
