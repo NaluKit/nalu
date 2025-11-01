@@ -143,10 +143,13 @@ public class NaluPluginCoreWeb
       if (optional.isPresent()) {
         break;
       } else {
-        if (context.length() > 0) {
-          context.append("/");
+        // ignore the landing page ...
+        if (!partOfContext.endsWith(".html")) {
+          if (context.length() > 0) {
+            context.append("/");
+          }
+          context.append(partOfContext);
         }
-        context.append(partOfContext);
       }
     }
 
