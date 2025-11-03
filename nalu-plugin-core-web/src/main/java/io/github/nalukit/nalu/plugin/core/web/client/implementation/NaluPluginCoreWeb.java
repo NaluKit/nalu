@@ -16,7 +16,7 @@
 
 package io.github.nalukit.nalu.plugin.core.web.client.implementation;
 
-import io.github.nalukit.nalu.client.internal.PropertyFactory;
+import io.github.nalukit.nalu.client.internal.NaluConfig;
 import io.github.nalukit.nalu.client.internal.route.ShellConfig;
 import io.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import io.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.RouteChangeHandler;
@@ -118,13 +118,13 @@ public class NaluPluginCoreWeb
   @Override
   @SuppressWarnings("StringSplitter")
   public void getContextPath(ShellConfiguration shellConfiguration) {
-    if (PropertyFactory.INSTANCE.isUsingHash()) {
+    if (NaluConfig.INSTANCE.isUsingHash()) {
       return;
     }
     Location location = Js.uncheckedCast(DomGlobal.location);
     String pathName = location.pathname;
 
-    if (PropertyFactory.INSTANCE.isUsingBaseHref()) {
+    if (NaluConfig.INSTANCE.isUsingBaseHref()) {
         ensureOrUpdateBase(location.pathname);
     }
 
@@ -154,7 +154,7 @@ public class NaluPluginCoreWeb
     }
 
     String calculatedContextPath = context.toString();
-    PropertyFactory.INSTANCE.setContextPath(calculatedContextPath);
+    NaluConfig.INSTANCE.setContextPath(calculatedContextPath);
   }
 
   @Override
@@ -166,8 +166,8 @@ public class NaluPluginCoreWeb
     url.searchParams.forEach((value, key) -> queryParameters.put(key, value));
 
     String startRoute;
-    String contextPath = PropertyFactory.INSTANCE.getContextPath();
-    if (PropertyFactory.INSTANCE.isUsingHash()) {
+    String contextPath = NaluConfig.INSTANCE.getContextPath();
+    if (NaluConfig.INSTANCE.isUsingHash()) {
       startRoute = getHashValue(location.hash);
     } else {
       startRoute = queryParameters.get("uri");
@@ -192,7 +192,7 @@ public class NaluPluginCoreWeb
                                  String contextPath) {
     DomGlobal.window.onpopstate = e -> {
       String newUrl;
-      if (PropertyFactory.INSTANCE.isUsingHash()) {
+      if (NaluConfig.INSTANCE.isUsingHash()) {
         Location location = Js.uncheckedCast(DomGlobal.location);
         newUrl = location.hash;
       } else {
@@ -207,7 +207,7 @@ public class NaluPluginCoreWeb
       if (newUrl.length() > 1 && newUrl.startsWith("/")) {
         newUrl = newUrl.substring(1);
       }
-      newUrl = removeContextPath(newUrl, PropertyFactory.INSTANCE.getContextPath());
+      newUrl = removeContextPath(newUrl, NaluConfig.INSTANCE.getContextPath());
       this.handleChange(handler,
                         newUrl);
       return null;
@@ -220,8 +220,8 @@ public class NaluPluginCoreWeb
     if (newUrl.trim()
               .isEmpty()) {
       // In case we have an empty newUrl, we have moved back to the start page ==> use startRoute!
-      this.route(PropertyFactory.INSTANCE.getStartRoute(),
-                 !PropertyFactory.INSTANCE.isStayOnSide(),
+      this.route(NaluConfig.INSTANCE.getStartRoute(),
+                 !NaluConfig.INSTANCE.isStayOnSide(),
                  false,
                  handler);
     } else {
@@ -235,8 +235,8 @@ public class NaluPluginCoreWeb
                     boolean stealthMode,
                     RouteChangeHandler handler) {
     String newRouteToken;
-    String contextPath = PropertyFactory.INSTANCE.getContextPath();
-    if (PropertyFactory.INSTANCE.isUsingHash()) {
+    String contextPath = NaluConfig.INSTANCE.getContextPath();
+    if (NaluConfig.INSTANCE.isUsingHash()) {
       newRouteToken = newRoute.startsWith("#") ?
                       newRoute :
                       "#" + newRoute;
@@ -252,7 +252,7 @@ public class NaluPluginCoreWeb
         newRouteToken += "/";
       }
     }
-    if (PropertyFactory.INSTANCE.hasHistory()) {
+    if (NaluConfig.INSTANCE.hasHistory()) {
       if (!stealthMode) {
         if (replace) {
           DomGlobal.window.history.replaceState(newRouteToken,

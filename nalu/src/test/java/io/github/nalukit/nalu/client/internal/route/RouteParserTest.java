@@ -1,6 +1,6 @@
 package io.github.nalukit.nalu.client.internal.route;
 
-import io.github.nalukit.nalu.client.internal.PropertyFactory;
+import io.github.nalukit.nalu.client.internal.NaluConfig;
 import org.gwtproject.event.shared.SimpleEventBus;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeEach;
@@ -69,7 +69,7 @@ public class RouteParserTest {
     this.shellConfiguration.getShells()
                            .add(new ShellConfig("/login",
                                                 "io.github.nalukit.nalu.example.nalu.simpleapplication.client.ui.shell.login.LoginShell"));
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("/login",
                              "",
                              false,

@@ -16,7 +16,7 @@
 
 package io.github.nalukit.nalu.client.internal.validation;
 
-import io.github.nalukit.nalu.client.internal.PropertyFactory;
+import io.github.nalukit.nalu.client.internal.NaluConfig;
 import io.github.nalukit.nalu.client.internal.route.RouteConfig;
 import io.github.nalukit.nalu.client.internal.route.RouterConfiguration;
 import io.github.nalukit.nalu.client.internal.route.ShellConfig;
@@ -90,7 +90,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute01() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -105,7 +105,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute02() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -120,7 +120,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute03() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -135,7 +135,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute04() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -150,7 +150,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute05() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -165,7 +165,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute06() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -180,7 +180,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute07() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -195,7 +195,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute08() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -210,7 +210,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute09() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -225,7 +225,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute00() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -240,7 +240,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute10() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -255,7 +255,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute11() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -270,7 +270,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute12() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -285,7 +285,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute13() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -300,7 +300,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute14() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -315,7 +315,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute15() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -330,7 +330,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute16() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -347,7 +347,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute51() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -362,7 +362,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute52() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -377,7 +377,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute53() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -392,7 +392,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute54() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -407,7 +407,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute55() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -422,7 +422,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute56() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -437,7 +437,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute57() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -452,7 +452,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute58() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -467,7 +467,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute59() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -482,7 +482,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute50() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -497,7 +497,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute60() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -512,7 +512,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute61() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -527,7 +527,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute62() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -542,7 +542,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute63() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -557,7 +557,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute64() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -572,7 +572,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute65() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -587,7 +587,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute66() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -602,7 +602,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute101() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -617,7 +617,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute102() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -632,7 +632,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute103() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -647,7 +647,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute104() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -662,7 +662,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute105() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -677,7 +677,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute106() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -692,7 +692,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute107() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -707,7 +707,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute108() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -722,7 +722,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute109() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -737,7 +737,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute100() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -752,7 +752,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute110() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -767,7 +767,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute111() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -782,7 +782,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute112() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -797,7 +797,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute113() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -812,7 +812,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute114() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -827,7 +827,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute115() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -842,7 +842,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute116() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -859,7 +859,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute151() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -874,7 +874,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute152() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -889,7 +889,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute153() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -904,7 +904,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute154() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -919,7 +919,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute155() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -934,7 +934,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute156() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -949,7 +949,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute157() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -964,7 +964,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute158() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -979,7 +979,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute159() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -994,7 +994,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute150() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -1009,7 +1009,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute160() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -1024,7 +1024,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute161() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -1039,7 +1039,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute162() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -1054,7 +1054,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute163() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -1069,7 +1069,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute164() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -1084,7 +1084,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute165() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -1099,7 +1099,7 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute166() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,

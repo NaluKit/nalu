@@ -1,6 +1,6 @@
 package io.github.nalukit.nalu.client;
 
-import io.github.nalukit.nalu.client.internal.PropertyFactory;
+import io.github.nalukit.nalu.client.internal.NaluConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,7 @@ public class RouterUtilsTest {
   void testMatch01Ok() {
     String route = "/app/person/3/edit";
     String with  = "/app/person/*/edit";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -26,7 +26,7 @@ public class RouterUtilsTest {
   void testMatch02Fail() {
     String route = "/app/person/3/edit";
     String with  = "/app/person/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -42,7 +42,7 @@ public class RouterUtilsTest {
   void testMatch03Fail() {
     String route = "/app/person/3/edit";
     String with  = "/app/*/person/edit";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -58,7 +58,7 @@ public class RouterUtilsTest {
   void testMatch04Fail() {
     String route = "/app/person/3/edit";
     String with  = "/app/*/person/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -74,7 +74,7 @@ public class RouterUtilsTest {
   void testMatch05Ok() {
     String route = "/app/person/3/edit";
     String with  = "/app/person/*/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -90,7 +90,7 @@ public class RouterUtilsTest {
   void testMatch06Fail() {
     String route = "/";
     String with  = "/app/person/*/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -106,7 +106,7 @@ public class RouterUtilsTest {
   void testMatch07Ok() {
     String route = "/";
     String with  = "/";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -122,7 +122,7 @@ public class RouterUtilsTest {
   void testMatch08Ok() {
     String route = "/";
     String with  = "/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -138,7 +138,7 @@ public class RouterUtilsTest {
   void testMatch09Fail() {
     String route = "/app/person/search";
     String with  = "/app/person/*/edit";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -154,7 +154,7 @@ public class RouterUtilsTest {
   void testMatch51Ok() {
     String route = "/app/person/:3/edit";
     String with  = "/app/person/*/edit";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -170,7 +170,7 @@ public class RouterUtilsTest {
   void testMatch52Ok() {
     String route = "/app/person/:3/edit";
     String with  = "/app/person/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -186,7 +186,7 @@ public class RouterUtilsTest {
   void testMatch59FailOk() {
     String route = "/app/person/:3/edit";
     String with  = "/app/person/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -203,7 +203,7 @@ public class RouterUtilsTest {
   void testMatch53Fail() {
     String route = "/app/person/:3/edit";
     String with  = "/app/*/person/edit";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -219,7 +219,7 @@ public class RouterUtilsTest {
   void testMatch54Fail() {
     String route = "/app/person/:3/edit";
     String with  = "/app/*/person/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -235,7 +235,7 @@ public class RouterUtilsTest {
   void testMatch55Fail() {
     String route = "/app/person/:3/edit";
     String with  = "/app/person/*/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -251,7 +251,7 @@ public class RouterUtilsTest {
   void testMatch56Fail() {
     String route = "/";
     String with  = "/app/person/*/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -267,7 +267,7 @@ public class RouterUtilsTest {
   void testMatch57Ok() {
     String route = "/";
     String with  = "/";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -283,7 +283,7 @@ public class RouterUtilsTest {
   void testMatch58Ok() {
     String route = "/:";
     String with  = "/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -299,7 +299,7 @@ public class RouterUtilsTest {
   void testMatch101Ok() {
     String route = "/app/person/3/edit";
     String with  = "/app/person/*/edit";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -315,7 +315,7 @@ public class RouterUtilsTest {
   void testMatch102Fail() {
     String route = "/app/person/3/edit";
     String with  = "/app/person/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -331,7 +331,7 @@ public class RouterUtilsTest {
   void testMatch103Fail() {
     String route = "/app/person/3/edit";
     String with  = "/app/*/person/edit";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -347,7 +347,7 @@ public class RouterUtilsTest {
   void testMatch104Fail() {
     String route = "/app/person/3/edit";
     String with  = "/app/*/person/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -363,7 +363,7 @@ public class RouterUtilsTest {
   void testMatch105Ok() {
     String route = "/app/person/3/edit";
     String with  = "/app/person/*/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -379,7 +379,7 @@ public class RouterUtilsTest {
   void testMatch106Fail() {
     String route = "/";
     String with  = "/app/person/*/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -395,7 +395,7 @@ public class RouterUtilsTest {
   void testMatch107Ok() {
     String route = "/";
     String with  = "/";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -411,7 +411,7 @@ public class RouterUtilsTest {
   void testMatch108Ok() {
     String route = "/";
     String with  = "/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -427,7 +427,7 @@ public class RouterUtilsTest {
   void testMatch109Fail() {
     String route = "/app/person/search";
     String with  = "/app/person/*/edit";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -443,7 +443,7 @@ public class RouterUtilsTest {
   void testMatch151Ok() {
     String route = "/app/person/:3/edit";
     String with  = "/app/person/*/edit";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -459,7 +459,7 @@ public class RouterUtilsTest {
   void testMatch152Ok() {
     String route = "/app/person/:3/edit";
     String with  = "/app/person/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -475,7 +475,7 @@ public class RouterUtilsTest {
   void testMatch159FailOk() {
     String route = "/app/person/:3/edit";
     String with  = "/app/person/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -492,7 +492,7 @@ public class RouterUtilsTest {
   void testMatch153Fail() {
     String route = "/app/person/:3/edit";
     String with  = "/app/*/person/edit";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -508,7 +508,7 @@ public class RouterUtilsTest {
   void testMatch154Fail() {
     String route = "/app/person/:3/edit";
     String with  = "/app/*/person/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -524,7 +524,7 @@ public class RouterUtilsTest {
   void testMatch155Fail() {
     String route = "/app/person/:3/edit";
     String with  = "/app/person/*/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -540,7 +540,7 @@ public class RouterUtilsTest {
   void testMatch156Fail() {
     String route = "/";
     String with  = "/app/person/*/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -556,7 +556,7 @@ public class RouterUtilsTest {
   void testMatch157Ok() {
     String route = "/";
     String with  = "/";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,
@@ -572,7 +572,7 @@ public class RouterUtilsTest {
   void testMatch158Ok() {
     String route = "/:";
     String with  = "/*";
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("startShell/startRoute",
                              "",
                              false,

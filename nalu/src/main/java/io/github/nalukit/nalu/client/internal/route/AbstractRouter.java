@@ -28,7 +28,7 @@ import io.github.nalukit.nalu.client.event.NaluErrorEvent;
 import io.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import io.github.nalukit.nalu.client.filter.IsFilter;
 import io.github.nalukit.nalu.client.internal.CompositeReference;
-import io.github.nalukit.nalu.client.internal.PropertyFactory;
+import io.github.nalukit.nalu.client.internal.NaluConfig;
 import io.github.nalukit.nalu.client.internal.Utils;
 import io.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import io.github.nalukit.nalu.client.internal.application.CompositeConditionFactory;
@@ -121,13 +121,13 @@ abstract class AbstractRouter
     this.activeComponents  = new HashMap<>();
     this.loopDetectionList = new ArrayList<>();
     // set up PropertyFactory
-    PropertyFactory.INSTANCE.register(startRoute,
-                                      illegalRouteTarget,
-                                      usingBaseHref,
-                                      hasHistory,
-                                      usingHash,
-                                      usingColonForParametersInUrl,
-                                      stayOnSite);
+    NaluConfig.INSTANCE.register(startRoute,
+                                 illegalRouteTarget,
+                                 usingBaseHref,
+                                 hasHistory,
+                                 usingHash,
+                                 usingColonForParametersInUrl,
+                                 stayOnSite);
   }
 
   /**
@@ -712,9 +712,9 @@ abstract class AbstractRouter
   @Override
   public void handleRouterException(String hash,
                                     RouterException e) {
-    if (PropertyFactory.INSTANCE.getIllegalRouteTarget() == null ||
-        PropertyFactory.INSTANCE.getIllegalRouteTarget()
-                                .isEmpty()) {
+    if (NaluConfig.INSTANCE.getIllegalRouteTarget() == null ||
+        NaluConfig.INSTANCE.getIllegalRouteTarget()
+                           .isEmpty()) {
       // fire Router StateEvent
       try {
         RouteResult routeResult = this.parse(hash);
@@ -740,7 +740,7 @@ abstract class AbstractRouter
                                             .message(sb.toString())
                                             .route(hash));
     } else {
-      this.route(PropertyFactory.INSTANCE.getIllegalRouteTarget());
+      this.route(NaluConfig.INSTANCE.getIllegalRouteTarget());
     }
   }
 

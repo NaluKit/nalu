@@ -16,7 +16,7 @@
 
 package io.github.nalukit.nalu.plugin.elemento.client;
 
-import io.github.nalukit.nalu.client.internal.PropertyFactory;
+import io.github.nalukit.nalu.client.internal.NaluConfig;
 import io.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import io.github.nalukit.nalu.client.plugin.IsCustomAlertPresenter;
 import io.github.nalukit.nalu.client.plugin.IsCustomConfirmPresenter;
@@ -111,14 +111,14 @@ public class NaluPluginElemento
 
   @Override
   public void register(RouteChangeHandler handler) {
-    if (PropertyFactory.INSTANCE
+    if (NaluConfig.INSTANCE
                        .hasHistory()) {
-      if (PropertyFactory.INSTANCE
+      if (NaluConfig.INSTANCE
                          .isUsingHash()) {
         NaluCorePluginFactory.INSTANCE.addOnHashChangeHandler(handler);
       } else {
         NaluCorePluginFactory.INSTANCE.addPopStateHandler(handler,
-                                                          PropertyFactory.INSTANCE
+                                                          NaluConfig.INSTANCE
                                                             .getContextPath());
       }
     } else {
