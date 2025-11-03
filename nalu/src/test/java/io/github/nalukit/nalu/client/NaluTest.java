@@ -1,6 +1,6 @@
 package io.github.nalukit.nalu.client;
 
-import io.github.nalukit.nalu.client.internal.PropertyFactory;
+import io.github.nalukit.nalu.client.internal.NaluConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ public class NaluTest {
 
   @Test
   void hasHistory01() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
                              false,
@@ -33,7 +33,7 @@ public class NaluTest {
 
   @Test
   void hasHistory02() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
                              false,
@@ -46,7 +46,7 @@ public class NaluTest {
 
   @Test
   void isUsingHash01() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
                              false,
@@ -59,7 +59,7 @@ public class NaluTest {
 
   @Test
   void isUsingHash02() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
                              false,
@@ -72,7 +72,7 @@ public class NaluTest {
 
   @Test
   void isUsingColonForParametersInUrl01() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
                              false,
@@ -85,7 +85,7 @@ public class NaluTest {
 
   @Test
   void isUsingColonForParametersInUrl02() {
-    PropertyFactory.INSTANCE
+    NaluConfig.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
                              false,
