@@ -242,7 +242,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          body: Relase of version ${{ steps.project.outputs.version }}
+          body: Release of version ${{ steps.project.outputs.version }}
           tag_name: ${{ steps.project.outputs.version }}
       - id: install-secret-key
         name: Install GPG secret key

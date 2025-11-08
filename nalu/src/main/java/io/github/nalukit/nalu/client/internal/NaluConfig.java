@@ -1,8 +1,8 @@
 package io.github.nalukit.nalu.client.internal;
 
-public class PropertyFactory {
+public class NaluConfig {
 
-  public static PropertyFactory INSTANCE = new PropertyFactory();
+  public static NaluConfig INSTANCE = new NaluConfig();
 
   // context path
   private String  contextPath;
@@ -21,7 +21,7 @@ public class PropertyFactory {
   // should the application replace history (stay on side) in case of empty hash
   private boolean stayOnSide;
 
-  private PropertyFactory() {
+  private NaluConfig() {
   }
 
   /**

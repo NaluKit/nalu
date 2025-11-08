@@ -1,17 +1,20 @@
-# Steps to create a release
+# Release Process
 
-To release the library, the following steps needs to be done:
+To release the library, follow these steps:
 
-* push all changes to `dev` 
-* wait until the action has successfully finished
-* create new branch from `dev` and name it `release/x.x.x`
-* change revision in POM from 'HEAD-SNAPSHOT' to 'x.x.x'
-* change 'HEAD-SNAPSHOT' to 'x.x.x' (be careful: do not change the value inside the README)
-* push changes using comment 'set version to x.x.x'
-* merge the `release/x.x.x`-branch into main (create PR) 
-* merge the `main`-branch back to dev (change versions back to HEAD-SNAPSHOT: pom, Nalu.java, NaluTest.java + Templates)
-* release new version (Nexus)
-* create new branch from main and name it `snapshot`
-* change version 'x.x.x' back to 'HEAD-SNAPSHOT'
-* merge the snapshot branch into dev
-* delete the snapshot branch
+1. Push all changes to the `dev` branch.
+2. Wait until the CI action has successfully finished.
+3. Create a new branch from `dev` and name it `release/x.x.x`.
+4. Change the version in the following files from `HEAD-SNAPSHOT` to `x.x.x`:
+   - pom.xml
+   - Nalu.java
+   - NaluTest.java
+   - Templates (if applicable)
+5. Commit and push the changes with the comment: `prepare release x.x.x`.
+6. Create a pull request to merge the `release/x.x.x` branch into `main` and complete the merge.
+7. Release the new version (e.g., via Nexus).
+8. Create a new branch from `main` and name it `snapshot`.
+9. Change the version in the same files (pom.xml, Nalu.java, NaluTest.java, Templates) from `x.x.x` back to `HEAD-SNAPSHOT`.
+10. Commit and push the changes with the comment: `start next iteration`.
+11. Merge the `snapshot` branch into `dev`.
+12. Delete the `snapshot` branch.

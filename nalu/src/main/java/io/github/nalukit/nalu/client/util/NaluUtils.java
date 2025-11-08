@@ -1,6 +1,6 @@
 package io.github.nalukit.nalu.client.util;
 
-import io.github.nalukit.nalu.client.internal.PropertyFactory;
+import io.github.nalukit.nalu.client.internal.NaluConfig;
 
 import java.util.Objects;
 
@@ -81,7 +81,7 @@ public class NaluUtils {
    * @return cleaned route
    */
   public String cleanRoute(String route) {
-    if (PropertyFactory.INSTANCE.isUsingHash()) {
+    if (NaluConfig.INSTANCE.isUsingHash()) {
       return route;
     }
     if (Objects.isNull(route)) {

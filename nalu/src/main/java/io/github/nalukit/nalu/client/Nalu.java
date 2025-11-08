@@ -16,28 +16,28 @@
 
 package io.github.nalukit.nalu.client;
 
-import io.github.nalukit.nalu.client.internal.PropertyFactory;
+import io.github.nalukit.nalu.client.internal.NaluConfig;
 import io.github.nalukit.nalu.client.internal.route.RouterUtils;
 
 public class Nalu {
 
   public static String getVersion() {
     // TODO Change this for other versions
-    return "3.1.0";
+    return "3.1.1";
   }
 
   public static boolean hasHistory() {
-    return PropertyFactory.INSTANCE
+    return NaluConfig.INSTANCE
                           .hasHistory();
   }
 
   public static boolean isUsingHash() {
-    return PropertyFactory.INSTANCE
+    return NaluConfig.INSTANCE
                           .isUsingHash();
   }
 
   public static boolean isUsingColonForParametersInUrl() {
-    return PropertyFactory.INSTANCE
+    return NaluConfig.INSTANCE
                           .isUsingColonForParametersInUrl();
   }
 
