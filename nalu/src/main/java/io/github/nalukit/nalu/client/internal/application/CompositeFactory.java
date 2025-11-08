@@ -18,8 +18,8 @@ package io.github.nalukit.nalu.client.internal.application;
 
 import io.github.nalukit.nalu.client.component.AbstractCompositeController;
 import io.github.nalukit.nalu.client.exception.RoutingInterceptionException;
-import io.github.nalukit.nalu.client.internal.Utils;
 import io.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+import io.github.nalukit.nalu.client.internal.util.Utils;
 
 import java.util.HashMap;
 import java.util.List;

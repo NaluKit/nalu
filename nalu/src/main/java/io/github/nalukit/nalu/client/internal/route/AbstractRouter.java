@@ -29,7 +29,6 @@ import io.github.nalukit.nalu.client.exception.RoutingInterceptionException;
 import io.github.nalukit.nalu.client.filter.IsFilter;
 import io.github.nalukit.nalu.client.internal.CompositeReference;
 import io.github.nalukit.nalu.client.internal.NaluConfig;
-import io.github.nalukit.nalu.client.internal.Utils;
 import io.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import io.github.nalukit.nalu.client.internal.application.CompositeConditionFactory;
 import io.github.nalukit.nalu.client.internal.application.CompositeFactory;
@@ -41,6 +40,7 @@ import io.github.nalukit.nalu.client.internal.application.RouterStateEventFactor
 import io.github.nalukit.nalu.client.internal.application.ShellCallback;
 import io.github.nalukit.nalu.client.internal.application.ShellFactory;
 import io.github.nalukit.nalu.client.internal.application.ShellInstance;
+import io.github.nalukit.nalu.client.internal.util.Utils;
 import io.github.nalukit.nalu.client.module.IsModule;
 import io.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import io.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.ConfirmHandler;

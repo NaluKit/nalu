@@ -20,6 +20,8 @@ public class NaluConfig {
   private boolean usingColonForParametersInUrl;
   // should the application replace history (stay on side) in case of empty hash
   private boolean stayOnSide;
+  // should Nalu do a fuzzy route compare
+  private boolean useFuzzyRouteCompare;
 
   private NaluConfig() {
   }
@@ -103,6 +105,24 @@ public class NaluConfig {
    */
   public boolean isUsingBaseHref() {
     return this.usingBaseHref;
+  }
+
+  /**
+   * Is Nalu using fuzzy route compare?
+   *
+   * @return true: use fuzzy route compore
+   */
+  public boolean isUseFuzzyRouteCompare() {
+    return useFuzzyRouteCompare;
+  }
+
+  /**
+   * Sets weather Nalu should use fuzzy route compare (slower) or not. Defaullt use false!
+   *
+   * @param useFuzzyRouteCompare set weather Nalu uses fuzzy route compare (slower) or not
+   */
+  public void setUseFuzzyRouteCompare(boolean useFuzzyRouteCompare) {
+    this.useFuzzyRouteCompare = useFuzzyRouteCompare;
   }
 
   /**

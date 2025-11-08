@@ -1,4 +1,4 @@
-package io.github.nalukit.nalu.client.internal;
+package io.github.nalukit.nalu.client.internal.util;
 
 import io.github.nalukit.nalu.client.component.AbstractComponentController;
 import io.github.nalukit.nalu.client.component.AbstractCompositeController;

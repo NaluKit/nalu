@@ -16,14 +16,18 @@
 
 package io.github.nalukit.nalu.client.internal.route;
 
+import io.github.nalukit.nalu.client.internal.util.GUID;
+import io.github.nalukit.nalu.client.util.NaluUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import io.github.nalukit.nalu.client.util.NaluUtils;
-
 public class RouteConfig {
+
+  /* unique identifier */
+  private final String uuid;
 
   /* shellCreator */
   private List<String> shell;
@@ -45,6 +49,7 @@ public class RouteConfig {
 
   @SuppressWarnings("unused")
   private RouteConfig() {
+    this.uuid = GUID.get();
   }
 
   public RouteConfig(String route,
@@ -52,6 +57,8 @@ public class RouteConfig {
                      String selector,
                      String className) {
     super();
+
+    this.uuid = GUID.get();
 
     this.shell = new ArrayList<>();
 
@@ -84,6 +91,10 @@ public class RouteConfig {
     } else {
       this.shell.add("/" + shellFromRoute);
     }
+  }
+
+  public String getUuid() {
+    return this.uuid;
   }
 
   public String getRoute() {

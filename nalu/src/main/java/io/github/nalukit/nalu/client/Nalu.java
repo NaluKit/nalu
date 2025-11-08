@@ -27,18 +27,15 @@ public class Nalu {
   }
 
   public static boolean hasHistory() {
-    return NaluConfig.INSTANCE
-                          .hasHistory();
+    return NaluConfig.INSTANCE.hasHistory();
   }
 
   public static boolean isUsingHash() {
-    return NaluConfig.INSTANCE
-                          .isUsingHash();
+    return NaluConfig.INSTANCE.isUsingHash();
   }
 
   public static boolean isUsingColonForParametersInUrl() {
-    return NaluConfig.INSTANCE
-                          .isUsingColonForParametersInUrl();
+    return NaluConfig.INSTANCE.isUsingColonForParametersInUrl();
   }
 
   /**
@@ -100,4 +97,12 @@ public class Nalu {
                              exact);
   }
 
+  /**
+   * Sets weather Nalu should use fuzzy route compare (slower) or not. Defaullt use false!
+   *
+   * @param useFuzzyRouteCompare set weather Nalu uses fuzzy route compare (slower) or not
+   */
+  public static void configFuzzyRouteCompare(boolean useFuzzyRouteCompare) {
+    NaluConfig.INSTANCE.setUseFuzzyRouteCompare(useFuzzyRouteCompare);
+  }
 }
