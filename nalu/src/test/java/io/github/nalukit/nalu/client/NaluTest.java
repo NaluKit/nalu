@@ -14,7 +14,7 @@ public class NaluTest {
   void getVersion()
       throws IOException {
     // TODO Change this if you want to test against another version
-    Assertions.assertEquals("3.1.1",
+    Assertions.assertEquals("HEAD-SNAPSHOT",
                             Nalu.getVersion());
   }
 
