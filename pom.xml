@@ -28,7 +28,7 @@
   <packaging>pom</packaging>
 
   <name>nalu-parent</name>
-  <description>The wave that helps to build GWT and J2CL applications</description>
+  <description>The wave that helps creating GWT and J2CL apps</description>
   <url>https://github.com/nalukit/nalu</url>
 
   <modules>
