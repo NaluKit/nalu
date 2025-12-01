@@ -16,13 +16,6 @@
 
 package io.github.nalukit.nalu.plugin.core.web.client.implementation;
 
-import io.github.nalukit.nalu.client.internal.NaluConfig;
-import io.github.nalukit.nalu.client.internal.route.ShellConfig;
-import io.github.nalukit.nalu.client.internal.route.ShellConfiguration;
-import io.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.RouteChangeHandler;
-import io.github.nalukit.nalu.client.util.NaluUtils;
-import io.github.nalukit.nalu.plugin.core.web.client.IsNaluCorePlugin;
-import io.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import elemental2.dom.Document;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLBaseElement;
@@ -31,6 +24,13 @@ import elemental2.dom.Location;
 import elemental2.dom.Node;
 import elemental2.dom.PopStateEvent;
 import elemental2.dom.URL;
+import io.github.nalukit.nalu.client.internal.NaluConfig;
+import io.github.nalukit.nalu.client.internal.route.ShellConfig;
+import io.github.nalukit.nalu.client.internal.route.ShellConfiguration;
+import io.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.RouteChangeHandler;
+import io.github.nalukit.nalu.client.util.NaluUtils;
+import io.github.nalukit.nalu.plugin.core.web.client.IsNaluCorePlugin;
+import io.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import jsinterop.base.Js;
 
 import java.util.HashMap;
@@ -38,26 +38,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-public class NaluPluginCoreWeb
+public class DefaultNaluPluginCoreWeb
+    extends AbstractNaluPluginCoreWeb
     implements IsNaluCorePlugin {
-
-  public static boolean isSuperDevMode() {
-    return "on".equals(System.getProperty("superdevmode",
-                                          "off"));
-  }
-
-  private static String getHashValue(String hash) {
-    if (!Objects.isNull(hash)) {
-      if (hash.startsWith("#")) {
-        if (hash.length() > 1) {
-          return hash.substring(1);
-        } else {
-          return "";
-        }
-      }
-    }
-    return null;
-  }
 
   /**
    * Removes the contextPath from a given path if it starts with it.
@@ -81,7 +64,7 @@ public class NaluPluginCoreWeb
    * Ensures or updates the <base> element (href only).
    * @param href the href to set
    */
-  private static final void ensureOrUpdateBase(String href) {
+  private static void ensureOrUpdateBase(String href) {
     ensureOrUpdateBase(href, null);
   }
 
@@ -90,7 +73,8 @@ public class NaluPluginCoreWeb
    * @param href the href to set
    * @param target the target to set (optional, can be null or empty)
    */
-  private static final void ensureOrUpdateBase(String href, String target) {
+  private static void ensureOrUpdateBase(String href,
+                                         String target) {
 
     Document doc = DomGlobal.document;
     HTMLBaseElement base =
