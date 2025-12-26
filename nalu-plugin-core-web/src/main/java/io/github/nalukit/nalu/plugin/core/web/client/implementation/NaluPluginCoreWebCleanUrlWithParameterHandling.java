@@ -20,10 +20,12 @@ import elemental2.dom.DomGlobal;
 import io.github.nalukit.nalu.client.internal.NaluConfig;
 import io.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import io.github.nalukit.nalu.plugin.core.web.client.IsNaluCorePlugin;
+import io.github.nalukit.nalu.plugin.core.web.client.NaluCoreConstants;
 
+import java.util.Map;
 import java.util.Objects;
 
-public class DefaultNaluPluginCoreWeb
+public class NaluPluginCoreWebCleanUrlWithParameterHandling
     extends AbstractNaluPluginCoreWeb
     implements IsNaluCorePlugin {
 
@@ -49,8 +51,17 @@ public class DefaultNaluPluginCoreWeb
         newRouteToken += "/";
       }
     }
+    // in case we had parameters inside the url at start up, we add
+    // them to the newRoute
+    StringBuilder parameterToken = new StringBuilder();
+      if (this.hasParameters()) {
+        this.createParameterToken(parameterToken);
+      }
     if (NaluConfig.INSTANCE.hasHistory()) {
       if (!stealthMode) {
+        if (parameterToken.length() > 0) {
+          newRouteToken = newRouteToken + parameterToken;
+        }
         if (replace) {
           DomGlobal.window.history.replaceState(newRouteToken,
                                                 DomGlobal.document.title,
@@ -62,10 +73,41 @@ public class DefaultNaluPluginCoreWeb
         }
       }
     } else {
+      String newPath = DomGlobal.window.location.pathname;
+      if (parameterToken.length() > 0) {
+        newPath = newPath + parameterToken.toString();
+      }
       DomGlobal.window.history.pushState("",
                                          DomGlobal.document.title,
-                                         DomGlobal.window.location.pathname);
+                                         newPath);
     }
+  }
+
+  private void createParameterToken(StringBuilder parameterToken) {
+    parameterToken.append("?");
+    boolean firstOneAdded = false;
+    for (Map.Entry<String, String> entry : super.queryParameters.entrySet()) {
+      if (!NaluCoreConstants.PARAMETER_URI.equals(entry.getKey())) {
+        String key   = entry.getKey();
+        String value = entry.getValue();
+        if (!firstOneAdded) {
+          parameterToken.append("&");
+        }
+        parameterToken.append(key)
+                      .append("=")
+                      .append(value);
+      }
+    }
+  }
+
+  private boolean hasParameters() {
+    if (Objects.isNull(super.queryParameters)) {
+      return false;
+    }
+    if (super.queryParameters.isEmpty()) {
+      return false;
+    }
+    return super.queryParameters.size() != 1 || !super.queryParameters.containsKey(NaluCoreConstants.PARAMETER_URI);
   }
 
 }

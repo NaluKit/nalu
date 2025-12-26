@@ -67,7 +67,7 @@ public class RouteValidation {
 
   private static String getShellFromRoute(String route) {
     String shell = route;
-    shell = NaluUtils.removeLeading("/", shell);
+    shell = NaluUtils.INSTANCE.removeLeading("/", shell);
 
     if (shell.contains("/")) {
       return shell.substring(0,
@@ -79,7 +79,7 @@ public class RouteValidation {
 
   private static String getRouteWithoutShellAndParameter(String route) {
     String routeWithoutShell = route;
-    routeWithoutShell = NaluUtils.removeLeading("/", routeWithoutShell);
+    routeWithoutShell = NaluUtils.INSTANCE.removeLeading("/", routeWithoutShell);
 
     if (routeWithoutShell.contains("/")) {
       routeWithoutShell = routeWithoutShell.substring(routeWithoutShell.indexOf("/"));

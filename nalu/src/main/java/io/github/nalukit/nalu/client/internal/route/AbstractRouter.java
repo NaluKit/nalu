@@ -513,8 +513,8 @@ abstract class AbstractRouter
           .append("<< intercepts routing! New route: >>")
           .append(redirectTo)
           .append("<<");
-        if (Arrays.asList(parms)
-                  .size() > 0) {
+        if (!Arrays.asList(parms)
+                   .isEmpty()) {
           sb.append(" with parameters: ");
           Stream.of(parms)
                 .forEach(p -> sb.append(">>")
@@ -578,7 +578,7 @@ abstract class AbstractRouter
                                                             .map(config -> this.activeComponents.get(config.getSelector()))
                                                             .filter(Objects::nonNull)
                                                             .collect(Collectors.toList());
-    if (instances.size() == 0) {
+    if (instances.isEmpty()) {
       this.doRouting(hash,
                      routeResult,
                      routeConfigurations);
@@ -690,7 +690,7 @@ abstract class AbstractRouter
                                                           .filter(Objects::nonNull)
                                                           .findFirst();
 
-    if (optionalConfirm.isPresent() || messageList.size() > 0) {
+    if (optionalConfirm.isPresent() || !messageList.isEmpty()) {
       this.plugin.confirm(optionalConfirm.orElseGet(() -> messageList.get(0)),
                           confirmHandler);
     } else {
@@ -926,7 +926,7 @@ abstract class AbstractRouter
                                       // get a list of composites for this controller (might be empty ...
                                       List<CompositeReference> compositeForShell = getCompositeForClassName(shell.getClass()
                                                                                                                  .getCanonicalName());
-                                      if (compositeForShell.size() > 0) {
+                                      if (!compositeForShell.isEmpty()) {
                                         compositeForShell.forEach(s -> {
                                           try {
                                             // check for composite loader
@@ -1167,7 +1167,7 @@ abstract class AbstractRouter
       boolean handlingModeReuse = this.isHandlingModeReuse(controllerInstance.getController());
       // in case the controller is not cached, we have to deal with composites!
       if (!controllerInstance.isCached() && !handlingModeReuse) {
-        if (compositeForController.size() > 0) {
+        if (!compositeForController.isEmpty()) {
           compositeForController.forEach(s -> {
             try {
               // check for composite loader
@@ -1474,8 +1474,8 @@ abstract class AbstractRouter
 
   private String pimpUpHashForLoopDetection(String hash) {
     String value = hash;
-    value = NaluUtils.removeLeading("#", value);
-    value = NaluUtils.removeLeading("/", value);
+    value = NaluUtils.INSTANCE.removeLeading("#", value);
+    value = NaluUtils.INSTANCE.removeLeading("/", value);
     return value;
   }
 
@@ -1488,8 +1488,8 @@ abstract class AbstractRouter
       .append("<< intercepts routing! New route: >>")
       .append(route)
       .append("<<");
-    if (Arrays.asList(parameter)
-              .size() > 0) {
+    if (!Arrays.asList(parameter)
+               .isEmpty()) {
       sb.append(" with parameters: ");
       Stream.of(parameter)
             .forEach(p -> sb.append(">>")

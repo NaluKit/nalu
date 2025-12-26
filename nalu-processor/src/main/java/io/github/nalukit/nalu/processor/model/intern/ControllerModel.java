@@ -204,7 +204,7 @@ public class ControllerModel {
 
   private String getRouteWithoutShell(String route) {
     String routeWithoutShell = route;
-    routeWithoutShell = NaluUtils.removeLeading("/", routeWithoutShell);
+    routeWithoutShell = NaluUtils.INSTANCE.removeLeading("/", routeWithoutShell);
     if (routeWithoutShell.contains("/")) {
       routeWithoutShell = routeWithoutShell.substring(routeWithoutShell.indexOf("/"));
       if (routeWithoutShell.contains("/:")) {
@@ -219,7 +219,7 @@ public class ControllerModel {
 
   private String getShellFromRoute(String route) {
     String shellOfRoute = route;
-    shellOfRoute = NaluUtils.removeLeading("/", shellOfRoute);
+    shellOfRoute = NaluUtils.INSTANCE.removeLeading("/", shellOfRoute);
     if (shellOfRoute.contains("/")) {
       shellOfRoute = shellOfRoute.substring(0,
                                             shellOfRoute.indexOf("/"));
