@@ -51,12 +51,16 @@ public class NaluPluginCoreWebCleanUrlWithParameterHandling
         newRouteToken += "/";
       }
     }
+    // remove last "/" (in case it exists)
+    if (newRouteToken.endsWith("/")) {
+      newRouteToken = newRouteToken.substring(0, newRouteToken.length() - 1);
+    }
     // in case we had parameters inside the url at start up, we add
     // them to the newRoute
     StringBuilder parameterToken = new StringBuilder();
-      if (this.hasParameters()) {
-        this.createParameterToken(parameterToken);
-      }
+    if (this.hasParameters()) {
+      this.createParameterToken(parameterToken);
+    }
     if (NaluConfig.INSTANCE.hasHistory()) {
       if (!stealthMode) {
         if (parameterToken.length() > 0) {
@@ -75,7 +79,7 @@ public class NaluPluginCoreWebCleanUrlWithParameterHandling
     } else {
       String newPath = DomGlobal.window.location.pathname;
       if (parameterToken.length() > 0) {
-        newPath = newPath + parameterToken.toString();
+        newPath = newPath + parameterToken;
       }
       DomGlobal.window.history.pushState("",
                                          DomGlobal.document.title,
