@@ -18,7 +18,7 @@ package io.github.nalukit.nalu.plugin.core.web.client;
 
 import io.github.nalukit.nalu.client.internal.route.ShellConfiguration;
 import io.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin.RouteChangeHandler;
-import io.github.nalukit.nalu.plugin.core.web.client.implementation.DefaultNaluPluginCoreWeb;
+import io.github.nalukit.nalu.plugin.core.web.client.implementation.DefaultCoreWebPlugin;
 import io.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 
 public class NaluCorePluginFactory
@@ -29,7 +29,7 @@ public class NaluCorePluginFactory
   private IsNaluCorePlugin plugin;
 
   public NaluCorePluginFactory() {
-    this.plugin = new DefaultNaluPluginCoreWeb();
+    this.plugin = new DefaultCoreWebPlugin();
   }
 
   public static boolean isSuperDevMode() {

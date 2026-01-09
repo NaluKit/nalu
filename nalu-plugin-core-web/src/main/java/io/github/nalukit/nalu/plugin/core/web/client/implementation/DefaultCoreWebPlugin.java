@@ -23,8 +23,8 @@ import io.github.nalukit.nalu.plugin.core.web.client.IsNaluCorePlugin;
 
 import java.util.Objects;
 
-public class DefaultNaluPluginCoreWeb
-    extends AbstractNaluPluginCoreWeb
+public class DefaultCoreWebPlugin
+    extends AbstractCoreWebPlugin
     implements IsNaluCorePlugin {
 
   @Override

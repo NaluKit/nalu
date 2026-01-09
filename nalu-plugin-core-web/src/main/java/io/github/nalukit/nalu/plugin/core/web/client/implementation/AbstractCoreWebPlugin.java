@@ -39,7 +39,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-public abstract class AbstractNaluPluginCoreWeb
+public abstract class AbstractCoreWebPlugin
     implements IsNaluCorePlugin {
 
   protected Map<String, String> queryParameters = new HashMap<>();

@@ -25,8 +25,18 @@ import io.github.nalukit.nalu.plugin.core.web.client.NaluCoreConstants;
 import java.util.Map;
 import java.util.Objects;
 
-public class NaluPluginCoreWebCleanUrlWithParameterHandling
-    extends AbstractNaluPluginCoreWeb
+/**
+ * This plugin anables Nalu to deal with parameters inside the url.
+ * <br>
+ * Forsing Nalu to use this plugin instead of the defailt one, call:
+ * <br>
+ * NaluCorePluginFactory.INSTANCE.registerPlugin(new CleanUrlWithParameterHandlingCoreWebPlugin());
+ * <br>
+ * bfore the <b>run</b>-method of the Applicaiton class.
+ *
+ */
+public class CleanUrlWithParameterHandlingCoreWebPlugin
+    extends AbstractCoreWebPlugin
     implements IsNaluCorePlugin {
 
   @Override
