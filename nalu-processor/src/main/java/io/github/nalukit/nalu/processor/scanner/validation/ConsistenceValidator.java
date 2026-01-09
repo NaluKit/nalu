@@ -217,7 +217,7 @@ public class ConsistenceValidator {
 
   private String[] splitRoute(String route) {
     String tmpRoute = route;
-    tmpRoute = NaluUtils.removeLeading("/", tmpRoute);
+    tmpRoute = NaluUtils.INSTANCE.removeLeading("/", tmpRoute);
     return tmpRoute.split("/");
   }
 

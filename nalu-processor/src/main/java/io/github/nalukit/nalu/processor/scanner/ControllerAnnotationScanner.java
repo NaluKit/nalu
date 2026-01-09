@@ -408,7 +408,7 @@ public class ControllerAnnotationScanner {
   private List<String> getRoute(String[] routes) {
     List<String> convertedRoutes = new ArrayList<>();
     for (String tmpRoute : routes) {
-      tmpRoute = NaluUtils.removeLeading("/", tmpRoute);
+      tmpRoute = NaluUtils.INSTANCE.removeLeading("/", tmpRoute);
       if (tmpRoute.isEmpty()) {
         convertedRoutes.add("/");
       } else {

@@ -61,7 +61,7 @@ public class RouteConfig {
     this.className  = className;
     // get shellCreator from route
     String tmpValue = route;
-    tmpValue = NaluUtils.removeLeading("/", tmpValue);
+    tmpValue = NaluUtils.INSTANCE.removeLeading("/", tmpValue);
     String shellFromRoute = "";
     if (tmpValue.contains("/")) {
       shellFromRoute         = tmpValue.substring(0,
@@ -71,7 +71,7 @@ public class RouteConfig {
       shellFromRoute         = tmpValue;
       this.routeWithoutShell = "/";
     }
-    shellFromRoute = NaluUtils.removeLeading("[", shellFromRoute);
+    shellFromRoute = NaluUtils.INSTANCE.removeLeading("[", shellFromRoute);
     if (shellFromRoute.endsWith("]")) {
       shellFromRoute = shellFromRoute.substring(0,
                                                 shellFromRoute.length() - 1);
@@ -103,7 +103,7 @@ public class RouteConfig {
     }
     // separate shellCreator from route
     String shellOfRoute = route;
-    shellOfRoute = NaluUtils.removeLeading("/", shellOfRoute);
+    shellOfRoute = NaluUtils.INSTANCE.removeLeading("/", shellOfRoute);
     if (shellOfRoute.contains("/")) {
       shellOfRoute = shellOfRoute.substring(0,
                                             shellOfRoute.indexOf("/"));
@@ -114,7 +114,7 @@ public class RouteConfig {
   private boolean matchRouteWithoutShell(String route) {
     // separate shellCreator from route
     String routeWithoutShell = route;
-    routeWithoutShell = NaluUtils.removeLeading("/", routeWithoutShell);
+    routeWithoutShell = NaluUtils.INSTANCE.removeLeading("/", routeWithoutShell);
     if (routeWithoutShell.contains("/")) {
       routeWithoutShell = routeWithoutShell.substring(routeWithoutShell.indexOf("/") + 1);
     } else {

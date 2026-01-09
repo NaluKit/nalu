@@ -104,7 +104,7 @@ public class NaluUtils {
    * @param string the string from which the leading sign should be removed
    * @return the string without the leading sign if it was present, otherwise the original string
    */
-  public static String removeLeading(String leadingSign, String string) {
+  public String removeLeading(String leadingSign, String string) {
     if (string.startsWith(leadingSign)) {
       return string.substring(leadingSign.length());
     }

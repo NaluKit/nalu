@@ -283,7 +283,7 @@ public class MetaModel {
 
   private String getShellFromRoute(String route) {
     String shellFromRoute = route;
-    shellFromRoute = NaluUtils.removeLeading("/", shellFromRoute);
+    shellFromRoute = NaluUtils.INSTANCE.removeLeading("/", shellFromRoute);
     if (shellFromRoute.contains("/")) {
       shellFromRoute = shellFromRoute.substring(0,
                                                 shellFromRoute.indexOf("/"));

@@ -142,7 +142,7 @@ public class ControllerAnnotationValidator {
   private void validateRoute(String route)
       throws ProcessorException {
     // extract route first:
-    route = NaluUtils.removeLeading("/", route);
+    route = NaluUtils.INSTANCE.removeLeading("/", route);
     // initial routes do not need a validation!
     if (route.isEmpty()) {
       return;
