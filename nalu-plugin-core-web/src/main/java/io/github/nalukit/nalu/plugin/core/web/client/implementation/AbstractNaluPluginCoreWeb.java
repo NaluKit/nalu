@@ -182,7 +182,7 @@ public abstract class AbstractNaluPluginCoreWeb
   }
 
   /**
-   * Ensures or updates the <base> element (href only).
+   * Ensures or updates the &lt;base&gt; element (href only).
    *
    * @param href the href to set
    */
@@ -192,7 +192,7 @@ public abstract class AbstractNaluPluginCoreWeb
   }
 
   /**
-   * Ensures or updates the <base> element (href + optional target).
+   * Ensures or updates the &lt;base&gt; element (href + optional target).
    *
    * @param href   the href to set
    * @param target the target to set (optional, can be null or empty)
