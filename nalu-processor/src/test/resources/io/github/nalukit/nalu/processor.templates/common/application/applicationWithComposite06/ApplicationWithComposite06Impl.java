@@ -171,4 +171,9 @@ public final class ApplicationWithComposite06Impl extends AbstractApplication<Mo
   public boolean isStayOnSide() {
     return false;
   }
+
+  @Override
+  public boolean isUsingTrailingSlash() {
+    return false;
+  }
 }

@@ -47,6 +47,7 @@ public class MetaModel {
   private       boolean                            usingHash;
   private       boolean                            usingColonForParametersInUrl;
   private       boolean                            stayOnSide;
+  private       boolean                            usingTrailingSlash;
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
   /* with a a plugin and not with application  */
@@ -248,6 +249,14 @@ public class MetaModel {
 
   public void setStayOnSide(boolean stayOnSide) {
     this.stayOnSide = stayOnSide;
+  }
+
+  public boolean isUsingTrailingSlash() {
+    return usingTrailingSlash;
+  }
+
+  public void setTrailingSlash(boolean usingTrailingSlash) {
+    this.usingTrailingSlash = usingTrailingSlash;
   }
 
   public ClassNameModel getCustomAlertPresenter() {

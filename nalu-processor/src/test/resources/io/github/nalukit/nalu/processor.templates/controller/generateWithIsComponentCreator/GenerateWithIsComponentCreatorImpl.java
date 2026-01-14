@@ -160,4 +160,9 @@ public final class GenerateWithIsComponentCreatorImpl extends AbstractApplicatio
   public boolean isStayOnSide() {
     return false;
   }
+
+  @Override
+  public boolean isUsingTrailingSlash() {
+    return false;
+  }
 }

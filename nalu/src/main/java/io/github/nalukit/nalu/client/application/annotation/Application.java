@@ -158,10 +158,19 @@ public @interface Application {
   /**
    * This attribute will tell Nalu to handle the usingBaseHref.
    * <br>
-   * Defaul is a<b>false</b> value, which means usingBaseHref-handling is diabled
+   * Defaul is a<b>false</b> value, which means usingBaseHref-handling is disabled
    *
    * @return a boolean.
    */
   boolean usingBaseHref() default false;
+
+  /**
+   * This attribute will tell Nalu if there is a trailing slahs at the end of the hash or not the.
+   * <br>
+   * Defaul is a<b>false</b> value, which means no trailing slash at the end of the hash
+   *
+   * @return a boolean.
+   */
+  boolean usingTrailingSlash() default false;
 
 }

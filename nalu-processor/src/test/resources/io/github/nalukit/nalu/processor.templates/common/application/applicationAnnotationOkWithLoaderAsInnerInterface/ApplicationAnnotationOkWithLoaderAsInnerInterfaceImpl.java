@@ -160,4 +160,9 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   public boolean isStayOnSide() {
     return false;
   }
+
+  @Override
+  public boolean isUsingTrailingSlash() {
+    return false;
+  }
 }

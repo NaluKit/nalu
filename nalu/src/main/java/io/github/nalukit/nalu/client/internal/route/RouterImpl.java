@@ -36,7 +36,8 @@ public final class RouterImpl
                     boolean hasHistory,
                     boolean usingHash,
                     boolean usingColonForParametersInUrl,
-                    boolean stayOnSide) {
+                    boolean stayOnSide,
+                    boolean usingTrailingSlash) {
     super(compositeReferences,
           shellConfiguration,
           routerConfiguration,
@@ -48,7 +49,8 @@ public final class RouterImpl
           hasHistory,
           usingHash,
           usingColonForParametersInUrl,
-          stayOnSide);
+          stayOnSide,
+          usingTrailingSlash);
     this.plugin.register(hash -> RouterImpl.super.handleRouting(hash,
                                                                 false));
   }

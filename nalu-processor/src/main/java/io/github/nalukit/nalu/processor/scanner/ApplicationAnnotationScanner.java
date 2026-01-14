@@ -81,6 +81,7 @@ public class ApplicationAnnotationScanner {
       metaModel.setIllegalRouteTarget(applicationAnnotation.illegalRouteTarget());
       metaModel.setBaseHref(applicationAnnotation.usingBaseHref());
       metaModel.setUsingHash(applicationAnnotation.useHash());
+      metaModel.setTrailingSlash(applicationAnnotation.usingTrailingSlash());
       metaModel.setUsingColonForParametersInUrl(applicationAnnotation.useColonForParametersInUrl());
       metaModel.setStayOnSide(applicationAnnotation.stayOnSite());
       metaModel.setHistory(applicationAnnotation.history());
