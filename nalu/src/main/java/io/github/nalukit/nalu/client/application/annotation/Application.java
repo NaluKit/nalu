@@ -98,7 +98,7 @@ public @interface Application {
    *
    * @return the configuration value for history
    */
-  boolean history() default true;
+  boolean isUsingHistory() default true;
 
   /**
    * This attribute will tell Nalu to:

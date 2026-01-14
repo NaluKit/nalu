@@ -148,7 +148,7 @@ public final class VersionAnnotationImpl extends AbstractApplication<MockModuleC
   }
 
   @Override
-  public boolean hasHistory() {
+  public boolean isUsingHistory() {
     return true;
   }
 

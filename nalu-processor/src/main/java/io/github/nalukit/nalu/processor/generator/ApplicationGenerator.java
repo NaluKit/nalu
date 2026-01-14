@@ -345,12 +345,12 @@ public class ApplicationGenerator {
 
   private void generateHasHistoryMethod(TypeSpec.Builder typeSpec,
                                         MetaModel metaModel) {
-    typeSpec.addMethod(MethodSpec.methodBuilder("hasHistory")
+    typeSpec.addMethod(MethodSpec.methodBuilder("isUsingHistory")
                                  .addAnnotation(Override.class)
                                  .addModifiers(Modifier.PUBLIC)
                                  .returns(boolean.class)
                                  .addStatement("return $L",
-                                               metaModel.hasHistory() ?
+                                               metaModel.isUsingHistory() ?
                                                "true" :
                                                "false")
                                  .build());

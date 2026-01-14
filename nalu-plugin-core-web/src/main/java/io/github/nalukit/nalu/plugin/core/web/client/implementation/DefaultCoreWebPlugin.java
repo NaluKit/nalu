@@ -59,7 +59,7 @@ public class DefaultCoreWebPlugin
         newRouteToken = newRouteToken.substring(0, newRouteToken.length() - 1);
       }
     }
-    if (NaluConfig.INSTANCE.hasHistory()) {
+    if (NaluConfig.INSTANCE.isUsingHistory()) {
       if (!stealthMode) {
         if (replace) {
           DomGlobal.window.history.replaceState(newRouteToken,

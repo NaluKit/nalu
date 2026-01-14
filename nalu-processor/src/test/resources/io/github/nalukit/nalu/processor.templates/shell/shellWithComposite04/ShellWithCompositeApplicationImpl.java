@@ -152,7 +152,7 @@ public final class ShellWithCompositeApplicationImpl extends AbstractApplication
   }
 
   @Override
-  public boolean hasHistory() {
+  public boolean isUsingHistory() {
     return true;
   }
 

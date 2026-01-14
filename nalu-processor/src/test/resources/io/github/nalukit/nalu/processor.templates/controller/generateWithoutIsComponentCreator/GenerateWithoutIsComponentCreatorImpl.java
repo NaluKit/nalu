@@ -142,7 +142,7 @@ public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplica
   }
 
   @Override
-  public boolean hasHistory() {
+  public boolean isUsingHistory() {
     return true;
   }
   

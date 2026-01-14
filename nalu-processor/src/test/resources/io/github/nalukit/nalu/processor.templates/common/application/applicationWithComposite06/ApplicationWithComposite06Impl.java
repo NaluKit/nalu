@@ -153,7 +153,7 @@ public final class ApplicationWithComposite06Impl extends AbstractApplication<Mo
   }
 
   @Override
-  public boolean hasHistory() {
+  public boolean isUsingHistory() {
     return true;
   }
 

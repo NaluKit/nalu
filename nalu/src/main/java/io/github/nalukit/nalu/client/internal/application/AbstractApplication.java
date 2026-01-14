@@ -145,7 +145,7 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.startRoute,
                                  this.illegalRouteTarget,
                                  this.isHandlingBaseHref(),
-                                 this.hasHistory(),
+                                 this.isUsingHistory(),
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl(),
                                  this.isStayOnSide(),
@@ -208,7 +208,7 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract IsTracker loadTrackerConfiguration();
 
-  protected abstract boolean hasHistory();
+  protected abstract boolean isUsingHistory();
 
   protected abstract boolean isUsingHash();
 

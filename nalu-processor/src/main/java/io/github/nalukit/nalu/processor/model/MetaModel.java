@@ -74,7 +74,7 @@ public class MetaModel {
   private       ClassNameModel                     clientLogger;
   /* flag, that indicates, if a Nalu application */
   /* uses a history token or not.                */
-  private       boolean                            history;
+  private       boolean                            isUsingHistory;
   /* Version of the application set by the       */
   /* Version annotation                          */
   private       String                             applicationVersion;
@@ -255,7 +255,7 @@ public class MetaModel {
     return usingTrailingSlash;
   }
 
-  public void setTrailingSlash(boolean usingTrailingSlash) {
+  public void setUsingTrailingSlash(boolean usingTrailingSlash) {
     this.usingTrailingSlash = usingTrailingSlash;
   }
 
@@ -300,12 +300,12 @@ public class MetaModel {
     return shellFromRoute;
   }
 
-  public boolean hasHistory() {
-    return history;
+  public boolean isUsingHistory() {
+    return isUsingHistory;
   }
 
-  public void setHistory(boolean history) {
-    this.history = history;
+  public void setUsingHistory(boolean isUsingHistory) {
+    this.isUsingHistory = isUsingHistory;
   }
 
   public ClassNameModel getLogger() {

@@ -148,7 +148,7 @@ public final class ApplicationWithFilterImpl extends AbstractApplication<MockCon
   }
 
   @Override
-  public boolean hasHistory() {
+  public boolean isUsingHistory() {
     return true;
   }
 

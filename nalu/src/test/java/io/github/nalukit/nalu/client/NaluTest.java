@@ -19,7 +19,7 @@ public class NaluTest {
   }
 
   @Test
-  void hasHistory01() {
+  void isUsingHistory01() {
     NaluConfig.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
@@ -29,11 +29,11 @@ public class NaluTest {
                              true,
                              false,
                              false);
-    Assertions.assertTrue(Nalu.hasHistory());
+    Assertions.assertTrue(Nalu.isUsingHistory());
   }
 
   @Test
-  void hasHistory02() {
+  void isUsingHistory02() {
     NaluConfig.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
@@ -43,7 +43,7 @@ public class NaluTest {
                              true,
                              false,
                              false);
-    Assertions.assertFalse(Nalu.hasHistory());
+    Assertions.assertFalse(Nalu.isUsingHistory());
   }
 
   @Test

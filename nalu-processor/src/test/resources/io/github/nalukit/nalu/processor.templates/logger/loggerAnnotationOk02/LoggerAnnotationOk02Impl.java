@@ -141,7 +141,7 @@ public final class LoggerAnnotationOk02Impl extends AbstractApplication<MockCont
   }
 
   @Override
-  public boolean hasHistory() {
+  public boolean isUsingHistory() {
     return true;
   }
 

@@ -160,7 +160,7 @@ public final class ApplicationWithHandlerOkImpl extends AbstractApplication<Mock
   }
 
   @Override
-  public boolean hasHistory() {
+  public boolean isUsingHistory() {
     return true;
   }
 

@@ -26,9 +26,9 @@ public class Nalu {
     return "HEAD-SNAPSHOT";
   }
 
-  public static boolean hasHistory() {
+  public static boolean isUsingHistory() {
     return NaluConfig.INSTANCE
-                          .hasHistory();
+                          .isUsingHistory();
   }
 
   public static boolean isUsingHash() {

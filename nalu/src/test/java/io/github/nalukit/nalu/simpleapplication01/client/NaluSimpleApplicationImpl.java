@@ -131,7 +131,7 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
-  protected boolean hasHistory() {
+  protected boolean isUsingHistory() {
     return true;
   }
 

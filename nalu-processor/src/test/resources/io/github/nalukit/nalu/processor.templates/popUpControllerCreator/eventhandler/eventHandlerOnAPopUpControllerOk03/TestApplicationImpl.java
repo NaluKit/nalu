@@ -167,7 +167,7 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
   }
 
   @Override
-  public boolean hasHistory() {
+  public boolean isUsingHistory() {
     return true;
   }
 

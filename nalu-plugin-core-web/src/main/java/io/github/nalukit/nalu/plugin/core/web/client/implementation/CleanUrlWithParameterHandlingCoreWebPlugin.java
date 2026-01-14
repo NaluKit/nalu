@@ -77,7 +77,7 @@ public class CleanUrlWithParameterHandlingCoreWebPlugin
     if (this.hasParameters()) {
       this.createParameterToken(parameterToken);
     }
-    if (NaluConfig.INSTANCE.hasHistory()) {
+    if (NaluConfig.INSTANCE.isUsingHistory()) {
       if (!stealthMode) {
         if (parameterToken.length() > 0) {
           newRouteToken = newRouteToken + parameterToken;

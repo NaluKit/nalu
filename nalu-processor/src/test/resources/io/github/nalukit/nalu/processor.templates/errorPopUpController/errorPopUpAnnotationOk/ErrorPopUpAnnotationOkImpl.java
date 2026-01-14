@@ -160,7 +160,7 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
   }
 
   @Override
-  public boolean hasHistory() {
+  public boolean isUsingHistory() {
     return true;
   }
   
