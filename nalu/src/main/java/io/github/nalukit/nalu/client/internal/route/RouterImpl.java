@@ -33,10 +33,11 @@ public final class RouterImpl
                     String startRoute,
                     String illegalRouteTarget,
                     boolean usingBaseHref,
-                    boolean hasHistory,
+                    boolean isUsingHistory,
                     boolean usingHash,
                     boolean usingColonForParametersInUrl,
-                    boolean stayOnSide) {
+                    boolean stayOnSide,
+                    boolean usingTrailingSlash) {
     super(compositeReferences,
           shellConfiguration,
           routerConfiguration,
@@ -45,10 +46,11 @@ public final class RouterImpl
           startRoute,
           illegalRouteTarget,
           usingBaseHref,
-          hasHistory,
+          isUsingHistory,
           usingHash,
           usingColonForParametersInUrl,
-          stayOnSide);
+          stayOnSide,
+          usingTrailingSlash);
     this.plugin.register(hash -> RouterImpl.super.handleRouting(hash,
                                                                 false));
   }

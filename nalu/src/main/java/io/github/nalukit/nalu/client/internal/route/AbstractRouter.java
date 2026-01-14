@@ -103,10 +103,11 @@ abstract class AbstractRouter
                  String startRoute,
                  String illegalRouteTarget,
                  boolean usingBaseHref,
-                 boolean hasHistory,
+                 boolean isUsingHistory,
                  boolean usingHash,
                  boolean usingColonForParametersInUrl,
-                 boolean stayOnSite) {
+                 boolean stayOnSite,
+                 boolean usingTrailingSlash) {
     // save the composite configuration reference
     this.compositeReferences = compositeReferences;
     // save the shell configuration reference
@@ -124,10 +125,11 @@ abstract class AbstractRouter
     NaluConfig.INSTANCE.register(startRoute,
                                  illegalRouteTarget,
                                  usingBaseHref,
-                                 hasHistory,
+                                 isUsingHistory,
                                  usingHash,
                                  usingColonForParametersInUrl,
-                                 stayOnSite);
+                                 stayOnSite,
+                                 usingTrailingSlash);
   }
 
   /**
@@ -171,7 +173,7 @@ abstract class AbstractRouter
   @Override
   public void route(String newRoute,
                     String... params) {
-    // clean route in case we have 'useHash=false' and the newRoute contains
+    // clean route in case we have 'usingHash=false' and the newRoute contains
     // a '#' we have to clean this
     newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)
@@ -204,7 +206,7 @@ abstract class AbstractRouter
   @Override
   public void forceRoute(String newRoute,
                          String... params) {
-    // clean route in case we have 'useHash=false' and the newRoute contains
+    // clean route in case we have 'usingHash=false' and the newRoute contains
     // a '#' we have to clean this
     newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)
@@ -239,7 +241,7 @@ abstract class AbstractRouter
   @Override
   public void forceStealthRoute(String newRoute,
                                 String... params) {
-    // clean route in case we have 'useHash=false' and the newRoute contains
+    // clean route in case we have 'usingHash=false' and the newRoute contains
     // a '#' we have to clean this
     newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)
@@ -270,7 +272,7 @@ abstract class AbstractRouter
   @Override
   public void stealthRoute(String newRoute,
                            String... params) {
-    // clean route in case we have 'useHash=false' and the newRoute contains
+    // clean route in case we have 'usingHash=false' and the newRoute contains
     // a '#' we have to clean this
     newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)
@@ -302,7 +304,7 @@ abstract class AbstractRouter
   @Override
   public void fakeRoute(String newRoute,
                         String... params) {
-    // clean route in case we have 'useHash=false' and the newRoute contains
+    // clean route in case we have 'usingHash=false' and the newRoute contains
     // a '#' we have to clean this
     newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)
@@ -513,8 +515,8 @@ abstract class AbstractRouter
           .append("<< intercepts routing! New route: >>")
           .append(redirectTo)
           .append("<<");
-        if (Arrays.asList(parms)
-                  .size() > 0) {
+        if (!Arrays.asList(parms)
+                   .isEmpty()) {
           sb.append(" with parameters: ");
           Stream.of(parms)
                 .forEach(p -> sb.append(">>")
@@ -578,7 +580,7 @@ abstract class AbstractRouter
                                                             .map(config -> this.activeComponents.get(config.getSelector()))
                                                             .filter(Objects::nonNull)
                                                             .collect(Collectors.toList());
-    if (instances.size() == 0) {
+    if (instances.isEmpty()) {
       this.doRouting(hash,
                      routeResult,
                      routeConfigurations);
@@ -690,7 +692,7 @@ abstract class AbstractRouter
                                                           .filter(Objects::nonNull)
                                                           .findFirst();
 
-    if (optionalConfirm.isPresent() || messageList.size() > 0) {
+    if (optionalConfirm.isPresent() || !messageList.isEmpty()) {
       this.plugin.confirm(optionalConfirm.orElseGet(() -> messageList.get(0)),
                           confirmHandler);
     } else {
@@ -926,7 +928,7 @@ abstract class AbstractRouter
                                       // get a list of composites for this controller (might be empty ...
                                       List<CompositeReference> compositeForShell = getCompositeForClassName(shell.getClass()
                                                                                                                  .getCanonicalName());
-                                      if (compositeForShell.size() > 0) {
+                                      if (!compositeForShell.isEmpty()) {
                                         compositeForShell.forEach(s -> {
                                           try {
                                             // check for composite loader
@@ -1167,7 +1169,7 @@ abstract class AbstractRouter
       boolean handlingModeReuse = this.isHandlingModeReuse(controllerInstance.getController());
       // in case the controller is not cached, we have to deal with composites!
       if (!controllerInstance.isCached() && !handlingModeReuse) {
-        if (compositeForController.size() > 0) {
+        if (!compositeForController.isEmpty()) {
           compositeForController.forEach(s -> {
             try {
               // check for composite loader
@@ -1474,8 +1476,8 @@ abstract class AbstractRouter
 
   private String pimpUpHashForLoopDetection(String hash) {
     String value = hash;
-    value = NaluUtils.removeLeading("#", value);
-    value = NaluUtils.removeLeading("/", value);
+    value = NaluUtils.INSTANCE.removeLeading("#", value);
+    value = NaluUtils.INSTANCE.removeLeading("/", value);
     return value;
   }
 
@@ -1488,8 +1490,8 @@ abstract class AbstractRouter
       .append("<< intercepts routing! New route: >>")
       .append(route)
       .append("<<");
-    if (Arrays.asList(parameter)
-              .size() > 0) {
+    if (!Arrays.asList(parameter)
+               .isEmpty()) {
       sb.append(" with parameters: ");
       Stream.of(parameter)
             .forEach(p -> sb.append(">>")

@@ -292,6 +292,8 @@ public class ApplicationGenerator {
                                            metaModel);
     generateIsStayOnSide(typeSpec,
                          metaModel);
+    generateIsTrailingSlash(typeSpec,
+                            metaModel);
 
     JavaFile javaFile = JavaFile.builder(metaModel.getGenerateToPackage(),
                                          typeSpec.build())
@@ -343,12 +345,12 @@ public class ApplicationGenerator {
 
   private void generateHasHistoryMethod(TypeSpec.Builder typeSpec,
                                         MetaModel metaModel) {
-    typeSpec.addMethod(MethodSpec.methodBuilder("hasHistory")
+    typeSpec.addMethod(MethodSpec.methodBuilder("isUsingHistory")
                                  .addAnnotation(Override.class)
                                  .addModifiers(Modifier.PUBLIC)
                                  .returns(boolean.class)
                                  .addStatement("return $L",
-                                               metaModel.hasHistory() ?
+                                               metaModel.isUsingHistory() ?
                                                "true" :
                                                "false")
                                  .build());
@@ -388,6 +390,19 @@ public class ApplicationGenerator {
                                  .returns(boolean.class)
                                  .addStatement("return $L",
                                                metaModel.isStayOnSide() ?
+                                               "true" :
+                                               "false")
+                                 .build());
+  }
+
+  private void generateIsTrailingSlash(TypeSpec.Builder typeSpec,
+                                    MetaModel metaModel) {
+    typeSpec.addMethod(MethodSpec.methodBuilder("isUsingTrailingSlash")
+                                 .addAnnotation(Override.class)
+                                 .addModifiers(Modifier.PUBLIC)
+                                 .returns(boolean.class)
+                                 .addStatement("return $L",
+                                               metaModel.isUsingTrailingSlash() ?
                                                "true" :
                                                "false")
                                  .build());

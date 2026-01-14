@@ -145,10 +145,11 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.startRoute,
                                  this.illegalRouteTarget,
                                  this.isHandlingBaseHref(),
-                                 this.hasHistory(),
+                                 this.isUsingHistory(),
                                  this.isUsingHash(),
                                  this.isUsingColonForParametersInUrl(),
-                                 this.isStayOnSide());
+                                 this.isStayOnSide(),
+                                 this.isUsingTrailingSlash());
     this.router.setAlwaysLoadComposite(this.alwaysLoadComposite);
     this.router.setAlwaysShowPopUp(this.alwaysShowPopUp);
     this.router.setEventBus(this.eventBus);
@@ -207,13 +208,15 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract IsTracker loadTrackerConfiguration();
 
-  protected abstract boolean hasHistory();
+  protected abstract boolean isUsingHistory();
 
   protected abstract boolean isUsingHash();
 
   protected abstract boolean isUsingColonForParametersInUrl();
 
   protected abstract boolean isStayOnSide();
+
+  protected abstract boolean isUsingTrailingSlash();
 
   protected abstract void loadShellFactory();
 

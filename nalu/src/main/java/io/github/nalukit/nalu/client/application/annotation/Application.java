@@ -37,8 +37,8 @@ import java.lang.annotation.RetentionPolicy;
  * <li>startRoute: in case the application is called without a bookmark, is this the initial route.</li>
  * <li>context: the context of the class. Nalu will create an instance of this class and inject
  * the instance into all controllers, filters, handlers and the application loader.</li>
- * <li>useHash: if useHash is true, use a hash based url, otherwise a non hash based url</li>
- * <li>useColonForParametersInUrl: if useColonForParametersInUrl is true, Nalu expects parameters with a leading colon in urls</li>
+ * <li>usingHash: if usingHash is true, use a hash based url, otherwise a non hash based url</li>
+ * <li>usingColonForParametersInUrl: if usingColonForParametersInUrl is true, Nalu expects parameters with a leading colon in urls</li>
  * <li>stayOnSite: if stayOnSite is true, Nalu will replace history with the start-route in case hash is empty, else Nalu will only update it.</li>
  * </ul>
  *
@@ -98,7 +98,7 @@ public @interface Application {
    *
    * @return the configuration value for history
    */
-  boolean history() default true;
+  boolean isUsingHistory() default true;
 
   /**
    * This attribute will tell Nalu to:
@@ -109,7 +109,7 @@ public @interface Application {
    *
    * @return the configuration value for using hash
    */
-  boolean useHash() default true;
+  boolean usingHash() default true;
 
   /**
    * This attribute - if <b>true</b> will tell Nalu to add a ':' before
@@ -117,9 +117,9 @@ public @interface Application {
    * <br>
    * Default is <b>false</b>.
    *
-   * @return the configuration value for useColonForParametersInUrl
+   * @return the configuration value for usingColonForParametersInUrl
    */
-  boolean useColonForParametersInUrl() default false;
+  boolean usingColonForParametersInUrl() default false;
 
   /**
    * This attribute will tell Nalu, to use the start route in case
@@ -158,10 +158,19 @@ public @interface Application {
   /**
    * This attribute will tell Nalu to handle the usingBaseHref.
    * <br>
-   * Defaul is a<b>false</b> value, which means usingBaseHref-handling is diabled
+   * Defaul is a<b>false</b> value, which means usingBaseHref-handling is disabled
    *
    * @return a boolean.
    */
   boolean usingBaseHref() default false;
+
+  /**
+   * This attribute will tell Nalu if there is a trailing slahs at the end of the hash or not the.
+   * <br>
+   * Defaul is a<b>false</b> value, which means no trailing slash at the end of the hash
+   *
+   * @return a boolean.
+   */
+  boolean usingTrailingSlash() default false;
 
 }

@@ -98,7 +98,7 @@ public class NaluPluginElemental2
   @Override
   public void register(RouteChangeHandler handler) {
     if (NaluConfig.INSTANCE
-                       .hasHistory()) {
+                       .isUsingHistory()) {
       if (NaluConfig.INSTANCE
                          .isUsingHash()) {
         NaluCorePluginFactory.INSTANCE.addOnHashChangeHandler(handler);

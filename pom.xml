@@ -28,7 +28,7 @@
   <packaging>pom</packaging>
 
   <name>nalu-parent</name>
-  <description>The wave that helps to build GWT and J2CL applications</description>
+  <description>The wave that helps creating GWT and J2CL apps</description>
   <url>https://github.com/nalukit/nalu</url>
 
   <modules>
@@ -76,7 +76,7 @@
   </issueManagement>
 
   <properties>
-    <revision>3.1.1</revision>
+    <revision>4.0.0</revision>
 
     <auto-common.version>1.2.2</auto-common.version>
     <auto-service.version>1.1.1</auto-service.version>

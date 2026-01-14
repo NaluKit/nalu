@@ -80,10 +80,11 @@ public class ApplicationAnnotationScanner {
       metaModel.setStartRoute(applicationAnnotation.startRoute());
       metaModel.setIllegalRouteTarget(applicationAnnotation.illegalRouteTarget());
       metaModel.setBaseHref(applicationAnnotation.usingBaseHref());
-      metaModel.setUsingHash(applicationAnnotation.useHash());
-      metaModel.setUsingColonForParametersInUrl(applicationAnnotation.useColonForParametersInUrl());
+      metaModel.setUsingHash(applicationAnnotation.usingHash());
+      metaModel.setUsingTrailingSlash(applicationAnnotation.usingTrailingSlash());
+      metaModel.setUsingColonForParametersInUrl(applicationAnnotation.usingColonForParametersInUrl());
       metaModel.setStayOnSide(applicationAnnotation.stayOnSite());
-      metaModel.setHistory(applicationAnnotation.history());
+      metaModel.setUsingHistory(applicationAnnotation.isUsingHistory());
       metaModel.setCustomAlertPresenter(new ClassNameModel(isNull(customAlertPresenterTypeElement) ? "" : customAlertPresenterTypeElement.toString()));
       metaModel.setCustomConfirmPresenter(new ClassNameModel(isNull(customConfirmPresenterTypeElement) ? "" : customConfirmPresenterTypeElement.toString()));
       metaModel.setExtendingIsModuleContext(this.processorUtils.extendsClassOrInterface(this.processingEnvironment.getTypeUtils(),

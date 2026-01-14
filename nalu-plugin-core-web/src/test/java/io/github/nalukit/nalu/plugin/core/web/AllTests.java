@@ -17,10 +17,10 @@
 
 package io.github.nalukit.nalu.plugin.core.web;
 
-import io.github.nalukit.nalu.plugin.core.web.client.NaluPluginCoreWebTest;
+import io.github.nalukit.nalu.plugin.core.web.client.DefaultNaluPluginCoreWebTest;
 import org.junit.platform.suite.api.SelectClasses;
 
-@SelectClasses({ NaluPluginCoreWebTest.class })
+@SelectClasses({ DefaultNaluPluginCoreWebTest.class })
 public class AllTests {
 
 }

@@ -23,12 +23,12 @@ public class Nalu {
 
   public static String getVersion() {
     // TODO Change this for other versions
-    return "3.1.1";
+    return "4.0.0";
   }
 
-  public static boolean hasHistory() {
+  public static boolean isUsingHistory() {
     return NaluConfig.INSTANCE
-                          .hasHistory();
+                          .isUsingHistory();
   }
 
   public static boolean isUsingHash() {

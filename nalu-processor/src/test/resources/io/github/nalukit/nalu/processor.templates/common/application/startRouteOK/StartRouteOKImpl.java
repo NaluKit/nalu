@@ -146,7 +146,7 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
   }
 
   @Override
-  public boolean hasHistory() {
+  public boolean isUsingHistory() {
     return true;
   }
 
@@ -162,6 +162,11 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
 
   @Override
   public boolean isStayOnSide() {
+    return false;
+  }
+
+  @Override
+  public boolean isUsingTrailingSlash() {
     return false;
   }
 }

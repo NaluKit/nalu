@@ -131,7 +131,7 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
-  protected boolean hasHistory() {
+  protected boolean isUsingHistory() {
     return true;
   }
 
@@ -147,6 +147,11 @@ public final class NaluSimpleApplicationImpl
 
   @Override
   protected boolean isStayOnSide() {
+    return false;
+  }
+
+  @Override
+  protected boolean isUsingTrailingSlash() {
     return false;
   }
 

@@ -142,7 +142,7 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   }
 
   @Override
-  public boolean hasHistory() {
+  public boolean isUsingHistory() {
     return true;
   }
   
@@ -158,6 +158,11 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
 
   @Override
   public boolean isStayOnSide() {
+    return false;
+  }
+
+  @Override
+  public boolean isUsingTrailingSlash() {
     return false;
   }
 }

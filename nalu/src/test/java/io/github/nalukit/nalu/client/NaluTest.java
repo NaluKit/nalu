@@ -14,12 +14,12 @@ public class NaluTest {
   void getVersion()
       throws IOException {
     // TODO Change this if you want to test against another version
-    Assertions.assertEquals("3.1.1",
+    Assertions.assertEquals("4.0.0",
                             Nalu.getVersion());
   }
 
   @Test
-  void hasHistory01() {
+  void isUsingHistory01() {
     NaluConfig.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
@@ -27,12 +27,13 @@ public class NaluTest {
                              true,
                              true,
                              true,
+                             false,
                              false);
-    Assertions.assertTrue(Nalu.hasHistory());
+    Assertions.assertTrue(Nalu.isUsingHistory());
   }
 
   @Test
-  void hasHistory02() {
+  void isUsingHistory02() {
     NaluConfig.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
@@ -40,8 +41,9 @@ public class NaluTest {
                              false,
                              true,
                              true,
+                             false,
                              false);
-    Assertions.assertFalse(Nalu.hasHistory());
+    Assertions.assertFalse(Nalu.isUsingHistory());
   }
 
   @Test
@@ -53,6 +55,7 @@ public class NaluTest {
                              true,
                              true,
                              true,
+                             false,
                              false);
     Assertions.assertTrue(Nalu.isUsingHash());
   }
@@ -66,6 +69,7 @@ public class NaluTest {
                              true,
                              false,
                              true,
+                             false,
                              false);
     Assertions.assertFalse(Nalu.isUsingHash());
   }
@@ -79,6 +83,7 @@ public class NaluTest {
                              true,
                              true,
                              true,
+                             false,
                              false);
     Assertions.assertTrue(Nalu.isUsingColonForParametersInUrl());
   }
@@ -91,6 +96,7 @@ public class NaluTest {
                              false,
                              true,
                              true,
+                             false,
                              false,
                              false);
     Assertions.assertFalse(Nalu.isUsingColonForParametersInUrl());

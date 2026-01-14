@@ -44,7 +44,7 @@ public class RouteParser {
       routeValue = routeValue.substring(routeValue.indexOf("#") + 1);
     }
     // extract shellCreator first:
-    routeValue = NaluUtils.removeLeading("/", routeValue);
+    routeValue = NaluUtils.INSTANCE.removeLeading("/", routeValue);
     // check, if there are more "/"
     if (routeValue.contains("/")) {
       routeResult.setShell("/" +
@@ -73,7 +73,7 @@ public class RouteParser {
     }
     // extract route first:
     routeValue = route;
-    routeValue = NaluUtils.removeLeading("/", routeValue);
+    routeValue = NaluUtils.INSTANCE.removeLeading("/", routeValue);
     if (routeValue.contains("/")) {
       String searchRoute = routeValue;
       Optional<RouteConfig> optionalRouterConfig = routerConfiguration.getRouters()
@@ -91,7 +91,7 @@ public class RouteParser {
           String[] partsOfRoute = routeValue.split("/");
           String compareRoute = optionalRouterConfig.get()
                                                     .getRoute();
-          compareRoute = NaluUtils.removeLeading("/", compareRoute);
+          compareRoute = NaluUtils.INSTANCE.removeLeading("/", compareRoute);
           String[] partsOfRouteFromConfiguration = compareRoute.split("/");
           for (int i = 0; i < partsOfRouteFromConfiguration.length; i++) {
             if (partsOfRouteFromConfiguration[i].equals("*")) {
@@ -100,7 +100,7 @@ public class RouteParser {
                                                                 "/");
                 if (Nalu.isUsingColonForParametersInUrl()) {
                   if (parameterValue.length() > 0) {
-                    parameterValue = NaluUtils.removeLeading(":", parameterValue);
+                    parameterValue = NaluUtils.INSTANCE.removeLeading(":", parameterValue);
                   }
                 }
                 routeResult.getParameterValues()
@@ -156,7 +156,7 @@ public class RouteParser {
                   String... params) {
     StringBuilder newRoute         = new StringBuilder();
     String        routeValue = route;
-    routeValue = NaluUtils.removeLeading("/", routeValue);
+    routeValue = NaluUtils.INSTANCE.removeLeading("/", routeValue);
 
     String[] partsOfRoute = routeValue.split("/");
 
@@ -214,7 +214,7 @@ public class RouteParser {
     }
 
     // remove leading '/'
-    return NaluUtils.removeLeading("/", newRoute.toString());
+    return NaluUtils.INSTANCE.removeLeading("/", newRoute.toString());
   }
 
 }

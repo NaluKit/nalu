@@ -141,7 +141,7 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
   }
 
   @Override
-  public boolean hasHistory() {
+  public boolean isUsingHistory() {
     return true;
   }
 
@@ -157,6 +157,11 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
 
   @Override
   public boolean isStayOnSide() {
+    return false;
+  }
+
+  @Override
+  public boolean isUsingTrailingSlash() {
     return false;
   }
 }

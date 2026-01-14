@@ -47,6 +47,7 @@ public class MetaModel {
   private       boolean                            usingHash;
   private       boolean                            usingColonForParametersInUrl;
   private       boolean                            stayOnSide;
+  private       boolean                            usingTrailingSlash;
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
   /* with a a plugin and not with application  */
@@ -73,7 +74,7 @@ public class MetaModel {
   private       ClassNameModel                     clientLogger;
   /* flag, that indicates, if a Nalu application */
   /* uses a history token or not.                */
-  private       boolean                            history;
+  private       boolean                            isUsingHistory;
   /* Version of the application set by the       */
   /* Version annotation                          */
   private       String                             applicationVersion;
@@ -250,6 +251,14 @@ public class MetaModel {
     this.stayOnSide = stayOnSide;
   }
 
+  public boolean isUsingTrailingSlash() {
+    return usingTrailingSlash;
+  }
+
+  public void setUsingTrailingSlash(boolean usingTrailingSlash) {
+    this.usingTrailingSlash = usingTrailingSlash;
+  }
+
   public ClassNameModel getCustomAlertPresenter() {
     return customAlertPresenter;
   }
@@ -283,7 +292,7 @@ public class MetaModel {
 
   private String getShellFromRoute(String route) {
     String shellFromRoute = route;
-    shellFromRoute = NaluUtils.removeLeading("/", shellFromRoute);
+    shellFromRoute = NaluUtils.INSTANCE.removeLeading("/", shellFromRoute);
     if (shellFromRoute.contains("/")) {
       shellFromRoute = shellFromRoute.substring(0,
                                                 shellFromRoute.indexOf("/"));
@@ -291,12 +300,12 @@ public class MetaModel {
     return shellFromRoute;
   }
 
-  public boolean hasHistory() {
-    return history;
+  public boolean isUsingHistory() {
+    return isUsingHistory;
   }
 
-  public void setHistory(boolean history) {
-    this.history = history;
+  public void setUsingHistory(boolean isUsingHistory) {
+    this.isUsingHistory = isUsingHistory;
   }
 
   public ClassNameModel getLogger() {
