@@ -173,7 +173,7 @@ abstract class AbstractRouter
   @Override
   public void route(String newRoute,
                     String... params) {
-    // clean route in case we have 'useHash=false' and the newRoute contains
+    // clean route in case we have 'usingHash=false' and the newRoute contains
     // a '#' we have to clean this
     newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)
@@ -206,7 +206,7 @@ abstract class AbstractRouter
   @Override
   public void forceRoute(String newRoute,
                          String... params) {
-    // clean route in case we have 'useHash=false' and the newRoute contains
+    // clean route in case we have 'usingHash=false' and the newRoute contains
     // a '#' we have to clean this
     newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)
@@ -241,7 +241,7 @@ abstract class AbstractRouter
   @Override
   public void forceStealthRoute(String newRoute,
                                 String... params) {
-    // clean route in case we have 'useHash=false' and the newRoute contains
+    // clean route in case we have 'usingHash=false' and the newRoute contains
     // a '#' we have to clean this
     newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)
@@ -272,7 +272,7 @@ abstract class AbstractRouter
   @Override
   public void stealthRoute(String newRoute,
                            String... params) {
-    // clean route in case we have 'useHash=false' and the newRoute contains
+    // clean route in case we have 'usingHash=false' and the newRoute contains
     // a '#' we have to clean this
     newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)
@@ -304,7 +304,7 @@ abstract class AbstractRouter
   @Override
   public void fakeRoute(String newRoute,
                         String... params) {
-    // clean route in case we have 'useHash=false' and the newRoute contains
+    // clean route in case we have 'usingHash=false' and the newRoute contains
     // a '#' we have to clean this
     newRoute = NaluUtils.INSTANCE.cleanRoute(newRoute);
     // first, we track the new route (if there is a tracker!)

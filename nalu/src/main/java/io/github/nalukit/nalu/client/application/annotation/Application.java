@@ -37,7 +37,7 @@ import java.lang.annotation.RetentionPolicy;
  * <li>startRoute: in case the application is called without a bookmark, is this the initial route.</li>
  * <li>context: the context of the class. Nalu will create an instance of this class and inject
  * the instance into all controllers, filters, handlers and the application loader.</li>
- * <li>useHash: if useHash is true, use a hash based url, otherwise a non hash based url</li>
+ * <li>usingHash: if usingHash is true, use a hash based url, otherwise a non hash based url</li>
  * <li>usingColonForParametersInUrl: if usingColonForParametersInUrl is true, Nalu expects parameters with a leading colon in urls</li>
  * <li>stayOnSite: if stayOnSite is true, Nalu will replace history with the start-route in case hash is empty, else Nalu will only update it.</li>
  * </ul>
@@ -109,7 +109,7 @@ public @interface Application {
    *
    * @return the configuration value for using hash
    */
-  boolean useHash() default true;
+  boolean usingHash() default true;
 
   /**
    * This attribute - if <b>true</b> will tell Nalu to add a ':' before

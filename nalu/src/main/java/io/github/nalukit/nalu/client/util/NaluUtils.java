@@ -75,7 +75,7 @@ public class NaluUtils {
   }
 
   /**
-   * cleans the route (f.e.: remove the hash) if the useHash-Property is false!
+   * cleans the route (f.e.: remove the hash) if the usingHash-Property is false!
    *
    * @param route route to clean
    * @return cleaned route
