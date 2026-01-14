@@ -61,9 +61,15 @@ public class CleanUrlWithParameterHandlingCoreWebPlugin
         newRouteToken += "/";
       }
     }
-    // remove last "/" (in case it exists)
-    if (newRouteToken.endsWith("/")) {
-      newRouteToken = newRouteToken.substring(0, newRouteToken.length() - 1);
+    // handle trailing slash
+    if (NaluConfig.INSTANCE.isUsingTrailingSlash()) {
+      if (!newRouteToken.endsWith("/")) {
+        newRouteToken = newRouteToken+= "/";
+      }
+    } else {
+       if (newRouteToken.endsWith("/")) {
+        newRouteToken = newRouteToken.substring(0, newRouteToken.length() - 1);
+      }
     }
     // in case we had parameters inside the url at start up, we add
     // them to the newRoute

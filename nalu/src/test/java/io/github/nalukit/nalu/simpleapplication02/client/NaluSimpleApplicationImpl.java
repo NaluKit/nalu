@@ -152,6 +152,11 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
+  protected boolean isUsingTrailingSlash() {
+    return false;
+  }
+
+  @Override
   protected void loadShellFactory() {
 
   }

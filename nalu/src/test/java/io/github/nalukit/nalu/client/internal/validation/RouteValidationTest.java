@@ -90,14 +90,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute01() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application"));
@@ -105,14 +105,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute02() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/error/show"));
@@ -120,14 +120,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute03() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -135,14 +135,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute04() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -150,14 +150,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute05() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell"));
@@ -165,14 +165,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute06() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/application/person/detail/parameter01/parameter02"));
@@ -180,14 +180,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute07() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/show"));
@@ -195,14 +195,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute08() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail"));
@@ -210,14 +210,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute09() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/parameter01"));
@@ -225,14 +225,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute00() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/parameter01/parameter02"));
@@ -240,14 +240,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute10() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/error/showa"));
@@ -255,14 +255,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute11() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -270,14 +270,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute12() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -285,14 +285,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute13() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/application/person/detail/parameter01/parameter02"));
@@ -300,14 +300,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute14() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/"));
@@ -315,14 +315,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute15() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -330,14 +330,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute16() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -347,14 +347,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute51() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application"));
@@ -362,14 +362,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute52() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/error/show"));
@@ -377,14 +377,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute53() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -392,14 +392,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute54() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));
@@ -407,14 +407,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute55() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell"));
@@ -422,14 +422,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute56() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01/:parameter02"));
@@ -437,14 +437,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute57() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/show"));
@@ -452,14 +452,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute58() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail"));
@@ -467,14 +467,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute59() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/:parameter01"));
@@ -482,14 +482,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute50() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/:parameter01/:parameter02"));
@@ -497,14 +497,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute60() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/error/showa"));
@@ -512,14 +512,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute61() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -527,14 +527,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute62() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));
@@ -542,14 +542,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute63() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01/:parameter02"));
@@ -557,14 +557,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute64() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/"));
@@ -572,14 +572,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute65() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));
@@ -587,14 +587,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute66() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));
@@ -602,14 +602,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute101() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application"));
@@ -617,14 +617,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute102() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/error/show"));
@@ -632,14 +632,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute103() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -647,14 +647,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute104() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -662,14 +662,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute105() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell"));
@@ -677,14 +677,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute106() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/application/person/detail/parameter01/parameter02"));
@@ -692,14 +692,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute107() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/show"));
@@ -707,14 +707,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute108() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail"));
@@ -722,14 +722,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute109() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/parameter01"));
@@ -737,14 +737,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute100() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/parameter01/parameter02"));
@@ -752,14 +752,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute110() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/error/showa"));
@@ -767,14 +767,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute111() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -782,14 +782,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute112() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -797,14 +797,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute113() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/application/person/detail/parameter01/parameter02"));
@@ -812,14 +812,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute114() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/"));
@@ -827,14 +827,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute115() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -842,14 +842,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute116() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             false,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 false,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/parameter01"));
@@ -859,14 +859,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute151() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application"));
@@ -874,14 +874,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute152() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/error/show"));
@@ -889,14 +889,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute153() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -904,14 +904,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute154() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));
@@ -919,14 +919,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute155() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell"));
@@ -934,14 +934,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute156() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01/:parameter02"));
@@ -949,14 +949,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute157() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/show"));
@@ -964,14 +964,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute158() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail"));
@@ -979,14 +979,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute159() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/:parameter01"));
@@ -994,14 +994,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute150() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/unknownShell/person/detail/:parameter01/:parameter02"));
@@ -1009,14 +1009,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute160() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertFalse(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                               this.routerConfiguration,
                                                               "/error/showa"));
@@ -1024,14 +1024,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute161() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail"));
@@ -1039,14 +1039,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute162() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));
@@ -1054,14 +1054,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute163() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01/:parameter02"));
@@ -1069,14 +1069,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute164() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/"));
@@ -1084,14 +1084,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute165() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));
@@ -1099,14 +1099,14 @@ public class RouteValidationTest {
 
   @Test
   void validateStartRoute166() {
-    NaluConfig.INSTANCE
-                   .register("startShell/startRoute",
-                             "",
-                             false,
-                             true,
-                             true,
-                             true,
-                             false);
+    NaluConfig.INSTANCE.register("startShell/startRoute",
+                                 "",
+                                 false,
+                                 true,
+                                 true,
+                                 true,
+                                 false,
+                                 false);
     Assertions.assertTrue(RouteValidation.validateStartRoute(this.shellConfiguration,
                                                              this.routerConfiguration,
                                                              "/application/person/detail/:parameter01"));

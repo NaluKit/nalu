@@ -183,4 +183,9 @@ public final class ShellWithCompositeApplicationImpl extends AbstractApplication
   public boolean isStayOnSide() {
     return false;
   }
+
+  @Override
+  public boolean isUsingTrailingSlash() {
+    return false;
+  }
 }

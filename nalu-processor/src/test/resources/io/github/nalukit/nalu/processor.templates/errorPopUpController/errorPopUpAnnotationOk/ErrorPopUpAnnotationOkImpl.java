@@ -178,4 +178,9 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
   public boolean isStayOnSide() {
     return false;
   }
+
+  @Override
+  public boolean isUsingTrailingSlash() {
+    return false;
+  }
 }

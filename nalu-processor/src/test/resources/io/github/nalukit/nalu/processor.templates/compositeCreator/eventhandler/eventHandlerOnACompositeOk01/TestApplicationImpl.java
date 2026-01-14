@@ -161,4 +161,9 @@ public final class TestApplicationImpl extends AbstractApplication<MockContext> 
   public boolean isStayOnSide() {
     return false;
   }
+
+  @Override
+  public boolean isUsingTrailingSlash() {
+    return false;
+  }
 }

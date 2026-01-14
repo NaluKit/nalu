@@ -49,6 +49,16 @@ public class DefaultCoreWebPlugin
         newRouteToken += "/";
       }
     }
+    // handle trailing slash
+    if (NaluConfig.INSTANCE.isUsingTrailingSlash()) {
+      if (!newRouteToken.endsWith("/")) {
+        newRouteToken = newRouteToken+= "/";
+      }
+    } else {
+      if (newRouteToken.endsWith("/")) {
+        newRouteToken = newRouteToken.substring(0, newRouteToken.length() - 1);
+      }
+    }
     if (NaluConfig.INSTANCE.hasHistory()) {
       if (!stealthMode) {
         if (replace) {

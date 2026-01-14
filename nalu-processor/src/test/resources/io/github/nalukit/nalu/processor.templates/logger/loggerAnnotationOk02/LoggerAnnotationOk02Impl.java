@@ -159,4 +159,9 @@ public final class LoggerAnnotationOk02Impl extends AbstractApplication<MockCont
   public boolean isStayOnSide() {
     return false;
   }
+
+  @Override
+  public boolean isUsingTrailingSlash() {
+    return false;
+  }
 }

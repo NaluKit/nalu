@@ -332,7 +332,8 @@ public class NaluUtilsTest {
                                  true,
                                  false,
                                  false,
-                                 true);
+                                 true,
+                                 false);
     Assertions.assertEquals("",
                             NaluUtils.INSTANCE.cleanRoute("#"));
   }
@@ -345,7 +346,8 @@ public class NaluUtilsTest {
                                  true,
                                  false,
                                  false,
-                                 true);
+                                 true,
+                                 false);
     Assertions.assertEquals("/login/user",
                             NaluUtils.INSTANCE.cleanRoute("/login/user#"));
   }
@@ -356,6 +358,7 @@ public class NaluUtilsTest {
                                  "/shell/login/",
                                  false,
                                  true,
+                                 false,
                                  false,
                                  false,
                                  false);
