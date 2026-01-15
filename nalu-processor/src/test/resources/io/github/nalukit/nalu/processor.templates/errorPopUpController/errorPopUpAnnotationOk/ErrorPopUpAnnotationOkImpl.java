@@ -170,7 +170,7 @@ public final class ErrorPopUpAnnotationOkImpl extends AbstractApplication<MockCo
   }
   
   @Override
-  public boolean isUsingColonForParametersInUrl() {
+  public boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 

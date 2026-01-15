@@ -45,7 +45,7 @@ public class MetaModel {
   private       ClassNameModel                     customConfirmPresenter;
   private final List<ClassNameModel>               modules;
   private       boolean                            usingHash;
-  private       boolean                            usingColonForParametersInUrl;
+  private       boolean                            usingUnderscoreForParametersInUrl;
   private       boolean                            stayOnSide;
   private       boolean                            usingTrailingSlash;
   /* this model represents the plugin interface */
@@ -235,12 +235,12 @@ public class MetaModel {
     this.usingHash = usingHash;
   }
 
-  public boolean isUsingColonForParametersInUrl() {
-    return usingColonForParametersInUrl;
+  public boolean isUsingUnderscoreForParametersInUrl() {
+    return usingUnderscoreForParametersInUrl;
   }
 
-  public void setUsingColonForParametersInUrl(boolean usingColonForParametersInUrl) {
-    this.usingColonForParametersInUrl = usingColonForParametersInUrl;
+  public void setUsingUnderscoreForParametersInUrl(boolean usingUnderscoreForParametersInUrl) {
+    this.usingUnderscoreForParametersInUrl = usingUnderscoreForParametersInUrl;
   }
 
   public boolean isStayOnSide() {

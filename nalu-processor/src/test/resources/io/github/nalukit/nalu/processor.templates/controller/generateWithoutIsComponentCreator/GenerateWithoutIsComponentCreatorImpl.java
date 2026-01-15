@@ -152,7 +152,7 @@ public final class GenerateWithoutIsComponentCreatorImpl extends AbstractApplica
   }
   
   @Override
-  public boolean isUsingColonForParametersInUrl() {
+  public boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 

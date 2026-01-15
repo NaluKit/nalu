@@ -147,7 +147,7 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.isHandlingBaseHref(),
                                  this.isUsingHistory(),
                                  this.isUsingHash(),
-                                 this.isUsingColonForParametersInUrl(),
+                                 this.isUsingUnderscoreForParametersInUrl(),
                                  this.isStayOnSide(),
                                  this.isUsingTrailingSlash());
     this.router.setAlwaysLoadComposite(this.alwaysLoadComposite);
@@ -212,7 +212,7 @@ public abstract class AbstractApplication<C extends IsContext>
 
   protected abstract boolean isUsingHash();
 
-  protected abstract boolean isUsingColonForParametersInUrl();
+  protected abstract boolean isUsingUnderscoreForParametersInUrl();
 
   protected abstract boolean isStayOnSide();
 

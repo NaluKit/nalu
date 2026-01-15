@@ -170,7 +170,7 @@ public final class ShellWithCompositeApplicationImpl extends AbstractApplication
   }
 
   @Override
-  public boolean isUsingColonForParametersInUrl() {
+  public boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 

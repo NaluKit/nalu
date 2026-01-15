@@ -75,7 +75,7 @@ public class NaluTest {
   }
 
   @Test
-  void isUsingColonForParametersInUrl01() {
+  void isUsingUnderscoreForParametersInUrl01() {
     NaluConfig.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
@@ -85,11 +85,11 @@ public class NaluTest {
                              true,
                              false,
                              false);
-    Assertions.assertTrue(Nalu.isUsingColonForParametersInUrl());
+    Assertions.assertTrue(Nalu.isUsingUnderscoreForParametersInUrl());
   }
 
   @Test
-  void isUsingColonForParametersInUrl02() {
+  void isUsingUnderscoreForParametersInUrl02() {
     NaluConfig.INSTANCE
                    .register("/startShell/startRoute01/startRoute02",
                              "",
@@ -99,7 +99,7 @@ public class NaluTest {
                              false,
                              false,
                              false);
-    Assertions.assertFalse(Nalu.isUsingColonForParametersInUrl());
+    Assertions.assertFalse(Nalu.isUsingUnderscoreForParametersInUrl());
   }
 
 }

@@ -1,5 +1,8 @@
 package io.github.nalukit.nalu.client.internal;
 
+import io.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
+
+@NaluInternalUse
 public class NaluConfig {
 
   public static NaluConfig INSTANCE = new NaluConfig();
@@ -17,7 +20,7 @@ public class NaluConfig {
   // is the application using hash in url?
   private boolean usingHash;
   // is the application using colon in url for parameter?
-  private boolean usingColonForParametersInUrl;
+  private boolean usingUnderscoreForParametersInUrl;
   // should the application replace history (stay on side) in case of empty hash
   private boolean stayOnSide;
   // add trailing slash to the hash
@@ -67,8 +70,8 @@ public class NaluConfig {
    *
    * @return true: Nalu will use colon
    */
-  public boolean isUsingColonForParametersInUrl() {
-    return this.usingColonForParametersInUrl;
+  public boolean isUsingUnderscoreForParametersInUrl() {
+    return this.usingUnderscoreForParametersInUrl;
   }
 
   /**
@@ -124,7 +127,7 @@ public class NaluConfig {
    * @param usingBaseHref                     app-part of the URI
    * @param isUsingHistory                   Will Nalu support a history token?
    * @param usingHash                    Will Nalu use a hash for Navigation?
-   * @param usingColonForParametersInUrl Will Nalu use colons to mark parameters inside the url?
+   * @param usingUnderscoreForParametersInUrl Will Nalu use colons to mark parameters inside the url?
    * @param stayOnSide                   tells Nalu how do handle empty hash
    * @param usingTrailingSlash                tells Nalu how do handle the trailing slash
    */
@@ -133,7 +136,7 @@ public class NaluConfig {
                        boolean usingBaseHref,
                        boolean isUsingHistory,
                        boolean usingHash,
-                       boolean usingColonForParametersInUrl,
+                       boolean usingUnderscoreForParametersInUrl,
                        boolean stayOnSide,
                        boolean usingTrailingSlash) {
     if (startRoute.startsWith("/")) {
@@ -145,7 +148,7 @@ public class NaluConfig {
     this.usingBaseHref                     = usingBaseHref;
     this.isUsingHistory                   = isUsingHistory;
     this.usingHash                    = usingHash;
-    this.usingColonForParametersInUrl = usingColonForParametersInUrl;
+    this.usingUnderscoreForParametersInUrl = usingUnderscoreForParametersInUrl;
     this.stayOnSide                   = stayOnSide;
     this.usingTrailingSlash                   = usingTrailingSlash;
   }

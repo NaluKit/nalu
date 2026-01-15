@@ -82,7 +82,7 @@ public class ApplicationAnnotationScanner {
       metaModel.setBaseHref(applicationAnnotation.usingBaseHref());
       metaModel.setUsingHash(applicationAnnotation.usingHash());
       metaModel.setUsingTrailingSlash(applicationAnnotation.usingTrailingSlash());
-      metaModel.setUsingColonForParametersInUrl(applicationAnnotation.usingColonForParametersInUrl());
+      metaModel.setUsingUnderscoreForParametersInUrl(applicationAnnotation.usingUnderscoreForParametersInUrl());
       metaModel.setStayOnSide(applicationAnnotation.stayOnSite());
       metaModel.setUsingHistory(applicationAnnotation.isUsingHistory());
       metaModel.setCustomAlertPresenter(new ClassNameModel(isNull(customAlertPresenterTypeElement) ? "" : customAlertPresenterTypeElement.toString()));
