@@ -142,7 +142,7 @@ public final class NaluSimpleApplicationImpl
   }
 
   @Override
-  protected boolean isUsingColonForParametersInUrl() {
+  protected boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 

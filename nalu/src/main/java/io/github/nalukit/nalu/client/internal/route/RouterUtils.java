@@ -88,9 +88,9 @@ public class RouterUtils {
       }
     }
     // check if colons are used inside the url
-    if (Nalu.isUsingColonForParametersInUrl()) {
+    if (Nalu.isUsingUnderscoreForParametersInUrl()) {
       for (int i = 0; i < partsOfRoute.length; i++) {
-        if (partsOfRoute[i].startsWith(":")) {
+        if (partsOfRoute[i].startsWith(Nalu.VARIABLE_IDENTIFIER)) {
           if (partsOfWithRoute.length > i) {
             if (!"*".equals(partsOfWithRoute[i])) {
               return false;
@@ -122,7 +122,7 @@ public class RouterUtils {
       //                                                 i);
       //        }
       //        // check if partsOfRoute[i] startsWith ':' ==> partOfWithRoute[i] must be '*'
-      //        if (Nalu.isUsingColonForParametersInUrl()) {
+      //        if (Nalu.isUsingUnderscoreForParametersInUrl()) {
       //          if (partsOfRoute[i].startsWith(":")) {
       //            if (!"*".equals(partsOfWithRoute[i])) {
       //              return false;

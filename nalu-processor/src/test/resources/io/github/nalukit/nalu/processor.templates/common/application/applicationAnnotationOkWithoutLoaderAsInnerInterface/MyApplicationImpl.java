@@ -152,7 +152,7 @@ public final class MyApplicationImpl extends AbstractApplication<MockContext> im
   }
   
   @Override
-  public boolean isUsingColonForParametersInUrl() {
+  public boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 

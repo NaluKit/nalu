@@ -151,7 +151,7 @@ public final class ApplicationAnnotationOkWithLoaderAndPostLoaderImpl extends Ab
   }
   
   @Override
-  public boolean isUsingColonForParametersInUrl() {
+  public boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 

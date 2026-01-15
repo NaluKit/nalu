@@ -35,7 +35,7 @@ public final class RouterImpl
                     boolean usingBaseHref,
                     boolean isUsingHistory,
                     boolean usingHash,
-                    boolean usingColonForParametersInUrl,
+                    boolean usingUnderscoreForParametersInUrl,
                     boolean stayOnSide,
                     boolean usingTrailingSlash) {
     super(compositeReferences,
@@ -48,7 +48,7 @@ public final class RouterImpl
           usingBaseHref,
           isUsingHistory,
           usingHash,
-          usingColonForParametersInUrl,
+          usingUnderscoreForParametersInUrl,
           stayOnSide,
           usingTrailingSlash);
     this.plugin.register(hash -> RouterImpl.super.handleRouting(hash,

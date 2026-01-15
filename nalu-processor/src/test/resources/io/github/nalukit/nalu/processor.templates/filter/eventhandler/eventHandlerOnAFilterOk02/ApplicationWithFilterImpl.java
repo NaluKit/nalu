@@ -34,7 +34,7 @@ public final class ApplicationWithFilterImpl extends AbstractApplication<MockCon
     this.eventBus.fireEvent(LogEvent.create()
                                     .sdmOnly(true)
                                     .addMessage("=================================================================================")
-                                    .addMessage("Nalu processor version  >>4.0.0<< used to generate this source")
+                                    .addMessage("Nalu processor version  >>%VERSION_TAG%<< used to generate this source")
                                     .addMessage("=================================================================================")
                                     .addMessage(""));
   }
@@ -158,7 +158,7 @@ public final class ApplicationWithFilterImpl extends AbstractApplication<MockCon
   }
 
   @Override
-  public boolean isUsingColonForParametersInUrl() {
+  public boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 

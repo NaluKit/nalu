@@ -156,7 +156,7 @@ public final class StartRouteOKImpl extends AbstractApplication<MockContext> imp
   }
 
   @Override
-  public boolean isUsingColonForParametersInUrl() {
+  public boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 

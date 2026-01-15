@@ -151,7 +151,7 @@ public final class ApplicationAnnotationOkWithLoaderImpl extends AbstractApplica
   }
 
   @Override
-  public boolean isUsingColonForParametersInUrl() {
+  public boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 

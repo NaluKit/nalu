@@ -152,7 +152,7 @@ public class RouterUtilsTest {
 
   @Test
   void testMatch51Ok() {
-    String route = "/app/person/:3/edit";
+    String route = "/app/person/" + Nalu.VARIABLE_IDENTIFIER + "3/edit";
     String with  = "/app/person/*/edit";
     NaluConfig.INSTANCE.register("startShell/startRoute",
                                  "",
@@ -281,7 +281,7 @@ public class RouterUtilsTest {
 
   @Test
   void testMatch58Ok() {
-    String route = "/:";
+    String route = "/" +  Nalu.VARIABLE_IDENTIFIER;
     String with  = "/*";
     NaluConfig.INSTANCE.register("startShell/startRoute",
                                  "",
@@ -441,7 +441,7 @@ public class RouterUtilsTest {
 
   @Test
   void testMatch151Ok() {
-    String route = "/app/person/:3/edit";
+    String route = "/app/person/" + Nalu.VARIABLE_IDENTIFIER + "3/edit";
     String with  = "/app/person/*/edit";
     NaluConfig.INSTANCE.register("startShell/startRoute",
                                  "",
@@ -457,7 +457,7 @@ public class RouterUtilsTest {
 
   @Test
   void testMatch152Ok() {
-    String route = "/app/person/:3/edit";
+    String route = "/app/person/" + Nalu.VARIABLE_IDENTIFIER + "3/edit";
     String with  = "/app/person/*";
     NaluConfig.INSTANCE.register("startShell/startRoute",
                                  "",
@@ -473,7 +473,7 @@ public class RouterUtilsTest {
 
   @Test
   void testMatch159FailOk() {
-    String route = "/app/person/:3/edit";
+    String route = "/app/person/" + Nalu.VARIABLE_IDENTIFIER + "3/edit";
     String with  = "/app/person/*";
     NaluConfig.INSTANCE.register("startShell/startRoute",
                                  "",
@@ -570,7 +570,7 @@ public class RouterUtilsTest {
 
   @Test
   void testMatch158Ok() {
-    String route = "/:";
+    String route = "/"  + Nalu.VARIABLE_IDENTIFIER;
     String with  = "/*";
     NaluConfig.INSTANCE.register("startShell/startRoute",
                                  "",

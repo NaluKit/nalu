@@ -163,7 +163,7 @@ public final class ApplicationWithFilterImpl extends AbstractApplication<MockCon
   }
 
   @Override
-  public boolean isUsingColonForParametersInUrl() {
+  public boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 
