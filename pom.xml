@@ -76,7 +76,7 @@
   </issueManagement>
 
   <properties>
-    <revision>4.0.1</revision>
+    <revision>HEAD-SNAPSHOT</revision>
 
     <auto-common.version>1.2.2</auto-common.version>
     <auto-service.version>1.1.1</auto-service.version>
