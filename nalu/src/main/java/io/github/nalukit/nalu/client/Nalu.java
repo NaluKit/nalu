@@ -21,6 +21,8 @@ import io.github.nalukit.nalu.client.internal.route.RouterUtils;
 
 public class Nalu {
 
+  public final static String VARIABLE_IDENTIFIER = "_";
+
   public static String getVersion() {
     // TODO Change this for other versions
     return "HEAD-SNAPSHOT";
@@ -36,9 +38,9 @@ public class Nalu {
                           .isUsingHash();
   }
 
-  public static boolean isUsingColonForParametersInUrl() {
+  public static boolean isUsingUnderscoreForParametersInUrl() {
     return NaluConfig.INSTANCE
-                          .isUsingColonForParametersInUrl();
+                          .isUsingUnderscoreForParametersInUrl();
   }
 
   /**

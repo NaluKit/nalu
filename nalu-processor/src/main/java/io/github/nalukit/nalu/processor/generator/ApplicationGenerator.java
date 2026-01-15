@@ -288,7 +288,7 @@ public class ApplicationGenerator {
                              metaModel);
     generateIsUsingHashMethod(typeSpec,
                               metaModel);
-    generateIsUsingColonForParametersInUrl(typeSpec,
+    generateIsUsingUnderscoreForParametersInUrl(typeSpec,
                                            metaModel);
     generateIsStayOnSide(typeSpec,
                          metaModel);
@@ -369,14 +369,14 @@ public class ApplicationGenerator {
                                  .build());
   }
 
-  private void generateIsUsingColonForParametersInUrl(TypeSpec.Builder typeSpec,
+  private void generateIsUsingUnderscoreForParametersInUrl(TypeSpec.Builder typeSpec,
                                                       MetaModel metaModel) {
-    typeSpec.addMethod(MethodSpec.methodBuilder("isUsingColonForParametersInUrl")
+    typeSpec.addMethod(MethodSpec.methodBuilder("isUsingUnderscoreForParametersInUrl")
                                  .addAnnotation(Override.class)
                                  .addModifiers(Modifier.PUBLIC)
                                  .returns(boolean.class)
                                  .addStatement("return $L",
-                                               metaModel.isUsingColonForParametersInUrl() ?
+                                               metaModel.isUsingUnderscoreForParametersInUrl() ?
                                                "true" :
                                                "false")
                                  .build());

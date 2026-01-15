@@ -152,7 +152,7 @@ public final class ApplicationAnnotationOkWithLoaderAsInnerInterfaceImpl extends
   }
   
   @Override
-  public boolean isUsingColonForParametersInUrl() {
+  public boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 

@@ -176,7 +176,7 @@ public final class ApplicationWithComposite04Impl extends AbstractApplication<Mo
   }
 
   @Override
-  public boolean isUsingColonForParametersInUrl() {
+  public boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 

@@ -105,7 +105,7 @@ abstract class AbstractRouter
                  boolean usingBaseHref,
                  boolean isUsingHistory,
                  boolean usingHash,
-                 boolean usingColonForParametersInUrl,
+                 boolean usingUnderscoreForParametersInUrl,
                  boolean stayOnSite,
                  boolean usingTrailingSlash) {
     // save the composite configuration reference
@@ -127,7 +127,7 @@ abstract class AbstractRouter
                                  usingBaseHref,
                                  isUsingHistory,
                                  usingHash,
-                                 usingColonForParametersInUrl,
+                                 usingUnderscoreForParametersInUrl,
                                  stayOnSite,
                                  usingTrailingSlash);
   }

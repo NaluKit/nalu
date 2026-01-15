@@ -161,7 +161,7 @@ public final class ApplicationWithHandlerOkImpl extends AbstractApplication<Mock
   }
 
   @Override
-  public boolean isUsingColonForParametersInUrl() {
+  public boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 

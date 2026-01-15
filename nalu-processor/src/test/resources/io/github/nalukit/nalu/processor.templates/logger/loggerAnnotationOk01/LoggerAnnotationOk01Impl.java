@@ -158,7 +158,7 @@ public final class LoggerAnnotationOk01Impl extends AbstractApplication<MockCont
   }
   
   @Override
-  public boolean isUsingColonForParametersInUrl() {
+  public boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 

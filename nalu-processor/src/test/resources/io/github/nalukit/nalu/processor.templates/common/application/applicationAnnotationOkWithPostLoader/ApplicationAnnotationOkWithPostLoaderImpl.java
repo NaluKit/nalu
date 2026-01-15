@@ -151,7 +151,7 @@ public final class ApplicationAnnotationOkWithPostLoaderImpl extends AbstractApp
   }
   
   @Override
-  public boolean isUsingColonForParametersInUrl() {
+  public boolean isUsingUnderscoreForParametersInUrl() {
     return false;
   }
 

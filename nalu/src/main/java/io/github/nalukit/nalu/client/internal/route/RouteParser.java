@@ -98,9 +98,9 @@ public class RouteParser {
               if (partsOfRoute.length - 1 >= i) {
                 String parameterValue = partsOfRoute[i].replace(RouterConstants.NALU_SLASH_REPLACEMENT,
                                                                 "/");
-                if (Nalu.isUsingColonForParametersInUrl()) {
+                if (Nalu.isUsingUnderscoreForParametersInUrl()) {
                   if (parameterValue.length() > 0) {
-                    parameterValue = NaluUtils.INSTANCE.removeLeading(":", parameterValue);
+                    parameterValue = NaluUtils.INSTANCE.removeLeading(Nalu.VARIABLE_IDENTIFIER, parameterValue);
                   }
                 }
                 routeResult.getParameterValues()
@@ -163,12 +163,12 @@ public class RouteParser {
     int parameterIndex = 0;
     for (String routePart : partsOfRoute) {
       newRoute.append("/");
-      if ("*".equals(routePart) || routePart.startsWith(":") || (routePart.startsWith("{") && routePart.endsWith("}"))) {
-        if (Nalu.isUsingColonForParametersInUrl()) {
-          if (routePart.startsWith(":")) {
+      if ("*".equals(routePart) || routePart.startsWith(":") || routePart.startsWith(Nalu.VARIABLE_IDENTIFIER) || (routePart.startsWith("{") && routePart.endsWith("}"))) {
+        if (Nalu.isUsingUnderscoreForParametersInUrl()) {
+          if (routePart.startsWith(Nalu.VARIABLE_IDENTIFIER)) {
             newRoute.append(routePart);
           } else {
-             newRoute.append(":");
+             newRoute.append(Nalu.VARIABLE_IDENTIFIER);
           }
         }
         if (params.length - 1 >= parameterIndex) {
@@ -200,8 +200,8 @@ public class RouteParser {
                                       .addMessage(sbExeption));
       for (int i = parameterIndex; i < params.length; i++) {
         newRoute.append("/");
-        if (Nalu.isUsingColonForParametersInUrl()) {
-          newRoute.append(":");
+        if (Nalu.isUsingUnderscoreForParametersInUrl()) {
+          newRoute.append(Nalu.VARIABLE_IDENTIFIER);
         }
         if (!Objects.isNull(params[parameterIndex])) {
           newRoute.append(params[parameterIndex].replace("/",
