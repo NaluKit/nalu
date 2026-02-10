@@ -301,7 +301,7 @@ Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not us
 Nalu is ready to use with J2CL / GWT 3 as long as you do not use the nalu-plugin-gwt!
 
 ## To get in touch with the developer
-Please visit us at [Nalu@element.io](https://app.element.io/#/room/#Nalukit42_Lobby:gitter.im) (former Gitter room).
+Please visit us [Nalu@element.io](https://app.element.io/#/room/#Nalukit42_Lobby:gitter.im) (former Gitter room).
 
 ## Examples
 Here you will find many examples that show Nalu in action: [https://github.com/nalukit/nalu-examples](https://github.com/nalukit/nalu-examples).
@@ -310,7 +310,7 @@ Here you will find many examples that show Nalu in action: [https://github.com/n
 You will find a session about Nalu at the GWT Community Channel [here](https://www.youtube.com/watch?v=GsHY4f3cvRU).
 
 ## Notes
-In case you find a bug, please open an issue or post it inside the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
+In case you find a bug, please open an issue or post it inside the [Nalu@element.io](https://app.element.io/#/room/#Nalukit42_Lobby:gitter.im).
 
 ## Comparison between GWT Activities & Places versus Nalu
 Anyone, who is familiar with GWT Activities & Places, will find [here](https://github.com/NaluKit/nalu/wiki/01.-Motivation-&-Concepts#comparison-gwt-activities--places-versus-nalu) a comparison between GWT Activities & Places and Nalu.
