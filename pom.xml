@@ -86,7 +86,7 @@
     <guava.version>33.5.0-jre</guava.version>
     <gwt-event.version>1.0.0-RC1</gwt-event.version>
     <gwt-regexp.version>1.0.0-RC1</gwt-regexp.version>
-    <gwt.version>2.12.2</gwt.version>
+    <gwt.version>2.13.0</gwt.version>
     <hamcrest.version>3.0</hamcrest.version>
     <javapoet.version>1.13.0</javapoet.version>
     <junit-jupiter.version>5.10.3</junit-jupiter.version>
@@ -98,7 +98,7 @@
 
     <!--    <maven.deploy.plugin>3.1.4</maven.deploy.plugin>-->
     <plugin.version.clean>3.3.2</plugin.version.clean>
-    <plugin.version.central>0.7.0</plugin.version.central>
+    <plugin.version.central>0.9.0</plugin.version.central>
     <plugin.version.compiler>3.14.0</plugin.version.compiler>
     <plugin.version.flatten>1.5.0</plugin.version.flatten>
     <plugin.version.github.site>0.12</plugin.version.github.site>
