@@ -755,4 +755,11 @@
     <sha1>a27ad248716eb83726c5eb78f811f1e3c992aefe</sha1>
     <cve>CVE-2020-27225</cve>
   </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: org.eclipse.core.expressions-3.8.200.jar
+   ]]></notes>
+    <sha1>e67dcc5aefd397507afd0eb5d32aef7712d930bf</sha1>
+    <cve>CVE-2020-27225</cve>
+  </suppress>
 </suppressions>
