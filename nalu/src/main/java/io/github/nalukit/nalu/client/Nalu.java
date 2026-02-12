@@ -25,7 +25,7 @@ public class Nalu {
 
   public static String getVersion() {
     // TODO Change this for other versions
-    return "4.0.1";
+    return "4.0.2";
   }
 
   public static boolean isUsingHistory() {

@@ -136,12 +136,12 @@ To use Nalu add the following dependencies to your pom:
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu</artifactId>
-    <version>4.0.1</version>
+    <version>4.0.2</version>
 </dependency>
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-processor</artifactId>
-    <version>4.0.1</version>
+    <version>4.0.2</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -173,7 +173,7 @@ If the project uses a widget set based on **Elemental2**, **Elemento** or **Domi
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemental2</artifactId>
-    <version>4.0.1</version>
+    <version>4.0.2</version>
 </dependency>
 ```
 
@@ -202,7 +202,7 @@ For Elemento there's a dedicated plugin which supports `org.jboss.gwt.elemento.c
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-elemento</artifactId>
-    <version>4.0.1</version>
+    <version>4.0.2</version>
 </dependency>
 ```
 
@@ -222,7 +222,7 @@ For Domino-UI Version 2 there's also a dedicated plugin which supports `org.domi
 <dependency>
     <groupId>io.github.nalukit</groupId>
     <artifactId>nalu-plugin-domino-v2</artifactId>
-    <version>4.0.1</version>
+    <version>4.0.2</version>
 </dependency>
 ```
 
@@ -265,12 +265,12 @@ If your project uses a widget set based on **GWT** 2.8.2 or newer, use the **Nal
    <dependency>
       <groupId>io.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt</artifactId>
-      <version>4.0.1</version>
+      <version>4.0.2</version>
    </dependency>
    <dependency>
       <groupId>io.github.nalukit</groupId>
       <artifactId>nalu-plugin-gwt-processor</artifactId>
-      <version>3.1.1</version>
+      <version>4.0.2</version>
       <scope>provided</scope>
    </dependency>
 ```
@@ -301,7 +301,7 @@ Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not us
 Nalu is ready to use with J2CL / GWT 3 as long as you do not use the nalu-plugin-gwt!
 
 ## To get in touch with the developer
-Please visit us at [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
+Please visit us [nalu@element.io](https://app.element.io/#/room/#Nalukit42_Lobby:gitter.im) (former Gitter room).
 
 ## Examples
 Here you will find many examples that show Nalu in action: [https://github.com/nalukit/nalu-examples](https://github.com/nalukit/nalu-examples).
@@ -310,7 +310,7 @@ Here you will find many examples that show Nalu in action: [https://github.com/n
 You will find a session about Nalu at the GWT Community Channel [here](https://www.youtube.com/watch?v=GsHY4f3cvRU).
 
 ## Notes
-In case you find a bug, please open an issue or post it inside the [Nalu Gitter room](https://gitter.im/Nalukit42/Lobby).
+In case you find a bug, please open an issue or post it inside the [nalu@element.io](https://app.element.io/#/room/#Nalukit42_Lobby:gitter.im).
 
 ## Comparison between GWT Activities & Places versus Nalu
 Anyone, who is familiar with GWT Activities & Places, will find [here](https://github.com/NaluKit/nalu/wiki/01.-Motivation-&-Concepts#comparison-gwt-activities--places-versus-nalu) a comparison between GWT Activities & Places and Nalu.
