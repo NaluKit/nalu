@@ -10,6 +10,20 @@
 
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
+    <notes><![CDATA[
+   file name: apache-jsp-8.5.100.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.mortbay\.jasper/apache-jsp@.*$</packageUrl>
+    <cve>CVE-2017-7656</cve>
+    <cve>CVE-2017-7657</cve>
+    <cve>CVE-2017-7658</cve>
+    <cve>CVE-2017-9735</cve>
+    <cve>CVE-2020-27216</cve>
+    <cve>CVE-2021-28165</cve>
+    <cve>CVE-2021-28169</cve>
+    <cve>CVE-2021-34428</cve>
+  </suppress>
+  <suppress>
     <notes><![CDATA[file name: apache-jsp-*.jar]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.mortbay\.jasper/apache\-jsp@.*$</packageUrl>
     <cve>CVE-2021-29425</cve>
@@ -299,6 +313,7 @@
     <cve>CVE-2024-8184</cve>
     <cve>CVE-2024-9823</cve>
     <cve>CVE-2024-13009</cve>
+    <cve>CVE-2025-5115</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -385,6 +400,7 @@
     <cve>CVE-2024-6763</cve>
     <cve>CVE-2024-9823</cve>
     <cve>CVE-2024-13009</cve>
+    <cve>CVE-2025-5115</cve>
   </suppress>
   <!-- gwt-dev-dependency; should never be deployed! -->
   <suppress>
@@ -653,5 +669,90 @@
     <cpe>cpe:/a:google:guava</cpe>
     <cve>CVE-2020-8908</cve>
     <cve>CVE-2023-2976</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: org.eclipse.core.commands-3.10.300.jar
+   ]]></notes>
+    <sha1>21fb31939338a3e5e206bfbe82361edc9617bf06</sha1>
+    <cve>CVE-2020-27225</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: org.eclipse.core.contenttype-3.8.200.jar
+   ]]></notes>
+    <sha1>f6fcc7f94b709d31bdf79187dc071f32cda96cbf</sha1>
+    <cve>CVE-2020-27225</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: org.eclipse.core.filesystem-1.9.500.jar
+   ]]></notes>
+    <sha1>49f4543ca2a4d959e2ee6fa20b68c38b03f38c36</sha1>
+    <cve>CVE-2020-27225</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: org.eclipse.core.jobs-3.13.200.jar
+   ]]></notes>
+    <sha1>75f7e77d11041df8adbe53ae4bb5da2cf8b5024b</sha1>
+    <cve>CVE-2020-27225</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: org.eclipse.core.jobs-3.13.200.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.platform/org\.eclipse\.core\.jobs@.*$</packageUrl>
+    <cve>CVE-2014-125035</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: org.eclipse.core.resources-3.18.200.jar
+   ]]></notes>
+    <sha1>d3166739e315fc9f99920ca74628370015690d10</sha1>
+    <cve>CVE-2020-27225</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: org.eclipse.core.runtime-3.26.100.jar
+   ]]></notes>
+    <sha1>83c77ee0cfc948ea33f5054dda3f5c39250a7ed5</sha1>
+    <cve>CVE-2020-27225</cve>
+    <cve>CVE-2023-4218</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: org.eclipse.equinox.app-1.6.200.jar
+   ]]></notes>
+    <sha1>6e5864e797b4c52b2308beb7a9bad021d3f25909</sha1>
+    <cve>CVE-2020-27225</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: org.eclipse.equinox.common-3.17.0.jar
+   ]]></notes>
+    <sha1>a86196c9ec6239dd479ea4a04121a5f0cf3343a8</sha1>
+    <cve>CVE-2020-27225</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: org.eclipse.equinox.preferences-3.10.100.jar
+   ]]></notes>
+    <sha1>3b7c59ee85756452d42e76eda94cda19286a2fe5</sha1>
+    <cve>CVE-2020-27225</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: org.eclipse.equinox.registry-3.11.200.jar
+   ]]></notes>
+    <sha1>fb3eadd7b9ffa40e1da4f035700d6c8b869af870</sha1>
+    <cve>CVE-2020-27225</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: org.eclipse.text-3.12.300.jar
+   ]]></notes>
+    <sha1>a27ad248716eb83726c5eb78f811f1e3c992aefe</sha1>
+    <cve>CVE-2020-27225</cve>
   </suppress>
 </suppressions>
