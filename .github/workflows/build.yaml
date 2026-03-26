@@ -183,7 +183,7 @@ jobs:
           -DsuppressionFiles=./owasp/owasp-suppressions.xml
       - name: Upload OWASP results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: OWASP report
           path: ${{github.workspace}}/**/reports/dependency-check-report.html
