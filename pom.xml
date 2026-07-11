@@ -86,7 +86,7 @@
     <guava.version>33.5.0-jre</guava.version>
     <gwt-event.version>1.0.0-RC1</gwt-event.version>
     <gwt-regexp.version>1.0.0-RC1</gwt-regexp.version>
-    <gwt.version>2.13.0</gwt.version>
+    <gwt.version>2.13.1</gwt.version>
     <hamcrest.version>3.0</hamcrest.version>
     <javapoet.version>1.13.0</javapoet.version>
     <junit-jupiter.version>5.10.3</junit-jupiter.version>
