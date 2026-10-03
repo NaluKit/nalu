@@ -78,7 +78,7 @@
   </issueManagement>
 
   <properties>
-    <elemento.version>2.3.2</elemento.version>
+    <elemento.version>1.7.1</elemento.version>
   </properties>
 
   <dependencies>
