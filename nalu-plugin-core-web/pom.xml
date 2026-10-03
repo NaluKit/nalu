@@ -105,15 +105,10 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit-jupiter.version}</version>
-      <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-api -->
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-suite-api</artifactId>
-      <version>${junit-jupiter-platform.version}</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -141,7 +136,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>${plugin.version.compiler}</version>
         <configuration>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
@@ -158,7 +152,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>${plugin.version.surfire}</version>
         <executions>
           <execution>
             <id>unit-tests</id>
@@ -180,7 +173,6 @@
       <plugin>
         <groupId>org.sonatype.central</groupId>
         <artifactId>central-publishing-maven-plugin</artifactId>
-        <version>${plugin.version.central}</version>
         <extensions>true</extensions>
         <configuration>
           <publishingServerId>central</publishingServerId>
@@ -199,7 +191,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>${plugin.version.gpg.maven}</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
@@ -220,7 +211,6 @@
           <plugin>
             <groupId>org.sonatype.central</groupId>
             <artifactId>central-publishing-maven-plugin</artifactId>
-            <version>${plugin.version.central}</version>
             <extensions>true</extensions>
             <configuration>
               <publishingServerId>central</publishingServerId>
@@ -231,7 +221,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>${plugin.version.javadoc}</version>
             <configuration>
               <javadocExecutable>${java.doc.executable}</javadocExecutable>
             </configuration>
@@ -247,7 +236,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
-            <version>${plugin.version.source}</version>
             <executions>
               <execution>
                 <id>attach-sources</id>
