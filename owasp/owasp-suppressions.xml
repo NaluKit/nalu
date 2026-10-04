@@ -359,4 +359,15 @@
     <cve>CVE-2026-2332</cve>
     <cve>CVE-2025-11143</cve>
   </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-servlet-9.4.58.v20250814.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-servlet@.*$</packageUrl>
+    <cve>CVE-2026-10050</cve>
+    <cve>CVE-2026-6790</cve>
+    <cve>CVE-2026-5795</cve>
+    <cve>CVE-2026-2332</cve>
+    <cve>CVE-2025-11143</cve>
+  </suppress>
 </suppressions>
