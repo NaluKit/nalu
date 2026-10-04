@@ -129,6 +129,16 @@
   </suppress>
   <suppress>
     <notes><![CDATA[
+   file name: htmlunit-2.55.0.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/net\.sourceforge\.htmlunit/htmlunit@.*$</packageUrl>
+    <cve>CVE-2023-26119</cve>
+    <cve>CVE-2023-49093</cve>
+    <cve>CVE-2023-5798</cve>
+    <cve>CVE-2022-29546</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
    file name: org.eclipse.core.commands-3.10.300.jar
    ]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.eclipse\.platform/org\.eclipse\.core\.commands@.*$</packageUrl>
@@ -289,5 +299,17 @@
    ]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.eclipse\.platform/org\.eclipse\.core\.expressions@.*$</packageUrl>
     <cve>CVE-2020-27225</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: jetty-http-9.4.58.v20250814.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/jetty-http@.*$</packageUrl>
+    <cve>CVE-2026-10050</cve>
+    <cve>CVE-2026-5795</cve>
+    <cve>CVE-2026-6790</cve>
+    <cve>CVE-2026-2332</cve>
+    <cve>CVE-2025-11143</cve>
+    <cve>CVE-2026-6790</cve>
   </suppress>
 </suppressions>
