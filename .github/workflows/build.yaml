@@ -66,7 +66,7 @@ jobs:
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: '11'
+          java-version: '17'
           cache: maven
       - name: Check versions with Maven
         run: mvn versions:display-dependency-updates -ntp
@@ -140,7 +140,7 @@ jobs:
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: '11'
+          java-version: '17'
           cache: maven
       - name: Copy owasp database from container to runner
         run: docker cp $(docker ps -aqf "name=owasp-db"):/dependency-check/data ./dependency-checker-db/
@@ -169,7 +169,7 @@ jobs:
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: '11'
+          java-version: '17'
           cache: maven
           server-id: central
           server-username: MAVEN_USERNAME
@@ -207,7 +207,7 @@ jobs:
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: '11'
+          java-version: '17'
           cache: maven
           server-id: central
           server-username: MAVEN_USERNAME
