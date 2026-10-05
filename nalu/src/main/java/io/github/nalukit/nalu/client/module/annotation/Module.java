@@ -70,4 +70,19 @@ public @interface Module {
    */
   Class<? extends AbstractModuleLoader<?>> loader() default NoModuleLoader.class;
 
+  /**
+   * Module usually and  by default are loaded at application start. To force Nalu to load
+   * modules later - onbce the are needed - set the calue to true.
+   * <br>
+   * <b>Attention</b>
+   * It's up to the developer to ensure, that the content of the module can
+   * be extracted into a separate JS-file.
+   * <br>
+   * <b>Attention</b>
+   * <b>This feature is only supported in GWT!</b>
+   *
+   * @return true in case the module should be loaded async (GWT SplitPoints)
+   */
+  boolean loadAsync() default true;
+
 }
