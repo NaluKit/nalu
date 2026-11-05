@@ -48,7 +48,7 @@ Nalu supports:
 * Tracking user routing (in case a tracker is added)
 
 ## Basic Concept
-Nalu uses a hash to navigate. **Starting with version 1.1.0 Nalu supports the use of hash less URLs.** Everything explained here will also work without hash. In case of working with a hash less URL, you need to implement something on the server to handle a reload.
+Nalu uses a hash to navigate. **Starting with version 1.1.0 Nalu supports the use of hash less URLs** (`routingMode = RoutingMode.PATH`, see [Clean URLs](https://github.com/NaluKit/nalu/wiki/06.-Application#clean-urls-hash-less-routing-since-v400)). Everything explained here will also work without hash. Without hash the browser requests the full path on every reload, so the server must answer all application paths with the `index.html` of the application (a one-line fallback, the same as for any single-page application).
 
 Example hash:
 ```
