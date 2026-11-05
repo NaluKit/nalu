@@ -18,9 +18,11 @@ package io.github.nalukit.nalu.plugin.core.web.client.implementation;
 
 import elemental2.dom.Document;
 import elemental2.dom.DomGlobal;
+import elemental2.dom.Element;
 import elemental2.dom.HTMLBaseElement;
 import elemental2.dom.HTMLHeadElement;
 import elemental2.dom.Location;
+import elemental2.dom.MouseEvent;
 import elemental2.dom.Node;
 import elemental2.dom.PopStateEvent;
 import elemental2.dom.URL;
@@ -31,6 +33,7 @@ import io.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import io.github.nalukit.nalu.client.util.NaluUtils;
 import io.github.nalukit.nalu.plugin.core.web.client.IsNaluCorePlugin;
 import io.github.nalukit.nalu.plugin.core.web.client.NaluCoreConstants;
+import io.github.nalukit.nalu.plugin.core.web.client.PathRouteUtils;
 import io.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import jsinterop.base.Js;
 
@@ -43,6 +46,8 @@ public abstract class AbstractCoreWebPlugin
     implements IsNaluCorePlugin {
 
   protected Map<String, String> queryParameters = new HashMap<>();
+
+  private boolean linkInterceptorInstalled = false;
 
   protected static String getHashValue(String hash) {
     if (!Objects.isNull(hash)) {
@@ -72,6 +77,9 @@ public abstract class AbstractCoreWebPlugin
   @Override
   public void addPopStateHandler(IsNaluProcessorPlugin.RouteChangeHandler handler,
                                  String contextPath) {
+    if (!NaluConfig.INSTANCE.isUsingHash()) {
+      this.addLinkInterceptor(handler);
+    }
     DomGlobal.window.onpopstate = e -> {
       String newUrl;
       if (NaluConfig.INSTANCE.isUsingHash()) {
@@ -101,6 +109,15 @@ public abstract class AbstractCoreWebPlugin
   @SuppressWarnings("StringSplitter")
   public void getContextPath(ShellConfiguration shellConfiguration) {
     if (NaluConfig.INSTANCE.isUsingHash()) {
+      return;
+    }
+    // an explicitly configured base path always wins over the guessed context path
+    String basePath = NaluConfig.INSTANCE.getBasePath();
+    if (!Objects.isNull(basePath) && !basePath.isEmpty()) {
+      if (NaluConfig.INSTANCE.isUsingBaseHref()) {
+        this.ensureOrUpdateBase(basePath + "/");
+      }
+      NaluConfig.INSTANCE.setContextPath(PathRouteUtils.trimSlashes(basePath));
       return;
     }
     Location location = Js.uncheckedCast(DomGlobal.location);
@@ -158,7 +175,9 @@ public abstract class AbstractCoreWebPlugin
                                             startRoute.length() - 1);
         }
       } else {
-        startRoute = "";
+        // no '?uri=' redirect: read the route directly from the path (server falls back to index.html)
+        startRoute = PathRouteUtils.extractRoute(location.pathname,
+                                                 contextPath);
       }
     }
     return new NaluStartModel(startRoute,
@@ -230,13 +249,76 @@ public abstract class AbstractCoreWebPlugin
    */
   private String removeContextPath(String path,
                                    String contextPath) {
-    if (Objects.isNull(contextPath) || contextPath.isEmpty()) {
-      return path;
+    return PathRouteUtils.removePrefix(path,
+                                       contextPath);
+  }
+
+  /**
+   * Intercepts clicks on elements (or children of elements) marked with the attribute
+   * <code>data-nalu-link</code> and routes inside the application instead of reloading the page.
+   * <br>
+   * <code>&lt;a data-nalu-link href="/app/shell/route"&gt;</code> uses the path of the href,
+   * <code>&lt;a data-nalu-link="/shell/route" href="/app/shell/route"&gt;</code> uses the value of the attribute.
+   * Clicks with modifier keys, other mouse buttons or a target other than _self are left to the browser.
+   *
+   * @param handler the route change handler
+   */
+  protected void addLinkInterceptor(IsNaluProcessorPlugin.RouteChangeHandler handler) {
+    if (this.linkInterceptorInstalled) {
+      return;
     }
-    if (path.startsWith(contextPath)) {
-      return path.substring(contextPath.length());
-    }
-    return path;
+    this.linkInterceptorInstalled = true;
+    DomGlobal.document.addEventListener("click",
+                                        evt -> {
+                                          MouseEvent mouseEvent = Js.uncheckedCast(evt);
+                                          if (mouseEvent.defaultPrevented ||
+                                              mouseEvent.button != 0 ||
+                                              mouseEvent.ctrlKey ||
+                                              mouseEvent.metaKey ||
+                                              mouseEvent.shiftKey ||
+                                              mouseEvent.altKey) {
+                                            return;
+                                          }
+                                          Element source = Js.uncheckedCast(evt.target);
+                                          if (Objects.isNull(source)) {
+                                            return;
+                                          }
+                                          Element link = source.closest("[data-nalu-link]");
+                                          if (Objects.isNull(link)) {
+                                            return;
+                                          }
+                                          String linkTarget = link.getAttribute("target");
+                                          if (!Objects.isNull(linkTarget) &&
+                                              !linkTarget.isEmpty() &&
+                                              !"_self".equals(linkTarget)) {
+                                            return;
+                                          }
+                                          String route = link.getAttribute("data-nalu-link");
+                                          if (Objects.isNull(route) || route.trim()
+                                                                            .isEmpty()) {
+                                            String href = link.getAttribute("href");
+                                            if (Objects.isNull(href)) {
+                                              return;
+                                            }
+                                            Location location = Js.uncheckedCast(DomGlobal.location);
+                                            URL      url      = new URL(href,
+                                                                        location.href);
+                                            if (!url.origin.equals(location.origin)) {
+                                              return;
+                                            }
+                                            route = PathRouteUtils.extractRoute(url.pathname,
+                                                                                NaluConfig.INSTANCE.getContextPath());
+                                          } else {
+                                            route = PathRouteUtils.trimSlashes(route);
+                                          }
+                                          evt.preventDefault();
+                                          String newRoute = "/" + route;
+                                          this.route(newRoute,
+                                                     false,
+                                                     false,
+                                                     handler);
+                                          handler.onRouteChange(newRoute);
+                                        });
   }
 
 }

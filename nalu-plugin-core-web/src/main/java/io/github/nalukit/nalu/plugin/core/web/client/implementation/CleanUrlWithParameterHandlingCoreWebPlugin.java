@@ -20,6 +20,7 @@ import elemental2.dom.DomGlobal;
 import io.github.nalukit.nalu.client.internal.NaluConfig;
 import io.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import io.github.nalukit.nalu.plugin.core.web.client.IsNaluCorePlugin;
+import io.github.nalukit.nalu.plugin.core.web.client.PathRouteUtils;
 import io.github.nalukit.nalu.plugin.core.web.client.NaluCoreConstants;
 
 import java.util.Map;
@@ -51,24 +52,22 @@ public class CleanUrlWithParameterHandlingCoreWebPlugin
                       newRoute :
                       "#" + newRoute;
     } else {
-      newRouteToken = "/";
-      if (!Objects.isNull(contextPath) && !contextPath.isEmpty()) {
-        newRouteToken = newRouteToken + contextPath + "/";
-      }
-      newRouteToken = newRouteToken + newRoute;
-
-      if (!newRouteToken.endsWith("/")) {
-        newRouteToken += "/";
-      }
+      // path based: /[contextPath]/[route] (trailing slash according to configuration)
+      newRouteToken = PathRouteUtils.buildPath(contextPath,
+                                               newRoute,
+                                               NaluConfig.INSTANCE.isUsingTrailingSlash());
     }
-    // handle trailing slash
-    if (NaluConfig.INSTANCE.isUsingTrailingSlash()) {
-      if (!newRouteToken.endsWith("/")) {
-        newRouteToken = newRouteToken+= "/";
-      }
-    } else {
-       if (newRouteToken.endsWith("/")) {
-        newRouteToken = newRouteToken.substring(0, newRouteToken.length() - 1);
+    if (NaluConfig.INSTANCE.isUsingHash()) {
+      // handle trailing slash
+      if (NaluConfig.INSTANCE.isUsingTrailingSlash()) {
+        if (!newRouteToken.endsWith("/")) {
+          newRouteToken += "/";
+        }
+      } else {
+        if (newRouteToken.endsWith("/")) {
+          newRouteToken = newRouteToken.substring(0,
+                                                  newRouteToken.length() - 1);
+        }
       }
     }
     // in case we had parameters inside the url at start up, we add
