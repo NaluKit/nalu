@@ -16,6 +16,7 @@
 
 package io.github.nalukit.nalu.processor.scanner;
 
+import io.github.nalukit.nalu.client.application.RoutingMode;
 import io.github.nalukit.nalu.client.application.annotation.Application;
 import io.github.nalukit.nalu.client.context.IsModuleContext;
 import io.github.nalukit.nalu.processor.ProcessorException;
@@ -80,7 +81,10 @@ public class ApplicationAnnotationScanner {
       metaModel.setStartRoute(applicationAnnotation.startRoute());
       metaModel.setIllegalRouteTarget(applicationAnnotation.illegalRouteTarget());
       metaModel.setBaseHref(applicationAnnotation.usingBaseHref());
-      metaModel.setUsingHash(applicationAnnotation.usingHash());
+      // path based routing, if routingMode = PATH or usingHash = false
+      metaModel.setUsingHash(applicationAnnotation.usingHash() &&
+                             applicationAnnotation.routingMode() == RoutingMode.HASH);
+      metaModel.setBasePath(applicationAnnotation.basePath());
       metaModel.setUsingTrailingSlash(applicationAnnotation.usingTrailingSlash());
       metaModel.setUsingUnderscoreForParametersInUrl(applicationAnnotation.usingUnderscoreForParametersInUrl());
       metaModel.setStayOnSide(applicationAnnotation.stayOnSite());
