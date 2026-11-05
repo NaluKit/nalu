@@ -25,6 +25,7 @@ import io.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import io.github.nalukit.nalu.client.component.IsShell;
 import io.github.nalukit.nalu.client.context.IsContext;
 import io.github.nalukit.nalu.client.internal.CompositeReference;
+import io.github.nalukit.nalu.client.internal.NaluConfig;
 import io.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import io.github.nalukit.nalu.client.internal.route.IsConfigurableRouter;
 import io.github.nalukit.nalu.client.internal.route.RouteParser;
@@ -136,6 +137,8 @@ public abstract class AbstractApplication<C extends IsContext>
     BlockControllerFactory.INSTANCE.register(this.eventBus);
     // initialize popup factory
     PopUpControllerFactory.INSTANCE.register(this.eventBus);
+    // set base path (hash-less routing)
+    NaluConfig.INSTANCE.setBasePath(this.getBasePath());
     // create router ...
     this.router = new RouterImpl(this.plugin,
                                  this.shellConfiguration,
@@ -211,6 +214,16 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract boolean isUsingHistory();
 
   protected abstract boolean isUsingHash();
+
+  /**
+   * Base path of the application (hash-less routing only). Overridden by the generated
+   * application class only if a base path is configured.
+   *
+   * @return the base path (default: empty)
+   */
+  protected String getBasePath() {
+    return "";
+  }
 
   protected abstract boolean isUsingUnderscoreForParametersInUrl();
 

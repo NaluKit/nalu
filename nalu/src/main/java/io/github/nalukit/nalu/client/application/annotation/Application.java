@@ -17,6 +17,7 @@
 package io.github.nalukit.nalu.client.application.annotation;
 
 import io.github.nalukit.nalu.client.application.AbstractLoader;
+import io.github.nalukit.nalu.client.application.RoutingMode;
 import io.github.nalukit.nalu.client.context.IsContext;
 import io.github.nalukit.nalu.client.internal.NoCustomAlertPresenter;
 import io.github.nalukit.nalu.client.internal.NoCustomConfirmPresenter;
@@ -110,6 +111,27 @@ public @interface Application {
    * @return the configuration value for using hash
    */
   boolean usingHash() default true;
+
+  /**
+   * Routing mode of the application: {@link RoutingMode#HASH} (default) or {@link RoutingMode#PATH}
+   * (hash-less urls using the History API).
+   * <br>
+   * Setting <b>PATH</b> has the same effect as <code>usingHash = false</code>. If either
+   * <code>routingMode = PATH</code> or <code>usingHash = false</code> is set, Nalu uses path based routing.
+   *
+   * @return the routing mode
+   */
+  RoutingMode routingMode() default RoutingMode.HASH;
+
+  /**
+   * Base path of the application inside the url (only used with path based routing).
+   * <br>
+   * Example: <code>/app</code> for an application served under <code>https://host/app/</code>.
+   * Leading and trailing slashes are normalized. Default is empty (application served from the root).
+   *
+   * @return the base path
+   */
+  String basePath() default "";
 
   /**
    * This attribute - if <b>true</b> will tell Nalu to add a ':' before
