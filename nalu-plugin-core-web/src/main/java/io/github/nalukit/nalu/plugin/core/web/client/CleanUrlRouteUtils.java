@@ -1,12 +1,12 @@
 package io.github.nalukit.nalu.plugin.core.web.client;
 
 /**
- * Helper methods for path based (hash-less) routing. This class does not use any DOM
+ * Helper methods for clean URL (hash-less) routing. This class does not use any DOM
  * access, so it can be tested without a browser.
  */
-public final class PathRouteUtils {
+public final class CleanUrlRouteUtils {
 
-  private PathRouteUtils() {
+  private CleanUrlRouteUtils() {
   }
 
   /**

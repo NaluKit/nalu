@@ -33,7 +33,7 @@ import io.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import io.github.nalukit.nalu.client.util.NaluUtils;
 import io.github.nalukit.nalu.plugin.core.web.client.IsNaluCorePlugin;
 import io.github.nalukit.nalu.plugin.core.web.client.NaluCoreConstants;
-import io.github.nalukit.nalu.plugin.core.web.client.PathRouteUtils;
+import io.github.nalukit.nalu.plugin.core.web.client.CleanUrlRouteUtils;
 import io.github.nalukit.nalu.plugin.core.web.client.model.NaluStartModel;
 import jsinterop.base.Js;
 
@@ -117,7 +117,7 @@ public abstract class AbstractCoreWebPlugin
       if (NaluConfig.INSTANCE.isUsingBaseHref()) {
         this.ensureOrUpdateBase(basePath + "/");
       }
-      NaluConfig.INSTANCE.setContextPath(PathRouteUtils.trimSlashes(basePath));
+      NaluConfig.INSTANCE.setContextPath(CleanUrlRouteUtils.trimSlashes(basePath));
       return;
     }
     Location location = Js.uncheckedCast(DomGlobal.location);
@@ -176,7 +176,7 @@ public abstract class AbstractCoreWebPlugin
         }
       } else {
         // no '?uri=' redirect: read the route directly from the path (server falls back to index.html)
-        startRoute = PathRouteUtils.extractRoute(location.pathname,
+        startRoute = CleanUrlRouteUtils.extractRoute(location.pathname,
                                                  contextPath);
       }
     }
@@ -249,7 +249,7 @@ public abstract class AbstractCoreWebPlugin
    */
   private String removeContextPath(String path,
                                    String contextPath) {
-    return PathRouteUtils.removePrefix(path,
+    return CleanUrlRouteUtils.removePrefix(path,
                                        contextPath);
   }
 
@@ -306,10 +306,10 @@ public abstract class AbstractCoreWebPlugin
                                             if (!url.origin.equals(location.origin)) {
                                               return;
                                             }
-                                            route = PathRouteUtils.extractRoute(url.pathname,
+                                            route = CleanUrlRouteUtils.extractRoute(url.pathname,
                                                                                 NaluConfig.INSTANCE.getContextPath());
                                           } else {
-                                            route = PathRouteUtils.trimSlashes(route);
+                                            route = CleanUrlRouteUtils.trimSlashes(route);
                                           }
                                           evt.preventDefault();
                                           String newRoute = "/" + route;

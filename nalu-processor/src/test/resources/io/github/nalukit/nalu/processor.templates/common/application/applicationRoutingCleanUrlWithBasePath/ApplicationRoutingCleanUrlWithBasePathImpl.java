@@ -1,4 +1,4 @@
-package io.github.nalukit.nalu.processor.common.application.applicationRoutingPathWithBasePath;
+package io.github.nalukit.nalu.processor.common.application.applicationRoutingCleanUrlWithBasePath;
 
 import io.github.nalukit.nalu.client.application.IsLoader;
 import io.github.nalukit.nalu.client.application.event.LogEvent;
@@ -18,8 +18,8 @@ import java.util.Arrays;
 /**
  * Build with Nalu version >>%VERSION_TAG%<< at >>2020.11.18-06:52:32<<
  */
-public final class ApplicationRoutingPathWithBasePathImpl extends AbstractApplication<MockContext> implements ApplicationRoutingPathWithBasePath {
-  public ApplicationRoutingPathWithBasePathImpl() {
+public final class ApplicationRoutingCleanUrlWithBasePathImpl extends AbstractApplication<MockContext> implements ApplicationRoutingCleanUrlWithBasePath {
+  public ApplicationRoutingCleanUrlWithBasePathImpl() {
     super();
     super.context = new io.github.nalukit.nalu.processor.common.MockContext();
   }

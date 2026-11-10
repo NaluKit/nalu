@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package io.github.nalukit.nalu.processor.common.application.applicationRoutingPathWithBasePath;
+package io.github.nalukit.nalu.processor.common.application.applicationRoutingCleanUrlWithBasePath;
 
 import io.github.nalukit.nalu.client.application.IsApplication;
 import io.github.nalukit.nalu.client.application.RoutingMode;
@@ -23,8 +23,8 @@ import io.github.nalukit.nalu.processor.common.MockContext;
 
 @Application(startRoute = "/mockShell/route01",
              context = MockContext.class,
-             routingMode = RoutingMode.PATH,
+             routingMode = RoutingMode.CLEAN_URL,
              basePath = "/app")
-public interface ApplicationRoutingPathWithBasePath
+public interface ApplicationRoutingCleanUrlWithBasePath
     extends IsApplication {
 }

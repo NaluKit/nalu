@@ -162,9 +162,9 @@ public class ApplicationTest {
   }
 
   @Test
-  void testApplicationRoutingPathWithBasePath() {
+  void testApplicationRoutingCleanUrlWithBasePath() {
     Compilation compilation = javac().withProcessors(new NaluProcessor())
-                                     .compile(Arrays.asList(JavaFileObjects.forResource("io/github/nalukit/nalu/processor/common/application/applicationRoutingPathWithBasePath/ApplicationRoutingPathWithBasePath.java"),
+                                     .compile(Arrays.asList(JavaFileObjects.forResource("io/github/nalukit/nalu/processor/common/application/applicationRoutingCleanUrlWithBasePath/ApplicationRoutingCleanUrlWithBasePath.java"),
                                                             JavaFileObjects.forResource("io/github/nalukit/nalu/processor/common/MockContext.java"),
                                                             JavaFileObjects.forResource("io/github/nalukit/nalu/processor/common/ui/MockShell.java"),
                                                             JavaFileObjects.forResource("io/github/nalukit/nalu/processor/common/ui/component01/Controller01.java"),
@@ -173,8 +173,8 @@ public class ApplicationTest {
     CompilationSubject.assertThat(compilation)
                       .succeeded();
     CompilationSubject.assertThat(compilation)
-                      .generatedSourceFile("io/github/nalukit/nalu/processor/common/application/applicationRoutingPathWithBasePath/ApplicationRoutingPathWithBasePathImpl")
-                      .hasSourceEquivalentTo(JavaFileObjects.forResource("io/github/nalukit/nalu/processor/common/application/applicationRoutingPathWithBasePath/ApplicationRoutingPathWithBasePathImpl.java"));
+                      .generatedSourceFile("io/github/nalukit/nalu/processor/common/application/applicationRoutingCleanUrlWithBasePath/ApplicationRoutingCleanUrlWithBasePathImpl")
+                      .hasSourceEquivalentTo(JavaFileObjects.forResource("io/github/nalukit/nalu/processor/common/application/applicationRoutingCleanUrlWithBasePath/ApplicationRoutingCleanUrlWithBasePathImpl.java"));
   }
 
   @Test

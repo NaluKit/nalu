@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * <pre>
  * NaluApp.configure()
- *        .routing(RoutingMode.PATH)
+ *        .routing(RoutingMode.CLEAN_URL)
  *        .basePath("/app")
  *        .startRoute("/shell/home")
  *        .start(new MyApplicationImpl(),
@@ -47,7 +47,7 @@ public final class NaluApp {
     }
 
     /**
-     * Sets the routing mode: HASH (<code>#/shell/route</code>) or PATH (<code>/shell/route</code>).
+     * Sets the routing mode: HASH (<code>#/shell/route</code>) or CLEAN_URL (<code>/shell/route</code>).
      *
      * @param routingMode the routing mode
      * @return this configuration
@@ -59,7 +59,7 @@ public final class NaluApp {
     }
 
     /**
-     * Sets the base path of the application (PATH routing only), f.e.: "/app".
+     * Sets the base path of the application (CLEAN_URL routing only), f.e.: "/app".
      *
      * @param basePath the base path
      * @return this configuration
@@ -83,7 +83,7 @@ public final class NaluApp {
     }
 
     /**
-     * Tells Nalu to handle the base href (PATH routing only).
+     * Tells Nalu to handle the base href (CLEAN_URL routing only).
      *
      * @param usingBaseHref true: handle base href
      * @return this configuration

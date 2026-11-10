@@ -11,9 +11,9 @@ public enum RoutingMode {
   HASH,
 
   /**
-   * Path based routing (History API, no hash): <code>/base/shell/route</code>.
+   * Clean URL routing (History API, no hash): <code>/base/shell/route</code>.
    * The server must answer unknown paths with the <code>index.html</code> of the application.
    */
-  PATH
+  CLEAN_URL
 
 }

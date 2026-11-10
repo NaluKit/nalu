@@ -20,7 +20,7 @@ import elemental2.dom.DomGlobal;
 import io.github.nalukit.nalu.client.internal.NaluConfig;
 import io.github.nalukit.nalu.client.plugin.IsNaluProcessorPlugin;
 import io.github.nalukit.nalu.plugin.core.web.client.IsNaluCorePlugin;
-import io.github.nalukit.nalu.plugin.core.web.client.PathRouteUtils;
+import io.github.nalukit.nalu.plugin.core.web.client.CleanUrlRouteUtils;
 import io.github.nalukit.nalu.plugin.core.web.client.NaluCoreConstants;
 
 import java.util.Map;
@@ -52,8 +52,8 @@ public class CleanUrlWithParameterHandlingCoreWebPlugin
                       newRoute :
                       "#" + newRoute;
     } else {
-      // path based: /[contextPath]/[route] (trailing slash according to configuration)
-      newRouteToken = PathRouteUtils.buildPath(contextPath,
+      // clean URL: /[contextPath]/[route] (trailing slash according to configuration)
+      newRouteToken = CleanUrlRouteUtils.buildPath(contextPath,
                                                newRoute,
                                                NaluConfig.INSTANCE.isUsingTrailingSlash());
     }

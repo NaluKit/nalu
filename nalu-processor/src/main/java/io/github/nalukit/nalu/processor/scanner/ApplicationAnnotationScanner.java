@@ -81,7 +81,7 @@ public class ApplicationAnnotationScanner {
       metaModel.setStartRoute(applicationAnnotation.startRoute());
       metaModel.setIllegalRouteTarget(applicationAnnotation.illegalRouteTarget());
       metaModel.setBaseHref(applicationAnnotation.usingBaseHref());
-      // path based routing, if routingMode = PATH or usingHash = false
+      // clean URL routing, if routingMode = CLEAN_URL or usingHash = false
       metaModel.setUsingHash(applicationAnnotation.usingHash() &&
                              applicationAnnotation.routingMode() == RoutingMode.HASH);
       metaModel.setBasePath(applicationAnnotation.basePath());

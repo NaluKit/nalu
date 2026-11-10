@@ -113,18 +113,18 @@ public @interface Application {
   boolean usingHash() default true;
 
   /**
-   * Routing mode of the application: {@link RoutingMode#HASH} (default) or {@link RoutingMode#PATH}
+   * Routing mode of the application: {@link RoutingMode#HASH} (default) or {@link RoutingMode#CLEAN_URL}
    * (hash-less urls using the History API).
    * <br>
-   * Setting <b>PATH</b> has the same effect as <code>usingHash = false</code>. If either
-   * <code>routingMode = PATH</code> or <code>usingHash = false</code> is set, Nalu uses path based routing.
+   * Setting <b>CLEAN_URL</b> has the same effect as <code>usingHash = false</code>. If either
+   * <code>routingMode = CLEAN_URL</code> or <code>usingHash = false</code> is set, Nalu uses path based routing.
    *
    * @return the routing mode
    */
   RoutingMode routingMode() default RoutingMode.HASH;
 
   /**
-   * Base path of the application inside the url (only used with path based routing).
+   * Base path of the application inside the url (only used with clean URL routing).
    * <br>
    * Example: <code>/app</code> for an application served under <code>https://host/app/</code>.
    * Leading and trailing slashes are normalized. Default is empty (application served from the root).

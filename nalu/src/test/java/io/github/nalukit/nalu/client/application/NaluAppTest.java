@@ -29,7 +29,7 @@ public class NaluAppTest {
   @Test
   void configurationOverridesAnnotation() {
     NaluApp.configure()
-           .routing(RoutingMode.PATH)
+           .routing(RoutingMode.CLEAN_URL)
            .basePath("/app")
            .startRoute("/shell/home")
            .usingBaseHref(true)
@@ -65,7 +65,7 @@ public class NaluAppTest {
   void startAppliesAndRunsApplication() {
     boolean[] ran = {false};
     NaluApp.configure()
-           .routing(RoutingMode.PATH)
+           .routing(RoutingMode.CLEAN_URL)
            .start(plugin -> ran[0] = true,
                   (IsNaluProcessorPlugin) null);
     Assertions.assertTrue(ran[0]);
