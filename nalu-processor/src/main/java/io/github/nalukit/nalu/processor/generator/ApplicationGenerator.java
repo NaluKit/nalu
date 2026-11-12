@@ -294,6 +294,8 @@ public class ApplicationGenerator {
                          metaModel);
     generateIsTrailingSlash(typeSpec,
                             metaModel);
+    generateGetBasePath(typeSpec,
+                        metaModel);
 
     JavaFile javaFile = JavaFile.builder(metaModel.getGenerateToPackage(),
                                          typeSpec.build())
@@ -405,6 +407,26 @@ public class ApplicationGenerator {
                                                metaModel.isUsingTrailingSlash() ?
                                                "true" :
                                                "false")
+                                 .build());
+  }
+
+  /**
+   * Generates the getBasePath-method only if a base path is configured. Otherwise the
+   * default of AbstractApplication is used (keeps the generated code of existing applications unchanged).
+   */
+  private void generateGetBasePath(TypeSpec.Builder typeSpec,
+                                   MetaModel metaModel) {
+    if (metaModel.getBasePath()
+                 .trim()
+                 .isEmpty()) {
+      return;
+    }
+    typeSpec.addMethod(MethodSpec.methodBuilder("getBasePath")
+                                 .addAnnotation(Override.class)
+                                 .addModifiers(Modifier.PROTECTED)
+                                 .returns(String.class)
+                                 .addStatement("return $S",
+                                               metaModel.getBasePath())
                                  .build());
   }
 

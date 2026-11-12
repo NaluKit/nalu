@@ -9,6 +9,8 @@ public class NaluConfig {
 
   // context path
   private String  contextPath;
+  // base path of the application (hash-less routing only), normalized
+  private String  basePath = "";
   // start route of the application
   private String  startRoute;
   // illegal route target of the application
@@ -45,6 +47,49 @@ public class NaluConfig {
    */
   public void setContextPath(String contextPath) {
     this.contextPath = contextPath;
+  }
+
+  /**
+   * get the base path of the application (only used when not using hash).
+   * <br>
+   * The value is normalized: empty (no base path) or starting with '/' and without trailing '/'.
+   *
+   * @return the normalized base path or an empty String
+   */
+  public String getBasePath() {
+    return this.basePath;
+  }
+
+  /**
+   * DO NOT CALL THIS METHOD!
+   *
+   * @param basePath base path of the application (will be normalized)
+   */
+  public void setBasePath(String basePath) {
+    this.basePath = normalizeBasePath(basePath);
+  }
+
+  /**
+   * Normalizes a base path: <code>null</code>, empty or "/" results in an empty String,
+   * otherwise the result has a leading '/' and no trailing '/'.
+   *
+   * @param basePath the base path to normalize
+   * @return the normalized base path
+   */
+  public static String normalizeBasePath(String basePath) {
+    if (basePath == null) {
+      return "";
+    }
+    String   trimmed = basePath.trim();
+    String[] parts   = trimmed.split("/");
+    StringBuilder result = new StringBuilder();
+    for (String part : parts) {
+      if (!part.isEmpty()) {
+        result.append("/")
+              .append(part);
+      }
+    }
+    return result.toString();
   }
 
   /**

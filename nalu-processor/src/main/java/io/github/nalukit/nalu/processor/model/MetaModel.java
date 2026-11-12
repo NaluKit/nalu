@@ -48,6 +48,7 @@ public class MetaModel {
   private       boolean                            usingUnderscoreForParametersInUrl;
   private       boolean                            stayOnSide;
   private       boolean                            usingTrailingSlash;
+  private       String                             basePath = "";
   /* this model represents the plugin interface */
   /* is the model not null, we have to deal     */
   /* with a a plugin and not with application  */
@@ -229,6 +230,14 @@ public class MetaModel {
 
   public boolean isUsingHash() {
     return usingHash;
+  }
+
+  public String getBasePath() {
+    return basePath;
+  }
+
+  public void setBasePath(String basePath) {
+    this.basePath = basePath == null ? "" : basePath;
   }
 
   public void setUsingHash(boolean usingHash) {

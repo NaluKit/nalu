@@ -25,6 +25,8 @@ import io.github.nalukit.nalu.client.component.AlwaysShowPopUp;
 import io.github.nalukit.nalu.client.component.IsShell;
 import io.github.nalukit.nalu.client.context.IsContext;
 import io.github.nalukit.nalu.client.internal.CompositeReference;
+import io.github.nalukit.nalu.client.internal.NaluConfig;
+import io.github.nalukit.nalu.client.internal.NaluConfigOverrides;
 import io.github.nalukit.nalu.client.internal.annotation.NaluInternalUse;
 import io.github.nalukit.nalu.client.internal.route.IsConfigurableRouter;
 import io.github.nalukit.nalu.client.internal.route.RouteParser;
@@ -119,6 +121,8 @@ public abstract class AbstractApplication<C extends IsContext>
     this.logProcessorVersion();
     // load default routes!
     this.loadDefaultRoutes();
+    // fluent configuration (NaluApp.configure()) overrides the annotation
+    this.startRoute = NaluConfigOverrides.INSTANCE.resolveStartRoute(this.startRoute);
     // load illegal route target
     this.loadIllegalRouteTarget();
     // load usingBaseHref
@@ -136,6 +140,8 @@ public abstract class AbstractApplication<C extends IsContext>
     BlockControllerFactory.INSTANCE.register(this.eventBus);
     // initialize popup factory
     PopUpControllerFactory.INSTANCE.register(this.eventBus);
+    // set base path (hash-less routing)
+    NaluConfig.INSTANCE.setBasePath(NaluConfigOverrides.INSTANCE.resolveBasePath(this.getBasePath()));
     // create router ...
     this.router = new RouterImpl(this.plugin,
                                  this.shellConfiguration,
@@ -144,12 +150,12 @@ public abstract class AbstractApplication<C extends IsContext>
                                  this.tracker,
                                  this.startRoute,
                                  this.illegalRouteTarget,
-                                 this.isHandlingBaseHref(),
+                                 NaluConfigOverrides.INSTANCE.resolveUsingBaseHref(this.isHandlingBaseHref()),
                                  this.isUsingHistory(),
-                                 this.isUsingHash(),
+                                 NaluConfigOverrides.INSTANCE.resolveUsingHash(this.isUsingHash()),
                                  this.isUsingUnderscoreForParametersInUrl(),
                                  this.isStayOnSide(),
-                                 this.isUsingTrailingSlash());
+                                 NaluConfigOverrides.INSTANCE.resolveUsingTrailingSlash(this.isUsingTrailingSlash()));
     this.router.setAlwaysLoadComposite(this.alwaysLoadComposite);
     this.router.setAlwaysShowPopUp(this.alwaysShowPopUp);
     this.router.setEventBus(this.eventBus);
@@ -211,6 +217,16 @@ public abstract class AbstractApplication<C extends IsContext>
   protected abstract boolean isUsingHistory();
 
   protected abstract boolean isUsingHash();
+
+  /**
+   * Base path of the application (hash-less routing only). Overridden by the generated
+   * application class only if a base path is configured.
+   *
+   * @return the base path (default: empty)
+   */
+  protected String getBasePath() {
+    return "";
+  }
 
   protected abstract boolean isUsingUnderscoreForParametersInUrl();
 
