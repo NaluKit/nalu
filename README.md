@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/branding/nalu-banner-dark.svg">
+    <img src="docs/branding/nalu-banner.svg" alt="Nalu" width="480">
+  </picture>
+</p>
+
 # Nalu
 
 [![License](https://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
