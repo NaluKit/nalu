@@ -307,9 +307,6 @@ Nalu has **no** dependency to gwt-user nor Nalu's dependencies! Nalu does not us
 
 Nalu is ready to use with J2CL / GWT 3 as long as you do not use the nalu-plugin-gwt!
 
-## To get in touch with the developer
-Please visit us [nalu@element.io](https://app.element.io/#/room/#Nalukit42_Lobby:gitter.im) (former Gitter room).
-
 ## Examples
 Here you will find many examples that show Nalu in action: [https://github.com/nalukit/nalu-examples](https://github.com/nalukit/nalu-examples).
 
@@ -337,3 +334,8 @@ To check the version of dependencies, run:
 ```
  mvn versions:display-dependency-updates
 ```
+
+## To get in touch with the developer
+Please visit us [nalu@element.io](https://app.element.io/#/room/#Nalukit42_Lobby:gitter.im) (former Gitter room).
+
+
