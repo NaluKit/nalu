@@ -68,9 +68,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git@github.com:nalukit/nalu.git</connection>
+    <url>https://github.com/nalukit/nalu</url>
+    <connection>scm:git:https://github.com/nalukit/nalu.git</connection>
     <developerConnection>scm:git:git@github.com:nalukit/nalu.git</developerConnection>
-    <url>scm:git:https://github.com/nalukit/nalu</url>
   </scm>
 
   <issueManagement>
